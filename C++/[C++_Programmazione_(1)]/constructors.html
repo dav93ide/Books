@@ -1,0 +1,392 @@
+<HTML>
+<HEAD>
+<TITLE>Costruttori e distruttori</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Costruttori e distruttori</H1>
+</CENTER>
+
+Questa sezione contiene:
+<UL>
+<LI> <A HREF="#constructor">Costruttori</A>
+<LI> <A HREF="#destructor">Distruttori</A>
+<LI> <A HREF="#default">Costruttore e Distruttore di Default</A>
+<LI> <A HREF="#copy">Costruttore di Copia</A>
+<LI> <A HREF="#including">Inclusione di oggetti in altri oggetti</A>
+</UL>
+
+<HR>
+
+<H2><A NAME="constructor">Costruttori</A></H2>
+
+Un membro costruttore &egrave; una funzione chiamata quando l'oggetto viene
+dichiarato o allocato dinamicamente. Il suo nome deve essere lo stesso della
+classe a cui appartiene, ma ci possono essere diversi costruttori sovraccarichi
+(vedi <A HREF="functions.html#overloading">overloading delle funzioni</A>),
+a patto che la loro lista di parametri sia differente. Un costruttore <B>non</B>
+ha valore di ritorno (non si deve specificare nemmeno void, il lato sinistro del
+nome nella definizione deve essere lasciato vuoto). Esso non pu&ograve; essere
+dichiarato <A HREF="static.html">static</A>.
+<P>
+
+Esempio:
+<PRE>
+class Complex
+{
+  float i, r;
+public:
+  Complex();                 // Primo semplice costruttore
+  Complex (float, float);    // Secondo costruttore sovraccaricato
+};
+Complex::Complex()
+{
+  i = 0;
+  r = 0;
+}
+<A NAME="costrcomplex"></A>Complex::Complex (float ii, float rr)
+{
+  i = ii;
+  r = rr;
+}
+</PRE>
+
+Ma come facciamo a chiamare un costruttore?  Questo dipende se stai usando
+l'operatore "new" o no. Senza "new":
+<PRE>
+Complex x();          // O per farla breve:
+Complex x;            // Chiamata del primo costruttore
+Complex y (2, 2);     // Chiamata del secondo costruttore
+</PRE>
+Devi solo mettere i parametri dopo il nome della variabile, e il corrispondente
+costruttore sar&agrave; chiamato. Con l'operatore "new", si fa cos&igrave;:
+<PRE>
+Complex *x = new Complex();         // O pi&ugrave; brevemente
+Complex *y = new Complex;           // Chiamata del primo costruttore
+Complex *z = new Complex (2, 2);    // Chiamata del secondo costruttore
+...
+delete x;
+delete y;
+delete z;
+</PRE>
+
+Il compilatore genera del codice che fa le seguenti cose:
+<UL>
+<LI>Alloca memoria sullo stack (allocazione statica) o sullo heap
+(allocazione dinamica).
+<LI>Inizializza l'oggetto (chiama i costruttori delle classi padre
+(vedi <A HREF="inheritance.html#constructor">qui</A>)
+o delle classi degli oggetti contenuti nell'oggetto (vedi <A HREF="#including">pi&ugrave; avanti</A>).
+<LI>Chiama il costruttore con i parametri giusti.
+</UL>
+
+Se gli oggetti sono dichiarati al di fuori di ogni funzione come
+variabili globali, i loro costruttori sono chiamati prima che la
+funzione "main" inizi.
+
+Ci sono due costruttori particolari (di default e di copia) che sono
+descritti in seguito.
+
+<H2><A NAME="destructor">Distruttori</A></H2>
+
+Dopo aver visto la definizione di un costruttore, l'utilit&agrave; di un distruttore appare ovvia:
+&egrave; chiamato quando l'oggetto viene rilasciato dalla memoria.
+Il suo nome &egrave; il nome della classe preceduto
+da ~ (tilde). Non ha nessun valore di ritorno (neanche void). <B>Non</B> prende
+parametri, dal momento che il programmatore non ha mai bisogno di chiamarlo direttamente.
+<P>
+
+Esempio:
+<PRE>
+class Complex
+{
+  float i, r;
+public:
+  Complex();                 // Primo semplice costruttore
+  Complex (float, float);    // Secondo costruttore "overloaded"
+  ~Complex();                // Distruttore
+};
+Complex::~Complex()
+{
+  printf ("Destructor called.\n");
+}
+...
+{
+  Complex *x = new Complex (5, 5);
+  Complex y;
+  ...
+  delete x;                  // Chiamata del distruttore per x
+}                            // Chiamata implicita del distruttore per y
+</PRE>
+
+Quando "cancelliamo" un oggetto con delete, ecco cosa facciamo:
+<UL>
+<LI>Chiamiamo il distruttore
+<LI>Liberiamo la memoria occupata dall'oggetto
+</UL>
+
+Con un oggetto statico, non possiamo determinare quando il distruttore
+sar&agrave; chiamato, perch&egrave; le regole del C++ non lo indicano.
+Sappiamo solo che teoricamente esso sar&agrave; chiamato.
+
+<H2><A NAME="default">Costruttore e distruttore di default</A></H2>
+
+Quando non implementi il distruttore, viene usato un distruttore di default,
+che non fa nulla.
+Ma non appena fornisci codice per il distruttore, questo codice sar&agrave;
+utilizzato.
+<P>
+
+C'&egrave; anche un costruttore di default, e anche questo diventa inutilizzabile
+quando un qualsiasi altro costruttore &egrave; dichiarato. Puoi allora usare solo
+i costruttori che hai fornito.
+<PRE>
+class Complex
+{
+public:
+  Complex (float, float);   // &Egrave; dichiarato un solo costruttore
+};
+</PRE>
+Dopo questa, l'unico modo per costruire un oggetto Complex &egrave; di dare
+2 parametri al costruttore.
+<PRE>
+Complex x;           // Il compilatore rifiuter&agrave; questa riga
+Complex y (2, 2);    // &egrave; ok chiamare il giusto costruttore
+Complex z[10];       // Non permesso (continua a leggere)
+</PRE>
+
+Con un array di oggetti, dovremmo fornire gli argomenti del
+costruttore per ciascun elemento del vettore. Ma a causa della
+sintassi che deve uniformarsi con quella dei tipi nativi, un
+array di oggetti pu&ograve; essere dichiarato soltanto se l'oggetto
+ha un costruttore che non prende nessun argomento, o un solo argomento,
+ma non pi&ugrave; di uno:
+<PRE>
+class Complex
+{
+public:
+  Complex (float = 0, float = 0);
+};
+
+Complex v1[5] = { 0, 1, 2, 3, 4 };   // per ogni elemento il costruttore &egrave;
+                                     // chiamato con gli argomenti (x, 0)
+void Create (int n)
+{
+  Complex v2[n] = { 0, 1, 2};  // I primi tre elementi sono inizializzati
+                               // con (x, 0), e gli altri con (0,0)
+}
+</PRE>
+
+Ndt: notare che nel caso del vettore v1 i valori di inizializzazione 0, 1, 2, 3, 4
+sono le parti immaginarie dei numeri complessi, perch&egrave; il primo argomento
+del costruttore <CODE>Complex (float, float)</CODE> (vedi <A HREF="#costrcomplex">sopra</A>)
+era usato come parte immaginaria.
+Se volete che accada il contrario, dovete definire il costruttore cos&igrave;,
+invertendo l'ordine degli argomenti:
+<PRE>
+Complex::Complex (float rr, float ii)
+{
+  r = rr;
+  i = ii;
+}
+</PRE>
+Fate come preferite: infatti anche in matematica alcuni preferiscono scrivere i numeri
+complessi come <CODE>2j+1</CODE> altri come <CODE>1+2j</CODE> (che &egrave; lo stesso). Altri in entrambe le forme,
+senza adottare una sintassi precisa. Sopra quando &egrave; scritto <CODE>(x, 0)</CODE> per il primo numero (x)
+si intende la parte immaginaria e per il secondo (0) quella reale, perci&ograve; la convenzione
+adottata &egrave; quella di passare i numeri complessi al costruttore nella forma <CODE>(parte imm, parte real)</CODE>
+del tutto simile a <CODE>(parte imm)j + parte real</CODE>.
+
+<H2><A NAME="copy">Costruttore di Copia</A></H2>
+
+Il costruttore di copia &egrave; l'altro costruttore di default. Come argomento
+prende solo un riferimento ad un altro oggetto della stessa classe.
+Quando nessun costruttore di copia &egrave; dichiarato, il compilatore ne usa
+uno di default che copia ogni campo dell'oggetto sorgente nell'oggetto destinazione
+e non fa nient'altro. Se ne dichiari uno, dovrai copiare tutti i campi che vuoi
+manualmente. Da notare l'uso della keyword "const", necessaria al compilatore per
+riconoscere un costruttore di copia.
+
+<PRE>
+class Vector
+{
+  int n;
+  float *v;
+public:
+  Vector();
+  Vector (const Vector &);
+};
+Vector::Vector()
+{
+  v = new float[100];
+  n = 100;
+}
+Vector::Vector (const Vector &vector)
+{
+  n = vector.n;                         // Copia del campo n
+  v = new float[100];                   // Crea un nuovo array
+  for (int i = 0; i < 100; i++)
+    v[i] = vector.v[i];                 // Copia l'array
+}
+</PRE>
+
+I costruttori di copia sono necessari se effettui allocazione di memoria
+all'interno di un oggetto, come nell'esempio visto. In questo caso, non
+puoi semplicemente limitarti a copiare il puntatore (come fa il costruttore
+di copia di default), ma hai davvero bisogno all'atto della copia di allocare
+una parte della memoria, in modo che i valori associati ai due oggetti
+possano essere differenti. Quindi i costruttori di copia risolvono il
+problema della condivisione di memoria indesiderata che si avrebbe
+all'atto dell'assegnamento di un oggetto con parti dinamiche (cio&egrave; con
+membri puntatori).
+<P>
+
+Questo costruttore di copia &egrave; chiamato ognivolta che dichiari un oggetto di una classe
+e gli assegni un valore con una sola istruzione.
+<PRE>
+Vector a;                      // Costruttore vuoto
+Vector b (a);                  // Costruttore di copia
+Vector c = a;                  // Costruttore di copia (equivalente alla precedente istruzione)
+Vector *d = new vector (a);    // Costruttore di copia
+</PRE>
+
+Puoi utilizzare il costruttore di copia anche con i tipi nativi, come int o char:
+<PRE>
+int a = 2;             // Assegna un valore
+int b (2);             // Assegna un valore
+</PRE>
+
+<H2><A NAME="including">Includere oggetti in altri oggetti</A></H2>
+
+Quello che vogliamo fare &egrave; semplice. Vogliamo includere una classe
+come membro di unl'altra. La dichiarazione &egrave; piuttosto semplice:
+<PRE>
+class A
+{
+  int a;
+public:
+  A (int);
+};
+class B
+{
+  int b;
+  A a_element;
+public:
+  B (int, int);
+};
+</PRE>
+
+In questo esempio, stiamo includendo un oggetto della classe A in un oggetto della classe B.
+La cosa interessante &egrave; quello che succede quando chiamiamo il costruttore di B.
+Dopo che la memoria &egrave; stata allocata, il linguaggio stabilisce che deve essere chiamato il
+costruttore per ogni oggetto incluso, e solo dopo di ci&ograve; il costruttore dell'oggetto
+contenitore o figlio (cio&egrave; B). Ma quale costruttore di A verr&agrave; chiamato (nel caso
+ve ne sia pi&ugrave; di uno), e come specificare altrimenti? Quando definisci il costruttore di B,
+devi specificare quale costruttore di A deve essere chiamato, e con quali argomenti.
+Ecco come si fa:
+<PRE>
+B::B (int aa, int bb) : a_element (aa)
+{
+  // Codice per il costruttore
+  b = bb;
+}
+</PRE>
+
+Ndt: in questo esempio non c'&egrave; un costruttore senza argomenti, perci&ograve; se non
+specifichiamo nella definizione di B quale costruttore chiamare, il compilatore tenter&agrave;
+di inserire una chiamata ad un costruttore senza argomenti per la classe A, cio&egrave;
+a <CODE>A::A ()</CODE> ma poich&egrave; questo non &egrave; definito ci dar&agrave; un errore.
+Ricordate infatti che abbiamo detto che il costruttore di default (che &egrave; senza argomenti)
+viene interdetto quando viene definito un altro costruttore.<BR>
+Sperimentate questa situazione col vostro compilatore.
+<P>
+Note sintattiche: notare l'uso di ":" prima della chiamata al costruttore di A.
+Se molti costruttori devono essere chiamati, basta separare le loro chiamate
+con delle virgole (come nell'esempio sotto).<BR>
+Nota che la sintassi per inizializzare l'oggetto contenuto nell'oggetto &egrave;
+all'atto della chiamata di un costruttore &egrave; la stessa usata nelle normali
+dichiarazioni (tipo <CODE>int b (2);</CODE>); solo il tipo della variabile da
+inizializzare viene omesso, in quanto gi&agrave; noto dalla definizione della classe.<BR>
+Un altro modo pi&ugrave; semplice per scrivere il costruttore di B &egrave; di usare
+i costruttori dei tipi nativi:
+<PRE>
+B::B (int aa, int bb) : a_element (aa), b (bb)
+{
+  // Codice per il costruttore
+}
+</PRE>
+
+Quando viene chiamato il costruttore di copia di default di un oggetto contenente
+altri oggetti, sar&agrave; implicitamente chiamato anche il costruttore di copia
+di ciascuno degli oggetti contenuti. Nel caso abbiamo bisogno di sovrapporre il
+costruttore di copia dell'oggetto contenitore, dobbiamo chiamare noi esplicitamente
+il costruttore di copia per ognuno degli oggetti contenuti: la sintassi per chiamare
+questi costruttori &egrave; la stessa usata nell'esempio precedente.
+<P>
+Ndt: ok, ok eccovi un esempio chiarificatore:
+<PRE>
+#include &lt;stdio.h&gt;
+
+class A
+{
+public:
+  A()
+  {
+    printf("costruttore vuoto di A chiamato\n");
+  }
+  A (const A&)
+  {
+    printf("costruttore di copia A chiamato\n");
+  }
+};
+
+class B
+{
+  A aA;
+public:
+  B()
+  {
+    printf("costruttore vuoto di B chiamato\n");
+  }
+  B (const B& b) : aA(b.aA)     // provare ad eliminare : aA(b.aA)
+  {
+    printf("costruttore di copia B chiamato\n");
+  }
+};
+
+main()
+{
+  B aB;
+  B anotherB(aB);
+}
+</PRE>
+
+senza <CODE>: aA(b.aA)</CODE> il costruttore di copia di A
+non viene chiamato e nel membro aA dell'oggetto <CODE>anotherB</CODE>
+non viene copiato l'oggetto membro aA dell'oggetto <CODE>aB</CODE>.
+Piuttosto viene richiamato il costruttore vuoto A() sul membro aA
+di anotherB (provare per credere):
+<P>
+output con la riga <CODE>B (const B& b) : aA(b.aA)<BR>
+costruttore vuoto di A chiamato<BR>
+costruttore vuoto di B chiamato<BR>
+costruttore di copia A chiamato<BR>
+costruttore di copia B chiamato</CODE>
+<P>
+output con la riga <CODE>B (const B& b)<BR>
+costruttore vuoto di A chiamato<BR>
+costruttore vuoto di B chiamato<BR>
+costruttore vuoto di A chiamato<BR>
+costruttore di copia B chiamato</CODE>
+<P>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

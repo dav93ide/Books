@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE>Riferimenti</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Riferimenti</H1>
+</CENTER>
+
+Adesso puoi trasmettere per riferimento i parametri ad una funzione. Significa
+che quando modifichi il parametro all'interno della funzione, anche la variabile
+trasmessa sar&agrave; modificata. Quello che avviene in realt&agrave; &egrave; sempre un passaggio
+di puntatori, ma con i reference non &egrave; pi&ugrave; necessario referenziare il puntatore passato per
+ottenerne il valore: il referenziamento &egrave; "automatico".
+Per specificare che un parametro sar&agrave; referenziato implicitamente, occorre solo mettere un & tra il tipo e il nome del parametro:
+<PRE>
+void A (int number)      // passaggio per valore. Dentro la funzione,
+{                        // number &egrave; un'altra variabile
+  number *= 2;
+}
+void B (int & number)    // per riferimento. La variabile stessa sar&agrave; modificata
+{
+  number *= 2;
+}
+int a = 5;
+A (a);              // a non modificata
+B (a);              // a modificata
+</PRE>
+
+Possiamo confrontare il nuovo metodo con il passaggio di puntatori (usato in C).
+Ma &egrave; pi&ugrave; potente. Il compilatore lo ottimizzer&agrave; meglio (forse).
+Il codice &egrave; molto pi&ugrave; facile da scrivere, basta solo aggiungere
+un & per passare per riferimento invece che per valore.
+<P>
+
+Mentre se vuoi passare puntatori di puntatori, non puoi usare riferimenti di
+riferimenti, che non ha senso.
+<P>
+
+I riferimenti sono sempre usati nei <A HREF="constructors.html#copy">costruttori
+di copia</A> per ottenere un riferimento all'oggetto base (la sorgente della copia).
+<P>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

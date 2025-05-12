@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE>Dichiarazioni di Variabili</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Dichiarazioni di Variabili</H1>
+</CENTER>
+
+La dichiarazione di una variabile adesso &egrave; considerata come una istruzione.
+Questo significa che puoi crearne una in qualsiasi parte del tuo codice.
+<P>
+
+Esempio:
+<PRE>
+void foo()
+{
+  int i = 1;
+  printf ("%d\n", i);             // modalit&agrave; C
+  int j = 1;                      // Non permesso in C
+  printf ("%d\n", j);
+  for (int k = 1; k < 10; k++)    // Davvero non permesso in C
+    printf ("%d\n", k);
+}
+</PRE>
+
+Appena dichiari una variabile, essa &egrave; visibile nel blocco di codice
+in cui &egrave; stata dichiarata (un blocco di codice inizia con una "{" e
+finisce con una "}").
+Ma dopo la fine del blocco, o prima della dichiarazione, la variabile non
+sar&agrave; utilizzabile. Per chiarire vediamo degli esempi sbagliati:
+<PRE>
+{
+  // Dopo questa linea (quella del for), i sar&agrave; visibile (per convenzione)
+  // solo nel blocco di codice seguente. (Nota: nelle prime versioni dello
+  // standard del C++, era visibile anche per tutto il resto della funzione.
+  // Ma adesso questa regola non &egrave pi&ugrave; valida, e le cose sono un po' pi&ugrave; logiche).
+  for (int i = 0; i < 5; i++) // Dichiarazione di i per l'intero ciclo
+  {                           // Inizio del blocco dentro cui i &egrave; "viva" e rimane dichiarata
+    int j;
+  }                           // Dopo questo }, i e j sono sconosciute
+
+  // Poich&egrave; i &egrave; morta, non &egrave; pi&ugrave; dichiarata, perci&ograve; questo &egrave permesso:
+  // in altri termini occorre dichiarare una <B>nuova</B> variabile i.
+  // scrivendo for (int i = 0; i < 5; i++)
+  for (i = 0; i < 5; i++)
+  {
+  }
+
+  j = 2;                      // errore: j non dichiarata
+  do
+  {
+    FILE *f = fopen ("my_file", "r");
+  }
+  while (f == NULL);          // f sconosciuta, ERRORE
+
+}
+</PRE>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

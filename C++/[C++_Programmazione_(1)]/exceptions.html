@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+<TITLE>Gestione delle Eccezioni</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Gestione delle Eccezioni</H1>
+</CENTER>
+
+<H2>Dichiarare un gestore delle eccezioni</H2>
+
+Questo &egrave; un modo potente di gestire ogni tipo di errore che pu&ograve;
+accadere in un programma in modo semplice ed elegante. Basta dichiarare una o
+pi&ugrave; eccezioni in una classe usando la keyword <CODE>class</CODE> in
+questo modo:
+<PRE>
+class exception_name {};
+</PRE>
+
+Poi se decidi di lanciare una eccezione usa la keyword <CODE>throw</CODE>:
+<PRE>
+throw exception_name();
+</PRE>
+
+In C++, si pu&ograve; tentare (<CODE>try</CODE>) di eseguire un pezzo di codice,
+e catturare (<CODE>catch</CODE>) ciascuna eccezione che pu&ograve; capitare
+durante l'esecuzione:
+<PRE>
+try
+{
+  // codice
+}
+catch (class_name::exception_1)
+{
+  // gestione dell'eccezione
+}
+</PRE>
+
+<H2>Esempio</H2>
+
+<PRE>
+// Esempio di una classe Vettore con gestione delle eccezioni
+
+#include &lt;sys/types.h&gt;
+#include &lt;iostream.h&gt;
+#include &lt;stdlib.h&gt;
+
+class Vector
+{
+private:
+  size_t si;
+  int *value;
+public:
+  class BadIndex {};
+  class BadSize {};
+  class BadAllocation {};
+
+  Vector (size_t);
+  int& operator[](size_t);
+};
+
+Vector::Vector (size_t s)
+{
+  if (s &lt;= 0) throw BadSize();
+  si = s;
+  value = new int[si];
+  if (value == 0) throw BadAllocation();
+}
+
+int& Vector::operator[] (size_t i)
+{
+  if ((i &lt; 0) || (i &gt;= si)) throw BadIndex();
+  return value[i];
+}
+
+int main (int, char **)
+{
+  Vector *v;
+
+  try
+  {
+    int si, index;
+    cout &lt;&lt; "Give the size of the array: ";
+    cin &gt;&gt; si;
+    v = new Vector (si);
+    cout &lt;&lt; "Give an index in the array: ";
+    cin &gt;&gt; index;
+    cout &lt;&lt; "Give its value: ";
+    cin &gt;&gt; (*v)[index];
+  }
+  catch (Vector::BadSize)
+  {
+    cerr &lt;&lt; "The size of an array must be greater than 0.\n";
+    exit(1);
+  }
+  catch (Vector::BadAllocation)
+  {
+    cerr &lt;&lt; "Memory allocation error.\n";
+    exit(2);
+  }
+  catch (Vector::BadIndex)
+  {
+    cerr &lt;&lt; "Index out of range.\n";
+    exit(3);
+  }
+  //...
+  exit(0);
+}
+</PRE>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

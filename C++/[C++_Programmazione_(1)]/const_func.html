@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>Funzioni costanti</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Funzioni costanti</H1>
+</CENTER>
+
+Le funzioni costanti sono funzioni membro di una classe che non modificano
+nessun valore delle variabili interne. Esse possono quindi essere chiamate
+anche su un oggetto const. Per dichiararle, occorre solo mettere la keyword
+"const" dopo la dichiarazione <B>e ripeterla</B> dopo la definizione della
+funzione:
+<PRE>
+#include &lt;stdio.h&gt;
+class A
+{
+  int a;
+public:
+  A (int aa = 1) { a = aa; }
+  void Display() const;
+};
+void A::Display() const
+{
+  printf ("%d", a);
+}
+const A a_obj (2);
+int main (int, char **)
+{
+  a_obj.Display();      // Non sarebbe permessa se Display non fosse const
+}                       // con gcc avrei:
+                        // Error: passing `const A' as `this' argument of `void A::Display()' discards qualifiers
+</PRE>
+
+Ovviamente puoi chiamare funzioni const anche su normali oggetti.
+<P>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

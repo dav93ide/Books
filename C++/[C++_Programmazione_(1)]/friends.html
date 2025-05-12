@@ -1,0 +1,135 @@
+<HTML>
+<HEAD>
+<TITLE>Funzioni e Classi Friend</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Funzioni e Classi Friend</H1>
+</CENTER>
+
+<H2>Funzioni "Amiche" (Friend)</H2>
+
+Come abbiamo visto non possiamo accedere a membri privati di una classe
+dall'esterno della classe. Ma a volte abbiamo bisogno di farlo. Per esempio,
+una funzione di callback ha un header prestabilito, e non pu&ograve; essere
+il membro di nessuna classe. In questi casi, puoi definire la funzione come
+"friend" della classe. Cos&igrave; dall'interno della funzione sarai in grado
+di accedere a qualsiasi membro privato senza ottenere errori. Vediamo un esempio:
+<PRE>
+class A
+{
+  int a;
+public:
+  A (int aa) : a (aa) {}     // Costruttore che inizializza a
+  friend void foo();
+};
+
+void foo()
+{
+  A a_obj (5);       // Normale chiamata
+  a_obj.a = 10;      // Non sarebbe permesso in una funzione non-friend
+}
+</PRE>
+
+Puoi mettere le dichiarazioni friend da qualsiasi parte nella definizione della classe,
+perch&egrave; una ad una funzione friend non si applicano gli attributi di pubblico
+o privato.
+Notare che &egrave; la classe che sceglie quali funzioni avranno il permesso di
+accedere direttamente ai suoi membri privati. Dopo questa dichiarazione nella
+classe, non &egrave; necessario alcun altro prototipo quando definiamo la funzione.
+<P>
+
+Le funzioni Friend sono spesso usate <A HREF="operators.html">ridefinire gli
+operatori</A>.
+<P>
+
+Una funzione friend non pu&ograve; accedere al puntatore
+<A HREF="class.html#this"><CODE>this</CODE></A>, perch&egrave;
+non viene invocata su un oggetto.
+<P>
+
+Puoi usare anche una funzione membro di un'altra classe come funzione friend
+di una classe.
+<PRE>
+class B;     // dichiarazione necessaria per evitare problemi di riferimento circolare
+class A
+{
+  void uses_class_B (B &);             // Normale funzione membro
+};
+class B
+{
+  friend void A::uses_class_B (B &);   // dichiarazione di una funzione friend
+};
+</PRE>
+
+In questo esempio la funzione <CODE>uses_class_B</CODE> della classe A, che accetta per parametro
+un riferimento ad un oggetto della classe B, &egrave; friend della classe B.
+
+<H2>Classi Friend (o "Amiche")</H2>
+
+Come abbiamo fatto per le funzioni, possiamo anche dichiarare delle classe friend.
+Questo &egrave; piuttosto semplice da fare:
+<PRE>
+class A
+{
+  int a;
+
+  friend class B;
+};
+class B
+{
+public:
+  void foo();
+};
+B::foo()
+{
+  A a_obj;
+  a_obj.a = 10;          // Non sarebbe permesso se la classe B non fosse friend di A
+}
+</PRE>
+
+Nota bene che &egrave; la classe A che sceglie quali classi hanno il diritto
+di accedere ai suoi membri privati e non quest'ultime.
+<P>
+Una conseguenza di questo fatto &egrave; che classi amiche di classi amiche di una
+classe <B>non</B> sono classi amiche anche di quest'ultima. Vediamo un esempio per
+chiarire il gioco di parole:
+<PRE>
+class A
+{
+  int a;
+  friend class B;
+};
+class B
+{
+  int b;
+  friend class C;
+};
+class C
+{
+  int c;
+  int foo()
+  {
+    B b_obj;
+    b_obj.b = 10;         // OK
+    A a_obj;
+    a_obj.a = 10;         // Rifiutata dal compilatore. Dovrebbe esserci
+  }                       // una dichiarazione di C come class friend in A.
+};
+</PRE>
+
+In altre parole la relazione X &egrave; friend di Y non &egrave; una relazione
+transitiva.
+<P>
+<CODE>C &egrave; friend di B, B &egrave; friend di A <B>non</B> implica che C sia friend di A</CODE>
+<P>
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

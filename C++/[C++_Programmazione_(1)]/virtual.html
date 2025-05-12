@@ -1,0 +1,176 @@
+<HTML>
+<HEAD>
+<TITLE>Funzioni Virtuali</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Funzioni Virtuali</H1>
+</CENTER>
+
+<H2>Definizione</H2>
+
+Date prima un'occhiata a questo esempio:
+<PRE>
+class Father
+{
+public:
+  void MakeAThing();
+};
+class Child : public Father
+{
+public:
+  void MakeAThing();
+};
+...
+{
+  Father *obj;
+  obj = new Child();
+  obj->MakeAThing();    // Quale metodo verr&agrave; chiamato ?
+}
+</PRE>
+
+Una spiegazione semplice (non stiamo ancora parlando di funzioni virtuali per&ograve; questo
+esempio serve ad introdurre il discorso):
+<CODE>obj</CODE> &egrave; di tipo <CODE>Father *</CODE>. La classe <CODE>Child</CODE>
+&egrave; figlia della classe <CODE>Father</CODE> (come consuetudine... Ndt: in inglese Child significa proprio
+"figlio/figlia" e Father significa "padre"). Pertanto
+&egrave; possibile scrivere un valore di tipo <CODE>Child *</CODE> (quello ritornato
+dall'operatore new) nella variabile <CODE>obj</CODE> (s&igrave; come &egrave; possibile
+scrivere un valore di tipo <CODE>Child</CODE> in una variabile di tipo <CODE>Father</CODE>).
+<P>
+
+Allora che succede? Quasi sicuramente penserai: siccome <CODE>obj</CODE> &egrave; dichiarato
+dalla classe <CODE>Child</CODE>, sar&agrave; il metodo <CODE>MakeAThing</CODE> della classe
+<CODE>Child</CODE> ad essere chiamato. Ma <B>non</B> &egrave; cos&igrave;.
+Rifletti: il compilatore sa solo che <CODE>obj</CODE> &egrave; di tipo <CODE>Father *</CODE>,
+perci&ograve; chiamer&agrave; il metodo di <CODE>Father</CODE>. Infatti non c'&egrave; niente
+che dica al compilatore che la funzione membro da chiamare dipende dalla classe.
+<P>
+
+Ebbene, esiste un modo per indicare questo al compilatore. Se dichiari le <A HREF="inheritance.html#member">funzioni "overloaded"</A> come
+virtuali, tramite la keyword <CODE>virtual</CODE>, indichi al compilatore, che
+sa che questa funzione cambia da una classe ai suoi figli, di scegliere dinamicamente la funzione
+da chiamare, in modo che corrisponda al tipo dell'oggetto. Confrontate questo esempio con quello
+precedente:
+<PRE>
+class Father
+{
+public:
+  virtual void MakeAThing();
+};
+class Child : public Father
+{
+public:
+  virtual void MakeAThing();
+};
+...
+{
+  Father *obj;
+  obj = new Child();
+  obj->MakeAThing();    // ora viene chiamato il metodo di Child !
+}
+</PRE>
+
+<H2>Classi Astratte</H2>
+
+In C++ si possono definire delle funzioni virtuali pure. Una classe che contenga
+questo tipo di funzioni &egrave; essa stessa solo virtuale e non pu&ograve; essere
+instanziata. Ma ciascuna delle sue classi figlie dovr&agrave; dichiarare quella
+funzione (vedi <A HREF="inheritance.html#member">overloading di funzioni membro</A>),
+e inoltre dovr&agrave; poi ridefinirla.
+<P>
+
+Per dichiare una funzione come solo virtuale, aggiungi "= 0" alla fine della sua
+dichiarazione.
+<PRE>
+#include &lt;stdio.h&gt;
+
+class Father
+{
+public:
+  virtual void Display() = 0;
+};
+
+class Child : public Father
+{
+  void Display() { printf ("Sono una figlia della Classe Father.\n"); }
+};
+
+int main()
+{
+  Father *f = new Father();  // NON PERMESSO (la classe Father &egrave; solo-virtuale)
+  Child *c = new Child();    // OK. Child &egrave; una normale classe (non virtuale)
+  Father *f = new Child();   // Puoi dichiarare dei puntatore a Father
+
+  return 0;
+}
+</PRE>
+
+Notare che si pu&ograve; definire un puntatore ad una classe astratta, ma non
+si pu&ograve; instanziarla.
+<P>
+
+Le classi astratte sono usate per dichiarare componenti comuni per le classi che ne
+derivano. Quando erediti da una classe astratta in una classe, dopo aver definito un
+suo membro dati (ehi, non definitelo <CODE>private</CODE>!),
+puoi usarlo in tutte le funzioni definite nelle classe figlie.
+<PRE>
+class Component
+{
+public:
+  virtual void Display() = 0;
+};
+
+class Rectangle : public Component
+{
+public:
+  virtual void Display()
+  { ... }
+};
+
+class Square : public Component
+{
+public:
+  virtual void Display()
+  { ... }
+};
+
+// Dichiara una lista di puntatori a Component
+Component *list[10];
+
+...
+
+{
+  // Qual'&egrave; il bisogno di dichiarare un oggetto Component ?
+  // Nessuno, sono i suoi figli che interessano
+  list[0] = new Square;
+  list[1] = new Rectangle;
+  ...
+  for (int i=0; i<10; i++)
+    list[i]->Display();		// chiamata di funzione "dinamica"
+}
+</PRE>
+
+Ndt: In questo caso la classe <CODE>Component</CODE> &egrave; una classe basa astratta,
+che serve solo a riunire le propriet&agrave; (in tal caso un solo metodo, <CODE>Display()</CODE>
+ma potrebbero esserci pi&ugrave; metodi e campi dati) comuni all'intera gerarchia di classi che
+da essa deriva. Il meccanismo delle funzioni virtuali, come mostrato nell'esempio precedente,
+consente di avere una azione (come <CODE>Display()</CODE>) che ha lo stesso nome su ogni oggetto
+della gerarchia di classi su cui agisce, ma &egrave; implementata in modo diverso e il compilatore
+sceglier&agrave; automaticamente la versione giusta da chiamare.
+In virt&ugrave; del polimorfismo &egrave; infatti possibile implementare liste eterogenee di oggetti (il vettore <CODE>list</CODE>
+ne &egrave; un semplice esempio: &egrave; una lista statica di oggetti dinamici).
+Nell'esempio viene chiamata prima la funzione <CODE>Display()</CODE> di <CODE>Square</CODE>,
+poi quella di <CODE>Rectangle</CODE>, ecc...
+<P>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

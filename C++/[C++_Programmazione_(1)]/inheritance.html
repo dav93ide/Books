@@ -1,0 +1,396 @@
+<HTML>
+<HEAD>
+<TITLE>Ereditariet&agrave; di Classe</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Ereditariet&agrave; di Classe</H1>
+</CENTER>
+
+Questo documento contiene:
+<UL>
+<LI><A HREF="#introduction">Introduzione</A>
+<LI><A HREF="#declaration">Dichiarazioni private, protected e public nelle classi</A>
+<LI><A HREF="#inheritance"</A>Ereditariet&agrave; privata, protetta o pubblica</A>
+<LI><A HREF="#constructor">Costruttori e distruttori in presenza di ereditariet&agrave;</A>
+<LI><A HREF="#member">Overloading di funzioni membro</A>
+<LI><A HREF="#polymorphism">Polimorfismo</A>
+</UL>
+
+<HR>
+
+<H2><A NAME="introduction">Introduzione</A></H2>
+
+L'ereditariet&agrave; &egrave; un meccanismo che consente ad una classe di ereditare
+ogni membro della classe-padre, e poi aggiungere e modificare le cose secondo le
+nuove funzionalit&agrave; da realizzare.
+<P>
+
+Quando vuoi usare tutti i membri di una classe padre senza doverli dichiarare
+di nuovo uno alla volta, basta mettere una sola dichiarazione nell'header
+della classe "figlia":
+<PRE>
+class father
+{
+public:
+  int a;
+};
+
+class A : public father
+{
+public:
+  int b;
+};
+</PRE>
+
+In questo esempio, la classe A avr&agrave; un membro pubblico chiamato <CODE>b</CODE>,
+come al solito. Ma poich&egrave; &egrave; dichiarata come figlia della classe
+<CODE>father</CODE>, avr&agrave; anche un membro <CODE>a</CODE> dichiarato implicitamente.
+<P>
+
+Quando una classe eredita da un'altra, ne eredita tutti i membri.
+Questo porta a due problemi:
+<OL>
+<LI>proteggere i membri di una classe in modo che i suoi potenziali figli
+non siano in grado di accederli.
+<LI>far s&igrave; che una classe figlia impedisca l'accesso da parte del
+mondo esterno alla parte ereditata dalla sua classe padre.
+</OL>
+
+Nelle prossime sezioni vedremo come &egrave; semplice ottenere ci&ograve;.
+<P>
+
+<H2><A NAME="declaration">Dichiarazioni <CODE>private</CODE>, <CODE>protected</CODE> e <CODE>public</CODE></A></H2>
+
+Come abbiamo visto una classe pu&ograve; dichiarare membri pubblici. In questo modo,
+ognuno pu&ograve; accederli. Questo per&ograve; non &egrave; un concetto che riguarda la
+programmazione orientata agli oggetti. Facilita il debugging, ma non usarlo troppo.
+Invece, usa delle funzioni membro inline di accesso (in inglese dette "accessors") che
+ritornano il valore dei componenti, quando richiesto.
+Cos&igrave; facendo si pu&ograve; rendere una variabile a sola-lettura in modo pulito.
+<PRE>
+class A
+{
+  int a;
+public:
+  int GetA() { return a; }
+};
+</PRE>
+
+Infatti, puoi dichiarare ogni membro (variabile) privato. Nessuno sar&agrave; in grado di
+utilizzarli direttamente. Questa &egrave; una buona pratica nella programmazione orientata agli oggetti.
+<P>
+Ndt: qui ovviamente si consiglia di non permettere l'accesso diretto ai membri dati, tranne che
+in casi rari. Infatti nella maggior parte dei casi i membri dati devono essere gestiti esclusivamente
+tramite i metodi (le funzioni) dell'oggetto e una loro gestione esterna impropria pu&ograve; portare
+a delle situazioni di incoerenza nell'oggetto e quindi di errori, oltre che rendere i programmi molto
+meno "mantenibili".<BR>
+I membri funzione ovviamente devono essere public se si vuole poter mandare i corrispondenti
+"messaggi" all'oggetto dal mondo esterno.<BR>
+Se una funzione invece serve solo ad uso interno dell'oggetto ed &egrave; pericoloso e/o inutile
+metterla a disposizione del mondo esterno (non corrisponde ad alcun messaggio) meglio non
+renderla public, ma <CODE>private</CODE> o <CODE>protected</CODE> a seconda dei casi.
+<P>
+Un'altra cosa: ho provato questo codice con tutti i miei compilatori e lo hanno accettato
+senza problemi, senza manco sputar fuori un warning:
+<PRE>
+class A
+{
+  int a;
+public:
+  int & GetA() { return a; }
+};
+
+
+int main()
+{
+  A unA;
+
+  unA.GetA() = 5;
+  
+  return 0;
+}
+</PRE>
+Come potete vedere tracciando il programma e guardando i contenuti dell'oggetto A,
+la chiamata <CODE>unA.GetA()</CODE> ritorna il precedente valore di a (che &egrave; indefinito
+all'inizio); per la verit&agrave; essa ritorna un riferimento a quel valore. Un
+riferimento &egrave; qualcosa di analogo ad un puntatore C che viene per&ograve;
+automaticamente referenziato (vedi <A HREF="reference.html">riferimenti</A>), perci&ograve; l'assegnazione &egrave;
+possibile. Ebbene in questo caso si modifica un membro <CODE>private</CODE>, contravvenendo alle
+regole della OOP (abbreviazione di "programmazione orientata agli oggetti").
+Un buon compilatore dovrebbe impedirlo, o almeno tirar fuori un avvertimento,
+ma con DJGPP e Visual C++ non ho ottenuto niente! Probabilmente i programnmatori dei
+compilatori si sono scordati di tener conto del problema!
+<P>
+In alcuni casi potresti volere che solo i figli di una classe abbiano il permesso di
+accedere ad alcuni suoi membri. Quindi, non ci sar&agrave; modo di accedere a quei membri
+dall'esterno, ma all'interno sia della classe padre che figlia, ogni modifica sar&agrave;
+permessa. Questo tipo di dichiarazioni sono dette protette e precedute dalla keyword <CODE>protected</CODE>.
+<P>
+Ndt: notare la differenza con le dichiarazioni <CODE>private</CODE>: esse non sono accessibili n&egrave;
+all'esterno della classe, n&egrave; dai suoi discendenti.
+<PRE>
+class father
+{
+protected:		// provate ad commentarla
+  int a;
+};
+
+class A : public father
+{
+  int GetA() { return a; }    // pu&ograve; accedere ad a
+};
+...
+{
+  father f;
+  int x = f.a;                    // rifiutato dal compilatore
+}
+</PRE>
+
+In altre parole, con questo tipo di ereditariet&agrave;, cio&egrave; l'ereditariet&agrave;
+pubblica, le classi figlie hanno gli stessi diritti di accesso ai membri <CODE>public</CODE>
+e <CODE>private</CODE> degli utilizzatori esterni: i <CODE>public</CODE> sono manipolabili direttamente
+dalle classi figlie, i <CODE>private</CODE> no.
+Invece i membri <CODE>protected</CODE> sono speciali: le classi figlie possono usarli
+direttamente, ma non il resto del mondo (cio&egrave; altre classi non figlie, normali funzioni, il main).
+Tuttavia ci sono altri tipi di ereditariet&agrave;, il cui scopo &egrave; cambiare alcuni
+specificatori di accesso per i membri ereditati; la cosa pi&ugrave; comune &egrave; far
+s&igrave; che membri pubblici siano ereditati come protetti o privati, anzich&egrave;
+come pubblici. Continuate a leggere...
+
+<H2><A NAME="inheritance"</A>Ereditariet&agrave; privata, protetta o pubblica</A></H2>
+
+Un figlio di una classe pu&ograve; scegliere i permessi di accesso ai membri pubblici
+ereditati da suo padre. Pu&ograve; scegliere di mantenerli pubblici, rispettando totalmente
+le scelte della classe padre. In tal caso occorre inserire la parola <CODE>public</CODE>
+tra ":" e il nome della classe padre:
+<PRE>
+class father
+{
+public:
+  int a;
+};
+
+class A : public father
+{
+  int GetA() { return a; }    // pu&ograve; accedere ad a
+}
+...
+{
+  A a_obj;
+  x = a_obj.a;                // si possono accedere membri pubblici ereditati come tali
+}
+</PRE>
+
+Una classe figlia pu&ograve; anche proteggere i membri che ha ereditato da suo padre,
+facendo s&igrave; che le propriet&agrave; ereditate da suo padre siano "interne".
+La ereditariet&agrave; deve essere dichiarata di tipo protetto (tutti i membri pubblici
+della classe padre diventeranno protetti) o di tipo privato (se invece si vuole che tutti
+i membri pubblici diventino privati). La differenza tra derivazione protetta e privata
+si manifesta solo nei figli dei figli della classe padre, poich&egrave; per il resto del mondo
+(main, normali funzioni o altri classi che usano la classe figlia e nipote) i campi pubblici
+della classe padre ereditati come protected o private sono in entrambi i casi inaccessibili.
+<PRE>
+class father
+{
+public:
+  int a;
+};
+
+class A : private father
+{
+  int GetA() { return a; }    // a si pu&ograve; accedere qui (a &egrave; diventato un membro privato)
+}
+...
+{
+  A a_obj;
+  x = a_obj.a;                // rifiutato dal compilatore: non si pu&ograve; accedere al membro privato a
+}
+</PRE>
+
+Nota che puoi omettere la keyword <CODE>public</CODE>, <CODE>protected</CODE>
+o <CODE>private</CODE>. In tal caso si intende <CODE>private</CODE> per default.
+<P>
+La tabella seguente riassume come cambiano i livelli di accesso in una classe figlia
+a seconda dei 3 tipi di derivazione possibili:
+<P>
+<TABLE BORDER=3 ALIGN=CENTER CELLPADDING=3>
+<TR ALIGN=CENTER>
+<TH>classe Padre</TH>
+<TH COLSPAN=3>classe Figlia</TH>
+</TR>
+
+<TR ALIGN=CENTER>
+<TD>&nbsp;</TD>
+<TD><SMALL><I>derivazione</I></SMALL> <CODE>public</CODE></TD>
+<TD><SMALL><I>derivazione</I></SMALL> <CODE>protected</CODE></TD>
+<TD><SMALL><I>derivazione</I></SMALL> <CODE>private</CODE></TD>
+</TR>
+
+<TR ALIGN=CENTER>
+<TD ALIGN=LEFT><CODE>public</CODE></TD>
+<TD><CODE>public</CODE></TD>
+<TD><CODE>protected</CODE></TD>
+<TD><CODE>private</CODE></TD>
+</TR>
+
+<TR ALIGN=CENTER>
+<TD ALIGN=LEFT><CODE>protected</CODE></TD>
+<TD><CODE>protected</CODE></TD>
+<TD><CODE>protected</CODE></TD>
+<TD><CODE>private</CODE></TD>
+</TR>
+
+<TR ALIGN=CENTER>
+<TD ALIGN=LEFT><CODE>private</CODE></TD>
+<TD><CODE>non accessibili</CODE></TD>
+<TD><CODE>non accessibili</CODE></TD>
+<TD><CODE>non accessibili</CODE></TD>
+</TR>
+</TABLE>
+
+<H2><A NAME="constructor">Costruttori e distruttori</A></H2>
+
+Come per gli <A HREF="constructors.html#including">oggetti membri</A>, devi
+trasmettere i parametri al costruttore della classe padre,
+che &egrave; chiamato prima del costruttore della classe figlia.
+<P>
+
+La sintassi &egrave; proprio la stessa:
+<PRE>
+class Father
+{
+  int a;
+public:
+  Father (int aa) { a = aa; }
+};
+
+class Child : public Father
+{
+  int b;
+public:
+  Child (int aa) : Father (aa) {}   // Ecco un costruttore inline
+  Child (int, int);                 // ed uno che &egrave; una normale funzione
+};
+
+Child::Child (int aa, int bb) : Father (aa)
+{
+  b = bb;
+}
+
+/* alternativa:
+Child::Child (int aa, int bb) : Father (aa), b(bb)
+{
+}*/
+</PRE>
+Provate ad omettere la parte di linea <CODE>: Father (aa)</CODE>
+nella definizione del costruttore <CODE>Child (int aa)</CODE>.
+Cosa succede? abbiamo gi&agrave; fatto vedere una situazione
+simile <A HREF="constructors.html#including">qui</A>.
+
+<H2><A NAME="member">Overloading di funzioni membro</A></H2>
+
+Quando una classe eredita da un'altra, eredita tutte le variabili membro
+(statiche o non). Non pu&ograve; rifiutare l'eredit&agrave; :). Tuttavia
+nel caso di una funzione, una classe figlia pu&ograve; scegliere se
+rimpiazzare una funzione della classe padre o meno.
+<PRE>
+class Father
+{
+public:
+  void MakeAThing();
+};
+class Child : public Father
+{
+public:
+  void MakeAThing();
+};
+...
+{
+  Father father;
+  father.MakeAThing();    // metodo MakeAThing di Father chiamato
+  Child child;
+  child.MakeAThing();     // metodo MakeAThing di Child chiamato
+}
+</PRE>
+
+Nella nuova versione della funzione, potresti aver bisogno di chiamare
+la versione della funzione della classe padre, o persino una funzione
+globale con lo stesso nome. Come fare? Una chiamata a MakeAThing() della
+classe Child all'interno di MakeAThing() della classe Child stessa
+&egrave; una chiamata ricorsiva e non corrisponde a nessuna delle due chiamate precedenti.
+La cosa &egrave; possibile specificando pi&ugrave; informazioni al compilatore
+all'atto della chiamata, usando :: e il nome della classe a cui appartiene
+la funzione che vuoi chiamare. Ecco un esempio che chiarisce tutto:
+<PRE>
+void MakeAThing();
+class Father
+{
+public:
+  void MakeAThing();
+};
+class Child : public Father
+{
+public:
+  void MakeAThing()
+  {
+    Father::MakeAThing();  // viene chiamato il metodo di Father
+    ::MakeAThing();        // viene chiamata la funzione globale
+    //MakeAThing();        // questa &egrave; una chiamata ricorsiva!
+  }
+};
+...
+{
+  Father father;
+  father.MakeAThing();    // metodo MakeAThing di Father chiamato
+  Child child;
+  child.MakeAThing();     // metodo MakeAThing di Child chiamato
+  MakeAThing();           // chiamata una funzione globale
+}
+</PRE>
+
+<H2><A NAME="polymorphism">Polimorfismo</A></H2>
+
+Uno dei principali vantaggi dell'ereditariet&agrave; &egrave; che una classe figlia
+pu&ograve; sempre prendere il posto della sua classe padre, ad esempio nell'argomento
+di una funzione. La classe figlia pu&ograve; essere vista come una classe con due
+(o anche pi&ugrave;!) identit&agrave;. Ecco perch&egrave; questa propriet&agrave; &egrave;
+detta polimorfismo, parola che deriva dal greco e significa appunto "dalle molte forme".
+<PRE>
+class Father
+{
+...
+};
+class Child : public Father
+{
+...
+};
+...
+void ExampleFunction (Father &);
+...
+{
+  Father father;
+  ExampleFunction (father);   // Normale chiamata
+  Child child;
+  ExampleFunction (child);    // un oggetto child &egrave; considerato come uno di tipo father
+}
+</PRE>
+
+Questo propriet&agrave; vale per gli oggetti, i puntatori agli oggetti e i riferimenti
+agli oggetti. Cos&igrave; definendo una classe figlia di una classe, puoi apportare
+dei miglioramenti rispetto a quest'ultima e nello stesso tempo essere in grado di
+usarne tutte le caratteristiche e le funzionalit&agrave;. Questo pu&ograve; essere
+fatto anche se non hai il codice sorgente della classe padre! &Egrave; questa la
+ragione principale del successo della programmazione orientata agli oggetti.
+<P>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

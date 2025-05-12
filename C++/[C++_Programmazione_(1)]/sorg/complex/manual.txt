@@ -1,0 +1,327 @@
+                    * MANUALE D'USO della Classe COMPLEX *
+
+
+autore: Antonio Bonifati                e-mail: abonifati@ tiscalinet.it
+
+
+E' un primo esempio di classe, sicuramente utile a tutti i neofiti.
+
+La classe ä cosç semplice che forse non serve un manuale d'uso
+neanche per i neofiti del C++. Comunque non si sa mai.
+
+Se non conosci i numeri complessi, studiati prima l'argomento
+(molto interessante) su un buon libro di algebra.
+
+La rappresentazione interna dei numeri ä algebrica.
+
+Ho cercato di rendere il tutto quanto pió possibile ottimizzato
+per velocitÖ (dimensioni del codice permettendo).
+
+Notare che ho deciso di rendere i membri dati Re e Im pubblici
+in barba all'information hiding. L'unica ragione per non avere
+Re e Im pubblici ä costituita dal fatto che si vuole nascondere
+l'implementazione interna (supponete di voler cambiare la
+rappresentazione interna usando la notazione polare, cioä modulo e
+fase, se il codice utilizzare non dipende da Re e Im, non sarÖ
+necessario cambiarlo). Infatti non si possono verificare problemi
+di inconsistenza se modificate questi membri nel programma
+utilizzatore.
+Ovviamente questa scelta ä di facile modifica (occorre renderli
+private o protected e fornire funzioni membro (magari inline) per
+leggerli e scriverli; ho preferito l'accesso diretto per ragioni
+di semplicitÖ sintattica; comunque ä tutto pronto per cambiare
+questa scelta: ad esempio gli operatori sono stati dichiarati
+come friend, anche se non ce n'era bisogno con Re ed Im pubblici).
+
+La classe prende spunto dal tutorial.
+
+Ho cercato di presentare tutti gli esempi possibili di utilizzo.
+Se ne ho scordato qualcuno o hai dubbi, fammi sapere:
+   <abonifati@tiscalinet.it>
+
+La classe ä free: usala liberamente nei tuoi programmi di matematica
+e fammi sapere se hai dei problemi. Se la estendi, mandami il tuo codice.
+
+Il codice ä stato testato con versioni recenti di DJGPP e Visual C++.
+Se hai problemi col tuo compilatore, fammi sapere (non se ä un vecchio
+compilatore).
+
+Per dettagli sul codice guarda il codice stesso! E' abbastanza commentato.
+
+Per avere la precisione assoluta, ci vorrebbe una classe che implementi
+le frazioni (e i radicali pure!) e Re ed Im dovrebbero essere di questo
+tipo.
+
+Oltre a tutti gli usuali operatori disponibili sui double, ho ridefinito
+l'operatore tilde (~) in modo che sui numeri complessi restituisca il
+complesso coniugato (qualcosa di "corrispondente" al complemento!)
+
+Per quanto riguarda le funzioni matematiche, sono complicate. Ne ho
+implementata solo una: la radice quadrata (overloading della funzione
+sqrt di <math.h>). La radice quadrata di numeri complessi ä semplice,
+perchä le radici sono facili da calcolare e sono *sempre* due numeri
+complessi opposti.
+
+
+
+*************************************
+* dichiarare e usare numeri complessi
+
+  ...proprio come se fossero dei double o float:
+
+  Es.
+  ---
+  double x, y;                  Complex x, y;
+  double v[10];                 Complex v[10];
+  x = y;                        x = y;
+
+  double *p=&x;                 Complex *p=&x;
+  double *q;                    Complex *q;
+  p = new double;               p = new Complex;
+  q = new double[10];           q = new Complex[10];
+
+  delete p;                     delete p;  
+  delete [] q;                  delete [] q;
+
+
+
+******************************
+* dichiararli e inizializzarli
+
+  Complex x;                       // inizializzato a 0+0j
+  Complex x();                     // idem
+  Complex x=Complex();             // idem
+  Complex *x = new Complex;        // idem
+  Complex *x = new Complex();      // idem
+
+  /* notare che in tutti e 3 questi esempi viene
+     chiamato solo il costruttore della classe Complex,
+     esattamente come nelle 5 dichiarazioni precedenti. */
+  Complex x(2,3);                  // inizializzato a 2+3j
+  Complex x = Complex(2,3);        // idem
+  Complex *x = new Complex(2, 3);  // idem
+
+  Complex v[10];                        // inizializzati tutti a 0
+  Complex v[5] = { 0,1,2,3,4 };         // inizializzati a 0, 1, 2, 3, 4
+  Complex v[5] = { 0,1,2 };             // inizializzati a 0, 1, 2, 0, 0
+  /* questo implica la costruzione di un oggetto numero complesso temporaneo
+     (puoi anche scrivere cose tipo Complex(1,x) dove x ä un double);
+     perciï in questo esempio viene chiamato due volte il costruttore
+     e nient'altro. */
+  Complex v[2] = { Complex(1,2), 4 };   // inizializzati a 1+2j, 4
+
+  /* ognuna di queste causa una chiamata prima al costruttore e poi
+     all'operatore di assegnamento (che ä quello di default). */
+  Complex x;
+  x = Complex();        // assegna 0+0j
+  x = Complex(2,3);     // assegna 2+3j
+  x = Complex(3);       // assegna 3
+
+  Complex x;
+  /* nelle seguenti 3 dichiarazioni viene chiamato il costruttore
+     di copia (di default) e solo questo */
+  Complex y(x);                    // inizializzato ad x
+  Complex y = x;                   // idem
+  Complex *p = new Complex (x);    // *p inizializzato ad x
+
+  sono state fornite delle versioni di overloading dell'operator=
+  di default allo scopo di ottimizzare. In questo modo una istruzione
+  di assegnamento tipo:
+
+                Complex x;
+                x = 3.4;        // assegna ad x il valore 3.4 +0j
+
+  si realizza con un veloce operator=(double) inline anzichä chiamare
+  prima il costruttore su un oggetto temporaneo e poi l'operatore di
+  assegnamento di default. Da notare che operator=(double) agisce anche
+  quando assegnate un intero o un float ad un numero complesso.
+  Se invece scrivete cose tipo x = Complex(2); allora in tal caso forzate
+  l'invocazione del costruttore e dell'operatore di assegnamento tra
+  Complex. Notare che per assegnare una costante immaginaria pura occorre
+  comunque scrivere x = Complex(0, 2);
+
+
+
+*******************************************************
+* per conoscere modulo, fase, parte reale e immaginaria
+
+  Complex x;
+  Complex *y = new Complex;
+  float a;
+  if (x.Re == y->Im)
+     ...
+  a = x.Modulus();      // oppure x.Phase()
+  a = y->Modulus();     // oppure y.Phase()
+
+  usate la sintassi che pió vi piace per le funzioni Modulus e Phase:
+
+  a = Modulus(x);       // sintassi
+  a = Phase(*y);        // tradizionale
+
+  sono inoltre permesse!
+  
+
+
+************************************
+* operazioni algebriche fondamentali
+
+  le operazioni pió semplici (somma, sottrazione) sono implementate
+  come macro (cioä funzioni inline) per ragioni di efficienza.
+  
+  *********************
+  * somma e sottrazione
+
+  Complex a (1, 2);
+  Complex b (3, 4);
+  Complex c;
+  c = a + b;            // ora c ä 4+6j
+  Complex d=b-a;        // ora d ä 2+2j
+  d=-d;                 // ora d ä -2-2j
+  d=+d;                 // ora d ä invariato
+  d+=a;                 // ora d ä -1+0j
+  d-=a;                 // ora d ä di nuovo -2-2j
+
+  ********************
+  * moltiplicazione e divisione
+
+  Complex a (1, 2);
+  Complex b (3, 4);
+  Complex c=a*b;        // ora c ä -5+10j
+  Complex d=a/b;        // ora d ä 0.44+0.08j
+  d/=5; b*=a;           // operazioni lecite
+  
+  ***********
+  * confronti
+
+        ecco i confronti che hanno senso con i numeri complessi
+
+        if (a==b)
+            ...
+
+        if (a!=b)
+            ...
+
+        if (a==Complex(1,2))    // se a ä uguale a 1+2j
+            ...
+
+        if (a!=0)               // se a non ä il complesso nullo
+            ...
+
+        if (a!=Complex(0,3))    // se a ä diverso da 3j
+            ...
+
+  **************
+  * coniugazione
+
+        Complex a(1,2);         // a ä 1+2j
+        a=~a;                   // ora a ä 1-2j
+
+  *****************
+  * radice quadrata
+
+    basta chiamare la funzione sqrt, come si fa con i double;
+    a differenza di sqrt(double), la sqrt(Complex) non pone
+    mai problemi, poichä ä sempre calcolabile.
+    I risultati sono sempre due. sqrt restituisce una radice,
+    l'altra ä la radice sostituita cambiata di segno:
+
+        Complex a(1,2);
+        Complex rad1=sqrt(a);
+        Complex rad2=-rad1;
+
+    Se volete usare una sintassi meno vicino a quella del C,
+    e pió vicina alla programmazione ad oggetti,
+    potete richiamare la stessa funzione anche come metodo:
+
+        Complex a(1,2);
+        a=a.sqrt();     // adesso a vale circa 1.27+0.78j
+
+
+
+*******************************
+* conversioni in double o float
+
+    La classe non ä provvista di operatori di cast per la conversione
+    (anche implicita) di un numero complesso in double o float.
+    La conversione potrebbe essere definita semplicemente scartando la
+    parte immaginaria. Ma questo non ä stato fatto, perchä introduce
+    ambiguitÖ: una espressione tipo 5-a dove a ä un Complex produce
+    un errore, poichä il compilatore non sa se applicare la conversione
+    di a in double ed effettuare poi:
+                                5-parte reale di a
+    oppure se convertire 5 in un numero complesso ed effettuare la
+    sottrazione di numeri complessi. Il problema ä una ambiguitÖ
+    dovuta all'overloading. Ecco i messaggi di errore prodotti
+    da gcc quando un 5-a viene incontrato ed ä stato definito
+    l'operatore di cast:
+                   operator float() { return Re; }
+
+        Error: ambiguous overload for `int - Complex &'
+        Error: candidates are: operator -(int, float) <builtin>
+        Error: struct Complex operator -(const Complex &, const Complex &)
+    
+    Un cast nell'espressione risolverebbe l'ambiguitÖ:
+
+                        (Complex)5-a
+
+    tuttavia ho preferito non implementare gli operatori di cast
+    ritenendo noioso per l'utente utilizzare questi cast.
+    Del resto la conversione Complex->double o float ä rara e
+    comunque ä meglio che sia indicata esplicitamente dove richiesta,
+    riferendosi direttamente alla parte reale o immaginaria.
+
+    Ovviamente nella conversione in float puï verificarsi perdita di
+    precisione, essendo la rappresentazione interna in double.
+    
+        void foo (float f)
+        {
+          printf ("%f\n", f);
+        }
+
+        {
+          Complex a (4, -1);       // a ä 4-j
+          double r=a.Re, i=a.Im;   // r ä 4, i ä -1
+          float b = (float) a.Re;  // b ä 4
+          float c = a.Re;          // c ä 4
+          foo ((float) a.Re);      // viene passato un 4
+          foo (a.Re);              // lo stesso
+        }
+
+    Se decidete di implementare gli operatori di cast, le definizioni
+    sono giÖ pronte in complex.h (basta uncommentarle).
+
+
+*************************
+* input/output facilities
+
+    In matematica i modi in cui vengono rappresentati i numeri complessi
+    sono molteplici. Eccone alcuni (Re indica la parte reale, Im quella
+    il coefficiente dell'immaginario, che alcuni usano indicare con i,
+    altri con j):
+
+    (Re, Im)
+    Re+jIm   o   Re + jIm
+    Re + Imj
+    jIm + Re
+
+    Non ci ho perso molto tempo.
+    La lettura tramite >> di un numero complesso ä stata implementata
+    semplicemente come la lettura di due numeri. Dovete mettere prima
+    la parte reale e poi quella immaginaria.
+    La scrittura semplicemente usa la forma (Re, Im), che tuttosommato
+    forse ä la pió leggibile. (ehi dopo tanta fatica non vorrete mica
+    che mi metta a fare pure un parser? :)
+
+    Es.
+        Complex z;
+
+        cin >> z;
+        cout << z <<endl;
+
+
+_________________________________
+
+Antonio Bonifati
+Ultima modifica: 9 Dicembre 1999
+_________________________________
+

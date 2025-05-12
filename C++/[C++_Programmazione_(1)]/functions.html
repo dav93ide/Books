@@ -1,0 +1,187 @@
+<HTML>
+<HEAD>
+<TITLE>Definizione delle funzioni</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Definizione delle funzioni</H1>
+</CENTER>
+
+Questa pagina contiene i seguenti argomenti:
+<UL>
+<LI> <A HREF="#prototype">Prototipi delle funzioni</A>
+<LI> <A HREF="#overloading">Overloading delle funzioni</A>
+<LI> <A HREF="#default">Valori di default per i parametri</A>
+</UL>
+
+<HR>
+
+La definizione di una funzione &egrave; cambiata in C++. Mentre nel C
+&egrave; obbligatorio solo il nome, in C++ devi specificare
+tutti i parametri e il tipo di ogni parametro per definire una funzione.
+Questo porta alle seguenti conseguenze:
+<P>
+
+<H2><A NAME="prototype">Prototipi di funzione</A></H2>
+
+Devi sempre definire un prototipo della funzione prima di usarla. Questo
+prototipo &egrave; definito dal tipo del valore ritornato (o void se &egrave;
+nessun valore), dal nome della funzione, e dalla lista dei tipi dei parametri.
+<P>
+
+Esempio: corretto:
+<PRE>
+void hello();             // questa funzione non ha alcun parametro
+int about (int, char);
+foo (int);                // il tipo di ritorno di default &egrave; int
+</PRE>
+errato:
+<PRE>
+void hello();
+...
+void foo()
+{
+   hello (10);
+}
+</PRE>
+quest'ultimo generer&agrave; l'errore: "chiamata alla funzione indeterminata
+(cio&egrave non definita) <CODE>hello (int)</CODE>" oppure "troppi argomenti
+alla funzione <CODE>void hello()</CODE>" e simili.
+<P>
+Ndt: notare che in C non si aveva quell'errore. Per saperne di pi&ugrave; vedere
+il Kernighan-Ritchie, paragrafo 1.7
+<P>
+
+Nota che il nome di un parametro nel prototipo non &egrave; obbligatorio,
+solo il suo tipo &egrave; richiesto. Se il tipo di ritorno viene omesso,
+viene utilizzato int come default.
+<P>
+
+Non c'&egrave; bisogno di usare un prototipo nel codice sorgente se la funzione
+&egrave; chiamata dopo la sua definizione. Esempio:
+<PRE>
+// void hello();          Linea non obbligatoria
+
+void hello()
+{
+  printf ("hello world.\n");
+}
+
+void foo()
+{
+  hello();
+}
+</PRE>
+
+<H2><A NAME="overloading">Overloading delle funzioni</A></H2>
+
+I cambiamenti nella definizione delle funzioni sono coerenti con una nuova
+funzionalit&agrave; permessa dal C++ detta "sovraccaricamento" (overloading) di un nome di funzione.
+In C++ &egrave; lecito avere due (o pi&ugrave;) funzioni con lo stesso nome, ammesso per&ograve;
+che la lista dei loro parametri sia differente (cosa che permette al compilatore di distinguerle).
+Sovraccaricare un nome di funzione &egrave; facile: basta dichiarare e utilizzare le funzioni
+con lo stesso nome come al solito.
+<P>
+
+Esempio:
+<PRE>
+int foo (int a, int b)
+{
+  return a * b;
+}
+
+int foo (int a)
+{
+  return a * 2;
+}
+...
+{
+a = foo (5, 5) + foo (5);     // ritorna    5 * 5 (risultato della prima foo)
+}                             //          + 5 * 2 (risultato della seconda foo)
+</PRE>
+
+Ma possono sorgere dei problemi. Ad es. puoi definire due funzioni in questo modo:
+<PRE>
+int add (int a, int b);
+float add (float a, float b);
+</PRE>
+e poi fare una chiamata ad add. Questo tipo di definizioni vanno evitate.
+I compilatori si confondono e danno warning o errori a seconda dei casi,
+corrispondenti a perdite di informazioni o ambiguit&agrave; della situazione.
+<P>
+Ndt: vi invito a sperimentare la situazione col vostro compilatore. Provate a
+definire entrambe le funzioni in modo che restituiscono a+b. Se si compila
+provate poi a chiamare add con due interi, due float, con un intero e un float
+e viceversa. Potete stabilire quale funzione add viene chiamata tracciando il
+programma o facendo stampare da ciascuna delle funzioni un messaggio indicativo
+con una printf.
+<P>
+Quella che abbiamo visto era una situazione di ambiguit&agrave; pericolosa. Ma che ne dite di questa?
+<PRE>
+int add (int a, float b);
+float add (float a, int b);
+...
+a = add (2, 2);
+</PRE>
+Fortunatamente, il compilatore rifiuter&agrave; sicuramente quel codice,
+spiegando che non pu&ograve; scegliere tra le due funzioni funzioni add.
+Perci&ograve; fai attenzione!
+
+<H2><A NAME="default">Valori di default dei parametri</A></H2>
+
+Puoi specificare un valore di default per gli ultimi parametri di una funzione.
+Se un tale parametro viene omesso nella chiamata, il compilatore gli assegner&agrave;
+appunto il suo valore di default.
+<P>
+Esempio:
+<PRE>
+int foo (int a, int b = 5);
+...
+int foo (int a, int b)
+{
+  return a * b;
+}
+
+{
+  a = foo (2);        // D&agrave; lo stesso risultato di
+  a = foo (2, 5);
+}
+</PRE>
+
+Nota che puoi assegnare dei valori di default solo ad un ultimo gruppo
+di parametri, altrimenti il compilatore non saprebbe a quale parametro
+assegnare il valore di default...
+<PRE>
+int func1 (int = 0, char);   // Non permesso
+void func2 (char, int = 0);  // Ok
+</PRE>
+
+Un valore di default deve essere specificato nel prototipo, e non necessariamente
+ripetuto nella definizione della funzione. Infatti, quando specifici dei valori
+di default, in realt&agrave; &egrave; come se implicitamente stessi definendo
+molte funzioni con lo stesso nome. In un esempio precedente, quando abbiamo scritto:
+<PRE>
+int foo (int a, int b = 5);
+</PRE>
+<CODE>foo (int)</CODE> e <CODE>foo (int, int)</CODE> sono state prototipate e 
+quindi implicitamente definite.
+<P>
+Pertanto notiamo che combinando valori di default dei parametri con l'overloading
+delle funzioni, possiamo produrre situazioni ambigue vietate, come questa:
+<PRE>
+int foo (int a, int b = 5);    //   Definizione con valore di default per b
+int foo (float a);             //   Altra definizione di foo: produce ambiguit&agrave;
+int foo (int a);               // Errore: conflitto con la prima definizione
+</PRE>
+
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

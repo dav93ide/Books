@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<TITLE>Template</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Template</H1>
+</CENTER>
+
+Lo scopo dei template &egrave; quello di permettere di scrivere il codice
+una sola volta e di utilizzarlo molte volte, in quei casi in cui si vuole
+lavorare con tipi in qualche modo parametrizzati. Per esempio, supponiamo
+che tu abbia bisogno di array di int, float o oggetti. Basta che tu scriva
+una classe <CODE>Array</CODE> ed usi in essa un tipo non-determinato.
+La sintassi &egrave; un po' complessa, ma i risultati hanno molto effetto:
+<PRE>
+// Dichiara la classe
+template &lt;int N, class A&gt;
+class Array
+{
+  A *array;
+public:  
+  Array();
+  ~Array();
+  A& operator[] (int i);
+};
+
+// Dichiara il costruttore
+template &lt;int N, class A&gt;
+Array &lt;N, A&gt;::Array()
+{
+  array = new A[N];
+}
+
+// Dichiara il distruttore
+template &lt;int N, class A&gt;
+Array &lt;N, A&gt;::~Array()
+{
+  delete [] array;
+}
+
+// Dichiara la funzione membro
+template &lt;int N, class A&gt;
+A &Array &lt;N, A&gt;::operator[] (int i)
+{
+  return array[i];
+}
+
+class ExampleClass
+{
+public:
+  int a;
+};
+
+int main (int, char **)
+{
+  Array &lt;5, float&gt; real_vector;
+  Array &lt;200, char&gt; string;
+  Array &lt;10, ExampleClass&gt; object_vector;
+
+  int i;
+  for (i = 0; i < 5; i++) real_vector[i] = 1.0;
+  for (i = 0; i < 200; i++) string[i] = 'A';
+  for (i = 0; i < 10; i++) object_vector[i].a = 0;
+
+  return 0;
+}
+</PRE>
+
+Ogni volta che dichiari un oggetto da una classe template, tutto il codice scritto
+(comprese le funzioni membro) deve esserci compilato nello stesso file prima della
+della dichiarazione dell'oggetto.
+Inoltre i template sono spesso usati per piccole funzioni generiche, quindi sono spesso
+dichiarati come funzioni inline:
+<PRE>
+template &lt;int N, class A&gt;
+class Array
+{
+  A *array;
+public:
+  Array() { array = new A[N]; }
+  ~Array() { delete [] array; }
+  A& operator[] (int i) { return array[i]; }
+};
+</PRE>
+
+questa &egrave; una definizione oltre che pi&ugrave; semplice, pi&ugrave; efficiente
+della stessa classe <CODE>Array</CODE> vista prima.
+<P>
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

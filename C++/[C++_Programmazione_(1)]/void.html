@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE>Puntatori a Void</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Puntatori a Void</H1>
+</CENTER>
+
+Nel modo C++, non puoi convertire implicitamente un puntatore a void (<CODE>void *</CODE>)
+in un puntatore di un altro tipo. Devi esplicitare l'operazione usando un operatore
+di cast.
+<P>
+
+Esempio:
+<PRE>
+int *p_int;
+void *p_void;
+
+p_void = p_int;           // Ok alla conversione implicita
+
+p_int = p_void;           // Conversione implicita non permessa in C++ (in C s&igrave)
+
+p_int = (int *)p_void;    // Conversione esplicita -> OK
+</PRE>
+
+Questa regola ha un certo senso: un puntatore a <CODE>void</CODE> &egrave; fatto per puntare a
+qualsiasi cosa, perci&ograve puoi metterci qualsiasi valore (indirizzo) senza troppe storie.
+Ma un puntatore ad <CODE>int</CODE> per esempio &egrave; usato di solito solo puntare ad un
+valore <CODE>int</CODE>, perci&ograve; non puoi direttamente farlo puntare
+a qualsiasi altro valore (che sarebbe visto come int, col risultato che l'intero
+ottenuto dipende dall'implementazione - la cosa &egrave; di rara utilit&agrave;).
+<P>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

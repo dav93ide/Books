@@ -1,0 +1,221 @@
+<HTML>
+<HEAD>
+<TITLE>Stream</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Stream</H1>
+</CENTER>
+
+Gli stream sono un modo di accedere all'input/output standard, sia alla consolle
+che ai files. Il meccanismo uniforme &egrave; tutto basato sull'overloading
+degli operatori &lt;&lt; e &gt;&gt;.
+Occorre includere il file <B>iostream.h</B> per poter utilizzare gli stream.
+<P>
+
+<H2>Stream di Output</H2>
+
+Uno stream di output &egrave; del tipo classe <CODE>ostream</CODE>. Per i tipi
+standard, questa classe ridefinisce l'operatore &lt;&lt;:
+<PRE>
+ostream & operator &lt;&lt; (base_type);
+</PRE>
+
+Notare che l'operatore restituisce ancora uno stream (anzi per risparmiare tempo e memoria
+un riferimento ad uno stream), e questo fatto permette di concatenare l'output usando
+appunto pi&ugrave; operatori &lt;&lt; concatenati (come si fa quando si scrive 1+2+3, ecc..!):
+<PRE>
+stream &lt;&lt; "Time is" &lt;&lt; hour &lt;&lt; ":" &lt;&lt; minute &lt;&lt; ":" &lt;&lt; second;
+</PRE>
+
+Ndt: la restituzione di un riferimento non &egrave; comunque solo una questione di ottimizzazione;
+&egrave; necessaria affinch&egrave; quando pi&ugrave; operatori &lt;&lt; son concatenati come nell'esempio
+precedente, le modifiche fatte all'oggetto stream dal secondo operatore in poi siano conservate,
+cio&egrave; non agiscano solo una copia temporanea, ma sull'oggetto stream stesso specificato
+all'inizio della espressione.
+<P>
+Gli stream standard (potete pensarli come istanze dei tipi classe <CODE>ostream</CODE>, <CODE>istream</CODE>
+o di alcuni loro derivati) sono
+<CODE>cout</CODE> per lo standard output, <CODE>cerr</CODE>
+per lo standard error bufferizzato, e <CODE>clog</CODE> per lo standard error senza buffer.
+Per esempio per far scrivere l'ora, basta digitare:
+<PRE>
+cout &lt;&lt; "Time is" &lt;&lt; hour &lt;&lt; ":" &lt;&lt; minute &lt;&lt; ":" &lt;&lt; second;
+</PRE>
+
+Un'altro modo di scrivere negli stream &egrave; di usare la funzione membro
+<CODE>put</CODE>. Essa &egrave; dichiarata come segue:
+<PRE>
+ostream & put (char);
+</PRE>
+ed &egrave; una funzione membro della classe <CODE>ofstream</CODE>. Si usa in modo molto semplice:
+<PRE>
+#include &lt;iostream.h&gt;
+
+char Message[] = "This is a message.\n";
+//...
+
+int main()
+{
+  int i=0;
+  while (Message[i])
+    cout.put (Message[i++]);
+
+  return(0);
+}
+</PRE>
+
+<H2>Stream di Input</H2>
+
+L'operatore &gt;&gt; &egrave; cos&igrave; sovrapposto:
+<PRE>
+istream & operator &gt;&gt; (& base_type);
+</PRE>
+
+Lo Standard Input &egrave; l'oggetto <CODE>cin</CODE>, perci&ograve; si usa in questo modo:
+<PRE>
+{
+  int hh;
+  int mm;
+
+  cin &gt;&gt; hh &gt;&gt; mm;   // legge due interi da standard input
+}
+</PRE>
+
+Puoi anche usare la funzione membro <CODE>get</CODE> se vuoi leggere un solo carattere o un
+insieme di caratteri:
+<PRE>
+istream & get (char &c);
+istream & get (char *p, int max, char separator);
+</PRE>
+
+<H2> Overloading degli operatori &lt;&lt; e &gt;&gt;</H2>
+
+Puoi ridefinire gli operatori &lt;&lt; e &gt;&gt; per permettere ai tuoi oggetti
+di uniformarsi all'architettura standard per l'i/o descritta in questa pagina.
+In questo modo aggiungi il supporto per l'input e/o l'output dei tuoi oggetti
+al sistema standard per l'i/o!
+Basta dichiararli cos&igrave;:
+<PRE>
+#include &lt;iostream.h&gt;
+...
+class Example
+{
+  friend ostream & operator &lt;&lt; (ostream &st, Example &ex);
+  friend istream & operator &gt;&gt; (istream &st, Example &ex);
+};
+
+ostream & operator &lt;&lt; (ostream &st, Example &ex)
+{
+...
+}
+
+istream & operator &gt;&gt; (istream &st, Example &ex)
+{
+...
+}
+</PRE>
+
+Per esempio consideriamo la classe Complex:
+<PRE>
+#include &lt;iostream.h&gt;
+class Complex
+{
+  float r, i;
+
+  friend ostream & operator &lt;&lt; (ostream &out, Complex &ex);
+  friend istream & operator &gt;&gt; (istream &in, Complex &ex);
+};
+
+ostream & operator &lt;&lt; (ostream &out, Complex &ex)
+{
+  out &lt;&lt; '(' &lt;&lt; ex.r &lt;&lt; ',' &lt;&lt; ex.i &lt;&lt; ')';
+  return out;
+}
+
+istream & operator &gt;&gt; (istream &in, Complex &ex)
+{
+  in &gt;&gt; ex.r &gt;&gt; ex.i;
+  return in;
+}
+
+int main()
+{
+  Complex c;
+  cin >> c;
+  cout << c << endl;
+
+  return 0;
+}
+</PRE>
+
+<H2>Connettere uno stream con un file</H2>
+
+Quando vuoi connettere uno stream ad un file, usa le classi base
+<CODE>fstream</CODE>, <CODE>ifstream</CODE> e <CODE>ofstream</CODE>.
+I loro costruttori sono di questo tipo:
+<PRE>
+fstream (char *filename, open_mode mode);
+ifstream (char *filename, open_mode mode = 0);
+ofstream (char *filename, open_mode mode = 0);
+</PRE>
+dove <CODE>filename</CODE> &egrave; il nome del file e <CODE>mode</CODE>
+&egrave; un tipo enumerato.
+Questo enum &egrave; dichiarato nella classe <CODE>ios</CODE>, e pu&ograve;
+assumere uno o pi&ugrave; di questi valori:
+<PRE>
+in         apri per l'input
+out        apri in modalit&agrave; di output
+ate        apri e posizionati (seek) alla fine
+app        apri in modo append
+trunc      cancella prima di scrivere (cio&egrave; sovrascrivi)
+nocreate   esci se il file non esiste
+noreplace  esci se il file esiste
+</PRE>
+
+Ma vediamo un esempio:
+<PRE>
+// Copia un file in un altro
+
+#include &lt;iostream.h&gt;
+#include &lt;fstream.h&gt;
+#include &lt;stdlib.h&gt;
+
+void Fatal (const char *message1, const char *message2 = "")
+{
+  cerr &lt;&lt; message1 &lt;&lt; ' ' &lt;&lt; message2 &lt;&lt; '\n';
+  exit (-1);
+}
+
+int main (int argc, char *argv[])
+{
+  if (argc != 3)
+    Fatal ("Not enough parameters.");
+
+  ifstream source (argv[1]);
+  if (!source) Fatal ("Cannot open file : ", argv[1]);
+
+  ofstream dest (argv[2]);
+  if (!dest) Fatal ("Cannot open file : ", argv[2]);
+
+  char c;
+  while (source.get(c))
+    dest.put (c);
+
+  if (!source.eof() || dest.bad())
+    Fatal ("Reading or writing error.");
+
+  exit (0);
+}
+</PRE>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<TITLE>Elementi Statici</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Elementi Statici</H1>
+</CENTER>
+
+Gli elementi statici esistono per una intera classe, che sia instanziata o no.
+Perci&ograve; le variabili static sono uniche, sia che ci siano oggetti di quella
+classe che no, e le funzioni static possono essere richiamate senza nessun oggetto.
+<P>
+
+<H2>Variabili Static</H2>
+
+Per dichiarare una variabile statica, basta aggiungere la keyword <CODE>static</CODE>
+all'inizio della dichiarazione. Dopo averla dichiarata, occorre anche che ci sia una
+sua definizione in un file di codice. Ogni istanza della classe far&agrave; riferimento
+alla stessa variabile static.
+<PRE>
+// A.h
+class A
+{
+  static int number;
+public:
+  A() { number++; }
+  ~A() { number--; }
+};
+
+// A.C
+#include "A.h"
+int A::number = 0;
+</PRE>
+
+In questo esempio, la variabile interna <CODE>number</CODE> viene usata per contare
+il numero di oggetti della classe A che sono attualmente in memoria.
+Le stesse regole di protezione che si applicano ai normali membri si applicano
+anche a quelli static. Un membro <CODE>private</CODE> pu&ograve; essere solo
+inizializzato, come nell'esempio precedente, una variabile <CODE>public</CODE>
+invece pu&ograve; essere anche modificata.
+<P>
+
+<H2>Funzioni Static</H2>
+
+Le funzioni Static esistono e possono essere chiamate senza alcun instanziazione
+della classe che le contiene. Quindi, esse possono modificare solo membri statici.
+Per dichiarare una funzione static occorre mettere la parola chiave <CODE>static</CODE>
+prima della sua dichiarazione.
+<PRE>
+class A
+{
+  static int number;
+public:
+  A() { number++; }
+  ~A() { number--; }
+  static int GetNumber();
+};
+int A::GetNumber()
+{
+  return number;
+}
+</PRE>
+
+Dopodich&egrave; puoi chiamare anche normalmente una funzione statica,
+usando un oggetto, cio&egrave; invocandola su un oggetto. Ma si pu&ograve;
+chiamare una funzione static anche senza invocarla su alcun oggetto.
+Basta mettere il nome della classe seguito da un "::" e dal nome della
+funzione:
+<PRE>
+A a_obj; int n;
+n = a_obj.GetNumber();     // Normale chiamata
+n = A::GetNumber();        // Non occorre passare alcun oggetto
+</PRE>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

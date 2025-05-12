@@ -1,0 +1,369 @@
+<HTML>
+<HEAD>
+<TITLE>Ridefinire operatori</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Ridefinire gli operatori</H1>
+</CENTER>
+
+Contenuti:
+<UL>
+<LI> <A HREF="#friend">come Funzioni Friend o come funzioni membro?</A>
+<LI> <A HREF="#list">Lista degli operatori</A>
+<LI> <A HREF="#par">Gli operatori () e []</A>
+<LI> <A HREF="#equal">Conversioni con l'operatore =</A>
+<LI> <A HREF="#cast">Operatori di cast</A>
+<LI ><A HREF="#new">Gli operatori <CODE>new</CODE> e <CODE>delete</CODE></A>
+</UL>
+
+<HR>
+
+In C++, gli operatori (come quello di addizione o di moltiplicazione) sono considerati come
+delle vere e proprie funzioni. Essi sono gi&agrave; definiti per i tipi di
+parametri standard (i tipi "nativi"), e possiamo farne l'overloading, cio&egrave;
+possiamo sovraccaricarne il nome di significati, come facciamo per le normali funzioni.
+<P>
+Se ancora non conosci cos'&egrave; l'overloading di funzione fai un salto <A HREF="functions.html#overloading">qui</A>.
+<P>
+Riflettete che proprio questa &egrave; la conseguenza logica interessante del fatto che
+gli operatori non sono nient'altro che delle funzioni, che del resto &egrave; una banale
+particolarizzazione gi&agrave; nota a tutti i matematici.<BR>
+Ripeto: se gli operatori sono funzioni, allora possiamo fare l'overloading degli operatori
+per dargli nuovi ulteriori definizioni che si adattino alla nostre proprie classi, proprio
+come facciamo l'overloading di funzioni.
+<P>
+Ma non dobbiamo dimenticarci che gli operatori hanno tutti un significato "naturale",
+e, anche se ovviamente possibile, non &egrave; una buona idea ad esempio definire l'operatore
+di addizione per moltiplicare vettori!
+<P>
+
+<H2><A NAME="friend">Funzioni friend oppure funzioni membro?</A></H2>
+
+Si dichiara un operatore usando la keyword <CODE>operator</CODE> seguita dall'
+operatore stesso. Quando sovraccarichiamo un operatore, possiamo scegliere tra due strategie:
+possiamo dichiarare gli operatori come <A HREF="friends.html">funzioni friend</A> oppure come
+<A HREF="class.html#member">funzioni membro</A>.
+Non c'&egrave; una soluzione migliore in assoluto, dipende dall'operatore.
+<P>
+
+<H3>dichiarare gli operatori come Funzioni Friend</H3>
+
+Quando dichiari un operatore come una funzione friend, devi mettere
+nel prototipo della funzione i parametri che saranno utilizzati dall'operatore (quelli prima e dopo
+il segno + per esempio), e un valore di ritorno, cio&egrave; il risultato restituito dall'operatore.
+<PRE>
+class Complex
+{
+  float re, im;
+public:
+  Complex (float r = 0, float i = 0) { re = r; im = i; }
+  friend Complex operator+ (Complex &, Complex &);
+};
+
+Complex operator+ (Complex &a, Complex &b)
+{
+  return Complex (a.re + b.re, a.im + b.im);
+}
+</PRE>
+
+<H3>dichiarare gli operatori come Funzioni Membro</H3>
+
+Per una funzione membro, il primo parametro &egrave; sempre la classe
+stessa (che &egrave;, come sappiamo, mai dichiarato e implicitamente trasmesso),
+e poi vanno indicati gli altri parametri.
+<PRE>
+class Complex
+{
+  float re, im;
+public:
+  Complex (float r = 0, float i = 0) { re = r; im = i; }
+  Complex operator+ (Complex &);
+};
+
+Complex Complex::operator+ (Complex &a)
+{
+  return Complex (re + a.re, im + a.im);
+}
+</PRE>
+
+In entrambi i casi, gli operatori possono poi essere utilizzati
+nella stessa maniera con cui si usano con i tipi standard:
+<PRE>
+{
+  Complex a (1, 2);
+  Complex b (3, 4);
+  Complex c;
+  ...
+  c = a + b;           // Chiama la funzione di addizione
+}
+</PRE>
+
+<H2><A NAME="list">Lista degli operatori</A></H2>
+
+Quando fate l'overloading di un operatore, dovete indicare lo stesso
+numero di argomenti dell'operatore "originale" se usate una funzione friend,
+e questo numero meno uno per una funzione membro.
+Segue una lista di operatori, presentati in ordine di priorit&agrave; discendente
+(una versione per i browser che non supportano le tabelle &egrave;
+<A HREF="operat_table.html">qui</A>):
+<P>
+
+<TABLE BORDER=1>
+<TR><TH>Operatore<TH>Numero di parametri<BR>
+(nel conto va incluso l'oggetto nel caso di funzioni membro)<TH>Nota</TR>
+<TR><TD ALIGN=CENTER>()<TD ALIGN=CENTER>indeterminato<TD>Devi usare una funzione membro.</TR>
+<TR><TD ALIGN=CENTER>[]<TD ALIGN=CENTER>2<TD>Devi usare una funzione membro.</TR>
+<TR><TD ALIGN=CENTER>-><TD ALIGN=CENTER>2<TD>Devi usare una funzione membro. Fanne l'Overload solo se
+ne hai davvero bisogno.</TR>
+<TR><TD ALIGN=CENTER>new delete<TD ALIGN=CENTER>1<TD>Per una classe, definiscili come funzioni membro
+(in tal caso sono automaticamente definite static). Possono anche essere definiti globalmente.</TR>
+<TR><TD ALIGN=CENTER>++ --<TD ALIGN=CENTER>1<TD>Pre-incremento (o pre-decremento).</TR>
+<TR><TD ALIGN=CENTER>++ --<TD ALIGN=CENTER>2 (2&ordm; inutilizzato)<TD>Post-in/decremento (il 2&ordm; argomento &egrave;
+di tipo int e non viene usato, serve solo per distinguere le forme postfisse e prefisse).</TR>
+<TR><TD ALIGN=CENTER>&<TD ALIGN=CENTER>1<TD>Pre-definito (ritorna "this"). Fai l'Overload solo se
+c'&egrave; davvero bisogno.</TR>
+<TR><TD ALIGN=CENTER>+  - ! ~ *<TD ALIGN=CENTER>1<TD></TR>
+<TR><TD ALIGN=CENTER>(cast)<TD ALIGN=CENTER>1<TD>Vedi la descrizione seguente.</TR>
+<TR><TD ALIGN=CENTER>* / % + -<TD ALIGN=CENTER>2<TD></TR>
+<TR><TD ALIGN=CENTER><< >><TD ALIGN=CENTER>2<TD></TR>
+<TR><TD ALIGN=CENTER>&lt; &lt;= &gt; == !=<TD ALIGN=CENTER>2<TD></TR>
+<TR><TD ALIGN=CENTER>& ^ || && |<TD ALIGN=CENTER>2<TD></TR>
+<TR><TD ALIGN=CENTER>=<TD ALIGN=CENTER>2<TD>Pre-definito (fa la copia dei membri). Devi usare una funzione
+membro.</TR>
+<TR><TD ALIGN=CENTER>+= -= *= /= %=<TD ALIGN=CENTER>2<TD></TR>
+<TR><TD ALIGN=CENTER>&= ^= |= <<= >>=<TD ALIGN=CENTER>2<TD></TR>
+<TR><TD ALIGN=CENTER>,<TD ALIGN=CENTER>2<TD></TR>
+</TABLE>
+
+<H2><A NAME="par">Gli operatori () e []</A></H2>
+
+L'operatore () &egrave; speciale perch&egrave; il numero dei suoi argomenti pu&ograve;
+essere variabile: possiamo definire molti operatori (), ciascuno con parametri diversi.
+<PRE>
+class Matrix
+{
+  int array[10][10];
+public:
+  // ritorna un elemento della matrice (per riferimento, in modo da essere in grado
+  // di modificarlo; ad esempio posso scrivere Matrix matrix; ... matrix(2, 3) = 5;)
+  int &operator()(int x, int y) { return array[x][y]; }
+
+  // ritorna la somma degli elementi di una colonna
+  // Ndt: si fa la convenzione che il primo indice sia quello di colonna e quindi il secondo &egrave; quello di riga
+  int operator()(int x)
+  { int s=0; for (int i=0; i<10; i++) s+=array[x][i]; return s; }
+};
+
+{
+  Matrix matrix;
+  ...
+  int a = matrix (2, 2);  // elemento (2,2)
+  int b = matrix (2);     // somma della seconda colonna
+}
+</PRE>
+
+Quando usi l'operatore [], puoi ritornare un riferimento all'oggetto.
+Cos&igrave; sarai in grado non solo di leggere l'elemento, ma anche di scriverlo:
+<PRE>
+class Vector
+{
+  int array[10];
+public:
+  int & operator[](int x) { return array[x]; }
+};
+{
+  Vector v;
+  int a = v[2];   // ottiene il valore
+  v[5] = a;       // imposta il valore
+}
+</PRE>
+
+<H2><A NAME="equal">Conversioni con l'operatore =</A></H2>
+
+L'operatore = deve essere definito per forza come una funzione membro.
+Quando i suoi argomenti sono di un tipo classe diverso o di un tipo
+predefinito, pu&ograve; essere usato per fare delle conversioni di
+oggetti da una classe all'altra o da un tipo nativo ad una classe,
+ma solo durante l'assegnamento.
+<PRE>
+class Complex
+{
+  float re, im;
+public:
+  Complex (float r = 0, float i = 0) { re = r; im = i; }
+  Complex & operator= (float f) { re = f; im = 0; return *this; }
+};
+{
+  Complex a (10, 12);
+  a = 12;               // Chiamata dell'operatore=
+}
+</PRE>
+Infatti l'operatore = come convertitore di tipo ha queste limitazioni: non
+pu&ograve; essere usato ovunque, ad esempio non pu&ograve; essere usato per
+convertire argomenti prima della chiamata di una funzione o per convertire da
+tipo classe a tipo nativo, proprio perch&egrave; non abbiamo accesso alle
+classi astratte rappresentate dai tipi nativi per poterlo definire l&igrave; dentro!
+<P>
+Un modo migliore per effettuare le conversioni di tipo da classe a classe
+e per poter fare anche quelle da classe a tipo nativo &egrave; usare gli operatori
+di cast descritti nel prossimo paragrafo.
+<P>
+Ndt: Sperimentate con questo esempio:
+<PRE>
+class test
+{
+public:
+//  test(int) {}        // togli il commento iniziale per vedere che succede
+  test & operator= (int)
+  {
+    // ...
+    return *this;
+  }
+};
+
+void foo(const test & c)        // oppure test c
+{
+}
+
+int  main()
+{
+  foo(2);                       // qui una temporanea di tipo test viene creata
+                                // e subito distrutta dopo il ritorno
+  return 0;
+}
+</PRE>
+Questo esempio mostra anche come i costruttori possono essere usati (anche implicitamente)
+come convertitori di tipo (da tipo nativo a classe o anche da classe a classe). Notare che
+nonostante venga creata una variabile temporanea e la si inizializzi, l'operatore=(int) non
+viene usato, in quanto non viene effettuato un assegnamento della variabile temporanea,
+perci&ograve; avrete un errore se il costruttore <CODE>test(int)</CODE> non c'&egrave;.
+Insisto su questo punto: se ad es. scrivete <CODE>test t=3;</CODE> la variabile t non viene creata e poi assegnata
+ma bens&igrave; creata e inizializzata e viene chiamato il costruttore <CODE>test(int)</CODE> e non
+prima il costruttore vuoto e poi l'<CODE>operator=(int)</CODE>.
+<CODE>test t=3;</CODE> infatti &egrave; lo stesso di <CODE>test t(3);</CODE>.
+Notate quindi che in C++ c'&egrave; differenza tra inizializzazione e assegnamento. Sono due concetti un po' diversi.
+<P>
+Ndt: da notare che facciamo restituire all'operatore= un riferimento all'oggetto appena
+assegnato. Notare anche l'istruzione return *this; che deve esserci, a meno che non
+definite void il tipo di ritorno (questo per&ograve; non permette di concatenare
+gli operatori di assegnamento come si fa in C con i tipi nativi; es.: a=b=c; a=b=8;).<BR>
+Qual &egrave; la ragione per cui abbiamo preferito far restituire un riferimento,
+anzich&egrave; un valore come nel prototipo <CODE>Complex operator= (float f);</CODE> ?
+Giusto per evitare la chiamata del costruttore di copia di default per costruire un
+oggetto temporaneo da ritornare.
+Questo programma vi aiuter&agrave; a capire la differenza e a spiegare quello che avviene
+nel caso di assegnamenti multipli. Vi invito a sperimentare ulteriormente col vostro compilatore,
+per risolvere eventuali altri dubbi. Come potete vedere, un modo semplice per capire quali
+funzioni vengono chiamate &egrave; quello di far stampare delle stringhe.
+<PRE>
+#include &lt;stdio.h&gt;
+
+class Complex
+{
+  float re, im;
+public:
+  Complex (float r = 0, float i = 0)
+  {
+    re = r;
+    im = i;
+  }
+  Complex (const Complex& complex)
+  {
+     printf("costruttore di copia chiamato\n");
+     // fa il lavoro di quello di default
+     re = complex.re;
+     im = complex.im;
+  }
+  Complex operator=(const Complex& complex)
+  {
+     printf("operator=(Complex&) chiamato\n");
+     // fa il lavoro di quello di default
+     re = complex.re;
+     im = complex.im;
+     return *this;   // oppure complex
+  }
+  Complex /*&*/ operator= (float f)     // provare a uncommentare il &
+  {
+    printf("operator=(float) chiamato\n");
+    re = f;
+    im = 0;
+    return *this;
+  }
+};
+
+int main()
+{
+  Complex a (100, 200);
+  Complex b (10, 20);
+  Complex c (1, 2);
+  
+  c = b = a = 12;
+
+  return  0;
+}
+</PRE>
+
+<H2><A NAME="cast">Operatori di cast</A></H2>
+
+Gli operatori di cast consentono di convertire da classi in tipi standard.
+Per esempio, se dichiariamo un <CODE>operator int()</CODE> dentro una classe,
+saremo in grado di convertire un oggetto di questa classe in un valore intero.
+Questo operatore sar&agrave; chiamato anche implicitamente, dal compilatore.
+<P>
+
+Devono essere delle funzioni membro. Il tipo di ritorno non va mai indicato,
+perch&egrave; &egrave; implicitamente noto (ovviamente &egrave; lo stesso del
+nome dell'operatore).
+<PRE>
+class Complex
+{
+  float re, im;
+public:
+  Complex (float r = 0, float i = 0) { re = r; im = i; }
+  operator float() { return re; }
+};
+void foo (float f)
+{
+  printf ("%f\n", f);
+}
+{
+  Complex a (10, 12);
+  float b = (float) a;  // Chiamata esplicita dell'operatore float()
+  float c = a;          // Chiamata implicita dell'operatore float()
+  foo ((float) a);      // Chiamata esplicita dell'operatore float()
+  foo (a);              // Chiamata implicita dell'operatore float()
+}
+</PRE>
+
+Si possono usare gli operatori di cast anche per convertire oggetti in
+altri oggetti. La sintassi &egrave; la stessa, basta usare il nome della
+classe a cui convertire invece di <CODE>float</CODE> nell'esempio precedente.
+<P>
+
+<H2><A NAME="new">Gli operatori <CODE>new</CODE> e <CODE>delete</CODE></A></H2>
+
+Quando fai l'overload degli operatori <CODE>new</CODE> e <CODE>delete</CODE>, devi
+preoccuparti di realizzare l'allocazione di memoria. Questa &egrave; la ragione per cui
+non dovresti farlo, a meno che non sai esattamente quello che vuoi.
+<P>
+
+La loro dichiarazione deve essere:
+<PRE>
+#include &lt;sys/types.h&gt;
+#include &lt;new.h&gt;
+
+static void * operator new (size_t);
+static void operator delete (void *, size_t);
+</PRE>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

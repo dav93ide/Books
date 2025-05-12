@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<TITLE>i Namespace</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>i Namespace</H1>
+</CENTER>
+
+Questo concetto &egrave; la risposta al comune problema delle definizioni multiple.
+Immagina di avere due file header che descrivono due tipi differenti, ma che
+hanno lo stesso nome. Come facciamo ad utilizzarli entrambi ?
+<P>
+
+La risposta in C++ sta nei namespace. Si definiscono tipi e funzioni in un
+namespace e dopo li si usano. I namespace sono definiti usando la parola riservata
+<CODE>namespace</CODE>, seguita da un identificatore.
+Ma vediamo subito un esempio...
+<P>
+
+<PRE>
+namespace Geometry
+{
+  struct Vector
+  {
+    float x, y;
+  };
+
+  float Norm (Vector v);
+}
+</PRE>
+
+In questo esempio, quello che c'&egrave; dentro le <CODE>{}</CODE> &egrave; normale codice C++.
+Per usare questo codice, devi specificare al compilatore che adesso stai per usare
+il namespace <CODE>geometry</CODE>. Ci sono due modi di fare questo:
+specificando per una singola variabile il suo namespace (la sintassi &egrave;
+<CODE>namespace::variabile</CODE>) o usando la sequenza di parole riservate
+<CODE>using namespace</CODE>.
+<P>
+
+<PRE>
+// Esempio con ::
+void Foo1()
+{
+  Geometry::Vector v = {1.0, 2.0};
+  float f = Geometry::Norm (v);
+}
+
+// Con l'uso delle parole chiave "using namespace"
+using namespace Geometry;
+void Foo2()
+{
+  Vector v = {1.0, 2.0};
+  float f = Norm (v);
+}
+</PRE>
+
+
+Quando usi la sequenza <CODE>using namespace</CODE>, potresti avere dei problemi
+se due o pi&ugrave; namespace definiscono lo stesso tipo. Se c'&egrave; del codice
+ambiguo, il compilatore non lo compiler&agrave;. Per esempio...
+<P>
+
+<PRE>
+namespace Geometry
+{
+  struct Vector
+  {
+    float x, y;
+  };
+}
+
+namespace Transport
+{
+  struct Vector
+  {
+    float speed;
+  };
+}
+
+using namespace Geometry;
+using namespace Transport;
+
+void foo()
+{
+  Vector v0;              // Errore: ambiguit&agrave;
+  Geometry::Vector v1;    // OK
+  Transport::Vector v2;   // OK
+}
+</PRE>
+
+Un ultima cosa (ovvia ?): non puoi usare un namespace se non &egrave;
+ancora stato definito...
+<P>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

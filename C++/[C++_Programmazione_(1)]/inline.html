@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<TITLE>Funzioni Inline</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Funzioni Inline</H1>
+</CENTER>
+
+In C, non era facile definire macro-funzioni. L'uso della direttiva
+#define non &egrave; semplice. C++ fornisce un modo migliore di
+creare delle funzioni macro.
+<P>
+
+Se dichiari una funzione "inline", allora il codice sar&agrave;
+riprodotto nel punto di chiamata ognivolta che chiami la funzione.
+Attenzione che &egrave; necessario definire il codice della funzione
+prima della sua prima chiamata, altrimenti un compilatore potrebbe non
+essere in grado di espanderlo.
+<P>
+Ndt: Infatti il codice delle funzioni inline deve essere espanso,
+non deve essere generata solo una chiamata (questa &egrave; la differenza!)
+<P>
+Questo &egrave; il motivo per cui il codice delle funzioni inline &egrave;
+generalmente messo nel file header che dichiara le funzioni inline stesse.
+<PRE>
+inline int addition (int a, int b)
+{
+  return a + b;
+}
+</PRE>
+
+Ma puoi anche definire la funzione in due passi:
+<PRE>
+inline int addition (int a, int b);   // qui la keyword inline &egrave; opzionale
+... // qui per&ograve; addition non deve ancora essere usata
+inline int addition (int a, int b)
+{
+  return a + b;
+}
+</PRE>
+
+Usare le funzioni inline probabilmente sar&agrave; pi&ugrave; efficiente,
+perch&egrave; la maggior parte dei compilatori C++ prima sostituir&agrave;
+il codice, e poi lo ottimizzer&agrave;. Ma la dimensione del codice pu&ograve;
+aumentare di parecchio. Perci&ograve; &egrave; raccomandabile usare <CODE>inline</CODE>
+solo per piccole funzioni (costruttori e operatori di classe sono degli
+ottimi esempi che vedremo).
+<P>
+
+Ecco un esempio di codice per quelli che non vedono la differenza tra le
+funzioni inline e una <CODE>#define</CODE>:
+<PRE>
+#define SQUARE(x) ((x) * (x))
+int a = 2;
+int b = SQUARE (a++);
+   // alla fine: a = 4 e b = 2 * 3 = 6. Sorpreso ?!
+
+inline int square (int x)
+{
+  return x * x;
+}
+
+int c = 2;
+int d = square (c++);
+   // alla fine: c = 3 e d = 2 * 2 = 4. Risultati corretti come ci aspettavamo !!
+</PRE>
+Nota: con il compilatore C della GNU (GCC) succede una cosa curiosa
+quando si chiama la macro SQUARE(a++): il risultato in b è corretto
+(virtù di GCC che farà felice tutti i programmatori C), però il valore
+finale di a è ancora 4 e non 3. Tuttavia è possibile risolvere una
+volta per tutte anche questo problema usando un paio di estensioni del
+GNU C, che sono i Naming Types e le Statement Exprs. Ecco la
+soluzione:
+<PRE>
+/* questo è GNU-specific :) */
+#define SQUARE(x) \
+  ({typedef _tx = (x); \
+    _tx _x=(x); _x*_x; })
+</PRE>
+In questo modo x viene valutato solo una volta.
+Per saperne di più sulle estensioni C e C++ di GCC digitate al prompt:
+<PRE>
+info gcc "C Extensions"
+</PRE>
+oppure
+<PRE>
+info gcc "C++ Extensions"
+</PRE>
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

@@ -1,0 +1,137 @@
+<HTML>
+<HEAD>
+<TITLE>Ereditariet&agrave; Multipla</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Ereditariet&agrave; multipla</H1>
+</CENTER>
+
+Una estensione naturale del concetto di ereditariet&agrave; finora visto
+&egrave; quella di avere pi&ugrave; di una classe padre. Per esempio,
+considerate un aeroplano: esso &egrave; un oggetto volante ma &egrave; anche
+un veicolo, perci&ograve; deve avere entrambe le caratteristiche.
+<P>
+
+<H2>Dichiarazione</H2>
+
+Per indicare la relazione di ereditariet&agrave; multipla, basta aggiungere
+alla lista dei padri quelli che vuoi, ciascuno preceduto da una delle keyword
+<CODE>public</CODE>, <CODE>protected</CODE> o <CODE>private</CODE> (per la
+spiegazione dei vari tipi di ereditariet&agrave; ti rimando <A HREF="inheritance.html#inheritance">qui</A>:
+<PRE>
+class father1
+{
+  int a;
+};
+class father2
+{
+  int b;
+};
+class Child : public father1, private father2
+{
+  int c;
+};
+</PRE>
+
+Notare che l'ereditariet&agrave; semplice &egrave; semplicemente un caso
+particolare dell'ereditariet&agrave; multipla.
+<P>
+
+<H2>Problemi con l'ereditariet&agrave; multipla</H2>
+
+Date un'occhiata a questo codice:
+<PRE>
+class GrandFather
+{
+protected:
+  int a;
+};
+class Father1 : public GrandFather
+{
+protected:
+  int b;
+};
+class Father2 : public GrandFather
+{
+protected:
+  int c;
+};
+class Child : public Father1,
+              public Father2
+{
+protected:
+  int d;
+  void foo();
+};
+</PRE>
+
+La variabile <CODE>a</CODE> della classe <CODE>GrandFather</CODE>
+&egrave; ereditata da entrambe le classi <CODE>Father1</CODE>
+e <CODE>Father2</CODE>. Quando viene creata la classe <CODE>Child</CODE>,
+avr&agrave; due distinte variabili <CODE>a</CODE> ereditate o una sola?
+Per default ne avr&agrave; due. Per indicare l'una o all'altra devi
+aggiungere <CODE>Father1::</CODE> o <CODE>Father2::</CODE> prima di
+riferirti alla variabile <CODE>a</CODE>.
+<PRE>
+void Child::foo()
+{
+  d = Father1::a;
+// Oppure
+  d = Father2::a;
+}
+</PRE>
+
+Ma puoi anche far s&igrave; che nella classe <CODE>Child</CODE>
+le variabili <CODE>a</CODE> ereditate da <CODE>Father1</CODE> e
+<CODE>Father2</CODE> siano le stesse.
+Basta mettere la keyword <CODE>virtual</CODE> dopo la parola chiave
+<CODE>public</CODE>, <CODE>protected</CODE> o
+<CODE>private</CODE>, e nessun membro verr&agrave; duplicato.
+In questo modo puoi ridurre la quantit&agrave; di memoria necessaria
+all'applicazione.
+<PRE>
+class GrandFather
+{
+protected:
+  int a;
+};
+
+class Father1 : public GrandFather
+{
+protected:
+  int b;
+};
+
+class Father2 : public GrandFather
+{
+protected:
+  int c;
+};
+
+class Child : public virtual Father1,
+              public virtual Father2
+{
+protected:
+  int d;
+  void foo();
+};
+
+void Child::foo()
+{
+  d = a;            // OK
+  d = Father1::a;   // In questo caso &egrave; la stessa dell'istruzione precedente
+  d = Father2::a;   // In questo caso &egrave; la stessa dell'istruzione precedente
+}
+</PRE>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

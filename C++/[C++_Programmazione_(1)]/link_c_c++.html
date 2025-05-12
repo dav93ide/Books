@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE>Linkare C e C++</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Linkare codice C e C++</H1>
+</CENTER>
+
+<H2>Usare funzioni C in moduli separati (standard o non) nel codice C++</H2>
+<P>
+
+Semplicemente usa le tue funzioni in C come se stessi programmando in C:
+includi il file header, e
+poi chiama la funzione. Ad es. in C++, questo programma
+si compiler&agrave; senza problemi:
+<PRE>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+char buffer[1];
+
+void foo (char *name)
+{
+  FILE *f;
+  if ((f = fopen (name, "r")) == NULL) return;
+  fread (buffer, 1, 1, f);
+  fclose (f);
+}
+</PRE>
+
+<H2>Dichiarare proprie funzioni C in moduli per poter essere usate col C++</H2>
+
+Puoi scrivere alcuni moduli di una applicazione in C, compilarli, e poi
+linkarli con moduli C++. Per poter chiamare le tue funzioni C precompilate
+dal codice C++, devi dichiararle in un file header del tipo seguente, e poi
+usare lo stesso header per compilare il modulo C e il modulo utilizzatore
+in C++. Ecco come deve apparire il tuo file header del modulo C:
+<PRE>
+...
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* definizioni C */
+
+#ifdef __cplusplus
+}
+#endif
+...
+</PRE>
+
+Quella frase extern "C" per l'appunto dice al compilatore che le dichiarazioni
+seguenti sono di tipo C. Dopo aver indicato questo al compilatore, le definizioni C
+del modulo nei programmi in C++ saranno utilizzabili come se fossimo in C.
+<P>
+Ndt: mancare quelle direttive nel file header del C in gcc provocher&agrave;
+errori di riferimenti indefiniti nella fase di link. &Egrave; buona norma,
+anche quando si scrivono librerie o programmi in C che si vuole possano essere
+utilizzabili anche in C++ includere quelle linee, che non hanno effetto sui
+programmi in C. Le <CODE>#ifdef __cplusplus</CODE> servono per evitare errori
+da parte dei compilatori che sono solo per il C e non conoscono la direttiva
+<CODE>extern "C"</CODE>
+<P>
+
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>

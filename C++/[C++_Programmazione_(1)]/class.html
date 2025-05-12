@@ -1,0 +1,217 @@
+<HTML>
+<HEAD>
+<TITLE>Come dichiarare una classe</TITLE>
+</HEAD>
+
+<BODY>
+<CENTER>
+<H1>Come dichiarare una classe</H1>
+</CENTER>
+
+Questa pagina tratta di:
+<UL>
+<LI> <A HREF="#declaration">Dichiarazioni di Classi</A>
+<LI> <A HREF="#member">Implementazione delle Funzioni Membro</A>
+<LI> <A HREF="#static">Instanziazione di una classe come una variabile</A>
+<LI> <A HREF="#dynamic">Allocazione Dinamica</A>
+<LI> <A HREF="#using">Usare i membri di un oggetto</A>
+<LI> <A HREF="#this">Auto-referenziare un oggetto: <CODE>this</CODE></A>
+</UL>
+
+<HR>
+
+Una classe &egrave; davvero una componente software. Quindi un buon modo di implementarla
+&egrave; di mettere la dichiarazione della classe in un file header e il codice isolato
+in un file C++.
+<P>
+
+<H2><A NAME="declaration">Dichiarazioni di Classi</A></H2>
+
+La dichiarazione di una classe &egrave; davvero semplice. La parola chiave <CODE>class</CODE>
+deve essere seguita dal nome delle classe e dalla dichiarazione di variabili e metodi
+interni alla classe, come mostrato nell'esempio:
+<PRE>
+class Complex
+{
+  float r, i;
+public:
+  float GetRe();
+  float GetIm();
+  float Modulus();
+};
+</PRE>
+<P>
+
+Puoi notare che:
+<UL>
+<LI>Le variabili sono dichiarate allo stesso modo in cui si dichiarano nelle classiche struct del C.
+<LI>Vengono dichiarate anche le funzioni, come se fossero prototipi.
+<LI>Non dimenticare il ";" finale: al compilatore non piacer&agrave;!
+</UL>
+
+<CODE>public</CODE> &egrave; una parola chiave che indica che le funzioni GetRe, GetIm e Modulus
+possono essere chiamate anche al di fuori dell'oggetto. Non c'&egrave; alcuna parola chiave prima di
+r e i, perci&ograve; essi sono dichiarati privati per default, e non sono accessibili dall'esterno.
+<P>
+
+Infatti, ci sono tre tipi di funzioni membro:
+<UL>
+<LI>private (private): sono accessibili solo all'interno della classe.
+<LI>protected (protette): accessibili dentro la classe e dalle sue
+<A HREF="inheritance.html">classi eredi</A>.
+<LI>public (pubbliche): accessibili ovunque nel codice.
+</UL>
+
+Quando dichiari una classe con la parola riservata <CODE>class</CODE>,
+ogni membro &egrave; "private" per default. Puoi anche dichiarare una
+classe con la keyword <CODE>struct</CODE>; in tal caso ogni membro sar&agrave
+"public" per default. Questa &egrave; l'unica differenza tra <CODE>struct</CODE> e <CODE>class</CODE>.
+<PRE>
+class Complex
+{
+  float r, i;       // Private per default
+};
+struct Complex
+{
+  float r, i;       // Pubbliche per default
+};
+</PRE>
+
+<H2><A NAME="member">Implementazione delle funzioni membro</A></H2>
+
+Dopo la dichiarazione della classe, devi implementare le funzioni membro.
+Basta dire al compilatore di quale classe le funzioni fanno parte,
+mettendo il nome della classe seguito da :: prima del nome della
+funzione.
+<P>
+
+Col nostro esempio precedente:
+<PRE>
+float Complex::Modulus()
+{
+  return sqrt(r*r + i*i);           // Notare l'uso di r e i
+}
+</PRE>
+
+In queste funzioni membro, puoi usare ogni metodo o variabile dell'oggetto
+come se fosse dichiarato globalmente. L'uso fatto sopra di r ed i d&agrave;
+l'idea.
+
+<H2><A NAME="static">Instanziazione di una classe come una variabile</A></H2>
+
+Una classe pu&ograve; essere usata come ogni altro tipo di variabile. Per dichiarare
+un oggetto appartenente alla classe (ndt: o possiamo dire "al tipo della classe"),
+basta mettere il nome della classe seguito dal nome dell'oggetto che vogliamo creare.
+<P>
+
+Per esempio, per usare la classe complex possiamo scrivere:
+<PRE>
+Complex x, y;         // Dichiarazione
+Complex vector[10];   // Array di Complex (di numeri complessi)
+...
+x = y;                // Utilizzo di oggetti dichiarati
+</PRE>
+
+<H2><A NAME="dynamic">Allocazione Dinamica</A></H2>
+
+I puntatori ad oggetti si dichiarano esattamente come in C, con un "*". Si pu&ograve;
+anche ottenere l'indirizzo di un oggetto con l'operatore "&amp;".
+<PRE>
+Complex x;          // Dichiarazione di un oggetto Complex
+Complex *y;         // Dichiarazione di un puntatore ad (un oggetto) Complex
+y = &x;             // y punta ad x
+</PRE>
+
+La chiamata C++ corrispondente alla <CODE>malloc()</CODE> del C &egrave;
+l'operatore <CODE>new</CODE>. Esso alloca spazio in memoria per un oggetto
+e ritorna un puntatore a questa area appena allocata. Per disallocare
+l'oggetto e liberare la memoria associata, usa l'operatore <CODE>delete</CODE>.
+Dopo una chiamata a delete lo spazio di memoria &egrave; stato restituito
+allo heap e <B>non</B> va pi&ugrave; utilizzato direttamente tramite il puntatore.
+<PRE>
+Complex *p, *q;      // Dichiarazione di due puntatori
+p = new Complex;     // Allocazione dinamica di un singolo Complex
+q = new Complex[10]; // Allocazione dinamica di un array di 10 Complex
+...                  // Codice che usa p e q
+delete p;            // Libera memoria per un singolo oggetto
+delete [] q;         // Libera la memoria di un array
+</PRE>
+
+Notare l'uso di [] per dire al compilatore che deve essere eliminato un
+array dinamico. Se non specifichi questo, nella maggior parte dei casi
+(dipende dal compilatore) sar&agrave; liberato solo il primo oggetto
+dell'array, non l'intera memoria associata.
+Inoltre anche l'effetto di usare <CODE>delete []</CODE> con un singolo oggetto
+&egrave; indefinito.
+<P>
+
+Puoi usare gli operatori <CODE>new</CODE> e <CODE>delete</CODE> ovunque nel codice,
+proprio come <CODE>malloc</CODE>. Non dimenticare di liberare la memoria associata ad
+un oggetto quando esso non serve pi&ugrave;. Vedi la sezione
+<A HREF="constructors.html">construttori e distruttori</A> per maggiori informazioni.
+
+<H2><A NAME="using">Usare i membri di un oggetto</A></H2>
+
+Una volta che hai dichiarato un nuovo oggetto, puoi accedere ai suoi membri pubblici
+come faresti con una struttura in C. Basta usare il separatore . con un oggetto dichiarato
+staticamente, e -> con uno dichiarato dinamicamente.
+<PRE>
+Complex x;                    // Oggetto Statico
+Complex *y = new Complex;     // Oggetto Dinamico
+float a;
+a = x.Modulus();               // Chiamata della funzione membro Modulus dell'oggetto Complex
+a = y->Modulus();
+delete y;
+</PRE>
+
+<PRE>
+Class foo
+{
+  int a;            // membro privato
+  int Calc();       // funzione privata
+public:
+  int b;
+  int GetA();
+};
+</PRE>
+
+<H2><A NAME="this">Auto-riferimento ad un oggetto: <CODE>this</CODE></A></H2>
+
+Finora,  siamo stati in grado di usare qualsiasi membro di una classe all'interno di essa,
+considerandoli come variabili dichiarate. Ma potresti voler ottenere l'indirizzo di un
+oggetto all'interno di una sua funzione membro, per esempio per inserire un oggetto
+in una lista concatenata.
+<P>
+
+La soluzione &egrave; la parola riservata <CODE>this</CODE>. <CODE>this</CODE>
+&egrave; un puntatore del tipo (<CODE>object *const</CODE>), e punta all'oggetto
+corrente. &Egrave; una variabile membro implicita, dichiarata come <CODE>private</CODE>.
+
+Esempio:
+<PRE>
+class A
+{
+  int a, b;
+public:
+  void Display();
+};
+
+void A::Display()
+{
+  printf ("Object at [%p]: %d, %d.\n", this, a, b);
+}
+</PRE>
+
+Notate che il tipo di this &egrave; "puntatore costante ad un oggetto object".
+Questo significa che il valore del puntatore this non può essere alterato,
+mentre l'oggetto puntato ovviamente s&igrave;.
+<P>
+<HR>
+
+<center>
+
+<A HREF="index.html" TARGET=_top><IMG SRC="c++_icon.gif" ALT="C++"></A>
+
+</center> 
+</BODY>
+</HTML>
