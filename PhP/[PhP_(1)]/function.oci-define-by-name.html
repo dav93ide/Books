@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>oci_define_by_name</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Oracle 8"
+HREF="ref.oci8.html"><LINK
+REL="PREVIOUS"
+TITLE="oci_connect"
+HREF="function.oci-connect.html"><LINK
+REL="NEXT"
+TITLE="oci_error"
+HREF="function.oci-error.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.oci-connect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.oci-error.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.oci-define-by-name"
+></A
+>oci_define_by_name</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN111345"
+></A
+><P
+>    (PHP 5)</P
+>oci_define_by_name&nbsp;--&nbsp;
+     Uses a PHP variable for the define-step during a SELECT
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN111348"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>oci_define_by_name</B
+> ( resource statement, string column_name, mixed &#38;variable [, int type] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>oci_define_by_name()</B
+> defines PHP variables for fetches
+     of SQL-Columns. Take into consideration that Oracle uses ALL-UPPERCASE column names,
+     whereby in your select you can also use lowercase.
+     <B
+CLASS="function"
+>oci_define_by_name()</B
+> expects
+     the <VAR
+CLASS="parameter"
+>column_name</VAR
+> to be in uppercase. If you
+     define a variable that doesn't exists in your select statement, no
+     error will be issued.
+    </P
+><P
+>&#13;     If you need to define an abstract datatype (LOB/ROWID/BFILE) you
+     must allocate it first using
+     <A
+HREF="function.oci-new-descriptor.html"
+><B
+CLASS="function"
+>oci_new_descriptor()</B
+></A
+>. See also the
+     <A
+HREF="function.oci-bind-by-name.html"
+><B
+CLASS="function"
+>oci_bind_by_name()</B
+></A
+> function.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN111372"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>oci_define_by_name()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* oci_define_by_name example - thies at thieso dot net (980219) */<br /><br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">oci_connect</font><font color="#007700">(</font><font color="#DD0000">"scott"</font><font color="#007700">, </font><font color="#DD0000">"tiger"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">oci_parse</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"SELECT empno, ename FROM emp"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* the define MUST be done BEFORE oci_execute! */<br /><br /></font><font color="#0000BB">oci_define_by_name</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#DD0000">"EMPNO"</font><font color="#007700">, </font><font color="#0000BB">$empno</font><font color="#007700">);<br /></font><font color="#0000BB">oci_define_by_name</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#DD0000">"ENAME"</font><font color="#007700">, </font><font color="#0000BB">$ename</font><font color="#007700">);<br /><br /></font><font color="#0000BB">oci_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">);<br /><br />while (</font><font color="#0000BB">oci_fetch</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"empno:" </font><font color="#007700">. </font><font color="#0000BB">$empno </font><font color="#007700">. </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"ename:" </font><font color="#007700">. </font><font color="#0000BB">$ename </font><font color="#007700">. </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">oci_free_statement</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">);<br /></font><font color="#0000BB">oci_close</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      In PHP versions before 5.0.0 you must use <A
+HREF="function.ocidefinebyname.html"
+><B
+CLASS="function"
+>ocidefinebyname()</B
+></A
+> instead. 
+      This name still can be used, it was left as alias of
+      <B
+CLASS="function"
+>oci_define_by_name()</B
+> for downwards compatability. 
+      This, however, is deprecated and not recommended.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.oci-connect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.oci-error.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>oci_connect</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.oci8.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>oci_error</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>strtotime</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Data e Ora"
+HREF="ref.datetime.html"><LINK
+REL="PREVIOUS"
+TITLE="strptime"
+HREF="function.strptime.html"><LINK
+REL="NEXT"
+TITLE="time"
+HREF="function.time.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.strptime.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.time.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.strtotime"
+></A
+>strtotime</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN24332"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.12, PHP 4, PHP 5)</P
+>strtotime&nbsp;--&nbsp;
+     Analizza le descrizioni testuali di datetime in Inglese nell'UNIX
+     timestamp
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN24335"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>strtotime</B
+> ( string time [, int now] )<BR
+></BR
+><P
+>&#13;     La funzione aspetta di avere una stringa contenente un formato di data in
+     Inglese e proverà a passare questo formato all'UNIX timestamp relativo
+     al timestamp dato in <VAR
+CLASS="parameter"
+>now</VAR
+>, o l'attuale orario
+     se non è stato passato il parametro. Sul fallimento, è restituito <VAR
+CLASS="literal"
+>-1</VAR
+>.
+    </P
+><P
+>&#13;     Perché <B
+CLASS="function"
+>strtotime()</B
+> si comporti in accordo con la sintassi
+     della data GNU, dai uno sguardo alla pagina del manuale GNU intitolata
+     <A
+HREF="http://www.gnu.org/software/tar/manual/html_chapter/tar_7.html"
+TARGET="_top"
+>Date Input Formats</A
+>.
+     Descrive se c'è una sinstassi valida per il parametro
+     <VAR
+CLASS="parameter"
+>time</VAR
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN24354"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>strtotime()</B
+> - esempi</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+echo strtotime ("now"), "\n";<br />echo strtotime ("10 September 2000"), "\n";<br />echo strtotime ("+1 day"), "\n";<br />echo strtotime ("+1 week"), "\n";<br />echo strtotime ("+1 week 2 days 4 hours 2 seconds"), "\n";<br />echo strtotime ("next Thursday"), "\n";<br />echo strtotime ("last Monday"), "\n";</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN24359"
+></A
+><P
+><B
+>Esempio 2. Controllo per il fallimento</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$str = 'Not Good';<br />if (($timestamp = strtotime($str)) === -1) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo "The string ($str) is bogus";<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo "$str == ". date('l dS of F Y h:i:s A',$timestamp);<br />}</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      L'intervallo valido di un timestamp è normalmente da Fri, 13 Dec
+      1901 20:45:54 GMT a Tue, 19 Jan 2038 03:14:07 GMT. (Queste sono
+      le date ce corrispondono  al minimo e al massimo valore per
+      un intero segnato a 32 bit.)
+      </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.strptime.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.time.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>strptime</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.datetime.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>time</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

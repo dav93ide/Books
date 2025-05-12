@@ -1,0 +1,372 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>php_uname</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PHP Opzioni&Informazioni"
+HREF="ref.info.html"><LINK
+REL="PREVIOUS"
+TITLE="php_sapi_name"
+HREF="function.php-sapi-name.html"><LINK
+REL="NEXT"
+TITLE="phpcredits"
+HREF="function.phpcredits.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.php-sapi-name.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.phpcredits.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.php-uname"
+></A
+>php_uname</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN130244"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.2, PHP 5)</P
+>php_uname&nbsp;--&nbsp;
+     Restituisce informazioni sul sistema operativo su cui gira il PHP
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN130247"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>php_uname</B
+> ( [string mode] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>php_uname()</B
+> restituisce una stringa con la
+     descrizione del sistema operativo su cui gira PHP. Se si desidera semplicemente
+     il nome del sistema operativo, si utilizzi la costante
+     <TT
+CLASS="constant"
+><B
+>PHP_OS</B
+></TT
+>, ma si ricordi che questa costante
+     contiene il nome del sistema operativo su cui il PHP è
+     stato <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>compilato</I
+></SPAN
+>.
+    </P
+><P
+>&#13;     Sui sistemi Unix, la funzione passa a visualizzare il sistema operativo
+     su cui il PHP è stato compilato, se non è in grado di determinare le imformazioni
+     del sistema operativo su cui il PHP gira.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>mode</VAR
+> definisce quali informazioni debbano essere restituite:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        <VAR
+CLASS="literal"
+>'a'</VAR
+>: Questo è il default. Contiene tutte le modalità nella sequenza <VAR
+CLASS="literal"
+>"s n r v m"</VAR
+>.
+       </P
+></LI
+><LI
+><P
+>&#13;        <VAR
+CLASS="literal"
+>'s'</VAR
+>: Nome del sistema operativo. Es. <VAR
+CLASS="literal"
+>FreeBSD</VAR
+>.
+       </P
+></LI
+><LI
+><P
+>&#13;        <VAR
+CLASS="literal"
+>'n'</VAR
+>: Nome del server. Es. <VAR
+CLASS="literal"
+>localhost.example.com</VAR
+>.
+       </P
+></LI
+><LI
+><P
+>&#13;        <VAR
+CLASS="literal"
+>'r'</VAR
+>: Nome del rilascio. Es. <VAR
+CLASS="literal"
+>5.1.2-RELEASE</VAR
+>.
+       </P
+></LI
+><LI
+><P
+>&#13;        <VAR
+CLASS="literal"
+>'v'</VAR
+>: Informazioni sulla versione. Varia molto in base al sistema operativo.
+       </P
+></LI
+><LI
+><P
+>&#13;        <VAR
+CLASS="literal"
+>'m'</VAR
+>: Tipo di macchina. Es. <VAR
+CLASS="literal"
+>i386</VAR
+>.
+       </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN130288"
+></A
+><P
+><B
+>Esempio 1. Alcuni esempi di <B
+CLASS="function"
+>php_uname()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo </font><font color="#0000BB">php_uname</font><font color="#007700">();<br />echo </font><font color="#0000BB">PHP_OS</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* possibili output:<br />Linux localhost 2.4.21-0.13mdk #1 Fri Mar 14 15:08:06 EST 2003 i686<br />Linux<br /><br />FreeBSD localhost 3.2-RELEASE #15: Mon Dec 17 08:46:02 GMT 2001<br />FreeBSD<br /><br />Windows NT XN1 5.1 build 2600<br />WINNT<br />*/<br /><br /></font><font color="#007700">if (</font><font color="#0000BB">strtoupper</font><font color="#007700">(</font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">PHP_OS</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">)) === </font><font color="#DD0000">'WIN'</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'This is a server using Windows!'</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'This is a server not using Windows!'</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Esistono alcune 
+     <A
+HREF="language.constants.predefined.html"
+>Costanti PHP
+     predefinite</A
+> che possono essere di aiuto, ad esempio:
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN130295"
+></A
+><P
+><B
+>Esempio 2. Alcune costanti relative al OS</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// *nix<br /></font><font color="#007700">echo </font><font color="#0000BB">DIRECTORY_SEPARATOR</font><font color="#007700">; </font><font color="#FF8000">// /<br /></font><font color="#007700">echo </font><font color="#0000BB">PHP_SHLIB_SUFFIX</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// so<br /></font><font color="#007700">echo </font><font color="#0000BB">PATH_SEPARATOR</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// :<br /><br />// Win*<br /></font><font color="#007700">echo </font><font color="#0000BB">DIRECTORY_SEPARATOR</font><font color="#007700">; </font><font color="#FF8000">// \<br /></font><font color="#007700">echo </font><font color="#0000BB">PHP_SHLIB_SUFFIX</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// dll<br /></font><font color="#007700">echo </font><font color="#0000BB">PATH_SEPARATOR</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// ;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.phpversion.html"
+><B
+CLASS="function"
+>phpversion()</B
+></A
+>, 
+     <A
+HREF="function.php-sapi-name.html"
+><B
+CLASS="function"
+>php_sapi_name()</B
+></A
+> e
+     <A
+HREF="function.phpinfo.html"
+><B
+CLASS="function"
+>phpinfo()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.php-sapi-name.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.phpcredits.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>php_sapi_name</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.info.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>phpcredits</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

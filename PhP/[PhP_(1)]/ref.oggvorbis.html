@@ -1,0 +1,538 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>oggvorbis</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="PDO_ODBC DSN"
+HREF="ref.pdo-odbc.connection.html"><LINK
+REL="NEXT"
+TITLE="Usage"
+HREF="r115843.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.pdo-odbc.connection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="r115843.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.oggvorbis"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XCVIII. oggvorbis</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN115729"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="oggvorbis.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    The OGG/Vorbis file format, as defined by <A
+HREF="http://www.vorbis.com/"
+TARGET="_top"
+>http://www.vorbis.com/</A
+>
+    and <A
+HREF="http://www.vorbis.com/"
+TARGET="_top"
+>http://www.vorbis.com/</A
+>, is a scheme
+    for compressing audio streams by multiple factors with a minimum of
+    quality loss. This extension adds Ogg Vorbis support to PHP's
+    <A
+HREF="wrappers.html"
+>URL Wrappers</A
+>. When used in read mode,
+    compressed OGG/Vorbis data is expanded to raw PCM audio in one of six PCM
+    encoding formats listed below.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="oggvorbis.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    This extension requires <VAR
+CLASS="literal"
+>PHP &#62;= 4.3.0</VAR
+>,
+    <A
+HREF="http://www.vorbis.com/download.psp"
+TARGET="_top"
+>libogg</A
+> &#62;= 1.0, and
+    <A
+HREF="http://www.vorbis.com/download.psp"
+TARGET="_top"
+>libvorbis</A
+> &#62;= 1.0.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="oggvorbis.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="oggvorbis.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  oggvorbis is installed through the usual PECL package installation process.
+ </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$ pear install oggvorbis</PRE
+></TD
+></TR
+></TABLE
+> 
+   </P
+></LI
+><LI
+><P
+>&#13;    Copy the resulting <VAR
+CLASS="literal"
+>oggvorbis.so</VAR
+> to an appropriate
+    location and add <VAR
+CLASS="literal"
+>extension=oggvorbis.so</VAR
+> to your
+    <TT
+CLASS="filename"
+>php.ini</TT
+> file or load it dynamically in your PHP script using 
+    <VAR
+CLASS="literal"
+>dl('oggvorbis.so');</VAR
+>
+   </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="oggvorbis.contexts"
+>Context options</A
+></H1
+><DIV
+CLASS="table"
+><A
+NAME="AEN115761"
+></A
+><P
+><B
+>Tabella 1. OGG/Vorbis tuning options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Option</TH
+><TH
+>Definition</TH
+><TH
+>Relevance</TH
+><TH
+>Default</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>pcm_mode</TD
+><TD
+>PCM byte encoding used.  See constants below.</TD
+><TD
+>Read / Write</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_S16_LE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+>rate</TD
+><TD
+>PCM Sampling rate.  Measured in Hz.</TD
+><TD
+>Write only</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>44100</B
+></TT
+></TD
+></TR
+><TR
+><TD
+>bitrate</TD
+><TD
+>&#13;      Vorbis Average Bitrate Encoding / Variable Bitrate Encoding.  
+      Measured in bps (ABR) or Quality level (VBR: 0.0 to 1.0).  
+      128000 ABR is rough equal to 0.4 VBR.
+     </TD
+><TD
+>Write only</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>128000</B
+></TT
+></TD
+></TR
+><TR
+><TD
+>channels</TD
+><TD
+>Number of PCM channels.  1 == Mono, 2 == Stereo.</TD
+><TD
+>Write only</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>2</B
+></TT
+></TD
+></TR
+><TR
+><TD
+>serialno</TD
+><TD
+>&#13;      Serial Number of stream within file.  Must be unique within file.
+      Because of the potential to select a duplicate serial number within
+      a chained file, make efforts to manually assign unique numbers when
+      encoding.
+     </TD
+><TD
+>Write only</TD
+><TD
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Random</I
+></SPAN
+></TD
+></TR
+><TR
+><TD
+>comments</TD
+><TD
+>&#13;      Associative array of file comments.  
+      Will be translated to <VAR
+CLASS="literal"
+>strtoupper($name) . "=$value"</VAR
+>.
+      Note: This context option is not available in oggvorbis-0.1
+     </TD
+><TD
+>Write only</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>array('ENCODER' =&#62; 'PHP/OggVorbis, http://pear.php.net/oggvorbis')</B
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="oggvorbis.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><DIV
+CLASS="table"
+><A
+NAME="AEN115811"
+></A
+><P
+><B
+>Tabella 2. OGG/Vorbis supports PCM encodings in the following formats</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Constant</TH
+><TH
+>Definition</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_U8</B
+></TT
+></TD
+><TD
+>Unsigned 8-bit PCM.</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_S8</B
+></TT
+></TD
+><TD
+>Signed 8-bit PCM.</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_U16_LE</B
+></TT
+></TD
+><TD
+>Unsigned 16-bit PCM. Little Endian byte order.</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_U16_BE</B
+></TT
+></TD
+><TD
+>Unsigned 16-bit PCM. Big Endian byte order.</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_S16_LE</B
+></TT
+></TD
+><TD
+>Signed 16-bit PCM. Little Endian byte order.</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_S16_BE</B
+></TT
+></TD
+><TD
+>Signed 16-bit PCM. Big Endian byte order.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="r115843.html"
+>Usage</A
+>&nbsp;--&nbsp;
+    Examples on using the ogg:// wrapper.
+   </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.pdo-odbc.connection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="r115843.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDO_ODBC DSN</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Usage</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

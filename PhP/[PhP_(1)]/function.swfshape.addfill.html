@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>SWFShape-&#62;addFill</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Ming functions for Flash"
+HREF="ref.ming.html"><LINK
+REL="PREVIOUS"
+TITLE="SWFMovie"
+HREF="function.swfmovie.html"><LINK
+REL="NEXT"
+TITLE="SWFShape->drawCurve"
+HREF="function.swfshape.drawcurve.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.swfmovie.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.swfshape.drawcurve.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.swfshape.addfill"
+></A
+>SWFShape-&#62;addFill</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN83947"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>SWFShape-&#62;addFill&nbsp;--&nbsp;Adds a solid fill to the shape</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN83950"
+></A
+><H2
+>Description</H2
+>SWFFill <B
+CLASS="methodname"
+>SWFShape-&#62;addFill</B
+> ( int red, int green, int blue [, int a] )<BR
+></BR
+>SWFFill <B
+CLASS="methodname"
+>SWFShape-&#62;addFill</B
+> ( SWFBitmap bitmap [, int flags] )<BR
+></BR
+>SWFFill <B
+CLASS="methodname"
+>SWFShape-&#62;addFill</B
+> ( SWFGradient gradient [, int flags] )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     <B
+CLASS="function"
+>SWFShape-&#62;addFill()</B
+> adds a solid fill to the shape's list 
+     of fill styles. <B
+CLASS="function"
+>SWFShape-&#62;addFill()</B
+> accepts three different
+     types of arguments.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>red</VAR
+>, <VAR
+CLASS="parameter"
+>green</VAR
+>, <VAR
+CLASS="parameter"
+>blue</VAR
+>
+     is a color (RGB mode). Last parameter <VAR
+CLASS="parameter"
+>a</VAR
+> is optional.
+    </P
+><P
+>&#13;     The <VAR
+CLASS="parameter"
+>bitmap</VAR
+> argument is an <A
+HREF="function.swfbitmap.html"
+><B
+CLASS="function"
+>SWFBitmap()</B
+></A
+> object.
+     The <VAR
+CLASS="parameter"
+>flags</VAR
+> argument can be one
+     of the following values: SWFFILL_CLIPPED_BITMAP, SWFFILL_TILED_BITMAP,
+     SWFFILL_LINEAR_GRADIENT or SWFFILL_RADIAL_GRADIENT. Default is
+     SWFFILL_TILED_BITMAP for SWFBitmap and SWFFILL_LINEAR_GRADIENT for
+     SWFGradient.
+    </P
+><P
+>&#13;     The <VAR
+CLASS="parameter"
+>gradient</VAR
+> argument is an <A
+HREF="function.swfgradient.html"
+><B
+CLASS="function"
+>SWFGradient()</B
+></A
+> 
+     object. The flags argument can be one of the following values :  
+     SWFFILL_RADIAL_GRADIENT or SWFFILL_LINEAR_GRADIENT. Default is 
+     SWFFILL_LINEAR_GRADIENT. I'm sure about this one. Really. 
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>SWFShape-&#62;addFill()</B
+> returns an <A
+HREF="function.swffill.html"
+><B
+CLASS="function"
+>SWFFill()</B
+></A
+>
+     object for use with the <B
+CLASS="function"
+>SWFShape-&#62;setLeftFill()</B
+> 
+     and <B
+CLASS="function"
+>SWFShape-&#62;setRightFill()</B
+> functions 
+     described below. 
+    </P
+><P
+>&#13;     This simple example will draw a frame on a bitmap. Ah, here's another buglet in 
+     the flash player- it doesn't seem to care about the second shape's bitmap's
+     transformation in a morph. According to spec, the bitmap should stretch 
+     along with the shape in this example.. 
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN84009"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>SWFShape-&#62;addFill()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />&nbsp;&nbsp;$p </font><font color="#007700">= new </font><font color="#0000BB">SWFMorph</font><font color="#007700">();<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">$b </font><font color="#007700">= new </font><font color="#0000BB">SWFBitmap</font><font color="#007700">(</font><font color="#0000BB">file_get_contents</font><font color="#007700">(</font><font color="#DD0000">"alphafill.jpg"</font><font color="#007700">));<br />&nbsp;&nbsp;</font><font color="#FF8000">// use your own bitmap<br />&nbsp;&nbsp;</font><font color="#0000BB">$width </font><font color="#007700">= </font><font color="#0000BB">$b</font><font color="#007700">-&gt;</font><font color="#0000BB">getWidth</font><font color="#007700">();<br />&nbsp;&nbsp;</font><font color="#0000BB">$height </font><font color="#007700">= </font><font color="#0000BB">$b</font><font color="#007700">-&gt;</font><font color="#0000BB">getHeight</font><font color="#007700">();<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">$s </font><font color="#007700">= </font><font color="#0000BB">$p</font><font color="#007700">-&gt;</font><font color="#0000BB">getShape1</font><font color="#007700">();<br />&nbsp;&nbsp;</font><font color="#0000BB">$f </font><font color="#007700">= </font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">addFill</font><font color="#007700">(</font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#0000BB">SWFFILL_TILED_BITMAP</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$f</font><font color="#007700">-&gt;</font><font color="#0000BB">moveTo</font><font color="#007700">(-</font><font color="#0000BB">$width</font><font color="#007700">/</font><font color="#0000BB">2</font><font color="#007700">, -</font><font color="#0000BB">$height</font><font color="#007700">/</font><font color="#0000BB">4</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$f</font><font color="#007700">-&gt;</font><font color="#0000BB">scaleTo</font><font color="#007700">(</font><font color="#0000BB">1.0</font><font color="#007700">, </font><font color="#0000BB">0.5</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">setLeftFill</font><font color="#007700">(</font><font color="#0000BB">$f</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">movePenTo</font><font color="#007700">(-</font><font color="#0000BB">$width</font><font color="#007700">/</font><font color="#0000BB">2</font><font color="#007700">, -</font><font color="#0000BB">$height</font><font color="#007700">/</font><font color="#0000BB">4</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">drawLine</font><font color="#007700">(</font><font color="#0000BB">$width</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">drawLine</font><font color="#007700">(</font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">$height</font><font color="#007700">/</font><font color="#0000BB">2</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">drawLine</font><font color="#007700">(-</font><font color="#0000BB">$width</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">drawLine</font><font color="#007700">(</font><font color="#0000BB">0</font><font color="#007700">, -</font><font color="#0000BB">$height</font><font color="#007700">/</font><font color="#0000BB">2</font><font color="#007700">);<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">$s </font><font color="#007700">= </font><font color="#0000BB">$p</font><font color="#007700">-&gt;</font><font color="#0000BB">getShape2</font><font color="#007700">();<br />&nbsp;&nbsp;</font><font color="#0000BB">$f </font><font color="#007700">= </font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">addFill</font><font color="#007700">(</font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#0000BB">SWFFILL_TILED_BITMAP</font><font color="#007700">);<br /><br />&nbsp;&nbsp;</font><font color="#FF8000">// these two have no effect!<br />&nbsp;&nbsp;</font><font color="#0000BB">$f</font><font color="#007700">-&gt;</font><font color="#0000BB">moveTo</font><font color="#007700">(-</font><font color="#0000BB">$width</font><font color="#007700">/</font><font color="#0000BB">4</font><font color="#007700">, -</font><font color="#0000BB">$height</font><font color="#007700">/</font><font color="#0000BB">2</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$f</font><font color="#007700">-&gt;</font><font color="#0000BB">scaleTo</font><font color="#007700">(</font><font color="#0000BB">0.5</font><font color="#007700">, </font><font color="#0000BB">1.0</font><font color="#007700">);<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">setLeftFill</font><font color="#007700">(</font><font color="#0000BB">$f</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">movePenTo</font><font color="#007700">(-</font><font color="#0000BB">$width</font><font color="#007700">/</font><font color="#0000BB">4</font><font color="#007700">, -</font><font color="#0000BB">$height</font><font color="#007700">/</font><font color="#0000BB">2</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">drawLine</font><font color="#007700">(</font><font color="#0000BB">$width</font><font color="#007700">/</font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">drawLine</font><font color="#007700">(</font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">$height</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">drawLine</font><font color="#007700">(-</font><font color="#0000BB">$width</font><font color="#007700">/</font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">-&gt;</font><font color="#0000BB">drawLine</font><font color="#007700">(</font><font color="#0000BB">0</font><font color="#007700">, -</font><font color="#0000BB">$height</font><font color="#007700">);<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">$m </font><font color="#007700">= new </font><font color="#0000BB">SWFMovie</font><font color="#007700">();<br />&nbsp;&nbsp;</font><font color="#0000BB">$m</font><font color="#007700">-&gt;</font><font color="#0000BB">setDimension</font><font color="#007700">(</font><font color="#0000BB">$width</font><font color="#007700">, </font><font color="#0000BB">$height</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">$m</font><font color="#007700">-&gt;</font><font color="#0000BB">add</font><font color="#007700">(</font><font color="#0000BB">$p</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$i</font><font color="#007700">-&gt;</font><font color="#0000BB">moveTo</font><font color="#007700">(</font><font color="#0000BB">$width</font><font color="#007700">/</font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">$height</font><font color="#007700">/</font><font color="#0000BB">2</font><font color="#007700">);<br /><br />&nbsp;&nbsp;for (</font><font color="#0000BB">$n</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$n</font><font color="#007700">&lt;</font><font color="#0000BB">1.001</font><font color="#007700">; </font><font color="#0000BB">$n</font><font color="#007700">+=</font><font color="#0000BB">0.03</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i</font><font color="#007700">-&gt;</font><font color="#0000BB">setRatio</font><font color="#007700">(</font><font color="#0000BB">$n</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$m</font><font color="#007700">-&gt;</font><font color="#0000BB">nextFrame</font><font color="#007700">();<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'Content-type: application/x-shockwave-flash'</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$m</font><font color="#007700">-&gt;</font><font color="#0000BB">output</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     See also
+     <B
+CLASS="function"
+>SWFShape-&#62;setLeftFill()</B
+> and
+     <B
+CLASS="function"
+>SWFShape-&#62;setRightFill()</B
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.swfmovie.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.swfshape.drawcurve.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SWFMovie</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ming.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>SWFShape-&#62;drawCurve</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

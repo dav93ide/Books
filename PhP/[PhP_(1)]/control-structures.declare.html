@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>declare</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Strutture di controllo"
+HREF="language.control-structures.html"><LINK
+REL="PREVIOUS"
+TITLE="switch"
+HREF="control-structures.switch.html"><LINK
+REL="NEXT"
+TITLE="return"
+HREF="function.return.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="control-structures.switch.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 16. Strutture di controllo</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.return.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="control-structures.declare"
+><VAR
+CLASS="literal"
+>declare</VAR
+></A
+></H1
+><P
+>&#13;    Il costrutto <VAR
+CLASS="literal"
+>declare</VAR
+> si usa per definire
+    direttive di esecuzione per blocchi di istruzioni.
+    La sintassi è simile alla sintassi
+    di altre strutture di controllo:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5021"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>declare (direttiva)
+    istruzione</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    La sezione <VAR
+CLASS="literal"
+>direttiva</VAR
+> permette di
+    impostare il comportamento del blocco <VAR
+CLASS="literal"
+>declare</VAR
+>
+    .
+    Attualmente è riconosciuta una sola direttiva: la
+    direttiva <VAR
+CLASS="literal"
+>ticks</VAR
+>. (Fare riferimento più in basso per ulteriori
+    informazioni relative alla
+    direttiva
+    <A
+HREF="control-structures.declare.html#control-structures.declare.ticks"
+>ticks</A
+>)
+   </P
+><P
+>&#13;    Verrà eseguita la parte <VAR
+CLASS="literal"
+>istruzione</VAR
+> del
+    blocco <VAR
+CLASS="literal"
+>declare</VAR
+> -- come
+    verrà eseguita e quali effetti collaterali emergeranno durante l'esecuzione
+    potrà dipendere dalla direttiva impostata nel
+    blocco <VAR
+CLASS="literal"
+>direttiva</VAR
+>.
+   </P
+><P
+>&#13;    L'istruzione <VAR
+CLASS="literal"
+>declare</VAR
+> può essere usata anche con visubilità globale,
+    influenzando tutto il codice che la segue.
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5034"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// queste righe hanno il medesimo effetto:<br /> <br />// si può utitlizzare in questo modo:<br /></font><font color="#007700">declare(</font><font color="#0000BB">ticks</font><font color="#007700">=</font><font color="#0000BB">1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// inserire tutto il codice<br /></font><font color="#007700">}<br /> <br /></font><font color="#FF8000">// o in questo modo<br /></font><font color="#007700">declare(</font><font color="#0000BB">ticks</font><font color="#007700">=</font><font color="#0000BB">1</font><font color="#007700">);<br /></font><font color="#FF8000">// inserire tutto il codice<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="control-structures.declare.ticks"
+>Ticks</A
+></H2
+><P
+>Un tick è un evento che si verifica per ogni
+    <VAR
+CLASS="varname"
+>N</VAR
+> istruzioni di basso livello eseguite
+    dal parser all'interno del blocco <VAR
+CLASS="literal"
+>declare</VAR
+>.
+    Il valore per <VAR
+CLASS="varname"
+>N</VAR
+> viene specificato
+    usando <VAR
+CLASS="literal"
+>ticks=<VAR
+CLASS="varname"
+>N</VAR
+></VAR
+>
+    all'interno della sezione <VAR
+CLASS="literal"
+>direttiva</VAR
+> del blocco
+    <VAR
+CLASS="literal"
+>declare</VAR
+>.
+   </P
+><P
+>&#13;    L'evento (o gli eventi) che si verifica su ogni tick è specificato usando
+    <A
+HREF="function.register-tick-function.html"
+><B
+CLASS="function"
+>register_tick_function()</B
+></A
+>. Vedere l'esempio
+    più in basso per ulteriori dettagli. Notare che può verificarsi più di un evento
+    per ogni tick.
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5049"
+></A
+><P
+><B
+>Esempio 16-3. Segue una sezione di codice PHP</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Una funzione che registra il tempo quando viene chiamata<br /></font><font color="#007700">function </font><font color="#0000BB">profile</font><font color="#007700">(</font><font color="#0000BB">$dump </font><font color="#007700">= </font><font color="#0000BB">FALSE</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;static </font><font color="#0000BB">$profile</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Restituisce il tempo immagazinato in $profile, successivamente lo cancella<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">$dump</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$temp </font><font color="#007700">= </font><font color="#0000BB">$profile</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unset(</font><font color="#0000BB">$profile</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$temp</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$profile</font><font color="#007700">[] = </font><font color="#0000BB">microtime</font><font color="#007700">();<br />}<br /><br /></font><font color="#FF8000">// Imposta un tick handler<br /></font><font color="#0000BB">register_tick_function</font><font color="#007700">(</font><font color="#DD0000">"profile"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Inizializza la funzione prima del blocco declare<br /></font><font color="#0000BB">profile</font><font color="#007700">();<br /><br /></font><font color="#FF8000">// Esegue un blocco di codice, attraverso un tick ogni seconda istruzione<br /></font><font color="#007700">declare(</font><font color="#0000BB">ticks </font><font color="#007700">= </font><font color="#0000BB">2</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;for (</font><font color="#0000BB">$x </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">; </font><font color="#0000BB">$x </font><font color="#007700">&lt; </font><font color="#0000BB">50</font><font color="#007700">; ++</font><font color="#0000BB">$x</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">similar_text</font><font color="#007700">(</font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">$x</font><font color="#007700">), </font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">$x</font><font color="#007700">*</font><font color="#0000BB">$x</font><font color="#007700">)), </font><font color="#DD0000">"&lt;br /&gt;;"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#FF8000">// Mostra i dati immagazionati nel profilo<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">profile</font><font color="#007700">(</font><font color="#0000BB">TRUE</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    L'esempio descrive il codice PHP all'interno del blocco 'declare',
+    registrando il tempo in cui è stata eseguita ogni seconda istruzione
+    di basso livello. Questa informazione può
+    poi essere usata per trovare le aree lente all'interno di particolari
+    segmenti di codice. Questo processo può essere ottimizzato usando altri
+    metodi: usando i tick è più conveniente e facile da
+    implementare.
+   </P
+><P
+>&#13;    I tick sono ben adeguati per il debugging, l'implementazione di semplici
+    multitasking, backgrounded I/O e molti altri compiti.
+   </P
+><P
+>&#13;    Vedere anche <A
+HREF="function.register-tick-function.html"
+><B
+CLASS="function"
+>register_tick_function()</B
+></A
+> e
+    <A
+HREF="function.unregister-tick-function.html"
+><B
+CLASS="function"
+>unregister_tick_function()</B
+></A
+>.
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="control-structures.switch.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.return.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>switch</VAR
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.control-structures.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>return</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

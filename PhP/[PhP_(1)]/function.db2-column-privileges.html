@@ -1,0 +1,460 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_column_privileges</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_close"
+HREF="function.db2-close.html"><LINK
+REL="NEXT"
+TITLE="db2_columns"
+HREF="function.db2-columns.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-columns.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-column-privileges"
+></A
+>db2_column_privileges</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN52675"
+></A
+><P
+>    (PECL)</P
+>db2_column_privileges&nbsp;--&nbsp;
+   Returns a result set listing the columns and associated privileges for a table
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52678"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>db2_column_privileges</B
+> ( resource connection [, string qualifier [, string schema [, string table-name [, string column-name]]]] )<BR
+></BR
+><P
+>&#13;   Returns a result set listing the columns and associated privileges for a
+   table.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52699"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       A valid connection to an IBM DB2, Cloudscape, or Apache Derby database.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>qualifier</VAR
+></DT
+><DD
+><P
+>&#13;       A qualifier for DB2 databases running on OS/390 or z/OS servers. For
+       other databases, pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> or an empty string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>schema</VAR
+></DT
+><DD
+><P
+>&#13;       The schema which contains the tables. To match all schemas, pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>
+       or an empty string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>table-name</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the table or view. To match all tables in the database,
+       pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> or an empty string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>column-name</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the column. To match all columns in the table, pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>
+       or an empty string.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52732"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a statement resource with a result set containing rows describing
+   the column privileges for columns matching the specified parameters. The
+   rows are composed of the following columns:
+   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN52735"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Column name</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>TABLE_CAT</TD
+><TD
+>Name of the catalog. The value is NULL if this table does not
+         have catalogs.</TD
+></TR
+><TR
+><TD
+>TABLE_SCHEM</TD
+><TD
+>Name of the schema.</TD
+></TR
+><TR
+><TD
+>TABLE_NAME</TD
+><TD
+>Name of the table or view.</TD
+></TR
+><TR
+><TD
+>COLUMN_NAME</TD
+><TD
+>Name of the column.</TD
+></TR
+><TR
+><TD
+>GRANTOR</TD
+><TD
+>Authorization ID of the user who granted the privilege.</TD
+></TR
+><TR
+><TD
+>GRANTEE</TD
+><TD
+>Authorization ID of the user to whom the privilege was
+         granted.</TD
+></TR
+><TR
+><TD
+>PRIVILEGE</TD
+><TD
+>The privilege for the column.</TD
+></TR
+><TR
+><TD
+>IS_GRANTABLE</TD
+><TD
+>Whether the GRANTEE is permitted to grant this privilege to
+        other users.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52766"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-columns.html"
+><B
+CLASS="function"
+>db2_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-foreign-keys.html"
+><B
+CLASS="function"
+>db2_foreign_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-primary-keys.html"
+><B
+CLASS="function"
+>db2_primary_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedure-columns.html"
+><B
+CLASS="function"
+>db2_procedure_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedures.html"
+><B
+CLASS="function"
+>db2_procedures()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-special-columns.html"
+><B
+CLASS="function"
+>db2_special_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-statistics.html"
+><B
+CLASS="function"
+>db2_statistics()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-table-privileges.html"
+><B
+CLASS="function"
+>db2_table_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-tables.html"
+><B
+CLASS="function"
+>db2_tables()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-columns.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_close</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_columns</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

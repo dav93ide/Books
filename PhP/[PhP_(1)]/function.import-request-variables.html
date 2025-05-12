@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>import_request_variables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per la gestione delle variabili"
+HREF="ref.var.html"><LINK
+REL="PREVIOUS"
+TITLE="gettype"
+HREF="function.gettype.html"><LINK
+REL="NEXT"
+TITLE="intval"
+HREF="function.intval.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.gettype.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.intval.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.import-request-variables"
+></A
+>import_request_variables</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN173112"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PHP 5)</P
+>import_request_variables&nbsp;--&nbsp;Imposta la visibiltà a globale per le variabili GET/POST/Cookie</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN173115"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>import_request_variables</B
+> ( string tipo [, string prefisso] )<BR
+></BR
+><P
+>&#13;     Imposta la visibilità delle variabili GET/POST/Cookie a globale.
+     Ciò risulta utile nei casi in cui si è disabilitato
+     <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+>,
+     ma si vuole avere per qualche variabile una visibilità globale.
+    </P
+><P
+>&#13;     Tramite il parametro <VAR
+CLASS="parameter"
+>tipo</VAR
+>, si può 
+     specificare quale variabile rendere visibile. I valori ammessi sono
+     i caratteri 'G', 'P' e 'C' rispettivamente per GET, POST e
+     Cookie. Questi caratteri non distinguono tra maiuscole e minuscole
+     pertanto si può usare qualsiasi combinazione di 'g', 'p' e 'c'.
+     POST include le informazioni dei file caricati.
+     Occorre prestare attenzione all'ordine delle lettere, ad esempio usando "gp",
+     le variabili POST sovrascrivono le variabili GET con il medesimo
+     nome. Qualsiasi altra lettera al di fuori di GPC sarà scartata.
+    </P
+><P
+>  
+     Il parametro <VAR
+CLASS="parameter"
+>prefisso</VAR
+> viene utilizzato come prefisso
+     nel nome della variabile, ovvero viene anteposto ai nomi di tutte le variabili portate 
+     a visibilità globale. Quindi, se si ha una variabile GET chiamata "userid", e si è passato
+     il prefisso "pref_", si otterrà una variabile globale chiamata
+     $pref_userid.  
+    </P
+><P
+>  
+     Se si è interessati a rendere visibili altre
+     variabili, come ad esempio SERVER, si consideri l'utilizzo della
+     funzione <A
+HREF="function.extract.html"
+><B
+CLASS="function"
+>extract()</B
+></A
+>.   
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Sebbene il parametro <VAR
+CLASS="parameter"
+>prefisso</VAR
+> sia
+      opzionale, si ottiene un errore di livello <A
+HREF="phpdevel-errors.html#internal.e-notice"
+>E_NOTICE</A
+> 
+      se non si specifica il prefisso, o si indica una stringa vuota.
+      Ciò può comportare dei rischi di sicurezza. Gli errori
+      di livello "notice" non sono visualizzati con il parametro 
+      <A
+HREF="ref.errorfunc.html#ini.error-reporting"
+>error reporting</A
+> 
+      impostato al valore standard.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN173139"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Questo esempio rende visibili le variabili GET e POST <br />// con il prefisso "rvar_" <br /></font><font color="#0000BB">import_request_variables</font><font color="#007700">(</font><font color="#DD0000">"gP"</font><font color="#007700">, </font><font color="#DD0000">"rvar_"</font><font color="#007700">);<br /><br />echo </font><font color="#0000BB">$rvar_foo</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="reserved.variables.html#reserved.variables.request"
+>$_REQUEST</A
+>,
+     <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+>,
+     <A
+HREF="language.variables.predefined.html"
+>Variabili predefinite</A
+>
+     e <A
+HREF="function.extract.html"
+><B
+CLASS="function"
+>extract()</B
+></A
+>. 
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.gettype.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.intval.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>gettype</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.var.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>intval</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

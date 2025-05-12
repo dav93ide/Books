@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>xslt_process</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni XSLT"
+HREF="ref.xslt.html"><LINK
+REL="PREVIOUS"
+TITLE="xslt_getopt"
+HREF="function.xslt-getopt.html"><LINK
+REL="NEXT"
+TITLE="xslt_set_base"
+HREF="function.xslt-set-base.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xslt-getopt.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.xslt-set-base.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.xslt-process"
+></A
+>xslt_process</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN180323"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.3, PECL)</P
+>xslt_process&nbsp;--&nbsp;Esegue una trasformazione XSLT</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180326"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>xslt_process</B
+> ( resource xh, string xmlcontainer, string xslcontainer [, string resultcontainer [, array arguments [, array parameters]]] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>xslt_process()</B
+> è una delle più importanti della
+     nuova estensione XSLT. Permette di eseguire una trasformazione XSLT usando quasi ogni tipo di
+     fonte per l'input - i contenitori. Questa è un completamento mediante l'uso dell'argomento
+     buffers -- un concetto preso dal processore XSLT Sablotron
+     (attualmente l'unico processore XSLT supportato da questa estensione).
+     Il contenituore di input di default è il nome del file del documento
+     trasformato. Se il contenitore di destinaizone non viene fornito, ad esempio
+     è impostato a <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> - alla la funzione restituisce il risultato.
+    </P
+><P
+>&#13;     <DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;       Questa funzione ha modifica i propri argomenti dalla versione 4.0.6. Infatti non 
+       fornire più il contenuto XML o XSL come secondi e terzi argomenti, poichè questi
+       creano un segmentation fault in Sablotron fino alla versione
+       0.95 inclusa.
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     I contenitori possono essere impostati anche tramite la matrice
+     <VAR
+CLASS="parameter"
+>$arguments</VAR
+> (vedere più avanti).
+    </P
+><P
+>&#13;     Il più semplice tipo di trasformazione con la funzione <B
+CLASS="function"
+>xslt_process()</B
+>
+     è la trasformazione di un file XML con un file XSLT, mettendo il
+     risultato in un terzo file contenente un nuovo documento XML (o HTML).
+     Fare questo con Sablotron è davvero molto semplice...
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN180359"
+></A
+><P
+><B
+>Esempio 1. Uso di <B
+CLASS="function"
+>xslt_process()</B
+> per trasformare un file XML e un file XSL
+     in un nuovo file XML</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">// Allocate a new XSLT processor<br /></font><font color="#0000BB">$xh </font><font color="#007700">= </font><font color="#0000BB">xslt_create</font><font color="#007700">();<br /><br /></font><font color="#FF8000">// Process the document<br /></font><font color="#007700">if (</font><font color="#0000BB">xslt_process</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#DD0000">'sample.xml'</font><font color="#007700">, </font><font color="#DD0000">'sample.xsl'</font><font color="#007700">, </font><font color="#DD0000">'result.xml'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"SUCCESS, sample.xml was transformed by sample.xsl into result.xml"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">", result.xml has the following contents\n&lt;br /&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;pre&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">readfile</font><font color="#007700">(</font><font color="#DD0000">'result.xml'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;/pre&gt;\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Sorry, sample.xml could not be transformed by sample.xsl into"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&nbsp;&nbsp;result.xml the reason is that " </font><font color="#007700">. </font><font color="#0000BB">xslt_error</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">) . </font><font color="#DD0000">" and the "</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"error code is " </font><font color="#007700">. </font><font color="#0000BB">xslt_errno</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">xslt_free</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Mentre questa funzionalità è importante, a volte, specialmente in un ambiente web, si vorrebbe
+     avere la possibilità di scrivere a video il risultato direttamente. Quindi, se si omette il terzo argomento
+     alla funzione <B
+CLASS="function"
+>xslt_process()</B
+> (o si inserisce il valore NULL per l'argomento), lo script 
+     restituirà automaticamente il valore della trasformazione dell'XSLT, invece di scriverlo in un
+     file...
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN180366"
+></A
+><P
+><B
+>Esempio 2. Uso di <B
+CLASS="function"
+>xslt_process()</B
+> per trasformare un file XML e uno XSL 
+     in una variabile contenente i dati XML restituiti</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">// Allocate a new XSLT processor<br /></font><font color="#0000BB">$xh </font><font color="#007700">= </font><font color="#0000BB">xslt_create</font><font color="#007700">();<br /><br /></font><font color="#FF8000">// Process the document, returning the result into the $result variable<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">xslt_process</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#DD0000">'sample.xml'</font><font color="#007700">, </font><font color="#DD0000">'sample.xsl'</font><font color="#007700">);<br />if (</font><font color="#0000BB">$result</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"SUCCESS, sample.xml was transformed by sample.xsl into the \$result"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">" variable, the \$result variable has the following contents\n&lt;br /&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;pre&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$result</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;/pre&gt;\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Sorry, sample.xml could not be transformed by sample.xsl into"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&nbsp;&nbsp;the \$result variable the reason is that " </font><font color="#007700">. </font><font color="#0000BB">xslt_error</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">) . <br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">" and the error code is " </font><font color="#007700">. </font><font color="#0000BB">xslt_errno</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">xslt_free</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     I due casi sopra sono i due casi più semplici che ci sono quando c'è una trasformazione XSLT
+     e c'è da dire che dovreste essere per la maggior parte delle volte in questi casi, ma, a volte, puoi prendere il tuo
+     codice XML e XSLT da fonti esterne, come database e socket. In questi casi, avrai
+     i dati XML e/o XSLT in una variabile -- nella produzione di applicazioni l'overhead per scaricare
+     questo codice al file potrebbere essere eccessivo. Qui la sinstassi degli argomenti dell'XSLT ci
+     aiuta. Invece dei file come argomenti XML e XSLT alla funzione <B
+CLASS="function"
+>xslt_process()</B
+>,
+     puoi specificare l' "argument place holders" il quale è poi sostituito dal valore
+     dato nell'argomento dell'array (il quinto parametro della funzione <B
+CLASS="function"
+>xslt_process()</B
+>).  
+     Di seguito c'è un esempio del processo di inserimento di codice XML e XSLT senza 
+     l'ausilio di file.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN180374"
+></A
+><P
+><B
+>Esempio 3. Uso di <B
+CLASS="function"
+>xslt_process()</B
+> per trasformare una variabile contenente dati XML 
+     e una variabile contenente dati XSL in una variabile contenente i dati XML risultanti</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// $xml and $xsl contain the XML and XSL data<br /><br /></font><font color="#0000BB">$arguments </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'/_xml' </font><font color="#007700">=&gt; </font><font color="#0000BB">$xml</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'/_xsl' </font><font color="#007700">=&gt; </font><font color="#0000BB">$xsl<br /></font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Allocate a new XSLT processor<br /></font><font color="#0000BB">$xh </font><font color="#007700">= </font><font color="#0000BB">xslt_create</font><font color="#007700">();<br /><br /></font><font color="#FF8000">// Process the document<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">xslt_process</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#DD0000">'arg:/_xml'</font><font color="#007700">, </font><font color="#DD0000">'arg:/_xsl'</font><font color="#007700">, </font><font color="#0000BB">NULL</font><font color="#007700">, </font><font color="#0000BB">$arguments</font><font color="#007700">); <br />if (</font><font color="#0000BB">$result</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"SUCCESS, sample.xml was transformed by sample.xsl into the \$result"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">" variable, the \$result variable has the following contents\n&lt;br /&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;pre&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$result</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;/pre&gt;\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Sorry, sample.xml could not be transformed by sample.xsl into"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&nbsp;&nbsp;the \$result variable the reason is that " </font><font color="#007700">. </font><font color="#0000BB">xslt_error</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">) . <br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">" and the error code is " </font><font color="#007700">. </font><font color="#0000BB">xslt_errno</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">xslt_free</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Finalmente, l'ultimo argomento della funzione <B
+CLASS="function"
+>xslt_process()</B
+> 
+     rappresenta una matrice di qualsiasi parametro di alto livello che si desidera
+     passare al documento XSLT. Questi parametri possono essere referenziati
+     dal file XSL utilizzando l'istruzione &#60;xsl:param name="parameter_name"&#62;.
+     I parametri devono avere la codifica UTF-8 ed i rispettivi valori devono
+     essere interpretati come stringhe dal processore <SPAN
+CLASS="productname"
+>Sablotron</SPAN
+>.
+     In altre parole non si possono passare come parametri al documento XSLT dei node-set.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN180382"
+></A
+><P
+><B
+>Esempio 4. Passaggio di variabili PHP al file XSL</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> <br /></font><font color="#FF8000">// XML string<br /></font><font color="#0000BB">$xml </font><font color="#007700">= </font><font color="#DD0000">'&lt;?xml version="1.0"?&gt;<br />&lt;para&gt;<br /> change me<br />&lt;/para&gt;'</font><font color="#007700">;<br /> <br /></font><font color="#FF8000">// stringa XSL <br /></font><font color="#0000BB">$xsl </font><font color="#007700">= </font><font color="#DD0000">'<br />&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;<br />&lt;xsl:output method="html" encoding="ISO-8859-1" indent="no"<br /> omit-xml-declaration="yes"&nbsp;&nbsp;media-type="text/html"/&gt;<br /> &lt;xsl:param name="myvar"/&gt;<br /> &lt;xsl:param name="mynode"/&gt;<br /> &lt;xsl:template match="/"&gt;<br />My PHP variable : &lt;xsl:value-of select="$myvar"/&gt;&lt;br /&gt;<br />My node set : &lt;xsl:value-of select="$mynode"/&gt;<br /> &lt;/xsl:template&gt;<br />&lt;/xsl:stylesheet&gt;'</font><font color="#007700">;<br /> <br /> <br /></font><font color="#0000BB">$xh </font><font color="#007700">= </font><font color="#0000BB">xslt_create</font><font color="#007700">();<br /> <br /></font><font color="#FF8000">// Il secondo parametro sarà interpretato come stringa<br /></font><font color="#0000BB">$parameters </font><font color="#007700">= array (<br />&nbsp;&nbsp;</font><font color="#DD0000">'myvar' </font><font color="#007700">=&gt; </font><font color="#DD0000">'test'</font><font color="#007700">,<br />&nbsp;&nbsp;</font><font color="#DD0000">'mynode' </font><font color="#007700">=&gt; </font><font color="#DD0000">'&lt;foo&gt;bar&lt;/foo&gt;'<br /></font><font color="#007700">);<br /> <br /></font><font color="#0000BB">$arguments </font><font color="#007700">= array (<br />&nbsp;&nbsp;</font><font color="#DD0000">'/_xml' </font><font color="#007700">=&gt; </font><font color="#0000BB">$xml</font><font color="#007700">,<br />&nbsp;&nbsp;</font><font color="#DD0000">'/_xsl' </font><font color="#007700">=&gt; </font><font color="#0000BB">$xsl<br /></font><font color="#007700">);<br /> <br />echo </font><font color="#0000BB">xslt_process</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#DD0000">'arg:/_xml'</font><font color="#007700">, </font><font color="#DD0000">'arg:/_xsl'</font><font color="#007700">, </font><font color="#0000BB">NULL</font><font color="#007700">, </font><font color="#0000BB">$arguments</font><font color="#007700">, </font><font color="#0000BB">$parameters</font><font color="#007700">);<br /> <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>My PHP variable : test&#60;br&#62;
+My node set : &#38;lt;foo&#38;gt;bar&#38;lt;/foo&#38;gt;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Please note that <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>file://</I
+></SPAN
+>
+is needed in front of path if you use Windows.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xslt-getopt.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.xslt-set-base.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>xslt_getopt</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.xslt.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>xslt_set_base</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

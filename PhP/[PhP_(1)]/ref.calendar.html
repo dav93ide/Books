@@ -1,0 +1,791 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni Calendar</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="bzwrite"
+HREF="function.bzwrite.html"><LINK
+REL="NEXT"
+TITLE="cal_days_in_month"
+HREF="function.cal-days-in-month.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.bzwrite.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.cal-days-in-month.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.calendar"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>X. Funzioni Calendar</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN14065"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="calendar.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     L'estensione calendar presenta una serie di funzioni che semplificano 
+     la conversione tra differenti formati di calendario.  Il formato intermedio
+     o standard è basato sul Conteggio del Giorno Giuliano.  Il Conteggio
+     Giuliano è un conteggio di giorni che parte molto prima di qualsiasi data
+     la maggior parte della gente potrebbe usare (circa il 4000 a.C.).  Per
+     convertire tra i sistemi di calendario, si deve prima convertire nel sistema
+     del Giorno Giuliano, poi nel sistema di calendario scelto.  Il Conteggio del Giorno
+     Giuliano è molto diverso dal Calendario Giulano! Per maggiori
+     informazioni sui sistemi di calendario vedere <A
+HREF="http://www.boogle.com/info/cal-overview.html"
+TARGET="_top"
+>http://www.boogle.com/info/cal-overview.html</A
+>.  Parti di questa
+     pagina sono inclusi in queste istruzioni, citate tra virgolette.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="calendar.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Affinché queste funzioni siano disponibili, occorre compilare PHP con
+  l'opzione <VAR
+CLASS="option"
+>--enable-calendar</VAR
+>.
+ </P
+><P
+> La versione per Windows di PHP
+ha già compilato il supporto per questo modulo. Non occorre caricare alcun modulo
+addizionale per potere utilizzare queste funzioni.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="calendar.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="calendar.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="calendar.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_GREGORIAN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_JULIAN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_JEWISH</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_FRENCH</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_NUM_CALS</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_DOW_DAYNO</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_DOW_SHORT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_DOW_LONG</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_MONTH_GREGORIAN_SHORT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_MONTH_GREGORIAN_LONG</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_MONTH_JULIAN_SHORT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_MONTH_JULIAN_LONG</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_MONTH_JEWISH</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_MONTH_FRENCH</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+><P
+>&#13;  Le seguenti costanti sono disponibili dal <VAR
+CLASS="literal"
+>PHP</VAR
+> 4.3.0 :
+ </P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_EASTER_DEFAULT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_EASTER_ROMAN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_EASTER_ALWAYS_GREGORIAN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_EASTER_ALWAYS_JULIAN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+><P
+>&#13;  Le seguenti costanti sono disponibili dal <VAR
+CLASS="literal"
+>PHP</VAR
+> 5.0.0 :
+ </P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_JEWISH_ADD_ALAFIM_GERESH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_JEWISH_ADD_ALAFIM</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CAL_JEWISH_ADD_GERESHAYIM</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.cal-days-in-month.html"
+>cal_days_in_month</A
+>&nbsp;--&nbsp;Restituisce il numero di giorni di un mese per un dato anno e calendario</DT
+><DT
+><A
+HREF="function.cal-from-jd.html"
+>cal_from_jd</A
+>&nbsp;--&nbsp;Converte dal Giorno Giuliano ad un calendario</DT
+><DT
+><A
+HREF="function.cal-info.html"
+>cal_info</A
+>&nbsp;--&nbsp;Restituisce informazioni su un particolare calendario</DT
+><DT
+><A
+HREF="function.cal-to-jd.html"
+>cal_to_jd</A
+>&nbsp;--&nbsp;Converte da un calendario a un Giorno Giuliano</DT
+><DT
+><A
+HREF="function.easter-date.html"
+>easter_date</A
+>&nbsp;--&nbsp;
+     Restituisce un timestamp Unix della mezzanotte del giorno di Pasqua di un dato anno
+    </DT
+><DT
+><A
+HREF="function.easter-days.html"
+>easter_days</A
+>&nbsp;--&nbsp;
+     Restituisce il numero di giorni tra il 21 Marzo e Pasqua, dato un
+     anno
+    </DT
+><DT
+><A
+HREF="function.frenchtojd.html"
+>FrenchToJD</A
+>&nbsp;--&nbsp;
+     Converte una data del Calendario Repubblicano Francese in un Giorno
+     Giuliano
+    </DT
+><DT
+><A
+HREF="function.gregoriantojd.html"
+>GregorianToJD</A
+>&nbsp;--&nbsp;
+     Converte una data Gregoriana in un Giorno Giuliano
+    </DT
+><DT
+><A
+HREF="function.jddayofweek.html"
+>JDDayOfWeek</A
+>&nbsp;--&nbsp;Restituisce il giorno della settimana</DT
+><DT
+><A
+HREF="function.jdmonthname.html"
+>JDMonthName</A
+>&nbsp;--&nbsp;Restituisce il nome di un mese</DT
+><DT
+><A
+HREF="function.jdtofrench.html"
+>JDToFrench</A
+>&nbsp;--&nbsp;
+     Converte un Giorno Giuliano in una data del Calendario Repubblicano Francese
+    </DT
+><DT
+><A
+HREF="function.jdtogregorian.html"
+>JDToGregorian</A
+>&nbsp;--&nbsp;Converte il Giorno Giuliano in data Gregoriana</DT
+><DT
+><A
+HREF="function.jdtojewish.html"
+>jdtojewish</A
+>&nbsp;--&nbsp;
+     Converte un Giorno Giuliano nel Calendario Giudeo
+    </DT
+><DT
+><A
+HREF="function.jdtojulian.html"
+>JDToJulian</A
+>&nbsp;--&nbsp;
+     Converte un Giorno Giuliano in una data Giuliana
+    </DT
+><DT
+><A
+HREF="function.jdtounix.html"
+>jdtounix</A
+>&nbsp;--&nbsp;Converte un Giorno Giuliano in un timestamp Unix</DT
+><DT
+><A
+HREF="function.jewishtojd.html"
+>JewishToJD</A
+>&nbsp;--&nbsp;
+     Converte una data del Calendario Giudeo in Giorno Giuliano
+    </DT
+><DT
+><A
+HREF="function.juliantojd.html"
+>JulianToJD</A
+>&nbsp;--&nbsp;
+     Converte una data Giuliana in un Giorno Giuliano
+    </DT
+><DT
+><A
+HREF="function.unixtojd.html"
+>unixtojd</A
+>&nbsp;--&nbsp;Converte un timestamp Unix in un Giorno Giuliano</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.bzwrite.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.cal-days-in-month.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>bzwrite</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>cal_days_in_month</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

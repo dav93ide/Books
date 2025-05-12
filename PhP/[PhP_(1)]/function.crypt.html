@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>crypt</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="crc32"
+HREF="function.crc32.html"><LINK
+REL="NEXT"
+TITLE="echo"
+HREF="function.echo.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.crc32.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.echo.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.crypt"
+></A
+>crypt</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN162824"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>crypt&nbsp;--&nbsp;Criptazione di una stringa a senso unico (hashing)</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN162827"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>crypt</B
+> ( string str [, string salt] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>crypt()</B
+> restituisce una stringa criptata tramite
+     l'algoritmo standard di crittografia di UNIX basato sul <ABBR
+CLASS="abbrev"
+>DES</ABBR
+>
+     o su algoritmo alternativi disponibili sul sistema. I parametri sono
+     la stringa che deve essere crittografata, e un parametro opzionale da usarsi come
+     base per la crittografia. Vedere le pagine Unix relative alla funzione cript
+     per maggiori dettagli.
+    </P
+><P
+>&#13;     Se il parametro salt non viene fornito, il PHP ne genererà
+     uno casuale ad ogni chiamata.
+    </P
+><P
+>&#13;     Alcuni sistemi operativi supportano più di un tipo di cifratura. Infatti
+     in alcuni casi lo standard basato sul DES viene sostituito da un algoritmo
+     basato su MD5. Il tipo di crittografia da utilizzare viene attivato tramite il parametro
+     salt. Al momento dell'installazione il PHP cerca di determinare le caratteristiche
+     della funzione crypt e accetterà salt per altri tipi di funzioni.
+     Se il parametro salt non viene passato, il PHP genererà, per default, una chiave di due caratteri
+     a meno che il sistema di cifratura di default del sistema non sia MD5, in questo caso
+     si genererà una chiave casuale compatibile con MD5. Il PHP imposta 
+     una costante chiamata CRYPT_SALT_LENGTH dalla quale si può sapere se sul sistema
+     si può utilizzare una chiave di due caratteri o la chiave più lunga di 
+     12 caratteri.
+    </P
+><P
+>&#13;     Se si usa la chiave generata, bisogna fare attenzione che questa
+     viene generata una sola volta. Se si chiama la funzione ricorsivamente, si possono
+     avere dei problemi di formato e di sicurezza.
+    </P
+><P
+>&#13;     La crittografia basa sullo standard DES restituisce la chiave come
+     primi due caratteri dell'output. Inoltre utilizza solo i primi 8 caratteri
+     del parametro <VAR
+CLASS="parameter"
+>str</VAR
+>, pertanto stringhe più lunghe
+     che inizino con i medesimi otto caratteri, creeranno il medesimo risultato
+     (se si utilizza la medesima chiave).
+    </P
+><P
+>&#13;     Sui sistemi nei quali la funzione cript() supporta più tipi
+     di crittografia, si imposteranno le seguenti costanti a 0 o a 1
+     in base al tipo disponibile.
+    </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;       CRYPT_STD_DES - Standard basato su DES con chiave di due caratteri
+      </P
+></LI
+><LI
+><P
+>&#13;       CRYPT_EXT_DES - Estensione basato su DES con chiave di nove caratteri
+      </P
+></LI
+><LI
+><P
+>&#13;       CRYPT_MD5 - Crittografia basata su MD5 con 12 caratteri di chiave inizianti con
+       $1$
+      </P
+></LI
+><LI
+><P
+>&#13;       CRYPT_BLOWFISH - Crittografia Blowfish con 16 caratteri di chiave
+       inizianti con $2$ oppure $2a$
+      </P
+></LI
+></UL
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Non esiste una funzione di decriptazione, poiché <B
+CLASS="function"
+>crypt()</B
+>
+      è un algoritmo ad una via.
+     </P
+></BLOCKQUOTE
+></DIV
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN162859"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>crypt()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$password </font><font color="#007700">= </font><font color="#0000BB">crypt</font><font color="#007700">(</font><font color="#DD0000">"My1sTpassword"</font><font color="#007700">); </font><font color="#FF8000">// let salt be generated<br /><br />/* Si dovrebbe passare l'intero risultato di crypt() come chiave di confronto<br />&nbsp;&nbsp;&nbsp;della password per evitare problemi con differenti algoritmi di hash. (Come detto prima<br />&nbsp;&nbsp;&nbsp;lo standard basato su DES usa chiavi di 2 caratteri,<br />&nbsp;&nbsp;&nbsp;mentre lo standard basato su MD5 ne usa 12). */<br /></font><font color="#007700">if (</font><font color="#0000BB">crypt</font><font color="#007700">(</font><font color="#0000BB">$user_input</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">) == </font><font color="#0000BB">$password</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Password verified!"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN162863"
+></A
+><P
+><B
+>Esempio 2. Utilizzo di <B
+CLASS="function"
+>crypt()</B
+> con htpasswd</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Set the password<br /></font><font color="#0000BB">$password </font><font color="#007700">= </font><font color="#DD0000">'mypassword'</font><font color="#007700">;<br /> <br /></font><font color="#FF8000">// Get the hash, letting the salt be automatically generated<br /></font><font color="#0000BB">$hash </font><font color="#007700">= </font><font color="#0000BB">crypt</font><font color="#007700">(</font><font color="#0000BB">$password</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN162867"
+></A
+><P
+><B
+>Esempio 3. Uso dei diversi tipi di criptazione</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">CRYPT_STD_DES </font><font color="#007700">== </font><font color="#0000BB">1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Standard DES: ' </font><font color="#007700">. </font><font color="#0000BB">crypt</font><font color="#007700">(</font><font color="#DD0000">'rasmuslerdorf'</font><font color="#007700">, </font><font color="#DD0000">'rl'</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /> <br />if (</font><font color="#0000BB">CRYPT_EXT_DES </font><font color="#007700">== </font><font color="#0000BB">1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Extended DES: ' </font><font color="#007700">. </font><font color="#0000BB">crypt</font><font color="#007700">(</font><font color="#DD0000">'rasmuslerdorf'</font><font color="#007700">, </font><font color="#DD0000">'_J9..rasm'</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /> <br />if (</font><font color="#0000BB">CRYPT_MD5 </font><font color="#007700">== </font><font color="#0000BB">1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'MD5:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' </font><font color="#007700">. </font><font color="#0000BB">crypt</font><font color="#007700">(</font><font color="#DD0000">'rasmuslerdorf'</font><font color="#007700">, </font><font color="#DD0000">'$1$rasmusle$'</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /> <br />if (</font><font color="#0000BB">CRYPT_BLOWFISH </font><font color="#007700">== </font><font color="#0000BB">1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Blowfish:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' </font><font color="#007700">. </font><font color="#0000BB">crypt</font><font color="#007700">(</font><font color="#DD0000">'rasmuslerdorf'</font><font color="#007700">, </font><font color="#DD0000">'$2a$07$rasmuslerd...........$'</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà
+qualcosa simile a:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Standard DES: rl.3StKT.4T8M
+Extended DES: _J9..rasmBYk8r9AiWNc
+MD5:          $1$rasmusle$rISCgZzpwk3UhDidwXvin0
+Blowfish:     $2a$07$rasmuslerd............nIdrcHdxcUxWomQX9j6kvERCFjTg7Ra</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Vedere anche <A
+HREF="function.md5.html"
+><B
+CLASS="function"
+>md5()</B
+></A
+> e <A
+HREF="ref.mcrypt.html"
+>il 
+     modulo Mcrypt</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.crc32.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.echo.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>crc32</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>echo</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

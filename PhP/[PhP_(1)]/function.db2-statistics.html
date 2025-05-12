@@ -1,0 +1,674 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_statistics</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_special_columns"
+HREF="function.db2-special-columns.html"><LINK
+REL="NEXT"
+TITLE="db2_stmt_error"
+HREF="function.db2-stmt-error.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-special-columns.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-stmt-error.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-statistics"
+></A
+>db2_statistics</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN55475"
+></A
+><P
+>    (PECL)</P
+>db2_statistics&nbsp;--&nbsp;
+   Returns a result set listing the index and statistics for a table
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN55478"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>db2_statistics</B
+> ( resource connection, string qualifier, string schema, string table-name, bool unique )<BR
+></BR
+><P
+>&#13;   Returns a result set listing the index and statistics for a table.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN55499"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       A valid connection to an IBM DB2, Cloudscape, or Apache Derby database.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>qualifier</VAR
+></DT
+><DD
+><P
+>&#13;       A qualifier for DB2 databases running on OS/390 or z/OS servers. For
+       other databases, pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> or an empty string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>schema</VAR
+></DT
+><DD
+><P
+>&#13;       The schema that contains the targeted table. If this parameter is
+       <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>, the statistics and indexes are returned for the schema of the
+       current user.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>table_name</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the table.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>unique</VAR
+></DT
+><DD
+><P
+>&#13;       An integer value representing the type of index information to return.
+       <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>0</VAR
+></DT
+><DD
+><P
+>&#13;           Return only the information for unique indexes on the table.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>1</VAR
+></DT
+><DD
+><P
+>&#13;           Return the information for all indexes on the table.
+          </P
+></DD
+></DL
+></DIV
+>
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN55541"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a statement resource with a result set containing rows describing
+   the statistics and indexes for the base tables matching the specified
+   parameters. The rows are composed of the following columns:
+   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN55544"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Column name</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>TABLE_CAT</TD
+><TD
+>The catalog that contains the table. The value is <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> if
+       this table does not have catalogs.</TD
+></TR
+><TR
+><TD
+>TABLE_SCHEM</TD
+><TD
+>Name of the schema that contains the table.</TD
+></TR
+><TR
+><TD
+>TABLE_NAME</TD
+><TD
+>Name of the table.</TD
+></TR
+><TR
+><TD
+>NON_UNIQUE</TD
+><TD
+>&#13;        <P
+>&#13;         An integer value representing whether the index prohibits unique
+         values, or whether the row represents statistics on the table itself:
+         <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN55565"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TD
+>Return value</TD
+><TD
+>Parameter type</TD
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>0 (SQL_FALSE)</TD
+><TD
+>The index allows duplicate values.</TD
+></TR
+><TR
+><TD
+>1 (SQL_TRUE)</TD
+><TD
+>The index values must be unique.</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+></TD
+><TD
+>This row is statistics information for the table itself.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+        </P
+>
+       </TD
+></TR
+><TR
+><TD
+>INDEX_QUALIFIER</TD
+><TD
+>A string value representing the qualifier that would have to be
+       prepended to INDEX_NAME to fully qualify the index.</TD
+></TR
+><TR
+><TD
+>INDEX_NAME</TD
+><TD
+>A string representing the name of the index.</TD
+></TR
+><TR
+><TD
+>TYPE</TD
+><TD
+>&#13;        <P
+>&#13;         An integer value representing the type of information contained in
+         this row of the result set:
+         <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN55592"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TD
+>Return value</TD
+><TD
+>Parameter type</TD
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>0 (SQL_TABLE_STAT)</TD
+><TD
+>The row contains statistics about the table itself.</TD
+></TR
+><TR
+><TD
+>1 (SQL_INDEX_CLUSTERED)</TD
+><TD
+>The row contains information about a clustered index.</TD
+></TR
+><TR
+><TD
+>2 (SQL_INDEX_HASH)</TD
+><TD
+>The row contains information about a hashed index.</TD
+></TR
+><TR
+><TD
+>3 (SQL_INDEX_OTHER)</TD
+><TD
+>The row contains information about a type of index that
+             is neither clustered nor hashed.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+        </P
+>
+       </TD
+></TR
+><TR
+><TD
+>ORDINAL_POSITION</TD
+><TD
+>The 1-indexed position of the column in the index. <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> if
+        the row contains statistics information about the table itself.</TD
+></TR
+><TR
+><TD
+>COLUMN_NAME</TD
+><TD
+>The name of the column in the index. <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> if the row
+        contains statistics information about the table itself.</TD
+></TR
+><TR
+><TD
+>ASC_OR_DESC</TD
+><TD
+>&#13;        <VAR
+CLASS="literal"
+>A</VAR
+> if the column is sorted in ascending order,
+        <VAR
+CLASS="literal"
+>D</VAR
+> if the column is sorted in descending order,
+        <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> if the row contains statistics information about the table
+        itself.
+       </TD
+></TR
+><TR
+><TD
+>CARDINALITY</TD
+><TD
+>&#13;        <P
+>&#13;         If the row contains information about an index, this column contains
+         an integer value representing the number of unique values in the
+         index.
+        </P
+>
+        <P
+>&#13;         If the row contains information about the table itself, this column
+         contains an integer value representing the number of rows in the
+         table.
+        </P
+>
+       </TD
+></TR
+><TR
+><TD
+>PAGES</TD
+><TD
+>&#13;        <P
+>&#13;         If the row contains information about an index, this column contains
+         an integer value representing the number of pages used to store the
+         index.
+        </P
+>
+        <P
+>&#13;         If the row contains information about the table itself, this column
+         contains an integer value representing the number of pages used to
+         store the table.
+        </P
+>
+       </TD
+></TR
+><TR
+><TD
+>FILTER_CONDITION</TD
+><TD
+>Always returns <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN55639"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-column-privileges.html"
+><B
+CLASS="function"
+>db2_column_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-columns.html"
+><B
+CLASS="function"
+>db2_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-foreign-keys.html"
+><B
+CLASS="function"
+>db2_foreign_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-primary-keys.html"
+><B
+CLASS="function"
+>db2_primary_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedure-columns.html"
+><B
+CLASS="function"
+>db2_procedure_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedures.html"
+><B
+CLASS="function"
+>db2_procedures()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-special-columns.html"
+><B
+CLASS="function"
+>db2_special_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-table-privileges.html"
+><B
+CLASS="function"
+>db2_table_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-tables.html"
+><B
+CLASS="function"
+>db2_tables()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-special-columns.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-stmt-error.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_special_columns</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_stmt_error</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

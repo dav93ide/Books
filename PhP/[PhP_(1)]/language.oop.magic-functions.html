@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Le funzioni magiche __sleep e __wakeup</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classi e Oggetti (PHP 4)"
+HREF="language.oop.html"><LINK
+REL="PREVIOUS"
+TITLE="Serializzare oggetti - oggetti nelle sessioni"
+HREF="language.oop.serialization.html"><LINK
+REL="NEXT"
+TITLE="Riferimenti all'interno del costruttore"
+HREF="language.oop.newref.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop.serialization.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 18. Classi e Oggetti (PHP 4)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop.newref.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop.magic-functions"
+>Le funzioni magiche <VAR
+CLASS="literal"
+>__sleep</VAR
+> e <VAR
+CLASS="literal"
+>__wakeup</VAR
+></A
+></H1
+><P
+>&#13;   <A
+HREF="function.serialize.html"
+><B
+CLASS="function"
+>serialize()</B
+></A
+> controlla se la vostra classe ha una 
+   funzione dal nome magico <VAR
+CLASS="literal"
+>__sleep</VAR
+>. In caso affermativo, 
+   quella funzione viene eseguita prima di qualsiasi serializzazione. 
+   La funzione può pulire l'oggetto e restituire un array con i nomi di 
+   tutte le variabili di quell' oggetto che dovrebbero essere serializzate.
+  </P
+><P
+>&#13;   Si intende usare <VAR
+CLASS="literal"
+>__sleep</VAR
+> quando chiudendo un 
+   collegamento ad un database l'oggetto può avere dati pendenti e 
+   l'oggetto ha bisogno di essere ripulito. Inoltre, la funzione è 
+   utile se avete oggetti molto grandi che non devono essere salvati 
+   completamente.
+  </P
+><P
+>&#13;   Per contro, <A
+HREF="function.unserialize.html"
+><B
+CLASS="function"
+>unserialize()</B
+></A
+> controlla per vedere 
+   se c'è nella classe una funzione dal nome magico <VAR
+CLASS="literal"
+>__wakeup</VAR
+>.
+   Se è presente questa funzione può ricostruire qualunque risorsa che 
+   l'oggetto aveva.
+  </P
+><P
+>&#13;    L'intento di <VAR
+CLASS="literal"
+>__wakeup</VAR
+> è quello di ristabilire
+    le connessioni ai database che possono esser state persi 
+    durante la serializzazione ed effettuare altre mansioni 
+    reinizializzazione.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop.serialization.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop.newref.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Serializzare oggetti - oggetti nelle sessioni</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Riferimenti all'interno del costruttore</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ocinewcursor</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Oracle 8"
+HREF="ref.oci8.html"><LINK
+REL="PREVIOUS"
+TITLE="ocinewcollection"
+HREF="function.ocinewcollection.html"><LINK
+REL="NEXT"
+TITLE="ocinewdescriptor"
+HREF="function.ocinewdescriptor.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ocinewcollection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ocinewdescriptor.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ocinewcursor"
+></A
+>ocinewcursor</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN113165"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.8, PHP 4, PHP 5)</P
+>ocinewcursor&nbsp;--&nbsp;
+     Restituisce un nuovo cursore (Statement-Handle)
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN113168"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>ocinewcursor</B
+> ( resource conn )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>ocinewcursor()</B
+> alloca un nuovo identificatore di istruzione sulla connessione
+     specificata.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN113179"
+></A
+><P
+><B
+>Esempio 1. Using a REF CURSOR from a stored procedure</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php   
+// suppose your stored procedure info.output returns a ref cursor in :data
+
+$conn = OCILogon("scott","tiger");
+$curs = OCINewCursor($conn);
+$stmt = OCIParse($conn,"begin info.output(:data); end;");
+
+ocibindbyname($stmt,"data",&#38;$curs,-1,OCI_B_CURSOR);
+ociexecute($stmt);
+ociexecute($curs);
+
+while (OCIFetchInto($curs,&#38;$data)) {
+    var_dump($data);
+}
+ 
+OCIFreeStatement($stmt);
+OCIFreeCursor($curs);
+OCILogoff($conn);
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN113183"
+></A
+><P
+><B
+>Esempio 2. Using a REF CURSOR in a select statement</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php   
+print "&#60;HTML&#62;&#60;BODY&#62;";
+$conn = OCILogon("scott","tiger");
+$count_cursor = "CURSOR(select count(empno) num_emps from emp " .
+                "where emp.deptno = dept.deptno) as EMPCNT from dept";
+$stmt = OCIParse($conn,"select deptno,dname,$count_cursor");
+
+ociexecute($stmt);
+print "&#60;TABLE BORDER=\"1\"&#62;";
+print "&#60;TR&#62;";
+print "&#60;TH&#62;DEPT NAME&#60;/TH&#62;";
+print "&#60;TH&#62;DEPT #&#60;/TH&#62;";
+print "&#60;TH&#62;# EMPLOYEES&#60;/TH&#62;";
+print "&#60;/TR&#62;";
+
+while (OCIFetchInto($stmt,&#38;$data,OCI_ASSOC)) {
+    print "&#60;TR&#62;";
+    $dname  = $data["DNAME"];
+    $deptno = $data["DEPTNO"];
+    print "&#60;TD&#62;$dname&#60;/TD&#62;";
+    print "&#60;TD&#62;$deptno&#60;/TD&#62;";
+    ociexecute($data["EMPCNT"]);
+    while (OCIFetchInto($data["EMPCNT"],&#38;$subdata,OCI_ASSOC)) {
+        $num_emps = $subdata["NUM_EMPS"];
+        print  "&#60;TD&#62;$num_emps&#60;/TD&#62;";
+    }
+    print "&#60;/TR&#62;";
+}
+print "&#60;/TABLE&#62;";
+print "&#60;/BODY&#62;&#60;/HTML&#62;";
+OCIFreeStatement($stmt);
+OCILogoff($conn);
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ocinewcollection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ocinewdescriptor.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ocinewcollection</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.oci8.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ocinewdescriptor</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

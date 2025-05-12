@@ -1,0 +1,438 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni per le espressioni regolari (POSIX estesa)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="posix_uname"
+HREF="function.posix-uname.html"><LINK
+REL="NEXT"
+TITLE="ereg_replace"
+HREF="function.ereg-replace.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.posix-uname.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ereg-replace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.regex"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXIII. Funzioni per le espressioni regolari (POSIX estesa)</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN131502"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="regex.intro"
+>Introduzione</A
+></H1
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+      Il PHP, utilizzando le <A
+HREF="ref.pcre.html"
+>funzioni PCRE</A
+>,
+      supporta anche le espressioni regolari con una sintassi compatibile con Perl.
+      Queste funzioni supportano riconoscimenti "pigliatutto", asserzioni, criteri condizionali,
+      e diverse altre caratteristiche che non sono supportate dalla sintassi POSIX estesa. 
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Queste funzioni per l'espressioni regolari non sono binary-safe. Le <A
+HREF="ref.pcre.html"
+>funzioni PCRE</A
+> lo sono.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     In PHP, le espressioni regolari sono utilizzate per complesse 
+     manipolazioni di stringhe. Le espressioni regolari utilizzate da PHP sono di tipo
+     POSIX esteso così come definito in POSIX 1003.2. Per una descrizione
+     completa delle espressione regolari POSIX, vedere la pagina del
+     <A
+HREF="http://www.tin.org/bin/man.cgi?section=7&topic=regex"
+TARGET="_top"
+>manuale di regex</A
+>  inclusa nella directory di regex nella distribuzione 
+     di PHP. Questa è in formato man, pertanto per poterle leggere occorre
+     eseguire <B
+CLASS="command"
+>man /usr/local/src/regex/regex.7</B
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="regex.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="regex.installation"
+>Installazione</A
+></H1
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;   Non variare TYPE se non si sa cosa si sta facendo.
+  </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;  Per abilitare il supporto a regex occorre configurare il PHP con
+  <VAR
+CLASS="option"
+>--with-regex[=TYPE]</VAR
+>. TYPE può essere:
+  system, apache, php. Per default si usa php.
+ </P
+><P
+> La versione per Windows di PHP
+ha già compilato il supporto per questo modulo. Non occorre caricare alcun modulo
+addizionale per potere utilizzare queste funzioni.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="regex.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="regex.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="regex.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="regex.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN131537"
+></A
+><P
+><B
+>Esempio 1. Esempi di espressione regolare</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Restituisce vero se "abc"<br />&nbsp;&nbsp;&nbsp;viene trovata ovunque in $string. */<br /></font><font color="#0000BB">ereg</font><font color="#007700">(</font><font color="#DD0000">"abc"</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /><br /></font><font color="#FF8000">/* Restituisce vero se "abc"<br />&nbsp;&nbsp;&nbsp;viene trovata all'inizio di $string. */<br /></font><font color="#0000BB">ereg</font><font color="#007700">(</font><font color="#DD0000">"^abc"</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Restituisce vero se "abc"<br />&nbsp;&nbsp;&nbsp;viene trovata alla fine di $string. */<br /></font><font color="#0000BB">ereg</font><font color="#007700">(</font><font color="#DD0000">"abc</font><font color="#007700">$</font><font color="#DD0000">"</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Restituisce vero se il browser<br />&nbsp;&nbsp;&nbsp;è Netscape 2, 3 oppure MSIE 3. */<br /></font><font color="#0000BB">eregi</font><font color="#007700">(</font><font color="#DD0000">"(ozilla.[23]|MSIE.3)"</font><font color="#007700">, </font><font color="#0000BB">$HTTP_USER_AGENT</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Posizione tre parole separate da spazio<br />&nbsp;&nbsp;&nbsp;in $regs[1], $regs[2] e $regs[3]. */<br /></font><font color="#0000BB">ereg</font><font color="#007700">(</font><font color="#DD0000">"([[:alnum:]]+) ([[:alnum:]]+) ([[:alnum:]]+)"</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">, </font><font color="#0000BB">$regs</font><font color="#007700">); <br /><br /></font><font color="#FF8000">/* Posiziona il tag &lt;br /&gt; all'inizio di $string. */<br /></font><font color="#0000BB">$string </font><font color="#007700">= </font><font color="#0000BB">ereg_replace</font><font color="#007700">(</font><font color="#DD0000">"^"</font><font color="#007700">, </font><font color="#DD0000">"&lt;br /&gt;"</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Posiziona il tag &lt;br /&gt; alla fine di $string. */ <br /></font><font color="#0000BB">$string </font><font color="#007700">= </font><font color="#0000BB">ereg_replace</font><font color="#007700">(</font><font color="#DD0000">"</font><font color="#007700">$</font><font color="#DD0000">"</font><font color="#007700">, </font><font color="#DD0000">"&lt;br /&gt;"</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Toglie ogni carattere di invio<br />&nbsp;&nbsp;&nbsp;da $string. */<br /></font><font color="#0000BB">$string </font><font color="#007700">= </font><font color="#0000BB">ereg_replace</font><font color="#007700">(</font><font color="#DD0000">"\n"</font><font color="#007700">, </font><font color="#DD0000">""</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="regex.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     Per maggiori dettagli sulle espressioni regolari compatibili con Perl
+     vedere il capitolo sulle <A
+HREF="ref.pcre.html"
+>funzioni PCRE</A
+>.
+     La funzione <A
+HREF="function.fnmatch.html"
+><B
+CLASS="function"
+>fnmatch()</B
+></A
+> fornisce il riconoscimento
+     dei caratteri jolly tipici della linea di comando.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.ereg-replace.html"
+>ereg_replace</A
+>&nbsp;--&nbsp;Sostituzioni con espressioni regolari</DT
+><DT
+><A
+HREF="function.ereg.html"
+>ereg</A
+>&nbsp;--&nbsp;Riconoscimento di espressione regolare</DT
+><DT
+><A
+HREF="function.eregi-replace.html"
+>eregi_replace</A
+>&nbsp;--&nbsp;Sostituzioni con espressioni regolari senza distinzione tra maiuscole e minuscole</DT
+><DT
+><A
+HREF="function.eregi.html"
+>eregi</A
+>&nbsp;--&nbsp;Riconoscimento di espressioni regolari senza distinzione tra maiuscole e minuscole</DT
+><DT
+><A
+HREF="function.split.html"
+>split</A
+>&nbsp;--&nbsp;Suddivide una stringa in una matrice utilizzando le espressioni regolari</DT
+><DT
+><A
+HREF="function.spliti.html"
+>spliti</A
+>&nbsp;--&nbsp;
+   Suddivide una stringa in una matrice usando le espressioni regolari senza distinguere tra
+    maiuscole e minuscole
+  </DT
+><DT
+><A
+HREF="function.sql-regcase.html"
+>sql_regcase</A
+>&nbsp;--&nbsp;
+     Genera una espressione regolare per riconoscimenti senza distinguere tra maiuscole e minuscole
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.posix-uname.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ereg-replace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>posix_uname</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ereg_replace</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

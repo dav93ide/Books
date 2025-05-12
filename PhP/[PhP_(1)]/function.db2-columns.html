@@ -1,0 +1,557 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_columns</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_column_privileges"
+HREF="function.db2-column-privileges.html"><LINK
+REL="NEXT"
+TITLE="db2_commit"
+HREF="function.db2-commit.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-column-privileges.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-commit.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-columns"
+></A
+>db2_columns</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN52789"
+></A
+><P
+>    (PECL)</P
+>db2_columns&nbsp;--&nbsp;
+   Returns a result set listing the columns and associated metadata for a table
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52792"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>db2_columns</B
+> ( resource connection [, string qualifier [, string schema [, string table-name [, string column-name]]]] )<BR
+></BR
+><P
+>&#13;   Returns a result set listing the columns and associated metadata for a
+   table.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52813"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       A valid connection to an IBM DB2, Cloudscape, or Apache Derby database.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>qualifier</VAR
+></DT
+><DD
+><P
+>&#13;       A qualifier for DB2 databases running on OS/390 or z/OS servers. For
+       other databases, pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> or an empty string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>schema</VAR
+></DT
+><DD
+><P
+>&#13;       The schema which contains the tables. To match all schemas, pass
+       <VAR
+CLASS="literal"
+>'%'</VAR
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>table-name</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the table or view. To match all tables in the database,
+       pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> or an empty string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>column-name</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the column. To match all columns in the table, pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>
+       or an empty string.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52846"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a statement resource with a result set containing rows describing
+   the columns matching the specified parameters. The rows are composed of
+   the following columns:
+   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN52849"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Column name</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>TABLE_CAT</TD
+><TD
+>Name of the catalog. The value is NULL if this table does not
+         have catalogs.</TD
+></TR
+><TR
+><TD
+>TABLE_SCHEM</TD
+><TD
+>Name of the schema.</TD
+></TR
+><TR
+><TD
+>TABLE_NAME</TD
+><TD
+>Name of the table or view.</TD
+></TR
+><TR
+><TD
+>COLUMN_NAME</TD
+><TD
+>Name of the column.</TD
+></TR
+><TR
+><TD
+>DATA_TYPE</TD
+><TD
+>The SQL data type for the column represented as an integer value.</TD
+></TR
+><TR
+><TD
+>TYPE_NAME</TD
+><TD
+>A string representing the data type for the column.</TD
+></TR
+><TR
+><TD
+>COLUMN_SIZE</TD
+><TD
+>An integer value representing the size of the column.</TD
+></TR
+><TR
+><TD
+>BUFFER_LENGTH</TD
+><TD
+>&#13;         Maximum number of bytes necessary to store data from this column.
+        </TD
+></TR
+><TR
+><TD
+>DECIMAL_DIGITS</TD
+><TD
+>&#13;         The scale of the column, or <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> where scale is not applicable.
+        </TD
+></TR
+><TR
+><TD
+>NUM_PREC_RADIX</TD
+><TD
+>&#13;         An integer value of either <VAR
+CLASS="literal"
+>10</VAR
+> (representing
+         an exact numeric data type), <VAR
+CLASS="literal"
+>2</VAR
+> (representing an
+         approximate numeric data type), or <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> (representing a data type for
+         which radix is not applicable).
+        </TD
+></TR
+><TR
+><TD
+>NULLABLE</TD
+><TD
+>An integer value representing whether the column is nullable or
+        not.</TD
+></TR
+><TR
+><TD
+>REMARKS</TD
+><TD
+>Description of the column.</TD
+></TR
+><TR
+><TD
+>COLUMN_DEF</TD
+><TD
+>Default value for the column.</TD
+></TR
+><TR
+><TD
+>SQL_DATA_TYPE</TD
+><TD
+>An integer value representing the size of the column.</TD
+></TR
+><TR
+><TD
+>SQL_DATETIME_SUB</TD
+><TD
+>&#13;         Returns an integer value representing a datetime subtype code,
+         or <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> for SQL data types to which this does not apply.
+        </TD
+></TR
+><TR
+><TD
+>CHAR_OCTET_LENGTH</TD
+><TD
+>&#13;         Maximum length in octets for a character data type column, which
+         matches COLUMN_SIZE for single-byte character set data, or <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> for
+         non-character data types.
+        </TD
+></TR
+><TR
+><TD
+>ORDINAL_POSITION</TD
+><TD
+>The 1-indexed position of the column in the table.</TD
+></TR
+><TR
+><TD
+>IS_NULLABLE</TD
+><TD
+>&#13;         A string value where 'YES' means that the column is nullable and
+         'NO' means that the column is not nullable.
+       </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52916"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-column-privileges.html"
+><B
+CLASS="function"
+>db2_column_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-foreign-keys.html"
+><B
+CLASS="function"
+>db2_foreign_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-primary-keys.html"
+><B
+CLASS="function"
+>db2_primary_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedure-columns.html"
+><B
+CLASS="function"
+>db2_procedure_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedures.html"
+><B
+CLASS="function"
+>db2_procedures()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-special-columns.html"
+><B
+CLASS="function"
+>db2_special_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-statistics.html"
+><B
+CLASS="function"
+>db2_statistics()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-table-privileges.html"
+><B
+CLASS="function"
+>db2_table_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-tables.html"
+><B
+CLASS="function"
+>db2_tables()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-column-privileges.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-commit.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_column_privileges</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_commit</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

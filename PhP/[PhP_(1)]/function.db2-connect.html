@@ -1,0 +1,600 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_connect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_conn_errormsg"
+HREF="function.db2-conn-errormsg.html"><LINK
+REL="NEXT"
+TITLE="db2_cursor_type"
+HREF="function.db2-cursor-type.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-conn-errormsg.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-cursor-type.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-connect"
+></A
+>db2_connect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN53090"
+></A
+><P
+>    (PECL)</P
+>db2_connect&nbsp;--&nbsp;
+   Returns a connection to a database
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53093"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>db2_connect</B
+> ( string database, string username, string password [, array options] )<BR
+></BR
+><P
+>&#13;   Creates a new connection to an IBM DB2 Universal Database, IBM Cloudscape,
+   or Apache Derby database.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53111"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>database</VAR
+></DT
+><DD
+><P
+>&#13;       For a cataloged connection to a database, <VAR
+CLASS="parameter"
+>database</VAR
+>
+       represents the database alias in the DB2 client catalog.
+      </P
+><P
+>&#13;       For an uncataloged connection to a database, 
+       <VAR
+CLASS="parameter"
+>database</VAR
+> represents a complete connection
+       string in the following format:
+       <VAR
+CLASS="literal"
+>DRIVER={IBM DB2 ODBC DRIVER};DATABASE=<VAR
+CLASS="parameter"
+>database</VAR
+>;HOSTNAME=<VAR
+CLASS="parameter"
+>hostname</VAR
+>;PORT=<VAR
+CLASS="parameter"
+>port</VAR
+>;PROTOCOL=TCPIP;UID=<VAR
+CLASS="parameter"
+>username</VAR
+>;PWD=<VAR
+CLASS="parameter"
+>password</VAR
+>;</VAR
+>
+       where the parameters represent the following values:
+       <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>database</VAR
+></DT
+><DD
+><P
+>&#13;           The name of the database.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>hostname</VAR
+></DT
+><DD
+><P
+>&#13;           The hostname or IP address of the database server.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>port</VAR
+></DT
+><DD
+><P
+>&#13;           The TCP/IP port on which the database is listening for
+           requests.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>username</VAR
+></DT
+><DD
+><P
+>&#13;           The username with which you are connecting to the
+           database.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>password</VAR
+></DT
+><DD
+><P
+>&#13;           The password with which you are connecting to the database.
+          </P
+></DD
+></DL
+></DIV
+>
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>username</VAR
+></DT
+><DD
+><P
+>&#13;       The username with which you are connecting to the database.
+      </P
+><P
+>&#13;       For uncataloged connections, you must pass a <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> value or empty
+       string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>password</VAR
+></DT
+><DD
+><P
+>&#13;       The password with which you are connecting to the database.
+      </P
+><P
+>&#13;       For uncataloged connections, you must pass a <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> value or empty
+       string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>options</VAR
+></DT
+><DD
+><P
+>&#13;       An associative array of connection options that affect the behavior
+       of the connection, where valid array keys include:
+       <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>autocommit</VAR
+></DT
+><DD
+><P
+>&#13;           Passing the <VAR
+CLASS="literal"
+>DB2_AUTOCOMMIT_ON</VAR
+> value turns
+           autocommit on for this connection handle.
+          </P
+><P
+>&#13;           Passing the <VAR
+CLASS="literal"
+>DB2_AUTOCOMMIT_OFF</VAR
+> value turns
+           autocommit off for this connection handle.
+          </P
+></DD
+></DL
+></DIV
+>
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53183"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a connection handle resource if the connection attempt is
+   successful. If the connection attempt fails, <B
+CLASS="function"
+>db2_connect()</B
+>
+   returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53188"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53191"
+></A
+><P
+><B
+>Esempio 1. Creating a cataloged connection</B
+></P
+><P
+>&#13;     Cataloged connections require you to have previously cataloged the target
+     database through the DB2 Command Line Processor (CLP) or DB2
+     Configuration Assistant.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$database </font><font color="#007700">= </font><font color="#DD0000">'SAMPLE'</font><font color="#007700">;<br /></font><font color="#0000BB">$user </font><font color="#007700">= </font><font color="#DD0000">'db2inst1'</font><font color="#007700">;<br /></font><font color="#0000BB">$password </font><font color="#007700">= </font><font color="#DD0000">'ibmdb2'</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">db2_connect</font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">$conn</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Connection succeeded."</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">db2_close</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br />}<br />else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Connection failed."</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Connection succeeded.</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53197"
+></A
+><P
+><B
+>Esempio 2. Creating an uncataloged connection</B
+></P
+><P
+>&#13;     An uncataloged connection enables you to dynamically connect to a
+     database.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$database </font><font color="#007700">= </font><font color="#DD0000">'SAMPLE'</font><font color="#007700">;<br /></font><font color="#0000BB">$user </font><font color="#007700">= </font><font color="#DD0000">'db2inst1'</font><font color="#007700">;<br /></font><font color="#0000BB">$password </font><font color="#007700">= </font><font color="#DD0000">'ibmdb2'</font><font color="#007700">;<br /></font><font color="#0000BB">$hostname </font><font color="#007700">= </font><font color="#DD0000">'localhost'</font><font color="#007700">;<br /></font><font color="#0000BB">$port </font><font color="#007700">= </font><font color="#0000BB">50000</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$conn_string </font><font color="#007700">= </font><font color="#DD0000">"DRIVER=</font><font color="#007700">{</font><font color="#DD0000">IBM DB2 ODBC DRIVER</font><font color="#007700">}</font><font color="#DD0000">;DATABASE=$database;" </font><font color="#007700">.<br />&nbsp;&nbsp;</font><font color="#DD0000">"HOSTNAME=$hostname;PORT=$port;PROTOCOL=TCPIP;UID=$user;PWD=$password;"</font><font color="#007700">;<br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">db2_connect</font><font color="#007700">(</font><font color="#0000BB">$conn_string</font><font color="#007700">, </font><font color="#DD0000">''</font><font color="#007700">, </font><font color="#DD0000">''</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">$conn</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Connection succeeded."</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">db2_close</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br />}<br />else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Connection failed."</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Connection succeeded.</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53203"
+></A
+><P
+><B
+>Esempio 3. Creating a connection with autocommit off by default</B
+></P
+><P
+>&#13;     Passing an array of options to <B
+CLASS="function"
+>db2_connect()</B
+> enables
+     you to modify the default behavior of the connection handle.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$database </font><font color="#007700">= </font><font color="#DD0000">'SAMPLE'</font><font color="#007700">;<br /></font><font color="#0000BB">$user </font><font color="#007700">= </font><font color="#DD0000">'db2inst1'</font><font color="#007700">;<br /></font><font color="#0000BB">$password </font><font color="#007700">= </font><font color="#DD0000">'ibmdb2'</font><font color="#007700">;<br /></font><font color="#0000BB">$options </font><font color="#007700">= array(</font><font color="#DD0000">'autocommit' </font><font color="#007700">=&gt; </font><font color="#0000BB">DB2_AUTOCOMMIT_OFF</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">db2_connect</font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">, </font><font color="#0000BB">$options</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">$conn</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Connection succeeded.\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">db2_autocommit</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Autocommit is on.\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Autocommit is off.\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">db2_close</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br />}<br />else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Connection failed."</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Connection succeeded.
+Autocommit is off.</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53210"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-close.html"
+><B
+CLASS="function"
+>db2_close()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-pconnect.html"
+><B
+CLASS="function"
+>db2_pconnect()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-conn-errormsg.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-cursor-type.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_conn_errormsg</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_cursor_type</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

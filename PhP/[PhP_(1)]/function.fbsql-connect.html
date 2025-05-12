@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fbsql_connect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FrontBase Functions"
+HREF="ref.fbsql.html"><LINK
+REL="PREVIOUS"
+TITLE="fbsql_commit"
+HREF="function.fbsql-commit.html"><LINK
+REL="NEXT"
+TITLE="fbsql_create_blob"
+HREF="function.fbsql-create-blob.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-commit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-create-blob.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fbsql-connect"
+></A
+>fbsql_connect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN45363"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PHP 5)</P
+>fbsql_connect&nbsp;--&nbsp;Apre una connessione al Server FrontBase</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN45366"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>fbsql_connect</B
+> ( [string hostname [, string username [, string password]]] )<BR
+></BR
+><P
+> 
+     Restituisce un valore di link_identifier positivo in 
+     caso di successo, o un messaggio di errore in caso di fallimento. 
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>fbsql_connect()</B
+> Apre una connessione 
+     al Server FrontBase.Se i parametri opzionali non sono specificati verranno usati 
+     i valori seguenti come default: <VAR
+CLASS="parameter"
+>hostname</VAR
+> = '<TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>',
+     <VAR
+CLASS="parameter"
+>username</VAR
+> = '_SYSTEM' e
+     <VAR
+CLASS="parameter"
+>password</VAR
+> = empty password.
+    </P
+><P
+>&#13;     Se si richiamasse, una seconda volta, la funzione <B
+CLASS="function"
+>fbsql_connect()</B
+>
+     con gli stessi argomenti, non si creerebbe una nuova 
+     connessione,ma verrebbe restituito il valore di link_identifier 
+     della connessione già aperta. 
+    </P
+><P
+>&#13;     La connessione al server si chiuderà alla fine dello script, a meno che 
+     non venga chiusa in anticipo richiamando esplicitamente la funzione 
+     <A
+HREF="function.fbsql-close.html"
+><B
+CLASS="function"
+>fbsql_close()</B
+></A
+>.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN45391"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>fbsql_connect()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;$link </font><font color="#007700">= </font><font color="#0000BB">fbsql_connect </font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"_SYSTEM"</font><font color="#007700">, </font><font color="#DD0000">"secret"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or die (</font><font color="#DD0000">"Could not connect"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;print (</font><font color="#DD0000">"Connected successfully"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fbsql_close </font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+> 
+     Vedere anche
+     <A
+HREF="function.fbsql-pconnect.html"
+><B
+CLASS="function"
+>fbsql_pconnect()</B
+></A
+> e
+     <A
+HREF="function.fbsql-close.html"
+><B
+CLASS="function"
+>fbsql_close()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fbsql-commit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fbsql-create-blob.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fbsql_commit</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.fbsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fbsql_create_blob</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

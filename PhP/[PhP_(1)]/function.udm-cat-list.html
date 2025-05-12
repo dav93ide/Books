@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>udm_cat_list</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="mnoGoSearch Functions"
+HREF="ref.mnogosearch.html"><LINK
+REL="PREVIOUS"
+TITLE="udm_api_version"
+HREF="function.udm-api-version.html"><LINK
+REL="NEXT"
+TITLE="udm_cat_path"
+HREF="function.udm-cat-path.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.udm-api-version.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.udm-cat-path.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.udm-cat-list"
+></A
+>udm_cat_list</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN86685"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PHP 5 &#60;= 5.0.4)</P
+>udm_cat_list&nbsp;--&nbsp;Get all the categories on the same level with the current one</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN86688"
+></A
+><H2
+>Description</H2
+>array <B
+CLASS="methodname"
+>udm_cat_list</B
+> ( resource agent, string category )<BR
+></BR
+><P
+>&#13;    Returns an array listing all categories of the same level as the current
+    <VAR
+CLASS="parameter"
+>category</VAR
+> in the categories tree.
+    <VAR
+CLASS="parameter"
+>agent</VAR
+> is the agent identifier returned by a previous
+    call to <B
+CLASS="function"
+>&#62;udm_alloc_agent()</B
+>.
+   </P
+><P
+>&#13;    The function can be useful for developing categories tree browser.
+   </P
+><P
+>&#13;    The returned array consists of pairs. Elements with even index numbers
+    contain the category paths, odd elements contain the corresponding category
+    names.
+   </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$array[0] will contain '020300'
+  $array[1] will contain 'Audi'
+  $array[2] will contain '020301'
+  $array[3] will contain 'BMW'
+  $array[4] will contain '020302'
+  $array[5] will contain 'Opel'
+  ...
+ etc.</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;    Following is an example of displaying links of the current level in format:
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Audi
+  BMW
+  Opel
+  ...</PRE
+></TD
+></TR
+></TABLE
+>
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN86708"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>udm_cat_list()</B
+>example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> $cat_list_arr </font><font color="#007700">= </font><font color="#0000BB">udm_cat_list</font><font color="#007700">(</font><font color="#0000BB">$udm_agent</font><font color="#007700">, </font><font color="#0000BB">$cat</font><font color="#007700">);<br /> </font><font color="#0000BB">$cat_list </font><font color="#007700">= </font><font color="#DD0000">''</font><font color="#007700">;<br /> for (</font><font color="#0000BB">$i</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">&lt;</font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$cat_list_arr</font><font color="#007700">); </font><font color="#0000BB">$i</font><font color="#007700">+=</font><font color="#0000BB">2</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$path </font><font color="#007700">= </font><font color="#0000BB">$cat_list_arr</font><font color="#007700">[</font><font color="#0000BB">$i</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$name </font><font color="#007700">= </font><font color="#0000BB">$cat_list_arr</font><font color="#007700">[</font><font color="#0000BB">$i</font><font color="#007700">+</font><font color="#0000BB">1</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$cat_list </font><font color="#007700">.= </font><font color="#DD0000">"&lt;a href=</font><font color="#007700">\"</font><font color="#DD0000">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">PHP_SELF</font><font color="#007700">]</font><font color="#DD0000">?cat=$path</font><font color="#007700">\"</font><font color="#DD0000">&gt;$name&lt;/a&gt;&lt;br /&gt;"</font><font color="#007700">;<br /> }<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    See also <A
+HREF="function.udm-cat-path.html"
+><B
+CLASS="function"
+>udm_cat_path()</B
+></A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.udm-api-version.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.udm-cat-path.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>udm_api_version</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mnogosearch.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>udm_cat_path</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

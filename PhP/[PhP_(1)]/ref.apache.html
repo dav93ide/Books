@@ -1,0 +1,525 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni Apache</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="dotnet_load"
+HREF="function.dotnet-load.html"><LINK
+REL="NEXT"
+TITLE="apache_child_terminate"
+HREF="function.apache-child-terminate.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dotnet-load.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.apache-child-terminate.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.apache"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>II. Funzioni Apache</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN8160"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apache.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Queste funzioni sono disponibili unicamente quando PHP Ã¨ eseguito come modulo Apache.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      A partire dal PHP 4.3.2, <VAR
+CLASS="envar"
+>PATH_TRANSLATED</VAR
+> non viene più impostata i
+      mplicitamente sotto Apache 2 <ACRONYM
+CLASS="acronym"
+>SAPI</ACRONYM
+>, diversamente da 
+      quanto accadeva in Apache 1, dove questa veniva impostata allo
+      stesso valore di <VAR
+CLASS="envar"
+>SCRIPT_FILENAME</VAR
+> qualora non fosse già
+      riempita. Questa modifica è stata fatta per adeguarsi allla
+      specifica <ACRONYM
+CLASS="acronym"
+>CGI</ACRONYM
+> che impone che
+      <VAR
+CLASS="envar"
+>PATH_TRANSLATED</VAR
+> esista solo se
+      <VAR
+CLASS="envar"
+>PATH_INFO</VAR
+> sia definita.
+     </P
+><P
+>&#13;      Gli utilizzatori di Apache 2 possono usare <VAR
+CLASS="literal"
+>AcceptPathInfo = On</VAR
+> in
+      <TT
+CLASS="filename"
+>httpd.conf</TT
+> per definire <VAR
+CLASS="envar"
+>PATH_INFO</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apache.installation"
+>Installazione</A
+></H1
+><P
+>&#13;     Per l'installazione di PHP su Apache vedere il
+     <A
+HREF="install.html"
+>capitolo sull'installazione</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apache.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13; Il comportamento del modulo Apache per PHP è influenzato dalle impostazioni in <TT
+CLASS="filename"
+>php.ini</TT
+>.
+ Le impostazioni di configurazione del <TT
+CLASS="filename"
+>php.ini</TT
+> possono essere scavalcate
+ attraverso le impostazioni <A
+HREF="configuration.changes.html#configuration.changes.apache"
+>php_flag</A
+>
+ nel file di configurazione del server o nei file <TT
+CLASS="filename"
+>.htaccess</TT
+> locali.
+ </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN8187"
+></A
+><P
+><B
+>Esempio 1. disabilitazione dell'interprete PHP in una directory mediante <TT
+CLASS="filename"
+>.htaccess</TT
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>php_flag engine off</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN8192"
+></A
+><P
+><B
+>Tabella 1. Opzioni di configurazione di Apache</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+><TH
+>Funzione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>engine</TD
+><TD
+>On</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>accende o spegne l'interprete PHP</TD
+></TR
+><TR
+><TD
+>child_terminate</TD
+><TD
+>Off</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&#13;       decide se gli script PHP possono richiedere la terminazione dei processi figli alla fine della richiesta HTTP, 
+       vedere anche <A
+HREF="function.apache-child-terminate.html"
+><B
+CLASS="function"
+>apache_child_terminate()</B
+></A
+>
+      </TD
+></TR
+><TR
+><TD
+>last_modified</TD
+><TD
+>Off</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>manda la data di modifica degli script nell'header Last-Modified:</TD
+></TR
+><TR
+><TD
+>xbithack</TD
+><TD
+>Off</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>interpreta i file con il bit di esecuzione impostato, a prescindere dalla loro estensione</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13; <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.engine"
+></A
+><VAR
+CLASS="parameter"
+>engine</VAR
+>
+   <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;     Questa direttiva è utile solo nella versione di PHP compilata come
+     modulo di Apache. Viene usata dai siti che vogliono spegnere
+     e accendere il parsing PHP in base alla directory o al virtual server
+     corrente. Inserendo <KBD
+CLASS="userinput"
+>engine off</KBD
+>
+     nel posto appropriato nel file <TT
+CLASS="filename"
+>httpd.conf</TT
+>, il PHP può
+     essere abilitato o disabilitato.
+    </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apache.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apache.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.apache-child-terminate.html"
+>apache_child_terminate</A
+>&nbsp;--&nbsp;Interrompe il processo apache dopo la presente richiesta</DT
+><DT
+><A
+HREF="function.apache-get-modules.html"
+>apache_get_modules</A
+>&nbsp;--&nbsp;Get a list of loaded Apache modules</DT
+><DT
+><A
+HREF="function.apache-get-version.html"
+>apache_get_version</A
+>&nbsp;--&nbsp;Fetch Apache version</DT
+><DT
+><A
+HREF="function.apache-getenv.html"
+>apache_getenv</A
+>&nbsp;--&nbsp;Get an Apache subprocess_env variable</DT
+><DT
+><A
+HREF="function.apache-lookup-uri.html"
+>apache_lookup_uri</A
+>&nbsp;--&nbsp;
+     Esegue una richiesta parziale della URI specificata e restituisce
+     tutte le informazioni
+    </DT
+><DT
+><A
+HREF="function.apache-note.html"
+>apache_note</A
+>&nbsp;--&nbsp;Ricava o imposta una variabile nella tabella notes di Apache</DT
+><DT
+><A
+HREF="function.apache-request-headers.html"
+>apache_request_headers</A
+>&nbsp;--&nbsp;Estrae tutti gli header della richiesta HTTP</DT
+><DT
+><A
+HREF="function.apache-reset-timeout.html"
+>apache_reset_timeout</A
+>&nbsp;--&nbsp;Reset the Apache write timer</DT
+><DT
+><A
+HREF="function.apache-response-headers.html"
+>apache_response_headers</A
+>&nbsp;--&nbsp;
+     Estrae tutti gli header della risposta HTTP
+    </DT
+><DT
+><A
+HREF="function.apache-setenv.html"
+>apache_setenv</A
+>&nbsp;--&nbsp;Imposta una variabile Apache subprocess_env</DT
+><DT
+><A
+HREF="function.ascii2ebcdic.html"
+>ascii2ebcdic</A
+>&nbsp;--&nbsp;Traduce una stringa da ASCII a EBCDIC</DT
+><DT
+><A
+HREF="function.ebcdic2ascii.html"
+>ebcdic2ascii</A
+>&nbsp;--&nbsp;Traduce una stringa da string EBCDIC ad ASCII</DT
+><DT
+><A
+HREF="function.getallheaders.html"
+>getallheaders</A
+>&nbsp;--&nbsp;Estrae tutti gli header della richiesta HTTP</DT
+><DT
+><A
+HREF="function.virtual.html"
+>virtual</A
+>&nbsp;--&nbsp;Esegue una sotto-richiesta Apache</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dotnet-load.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.apache-child-terminate.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>dotnet_load</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>apache_child_terminate</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

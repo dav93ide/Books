@@ -1,0 +1,387 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>array_search</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Array"
+HREF="ref.array.html"><LINK
+REL="PREVIOUS"
+TITLE="array_reverse"
+HREF="function.array-reverse.html"><LINK
+REL="NEXT"
+TITLE="array_shift"
+HREF="function.array-shift.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.array-reverse.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.array-shift.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.array-search"
+></A
+>array_search</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN11074"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.5, PHP 5)</P
+>array_search&nbsp;--&nbsp;
+     Ricerca un dato valore in un array e ne restituisce la 
+     chiave corrispondente, se la ricerca ha successo.
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN11077"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>array_search</B
+> ( mixed ago, array pagliaio [, bool strict] )<BR
+></BR
+><P
+>&#13;     Cerca in <VAR
+CLASS="parameter"
+>pagliaio</VAR
+> per trovare
+     <VAR
+CLASS="parameter"
+>ago</VAR
+> e restituisce la chiave se viene trovato
+     nell'array, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> altrimenti.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Se <VAR
+CLASS="parameter"
+>ago</VAR
+> è una stringa, il confronto è fatto
+      tenendo conto delle maiuscole/minuscole.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Nelle versioni di PHP  antecedenti la 4.2.0, <B
+CLASS="function"
+>array_search()</B
+> restituisce
+      <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> invece di <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Se il terzo parametro opzionale <VAR
+CLASS="parameter"
+>strict</VAR
+> è impostato a
+     <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> la funzione <B
+CLASS="function"
+>array_search()</B
+>
+     controllerà anche il tipo di <VAR
+CLASS="parameter"
+>ago</VAR
+>
+     nell'array <VAR
+CLASS="parameter"
+>pagliaio</VAR
+>.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>ago</VAR
+> viene ritrovato in
+     <VAR
+CLASS="parameter"
+>pagliaio</VAR
+> più di una nolta, viene restituita
+     la prima chiave trovata. Per restituire le chiavi di tutti i valori, utilizzare
+     <A
+HREF="function.array-keys.html"
+><B
+CLASS="function"
+>array_keys()</B
+></A
+> con il parametro opzionale
+     <VAR
+CLASS="parameter"
+>valore_ricerca</VAR
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN11115"
+></A
+><P
+><B
+>Esempio 1. esempio di <B
+CLASS="function"
+>array_search()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$array </font><font color="#007700">= array(</font><font color="#0000BB">0 </font><font color="#007700">=&gt; </font><font color="#DD0000">'blu'</font><font color="#007700">, </font><font color="#0000BB">1 </font><font color="#007700">=&gt; </font><font color="#DD0000">'rosso'</font><font color="#007700">, </font><font color="#0000BB">2 </font><font color="#007700">=&gt; </font><font color="#DD0000">'verde'</font><font color="#007700">, </font><font color="#0000BB">3 </font><font color="#007700">=&gt; </font><font color="#DD0000">'rosso'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$chiave </font><font color="#007700">= </font><font color="#0000BB">array_search</font><font color="#007700">(</font><font color="#DD0000">'verde'</font><font color="#007700">, </font><font color="#0000BB">$array</font><font color="#007700">); </font><font color="#FF8000">// $chiave = 2;<br /></font><font color="#0000BB">$chiave </font><font color="#007700">= </font><font color="#0000BB">array_search</font><font color="#007700">(</font><font color="#DD0000">'rosso'</font><font color="#007700">, </font><font color="#0000BB">$array</font><font color="#007700">); </font><font color="#FF8000">// $chiave = 1;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione può
+restituire il Booleano <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, ma può anche restituire un valore non-Booleano valutato
+come <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, come ad esempio <VAR
+CLASS="literal"
+>0</VAR
+> o
+"". Per favore fare riferimento alla sezione <A
+HREF="language.types.boolean.html"
+>Booleans</A
+> per maggiori 
+informazioni. Usare <A
+HREF="language.operators.comparison.html"
+>l'operatore 
+=== </A
+> per controllare il valore restituito da questa 
+funzione.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.array-keys.html"
+><B
+CLASS="function"
+>array_keys()</B
+></A
+>,
+     <A
+HREF="function.array-values.html"
+><B
+CLASS="function"
+>array_values()</B
+></A
+>,
+     <A
+HREF="function.array-key-exists.html"
+><B
+CLASS="function"
+>array_key_exists()</B
+></A
+> e
+     <A
+HREF="function.in-array.html"
+><B
+CLASS="function"
+>in_array()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.array-reverse.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.array-shift.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>array_reverse</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.array.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>array_shift</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

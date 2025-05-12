@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mdecrypt_generic</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Mcrypt Encryption Functions"
+HREF="ref.mcrypt.html"><LINK
+REL="PREVIOUS"
+TITLE="mcrypt_ofb"
+HREF="function.mcrypt-ofb.html"><LINK
+REL="NEXT"
+TITLE="MCVE Payment Functions"
+HREF="ref.mcve.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mcrypt-ofb.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.mcve.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mdecrypt-generic"
+></A
+>mdecrypt_generic</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN78213"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.2, PHP 5)</P
+>mdecrypt_generic&nbsp;--&nbsp;Decrypt data</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN78216"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>mdecrypt_generic</B
+> ( resource td, string data )<BR
+></BR
+><P
+>&#13;     This function decrypts data. Note that the length of the returned string
+     can in fact be longer then the unencrypted string, due to the padding of
+     the data.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN78229"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>mdecrypt_generic()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Data */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$key </font><font color="#007700">= </font><font color="#DD0000">'this is a very long key, even too long for the cipher'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$plain_text </font><font color="#007700">= </font><font color="#DD0000">'very important data'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Open module, and create IV */ <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$td </font><font color="#007700">= </font><font color="#0000BB">mcrypt_module_open</font><font color="#007700">(</font><font color="#DD0000">'des'</font><font color="#007700">, </font><font color="#DD0000">''</font><font color="#007700">, </font><font color="#DD0000">'ecb'</font><font color="#007700">, </font><font color="#DD0000">''</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$key </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">$key</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">mcrypt_enc_get_key_size</font><font color="#007700">(</font><font color="#0000BB">$td</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$iv_size </font><font color="#007700">= </font><font color="#0000BB">mcrypt_enc_get_iv_size</font><font color="#007700">(</font><font color="#0000BB">$td</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$iv </font><font color="#007700">= </font><font color="#0000BB">mcrypt_create_iv</font><font color="#007700">(</font><font color="#0000BB">$iv_size</font><font color="#007700">, </font><font color="#0000BB">MCRYPT_RAND</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Initialize encryption handle */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">mcrypt_generic_init</font><font color="#007700">(</font><font color="#0000BB">$td</font><font color="#007700">, </font><font color="#0000BB">$key</font><font color="#007700">, </font><font color="#0000BB">$iv</font><font color="#007700">) != -</font><font color="#0000BB">1</font><font color="#007700">) {<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Encrypt data */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$c_t </font><font color="#007700">= </font><font color="#0000BB">mcrypt_generic</font><font color="#007700">(</font><font color="#0000BB">$td</font><font color="#007700">, </font><font color="#0000BB">$plain_text</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mcrypt_generic_deinit</font><font color="#007700">(</font><font color="#0000BB">$td</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Reinitialize buffers for decryption */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mcrypt_generic_init</font><font color="#007700">(</font><font color="#0000BB">$td</font><font color="#007700">, </font><font color="#0000BB">$key</font><font color="#007700">, </font><font color="#0000BB">$iv</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$p_t </font><font color="#007700">= </font><font color="#0000BB">mdecrypt_generic</font><font color="#007700">(</font><font color="#0000BB">$td</font><font color="#007700">, </font><font color="#0000BB">$c_t</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Clean up */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mcrypt_generic_deinit</font><font color="#007700">(</font><font color="#0000BB">$td</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mcrypt_module_close</font><font color="#007700">(</font><font color="#0000BB">$td</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">strncmp</font><font color="#007700">(</font><font color="#0000BB">$p_t</font><font color="#007700">, </font><font color="#0000BB">$plain_text</font><font color="#007700">, </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$plain_text</font><font color="#007700">)) == </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"ok\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"error\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     The above example shows how to check if the data before the encryption is
+     the same as the data after the decryption. It is very important to
+     reinitialize the encryption buffer with
+     <A
+HREF="function.mcrypt-generic-init.html"
+><B
+CLASS="function"
+>mcrypt_generic_init()</B
+></A
+> before you try to decrypt the
+     data.
+    </P
+><P
+>&#13;     The decryption handle should always be initialized with
+     <A
+HREF="function.mcrypt-generic-init.html"
+><B
+CLASS="function"
+>mcrypt_generic_init()</B
+></A
+> with a key and an IV before
+     calling this function. Where the encryption is done, you should free the
+     encryption buffers by calling <A
+HREF="function.mcrypt-generic-deinit.html"
+><B
+CLASS="function"
+>mcrypt_generic_deinit()</B
+></A
+>.
+     See <A
+HREF="function.mcrypt-module-open.html"
+><B
+CLASS="function"
+>mcrypt_module_open()</B
+></A
+> for an example.
+    </P
+><P
+>&#13;     See also <A
+HREF="function.mcrypt-generic.html"
+><B
+CLASS="function"
+>mcrypt_generic()</B
+></A
+>,
+     <A
+HREF="function.mcrypt-generic-init.html"
+><B
+CLASS="function"
+>mcrypt_generic_init()</B
+></A
+>, and
+     <A
+HREF="function.mcrypt-generic-deinit.html"
+><B
+CLASS="function"
+>mcrypt_generic_deinit()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mcrypt-ofb.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.mcve.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mcrypt_ofb</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mcrypt.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>MCVE Payment Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

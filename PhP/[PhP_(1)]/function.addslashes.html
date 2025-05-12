@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>addslashes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="addcslashes"
+HREF="function.addcslashes.html"><LINK
+REL="NEXT"
+TITLE="bin2hex"
+HREF="function.bin2hex.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.addcslashes.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.bin2hex.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.addslashes"
+></A
+>addslashes</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN162548"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>addslashes&nbsp;--&nbsp;Esegue il quoting di una stringa con gli slash '/'</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN162551"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>addslashes</B
+> ( string str )<BR
+></BR
+><P
+>&#13;     La funzione restituisce una stringa con il carattere di backslah '\' anteposto ai caratteri
+     che richiedono il quoting nelle query dei database. Questi caratteri sono:
+     apici singoli (<VAR
+CLASS="literal"
+>'</VAR
+>), doppi apici
+     (<VAR
+CLASS="literal"
+>"</VAR
+>), backslash (<VAR
+CLASS="literal"
+>\</VAR
+>)
+     e NUL (il byte <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>).
+    </P
+><P
+>&#13;     Un esempio di utilizzo di <B
+CLASS="function"
+>addslashes()</B
+> è dato dal caso in cui si inserisce
+     dei dati in un database. Ad esempio, per inserire il nome
+     <VAR
+CLASS="literal"
+>O'reilly</VAR
+> in un database, occorre anteporre il carattere di
+     escape. Molti database eseguono questo compito con il carattere <VAR
+CLASS="literal"
+>\</VAR
+>, quindi il nostro
+     esempio diventerebbe <VAR
+CLASS="literal"
+>O\'reilly</VAR
+>.  Questo serve solo per inserire i dati
+     nel database, il carattere in più <VAR
+CLASS="literal"
+>\</VAR
+> non sarà inserito.
+     Impostando la direttiva PHP <A
+HREF="ref.sybase.html#ini.magic-quotes-sybase"
+>&#13;     magic_quotes_sybase</A
+> a <VAR
+CLASS="literal"
+>on</VAR
+> si indica che
+     <VAR
+CLASS="literal"
+>'</VAR
+> deve essere preceduto da un'altro
+     <VAR
+CLASS="literal"
+>'</VAR
+>.
+    </P
+><P
+>&#13;     La direttiva PHP <A
+HREF="ref.info.html#ini.magic-quotes-gpc"
+>&#13;     magic_quotes_gpc</A
+> è impostata a <VAR
+CLASS="literal"
+>on</VAR
+> per default, ed in pratica
+     esegue <B
+CLASS="function"
+>addslashes()</B
+> su tutti i dati GET, POST,
+     e COOKIE.  Non utilizzare <B
+CLASS="function"
+>addslashes()</B
+> su stringhe
+     che hanno già il carattere di escape per via del parametro
+     <A
+HREF="ref.info.html#ini.magic-quotes-gpc"
+>magic_quotes_gpc</A
+> altrimenti si 
+     ottiene un doppio escape. La funzione 
+     <A
+HREF="function.get-magic-quotes-gpc.html"
+><B
+CLASS="function"
+>get_magic_quotes_gpc()</B
+></A
+> può aiutare nella
+     verifica di questa situazione.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN162582"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di  <B
+CLASS="function"
+>addslashes()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$str </font><font color="#007700">= </font><font color="#DD0000">"Is your name O'reilly?"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Outputs: Is your name O\'reilly?<br /></font><font color="#007700">echo </font><font color="#0000BB">addslashes</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.stripslashes.html"
+><B
+CLASS="function"
+>stripslashes()</B
+></A
+>, 
+     <A
+HREF="function.htmlspecialchars.html"
+><B
+CLASS="function"
+>htmlspecialchars()</B
+></A
+>,
+     <A
+HREF="function.quotemeta.html"
+><B
+CLASS="function"
+>quotemeta()</B
+></A
+> e
+     <A
+HREF="function.get-magic-quotes-gpc.html"
+><B
+CLASS="function"
+>get_magic_quotes_gpc()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.addcslashes.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.bin2hex.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>addcslashes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>bin2hex</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

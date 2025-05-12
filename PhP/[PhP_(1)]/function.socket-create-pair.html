@@ -1,0 +1,516 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>socket_create_pair</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni relative ai Socket"
+HREF="ref.sockets.html"><LINK
+REL="PREVIOUS"
+TITLE="socket_create_listen"
+HREF="function.socket-create-listen.html"><LINK
+REL="NEXT"
+TITLE="socket_create"
+HREF="function.socket-create.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.socket-create-listen.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.socket-create.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.socket-create-pair"
+></A
+>socket_create_pair</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN154077"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PHP 5)</P
+>socket_create_pair&nbsp;--&nbsp;Crea una coppia di socket non distinguibili e li memorizza in una matrice</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN154080"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>socket_create_pair</B
+> ( int domain, int type, int protocol, array &#38;fd )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>socket_create_pair()</B
+> crea due socket connessi ed indistinguibili e li memorizza
+     in <VAR
+CLASS="parameter"
+>&#38;fd</VAR
+>. Questa funzione è comunemente utilizzate per l'IPC (InterProcess Communication, comunicazione tra processi).
+    </P
+><P
+> 
+     Il parametro <VAR
+CLASS="parameter"
+>domain</VAR
+> specifica la famiglia di protocolli
+     da usare per il socket.
+    </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN154105"
+></A
+><P
+><B
+>Tabella 1. Famiglie di indirizzi/protocolli disponibili</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Dominio</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>AF_INET</TD
+><TD
+> 
+        Protocollo Internet basato su IPv4. Il TCP e l'UDP sono i protocolli 
+        più comuni di questa famiglia. Supportati solo in Windows.
+       </TD
+></TR
+><TR
+><TD
+>AF_INET6</TD
+><TD
+> 
+        Protocollo Internet basato su IPv6. Il TCP e l'UDP sono i protocolli 
+        più comuni di questa famiglia. Supportati solo in Windows.
+        IPv6 Internet based protocols. Supporto aggiunto in PHP 5.0.0.
+       </TD
+></TR
+><TR
+><TD
+>AF_UNIX</TD
+><TD
+> 
+        Famiglia di protocolli per la comunicazione locale. Molto efficiente, basso overhead
+        permettono un buon tipo di IPC (Interprocess Communication). 
+       </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+> 
+     Il parametro <VAR
+CLASS="parameter"
+>type</VAR
+> seleziona il tipo di comunicazione
+     da utilizzare con il socket.
+    </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN154124"
+></A
+><P
+><B
+>Tabella 2. Tipi di socket disponibili</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Tipo</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>SOCK_STREAM</TD
+><TD
+> 
+         Fornisce una connessione sequenziale, affidabile e full-duplex. Può 
+         essere supportato un meccanismo di trasmissione fuori-banda.
+         Il protocollo TCP è basato su questo tipo di socket.
+       </TD
+></TR
+><TR
+><TD
+>SOCK_DGRAM</TD
+><TD
+> 
+         Supporta i datagrammi (privo di connessione, messaggi inaffidabili di una lunghezza massima prefissata).
+         Il protocollo UDP è basato su questo tipo di socket.
+       </TD
+></TR
+><TR
+><TD
+>SOCK_SEQPACKET</TD
+><TD
+> 
+         Fornisce una trasmissione di dati sequenziale, affidabile, bi-direzionale per i 
+         datagrammi di lunghezza massima prefissata; all'utilizzatore è richiesto di 
+         leggere l'intero pacchetto in ogni esecuzione della funzione di lettura dal socket.
+       </TD
+></TR
+><TR
+><TD
+>SOCK_RAW</TD
+><TD
+> 
+         Fornisce un'accesso raw al protocollo di rete. Questo tipo di socket può essere
+         utilizzato per costruire manualmente qualsiasi tipo di protocollo. Un comune utilizzo
+         di questa tipologia di socket è la realizzazione di richieste ICMP (tipo
+         il ping o traceroute).
+       </TD
+></TR
+><TR
+><TD
+>SOCK_RDM</TD
+><TD
+> 
+         Fornisce un'interfaccia affidabile per i datagrammi ma non ne garantisce l'ordine.
+         Probabilmente questo non è implementato nel vostro sistema operativo.
+       </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+> 
+     Il parametro <VAR
+CLASS="parameter"
+>protocol</VAR
+> indica 
+     lo specifico protocollo nel <VAR
+CLASS="parameter"
+>domain</VAR
+> indicato da usarsi
+     con il socket restituito. Il valore opportuno può essere recuperato
+     utilizzando <A
+HREF="function.getprotobyname.html"
+><B
+CLASS="function"
+>getprotobyname()</B
+></A
+>. Se il protocollo 
+     desiderato è il TCP o l'UDP, si possono utilizzare le corrispondenti costanti
+     <TT
+CLASS="constant"
+><B
+>SOL_UDP</B
+></TT
+> e <TT
+CLASS="constant"
+><B
+>SOL_TCP</B
+></TT
+>. 
+    </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN154153"
+></A
+><P
+><B
+>Tabella 3. Protocolli comuni</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>icmp</TD
+><TD
+>&#13;        L'Internet Control Message Protocol viene utilizzato principalmente dai gateway
+        e dagli host per riportare errori nelle comunicazioni con datagrammi. Il 
+        comando "ping" (presente in quasi tutti i moderni sistemi operativi) è un esempio
+        dell'applicazione di ICMP.
+       </TD
+></TR
+><TR
+><TD
+>udp</TD
+><TD
+>&#13;        Lo User Datagram Protocol è un protocollo privo di connessione,
+        inaffidabile con record di lunghezza fissa. Per questo l'UDP
+        richiede poco overhead di protocollo.
+       </TD
+></TR
+><TR
+><TD
+>tcp</TD
+><TD
+>&#13;        Il Transmission Control Protocol è un procotollo affidabile, basato sulla connessione,
+        orientato al flusso, full duplex. Il TCP garantisce che tutti i pacchetti 
+        siano ricevuti nel medesimo ordine in cui siano stati inviati. Se un pacchetto
+        viene perso durante la trasmissione, il TCP provvederà automaticamente alla ritrasmissione
+        fino a quando l'host remoto non conferma la ricezione dello stesso. Per ragioni
+        di affidabilità e di prestazioni, è il TCP stesso a decidere l'appropriata dimensione 
+        dei pacchetti del sottostante livello di datagrammi. Pertanto le applicazioni TCP devono
+        permettere la parziale ritrasmissione di un record.
+       </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+> 
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN154171"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>socket_create_pair()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br />$sockets </font><font color="#007700">= array(); <br /></font><font color="#0000BB">$uniqid </font><font color="#007700">= </font><font color="#0000BB">uniqid</font><font color="#007700">(</font><font color="#DD0000">''</font><font color="#007700">); <br />if (</font><font color="#0000BB">file_exists</font><font color="#007700">(</font><font color="#DD0000">"/tmp/$uniqid.sock"</font><font color="#007700">)) { <br />&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'Temporary socket already exists.'</font><font color="#007700">); <br />} <br /></font><font color="#FF8000">/* Setup socket pair */ <br /></font><font color="#007700">if (!</font><font color="#0000BB">socket_create_pair</font><font color="#007700">(</font><font color="#0000BB">AF_UNIX</font><font color="#007700">, </font><font color="#0000BB">SOCK_STREAM</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">$sockets</font><font color="#007700">)) { <br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">socket_last_error</font><font color="#007700">()); <br />} <br /></font><font color="#FF8000">/* Send and Recieve Data */ <br /></font><font color="#007700">if (!</font><font color="#0000BB">socket_write</font><font color="#007700">(</font><font color="#0000BB">$sockets</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">], </font><font color="#DD0000">"ABCdef123\n"</font><font color="#007700">, </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#DD0000">"ABCdef123\n"</font><font color="#007700">))) { <br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">socket_last_error</font><font color="#007700">()); <br />} <br />if (!</font><font color="#0000BB">$data </font><font color="#007700">= </font><font color="#0000BB">socket_read</font><font color="#007700">(</font><font color="#0000BB">$sockets</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">], </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#DD0000">"ABCdef123\n"</font><font color="#007700">), </font><font color="#0000BB">PHP_BINARY_READ</font><font color="#007700">)) { <br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">socket_last_error</font><font color="#007700">()); <br />} <br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">); <br /> <br /></font><font color="#FF8000">/* Close sockets */ <br /></font><font color="#0000BB">socket_close</font><font color="#007700">(</font><font color="#0000BB">$sockets</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]); <br /></font><font color="#0000BB">socket_close</font><font color="#007700">(</font><font color="#0000BB">$sockets</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">]); <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+> 
+    </P
+><P
+> 
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN154176"
+></A
+><P
+><B
+>Esempio 2. Esempio di IPC con <B
+CLASS="function"
+>socket_create_pair()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br />$ary </font><font color="#007700">= array(); <br /></font><font color="#0000BB">$strone </font><font color="#007700">= </font><font color="#DD0000">'Message From Parent.'</font><font color="#007700">; <br /></font><font color="#0000BB">$strtwo </font><font color="#007700">= </font><font color="#DD0000">'Message From Child.'</font><font color="#007700">; <br />if (!</font><font color="#0000BB">socket_create_pair</font><font color="#007700">(</font><font color="#0000BB">AF_UNIX</font><font color="#007700">, </font><font color="#0000BB">SOCK_STREAM</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">$ary</font><font color="#007700">)) { <br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">socket_last_error</font><font color="#007700">()); <br />} <br /></font><font color="#0000BB">$pid </font><font color="#007700">= </font><font color="#0000BB">pcntl_fork</font><font color="#007700">(); <br />if (</font><font color="#0000BB">$pid </font><font color="#007700">== -</font><font color="#0000BB">1</font><font color="#007700">) { <br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Could not fork Process.'</font><font color="#007700">; <br />} elseif (</font><font color="#0000BB">$pid</font><font color="#007700">) { <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/*parent*/ <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">socket_close</font><font color="#007700">(</font><font color="#0000BB">$ary</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]); <br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">socket_write</font><font color="#007700">(</font><font color="#0000BB">$ary</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">], </font><font color="#0000BB">$strone</font><font color="#007700">, </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$strone</font><font color="#007700">))) { <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">socket_last_error</font><font color="#007700">()); <br />&nbsp;&nbsp;&nbsp;&nbsp;} <br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">socket_read</font><font color="#007700">(</font><font color="#0000BB">$ary</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">], </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$strtwo</font><font color="#007700">), </font><font color="#0000BB">PHP_BINARY_READ</font><font color="#007700">) == </font><font color="#0000BB">$strtwo</font><font color="#007700">) { <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Recieved $strtwo</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">; <br />&nbsp;&nbsp;&nbsp;&nbsp;} <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">socket_close</font><font color="#007700">(</font><font color="#0000BB">$ary</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">]);<br />} else { <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/*child*/ <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">socket_close</font><font color="#007700">(</font><font color="#0000BB">$ary</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">]); <br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">socket_write</font><font color="#007700">(</font><font color="#0000BB">$ary</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">], </font><font color="#0000BB">$strtwo</font><font color="#007700">, </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$strtwo</font><font color="#007700">))) { <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">socket_last_error</font><font color="#007700">()); <br />&nbsp;&nbsp;&nbsp;&nbsp;} <br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">socket_read</font><font color="#007700">(</font><font color="#0000BB">$ary</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">], </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$strone</font><font color="#007700">), </font><font color="#0000BB">PHP_BINARY_READ</font><font color="#007700">) == </font><font color="#0000BB">$strone</font><font color="#007700">) { <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Recieved $strone</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">; <br />&nbsp;&nbsp;&nbsp;&nbsp;} <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">socket_close</font><font color="#007700">(</font><font color="#0000BB">$ary</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]);<br />} <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.socket-create-listen.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.socket-create.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>socket_create_listen</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sockets.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>socket_create</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

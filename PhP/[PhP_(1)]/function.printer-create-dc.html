@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>printer_create_dc</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le Stampanti"
+HREF="ref.printer.html"><LINK
+REL="PREVIOUS"
+TITLE="printer_create_brush"
+HREF="function.printer-create-brush.html"><LINK
+REL="NEXT"
+TITLE="printer_create_font"
+HREF="function.printer-create-font.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.printer-create-brush.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.printer-create-font.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.printer-create-dc"
+></A
+>printer_create_dc</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN135313"
+></A
+><P
+>    (PECL)</P
+>printer_create_dc&nbsp;--&nbsp;Crea un nuovo device context</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN135316"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>printer_create_dc</B
+> ( resource handle )<BR
+></BR
+><P
+>&#13;      La funzione crea un nuovo device context. Il device context è utilizzato
+      per personalizzare gli oggetti grafici del documento.
+      Il parametro <VAR
+CLASS="parameter"
+>handle</VAR
+> deve indicare un handle valido di stampante.
+     </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN135326"
+></A
+><P
+><B
+>Esempio 1. Esempio di utilizzo di <B
+CLASS="function"
+>printer_create_dc()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$handle </font><font color="#007700">= </font><font color="#0000BB">printer_open</font><font color="#007700">();<br /></font><font color="#0000BB">printer_start_doc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">printer_start_page</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /><br /></font><font color="#0000BB">printer_create_dc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#FF8000">/* esegue qualche operazione sul device context */<br /></font><font color="#0000BB">printer_set_option</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">PRINTER_TEXT_COLOR</font><font color="#007700">, </font><font color="#DD0000">"333333"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_draw_text</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#DD0000">"text"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_delete_dc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* crea un'altro device context */<br /></font><font color="#0000BB">printer_create_dc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">printer_set_option</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">PRINTER_TEXT_COLOR</font><font color="#007700">, </font><font color="#DD0000">"000000"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_draw_text</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#DD0000">"text"</font><font color="#007700">);<br /></font><font color="#FF8000">/* ci esegue delle operazioni */<br /><br /></font><font color="#0000BB">printer_delete_dc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /><br /></font><font color="#0000BB">printer_end_page</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">printer_end_doc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">printer_close</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.printer-create-brush.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.printer-create-font.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>printer_create_brush</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.printer.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>printer_create_font</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

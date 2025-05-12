@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Comparing objects</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><LINK
+REL="PREVIOUS"
+TITLE="Object cloning"
+HREF="language.oop5.cloning.html"><LINK
+REL="NEXT"
+TITLE="Reflection"
+HREF="language.oop5.reflection.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop5.cloning.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 19. Classes and Objects (PHP 5)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop5.reflection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop5.object-comparison"
+>Comparing objects</A
+></H1
+><P
+>&#13;    In PHP 5, object comparison is more complicated than in PHP 4 and more
+    in accordance to what one will expect from an Object Oriented Language
+    (not that PHP 5 is such a language).
+   </P
+><P
+>&#13;    When using the comparison operator (<VAR
+CLASS="literal"
+>==</VAR
+>), 
+    object variables are compared in a simple manner, namely: Two object
+    instances are equal if they have the same attributes and values, and are
+    instances of the same class.
+   </P
+><P
+>&#13;    On the other hand, when using the identity operator (<VAR
+CLASS="literal"
+>===</VAR
+>),
+    object variables are identical if and only if they refer to the same
+    instance of the same class.
+   </P
+><P
+>&#13;    An example will clarify these rules.
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6098"
+></A
+><P
+><B
+>Esempio 19-31. Example of object comparison in PHP 5</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">bool2str</font><font color="#007700">(</font><font color="#0000BB">$bool</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$bool </font><font color="#007700">=== </font><font color="#0000BB">false</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#DD0000">'FALSE'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#DD0000">'TRUE'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />function </font><font color="#0000BB">compareObjects</font><font color="#007700">(&amp;</font><font color="#0000BB">$o1</font><font color="#007700">, &amp;</font><font color="#0000BB">$o2</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'o1 == o2 : ' </font><font color="#007700">. </font><font color="#0000BB">bool2str</font><font color="#007700">(</font><font color="#0000BB">$o1 </font><font color="#007700">== </font><font color="#0000BB">$o2</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'o1 != o2 : ' </font><font color="#007700">. </font><font color="#0000BB">bool2str</font><font color="#007700">(</font><font color="#0000BB">$o1 </font><font color="#007700">!= </font><font color="#0000BB">$o2</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'o1 === o2 : ' </font><font color="#007700">. </font><font color="#0000BB">bool2str</font><font color="#007700">(</font><font color="#0000BB">$o1 </font><font color="#007700">=== </font><font color="#0000BB">$o2</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'o1 !== o2 : ' </font><font color="#007700">. </font><font color="#0000BB">bool2str</font><font color="#007700">(</font><font color="#0000BB">$o1 </font><font color="#007700">!== </font><font color="#0000BB">$o2</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /><br />class </font><font color="#0000BB">Flag<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $flag</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">Flag</font><font color="#007700">(</font><font color="#0000BB">$flag </font><font color="#007700">= </font><font color="#0000BB">true</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">flag </font><font color="#007700">= </font><font color="#0000BB">$flag</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class </font><font color="#0000BB">OtherFlag<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $flag</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">OtherFlag</font><font color="#007700">(</font><font color="#0000BB">$flag </font><font color="#007700">= </font><font color="#0000BB">true</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">flag </font><font color="#007700">= </font><font color="#0000BB">$flag</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$o </font><font color="#007700">= new </font><font color="#0000BB">Flag</font><font color="#007700">();<br /></font><font color="#0000BB">$p </font><font color="#007700">= new </font><font color="#0000BB">Flag</font><font color="#007700">();<br /></font><font color="#0000BB">$q </font><font color="#007700">= </font><font color="#0000BB">$o</font><font color="#007700">;<br /></font><font color="#0000BB">$r </font><font color="#007700">= new </font><font color="#0000BB">OtherFlag</font><font color="#007700">();<br /><br />echo </font><font color="#DD0000">"Two instances of the same class\n"</font><font color="#007700">;<br /></font><font color="#0000BB">compareObjects</font><font color="#007700">(</font><font color="#0000BB">$o</font><font color="#007700">, </font><font color="#0000BB">$p</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"\nTwo references to the same instance\n"</font><font color="#007700">;<br /></font><font color="#0000BB">compareObjects</font><font color="#007700">(</font><font color="#0000BB">$o</font><font color="#007700">, </font><font color="#0000BB">$q</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"\nInstances of two different classes\n"</font><font color="#007700">;<br /></font><font color="#0000BB">compareObjects</font><font color="#007700">(</font><font color="#0000BB">$o</font><font color="#007700">, </font><font color="#0000BB">$r</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Two instances of the same class
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+
+Two references to the same instance
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : TRUE
+o1 !== o2 : FALSE
+
+Instances of two different classes
+o1 == o2 : FALSE
+o1 != o2 : TRUE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop5.cloning.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop5.reflection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Object cloning</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Reflection</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

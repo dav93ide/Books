@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>error_reporting</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di gestione degli errori e di logging"
+HREF="ref.errorfunc.html"><LINK
+REL="PREVIOUS"
+TITLE="error_log"
+HREF="function.error-log.html"><LINK
+REL="NEXT"
+TITLE="restore_error_handler"
+HREF="function.restore-error-handler.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.error-log.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.restore-error-handler.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.error-reporting"
+></A
+>error_reporting</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN37535"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>error_reporting&nbsp;--&nbsp;definisce quali errori di PHP vengono restituiti</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN37538"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>error_reporting</B
+> ( [int livello] )<BR
+></BR
+><P
+>&#13;     Definisce il livello di restituzione di errore di PHP e ritorna il vecchio
+     livello. Il livello di restituzione dell'errore può essere una maschera di
+     bit o una costante named. L'utilizzo delle costanti named è caldamente 
+     consigliato per assicurare la compatibilità con versioni future.
+     All'aggiungere di livelli di errore, la gamma degli interi viene incrementata,
+     perciò vecchi livelli di errore basati sull'intero non si comporteranno
+     sempre come ci si aspetta.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN37547"
+></A
+><P
+><B
+>Esempio 1. Error Integer changes</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+error_reporting (55);&nbsp;&nbsp;&nbsp;// Equivalente a E_ALL ^ E_NOTICE in PHP 3<br /><br />/* ...in PHP 4, '55' indica (E_ERROR | E_WARNING | E_PARSE |<br />E_CORE_ERROR | E_CORE_WARNING) */<br /><br />error_reporting (2039); // Equivalente a E_ALL ^ E_NOTICE in PHP 4<br /><br />error_reporting (E_ALL ^ E_NOTICE); // Il medesimo in PHP 3 e 4</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Seguite i collegamenti delle costanti per conoscerne il significato:
+     <DIV
+CLASS="table"
+><A
+NAME="AEN37550"
+></A
+><P
+><B
+>Tabella 1. <B
+CLASS="function"
+>error_reporting()</B
+> valori dei bit</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>valore</TH
+><TH
+>costante</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>1</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-error"
+>E_ERROR</A
+>
+         </TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-warning"
+>E_WARNING</A
+>
+         </TD
+></TR
+><TR
+><TD
+>4</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-parse"
+>E_PARSE</A
+>
+         </TD
+></TR
+><TR
+><TD
+>8</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-notice"
+>E_NOTICE</A
+>
+         </TD
+></TR
+><TR
+><TD
+>16</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-core-error"
+>E_CORE_ERROR</A
+>
+         </TD
+></TR
+><TR
+><TD
+>32</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-core-warning"
+>E_CORE_WARNING</A
+>
+         </TD
+></TR
+><TR
+><TD
+>64</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-compile-error"
+>E_COMPILE_ERROR</A
+>
+         </TD
+></TR
+><TR
+><TD
+>128</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-compile-warning"
+>E_COMPILE_WARNING</A
+>
+         </TD
+></TR
+><TR
+><TD
+>256</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-user-error"
+>E_USER_ERROR</A
+>
+         </TD
+></TR
+><TR
+><TD
+>512</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-user-warning"
+>E_USER_WARNING</A
+>
+         </TD
+></TR
+><TR
+><TD
+>1024</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-user-error"
+>E_USER_NOTICE</A
+>
+         </TD
+></TR
+><TR
+><TD
+>2047</TD
+><TD
+>&#13;          <A
+HREF="phpdevel-errors.html#internal.e-all"
+>E_ALL</A
+>
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN37608"
+></A
+><P
+><B
+>Esempio 2. esempi <B
+CLASS="function"
+>error_reporting()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+// Turn off all error reporting<br />error_reporting (0);<br /><br />// Report simple running errors<br />error_reporting&nbsp;&nbsp;(E_ERROR | E_WARNING | E_PARSE);<br /><br />// Reporting E_NOTICE can be good too (to report uninitialized <br />// variables or catch variable name misspellings)<br />error_reporting (E_ERROR | E_WARNING | E_PARSE | E_NOTICE);<br /><br />// Report all PHP errors (use bitwise&nbsp;&nbsp;63&nbsp;&nbsp;in PHP 3)<br />error_reporting (E_ALL);</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.error-log.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.restore-error-handler.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>error_log</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.errorfunc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>restore_error_handler</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

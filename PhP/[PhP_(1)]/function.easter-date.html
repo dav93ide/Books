@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>easter_date</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Calendar"
+HREF="ref.calendar.html"><LINK
+REL="PREVIOUS"
+TITLE="cal_to_jd"
+HREF="function.cal-to-jd.html"><LINK
+REL="NEXT"
+TITLE="easter_days"
+HREF="function.easter-days.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.cal-to-jd.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.easter-days.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.easter-date"
+></A
+>easter_date</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN14336"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.9, PHP 4, PHP 5)</P
+>easter_date&nbsp;--&nbsp;
+     Restituisce un timestamp Unix della mezzanotte del giorno di Pasqua di un dato anno
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN14339"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>easter_date</B
+> ( [int anno] )<BR
+></BR
+><P
+>&#13;     Restituisce il timestamp Unix corrispondente alla mezzanotte del giorno di Pasqua
+     dell'anno specificato.
+    </P
+><P
+>&#13;     Dal <VAR
+CLASS="literal"
+>PHP</VAR
+> 4.3.0, il parametro <VAR
+CLASS="parameter"
+>anno</VAR
+>
+     è opzionale e ha come default l'anno corrente, se
+     omesso.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN14352"
+></A
+><P
+><B
+>Esempio 1. esempio di <B
+CLASS="function"
+>easter_date()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#007700">echo </font><font color="#0000BB">date</font><font color="#007700">(</font><font color="#DD0000">"d M Y"</font><font color="#007700">, </font><font color="#0000BB">easter_date</font><font color="#007700">(</font><font color="#0000BB">1999</font><font color="#007700">));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 04 Apr 1999<br /></font><font color="#007700">echo </font><font color="#0000BB">date</font><font color="#007700">(</font><font color="#DD0000">"d M Y"</font><font color="#007700">, </font><font color="#0000BB">easter_date</font><font color="#007700">(</font><font color="#0000BB">2000</font><font color="#007700">));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 23 Apr 2000<br /></font><font color="#007700">echo </font><font color="#0000BB">date</font><font color="#007700">(</font><font color="#DD0000">"d M Y"</font><font color="#007700">, </font><font color="#0000BB">easter_date</font><font color="#007700">(</font><font color="#0000BB">2001</font><font color="#007700">));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 15 Apr 2001<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Questa funzione gerererà un allarme (warning) se l'anno è fuori
+      dall'escursione di validità dei timestamp UNIX (cioè prima del 1970 o dopo il 2037).
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     La data della Pasqua fu definita dal Concilio di Nicea nel
+     325 d.C. come la Domenica successiva alla prima luna piena dopo
+     l'Equinozio di Primavera. Si assume che l'Equinozio cada sempre
+     il 21 Marzo, quindi il calcolo si riduce alla determinazione della data
+     della luna piena e la data della Domenica seguente.
+     L'algoritmo qui usato fu proposto attorno all'anno 532 d.C. da
+     Dionysius Exiguus (Dionigi il Piccolo). Nel Calendario Giuliano (for years before
+     1753) un semplice ciclo di 19 anni è usato per tracciare le fasi della
+     Luna. Nel Calendario Gregoriano (per gli anni dopo il 1753 -
+     ideato da Clavius e Lilius, e introdotto da Papa Gregorio
+     XIII nell'Ottobre 1582, e in Gran Bretagna e nelle sue colonie nel
+     Settembre 1752) due fattori correttivi sono aggiunti per rendere
+     più accurato il ciclo.
+    </P
+><P
+>&#13;     (Il codice è basato su un programma in C di Simon Kershaw,
+     &#60;webmaster at ely.anglican dot org&#62;)
+    </P
+><P
+>&#13;     Vedere <A
+HREF="function.easter-days.html"
+><B
+CLASS="function"
+>easter_days()</B
+></A
+> per il calcolo della Pasqua
+     prima del 1970 o dopo il 2037.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.cal-to-jd.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.easter-days.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>cal_to_jd</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.calendar.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>easter_days</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,1021 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Sybase Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="swf_viewport"
+HREF="function.swf-viewport.html"><LINK
+REL="NEXT"
+TITLE="sybase_affected_rows"
+HREF="function.sybase-affected-rows.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.swf-viewport.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sybase-affected-rows.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.sybase"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXLVII. Sybase Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN168295"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sybase.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sybase.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sybase.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  To enable Sybase-DB support configure PHP
+  <VAR
+CLASS="option"
+>--with-sybase[=DIR]</VAR
+>. DIR is the
+  Sybase home directory, defaults to <TT
+CLASS="filename"
+>/home/sybase</TT
+>.
+  To enable Sybase-CT support configure PHP
+  <VAR
+CLASS="option"
+>--with-sybase-ct[=DIR]</VAR
+>. DIR is the
+  Sybase home directory, defaults to <TT
+CLASS="filename"
+>/home/sybase</TT
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sybase.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN168314"
+></A
+><P
+><B
+>Tabella 1. Sybase configuration options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>sybase.allow_persistent</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.3.</TD
+></TR
+><TR
+><TD
+>sybase.max_persistent</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.3.</TD
+></TR
+><TR
+><TD
+>sybase.max_links</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.3.</TD
+></TR
+><TR
+><TD
+>sybase.interface_file </TD
+><TD
+>"/usr/sybase/interfaces"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>sybase.min_error_severity</TD
+><TD
+>"10"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>sybase.min_message_severity</TD
+><TD
+>"10"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>sybase.compatability_mode</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>magic_quotes_sybase</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13; <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.sybase.allow-persistent"
+></A
+><VAR
+CLASS="parameter"
+>sybase.allow_persistent</VAR
+>
+    <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;     Whether to allow persistent Sybase connections.
+    </P
+></DD
+><DT
+><A
+NAME="ini.sybase.max-persistent"
+></A
+><VAR
+CLASS="parameter"
+>sybase.max_persistent</VAR
+>
+    <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;     The maximum number of persistent Sybase connections per
+     process. -1 means no limit.
+    </P
+></DD
+><DT
+><A
+NAME="ini.sybase.max-links"
+></A
+><VAR
+CLASS="parameter"
+>sybase.max_links</VAR
+>
+    <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;     The maximum number of Sybase connections per process,
+     including persistent connections. -1 means no limit.
+    </P
+></DD
+><DT
+><A
+NAME="ini.sybase.min-error-severity"
+></A
+><VAR
+CLASS="parameter"
+>sybase.min_error_severity</VAR
+>
+    <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;     Minimum error severity to display.
+    </P
+></DD
+><DT
+><A
+NAME="ini.sybase.min-message-severity"
+></A
+><VAR
+CLASS="parameter"
+>sybase.min_message_severity</VAR
+>
+    <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;     Minimum message severity to display.
+    </P
+></DD
+><DT
+><A
+NAME="ini.sybase.compatability-mode"
+></A
+><VAR
+CLASS="parameter"
+>sybase.compatability_mode</VAR
+>
+    <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;     Compatibility mode with old versions of PHP 3.0. If on, this will cause
+     PHP to automatically assign types to results according to their Sybase
+     type, instead of treating them all as strings. This compatibility mode
+     will probably not stay around forever, so try applying whatever
+     necessary changes to your code, and turn it off.
+    </P
+></DD
+><DT
+><A
+NAME="ini.magic-quotes-sybase"
+></A
+><VAR
+CLASS="parameter"
+>magic_quotes_sybase</VAR
+>
+    <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;     If <VAR
+CLASS="parameter"
+>magic_quotes_sybase</VAR
+> is on, a
+     single-quote is escaped with a single-quote instead of a
+     backslash if <A
+HREF="ref.info.html#ini.magic-quotes-gpc"
+>magic_quotes_gpc</A
+>
+     or <A
+HREF="ref.info.html#ini.magic-quotes-runtime"
+>magic_quotes_runtime</A
+>
+     are enabled.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Note that when <VAR
+CLASS="parameter"
+>magic_quotes_sybase</VAR
+>
+      is ON it completely overrides <VAR
+CLASS="parameter"
+>magic_quotes_gpc
+      </VAR
+>.  In this case even when 
+      <VAR
+CLASS="parameter"
+>magic_quotes_gpc</VAR
+> is enabled
+      neither double quotes, backslashes or NUL's
+      will be escaped.
+     </P
+></BLOCKQUOTE
+></DIV
+></DD
+></DL
+></DIV
+>
+ </P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN168418"
+></A
+><P
+><B
+>Tabella 2. Sybase-CT configuration options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>sybct.allow_persistent</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Available since PHP 4.0.4.</TD
+></TR
+><TR
+><TD
+>sybct.max_persistent</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Available since PHP 4.0.4.</TD
+></TR
+><TR
+><TD
+>sybct.max_links</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Available since PHP 4.0.4.</TD
+></TR
+><TR
+><TD
+>sybct.min_server_severity</TD
+><TD
+>"10"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.4.</TD
+></TR
+><TR
+><TD
+>sybct.min_client_severity</TD
+><TD
+>"10"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.4.</TD
+></TR
+><TR
+><TD
+>sybct.hostname</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.4.</TD
+></TR
+><TR
+><TD
+>sybct.deadlock_retry_count</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.3.0.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.sybct.allow-persistent"
+></A
+><VAR
+CLASS="parameter"
+>sybct.allow_persistent</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Whether to allow persistent Sybase-CT connections.
+      The default is on.
+     </P
+></DD
+><DT
+><A
+NAME="ini.sybct.max-persistent"
+></A
+><VAR
+CLASS="parameter"
+>sybct.max_persistent</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      The maximum number of persistent Sybase-CT connections per
+      process. The default is -1 meaning unlimited.
+     </P
+></DD
+><DT
+><A
+NAME="ini.sybct.max-links"
+></A
+><VAR
+CLASS="parameter"
+>sybct.max_links</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      The maximum number of Sybase-CT connections per process,
+      including persistent connections. The default is -1 meaning
+      unlimited.
+     </P
+></DD
+><DT
+><A
+NAME="ini.sybct.min-server-severity"
+></A
+><VAR
+CLASS="parameter"
+>sybct.min_server_severity</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      Server messages with severity greater than or equal to
+      sybct.min_server_severity will be reported as warnings. This
+      value can also be set from a script by calling
+      <A
+HREF="function.sybase-min-server-severity.html"
+><B
+CLASS="function"
+>sybase_min_server_severity()</B
+></A
+>. The default
+      is 10 which reports errors of information severity or greater.
+     </P
+></DD
+><DT
+><A
+NAME="ini.sybct.min-client-severity"
+></A
+><VAR
+CLASS="parameter"
+>sybct.min_client_severity</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      Client library messages with severity greater than or equal to
+      sybct.min_client_severity will be reported as warnings. This
+      value can also be set from a script by calling
+      <A
+HREF="function.sybase-min-client-severity.html"
+><B
+CLASS="function"
+>sybase_min_client_severity()</B
+></A
+>.  The default
+      is 10 which effectively disables reporting.
+     </P
+></DD
+><DT
+><A
+NAME="ini.sybct.login-timeout"
+></A
+><VAR
+CLASS="parameter"
+>sybct.login_timeout</VAR
+>
+       <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;        The maximum time in seconds to wait for a connection attempt
+        to succeed before returning failure.  Note that if
+        max_execution_time has been exceeded when a connection attempt
+        times out, your script will be terminated before it can take
+        action on failure.  The default is one minute.
+       </P
+></DD
+><DT
+><A
+NAME="ini.sybct.timeout"
+></A
+><VAR
+CLASS="parameter"
+>sybct.timeout</VAR
+>
+       <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;        The maximum time in seconds to wait for a select_db or query
+        operation to succeed before returning failure.  Note that if
+        max_execution_time has been exceeded when an operation times
+        out, your script will be terminated before it can take action
+        on failure.  The default is no limit.
+       </P
+></DD
+><DT
+><A
+NAME="ini.sybct.hostname"
+></A
+><VAR
+CLASS="parameter"
+>sybct.hostname</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      The name of the host you claim to be connecting from, for
+      display by sp_who. The default is none.
+     </P
+></DD
+><DT
+><A
+NAME="ini.sybct.deadlock-retry-count"
+></A
+><VAR
+CLASS="parameter"
+>sybct.deadlock_retry_count</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+></DT
+><DD
+><P
+>&#13;      Allows you to define how often deadlocks are to be retried. The default
+      is -1, or "forever".
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+><P
+>&#13;  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sybase.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sybase.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.sybase-affected-rows.html"
+>sybase_affected_rows</A
+>&nbsp;--&nbsp;Gets number of affected rows in last query</DT
+><DT
+><A
+HREF="function.sybase-close.html"
+>sybase_close</A
+>&nbsp;--&nbsp;Closes a Sybase connection</DT
+><DT
+><A
+HREF="function.sybase-connect.html"
+>sybase_connect</A
+>&nbsp;--&nbsp;Opens a Sybase server connection</DT
+><DT
+><A
+HREF="function.sybase-data-seek.html"
+>sybase_data_seek</A
+>&nbsp;--&nbsp;Moves internal row pointer</DT
+><DT
+><A
+HREF="function.sybase-deadlock-retry-count.html"
+>sybase_deadlock_retry_count</A
+>&nbsp;--&nbsp;Sets the deadlock retry count</DT
+><DT
+><A
+HREF="function.sybase-fetch-array.html"
+>sybase_fetch_array</A
+>&nbsp;--&nbsp;Fetch row as array</DT
+><DT
+><A
+HREF="function.sybase-fetch-assoc.html"
+>sybase_fetch_assoc</A
+>&nbsp;--&nbsp;Fetch a result row as an associative array</DT
+><DT
+><A
+HREF="function.sybase-fetch-field.html"
+>sybase_fetch_field</A
+>&nbsp;--&nbsp;Get field information from a result</DT
+><DT
+><A
+HREF="function.sybase-fetch-object.html"
+>sybase_fetch_object</A
+>&nbsp;--&nbsp;Fetch a row as an object</DT
+><DT
+><A
+HREF="function.sybase-fetch-row.html"
+>sybase_fetch_row</A
+>&nbsp;--&nbsp;Get a result row as an enumerated array</DT
+><DT
+><A
+HREF="function.sybase-field-seek.html"
+>sybase_field_seek</A
+>&nbsp;--&nbsp;Sets field offset</DT
+><DT
+><A
+HREF="function.sybase-free-result.html"
+>sybase_free_result</A
+>&nbsp;--&nbsp;Frees result memory</DT
+><DT
+><A
+HREF="function.sybase-get-last-message.html"
+>sybase_get_last_message</A
+>&nbsp;--&nbsp;Returns the last message from the server</DT
+><DT
+><A
+HREF="function.sybase-min-client-severity.html"
+>sybase_min_client_severity</A
+>&nbsp;--&nbsp;Sets minimum client severity</DT
+><DT
+><A
+HREF="function.sybase-min-error-severity.html"
+>sybase_min_error_severity</A
+>&nbsp;--&nbsp;Sets minimum error severity</DT
+><DT
+><A
+HREF="function.sybase-min-message-severity.html"
+>sybase_min_message_severity</A
+>&nbsp;--&nbsp;Sets minimum message severity</DT
+><DT
+><A
+HREF="function.sybase-min-server-severity.html"
+>sybase_min_server_severity</A
+>&nbsp;--&nbsp;Sets minimum server severity</DT
+><DT
+><A
+HREF="function.sybase-num-fields.html"
+>sybase_num_fields</A
+>&nbsp;--&nbsp;Gets the number of fields in a result set</DT
+><DT
+><A
+HREF="function.sybase-num-rows.html"
+>sybase_num_rows</A
+>&nbsp;--&nbsp;Get number of rows in a result set</DT
+><DT
+><A
+HREF="function.sybase-pconnect.html"
+>sybase_pconnect</A
+>&nbsp;--&nbsp;Open persistent Sybase connection</DT
+><DT
+><A
+HREF="function.sybase-query.html"
+>sybase_query</A
+>&nbsp;--&nbsp;Sends a Sybase query</DT
+><DT
+><A
+HREF="function.sybase-result.html"
+>sybase_result</A
+>&nbsp;--&nbsp;Get result data</DT
+><DT
+><A
+HREF="function.sybase-select-db.html"
+>sybase_select_db</A
+>&nbsp;--&nbsp;Selects a Sybase database</DT
+><DT
+><A
+HREF="function.sybase-set-message-handler.html"
+>sybase_set_message_handler</A
+>&nbsp;--&nbsp;Sets the handler called when a server message is raised</DT
+><DT
+><A
+HREF="function.sybase-unbuffered-query.html"
+>sybase_unbuffered_query</A
+>&nbsp;--&nbsp;Send a Sybase query and do not block</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.swf-viewport.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sybase-affected-rows.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>swf_viewport</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sybase_affected_rows</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

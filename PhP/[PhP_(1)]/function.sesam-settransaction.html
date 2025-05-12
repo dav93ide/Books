@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sesam_settransaction</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SESAM Database Functions"
+HREF="ref.sesam.html"><LINK
+REL="PREVIOUS"
+TITLE="sesam_seek_row"
+HREF="function.sesam-seek-row.html"><LINK
+REL="NEXT"
+TITLE="PostgreSQL Session Save Handler"
+HREF="ref.session-pgsql.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sesam-seek-row.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.session-pgsql.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sesam-settransaction"
+></A
+>sesam_settransaction</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN149859"
+></A
+><P
+>    (PHP 3 CVS only)</P
+>sesam_settransaction&nbsp;--&nbsp;Set SESAM transaction parameters</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN149862"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>sesam_settransaction</B
+> ( int isolation_level, int read_only )<BR
+></BR
+><P
+>&#13;     Returns: <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> if the values are valid, and the
+     <B
+CLASS="function"
+>settransaction()</B
+> operation was successful,
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> otherwise.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>sesam_settransaction()</B
+> overrides the default
+     values for the "isolation level" and "read-only" transaction
+     parameters (which are set in the SESAM configuration file), in
+     order to optimize subsequent queries and guarantee database
+     consistency. The overridden values are used for the next
+     transaction only.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>sesam_settransaction()</B
+> can only be called
+     before starting a transaction, not after the transaction has been
+     started already.
+    </P
+><P
+>&#13;     To simplify the use in PHP scripts, the following constants have
+     been predefined in PHP (see SESAM handbook for detailed
+     explanation of the semantics):
+     <DIV
+CLASS="table"
+><A
+NAME="AEN149882"
+></A
+><P
+><B
+>Tabella 1. 
+       Valid values for <VAR
+CLASS="parameter"
+>"Isolation_Level"</VAR
+>
+       parameter
+      </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Value</TH
+><TH
+>Constant</TH
+><TH
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>1</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_TXISOL_READ_UNCOMMITTED</VAR
+></TD
+><TD
+>Read Uncommitted</TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_TXISOL_READ_COMMITTED</VAR
+></TD
+><TD
+>Read Committed</TD
+></TR
+><TR
+><TD
+>3</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_TXISOL_REPEATABLE_READ</VAR
+></TD
+><TD
+>Repeatable Read</TD
+></TR
+><TR
+><TD
+>4</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_TXISOL_SERIALIZABLE</VAR
+></TD
+><TD
+>Serializable</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+     <DIV
+CLASS="table"
+><A
+NAME="AEN149912"
+></A
+><P
+><B
+>Tabella 2. 
+       Valid values for <VAR
+CLASS="parameter"
+>"Read_Only"</VAR
+> parameter
+      </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Value</TH
+><TH
+>Constant</TH
+><TH
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>0</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_TXREAD_READWRITE</VAR
+></TD
+><TD
+>Read/Write</TD
+></TR
+><TR
+><TD
+>1</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_TXREAD_READONLY</VAR
+></TD
+><TD
+>Read-Only</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     The values set by <B
+CLASS="function"
+>sesam_settransaction()</B
+> will
+     override the default setting specified in the <A
+HREF="ref.sesam.html#ini.sesam-configfile"
+>SESAM configuration file</A
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN149936"
+></A
+><P
+><B
+>Esempio 1. Setting SESAM transaction parameters</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />sesam_settransaction </font><font color="#007700">(</font><font color="#0000BB">SESAM_TXISOL_REPEATABLE_READ</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">SESAM_TXREAD_READONLY</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sesam-seek-row.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.session-pgsql.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sesam_seek_row</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sesam.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PostgreSQL Session Save Handler</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

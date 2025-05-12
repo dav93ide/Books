@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>chmod</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="chgrp"
+HREF="function.chgrp.html"><LINK
+REL="NEXT"
+TITLE="chown"
+HREF="function.chown.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.chgrp.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.chown.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.chmod"
+></A
+>chmod</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN40402"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>chmod&nbsp;--&nbsp;Cambia le impostazioni del file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN40405"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>chmod</B
+> ( string filename, int mode )<BR
+></BR
+><P
+>&#13;     Tenta di cambiare le impostazioni del file 
+     <VAR
+CLASS="parameter"
+>filename</VAR
+> in quelle date in
+     <VAR
+CLASS="parameter"
+>mode</VAR
+>.
+    </P
+><P
+>&#13;     Si osservi che <VAR
+CLASS="parameter"
+>mode</VAR
+> non viene automaticamente
+     assunto come valore ottale, per cui le stringhe (come "g+w") non verranno
+     elaborate correttamente. Per ottenere l'operazione desiderata, è necessario
+     far precedere <VAR
+CLASS="parameter"
+>mode</VAR
+> da uno zero (0):
+    </P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN40423"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />chmod</font><font color="#007700">(</font><font color="#DD0000">"/somedir/somefile"</font><font color="#007700">, </font><font color="#0000BB">755</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// decimale; probabilmente errato&nbsp;&nbsp;&nbsp;<br /></font><font color="#0000BB">chmod</font><font color="#007700">(</font><font color="#DD0000">"/somedir/somefile"</font><font color="#007700">, </font><font color="#DD0000">"u+rwx,go+rx"</font><font color="#007700">); </font><font color="#FF8000">// stringa; errato&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /></font><font color="#0000BB">chmod</font><font color="#007700">(</font><font color="#DD0000">"/somedir/somefile"</font><font color="#007700">, </font><font color="#0000BB">0755</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// ottale; valore corretto di mode (preceduto da uno 0)<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>mode</VAR
+> consiste in tre numeri
+     ottali costituenti le restrizioni dell'accesso per il proprietario,
+     il gruppo utente a cui appartiene il proprietario, e gli altri utenti, nell'ordine dato.
+     Ciascun numero può essere calcolato aggiungendo i permessi
+     al valore base per l'utente. Il numero 1 indica che si abilita all'esecuzione del file,
+     con il numero 2 si assegnano i diritti di scrittura, con il numero 4
+     si assegna il permesso di lettura del file. Aggiungere questi
+     numeri per ottenere i diritti richiesti. Si possono avere maggiori
+     dettagli sui permessi dei sistemi Unix usando il comando 'man 1 chmod' e 'man 2 chmod'.
+    </P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN40428"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Lettura e scrittura per il proprietario, e nessun permesso per gli altri<br /></font><font color="#0000BB">chmod</font><font color="#007700">(</font><font color="#DD0000">"/somedir/somefile"</font><font color="#007700">, </font><font color="#0000BB">0600</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Lettura e scrittura per il proprietario, e lettura per gli altri<br /></font><font color="#0000BB">chmod</font><font color="#007700">(</font><font color="#DD0000">"/somedir/somefile"</font><font color="#007700">, </font><font color="#0000BB">0644</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Accesso completo per il proprietario, e lettura ed esecuzione per gli altri<br /></font><font color="#0000BB">chmod</font><font color="#007700">(</font><font color="#DD0000">"/somedir/somefile"</font><font color="#007700">, </font><font color="#0000BB">0755</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Accesso completo per il proprietario, e lettura ed esecuzione per il gruppo del proprietario<br /></font><font color="#0000BB">chmod</font><font color="#007700">(</font><font color="#DD0000">"/somedir/somefile"</font><font color="#007700">, </font><font color="#0000BB">0750</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      L'utente corrente è l'utente con il quale viene eseguito il PHP.
+      Probabilmente non è il medesimo utente che si usa da shell o
+      dall'accesso FTP.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione non è eseguibile con 
+<A
+HREF="features.remote-files.html"
+>file remoti</A
+>, ma con file 
+accessibili attraverso il filesystem del server.</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Quando <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+> viene abilitato, PHP controlla se i files o le directory su cui si sta operando, hanno il
+      medesimo UID (proprietario) dello script che sta per essere eseguito. In aggiunta,
+      non si può impostare il SUID, SGID e sticky bit.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.chown.html"
+><B
+CLASS="function"
+>chown()</B
+></A
+> e
+     <A
+HREF="function.chgrp.html"
+><B
+CLASS="function"
+>chgrp()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.chgrp.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.chown.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>chgrp</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>chown</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

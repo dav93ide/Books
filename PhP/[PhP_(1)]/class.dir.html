@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>dir</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le directory"
+HREF="ref.dir.html"><LINK
+REL="PREVIOUS"
+TITLE="chroot"
+HREF="function.chroot.html"><LINK
+REL="NEXT"
+TITLE="closedir"
+HREF="function.closedir.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.chroot.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.closedir.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="class.dir"
+></A
+>dir</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN28875"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>dir&nbsp;--&nbsp;Classe directory</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN28878"
+></A
+><H2
+>Descrizione</H2
+>class <B
+CLASS="classname"
+>dir</B
+> { <BR
+></BR
+><B
+CLASS="methodname"
+>dir</B
+> ( string directory )<BR
+></BR
+>string path<BR
+></BR
+>resource handle<BR
+></BR
+>string <B
+CLASS="methodname"
+>read</B
+> ( void  )<BR
+></BR
+>void <B
+CLASS="methodname"
+>rewind</B
+> ( void  )<BR
+></BR
+>void <B
+CLASS="methodname"
+>close</B
+> ( void  )<BR
+></BR
+>}<P
+>&#13;     Un meccanismo pseudo orientato agli oggetti per leggere una directory. La
+     <VAR
+CLASS="parameter"
+>directory</VAR
+> data è aperta. Due proprietà
+     sono disponibili nonappena la directory è stata aperta. La
+     proprietà handle può essere usata in congiunzione ad altre funzioni relative alle directory, quali
+     <A
+HREF="function.readdir.html"
+><B
+CLASS="function"
+>readdir()</B
+></A
+>, <A
+HREF="function.rewinddir.html"
+><B
+CLASS="function"
+>rewinddir()</B
+></A
+> e
+     <A
+HREF="function.closedir.html"
+><B
+CLASS="function"
+>closedir()</B
+></A
+>. La proprietà path è impostata alla
+     directory che è stata aperta. Sono disponibili tre metodi:
+     read (leggi), rewind (riavvolgi) e close (chiudi).
+    </P
+><P
+>&#13;     Fare attenzione al modo in cui il valore restituito dalla funzione <B
+CLASS="function"
+>dir()</B
+>
+     è controllato nell'esempio sotto riportato. Controlliamo esplicitamente
+     che il valore restituito sia identico a (uguale a e dello 
+     stesso tipo di (fare riferimento a <A
+HREF="language.operators.comparison.html"
+>&#13;     Comparison Operators</A
+> per maggiori informazioni) <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> 
+     altrimenti, ogni risultato il cui nome non venga valutato <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> farà 
+     interrompere il ciclo.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN28916"
+></A
+><P
+><B
+>Esempio 1. esempio <B
+CLASS="function"
+>dir()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$d </font><font color="#007700">= </font><font color="#0000BB">dir</font><font color="#007700">(</font><font color="#DD0000">"/etc"</font><font color="#007700">);<br />echo </font><font color="#DD0000">"Handle: " </font><font color="#007700">. </font><font color="#0000BB">$d</font><font color="#007700">-&gt;</font><font color="#0000BB">handle </font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"Path: " </font><font color="#007700">. </font><font color="#0000BB">$d</font><font color="#007700">-&gt;</font><font color="#0000BB">path </font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br />while (</font><font color="#0000BB">$entry </font><font color="#007700">= </font><font color="#0000BB">$d</font><font color="#007700">-&gt;</font><font color="#0000BB">read</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$entry</font><font color="#007700">.</font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">$d</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      L'ordine nel quale vengono restituiti i dati dal metodo read è dipendente
+      dal sistema usato.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questo definisce la classe interna
+      <B
+CLASS="classname"
+>Directory</B
+>, ciò significa che non sarà possibile
+      definire una nuova classe con lo stesso nome. Per una lista completa
+      delle classi predefinite presenti in PHP, fare riferimento a <A
+HREF="reserved.classes.html"
+>Predefined Classes</A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.chroot.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.closedir.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>chroot</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dir.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>closedir</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

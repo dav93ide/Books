@@ -1,0 +1,530 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDOStatement::fetch</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Functions"
+HREF="ref.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="PDOStatement::execute"
+HREF="function.pdostatement-execute.html"><LINK
+REL="NEXT"
+TITLE="PDOStatement::fetchAll"
+HREF="function.pdostatement-fetchall.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-execute.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-fetchall.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDOStatement-fetch"
+></A
+>PDOStatement::fetch</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN128574"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDOStatement::fetch&nbsp;--&nbsp;
+     Fetches the next row from a result set
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128577"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>PDOStatement::fetch</B
+> ( [int fetch_style [, int cursor_orientation [, int cursor_offset]]] )<BR
+></BR
+><P
+>&#13;     Fetches a row from a result set associated with a PDOStatement object.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128592"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>fetch_style</VAR
+></DT
+><DD
+><P
+>&#13;         Controls how the next row will be returned to the caller. This value
+         must be one of the <VAR
+CLASS="literal"
+>PDO::FETCH_*</VAR
+> constants,
+         defaulting to <VAR
+CLASS="literal"
+>PDO::FETCH_BOTH</VAR
+>.
+         <P
+></P
+><UL
+><LI
+><P
+>&#13;           <VAR
+CLASS="literal"
+>PDO::FETCH_ASSOC</VAR
+>: returns an array indexed by column
+           name as returned in your result set
+          </P
+></LI
+><LI
+><P
+>&#13;           <VAR
+CLASS="literal"
+>PDO::FETCH_BOTH</VAR
+> (default): returns an array indexed by
+           both column name and column number as returned in your result set
+          </P
+></LI
+><LI
+><P
+>&#13;           <VAR
+CLASS="literal"
+>PDO::FETCH_BOUND</VAR
+>: returns <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> and assigns the
+           values of the columns in your result set to the PHP variables to which
+           they were bound with the <B
+CLASS="function"
+>PDOStatement::bindParam()</B
+>
+           method
+          </P
+></LI
+><LI
+><P
+>&#13;           <VAR
+CLASS="literal"
+>PDO::FETCH_LAZY</VAR
+>: combines
+           <VAR
+CLASS="literal"
+>PDO::FETCH_BOTH</VAR
+> and <VAR
+CLASS="literal"
+>PDO::FETCH_OBJ</VAR
+>,
+           creating the object variable names as they are accessed
+          </P
+></LI
+><LI
+><P
+>&#13;           <VAR
+CLASS="literal"
+>PDO::FETCH_OBJ</VAR
+>: returns an anonymous object with
+           property names that correspond to the column names returned in your
+           result set
+          </P
+></LI
+><LI
+><P
+>&#13;           <VAR
+CLASS="literal"
+>PDO::FETCH_NUM</VAR
+>: returns an array indexed by column
+           number as returned in your result set, starting at column 0
+          </P
+></LI
+></UL
+>
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>cursor_orientation</VAR
+></DT
+><DD
+><P
+>&#13;         For a PDOStatement object representing a scrollable cursor, this
+         value determines which row will be returned to the caller. This value
+         must be one of the <VAR
+CLASS="literal"
+>PDO::FETCH_ORI_*</VAR
+> constants,
+         defaulting to <VAR
+CLASS="literal"
+>PDO::FETCH_ORI_NEXT</VAR
+>.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>offset</VAR
+></DT
+><DD
+><P
+> 
+         For a PDOStatement object representing a scrollable cursor for which
+         the <VAR
+CLASS="literal"
+>cursor_orientation</VAR
+> parameter is set to
+         <VAR
+CLASS="literal"
+>PDO::FETCH_ORI_ABS</VAR
+>, this value specifies the
+         absolute number of the row in the result set that shall be fetched.
+        </P
+><P
+>&#13;         For a PDOStatement object representing a scrollable cursor for which
+         the <VAR
+CLASS="literal"
+>cursor_orientation</VAR
+> parameter is set to
+         <VAR
+CLASS="literal"
+>PDO::FETCH_ORI_REL</VAR
+>, this value specifies the
+         row to fetch relative to the cursor position before
+         <B
+CLASS="function"
+>PDOStatement::fetch()</B
+> was called.
+        </P
+></DD
+></DL
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128644"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128647"
+></A
+><P
+><B
+>Esempio 1. Fetching rows using different fetch styles</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$sth </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">"SELECT name, colour FROM fruit"</font><font color="#007700">);<br /></font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* Exercise PDOStatement::fetch styles */<br /></font><font color="#007700">print(</font><font color="#DD0000">"PDO::FETCH_ASSOC: "</font><font color="#007700">);<br />print(</font><font color="#DD0000">"Return next row as an array indexed by column name\n"</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch</font><font color="#007700">(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_ASSOC</font><font color="#007700">);<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />print(</font><font color="#DD0000">"\n"</font><font color="#007700">);<br /><br />print(</font><font color="#DD0000">"PDO::FETCH_BOTH: "</font><font color="#007700">);<br />print(</font><font color="#DD0000">"Return next row as an array indexed by both column name and number\n"</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch</font><font color="#007700">(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_BOTH</font><font color="#007700">);<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />print(</font><font color="#DD0000">"\n"</font><font color="#007700">);<br /><br />print(</font><font color="#DD0000">"PDO::FETCH_LAZY: "</font><font color="#007700">);<br />print(</font><font color="#DD0000">"Return next row as an anonymous object with column names as properties\n"</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch</font><font color="#007700">(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_LAZY</font><font color="#007700">);<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />print(</font><font color="#DD0000">"\n"</font><font color="#007700">);<br /><br />print(</font><font color="#DD0000">"PDO::FETCH_OBJ: "</font><font color="#007700">);<br />print(</font><font color="#DD0000">"Return next row as an anonymous object with column names as properties\n"</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch</font><font color="#007700">(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_OBJ</font><font color="#007700">);<br />print </font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">NAME</font><font color="#007700">;<br />print(</font><font color="#DD0000">"\n"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>PDO::FETCH_ASSOC: Return next row as an array indexed by column name
+Array
+(
+    [NAME] =&#62; apple
+    [COLOUR] =&#62; red
+)
+
+PDO::FETCH_BOTH: Return next row as an array indexed by both column name and number
+Array
+(
+    [NAME] =&#62; banana
+    [0] =&#62; banana
+    [COLOUR] =&#62; yellow
+    [1] =&#62; yellow
+)
+
+PDO::FETCH_LAZY: Return next row as an anonymous object with column names as properties
+PDORow Object
+(
+    [NAME] =&#62; orange
+    [COLOUR] =&#62; orange
+)
+
+PDO::FETCH_OBJ: Return next row as an anonymous object with column names as properties
+kiwi</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128652"
+></A
+><P
+><B
+>Esempio 2. Fetching rows with a scrollable cursor</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">readDataForwards</font><font color="#007700">(</font><font color="#0000BB">$dbh</font><font color="#007700">) {<br />&nbsp;&nbsp;</font><font color="#0000BB">$sql </font><font color="#007700">= </font><font color="#DD0000">'SELECT hand, won, bet FROM mynumbers ORDER BY BET'</font><font color="#007700">;<br />&nbsp;&nbsp;</font><font color="#0000BB">try </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#0000BB">$sql</font><font color="#007700">, array(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">ATTR_CURSOR</font><font color="#007700">, </font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">CURSOR_SCROLL</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch</font><font color="#007700">(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_NUM</font><font color="#007700">, </font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_ORI_NEXT</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$data </font><font color="#007700">= </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">] . </font><font color="#DD0000">"\t" </font><font color="#007700">. </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">] . </font><font color="#DD0000">"\t" </font><font color="#007700">. </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">2</font><font color="#007700">] . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#0000BB">$data</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">null</font><font color="#007700">;<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;</font><font color="#0000BB">catch </font><font color="#007700">(</font><font color="#0000BB">PDOException $e</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#0000BB">$e</font><font color="#007700">-&gt;</font><font color="#0000BB">getMessage</font><font color="#007700">();<br />&nbsp;&nbsp;}<br />}<br />function </font><font color="#0000BB">readDataBackwards</font><font color="#007700">(</font><font color="#0000BB">$dbh</font><font color="#007700">) {<br />&nbsp;&nbsp;</font><font color="#0000BB">$sql </font><font color="#007700">= </font><font color="#DD0000">'SELECT hand, won, bet FROM mynumbers ORDER BY bet'</font><font color="#007700">;<br />&nbsp;&nbsp;</font><font color="#0000BB">try </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#0000BB">$sql</font><font color="#007700">, array(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">ATTR_CURSOR</font><font color="#007700">, </font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">CURSOR_SCROLL</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch</font><font color="#007700">(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_NUM</font><font color="#007700">, </font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_ORI_LAST</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;do {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$data </font><font color="#007700">= </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">] . </font><font color="#DD0000">"\t" </font><font color="#007700">. </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">] . </font><font color="#DD0000">"\t" </font><font color="#007700">. </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">2</font><font color="#007700">] . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#0000BB">$data</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;} while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch</font><font color="#007700">(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_NUM</font><font color="#007700">, </font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_ORI_PRIOR</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">null</font><font color="#007700">;<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;</font><font color="#0000BB">catch </font><font color="#007700">(</font><font color="#0000BB">PDOException $e</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#0000BB">$e</font><font color="#007700">-&gt;</font><font color="#0000BB">getMessage</font><font color="#007700">();<br />&nbsp;&nbsp;}<br />}<br /><br />print </font><font color="#DD0000">"Reading forwards:\n"</font><font color="#007700">;<br /></font><font color="#0000BB">readDataForwards</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br /><br />print </font><font color="#DD0000">"Reading backwards:\n"</font><font color="#007700">;<br /></font><font color="#0000BB">readDataBackwards</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Reading forwards:
+21    10    5
+16    0     5
+19    20    10
+
+Reading backwards:
+19    20    10
+16    0     5
+21    10    5</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128657"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;     <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::query()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::fetchAll()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::fetchColumn()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::prepare()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::setFetchMode()</B
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdostatement-execute.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pdostatement-fetchall.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDOStatement::execute</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDOStatement::fetchAll</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

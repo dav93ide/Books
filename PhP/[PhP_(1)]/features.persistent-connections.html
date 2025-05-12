@@ -1,0 +1,409 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Connessioni Persistenti ai Database</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caratteristiche"
+HREF="features.html"><LINK
+REL="PREVIOUS"
+TITLE="Gestione della connessione"
+HREF="features.connection-handling.html"><LINK
+REL="NEXT"
+TITLE="Modalità sicura (Safe mode)"
+HREF="features.safe-mode.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="features.connection-handling.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="features.safe-mode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="features.persistent-connections"
+>Capitolo 41. Connessioni Persistenti ai Database</A
+></H1
+><P
+>&#13;   Connessioni persistenti sono collegamenti che non vengono chiusi quando
+   l'esecusione di uno script viene terminata. Quando è richiesta una connessione
+   persistente, PHP controlla se esiste già una identica connessione persistente
+   (che è rimasta aperta da prima) - e se esiste, la
+   usa. Se non esiste, crea il collegamento. Una connessione 'identica'
+   è una connessione aperta verso lo stesso host, con
+   lo stesso username e la stessa password (dove applicabile).
+  </P
+><P
+>&#13;   Chi non ha molta familiarità con il modo in cui lavorano i server web
+   e di come essi distribuiscano il carico potrebbero confondere le connessioni permanenti per ciò
+   che esse non sono. In particolare, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non</I
+></SPAN
+> danno
+   la possibilità di aprire 'sessioni utente' sullo stesso collegamento, 
+   <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non</I
+></SPAN
+> danno la possibilità di gestire una transazione in
+   maniera efficiente e sopratutto non fanno molte altre
+   cose. Infatti, per essere molto chiari su questo punto,
+   le connessioni persistenti non hanno <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>nessuna</I
+></SPAN
+>
+   funzionalià che non era disponibile con le loro omonime
+   non-persistenti.
+  </P
+><P
+>&#13;   Perché?
+  </P
+><P
+>&#13;   Questo ha a che fare con il modo in cui i server web operano. Ci sono tre modi
+   in cui un server web può utilizzare PHP per generare le pagine web.
+  </P
+><P
+>&#13;   Il primo metodo ` quello di usare il PHP come un "wrapper" (involucro) CGI. Quando viene
+   eseguito in questa modalità, per ogni pagina che viene richiesta al server web
+   che contenga del codice PHP, viene creata e, alla fine dell'esecuzione, distrutta,
+   una istanza dell'interprete PHP.
+   Poiché viene distrutta alla fine di ogni richiesta, qualunque risorsa
+   abbia acquisito (come ad esempio un collegamento ad un server di database SQL) verrà
+   anch'essa distrutta. In questo caso, non vi è nessun guadagno nell'usare
+   le connessioni persistenti -- semplicemente esse non persistono.
+  </P
+><P
+>&#13;   Il secondo, e più popolare, metodo è quello di eseguire il programma PHP come modulo in un
+   server web multiprocesso, cosa che attualmente include solo Apache. Un
+   server multiprocesso ha tipicamente un processo (il padre) che
+   coordina un insieme di processi (i suoi figli) che sono quelli che
+   generano le pagine web. Quando arriva una richiesta da parte di un
+   client, questa è passata ad uno dei figli che in quel momento
+   non è già occupato a servire un altro client. Questo significa che quando lo stesso client effettua
+   una seconda richiesta al server, esso potrà essere servito da un diverso processo
+   figlio rispetto a quello della prima volta. Quando si aprono delle connessioni persistenti,
+   ciascuna pagina successiva che richiede dei servizi SQL, può riutilizzare la
+   connessione al server SQL precedente.
+  </P
+><P
+>&#13;   L'ultimo metodo è quello di usare il PHP come una plug-in per un server web
+   multithread. Attualmente PHP 4 supporta ISAPI, WSAPI e NSAPI (su piattaforma
+   Windows), i quali permettono di usare PHP come una plug-in sui server web multithread
+   come FastTrack (iPlanet) di Netscape, Internet Information Server (IIS) di Microsoft e
+   WebSite Pro di O'Reilly. Il comportamento è essenzialmente
+   lo stesso che si ha nel modello multiprocesso descritto prima. Si noti che
+   il supporto SAPI non è disponibile in PHP 3.
+  </P
+><P
+>&#13;   Se le connessioni persistenti non hanno nessuna funzionalità aggiuntiva, perch´
+   usarle?
+  </P
+><P
+>&#13;   La risposta, in questo caso è estremamente semplice: efficienza. Le connessioni
+   persistenti sono utili se il carico di lavoro necessario per aprire una connessione al server SQL
+   è alto. Che il carico sia molto alto o meno dipende
+   da molti fattori. Quali, il tipo di database che si utilizza, il fatto che
+   esso si trovi sulla stessa macchina sulla quale si trova il server web, quanto
+   carico di lavoro ha la macchina sulla quale si trova il server SQL, e molte altre ragioni. Il
+   fatto importante è che se il carico di lavoro necessario per aprire le connessioni è alto, le
+   connessioni persistenti possono aiutare in maniera considerevole. Fanno in modo che il processo figlio si
+   colleghi semplicemente una volta durante la sua intera vita, invece di collegarsi ogni volta che
+   processa una pagina che richiede una connessione al server SQL.
+   Questo significa che per ogni figlio che ha aperto una connessione 
+   persistente, si avrà una nuova connessione persistente aperta verso il
+   server. Per esempio, se si hanno 20 diversi processi figlio che
+   eseguono uno script che crea una connessione persistente al server SQL server,
+   si avranno 20 diverse connessioni al server SQL, una per ogni
+   figlio.
+  </P
+><P
+>&#13;   Si fa notare, tuttavia, che questo può avere degli svantaggi se si fa uso di
+   un database che ha un limite al numero di connessioni, minore rispetto al numero delle
+   connessioni persistenti dei procesi figlio. Se per esempio di usa un database con 16 connessioni simultanee,
+   e durante un periodo di intensa attività del web server, 17 processi figlio
+   cercano di collegarsi, uno non sarà in grado di farlo. Se nei vostri script
+   ci sono bug che non permettono alle connessioni di chiudersi in maniera regolare
+   (come ad esempio un loop infinito), un database con sole 16 connessioni
+   diventerà rapidamente saturo. Fare riferimento alla documentazione del database per
+   informazioni su come gestire connessioni abbandonate o inattive.
+  </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;    Ci sono un paio di altri caveat da tenere in considerazione quando
+    si usano le connessioni persistenti. Uno è che quando si usa il table
+    locking su una connessione persistente, se lo script, per una qualunque
+    ragione non è in grado di rimuovere il blocco, allora i successivi script che useranno
+    la stessa connessione rimarranno bloccati in maniera indefinita e potrebbe essre necessario
+    riavviare il server httpd o il server database. Un altro è che
+    quando si usano le transazioni, un transaction block verrà trasferito
+    anche allo script successivo che usa la medesima connessione, se lo script in esecuzione
+    termina prima che sia terminato il transaction block. In entrambi i casi, si può
+    usare <A
+HREF="function.register-shutdown-function.html"
+><B
+CLASS="function"
+>register_shutdown_function()</B
+></A
+> per registrare una
+    semplice funzione di pulizia per sbloccare le tabelle o effettuare il roll back delle
+    transaczioni. Sarebbe meglio non dover affrontare il problema, semplicemente non usando
+    le connessioni persistenti negli script che usano i lock delle tabelle o
+    le transaczioni (si possono comunque usare in altre situazioni).
+   </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   Sommario importante. Le connessioni persistenti sono state pensate per avere
+   una mappatura uno-a-uno con le connessioni di tipo normale. Ciò significa che si
+   dovrebbe <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>sempre</I
+></SPAN
+> essere in grado di cambiare una connessione persistente
+   con una connessione non-persistente, e che questo non dovrebbe cambiare
+   il modo in cui lo script si comporta. <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Può</I
+></SPAN
+> (e
+   probabilmente succederà) cambiare l'efficienza dello script, ma non il suo 
+   comportamento!
+  </P
+><P
+>&#13;   Vedere anche <A
+HREF="function.fbsql-pconnect.html"
+><B
+CLASS="function"
+>fbsql_pconnect()</B
+></A
+>,
+   <A
+HREF="function.ibase-pconnect.html"
+><B
+CLASS="function"
+>ibase_pconnect()</B
+></A
+>, <A
+HREF="function.ifx-pconnect.html"
+><B
+CLASS="function"
+>ifx_pconnect()</B
+></A
+>,
+   <A
+HREF="function.ingres-pconnect.html"
+><B
+CLASS="function"
+>ingres_pconnect()</B
+></A
+>,
+   <A
+HREF="function.msql-pconnect.html"
+><B
+CLASS="function"
+>msql_pconnect()</B
+></A
+>, <A
+HREF="function.mssql-pconnect.html"
+><B
+CLASS="function"
+>mssql_pconnect()</B
+></A
+>,
+   <A
+HREF="function.mysql-pconnect.html"
+><B
+CLASS="function"
+>mysql_pconnect()</B
+></A
+>, <A
+HREF="function.ociplogon.html"
+><B
+CLASS="function"
+>ocipLogon()</B
+></A
+>,
+   <A
+HREF="function.odbc-pconnect.html"
+><B
+CLASS="function"
+>odbc_pconnect()</B
+></A
+>, <A
+HREF="function.ora-plogon.html"
+><B
+CLASS="function"
+>ora_pLogon()</B
+></A
+>,
+   <A
+HREF="function.pfsockopen.html"
+><B
+CLASS="function"
+>pfsockopen()</B
+></A
+>, <A
+HREF="function.pg-pconnect.html"
+><B
+CLASS="function"
+>pg_pconnect()</B
+></A
+> e
+   <A
+HREF="function.sybase-pconnect.html"
+><B
+CLASS="function"
+>sybase_pconnect()</B
+></A
+>.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="features.connection-handling.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="features.safe-mode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Gestione della connessione</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="features.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Modalità sicura (Safe mode)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

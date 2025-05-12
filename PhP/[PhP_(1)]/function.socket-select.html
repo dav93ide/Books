@@ -1,0 +1,629 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>socket_select</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni relative ai Socket"
+HREF="ref.sockets.html"><LINK
+REL="PREVIOUS"
+TITLE="socket_recvfrom"
+HREF="function.socket-recvfrom.html"><LINK
+REL="NEXT"
+TITLE="socket_send"
+HREF="function.socket-send.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.socket-recvfrom.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.socket-send.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.socket-select"
+></A
+>socket_select</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN154674"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PHP 5)</P
+>socket_select&nbsp;--&nbsp;
+       Esegue la system call select() su un set di socket con un dato timeout 
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN154677"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>socket_select</B
+> ( array lettura, array scrittura, array except, int tv_sec [, int tv_usec] )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>socket_select()</B
+> accetta un array di socket e si mette
+     in attesa di una variazione di stato su questi. Questa, derivando come background dai socket BSD,
+     riconoscerà che questi array di risorse socket sono in realtà 
+     dei set di descrittori di file. Saranno monitorati 3 set di 
+     socket.
+    </P
+><P
+>  
+     I socket indicati nell'array <VAR
+CLASS="parameter"
+>lettura</VAR
+>, saranno monitorati in
+     attesa dell'arrivo di caratteri disponibili per la lettura (più precisamente, per verificare
+     che una lettura non sia bloccata, una risorsa socket viene definita pronta anche su
+     fine file, in questo caso la funzione <A
+HREF="function.socket-read.html"
+><B
+CLASS="function"
+>socket_read()</B
+></A
+> restituirà
+     una stringa di lunghezza zero).
+    </P
+><P
+>  
+     I socket indicati nell'array di <VAR
+CLASS="parameter"
+>scrittura</VAR
+>, sarranno monitorati
+     per verificare che una scrittura non si blocchi.
+    </P
+><P
+>  
+     I socket indicati nell'array <VAR
+CLASS="parameter"
+>except</VAR
+> saranno monitorati
+     per rilevare delle eccezioni.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>  
+      In uscita, gli array sarrano modificati in modo da indicare quale risorsa di tipo socket
+      ha variato il proprio stato.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>  
+     Non si è obbligati a passare tutti gli array a
+     <B
+CLASS="function"
+>socket_select()</B
+>. Se ne possono tralasciare, al loro posto utilizzare
+     un array vuoto oppure <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>. Inoltre non si dimentichi che gli array sono passati
+     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>per riferimento</I
+></SPAN
+> e che saranno modificati all'uscita
+     dalla funzione <B
+CLASS="function"
+>socket_select()</B
+>.
+    </P
+><P
+>  
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN154717"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>socket_select()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Preparo l'array di lettura */&nbsp;&nbsp;<br /></font><font color="#0000BB">$read </font><font color="#007700">= array(</font><font color="#0000BB">$socket1</font><font color="#007700">, </font><font color="#0000BB">$socket2</font><font color="#007700">);&nbsp;&nbsp;<br />&nbsp;&nbsp;<br /></font><font color="#0000BB">$num_changed_sockets </font><font color="#007700">= </font><font color="#0000BB">socket_select</font><font color="#007700">(</font><font color="#0000BB">$read</font><font color="#007700">, </font><font color="#0000BB">$write </font><font color="#007700">= </font><font color="#0000BB">NULL</font><font color="#007700">, </font><font color="#0000BB">$except </font><font color="#007700">= </font><font color="#0000BB">NULL</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br /><br /><br />if (</font><font color="#0000BB">$num_changed_sockets </font><font color="#007700">=== </font><font color="#0000BB">false</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Gestione dell'errore */&nbsp;&nbsp;<br /></font><font color="#007700">} else if (</font><font color="#0000BB">$num_changed_sockets </font><font color="#007700">&gt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Su almeno un socket è accaduto qualcosa di interessante */&nbsp;&nbsp;<br /></font><font color="#007700">}&nbsp;&nbsp;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+> 
+      A causa delle limitazioni della versione attuale del Zend Engine, non è possibile passare 
+      direttamente una costante, ad esempio <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>, come parametro ad una funzione che
+      si aspetti questo passato per riferimento. Si utilizzi, invece, una 
+      variabile temporanea oppura una espressione il cui membro di sinistra sia una
+      variabile temporanea:
+      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN154724"
+></A
+><P
+><B
+>Esempio 2. Uso di <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> con <B
+CLASS="function"
+>socket_select()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />socket_select</font><font color="#007700">(</font><font color="#0000BB">$r</font><font color="#007700">, </font><font color="#0000BB">$w</font><font color="#007700">, </font><font color="#0000BB">$e </font><font color="#007700">= </font><font color="#0000BB">NULL</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);&nbsp;&nbsp;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>  
+     I parametri <VAR
+CLASS="parameter"
+>tv_sec</VAR
+> ed <VAR
+CLASS="parameter"
+>tv_usec</VAR
+> 
+     insieme indicano il <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>timeout</I
+></SPAN
+>. Il 
+     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>timeout</I
+></SPAN
+> indica il limite superiore di tempo 
+     che deve trascorrere prima che la funzione <B
+CLASS="function"
+>socket_select()</B
+> esca.
+     <VAR
+CLASS="parameter"
+>tv_sec</VAR
+> può essere a zero, ciò causa una
+     uscita immediata di <B
+CLASS="function"
+>socket_select()</B
+>. Ciò risulta utile nei
+     casi di polling. Se <VAR
+CLASS="parameter"
+>tv_sec</VAR
+> viene impostato a <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> (nessun timeout),
+     la funzione resta in attesa per un tempo indefinito.
+    </P
+><P
+>  
+     Se ha successo <B
+CLASS="function"
+>socket_select()</B
+> restituisce il numero
+     di risorse socket contenute nell'array modificato, tale valore può essere zero
+     se scade il timeout prima che sia accaduto qualcosa. La funzione restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+     se si verifica un errore. Il codice di errore può essere recuperato tramite la funzione
+     <A
+HREF="function.socket-last-error.html"
+><B
+CLASS="function"
+>socket_last_error()</B
+></A
+>.  
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+> 
+     Si utilizzi l'operatore <VAR
+CLASS="literal"
+>===</VAR
+> quanto si eseguono dei test per 
+     rilevare un errore. Poichè la funzione <B
+CLASS="function"
+>socket_select()</B
+> può restituire 0
+     il confronto eseguito con <VAR
+CLASS="literal"
+>==</VAR
+> sarebbe valutato come <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>:  
+      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN154749"
+></A
+><P
+><B
+>Esempio 3. Comprensione dei risultati di <B
+CLASS="function"
+>socket_select()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">false </font><font color="#007700">=== </font><font color="#0000BB">socket_select</font><font color="#007700">(</font><font color="#0000BB">$r</font><font color="#007700">, </font><font color="#0000BB">$w</font><font color="#007700">, </font><font color="#0000BB">$e </font><font color="#007700">= </font><font color="#0000BB">NULL</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">)) {&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"socket_select() failed, reason: " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">socket_last_error</font><font color="#007700">()) . </font><font color="#DD0000">"\n"</font><font color="#007700">;&nbsp;&nbsp;<br />}&nbsp;&nbsp;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+> 
+      Si presti attenzione alle implementazioni di certi socket che richiedono di
+      essere gestiti molto attentamente. Alcune regole di base: 
+      <P
+></P
+><UL
+><LI
+><P
+>  
+         Si cerchi di utilizzare sempre <B
+CLASS="function"
+>socket_select()</B
+>
+         senza il timeout. Il programma non dovrebbe avere nulla da fare se non ci sono
+         dati disponibili. Il codice basato sui timeout solitamente non è migrabile
+         ed è difficile da testare.
+        </P
+></LI
+><LI
+><P
+> 
+         Nei tre set, non inserire una risorsa socket di cui non si intende
+         controllarne il risultato dopo la chiamata a <B
+CLASS="function"
+>socket_select()</B
+>,
+         e ne si intende rispondere in modo appropriato. Dopo la chiamata a <B
+CLASS="function"
+>socket_select()</B
+>,
+         occorre verificare tutti i socket in tutti gli array. Si deve scrivere
+         su qualsiasi socket disponibile per la scrittura, e deve essere letto qualsiasi 
+         socket diponibile per la lettura.
+        </P
+></LI
+><LI
+><P
+> 
+         Se si ha il ritorno della disponibilità di un socket, sia in lettura che in scrittura,
+         non è detto che sia disponile per l'intero ammontare dei dati da scrivere/leggere.
+         Occorre essere preparati a gestire il caso in cui la disponibilità sia limitata
+         anche ad un solo byte. 
+        </P
+></LI
+><LI
+><P
+>  
+         Nella maggior parte delle implementazioni dei socket, l'unica eccezione 
+         catturata con il parametro <VAR
+CLASS="parameter"
+>except</VAR
+> è l'arrivo
+         di dati fuori banda.
+        </P
+></LI
+></UL
+>  
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>  
+     Vedere anche  
+     <A
+HREF="function.socket-read.html"
+><B
+CLASS="function"
+>socket_read()</B
+></A
+>,  
+     <A
+HREF="function.socket-write.html"
+><B
+CLASS="function"
+>socket_write()</B
+></A
+>,  
+     <A
+HREF="function.socket-last-error.html"
+><B
+CLASS="function"
+>socket_last_error()</B
+></A
+> e  
+     <A
+HREF="function.socket-strerror.html"
+><B
+CLASS="function"
+>socket_strerror()</B
+></A
+>.  
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.socket-recvfrom.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.socket-send.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>socket_recvfrom</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sockets.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>socket_send</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

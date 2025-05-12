@@ -1,0 +1,460 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pcntl_waitpid</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Process Control Functions"
+HREF="ref.pcntl.html"><LINK
+REL="PREVIOUS"
+TITLE="pcntl_wait"
+HREF="function.pcntl-wait.html"><LINK
+REL="NEXT"
+TITLE="pcntl_wexitstatus"
+HREF="function.pcntl-wexitstatus.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pcntl-wait.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pcntl-wexitstatus.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pcntl-waitpid"
+></A
+>pcntl_waitpid</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN122548"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PHP 5)</P
+>pcntl_waitpid&nbsp;--&nbsp;Waits on or returns the status of a forked child</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN122551"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>pcntl_waitpid</B
+> ( int pid, int &#38;status [, int options] )<BR
+></BR
+><P
+>&#13;    The <B
+CLASS="function"
+>pcntl_waitpid()</B
+> function suspends execution
+    of the current process until a child as specified by the
+    <VAR
+CLASS="parameter"
+>pid</VAR
+> argument has exited, or until a signal
+    is delivered whose action is to terminate the current process or
+    to call a signal handling function.  If a child as requested by
+    <VAR
+CLASS="parameter"
+>pid</VAR
+> has already exited by the time of the
+    call (a so-called "zombie" process), the function returns
+    immediately.  Any system resources used by the child are
+    freed. Please see your system's waitpid(2) man page for specific
+    details as to how waitpid works on your system.
+   </P
+><P
+>&#13;    <B
+CLASS="function"
+>pcntl_waitpid()</B
+> returns the process ID of the
+    child which exited, -1 on error or zero if WNOHANG was used and no
+    child was available
+   </P
+><P
+>&#13;    The value of <VAR
+CLASS="parameter"
+>pid</VAR
+> can be one of the following:
+    <DIV
+CLASS="table"
+><A
+NAME="AEN122573"
+></A
+><P
+><B
+>Tabella 1. possible values for <VAR
+CLASS="parameter"
+>pid</VAR
+></B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>&#60; -1</VAR
+></TD
+><TD
+>&#13;         wait for any child process whose process group ID is equal to
+         the absolute value of <VAR
+CLASS="parameter"
+>pid</VAR
+>.
+        </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>-1</VAR
+></TD
+><TD
+>&#13;         wait for any child process; this is the same behaviour that
+         the wait function exhibits.
+        </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>0</VAR
+></TD
+><TD
+>&#13;         wait for any child process whose process group ID is equal to
+         that of the calling process.
+        </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>&#62; 0</VAR
+></TD
+><TD
+>&#13;         wait for the child whose process ID is equal to the value of
+         <VAR
+CLASS="parameter"
+>pid</VAR
+>.
+        </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Specifying <VAR
+CLASS="literal"
+>-1</VAR
+> as the <VAR
+CLASS="parameter"
+>pid</VAR
+> is
+     equivalent to the functionality <A
+HREF="function.pcntl-wait.html"
+><B
+CLASS="function"
+>pcntl_wait()</B
+></A
+> provides
+     (minus <VAR
+CLASS="parameter"
+>options</VAR
+>).
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    <B
+CLASS="function"
+>pcntl_waitpid()</B
+> will store status information
+    in the <VAR
+CLASS="parameter"
+>status</VAR
+> parameter which can be
+    evaluated using the following functions:
+    <A
+HREF="function.pcntl-wifexited.html"
+><B
+CLASS="function"
+>pcntl_wifexited()</B
+></A
+>,
+    <A
+HREF="function.pcntl-wifstopped.html"
+><B
+CLASS="function"
+>pcntl_wifstopped()</B
+></A
+>,
+    <A
+HREF="function.pcntl-wifsignaled.html"
+><B
+CLASS="function"
+>pcntl_wifsignaled()</B
+></A
+>,
+    <A
+HREF="function.pcntl-wexitstatus.html"
+><B
+CLASS="function"
+>pcntl_wexitstatus()</B
+></A
+>,
+    <A
+HREF="function.pcntl-wtermsig.html"
+><B
+CLASS="function"
+>pcntl_wtermsig()</B
+></A
+> and
+    <A
+HREF="function.pcntl-wstopsig.html"
+><B
+CLASS="function"
+>pcntl_wstopsig()</B
+></A
+>.
+   </P
+><P
+>&#13;    The value of <VAR
+CLASS="parameter"
+>options</VAR
+> is the value of zero
+    or more of the following two global constants
+    <VAR
+CLASS="literal"
+>OR</VAR
+>'ed together:
+    <DIV
+CLASS="table"
+><A
+NAME="AEN122614"
+></A
+><P
+><B
+>Tabella 2. possible values for <VAR
+CLASS="parameter"
+>options</VAR
+></B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>WNOHANG</VAR
+></TD
+><TD
+>&#13;         return immediately if no child has exited.
+        </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>WUNTRACED</VAR
+></TD
+><TD
+>&#13;         return for children which are stopped, and whose status has
+         not been reported.
+        </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+   </P
+><P
+>&#13;    See also <A
+HREF="function.pcntl-fork.html"
+><B
+CLASS="function"
+>pcntl_fork()</B
+></A
+>,
+    <A
+HREF="function.pcntl-signal.html"
+><B
+CLASS="function"
+>pcntl_signal()</B
+></A
+>,
+    <A
+HREF="function.pcntl-wifexited.html"
+><B
+CLASS="function"
+>pcntl_wifexited()</B
+></A
+>,
+    <A
+HREF="function.pcntl-wifstopped.html"
+><B
+CLASS="function"
+>pcntl_wifstopped()</B
+></A
+>,
+    <A
+HREF="function.pcntl-wifsignaled.html"
+><B
+CLASS="function"
+>pcntl_wifsignaled()</B
+></A
+>,
+    <A
+HREF="function.pcntl-wexitstatus.html"
+><B
+CLASS="function"
+>pcntl_wexitstatus()</B
+></A
+>,
+    <A
+HREF="function.pcntl-wtermsig.html"
+><B
+CLASS="function"
+>pcntl_wtermsig()</B
+></A
+> and
+    <A
+HREF="function.pcntl-wstopsig.html"
+><B
+CLASS="function"
+>pcntl_wstopsig()</B
+></A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pcntl-wait.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pcntl-wexitstatus.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pcntl_wait</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pcntl.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pcntl_wexitstatus</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

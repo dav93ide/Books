@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>levenshtein</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="join"
+HREF="function.join.html"><LINK
+REL="NEXT"
+TITLE="localeconv"
+HREF="function.localeconv.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.join.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.localeconv.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.levenshtein"
+></A
+>levenshtein</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN163585"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.17, PHP 4 &#62;= 4.0.1, PHP 5)</P
+>levenshtein&nbsp;--&nbsp;
+     Calcola la distanza Levenshtein tra due stringhe
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN163588"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>levenshtein</B
+> ( string str1, string str2 [, int cost_ins [, int cost_rep, int cost_del]] )<BR
+></BR
+><P
+>&#13;     Questa funzione restituisce la distanza Levenshtein tra due
+     stringhe o -1 se uno degli argomenti è più
+     lungo del limite di 255 caratteri.
+    </P
+><P
+>&#13;     La distanza Levenshtein è definita come il numero minimo di
+     caratteri da sostituire, inserire o cancellare per trasformare
+     <VAR
+CLASS="parameter"
+>str1</VAR
+> in <VAR
+CLASS="parameter"
+>str2</VAR
+>.
+     La complessità dell'algoritmo è <VAR
+CLASS="literal"
+>O(m*n)</VAR
+>,
+     dove <VAR
+CLASS="literal"
+>n</VAR
+> e <VAR
+CLASS="literal"
+>m</VAR
+> sono rispettivamente
+     la lunghezza di <VAR
+CLASS="parameter"
+>str1</VAR
+> e di
+     <VAR
+CLASS="parameter"
+>str2</VAR
+> (valore piuttosto buono se confrontato con
+     <A
+HREF="function.similar-text.html"
+><B
+CLASS="function"
+>similar_text()</B
+></A
+>, che è O(max(n,m)**3),
+     ma comunque costoso).
+    </P
+><P
+>&#13;     Nella sua versione più semplice la funzione richiede come parametri due 
+     stringhe e calcola il numero di caratteri da inserire, sostituire
+     o rimuovere necessari a trasformare
+     <VAR
+CLASS="parameter"
+>str1</VAR
+> in <VAR
+CLASS="parameter"
+>str2</VAR
+>.
+    </P
+><P
+> 
+     La seconda variante utilizza tre parametri addizionali che definiscono il
+     costo delle operazioni di inserimento, sostituzione e di cancellazione.
+     Questa versione è più generale e adattabile della precedente, ma non è
+     altrettanto efficiente.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN163623"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>levenshtein()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// input parola errata<br /></font><font color="#0000BB">$input </font><font color="#007700">= </font><font color="#DD0000">'carrrot'</font><font color="#007700">;<br /> <br /></font><font color="#FF8000">// matrice di parole con cui verificare<br /></font><font color="#0000BB">$words&nbsp;&nbsp;</font><font color="#007700">= array(</font><font color="#DD0000">'apple'</font><font color="#007700">,</font><font color="#DD0000">'pineapple'</font><font color="#007700">,</font><font color="#DD0000">'banana'</font><font color="#007700">,</font><font color="#DD0000">'orange'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'radish'</font><font color="#007700">,</font><font color="#DD0000">'carrot'</font><font color="#007700">,</font><font color="#DD0000">'pea'</font><font color="#007700">,</font><font color="#DD0000">'bean'</font><font color="#007700">,</font><font color="#DD0000">'potato'</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// non ancora trovata la distanza più breve<br /></font><font color="#0000BB">$shortest </font><font color="#007700">= -</font><font color="#0000BB">1</font><font color="#007700">;<br /> <br /></font><font color="#FF8000">// loop su tutte le parole per trovare la più simile<br /></font><font color="#007700">foreach (</font><font color="#0000BB">$words </font><font color="#007700">as </font><font color="#0000BB">$word</font><font color="#007700">) {<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// calcola la distanza tra la parola di input<br />&nbsp;&nbsp;&nbsp;&nbsp;// e la corrente<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$lev </font><font color="#007700">= </font><font color="#0000BB">levenshtein</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">, </font><font color="#0000BB">$word</font><font color="#007700">);<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// è la parola esatta?<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">$lev </font><font color="#007700">== </font><font color="#0000BB">0</font><font color="#007700">) {<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// la più simile è questa<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$closest </font><font color="#007700">= </font><font color="#0000BB">$word</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$shortest </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// esce dal loop, l'abbiamo trovata<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">break;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// se la distanza è inferiore rispetto alla precendete più corta<br />&nbsp;&nbsp;&nbsp;&nbsp;// o non ne abbiamo ancora trovata una<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">$lev </font><font color="#007700">&lt;= </font><font color="#0000BB">$shortest </font><font color="#007700">|| </font><font color="#0000BB">$shortest </font><font color="#007700">&lt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// imposta la parola più simile e la distanza più breve<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$closest&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">$word</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$shortest </font><font color="#007700">= </font><font color="#0000BB">$lev</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /> <br />echo </font><font color="#DD0000">"Input word: $input</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />if (</font><font color="#0000BB">$shortest </font><font color="#007700">== </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Exact match found: $closest</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Did you mean: $closest?</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /> <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Input word: carrrot
+Did you mean: carrot?</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.soundex.html"
+><B
+CLASS="function"
+>soundex()</B
+></A
+>,
+     <A
+HREF="function.similar-text.html"
+><B
+CLASS="function"
+>similar_text()</B
+></A
+> e
+     <A
+HREF="function.metaphone.html"
+><B
+CLASS="function"
+>metaphone()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.join.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.localeconv.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>join</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>localeconv</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

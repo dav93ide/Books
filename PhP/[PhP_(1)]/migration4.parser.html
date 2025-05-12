@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Parser behavior</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Migrating from PHP 3 to PHP 4"
+HREF="migration4.html"><LINK
+REL="PREVIOUS"
+TITLE="Migrating Configuration Files"
+HREF="migration4.configuration.html"><LINK
+REL="NEXT"
+TITLE="Error reporting"
+HREF="migration4.error-reporting.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="migration4.configuration.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice C. Migrating from PHP 3 to PHP 4</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="migration4.error-reporting.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="migration4.parser"
+>Parser behavior</A
+></H1
+><P
+>&#13;    Parsing and execution are now two completely separated steps, no
+    execution of a files code will happen until the complete file and
+    everything it requires has completely and successfully been
+    parsed.
+   </P
+><P
+>&#13;    One of the new requirements introduced with this split is that
+    required and included files now have to be syntactically
+    complete. You can no longer spread the different controlling parts
+    of a control structure across file boundaries. That is you cannot
+    start a <VAR
+CLASS="literal"
+>for</VAR
+> or <VAR
+CLASS="literal"
+>while</VAR
+> loop,
+    an <VAR
+CLASS="literal"
+>if</VAR
+> statement or a <VAR
+CLASS="literal"
+>switch</VAR
+>
+    block in one file and have the end of loop,
+    <VAR
+CLASS="literal"
+>else</VAR
+>, <VAR
+CLASS="literal"
+>endif</VAR
+>,
+    <VAR
+CLASS="literal"
+>case</VAR
+> or <VAR
+CLASS="literal"
+>break</VAR
+> statements in
+    a different file.
+   </P
+><P
+>&#13;    It still perfectly legal to include additional code within loops
+    or other control structures, only the controlling keywords and
+    corresponding curly braces <VAR
+CLASS="literal"
+>{...}</VAR
+> have to be
+    within the same compile unit (file or <A
+HREF="function.eval.html"
+><B
+CLASS="function"
+>eval()</B
+></A
+>ed
+    string).
+   </P
+><P
+>&#13;    This should not harm too much as spreading code like this should be
+    considered as very bad style anyway.
+   </P
+><P
+>&#13;    Another thing no longer possible, though rarely seen in PHP 3
+    code is returning values from a required file. Returning a value
+    from an included file is still possible.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="migration4.configuration.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="migration4.error-reporting.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Migrating Configuration Files</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="migration4.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Error reporting</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

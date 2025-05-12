@@ -1,0 +1,581 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Verisign Payflow Pro Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="var_export"
+HREF="function.var-export.html"><LINK
+REL="NEXT"
+TITLE="pfpro_cleanup"
+HREF="function.pfpro-cleanup.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.var-export.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pfpro-cleanup.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.pfpro"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CLIV. Verisign Payflow Pro Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN174231"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pfpro.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     This extension allows you to process credit cards and other financial
+     transactions using Verisign Payment Services, formerly known as Signio
+     (<A
+HREF="http://www.verisign.com/products-services/payment-processing/online-payment/payflow-pro/index.html"
+TARGET="_top"
+>http://www.verisign.com/products-services/payment-processing/online-payment/payflow-pro/index.html</A
+>).
+    </P
+><P
+>&#13;     When using these functions, you may omit calls to
+     <A
+HREF="function.pfpro-init.html"
+><B
+CLASS="function"
+>pfpro_init()</B
+></A
+> and <A
+HREF="function.pfpro-cleanup.html"
+><B
+CLASS="function"
+>pfpro_cleanup()</B
+></A
+>
+     as this extension will do so automatically if required. However the
+     functions are still available in case you are processing a number of
+     transactions and require fine control over the library.
+     You may perform any number
+     of transactions using <A
+HREF="function.pfpro-process.html"
+><B
+CLASS="function"
+>pfpro_process()</B
+></A
+> between the two.
+    </P
+><P
+>&#13;     These functions were added in PHP 4.0.2.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      These functions only provide a link to Verisign Payment Services. Be sure
+      to read the Payflow Pro Developers Guide for full details of the required
+      parameters.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questo modulo è stato spostato nel repository <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> e non sarà più rilascio con il
+PHP dalla versione 5.1.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questo modulo non è
+disponibile su piattaforme Windows.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pfpro.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     You will require the appropriate SDK for your platform, which may be
+     downloaded <A
+HREF="https://manager.verisign.com/"
+TARGET="_top"
+>from within the manager
+     interface</A
+> once you have registered. 
+    </P
+><P
+>&#13;     Once you have downloaded the SDK you should copy the files from
+     the <TT
+CLASS="filename"
+>lib</TT
+> directory of the
+     distribution. Copy the header file <TT
+CLASS="filename"
+>pfpro.h</TT
+>
+     to <TT
+CLASS="filename"
+>/usr/local/include</TT
+>
+     and the library file <TT
+CLASS="filename"
+>libpfpro.so</TT
+> to
+     <TT
+CLASS="filename"
+>/usr/local/lib</TT
+>.
+    </P
+><P
+>&#13;     Alternatively, you can extract the tarball from Verisign in one
+     location, and reference it during build configuration with the <VAR
+CLASS="option"
+>--with-pfpro[=DIR]</VAR
+> option:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN174260"
+></A
+><P
+><B
+>Esempio 1. Explicit Configuration</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>tar -zxf pfpro_sunsparc.tar.gz -C /usr/local/
+
+./configure --with-pfpro=/usr/local/verisign/payflowpro/sunsparc</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      The last portion of the path specified in the example above, in this
+      case <TT
+CLASS="filename"
+>sunsparc</TT
+>, will vary based on
+      which architecture your Verisign SDK was built for.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pfpro.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  These functions are only available if PHP has been compiled with the
+  <VAR
+CLASS="option"
+>--with-pfpro[=DIR]</VAR
+> option.
+ </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;   If you are planing to use this extension along with the <A
+HREF="ref.openssl.html"
+>OpenSSL</A
+> extension or with ModSSL, you should
+   compile this extension as shared: <VAR
+CLASS="option"
+>--with-pfpro=shared,/usr/local</VAR
+>.
+  </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pfpro.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN174279"
+></A
+><P
+><B
+>Tabella 1. Verisign Payflow Pro configuration options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>pfpro.defaulthost/PFPRO_VERSION &#60; 3 </TD
+><TD
+>"test.signio.com"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>pfpro.defaulthost</TD
+><TD
+>"test-payflow.verisign.com"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>pfpro.defaultport</TD
+><TD
+>"443"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>pfpro.defaulttimeout</TD
+><TD
+>"30"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>pfpro.proxyaddress</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>pfpro.proxyport</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>pfpro.proxylogon</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>pfpro.proxypassword</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pfpro.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pfpro.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.pfpro-cleanup.html"
+>pfpro_cleanup</A
+>&nbsp;--&nbsp;Shuts down the Payflow Pro library</DT
+><DT
+><A
+HREF="function.pfpro-init.html"
+>pfpro_init</A
+>&nbsp;--&nbsp;Initialises the Payflow Pro library</DT
+><DT
+><A
+HREF="function.pfpro-process-raw.html"
+>pfpro_process_raw</A
+>&nbsp;--&nbsp;Process a raw transaction with Payflow Pro</DT
+><DT
+><A
+HREF="function.pfpro-process.html"
+>pfpro_process</A
+>&nbsp;--&nbsp;Process a transaction with Payflow Pro</DT
+><DT
+><A
+HREF="function.pfpro-version.html"
+>pfpro_version</A
+>&nbsp;--&nbsp;Returns the version of the Payflow Pro software</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.var-export.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pfpro-cleanup.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>var_export</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pfpro_cleanup</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

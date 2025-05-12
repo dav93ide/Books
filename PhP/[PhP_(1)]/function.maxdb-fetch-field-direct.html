@@ -1,0 +1,390 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>maxdb_fetch_field_direct</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MaxDB PHP Extension"
+HREF="ref.maxdb.html"><LINK
+REL="PREVIOUS"
+TITLE="maxdb_fetch_assoc"
+HREF="function.maxdb-fetch-assoc.html"><LINK
+REL="NEXT"
+TITLE="maxdb_fetch_field"
+HREF="function.maxdb-fetch-field.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.maxdb-fetch-assoc.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.maxdb-fetch-field.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.maxdb-fetch-field-direct"
+></A
+>maxdb_fetch_field_direct</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN72636"
+></A
+><P
+>    (PECL)</P
+>maxdb_fetch_field_direct<P
+>    (no version information, might be only in CVS)</P
+>result-&#62;fetch_field_direct&nbsp;--&nbsp;
+     Fetch meta-data for a single field
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN72640"
+></A
+><H2
+>Description</H2
+><P
+>Procedural style:</P
+>mixed <B
+CLASS="methodname"
+>maxdb_fetch_field_direct</B
+> ( resource result, int fieldnr )<BR
+></BR
+><P
+>Object oriented style (method):</P
+>class <B
+CLASS="classname"
+>result</B
+> { <BR
+></BR
+>mixed <B
+CLASS="methodname"
+>fetch_field_direct</B
+> ( int fieldnr )<BR
+></BR
+>}<P
+>&#13;     <B
+CLASS="function"
+>maxdb_fetch_field_direct()</B
+> returns an resource which contains 
+     field definition informations from specified resultset. The value of fieldnr must be in the 
+     range from <VAR
+CLASS="literal"
+>0</VAR
+> to <VAR
+CLASS="literal"
+>number of fields - 1</VAR
+>.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN72666"
+></A
+><H2
+>Return values</H2
+><P
+>&#13;     Returns an resource which contains field definition informations or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if no field information
+     for specified <VAR
+CLASS="literal"
+>fieldnr</VAR
+> is available.
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN72672"
+></A
+><P
+><B
+>Tabella 1. Object attributes</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Attribute</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>name</TD
+><TD
+>The name of the column</TD
+></TR
+><TR
+><TD
+>max_length</TD
+><TD
+>The maximum width of the field for the result set.</TD
+></TR
+><TR
+><TD
+>type</TD
+><TD
+>The data type used for this field</TD
+></TR
+><TR
+><TD
+>decimals</TD
+><TD
+>The number of decimals used (for integer fields)</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN72692"
+></A
+><H2
+>See also</H2
+><P
+>&#13;     <A
+HREF="function.maxdb-num-fields.html"
+><B
+CLASS="function"
+>maxdb_num_fields()</B
+></A
+>
+     <A
+HREF="function.maxdb-fetch-field.html"
+><B
+CLASS="function"
+>maxdb_fetch_field()</B
+></A
+>
+     <A
+HREF="function.maxdb-fetch-fields.html"
+><B
+CLASS="function"
+>maxdb_fetch_fields()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN72698"
+></A
+><H2
+>Example</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN72700"
+></A
+><P
+><B
+>Esempio 1. Object oriented style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$maxdb </font><font color="#007700">= new </font><font color="#0000BB">maxdb</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"MONA"</font><font color="#007700">, </font><font color="#DD0000">"RED"</font><font color="#007700">, </font><font color="#DD0000">"DEMODB"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">maxdb_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#DD0000">"SELECT name, cno from hotel.customer ORDER BY name"</font><font color="#007700">;<br /><br />if (</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#0000BB">$query</font><font color="#007700">)) {<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Get field information for column 'SurfaceArea' */<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$finfo </font><font color="#007700">= </font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch_field_direct</font><font color="#007700">(</font><font color="#0000BB">1</font><font color="#007700">);<br /> <br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s\n"</font><font color="#007700">, </font><font color="#0000BB">$finfo</font><font color="#007700">-&gt;</font><font color="#0000BB">name</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Table:&nbsp;&nbsp;&nbsp;&nbsp;%s\n"</font><font color="#007700">, </font><font color="#0000BB">$finfo</font><font color="#007700">-&gt;</font><font color="#0000BB">table</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"max. Len: %d\n"</font><font color="#007700">, </font><font color="#0000BB">$finfo</font><font color="#007700">-&gt;</font><font color="#0000BB">max_length</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Flags:&nbsp;&nbsp;&nbsp;&nbsp;%d\n"</font><font color="#007700">, </font><font color="#0000BB">$finfo</font><font color="#007700">-&gt;</font><font color="#0000BB">flags</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d\n"</font><font color="#007700">, </font><font color="#0000BB">$finfo</font><font color="#007700">-&gt;</font><font color="#0000BB">type</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br />}<br /><br /></font><font color="#FF8000">/* close connection */<br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN72703"
+></A
+><P
+><B
+>Esempio 2. Procedural style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$link </font><font color="#007700">= </font><font color="#0000BB">maxdb_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"MONA"</font><font color="#007700">, </font><font color="#DD0000">"RED"</font><font color="#007700">, </font><font color="#DD0000">"DEMODB"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">maxdb_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#DD0000">"SELECT name, cno from hotel.customer ORDER BY name"</font><font color="#007700">;<br /><br />if (</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">maxdb_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#0000BB">$query</font><font color="#007700">)) {<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Get field information for column 'cno' */<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$finfo </font><font color="#007700">= </font><font color="#0000BB">maxdb_fetch_field_direct</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /> <br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s\n"</font><font color="#007700">, </font><font color="#0000BB">$finfo</font><font color="#007700">-&gt;</font><font color="#0000BB">name</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Table:&nbsp;&nbsp;&nbsp;&nbsp;%s\n"</font><font color="#007700">, </font><font color="#0000BB">$finfo</font><font color="#007700">-&gt;</font><font color="#0000BB">table</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"max. Len: %d\n"</font><font color="#007700">, </font><font color="#0000BB">$finfo</font><font color="#007700">-&gt;</font><font color="#0000BB">max_length</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Flags:&nbsp;&nbsp;&nbsp;&nbsp;%d\n"</font><font color="#007700">, </font><font color="#0000BB">$finfo</font><font color="#007700">-&gt;</font><font color="#0000BB">flags</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d\n"</font><font color="#007700">, </font><font color="#0000BB">$finfo</font><font color="#007700">-&gt;</font><font color="#0000BB">type</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">maxdb_free_result</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />}<br /><br /></font><font color="#FF8000">/* close connection */<br /></font><font color="#0000BB">maxdb_close</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     The above examples would produce the following output:
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Name:     CNO
+Table:
+max. Len: 4
+Flags:    -1
+Type:     0</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.maxdb-fetch-assoc.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.maxdb-fetch-field.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>maxdb_fetch_assoc</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.maxdb.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>maxdb_fetch_field</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

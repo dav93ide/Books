@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Caudium</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation on Unix systems"
+HREF="install.unix.html"><LINK
+REL="PREVIOUS"
+TITLE="Apache 2.0 on Unix systems"
+HREF="install.unix.apache2.html"><LINK
+REL="NEXT"
+TITLE="fhttpd related notes"
+HREF="install.unix.fhttpd.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.unix.apache2.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 4. Installation on Unix systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.unix.fhttpd.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.unix.caudium"
+>Caudium</A
+></H1
+><P
+>&#13;    PHP 4 can be built as a Pike module for the
+    <A
+HREF="http://caudium.net/"
+TARGET="_top"
+>Caudium webserver</A
+>.
+    Note that this is not supported with PHP 3. Follow the simple
+    instructions below to install PHP 4 for Caudium.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="install.unix.caudium.instructions"
+></A
+><P
+><B
+>Esempio 4-5. Caudium Installation Instructions</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>1.  Make sure you have Caudium installed prior to attempting to
+    install PHP 4. For PHP 4 to work correctly, you will need Pike
+    7.0.268 or newer. For the sake of this example we assume that
+    Caudium is installed in /opt/caudium/server/.
+2.  Change directory to php-x.y.z (where x.y.z is the version number).
+3.  ./configure --with-caudium=/opt/caudium/server
+4.  make
+5.  make install
+6.  Restart Caudium if it's currently running.
+7.  Log into the graphical configuration interface and go to the
+    virtual server where you want to add PHP 4 support.
+8.  Click Add Module and locate and then add the PHP 4 Script Support module.
+9.  If the documentation says that the 'PHP 4 interpreter isn't
+    available', make sure that you restarted the server. If you did
+    check /opt/caudium/logs/debug/default.1 for any errors related to
+    &#60;filename&#62;PHP4.so&#60;/filename&#62;. Also make sure that 
+    &#60;filename&#62;caudium/server/lib/[pike-version]/PHP4.so&#60;/filename&#62;
+    is present.
+10. Configure the PHP Script Support module if needed.</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;    You can of course compile your Caudium module with support for the
+    various extensions available in PHP 4. See the reference pages
+    for extension specific configure options.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     When compiling PHP 4 with MySQL support you must make sure that
+     the normal MySQL client code is used. Otherwise there might be
+     conflicts if your Pike already has MySQL support. You do this by
+     specifying a MySQL install directory the 
+     <VAR
+CLASS="option"
+>--with-mysql</VAR
+> option.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.unix.apache2.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.unix.fhttpd.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Apache 2.0 on Unix systems</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.unix.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fhttpd related notes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

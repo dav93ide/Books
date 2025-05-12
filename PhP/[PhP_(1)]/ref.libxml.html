@@ -1,0 +1,774 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>libxml Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="ldap_unbind"
+HREF="function.ldap-unbind.html"><LINK
+REL="NEXT"
+TITLE="libxml_clear_errors"
+HREF="function.libxml-clear-errors.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ldap-unbind.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.libxml-clear-errors.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.libxml"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LXIV. libxml Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN68717"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="libxml.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    These functions/constants are available since PHP 5.1.0 and if you have
+    compiled one of the extensions based on libxml, like <A
+HREF="ref.dom.html"
+>DOM</A
+>, <A
+HREF="ref.simplexml.html"
+>SimpleXML</A
+> and <A
+HREF="ref.xslt.html"
+>XSLT</A
+>.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="libxml.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    This extension requires <A
+HREF="http://www.xmlsoft.org/"
+TARGET="_top"
+>libxml</A
+> &#62;=
+    2.6.0.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="libxml.classes"
+>Classi predefinite</A
+></H1
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="libxml.class.libxmlerror"
+><B
+CLASS="classname"
+>LibXMLError</B
+></A
+></H2
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="libxml.class.libxmlerror.properties"
+>Proprietà</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+>code - the error's code</P
+></LI
+><LI
+><P
+>&#13;        column - the column where the error occurred. Please note that
+        this property isn't entirely implemented in libxml and therefore
+        <VAR
+CLASS="literal"
+>0</VAR
+> is often returned.
+       </P
+></LI
+><LI
+><P
+>file - the filename, or empty if the XML was loaded from a string</P
+></LI
+><LI
+><P
+>&#13;        level - the severity of the error (one of the following constants:
+        <TT
+CLASS="constant"
+><B
+>LIBXML_ERR_WARNING</B
+></TT
+>,
+        <TT
+CLASS="constant"
+><B
+>LIBXML_ERR_ERROR</B
+></TT
+> or
+        <TT
+CLASS="constant"
+><B
+>LIBXML_ERR_FATAL</B
+></TT
+>)
+       </P
+></LI
+><LI
+><P
+>line - the line where the error occurred</P
+></LI
+><LI
+><P
+>message - the error message</P
+></LI
+></UL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="libxml.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_COMPACT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Activate small nodes allocation optimization. This may speed up your
+     application without needing to change the code.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Only available in Libxml &#62;= 2.6.21
+     </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_DTDATTR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Default DTD attributes
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_DTDLOAD</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Load the external subset
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_DTDVALID</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Validate with the DTD
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_NOBLANKS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Remove blank nodes
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_NOCDATA</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Merge CDATA as text nodes
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_NOEMPTYTAG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Expand empty tags (e.g. <VAR
+CLASS="literal"
+>&#60;br/&#62;</VAR
+> to
+     <VAR
+CLASS="literal"
+>&#60;br&#62;&#60;/br&#62;</VAR
+>)
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      This option is currently just available in the
+      <A
+HREF="function.dom-domdocument-save.html"
+>DOMDocument-&#62;save()</A
+> and
+      <A
+HREF="function.dom-domdocument-savexml.html"
+>DOMDocument-&#62;saveXML()</A
+> functions.
+     </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_NOENT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Substitute entities
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_NOERROR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Suppress error reports
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_NONET</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Disable network access when loading documents
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_NOWARNING</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Suppress warning reports
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_NOXMLDECL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Drop the XML declaration when saving a document
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Only available in Libxml &#62;= 2.6.21
+     </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_NSCLEAN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Remove redundant namespaces declarations
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_XINCLUDE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Implement XInclude substitution
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_ERR_ERROR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     A recoverable error
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_ERR_FATAL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     A fatal error
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_ERR_NONE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     No errors
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_ERR_WARNING</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     A simple warning
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_VERSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     libxml version like 20605 or 20617
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LIBXML_DOTTED_VERSION</B
+></TT
+>
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     libxml version like 2.6.5 or 2.6.17
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.libxml-clear-errors.html"
+>libxml_clear_errors</A
+>&nbsp;--&nbsp;
+   Clear libxml error buffer
+  </DT
+><DT
+><A
+HREF="function.libxml-get-errors.html"
+>libxml_get_errors</A
+>&nbsp;--&nbsp;
+   Retrieve array of errors
+  </DT
+><DT
+><A
+HREF="function.libxml-get-last-error.html"
+>libxml_get_last_error</A
+>&nbsp;--&nbsp;
+   Retrieve last error from libxml
+  </DT
+><DT
+><A
+HREF="function.libxml-set-streams-context.html"
+>libxml_set_streams_context</A
+>&nbsp;--&nbsp;
+   Set the streams context for the next libxml document load or write
+  </DT
+><DT
+><A
+HREF="function.libxml-use-internal-errors.html"
+>libxml_use_internal_errors</A
+>&nbsp;--&nbsp;
+   Disable libxml errors and allow user to fetch error information as needed
+  </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ldap-unbind.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.libxml-clear-errors.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ldap_unbind</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>libxml_clear_errors</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

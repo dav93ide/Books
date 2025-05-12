@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>php_stream_copy_to_mem</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Streams Common API Reference"
+HREF="streams.common-api.html"><LINK
+REL="PREVIOUS"
+TITLE="php_stream_copy_to_stream"
+HREF="streams.php-stream-copy-to-stream.html"><LINK
+REL="NEXT"
+TITLE="php_stream_make_seekable"
+HREF="streams.php-stream-make-seekable.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="streams.php-stream-copy-to-stream.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="streams.php-stream-make-seekable.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="streams.php-stream-copy-to-mem"
+></A
+>php_stream_copy_to_mem</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN184365"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>php_stream_copy_to_mem&nbsp;--&nbsp;Copy data from stream and into an allocated buffer</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN184368"
+></A
+><H2
+>Description</H2
+>size_t <B
+CLASS="methodname"
+>php_stream_copy_to_mem</B
+> ( php_stream * src, char ** buf, size_t maxlen, int persistent )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>php_stream_copy_to_mem()</B
+> allocates a buffer <VAR
+CLASS="parameter"
+>maxlen</VAR
+>+1
+     bytes in length using <B
+CLASS="function"
+>pemalloc()</B
+> (passing <VAR
+CLASS="parameter"
+>persistent</VAR
+>).
+     It then reads <VAR
+CLASS="parameter"
+>maxlen</VAR
+> bytes from <VAR
+CLASS="parameter"
+>src</VAR
+> and stores
+     them in the allocated buffer.
+    </P
+><P
+>&#13;     The allocated buffer is returned in <VAR
+CLASS="parameter"
+>buf</VAR
+>, and the number of bytes successfully
+     read.  You, the caller, are responsible for freeing the buffer by passing it and <VAR
+CLASS="parameter"
+>persistent</VAR
+>
+     to <B
+CLASS="function"
+>pefree()</B
+>.
+    </P
+><P
+>&#13;     If you want to copy all remaining data from the <VAR
+CLASS="parameter"
+>src</VAR
+> stream, pass the
+     constant <TT
+CLASS="constant"
+><B
+>PHP_STREAM_COPY_ALL</B
+></TT
+> as the value of <VAR
+CLASS="parameter"
+>maxlen</VAR
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      This function will attempt to copy the data in the most efficient manner, using memory mapped
+      files when possible.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="streams.php-stream-copy-to-stream.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="streams.php-stream-make-seekable.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>php_stream_copy_to_stream</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="streams.common-api.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>php_stream_make_seekable</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

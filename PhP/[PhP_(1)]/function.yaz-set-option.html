@@ -1,0 +1,402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>yaz_set_option</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="YAZ Functions"
+HREF="ref.yaz.html"><LINK
+REL="PREVIOUS"
+TITLE="yaz_search"
+HREF="function.yaz-search.html"><LINK
+REL="NEXT"
+TITLE="yaz_sort"
+HREF="function.yaz-sort.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.yaz-search.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.yaz-sort.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.yaz-set-option"
+></A
+>yaz_set_option</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN181944"
+></A
+><P
+>    (PECL)</P
+>yaz_set_option&nbsp;--&nbsp;Sets one or more options for connection</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN181947"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>yaz_set_option</B
+> ( resource id, string name, string value )<BR
+></BR
+>void <B
+CLASS="methodname"
+>yaz_set_option</B
+> ( resource id, array options )<BR
+></BR
+><P
+>&#13;   Sets one or more options on the given connection.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN181971"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>id</VAR
+></DT
+><DD
+><P
+>&#13;       The connection resource returned by <A
+HREF="function.yaz-connect.html"
+><B
+CLASS="function"
+>yaz_connect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>name</VAR
+> or <VAR
+CLASS="parameter"
+>options</VAR
+></DT
+><DD
+><P
+>&#13;       May be either a string or an array.
+      </P
+><P
+>&#13;       If given as a string, this will be the name of the option to set. You'll
+       need to give it's <VAR
+CLASS="parameter"
+>value</VAR
+>.
+      </P
+><P
+>&#13;       If given as an array, this will be an associative array (option name 
+       =&#62; option value).
+      </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN181990"
+></A
+><P
+><B
+>Tabella 1. PHP/YAZ Connection Options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="2*"
+TITLE="name"><COL
+WIDTH="5*"
+TITLE="description"><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>implementationName</TD
+><TD
+>implementation name of server</TD
+></TR
+><TR
+><TD
+>implementationVersion</TD
+><TD
+>implementation version of server</TD
+></TR
+><TR
+><TD
+>implementationId</TD
+><TD
+>implementation ID of server</TD
+></TR
+><TR
+><TD
+>schema</TD
+><TD
+>&#13;           schema for retrieval. By default, no schema is used. Setting this
+           option is equivalent to using function 
+           <A
+HREF="function.yaz-schema.html"
+><B
+CLASS="function"
+>yaz_schema()</B
+></A
+>
+          </TD
+></TR
+><TR
+><TD
+>preferredRecordSyntax</TD
+><TD
+>&#13;           record syntax for retrieval. By default, no syntax is used. Setting
+           this option is equivalent to using function 
+           <A
+HREF="function.yaz-syntax.html"
+><B
+CLASS="function"
+>yaz_syntax()</B
+></A
+>
+          </TD
+></TR
+><TR
+><TD
+>start</TD
+><TD
+>&#13;           offset for first record to be retrieved via 
+           <A
+HREF="function.yaz-search.html"
+><B
+CLASS="function"
+>yaz_search()</B
+></A
+> or <A
+HREF="function.yaz-present.html"
+><B
+CLASS="function"
+>yaz_present()</B
+></A
+>.
+           First record is numbered has a start value of 0. Second record has
+           start value 1.
+           Setting this option in combination with option
+           <VAR
+CLASS="literal"
+>count</VAR
+> has the same effect as calling
+           <A
+HREF="function.yaz-range.html"
+><B
+CLASS="function"
+>yaz_range()</B
+></A
+> except that records are
+           numbered from 1 in <A
+HREF="function.yaz-range.html"
+><B
+CLASS="function"
+>yaz_range()</B
+></A
+>
+          </TD
+></TR
+><TR
+><TD
+>count</TD
+><TD
+>maximum number of records to be retrieved via
+           <A
+HREF="function.yaz-search.html"
+><B
+CLASS="function"
+>yaz_search()</B
+></A
+> or <A
+HREF="function.yaz-present.html"
+><B
+CLASS="function"
+>yaz_present()</B
+></A
+>.
+          </TD
+></TR
+><TR
+><TD
+>elementSetName</TD
+><TD
+>element-set-name for retrieval. Setting this option is
+           equivalent to calling <A
+HREF="function.yaz-element.html"
+><B
+CLASS="function"
+>yaz_element()</B
+></A
+>.
+          </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>value</VAR
+></DT
+><DD
+><P
+>&#13;       The new value of the option. Use this only if the previous argument is
+       a string.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN182039"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   No value is returned.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.yaz-search.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.yaz-sort.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>yaz_search</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.yaz.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>yaz_sort</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

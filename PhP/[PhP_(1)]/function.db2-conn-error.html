@@ -1,0 +1,387 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_conn_error</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_commit"
+HREF="function.db2-commit.html"><LINK
+REL="NEXT"
+TITLE="db2_conn_errormsg"
+HREF="function.db2-conn-errormsg.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-commit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-conn-errormsg.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-conn-error"
+></A
+>db2_conn_error</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN52979"
+></A
+><P
+>    (PECL)</P
+>db2_conn_error&nbsp;--&nbsp;
+   Returns a string containing the SQLSTATE returned by the last connection attempt
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52982"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>db2_conn_error</B
+> ( [resource connection] )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>db2_conn_error()</B
+> returns an SQLSTATE value representing
+   the reason the last attempt to connect to a database failed. As
+   <A
+HREF="function.db2-connect.html"
+><B
+CLASS="function"
+>db2_connect()</B
+></A
+> returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in the event of a failed
+   connection attempt, you do not pass any parameters to
+   <B
+CLASS="function"
+>db2_conn_error()</B
+> to retrieve the SQLSTATE value.
+  </P
+><P
+>&#13;   If, however, the connection was successful but becomes invalid over time,
+   you can pass the <VAR
+CLASS="parameter"
+>connection</VAR
+> parameter to retrieve
+   the SQLSTATE value for a specific connection.
+  </P
+><P
+>&#13;   To learn what the SQLSTATE value means, you can issue the following command
+   at a DB2 Command Line Processor prompt:
+   <KBD
+CLASS="userinput"
+>db2 '? <VAR
+CLASS="parameter"
+>sqlstate-value</VAR
+>'</KBD
+>. You
+   can also call <A
+HREF="function.db2-conn-errormsg.html"
+><B
+CLASS="function"
+>db2_conn_errormsg()</B
+></A
+> to retrieve an
+   explicit error message and the associated SQLCODE value.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53001"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       A connection resource associated with a connection that initially
+       succeeded, but which over time became invalid.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53010"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns the SQLSTATE value resulting from a failed connection attempt.
+   Returns an empty string if there is no error associated with the last
+   connection attempt.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53013"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53016"
+></A
+><P
+><B
+>Esempio 1. Retrieving an SQLSTATE value for a failed connection attempt</B
+></P
+><P
+>&#13;     The following example demonstrates how to return an SQLSTATE value 
+     after deliberately passing invalid parameters to
+     <A
+HREF="function.db2-connect.html"
+><B
+CLASS="function"
+>db2_connect()</B
+></A
+>.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$conn </font><font color="#007700">= </font><font color="#0000BB">db2_connect</font><font color="#007700">(</font><font color="#DD0000">'badname'</font><font color="#007700">, </font><font color="#DD0000">'baduser'</font><font color="#007700">, </font><font color="#DD0000">'badpassword'</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$conn</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"SQLSTATE value: " </font><font color="#007700">. </font><font color="#0000BB">db2_conn_error</font><font color="#007700">();<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>SQLSTATE value: 08001</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53023"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-conn-errormsg.html"
+><B
+CLASS="function"
+>db2_conn_errormsg()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-connect.html"
+><B
+CLASS="function"
+>db2_connect()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-stmt-error.html"
+><B
+CLASS="function"
+>db2_stmt_error()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-stmt-errormsg.html"
+><B
+CLASS="function"
+>db2_stmt_errormsg()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-commit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-conn-errormsg.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_commit</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_conn_errormsg</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

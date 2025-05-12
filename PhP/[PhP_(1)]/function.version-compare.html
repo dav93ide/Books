@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>version_compare</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PHP Opzioni&Informazioni"
+HREF="ref.info.html"><LINK
+REL="PREVIOUS"
+TITLE="set_time_limit"
+HREF="function.set-time-limit.html"><LINK
+REL="NEXT"
+TITLE="zend_logo_guid"
+HREF="function.zend-logo-guid.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.set-time-limit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.zend-logo-guid.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.version-compare"
+></A
+>version_compare</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN130609"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PHP 5)</P
+>version_compare&nbsp;--&nbsp;
+     Confronta due stringhe contenenti il numero di versione di "PHP-standardized" 
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN130612"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>version_compare</B
+> ( string version1, string version2 [, string operator] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>version_compare()</B
+> confronta due numeri di versione
+     "PHP-standardized" . Questa funzione è utile quando si desideri
+     che funzioni solo con alcune versioni di PHP.
+    </P
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>version_compare()</B
+> restituisce -1 se la prima verisone
+     è minore della seconda, 0 se sono uguali, +1 se la sceonda è
+     inferiore.
+    </P
+><P
+>&#13;     Per prima cosa la funzione sostituisce nella strina di versione le lettere 
+     <VAR
+CLASS="literal"
+>_</VAR
+>, <VAR
+CLASS="literal"
+>-</VAR
+>
+     e <VAR
+CLASS="literal"
+>+</VAR
+> con un puntot <VAR
+CLASS="literal"
+>.</VAR
+> ed inserisce un punto <VAR
+CLASS="literal"
+>.</VAR
+> prima e dopo ogni carattere
+     non numerico, in modo che, ad esempio, '4.3.2RC1' diventi ''4.3.2.RC.1'. Quindi
+     divite il testo come se usasse explode('.', $ver). Poi confronta le parti cominciando da sinistra verso destra
+     Se una parte contiene versioni speciali queste sono gestite nel seguente modo:
+     <VAR
+CLASS="literal"
+>dev</VAR
+> &#60; <VAR
+CLASS="literal"
+>alpha</VAR
+> = 
+     <VAR
+CLASS="literal"
+>a</VAR
+> &#60; <VAR
+CLASS="literal"
+>beta</VAR
+> = 
+     <VAR
+CLASS="literal"
+>b</VAR
+> &#60; <VAR
+CLASS="literal"
+>RC</VAR
+> &#60; 
+     <VAR
+CLASS="literal"
+>pl</VAR
+>. In quest modo possono essere confrontati non solo
+     differenti livelli di versioni quali '4.1' e '4.1.2', ma anche versioni di PHP 
+     in fase di sviluppo.
+    </P
+><P
+>&#13;     Specificando il terzo parametro opzionale <VAR
+CLASS="parameter"
+>operator</VAR
+>
+     si possono testare particolari relazioni. I possibili operatori sono:
+     <VAR
+CLASS="literal"
+>&#60;</VAR
+>,
+     <VAR
+CLASS="literal"
+>lt</VAR
+>, <VAR
+CLASS="literal"
+>&#60;=</VAR
+>,
+     <VAR
+CLASS="literal"
+>le</VAR
+>, <VAR
+CLASS="literal"
+>&#62;</VAR
+>,
+     <VAR
+CLASS="literal"
+>gt</VAR
+>, <VAR
+CLASS="literal"
+>&#62;=</VAR
+>,
+     <VAR
+CLASS="literal"
+>ge</VAR
+>, <VAR
+CLASS="literal"
+>==</VAR
+>,
+     <VAR
+CLASS="literal"
+>=</VAR
+>, <VAR
+CLASS="literal"
+>eq</VAR
+>,
+     <VAR
+CLASS="literal"
+>!=</VAR
+>, <VAR
+CLASS="literal"
+>&#60;&#62;</VAR
+>,
+     <VAR
+CLASS="literal"
+>ne</VAR
+>. Utilizzando questi parametri, la funzione restituirà
+     1 se la relazione è una di quelle specificate dall'operatore, 
+     altrimenti 0.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN130660"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>version_compare()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// prints -1<br /></font><font color="#007700">echo </font><font color="#0000BB">version_compare</font><font color="#007700">(</font><font color="#DD0000">"4.0.4"</font><font color="#007700">, </font><font color="#DD0000">"4.0.6"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// queste stampano 1<br /></font><font color="#007700">echo </font><font color="#0000BB">version_compare</font><font color="#007700">(</font><font color="#DD0000">"4.0.4"</font><font color="#007700">, </font><font color="#DD0000">"4.0.6"</font><font color="#007700">, </font><font color="#DD0000">"&lt;"</font><font color="#007700">);<br />echo </font><font color="#0000BB">version_compare</font><font color="#007700">(</font><font color="#DD0000">"4.0.6"</font><font color="#007700">, </font><font color="#DD0000">"4.0.6"</font><font color="#007700">, </font><font color="#DD0000">"eq"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.set-time-limit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.zend-logo-guid.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>set_time_limit</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.info.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>zend_logo_guid</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

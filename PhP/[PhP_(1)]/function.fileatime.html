@@ -1,0 +1,295 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fileatime</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="file"
+HREF="function.file.html"><LINK
+REL="NEXT"
+TITLE="filectime"
+HREF="function.filectime.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.file.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.filectime.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fileatime"
+></A
+>fileatime</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN41199"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>fileatime&nbsp;--&nbsp;Prende l'ora dell'ultimo accesso al file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41202"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>fileatime</B
+> ( string filename )<BR
+></BR
+><P
+> 
+     Restituisce l'ora in cui il file ha ricevuto l'ultimo accesso, o <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> 
+     in caso di errore. L'ora viene restituita come un timestamp Unix.
+    </P
+><P
+>&#13;     N.B.: Si suppone che l'atime di un file cambi ogni volta che
+     i blocchi di dati del file vengono letti. Ciò può risultare costoso per
+     le performance quando una applicazione accede con regolarità
+     ad un numero elevato di file o directory. Alcuni filesystem
+     Unix possono essere montati con l'aggiornamento dell'atime disabilitato
+     per aumentare le performance di tali applicazioni; Gli spool delle news USENET 
+     costituiscono un esempio frequente. In tali filesystem
+     queste funzioni sono inutili.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>I risultati di questa funzione 
+saranno memorizzati. Vedere <A
+HREF="function.clearstatcache.html"
+><B
+CLASS="function"
+>clearstatcache()</B
+></A
+> per  
+maggiori dettagli.</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>A partire da 
+<VAR
+CLASS="literal"
+>PHP 5.0.0</VAR
+>, questa funzione può essere utilizzata con
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>alcuni</I
+></SPAN
+> URL wrappers.  Fare riferimento a 
+<A
+HREF="wrappers.html"
+>Appendice M</A
+> per la lista di quali wrappers supportano le funzioni della famiglia
+<A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+>.</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN41223"
+></A
+><P
+><B
+>Esempio 1. Esempio per <B
+CLASS="function"
+>fileatime()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">// visualizza, ad esempio, che somefile.txt è stato aperto il: December 29 2002 22:16:23.<br /><br /></font><font color="#0000BB">$filename </font><font color="#007700">= </font><font color="#DD0000">'somefile.txt'</font><font color="#007700">;<br />if (</font><font color="#0000BB">file_exists</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$filename è stato aperto il: " </font><font color="#007700">. </font><font color="#0000BB">date</font><font color="#007700">(</font><font color="#DD0000">"F d Y H:i:s."</font><font color="#007700">, </font><font color="#0000BB">fileatime</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">));<br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.filemtime.html"
+><B
+CLASS="function"
+>filemtime()</B
+></A
+>,
+     <A
+HREF="function.fileinode.html"
+><B
+CLASS="function"
+>fileinode()</B
+></A
+> e
+     <A
+HREF="function.date.html"
+><B
+CLASS="function"
+>date()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.file.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.filectime.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>file</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>filectime</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fbsql_field_type</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FrontBase Functions"
+HREF="ref.fbsql.html"><LINK
+REL="PREVIOUS"
+TITLE="fbsql_field_table"
+HREF="function.fbsql-field-table.html"><LINK
+REL="NEXT"
+TITLE="fbsql_free_result"
+HREF="function.fbsql-free-result.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-field-table.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-free-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fbsql-field-type"
+></A
+>fbsql_field_type</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN45966"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PHP 5)</P
+>fbsql_field_type&nbsp;--&nbsp;
+     Ottiene il tipo del campo specificato
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN45969"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>fbsql_field_type</B
+> ( resource result, int field_offset )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>fbsql_field_type()</B
+> è simile a
+     <A
+HREF="function.fbsql-field-name.html"
+><B
+CLASS="function"
+>fbsql_field_name()</B
+></A
+>. Gli argomenti sono 
+     simili, ma restituisce il tipo di campo. I tipi restituiti 
+     saranno "int", "real", "string", "blob", e altri come
+     specificato nella <A
+HREF="http://www.frontbase.com/cgi-bin/WebObjects/FrontBase.woa/wa/productsPage?currentPage=Documentation"
+TARGET="_top"
+>documentazione 
+     di FrontBase</A
+>.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN45984"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>fbsql_field_type()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br /><br />fbsql_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"_SYSTEM"</font><font color="#007700">, </font><font color="#DD0000">""</font><font color="#007700">);<br /></font><font color="#0000BB">fbsql_select_db</font><font color="#007700">(</font><font color="#DD0000">"wisconsin"</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">fbsql_query</font><font color="#007700">(</font><font color="#DD0000">"SELECT * FROM onek;"</font><font color="#007700">);<br /></font><font color="#0000BB">$fields </font><font color="#007700">= </font><font color="#0000BB">fbsql_num_fields</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br /></font><font color="#0000BB">$rows&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">fbsql_num_rows</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br /></font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br /></font><font color="#0000BB">$table </font><font color="#007700">= </font><font color="#0000BB">fbsql_field_table</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">);<br />echo </font><font color="#DD0000">"Your '" </font><font color="#007700">. </font><font color="#0000BB">$table </font><font color="#007700">. </font><font color="#DD0000">"' table has " </font><font color="#007700">. </font><font color="#0000BB">$fields </font><font color="#007700">. </font><font color="#DD0000">" fields and " </font><font color="#007700">. </font><font color="#0000BB">$rows </font><font color="#007700">. </font><font color="#DD0000">" records &lt;br /&gt;"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"The table has the following fields &lt;br /&gt;"</font><font color="#007700">; <br />while (</font><font color="#0000BB">$i </font><font color="#007700">&lt; </font><font color="#0000BB">$fields</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$type&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">fbsql_field_type</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$name&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">fbsql_field_name</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$len&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">fbsql_field_len</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$flags </font><font color="#007700">= </font><font color="#0000BB">fbsql_field_flags</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$type </font><font color="#007700">. </font><font color="#DD0000">" " </font><font color="#007700">. </font><font color="#0000BB">$name </font><font color="#007700">. </font><font color="#DD0000">" " </font><font color="#007700">. </font><font color="#0000BB">$len </font><font color="#007700">. </font><font color="#DD0000">" " </font><font color="#007700">. </font><font color="#0000BB">$flags </font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i</font><font color="#007700">++;<br />}<br /></font><font color="#0000BB">fbsql_close</font><font color="#007700">();<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fbsql-field-table.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fbsql-free-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fbsql_field_table</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.fbsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fbsql_free_result</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

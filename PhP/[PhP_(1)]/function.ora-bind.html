@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Ora_Bind</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Oracle"
+HREF="ref.oracle.html"><LINK
+REL="PREVIOUS"
+TITLE="Funzioni Oracle"
+HREF="ref.oracle.html"><LINK
+REL="NEXT"
+TITLE="Ora_Close"
+HREF="function.ora-close.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.oracle.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ora-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ora-bind"
+></A
+>Ora_Bind</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN118397"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5 &#60;= 5.1.0RC1)</P
+>Ora_Bind&nbsp;--&nbsp;effettua il binding di una variabile PHP ad un parametro di Oracle </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN118400"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>ora_bind</B
+> ( int cursor, string PHP variable name, string SQL parameter name, int length [, int type] )<BR
+></BR
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se il binding riesce, altrimenti <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. I dettagli
+     dell'errore si ottengono usando le funzioni
+     <A
+HREF="function.ora-error.html"
+><B
+CLASS="function"
+>ora_error()</B
+></A
+> e
+     <A
+HREF="function.ora-errorcode.html"
+><B
+CLASS="function"
+>ora_errorcode()</B
+></A
+>.
+    </P
+><P
+>&#13;     Questa funzione collega la variabile PHP indicata con un parametro SQL.
+     Il parametro SQL deve essere nella forma ":name". Con il parametro facoltativo
+     type, si può determinare se il parametro SQL è di
+     in/out (0, default), in (1) oppure out (2). Dalla versione
+     3.0.1 di PHP, su possono utilizzare le costanti ORA_BIND_INOUT, ORA_BIND_IN e
+     ORA_BIND_OUT al posto dei numeri.
+    </P
+><P
+>&#13;     ora_bind deve essere invocata dopo <A
+HREF="function.ora-parse.html"
+><B
+CLASS="function"
+>ora_parse()</B
+></A
+> e
+     prima di <A
+HREF="function.ora-exec.html"
+><B
+CLASS="function"
+>ora_exec()</B
+></A
+>. I valori di input possono essere dati
+     mediante assegnamento alle variabili PHP collegate; dopo aver chiamato
+     <A
+HREF="function.ora-exec.html"
+><B
+CLASS="function"
+>ora_exec()</B
+></A
+> le variabili PHP collegate contengono i valori
+     di output, se disponibili.
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN118430"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />ora_parse</font><font color="#007700">(</font><font color="#0000BB">$curs</font><font color="#007700">, </font><font color="#DD0000">"declare tmp INTEGER; begin tmp := :in; :out := tmp; :x := 7.77; end;"</font><font color="#007700">);<br /></font><font color="#0000BB">ora_bind</font><font color="#007700">(</font><font color="#0000BB">$curs</font><font color="#007700">, </font><font color="#DD0000">"result"</font><font color="#007700">, </font><font color="#DD0000">":x"</font><font color="#007700">, </font><font color="#0000BB">$len</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">);<br /></font><font color="#0000BB">ora_bind</font><font color="#007700">(</font><font color="#0000BB">$curs</font><font color="#007700">, </font><font color="#DD0000">"input"</font><font color="#007700">, </font><font color="#DD0000">":in"</font><font color="#007700">, </font><font color="#0000BB">5</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /></font><font color="#0000BB">ora_bind</font><font color="#007700">(</font><font color="#0000BB">$curs</font><font color="#007700">, </font><font color="#DD0000">"output"</font><font color="#007700">, </font><font color="#DD0000">":out"</font><font color="#007700">, </font><font color="#0000BB">5</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">);<br /></font><font color="#0000BB">$input </font><font color="#007700">= </font><font color="#0000BB">765</font><font color="#007700">;<br /></font><font color="#0000BB">ora_exec</font><font color="#007700">(</font><font color="#0000BB">$curs</font><font color="#007700">);<br />echo </font><font color="#DD0000">"Result: $result&lt;BR&gt;Out: $output&lt;BR&gt;In: $input"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.oracle.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ora-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Funzioni Oracle</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.oracle.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Ora_Close</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,423 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>require_once</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Strutture di controllo"
+HREF="language.control-structures.html"><LINK
+REL="PREVIOUS"
+TITLE="include"
+HREF="function.include.html"><LINK
+REL="NEXT"
+TITLE="include_once"
+HREF="function.include-once.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.include.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 16. Strutture di controllo</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.include-once.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="function.require-once"
+><A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+></A
+></H1
+><P
+>&#13;    L'istruzione <A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+> include e valuta
+    il file specificato durante l'esecuzione dello script.
+    È un comportamento simile all'istruzione <A
+HREF="function.require.html"
+><B
+CLASS="function"
+>require()</B
+></A
+>,
+    con la sola differenza che se il codice di un file è stato
+    già incluso, esso non sarà incluso nuovamente. Vedere la documentazione di
+    <A
+HREF="function.require.html"
+><B
+CLASS="function"
+>require()</B
+></A
+> per maggiori informazioni su come funziona
+    quest'istruzione.
+   </P
+><P
+>&#13;    <A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+> dovrebbe essere usato nei casi dove
+    lo stesso file potrebbe essere incluso e valutato più di una volta durante
+    una particolare esecuzione di uno script, e volete essere sicuri  che esso sia
+    incluso esattamente una volta per evitare problemi con la ridefinizione di funzioni,
+    riassegnazione di valori a variabili, etc.
+   </P
+><P
+>&#13;     Per esempi sull'utilizzo di <A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+> e
+     <A
+HREF="function.include-once.html"
+><B
+CLASS="function"
+>include_once()</B
+></A
+>, consultare il codice
+     <A
+HREF="http://pear.php.net/"
+TARGET="_top"
+>PEAR</A
+> incluso
+     nell'ultima distribuzione del codice sorgente di PHP.
+   </P
+><P
+>&#13;    Il valore restituito è simile a <A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+>. Se il file è
+    già stato incluso, la funzione restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>.
+   </P
+><P
+>&#13;    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+> è stato aggiunto in PHP 4.0.1pl2
+     </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+><P
+>&#13;    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Fare attenzione al fatto che il comportamento di <A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+>
+      e <A
+HREF="function.include-once.html"
+><B
+CLASS="function"
+>include_once()</B
+></A
+> può non essere quello atteso in sistemi
+      che non distinguono le maiuscole dalle minuscole (tipo Windows).
+      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5267"
+></A
+><P
+><B
+>Esempio 16-12. <A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+> non distingue tra maiuscole e minuscole in Windows</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">require_once(</font><font color="#DD0000">"a.php"</font><font color="#007700">); </font><font color="#FF8000">// questo include include a.php<br /></font><font color="#007700">require_once(</font><font color="#DD0000">"A.php"</font><font color="#007700">); </font><font color="#FF8000">// questo include a.php ancora, in Windows! (solo PHP 4)<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+      Questo comportamento è stato modificato in PHP 5 - il percorso viene normalizzato, in modo tale che
+      <TT
+CLASS="filename"
+>C:\PROGRA~1\A.php</TT
+> diventa simile a
+      <TT
+CLASS="filename"
+>C:\Program Files\a.php</TT
+> e quindi il file vine incluso solo una volta.
+     </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+> la versione per Windows
+di <VAR
+CLASS="literal"
+>PHP</VAR
+> antecedente la 4.3.0 non supporta l'accesso remoto
+ai file da parte di questa funzione, anche se
+<A
+HREF="ref.filesystem.html#ini.allow-url-fopen"
+>allow_url_fopen</A
+> è abilitato.
+</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;    Vedere anche: <A
+HREF="function.require.html"
+><B
+CLASS="function"
+>require()</B
+></A
+>,
+    <A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+>, <A
+HREF="function.include-once.html"
+><B
+CLASS="function"
+>include_once()</B
+></A
+>,
+    <A
+HREF="function.get-required-files.html"
+><B
+CLASS="function"
+>get_required_files()</B
+></A
+>,
+    <A
+HREF="function.get-included-files.html"
+><B
+CLASS="function"
+>get_included_files()</B
+></A
+>, <A
+HREF="function.readfile.html"
+><B
+CLASS="function"
+>readfile()</B
+></A
+>
+    e <A
+HREF="function.virtual.html"
+><B
+CLASS="function"
+>virtual()</B
+></A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.include.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.include-once.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.control-structures.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.include-once.html"
+><B
+CLASS="function"
+>include_once()</B
+></A
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

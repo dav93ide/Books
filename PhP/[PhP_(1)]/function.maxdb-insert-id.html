@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>maxdb_insert_id</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MaxDB PHP Extension"
+HREF="ref.maxdb.html"><LINK
+REL="PREVIOUS"
+TITLE="maxdb_init"
+HREF="function.maxdb-init.html"><LINK
+REL="NEXT"
+TITLE="maxdb_kill"
+HREF="function.maxdb-kill.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.maxdb-init.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.maxdb-kill.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.maxdb-insert-id"
+></A
+>maxdb_insert_id</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN73500"
+></A
+><P
+>    (PECL)</P
+>maxdb_insert_id<P
+>    (no version information, might be only in CVS)</P
+>maxdb-&#62;insert_id&nbsp;--&nbsp;Returns the auto generated id used in the last query</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN73504"
+></A
+><H2
+>Description</H2
+><P
+>Procedural style:</P
+>mixed <B
+CLASS="methodname"
+>maxdb_insert_id</B
+> ( resource link )<BR
+></BR
+><P
+>Object oriented style (property):</P
+>class <B
+CLASS="classname"
+>maxdb</B
+> { <BR
+></BR
+>mixed insert_id<BR
+></BR
+>}<P
+>&#13;     The <B
+CLASS="function"
+>maxdb_insert_id()</B
+> function returns the ID generated 
+     by a query on a table with a column having the DEFAULT SERIAL attribute. If
+     the last query wasn't an INSERT or UPDATE statement or if the modified table
+     does not have a column with the DEFAULT SERIAL attribute, this function will
+     return zero.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN73522"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;      The value of the <VAR
+CLASS="literal"
+>DEFAULT SERIAL</VAR
+> field that was updated 
+      by the previous query. Returns zero if there was no previous query on the 
+      connection or if the query did not update an <VAR
+CLASS="literal"
+>DEFAULT_SERIAL</VAR
+>
+      value. 
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    If the number is greater than maximal int value, <B
+CLASS="function"
+>maxdb_insert_id()</B
+> 
+    will return a string.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN73530"
+></A
+><H2
+>Example</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN73532"
+></A
+><P
+><B
+>Esempio 1. Object oriented style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$maxdb </font><font color="#007700">= new </font><font color="#0000BB">maxdb</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"MONA"</font><font color="#007700">, </font><font color="#DD0000">"RED"</font><font color="#007700">, </font><font color="#DD0000">"DEMODB"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">maxdb_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#0000BB">maxdb_report </font><font color="#007700">(</font><font color="#0000BB">MAXDB_REPORT_OFF</font><font color="#007700">);<br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"DROP TABLE mycity"</font><font color="#007700">);<br /></font><font color="#0000BB">maxdb_report </font><font color="#007700">(</font><font color="#0000BB">MAXDB_REPORT_ERROR</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"CREATE TABLE mycity LIKE hotel.city"</font><font color="#007700">);<br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"ALTER TABLE mycity ADD id FIXED(11) DEFAULT SERIAL"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#DD0000">"INSERT INTO mycity (zip,name,state) VALUES ('12203','Albany' ,'NY')"</font><font color="#007700">;<br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#0000BB">$query</font><font color="#007700">);<br /><br /></font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"New Record has id %d.\n"</font><font color="#007700">, </font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">insert_id</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* drop table */<br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"DROP TABLE mycity"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* close connection */<br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN73535"
+></A
+><P
+><B
+>Esempio 2. Procedural style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$link </font><font color="#007700">= </font><font color="#0000BB">maxdb_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"MONA"</font><font color="#007700">, </font><font color="#DD0000">"RED"</font><font color="#007700">, </font><font color="#DD0000">"DEMODB"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">maxdb_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#0000BB">maxdb_report </font><font color="#007700">(</font><font color="#0000BB">MAXDB_REPORT_OFF</font><font color="#007700">);<br /></font><font color="#0000BB">maxdb_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">,</font><font color="#DD0000">"DROP TABLE mycity"</font><font color="#007700">);<br /></font><font color="#0000BB">maxdb_report </font><font color="#007700">(</font><font color="#0000BB">MAXDB_REPORT_ERROR</font><font color="#007700">);<br /><br /></font><font color="#0000BB">maxdb_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"CREATE TABLE mycity LIKE hotel.city"</font><font color="#007700">);<br /></font><font color="#0000BB">maxdb_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"ALTER TABLE mycity ADD id FIXED(11) DEFAULT SERIAL"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#DD0000">"INSERT INTO mycity (zip,name,state) VALUES ('12203','Albany' ,'NY')"</font><font color="#007700">;<br /></font><font color="#0000BB">maxdb_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#0000BB">$query</font><font color="#007700">);<br /><br /></font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"New Record has id %d.\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_insert_id</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">));<br /><br /></font><font color="#FF8000">/* drop table */<br /></font><font color="#0000BB">maxdb_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"DROP TABLE mycity"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* close connection */<br /></font><font color="#0000BB">maxdb_close</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   The above examples would produce the following output:
+  </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>New Record has id 1.</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.maxdb-init.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.maxdb-kill.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>maxdb_init</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.maxdb.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>maxdb_kill</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

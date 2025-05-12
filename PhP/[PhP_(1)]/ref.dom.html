@@ -1,0 +1,4325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>DOM Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="scandir"
+HREF="function.scandir.html"><LINK
+REL="NEXT"
+TITLE="DOMAttr->__construct()"
+HREF="function.dom-domattr-construct.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.scandir.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dom-domattr-construct.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.dom"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XXX. DOM Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN29143"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dom.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     L'estensione DOM è la sostituzione dell'estensione
+     <A
+HREF="ref.domxml.html"
+>DOM XML</A
+> del PHP 4.
+     Questo modulo continua a contenere diverse vecchie funzioni, ma non
+     dovrebbereo essere più utilizzate. In particolar modo si dovrebbe evitare
+     le funzioni che non sono orientate agli oggetti.
+    </P
+><P
+>&#13;     L'estensione permette di lavorare su un documento XML con le API DOM.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dom.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dom.classes"
+>Classi predefinite</A
+></H1
+><P
+>&#13;     Le APi del modulo seguono lo standard <A
+HREF="http://www.w3.org/DOM/DOMTR#dom2"
+TARGET="_top"
+>DOM Level 2</A
+> il più fedelmente
+     possibile. Di conseguenza la API sono completamente ad oggetti.
+     E' consigliabile avere a portata di mano lo standard DOM quando
+     si utilizza questo modulo.
+    </P
+><P
+>&#13;     Questo modulo definisce diverse classi, che sono illustrate nelle seguenti 
+     tabelle. Quelle con una corrispondente classe nello standard DOM sono
+     chia,ate DOMxxx.
+    </P
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domattr"
+><B
+CLASS="classname"
+>DOMAttr</B
+></A
+></H2
+><P
+>&#13;      Estende <B
+CLASS="classname"
+>DOMNode</B
+>. L'interfaccia <B
+CLASS="classname"
+>DOMAttr</B
+>
+      rappresenta un attributo dell'oggetto <B
+CLASS="classname"
+>DOMElement</B
+>.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domattr.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domattr-construct.html"
+>DOMAttr-&#62;__construct()</A
+> - costruisce un nuovo oggetto DOMAttr</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domattr.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domattr-isid.html"
+>DOMAttr-&#62;isId()</A
+> - Verifica se l'attributo è un ID definito</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domattr.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29178"
+></A
+><P
+><B
+>Tabella 1. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>name</TD
+><TD
+>string</TD
+><TD
+>si</TD
+><TD
+>Nome dell'attributo</TD
+></TR
+><TR
+><TD
+>ownerElement</TD
+><TD
+>DOMElement</TD
+><TD
+>sì</TD
+><TD
+>Elemento che contiene l'attributo</TD
+></TR
+><TR
+><TD
+>schemaTypeInfo</TD
+><TD
+>bool</TD
+><TD
+>sì</TD
+><TD
+>Non ancora impementato, ritorna sempre <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+></TD
+></TR
+><TR
+><TD
+>specified</TD
+><TD
+>bool</TD
+><TD
+>sì</TD
+><TD
+>Non ancora impementato, ritorna sempre <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+></TD
+></TR
+><TR
+><TD
+>value</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>Valore dell'attributo</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domcharacterdata"
+><B
+CLASS="classname"
+>DOMCharacterData</B
+></A
+></H2
+><P
+>&#13;      Espande <B
+CLASS="classname"
+>DOMNode</B
+>.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domcharacterdata.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domcharacterdata-appenddata.html"
+>DOMCharacterData-&#62;appendData()</A
+> - Aggiunge un testo alla fine dei dati di un nodo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domcharacterdata-deletedata.html"
+>DOMCharacterData-&#62;deleteData()</A
+> - Rimuove un range di caratteri dal nodo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domcharacterdata-insertdata.html"
+>DOMCharacterData-&#62;insertData()</A
+> - Inserisce una stringa alla posizione indicata</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domcharacterdata-replacedata.html"
+>DOMCharacterData-&#62;replaceData()</A
+> - Sostituisce una posizione di testo nel nodo DOMCharacterData</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domcharacterdata-substringdata.html"
+>DOMCharacterData-&#62;substringData()</A
+> - Estrai una porzione di dati dal nodo</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domcharacterdata.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29240"
+></A
+><P
+><B
+>Tabella 2. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>data</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>Contenuto del nodo</TD
+></TR
+><TR
+><TD
+>length</TD
+><TD
+>int</TD
+><TD
+>sì</TD
+><TD
+>Lunghezza del contenuto</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domcomment"
+><B
+CLASS="classname"
+>DOMComment</B
+></A
+></H2
+><P
+>&#13;      Espande <B
+CLASS="classname"
+>DOMCharacterData</B
+>.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domcomment.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domcomment-construct.html"
+>DOMComment-&#62;__construct()</A
+> - costruisce un nuovo oggetto DOMComment</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domdocument"
+><B
+CLASS="classname"
+>DOMDocument</B
+></A
+></H2
+><P
+>&#13;      Espande <B
+CLASS="classname"
+>DOMNode</B
+>.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domdocument.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domdocument-construct.html"
+>DOMDocument-&#62;__construct()</A
+> - costruisce un nuovo oggetto DOMDocument</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domdocument.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domdocument-createattribute.html"
+>DOMDocument-&#62;createAttribute()</A
+> - Crea un nuovo attributo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-createattributens.html"
+>DOMDocument-&#62;createAttributeNS()</A
+> - Crea un nuovo nodo attributo con associato uno spazio dei nomi</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-createcdatasection.html"
+>DOMDocument-&#62;createCDATASection()</A
+> - Crea un nuovo nodo cdata</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-createcomment.html"
+>DOMDocument-&#62;createComment()</A
+> - Crea un nuovo nodo commento</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-createdocumentfragment.html"
+>DOMDocument-&#62;createDocumentFragment()</A
+> - Crea un nuovo nodo frammento</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-createelement.html"
+>DOMDocument-&#62;createElement()</A
+> - Crea un nuovo nodo elemento</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-createelementns.html"
+>DOMDocument-&#62;createElementNS()</A
+> - Crea un nuovo nodo elemento con associato uno spazio dei nomi</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-createentityreference.html"
+>DOMDocument-&#62;createEntityReference()</A
+> - Crea un nuovo nodo entità</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-createprocessinginstruction.html"
+>DOMDocument-&#62;createProcessingInstruction()</A
+> - CRea un nuovo nodo PI</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-createtextnode.html"
+>DOMDocument-&#62;createTextNode()</A
+> - Crea un nuovo nodo testo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-getelementbyid.html"
+>DOMDocument-&#62;getElementById()</A
+> - Cerca un elemento con un certo ID</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-getelementsbytagname.html"
+>DOMDocument-&#62;getElementsByTagName()</A
+> - Cerca tutti gli elementi per un dato tag</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-getelementsbytagnamens.html"
+>DOMDocument-&#62;getElementsByTagNameNS()</A
+> - Cerca tutti gli elementi per un dato tag in un specifico spazio dei nomi</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-importnode.html"
+>DOMDocument-&#62;importNode()</A
+> - Importa il nodo nel documento corrente</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-load.html"
+>DOMDocument-&#62;load()</A
+> - Carica un file XML</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-loadhtml.html"
+>DOMDocument-&#62;loadHTML()</A
+> - Carica un documento HTML da una stringa</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-loadhtmlfile.html"
+>DOMDocument-&#62;loadHTMLFile()</A
+> - Carica un file HTML</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-loadxml.html"
+>DOMDocument-&#62;loadXML()</A
+> - Carica un documento XML da una stringa</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-normalize.html"
+>DOMDocument-&#62;normalize()</A
+> - Normalizza il documento</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-relaxngvalidate.html"
+>DOMDocument-&#62;relaxNGValidate()</A
+> - Esegue una validazione relaxNG sul documento</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-relaxngvalidatesource.html"
+>DOMDocument-&#62;relaxNGValidateSource()</A
+> - Esegue una validazione relaxNG sul documento</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-save.html"
+>DOMDocument-&#62;save()</A
+> - Scrive l'albero XML in un file</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-savehtml.html"
+>DOMDocument-&#62;saveHTML()</A
+> - Scarica il docuemnto interno in una stringa formattato in HTML</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-savehtmlfile.html"
+>DOMDocument-&#62;saveHTMLFile()</A
+> - Scarica il docuemnto interno in un file formattato in HTML</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-savexml.html"
+>DOMDocument-&#62;saveXML()</A
+> - Scrive l'albero XML in un file in una stringa</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-schemavalidate.html"
+>DOMDocument-&#62;schemaValidate()</A
+> - Valida il documento in base ad uno schema</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-schemavalidatesource.html"
+>DOMDocument-&#62;schemaValidateSource()</A
+> - Valida il documento in base ad uno schema</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-validate.html"
+>DOMDocument-&#62;validate()</A
+> - Valida il documento in base ad al suo DTD</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domdocument-xinclude.html"
+>DOMDocument-&#62;xinclude()</A
+> - Sostituisce gli XIncludes in un oggetto DOMDocument</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domdocument.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29374"
+></A
+><P
+><B
+>Tabella 3. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>actualEncoding</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>config</TD
+><TD
+>DOMConfiguration</TD
+><TD
+>sì</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>doctype</TD
+><TD
+>DOMDocumentType</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Dichiarazione del tipo documento associato al docuemnto.
+          </TD
+></TR
+><TR
+><TD
+>documentElement</TD
+><TD
+>DOMElement</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Attributo di convenienza per accedere direttamente al nodo
+           figlio, che è l'elemento del documento.
+          </TD
+></TR
+><TR
+><TD
+>documentURI</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>&#13;           Luogo del documento oppure <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> se indefinito.
+          </TD
+></TR
+><TR
+><TD
+>encoding</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>formatOutput</TD
+><TD
+>bool</TD
+><TD
+>no</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>implementation</TD
+><TD
+>DOMImplementation</TD
+><TD
+>sì</TD
+><TD
+>&#13;           L'oggetto <B
+CLASS="classname"
+>DOMImplementation</B
+> che gestisce
+           questo documento.
+          </TD
+></TR
+><TR
+><TD
+>preserveWhiteSpace</TD
+><TD
+>bool</TD
+><TD
+>no</TD
+><TD
+>Non rimuovere gli spazi ridondanti. Default <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>.</TD
+></TR
+><TR
+><TD
+>recover</TD
+><TD
+>bool</TD
+><TD
+>no</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>resolveExternals</TD
+><TD
+>bool</TD
+><TD
+>no</TD
+><TD
+>&#13;           Impostare a <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per caricare le entità esterne dalla dichiarazione doctype.
+           Questo è utile per includere entità di caratteri nel
+           documento XML.
+          </TD
+></TR
+><TR
+><TD
+>standalone</TD
+><TD
+>bool</TD
+><TD
+>no</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>strictErrorChecking</TD
+><TD
+>bool</TD
+><TD
+>no</TD
+><TD
+>Genera un DOMException in caso di errore. Default <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>.</TD
+></TR
+><TR
+><TD
+>substituteEntities</TD
+><TD
+>bool</TD
+><TD
+>no</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>validateOnParse</TD
+><TD
+>bool</TD
+><TD
+>no</TD
+><TD
+>Carica e valida nei confronti della DTD. Default <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.</TD
+></TR
+><TR
+><TD
+>version</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>xmlEncoding</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&#13;           L'attributo specifica, come parte della dichiarazione XML, la
+           codifica del docuemnto. Vale <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> se non specificato oppure quando
+           non è noto, come quando il documento è creato in memoria.
+          </TD
+></TR
+><TR
+><TD
+>xmlStandalone</TD
+><TD
+>bool</TD
+><TD
+>no</TD
+><TD
+>&#13;           Attributo che specifica, come parte della dichiarazione XML, se il
+           documento è standalone. Vale <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se non specificato.
+          </TD
+></TR
+><TR
+><TD
+>xmlVersion</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>&#13;           Attributo che specifica, come parte della dichiarazione XML, il
+           numero di versione del documento. Se non viè una dichiarazione e
+           se il documento supporta le spcifiche "XML", vale "1.0".
+          </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domdocumenttype"
+><B
+CLASS="classname"
+>DOMDocumentType</B
+></A
+></H2
+><P
+>&#13;      Espande <B
+CLASS="classname"
+>DOMNode</B
+>
+     </P
+><P
+>&#13;      Ciascun <B
+CLASS="classname"
+>DOMDocument</B
+> possiede un attributo
+      <VAR
+CLASS="literal"
+>doctype</VAR
+> il cui valore può essere o <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> o un oggetto
+     <B
+CLASS="classname"
+>DOMDocumentType</B
+>.
+    </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domdocumenttype.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29499"
+></A
+><P
+><B
+>Tabella 4. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>publicId</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>Identificatore pubblico del subset esterno.</TD
+></TR
+><TR
+><TD
+>systemId</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>Identificatore di sistema del subset esterno. Può essere
+          un URI assoluto o meno.</TD
+></TR
+><TR
+><TD
+>name</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>Il nome della DTD; ad esempio il nome che segue immediatamente la
+          parola chiave <VAR
+CLASS="literal"
+>DOCTYPE</VAR
+>.</TD
+></TR
+><TR
+><TD
+>entities</TD
+><TD
+>DOMNamedNodeMap</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Un oggetto <B
+CLASS="classname"
+>DOMNamedNodeMap</B
+> che contiene le entità
+           generali, sia interne che esterne, dichiarate nella DTD.
+          </TD
+></TR
+><TR
+><TD
+>notations</TD
+><TD
+>DOMNamedNodeMap</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Un oggetto <B
+CLASS="classname"
+>DOMNamedNodeMap</B
+> contenente le notazioni
+           dichiarate nella DTD.
+          </TD
+></TR
+><TR
+><TD
+>internalSubset</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&#13;           SubSet interno definito come stringa, oppure null se non vi è nulla.
+           Questo non contiene le parentesi quadre di delimitazione.
+          </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domelement"
+><B
+CLASS="classname"
+>DOMElement</B
+></A
+></H2
+><P
+>&#13;      Espande <B
+CLASS="classname"
+>DOMNode</B
+>.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domelement.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domelement-construct.html"
+>DOMElement-&#62;__construct()</A
+> - costruisce un nuovo oggetto DOMElement</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domelement.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domelement-getattribute.html"
+>DOMElement-&#62;getAttribute()</A
+> - Restituisce il valore di un attributo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-getattributenode.html"
+>DOMElement-&#62;getAttributeNode()</A
+> - Restituisce il nodo attributo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-getattributenodens.html"
+>DOMElement-&#62;getAttributeNodeNS()</A
+> - Restituisce il nodo attributo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-getattributens.html"
+>DOMElement-&#62;getAttributeNS()</A
+> - Restituisce il valore di un attributo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-getelementsbytagname.html"
+>DOMElement-&#62;getElementsByTagName()</A
+> - Restituisce gli elementi in base al nome tag</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-getelementsbytagnamens.html"
+>DOMElement-&#62;getElementsByTagNameNS()</A
+> - Restituisce gli elementi in base all UTRI dello spazio dei nomi ed il nome locale</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-hasattribute.html"
+>DOMElement-&#62;hasAttribute()</A
+> - Verifica se l'attributo esiste</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-hasattributens.html"
+>DOMElement-&#62;hasAttributeNS()</A
+> - Verifica se l'attributo esiste</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-removeattribute.html"
+>DOMElement-&#62;removeAttribute()</A
+> - Rimuove l'attributo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-removeattributenode.html"
+>DOMElement-&#62;removeAttributeNode()</A
+> - Rimuove l'attributo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-removeattributens.html"
+>DOMElement-&#62;removeAttributeNS()</A
+> - Rimuove l'attributo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-setattribute.html"
+>DOMElement-&#62;setAttribute()</A
+> - Aggiunge un nuovo attributo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-setattributenode.html"
+>DOMElement-&#62;setAttributeNode()</A
+> - Aggiunge un nuovo nodo attributo all'elemento</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-setattributenodens.html"
+>DOMElement-&#62;setAttributeNodeNS()</A
+> - Aggiunge un nuovo nodo attributo all'elemento</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domelement-setattributens.html"
+>DOMElement-&#62;setAttributeNS()</A
+> - Aggiunge un nuovo attributo</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domelement.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29603"
+></A
+><P
+><B
+>Tabella 5. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>schemaTypeInfo</TD
+><TD
+>bool</TD
+><TD
+>sì</TD
+><TD
+>Non ancora implementato, restituisce sempre <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+></TD
+></TR
+><TR
+><TD
+>tagName</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>Nome dell'elemento</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domentity"
+><B
+CLASS="classname"
+>DOMEntity</B
+></A
+></H2
+><P
+>&#13;      Espande <B
+CLASS="classname"
+>DOMNode</B
+>
+     </P
+><P
+>&#13;      Questa interfaccia rappresenta una entità nota, sia interpretata che no, in un
+      documento XML.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domentity.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29632"
+></A
+><P
+><B
+>Tabella 6. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>publicId</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Identificatore pubblico associato all'entità, se indicato, altrimenti
+           <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.
+          </TD
+></TR
+><TR
+><TD
+>systemId</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Identificatore di sistema associato all'entità, se indicato, altrimenti
+           <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>. Può essere un URI assoluto.
+          </TD
+></TR
+><TR
+><TD
+>notationName</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Per le entità non interpretate, il nome della notazione dell'entità. Per
+           le entità interpretate vale <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.
+          </TD
+></TR
+><TR
+><TD
+>actualEncoding</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>&#13;           Attributo che indica la codifica utilizzata per questa entità
+           al momento dell'intepretazione, in caso di interpretazione di entità esterne.
+           Vale <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> se si tratta di un'entità interna, o se non è
+           noto.
+          </TD
+></TR
+><TR
+><TD
+>encoding</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Attributo che indica, come parte del testo di dichiarazione, la codifica
+           dell'entità, in caso di entità esterna. Negli altri casi vale
+           <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.
+          </TD
+></TR
+><TR
+><TD
+>version</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Attributo che indica, come parte del testo di dichiarazione, il numero di versione
+           di questa entità, in caso di entità esterna.
+           Altrimenti <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.
+          </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domentityreference"
+><B
+CLASS="classname"
+>DOMEntityReference</B
+></A
+></H2
+><P
+>&#13;      Espande <B
+CLASS="classname"
+>DOMNode</B
+>.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domentityreference.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domentityreference-construct.html"
+>DOMAttr-&#62;__construct()</A
+> - costruisce un nuovo oggetto DOMEntityReference</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domexception"
+><B
+CLASS="classname"
+>DOMException</B
+></A
+></H2
+><P
+>&#13;      Le funzioni DOM, in casi particolari, generano delle eccezioni, ad esempio
+      quando un'operazione non può essere eseguita per motivi logici.
+     </P
+><P
+>&#13;      Vedere anche <A
+HREF="language.exceptions.html"
+>Capitolo 20</A
+>.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domexception.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29697"
+></A
+><P
+><B
+>Tabella 7. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>code</TD
+><TD
+>int</TD
+><TD
+>sì</TD
+><TD
+>Intero indicante il tipo di errore generato</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domimplementation"
+><B
+CLASS="classname"
+>DOMImplementation</B
+></A
+></H2
+><P
+>&#13;      L'interfaccia <B
+CLASS="classname"
+>DOMImplementation</B
+> fornisce diversi metodi
+      per eseguire operazioni che sono indipendenti da qualsiasi
+      istanza del modello ad oggetti del documento.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domimplementation.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domimplementation-construct.html"
+>DOMImplementation-&#62;__construct()</A
+> - costruisce un nuovo oggetto DOMImplementation</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domimplementation.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domimplementation-createdocument.html"
+>DOMImplementation-&#62;createDocument()</A
+> - Crea un nuovo oggetto DOM Document del tipo specificato con il suo elemento documento</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domimplementation-createdocumenttype.html"
+>DOMImplementation-&#62;createDocumentType()</A
+> - Crea un oggetto DOMDocumentType vuoto</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domimplementation-hasfeature.html"
+>DOMImplementation-&#62;hasFeature()</A
+> - Verifica se l'implementazione DOM supporta specifiche caratteristiche</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domnode"
+><B
+CLASS="classname"
+>DOMNode</B
+></A
+></H2
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domnode.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domnode-appendchild.html"
+>DOMNode-&#62;appendChild()</A
+> - Aggiunge un nuovo nodo figlio alla fine dei nodi figli</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-clonenode.html"
+>DOMNode-&#62;cloneNode()</A
+> - Clona un nodo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-hasattributes.html"
+>DOMNode-&#62;hasAttributes()</A
+> - Verifica se il nodo ha attributi</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-haschildnodes.html"
+>DOMNode-&#62;hasChildNodes()</A
+> - Verifica se il nodo ha figli</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-insertbefore.html"
+>DOMNode-&#62;insertBefore()</A
+> - Aggiunge
+        un nuovo figlio prima del nodo indicato</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-issamenode.html"
+>DOMNode-&#62;isSameNode()</A
+> - Indica se due nodi sono lo stesso nodo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-issupported.html"
+>DOMNode-&#62;isSupported()</A
+> - Verifica se la caratteristica chiesta è supportata dalla versione</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-lookupnamespaceuri.html"
+>DOMNode-&#62;lookupNamespaceURI()</A
+> - Restituisce l'URI dello spazio dei nomi del nodo in base al suo prefisso</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-lookupprefix.html"
+>DOMNode-&#62;lookupPrefix()</A
+> - Restituisce il prefisso dello spazio dei nomi del nodo in base all'URI dello spazio dei nomi</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-normalize.html"
+>DOMNode-&#62;normalize()</A
+> - Normalizza il nodo</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-removechild.html"
+>DOMNode-&#62;removeChild()</A
+> - Rimuove un nodo figlio dall'elenco dei nodi figli</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domnode-replacechild.html"
+>DOMNode-&#62;replaceChild()</A
+> - Sostituisce un nodo figlio</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domnode.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29779"
+></A
+><P
+><B
+>Tabella 8. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>nodeName</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>Restituisce un nome più accurato per il tipo di nodo.</TD
+></TR
+><TR
+><TD
+>nodeValue</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>Valore di questo nodo, dipende dal tipo.</TD
+></TR
+><TR
+><TD
+>nodeType</TD
+><TD
+>int</TD
+><TD
+>sì</TD
+><TD
+>Tipo di nodo. Una delle costanti XML_xxx_NODE predefinite.</TD
+></TR
+><TR
+><TD
+>parentNode</TD
+><TD
+>DOMNode</TD
+><TD
+>sì</TD
+><TD
+>Nodo genitore di questo nodo.</TD
+></TR
+><TR
+><TD
+>childNodes</TD
+><TD
+>DOMNodeList</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Un oggetto <B
+CLASS="classname"
+>DOMNodeList</B
+> che contiene tutti i nodi figli
+           di questo nodo. Se non vi sono nodi figli, questa è un 
+           <B
+CLASS="classname"
+>DOMNodeList</B
+> vuoto.
+          </TD
+></TR
+><TR
+><TD
+>firstChild</TD
+><TD
+>DOMNode</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Il primo figlio di questo nodo. Se tale nodo non esiste, restituisce
+           <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.
+          </TD
+></TR
+><TR
+><TD
+>lastChild</TD
+><TD
+>DOMNode</TD
+><TD
+>sì</TD
+><TD
+>&#13;           L'ultimo figlio di questo nodo. Se tale nodo non esiste, restituisce
+           <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.
+          </TD
+></TR
+><TR
+><TD
+>previousSibling</TD
+><TD
+>DOMNode</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Il nodo immediatamente precedente a questo. Se tale nodo non esiste, restituisce
+           <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.
+          </TD
+></TR
+><TR
+><TD
+>nextSibling</TD
+><TD
+>DOMNode</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Il nodo immediatamente seguente a questo. Se tale nodo non esiste, restituisce
+           <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.
+          </TD
+></TR
+><TR
+><TD
+>attributes</TD
+><TD
+>DOMNamedNodeMap</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Un oggetto <B
+CLASS="classname"
+>DOMNamedNodeMap</B
+> contenente gli attributi
+           di questo nodo (se si tratta di un <B
+CLASS="classname"
+>DOMElement</B
+>) oppure
+           <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.
+          </TD
+></TR
+><TR
+><TD
+>ownerDocument</TD
+><TD
+>DOMDocument</TD
+><TD
+>sì</TD
+><TD
+>&#13;           L'oggetto <B
+CLASS="classname"
+>DOMDocument</B
+> associato a questo
+           nodo.
+          </TD
+></TR
+><TR
+><TD
+>namespaceURI</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&#13;           L'URI dello spazio dei nomi di questo nodo, oppure <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> se non specificato.
+          </TD
+></TR
+><TR
+><TD
+>prefix</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>&#13;           Prefisso dello spazio dei nomi del nodo, oppure <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> se non specificato.
+          </TD
+></TR
+><TR
+><TD
+>localName</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Restituisce la parte locale del nome qualificato del nodo.
+          </TD
+></TR
+><TR
+><TD
+>baseURI</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&#13;           L'URI assoluto del nodo oppure <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> se l'implementazione non è in grado di ottenere
+           l'URI assoluto.
+          </TD
+></TR
+><TR
+><TD
+>textContent</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>&#13;           Questo attributo restituisce il testo contenuto nel nodo e nei
+           suoi discendenti.
+          </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domnodelist"
+><B
+CLASS="classname"
+>DOMNodeList</B
+></A
+></H2
+><P
+>&#13;      
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domnodelist.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domnodelist-item.html"
+>DOMNodelist-&#62;item()</A
+> - Recupera il nodo indicato dall'indice</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domnodelist.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29894"
+></A
+><P
+><B
+>Tabella 9. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>length</TD
+><TD
+>int</TD
+><TD
+>sì</TD
+><TD
+>&#13;           Numero di nodi nella lista. Il range valido per l'indice
+           varia tra 0 e <VAR
+CLASS="literal"
+>length - 1</VAR
+> compresi.
+          </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domnotation"
+><B
+CLASS="classname"
+>DOMNotation</B
+></A
+></H2
+><P
+>&#13;      Espande <B
+CLASS="classname"
+>DOMNode</B
+>
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domnotation.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29917"
+></A
+><P
+><B
+>Tabella 10. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>publicId</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>systemId</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domprocessinginstruction"
+><B
+CLASS="classname"
+>DOMProcessingInstruction</B
+></A
+></H2
+><P
+>&#13;      Espande <B
+CLASS="classname"
+>DOMNode</B
+>.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domprocessinginstruction.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domprocessinginstruction-construct.html"
+>DOMProcessingInstruction-&#62;__construct()</A
+> - costruisce un nuovo oggetto DOMProcessingInstruction</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domprocessinginstruction.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29950"
+></A
+><P
+><B
+>Tabella 11. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>target</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>data</TD
+><TD
+>string</TD
+><TD
+>no</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domtext"
+><B
+CLASS="classname"
+>DOMText</B
+></A
+></H2
+><P
+>&#13;      Espande <B
+CLASS="classname"
+>DOMCharacterData</B
+>.
+     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domtext.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domtext-construct.html"
+>DOMText-&#62;__construct()</A
+> - costruisce un nuovo oggetto DOMText</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domtext.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domtext-iswhitespaceinelementcontent.html"
+>DOMText-&#62;isWhitespaceInElementContent()</A
+> - Indica se questo nodo contiene degli spazi</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domtext-splittext.html"
+>DOMText-&#62;splitText()</A
+> - Divide il nodo in due alla posizione indicata</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domtext.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN29992"
+></A
+><P
+><B
+>Tabella 12. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>wholeText</TD
+><TD
+>string</TD
+><TD
+>sì</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="dom.class.domxpath"
+><B
+CLASS="classname"
+>DOMXPath</B
+></A
+></H2
+><P
+>&#13;     </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domxpath.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domxpath-construct.html"
+>DOMXPath-&#62;__construct()</A
+> - construct a new DOMXPath object</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domxpath.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.dom-domxpath-registernamespace.html"
+>DOMXPath-&#62;registerNamespace()</A
+> - Registers the namespace with the DOMXpath object</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domxpath-evaluate.html"
+>DOMXPath-&#62;evaluate()</A
+> - Evaluates the given XPath expression and returns a typed result if possible</P
+></LI
+><LI
+><P
+><A
+HREF="function.dom-domxpath-query.html"
+>DOMXPath-&#62;query()</A
+> - Evaluates the given XPath expression</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="dom.class.domxpath.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN30031"
+></A
+><P
+><B
+>Tabella 13. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Sola lettura</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>document</TD
+><TD
+>DOMDocument</TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dom.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     Many examples in this reference require an XML file. We will use 
+     <TT
+CLASS="filename"
+>book.xml</TT
+> that contains the following:
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN30051"
+></A
+><P
+><B
+>Esempio 1. chapter.xml</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="xml"
+>&#60;?xml version="1.0" encoding="iso-8859-1"?&#62;
+&#60;!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+ "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+]&#62;
+&#60;book id="listing"&#62;
+ &#60;title&#62;My lists&#60;/title&#62;
+ &#60;chapter id="books"&#62;
+  &#60;title&#62;My books&#60;/title&#62;
+  &#60;para&#62;
+   &#60;informaltable&#62;
+    &#60;tgroup cols="4"&#62;
+     &#60;thead&#62;
+      &#60;row&#62;
+       &#60;entry&#62;Title&#60;/entry&#62;
+       &#60;entry&#62;Author&#60;/entry&#62;
+       &#60;entry&#62;Language&#60;/entry&#62;
+       &#60;entry&#62;ISBN&#60;/entry&#62;
+      &#60;/row&#62;
+     &#60;/thead&#62;
+     &#60;tbody&#62;
+      &#60;row&#62;
+       &#60;entry&#62;The Grapes of Wrath&#60;/entry&#62;
+       &#60;entry&#62;John Steinbeck&#60;/entry&#62;
+       &#60;entry&#62;en&#60;/entry&#62;
+       &#60;entry&#62;0140186409&#60;/entry&#62;
+      &#60;/row&#62;
+      &#60;row&#62;
+       &#60;entry&#62;The Pearl&#60;/entry&#62;
+       &#60;entry&#62;John Steinbeck&#60;/entry&#62;
+       &#60;entry&#62;en&#60;/entry&#62;
+       &#60;entry&#62;014017737X&#60;/entry&#62;
+      &#60;/row&#62;
+      &#60;row&#62;
+       &#60;entry&#62;Samarcande&#60;/entry&#62;
+       &#60;entry&#62;Amine Maalouf&#60;/entry&#62;
+       &#60;entry&#62;fr&#60;/entry&#62;
+       &#60;entry&#62;2253051209&#60;/entry&#62;
+      &#60;/row&#62;
+      &#60;!-- TODO: I have a lot of remaining books to add.. --&#62;
+     &#60;/tbody&#62;
+    &#60;/tgroup&#62;
+   &#60;/informaltable&#62;
+  &#60;/para&#62;
+ &#60;/chapter&#62;
+&#60;/book&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dom.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><DIV
+CLASS="table"
+><A
+NAME="AEN30057"
+></A
+><P
+><B
+>Tabella 14. Costanti XML</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Costante</TH
+><TH
+>Valore</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ELEMENT_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>1</TD
+><TD
+>Il nodo è un <B
+CLASS="classname"
+>DOMElement</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_NODE</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>2</TD
+><TD
+>Il nodo è un <B
+CLASS="classname"
+>DOMAttr</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_TEXT_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>3</TD
+><TD
+>Il nodo è un <B
+CLASS="classname"
+>DOMText</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_CDATA_SECTION_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>4</TD
+><TD
+>Il nodo è un oggetto <B
+CLASS="classname"
+>DOMCharacterData</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ENTITY_REF_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>5</TD
+><TD
+>Il nodo è un oggetto <B
+CLASS="classname"
+>DOMEntityReference</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ENTITY_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>6</TD
+><TD
+>Il nodo è un <B
+CLASS="classname"
+>DOMEntity</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_PI_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>7</TD
+><TD
+>Il nodo è un <B
+CLASS="classname"
+>DOMProcessingInstruction</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_COMMENT_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>8</TD
+><TD
+>Il nodo è un <B
+CLASS="classname"
+>DOMComment</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_DOCUMENT_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>9</TD
+><TD
+>Il nodo è un <B
+CLASS="classname"
+>DOMDocument</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_DOCUMENT_TYPE_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>10</TD
+><TD
+>Il nodo è un oggetto <B
+CLASS="classname"
+>DOMDocumentType</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_DOCUMENT_FRAG_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>11</TD
+><TD
+>Il nodo è un oggetto <B
+CLASS="classname"
+>DOMDocumentFragment</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_NOTATION_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>12</TD
+><TD
+>Il nodo è un oggetto <B
+CLASS="classname"
+>DOMNotation</B
+></TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_HTML_DOCUMENT_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>13</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_DTD_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>14</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ELEMENT_DECL_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>15</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_DECL_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>16</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ENTITY_DECL_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>17</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_NAMESPACE_DECL_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>18</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_CDATA</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>1</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_ID</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>2</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_IDREF</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>3</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_IDREFS</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>4</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_ENTITY</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>5</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_NMTOKEN</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>7</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_NMTOKENS</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>8</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_ENUMERATION</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>9</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_NOTATION</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>10</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="table"
+><A
+NAME="AEN30240"
+></A
+><P
+><B
+>Tabella 15. Costanti DOMException</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Costante</TH
+><TH
+>Valore</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_INDEX_SIZE_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>1</TD
+><TD
+>&#13;       Se l'indice o la dimensione sono negativi, o maagiori del valore ammesso.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOMSTRING_SIZE_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>2</TD
+><TD
+>&#13;       Se il range di testo indicato non rientra nell'oggetto
+       <B
+CLASS="classname"
+>DOMString</B
+>.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_HIERARCHY_REQUEST_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>3</TD
+><TD
+>Se il nodo è inserito in posti non attesi</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_WRONG_DOCUMENT_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>4</TD
+><TD
+>&#13;       Se il nodo viene utilizzato in documenti differenti rispetto a quello che lo ha creato.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_INVALID_CHARACTER_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>5</TD
+><TD
+>&#13;       Carattere invalido o illegale.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_NO_DATA_ALLOWED_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>6</TD
+><TD
+>&#13;       Dati indicati per un nodo che non gestisce i dati.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_NO_MODIFICATION_ALLOWED_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>7</TD
+><TD
+>&#13;       Tentativo di modifica di un oggetto che non permette modifiche.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_NOT_FOUND_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>8</TD
+><TD
+>  
+       Riferimento ad un nodo in un contesto in cui non esiste.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_NOT_SUPPORTED_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>9</TD
+><TD
+>&#13;       Tipo di oggetto oppure operazione non supportata dall'implementazione.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_INUSE_ATTRIBUTE_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>10</TD
+><TD
+>&#13;       Tentativo di aggiungere un attributo già in uso altrove.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_INVALID_STATE_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>11</TD
+><TD
+> 
+       Utilizzo di un oggetto che non è più utilizzabile.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_SYNTAX_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>12</TD
+><TD
+>Stringa non valida o illegale.</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_INVALID_MODIFICATION_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>13</TD
+><TD
+>Tentativo di modificare il tipo dell'oggetto sottostante.</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_NAMESPACE_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>14</TD
+><TD
+>&#13;       Tentativo di creare o modficiare un oggetto in un modo che
+       non è corretto rispetto allo spazio dei nomi.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_INVALID_ACCESS_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>15</TD
+><TD
+>Parametro od operazione non supportati dall'oggetto.</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>DOM_VALIDATION_ERR</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>16</TD
+><TD
+>&#13;       Chiamata ad un metodo tipo insertBefore oppure removeChild che renda il nodo
+       invalido ripetto ad una 'validazione parziale'; questa eccezione comporta
+       la mancata esecuzione dell'operazione.
+      </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.dom-domattr-construct.html"
+>DOMAttr-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   Crea un nuovo oggetto DOMAttr
+  </DT
+><DT
+><A
+HREF="function.dom-domattr-isid.html"
+>DOMAttr-&#62;isId()</A
+>&nbsp;--&nbsp;
+   Verifica se l'attributo è un ID definito
+  </DT
+><DT
+><A
+HREF="function.dom-domcharacterdata-appenddata.html"
+>DOMCharacterData-&#62;appendData()</A
+>&nbsp;--&nbsp;
+   Aggiunge una stringa alla fine del testo di un nodo
+  </DT
+><DT
+><A
+HREF="function.dom-domcharacterdata-deletedata.html"
+>DOMCharacterData-&#62;deleteData()</A
+>&nbsp;--&nbsp;
+   Rimuove un range di caratteri da un nodo
+  </DT
+><DT
+><A
+HREF="function.dom-domcharacterdata-insertdata.html"
+>DOMCharacterData-&#62;insertData()</A
+>&nbsp;--&nbsp;
+   Inserisce una stringa all'offset di 16 bit indicato
+  </DT
+><DT
+><A
+HREF="function.dom-domcharacterdata-replacedata.html"
+>DOMCharacterData-&#62;replaceData()</A
+>&nbsp;--&nbsp;
+   Sostituisce una stringa all'interno di un nodo DOMCharacterData
+  </DT
+><DT
+><A
+HREF="function.dom-domcharacterdata-substringdata.html"
+>DOMCharacterData-&#62;substringData()</A
+>&nbsp;--&nbsp;
+   Estrae un tange di dati da un nodo
+  </DT
+><DT
+><A
+HREF="function.dom-domcomment-construct.html"
+>DOMComment-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   Crea un nuovo oggetto DOMComment
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-construct.html"
+>DOMDocument-&#62;__construct()</A
+>&nbsp;--&nbsp;
+  Crea un nuovo oggetto DOMDocument
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-createattribute.html"
+>DOMDocument-&#62;createAttribute()</A
+>&nbsp;--&nbsp;Crea un nuovo attributo</DT
+><DT
+><A
+HREF="function.dom-domdocument-createattributens.html"
+>DOMDocument-&#62;createAttributeNS()</A
+>&nbsp;--&nbsp;
+   Crea un nuovo nodo attributo con associato lo spazio dei nomi
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-createcdatasection.html"
+>DOMDocument-&#62;createCDATASection()</A
+>&nbsp;--&nbsp;Crea un nuovo nodo cdata</DT
+><DT
+><A
+HREF="function.dom-domdocument-createcomment.html"
+>DOMDocument-&#62;createComment()</A
+>&nbsp;--&nbsp;Crea un nuovo nodo di commento</DT
+><DT
+><A
+HREF="function.dom-domdocument-createdocumentfragment.html"
+>DOMDocument-&#62;createDocumentFragment()</A
+>&nbsp;--&nbsp;Crea un nuovo frammento di documento</DT
+><DT
+><A
+HREF="function.dom-domdocument-createelement.html"
+>DOMDocument-&#62;createElement()</A
+>&nbsp;--&nbsp;Crea un nuovo nodo elemento</DT
+><DT
+><A
+HREF="function.dom-domdocument-createelementns.html"
+>DOMDocument-&#62;createElementNS()</A
+>&nbsp;--&nbsp;
+   Crea un nuovo nodo elemento con associato lo spazio dei nomi
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-createentityreference.html"
+>DOMDocument-&#62;createEntityReference()</A
+>&nbsp;--&nbsp;Crea un nuovo nodo riferimento ad entità</DT
+><DT
+><A
+HREF="function.dom-domdocument-createprocessinginstruction.html"
+>DOMDocument-&#62;createProcessingInstruction()</A
+>&nbsp;--&nbsp;Crea un nuovo nodo PI</DT
+><DT
+><A
+HREF="function.dom-domdocument-createtextnode.html"
+>DOMDocument-&#62;createTextNode()</A
+>&nbsp;--&nbsp;Crea un nuovo nodo di testo</DT
+><DT
+><A
+HREF="function.dom-domdocument-getelementbyid.html"
+>DOMDocument-&#62;getElementById()</A
+>&nbsp;--&nbsp;Cerca un elemento con un certo id</DT
+><DT
+><A
+HREF="function.dom-domdocument-getelementsbytagname.html"
+>DOMDocument-&#62;getElementsByTagName()</A
+>&nbsp;--&nbsp;Cerca tutti gli eleemnti per un dato nome di tag</DT
+><DT
+><A
+HREF="function.dom-domdocument-getelementsbytagnamens.html"
+>DOMDocument-&#62;getElementsByTagNameNS()</A
+>&nbsp;--&nbsp;
+   Ricerca tutti gli elementi per un dato nome tag nello spazio dei nomi indicato.
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-importnode.html"
+>DOMDocument-&#62;importNode()</A
+>&nbsp;--&nbsp;Importa un nodo nel documento corrente</DT
+><DT
+><A
+HREF="function.dom-domdocument-load.html"
+>DOMDocument-&#62;load()</A
+>&nbsp;--&nbsp;
+   Carica un documento XML da un file
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-loadhtml.html"
+>DOMDocument-&#62;loadHTML()</A
+>&nbsp;--&nbsp;
+   Carica una pagina HTML da una stringa
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-loadhtmlfile.html"
+>DOMDocument-&#62;loadHTMLFile()</A
+>&nbsp;--&nbsp;
+   Carica un file HTML
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-loadxml.html"
+>DOMDocument-&#62;loadXML()</A
+>&nbsp;--&nbsp;
+   Carica un documento XML da una stringa
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-normalize.html"
+>DOMDocument-&#62;normalize()</A
+>&nbsp;--&nbsp;
+   Normalizza il documento
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-relaxngvalidate.html"
+>DOMDocument-&#62;relaxNGValidate()</A
+>&nbsp;--&nbsp;
+   Esegue una validazione relaxNG sul documento
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-relaxngvalidatesource.html"
+>DOMDocument-&#62;relaxNGValidateSource()</A
+>&nbsp;--&nbsp;
+   Esegue una validazione relaxNG sul documento
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-save.html"
+>DOMDocument-&#62;save()</A
+>&nbsp;--&nbsp;
+    Scarica l'albero XML interno in un file
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-savehtml.html"
+>DOMDocument-&#62;saveHTML()</A
+>&nbsp;--&nbsp;
+   Dumps the internal document into a string using HTML formatting
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-savehtmlfile.html"
+>DOMDocument-&#62;saveHTMLFile()</A
+>&nbsp;--&nbsp;
+   Dumps the internal document into a file using HTML formatting
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-savexml.html"
+>DOMDocument-&#62;saveXML()</A
+>&nbsp;--&nbsp;
+   Dumps the internal XML tree back into a string
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-schemavalidate.html"
+>DOMDocument-&#62;schemaValidate()</A
+>&nbsp;--&nbsp;
+   Validates a document based on a schema
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-schemavalidatesource.html"
+>DOMDocument-&#62;schemaValidateSource()</A
+>&nbsp;--&nbsp;
+   Validates a document based on a schema
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-validate.html"
+>DOMDocument-&#62;validate()</A
+>&nbsp;--&nbsp;
+   Valida il documento in base alla sua DTD
+  </DT
+><DT
+><A
+HREF="function.dom-domdocument-xinclude.html"
+>DOMDocument-&#62;xinclude()</A
+>&nbsp;--&nbsp;
+   Sostituisce gli XIncludes in un oggetto DOMDocument
+  </DT
+><DT
+><A
+HREF="function.dom-domelement-construct.html"
+>DOMElement-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   Crea un nuovo oggetto DOMElement
+  </DT
+><DT
+><A
+HREF="function.dom-domelement-getattribute.html"
+>DOMElement-&#62;getAttribute()</A
+>&nbsp;--&nbsp;Restituisce il valore di un attributo</DT
+><DT
+><A
+HREF="function.dom-domelement-getattributenode.html"
+>DOMElement-&#62;getAttributeNode()</A
+>&nbsp;--&nbsp;Restituisce il nodo attributo</DT
+><DT
+><A
+HREF="function.dom-domelement-getattributenodens.html"
+>DOMElement-&#62;getAttributeNodeNS()</A
+>&nbsp;--&nbsp;
+   Restituisce un nodo attributo
+  </DT
+><DT
+><A
+HREF="function.dom-domelement-getattributens.html"
+>DOMElement-&#62;getAttributeNS()</A
+>&nbsp;--&nbsp;Restituisce il valore di un attributo</DT
+><DT
+><A
+HREF="function.dom-domelement-getelementsbytagname.html"
+>DOMElement-&#62;getElementsByTagName()</A
+>&nbsp;--&nbsp;Restituisce gli elementi in base al nome del tag</DT
+><DT
+><A
+HREF="function.dom-domelement-getelementsbytagnamens.html"
+>DOMElement-&#62;getElementsByTagNameNS()</A
+>&nbsp;--&nbsp;Restituisce gli elementi per spazio dei nomi e nome locale</DT
+><DT
+><A
+HREF="function.dom-domelement-hasattribute.html"
+>DOMElement-&#62;hasAttribute()</A
+>&nbsp;--&nbsp;Verifica se l'attributo esiste</DT
+><DT
+><A
+HREF="function.dom-domelement-hasattributens.html"
+>DOMElement-&#62;hasAttributeNS()</A
+>&nbsp;--&nbsp;
+   Verifica se esiste l'attributo
+  </DT
+><DT
+><A
+HREF="function.dom-domelement-removeattribute.html"
+>DOMElement-&#62;removeAttribute()</A
+>&nbsp;--&nbsp;Rimuove l'attributo</DT
+><DT
+><A
+HREF="function.dom-domelement-removeattributenode.html"
+>DOMElement-&#62;removeAttributeNode()</A
+>&nbsp;--&nbsp;Rimuove gli attributi</DT
+><DT
+><A
+HREF="function.dom-domelement-removeattributens.html"
+>DOMElement-&#62;removeAttributeNS()</A
+>&nbsp;--&nbsp;Rimuove gli attributi</DT
+><DT
+><A
+HREF="function.dom-domelement-setattribute.html"
+>DOMElement-&#62;setAttribute()</A
+>&nbsp;--&nbsp;Aggiunge un nuovo attributo</DT
+><DT
+><A
+HREF="function.dom-domelement-setattributenode.html"
+>DOMElement-&#62;setAttributeNode()</A
+>&nbsp;--&nbsp;Aggiunge un nuovo nodo attributo all'elemento</DT
+><DT
+><A
+HREF="function.dom-domelement-setattributenodens.html"
+>DOMElement-&#62;setAttributeNodeNS()</A
+>&nbsp;--&nbsp;Aggiunge un nuovo nodo attributo all'elemento</DT
+><DT
+><A
+HREF="function.dom-domelement-setattributens.html"
+>DOMElement-&#62;setAttributeNS()</A
+>&nbsp;--&nbsp;Aggiunge un nuovo attributo</DT
+><DT
+><A
+HREF="function.dom-domentityreference-construct.html"
+>DOMAttr-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   Crea un nuovo oggetto DOMEntityReference
+  </DT
+><DT
+><A
+HREF="function.dom-domimplementation-construct.html"
+>DOMImplementation-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   Crea un nuovo oggetto DOMImplementation
+  </DT
+><DT
+><A
+HREF="function.dom-domimplementation-createdocument.html"
+>DOMImplementation-&#62;createDocument()</A
+>&nbsp;--&nbsp;
+   Crea un oggetto DOMDocument del tipo indicato con il suo elemento documento
+  </DT
+><DT
+><A
+HREF="function.dom-domimplementation-createdocumenttype.html"
+>DOMImplementation-&#62;createDocumentType()</A
+>&nbsp;--&nbsp;
+   Crea un oggetto DOMDocumentType vuoto
+  </DT
+><DT
+><A
+HREF="function.dom-domimplementation-hasfeature.html"
+>DOMImplementation-&#62;hasFeature()</A
+>&nbsp;--&nbsp;
+   Verifica se l'implementazione DOM ha una specifica caratteristica
+  </DT
+><DT
+><A
+HREF="function.dom-domnamednodemap-getnameditem.html"
+>DOMNamedNodeMap-&#62;getNamedItem()</A
+>&nbsp;--&nbsp;
+   Recupera un nodo indicandone il nome
+  </DT
+><DT
+><A
+HREF="function.dom-domnamednodemap-getnameditemns.html"
+>DOMNamedNodeMap-&#62;getNamedItemNS()</A
+>&nbsp;--&nbsp;
+   Recupera un nodo indicando il nome locale e l'URI dello spazio dei nomi
+  </DT
+><DT
+><A
+HREF="function.dom-domnamednodemap-item.html"
+>DOMNamedNodeMap-&#62;item()</A
+>&nbsp;--&nbsp;Recupera un nodo tramite il suo indice</DT
+><DT
+><A
+HREF="function.dom-domnode-appendchild.html"
+>DOMNode-&#62;appendChild()</A
+>&nbsp;--&nbsp;
+   Aggiunge un nuovo nodo figlio alla fine dei nodi figli
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-clonenode.html"
+>DOMNode-&#62;cloneNode()</A
+>&nbsp;--&nbsp;
+   Clona un nodo
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-hasattributes.html"
+>DOMNode-&#62;hasAttributes()</A
+>&nbsp;--&nbsp;
+   Verifica se un nodo ha degli attributi
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-haschildnodes.html"
+>DOMNode-&#62;hasChildNodes()</A
+>&nbsp;--&nbsp;
+   Verifica se un nodo ha nodi figli
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-insertbefore.html"
+>DOMNode-&#62;insertBefore()</A
+>&nbsp;--&nbsp;
+   Aggiunge un nuovo nodo figlio prima del riferimento
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-issamenode.html"
+>DOMNode-&#62;isSameNode()</A
+>&nbsp;--&nbsp;
+   Indica se due nodi sono il medesimo nodo
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-issupported.html"
+>DOMNode-&#62;isSupported()</A
+>&nbsp;--&nbsp;
+   Verifica se una caratteristica è supportata dalla versione indicata
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-lookupnamespaceuri.html"
+>DOMNode-&#62;lookupNamespaceURI()</A
+>&nbsp;--&nbsp;
+   Restituisce l'URI dello spazio dei nomi in base al prefisso
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-lookupprefix.html"
+>DOMNode-&#62;lookupPrefix()</A
+>&nbsp;--&nbsp;
+   Resituisce il prefisso dello spazio dei nomi in base all'URI dello spazio dei nomi
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-normalize.html"
+>DOMNode-&#62;normalize()</A
+>&nbsp;--&nbsp;
+   Normalizza un nodo
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-removechild.html"
+>DOMNode-&#62;removeChild()</A
+>&nbsp;--&nbsp;
+   Rimuove un nodo figlio dalla lista dei nodi figli
+  </DT
+><DT
+><A
+HREF="function.dom-domnode-replacechild.html"
+>DOMNode-&#62;replaceChild()</A
+>&nbsp;--&nbsp;
+   Sostituisce un nodo figlio
+  </DT
+><DT
+><A
+HREF="function.dom-domnodelist-item.html"
+>DOMNodelist-&#62;item()</A
+>&nbsp;--&nbsp;
+   Recupera il nodo indicato dall'indice
+  </DT
+><DT
+><A
+HREF="function.dom-domprocessinginstruction-construct.html"
+>DOMProcessingInstruction-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   Crea un nuovo oggetto DOMProcessingInstruction
+  </DT
+><DT
+><A
+HREF="function.dom-domtext-construct.html"
+>DOMText-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   Crea un nuovo oggetto DOMText 
+  </DT
+><DT
+><A
+HREF="function.dom-domtext-iswhitespaceinelementcontent.html"
+>DOMText-&#62;isWhitespaceInElementContent()</A
+>&nbsp;--&nbsp;
+   Indica se questo nodo di testo contiene spazi
+  </DT
+><DT
+><A
+HREF="function.dom-domtext-splittext.html"
+>DOMText-&#62;splitText()</A
+>&nbsp;--&nbsp;
+   Spezza il nodo in due all'offset specificato
+  </DT
+><DT
+><A
+HREF="function.dom-domxpath-construct.html"
+>DOMXPath-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   Crea un nuovo oggetto DOMXPath
+  </DT
+><DT
+><A
+HREF="function.dom-domxpath-evaluate.html"
+>DOMXPath-&#62;evaluate()</A
+>&nbsp;--&nbsp;
+   Valuta l'espressione XPath data e restituisce un risultato se possibile
+  </DT
+><DT
+><A
+HREF="function.dom-domxpath-query.html"
+>DOMXPath-&#62;query()</A
+>&nbsp;--&nbsp;
+   Valuta l'espressione XPath 
+  </DT
+><DT
+><A
+HREF="function.dom-domxpath-registernamespace.html"
+>DOMXPath-&#62;registerNamespace()</A
+>&nbsp;--&nbsp;
+   Registra lo spazio dei nomi nell'oggetto DOMXpath
+  </DT
+><DT
+><A
+HREF="function.dom-import-simplexml.html"
+>dom_import_simplexml</A
+>&nbsp;--&nbsp;
+   Ottiene un'oggetto DOMElement da un'oggetto SimpleXMLElement
+  </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.scandir.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dom-domattr-construct.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>scandir</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DOMAttr-&#62;__construct()</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

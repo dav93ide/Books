@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mcrypt_get_iv_size</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Mcrypt Encryption Functions"
+HREF="ref.mcrypt.html"><LINK
+REL="PREVIOUS"
+TITLE="mcrypt_get_cipher_name"
+HREF="function.mcrypt-get-cipher-name.html"><LINK
+REL="NEXT"
+TITLE="mcrypt_get_key_size"
+HREF="function.mcrypt-get-key-size.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mcrypt-get-cipher-name.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mcrypt-get-key-size.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mcrypt-get-iv-size"
+></A
+>mcrypt_get_iv_size</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN77839"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.2, PHP 5)</P
+>mcrypt_get_iv_size&nbsp;--&nbsp;
+     Returns the size of the IV belonging to a specific cipher/mode combination
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN77842"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>mcrypt_get_iv_size</B
+> ( string cipher, string mode )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mcrypt_get_iv_size()</B
+> returns the size of
+     the Initialisation Vector (IV) in bytes. On error the function
+     returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. If the IV is ignored in the specified cipher/mode
+     combination zero is returned.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>cipher</VAR
+> is one of the MCRYPT_ciphername
+     constants of the name of the algorithm as string.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>mode</VAR
+> is one of the MCRYPT_MODE_modename constants
+     or one of "ecb", "cbc", "cfb", "ofb", "nofb" or "stream". The IV is
+     ignored in ECB mode as this mode does not require it.  You will need to
+     have the same IV (think: starting point) both at encryption and
+     decryption stages, otherwise your encryption will fail.
+    </P
+><P
+>&#13;     It is more useful to use the <A
+HREF="function.mcrypt-enc-get-iv-size.html"
+><B
+CLASS="function"
+>mcrypt_enc_get_iv_size()</B
+></A
+>
+     function as this uses the resource returned by
+     <A
+HREF="function.mcrypt-module-open.html"
+><B
+CLASS="function"
+>mcrypt_module_open()</B
+></A
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN77864"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>mcrypt_get_iv_size()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#0000BB">mcrypt_get_iv_size</font><font color="#007700">(</font><font color="#0000BB">MCRYPT_CAST_256</font><font color="#007700">, </font><font color="#0000BB">MCRYPT_MODE_CFB</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">mcrypt_get_iv_size</font><font color="#007700">(</font><font color="#DD0000">'des'</font><font color="#007700">, </font><font color="#DD0000">'ecb'</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     See also 
+     <A
+HREF="function.mcrypt-get-block-size.html"
+><B
+CLASS="function"
+>mcrypt_get_block_size()</B
+></A
+>,
+     <A
+HREF="function.mcrypt-enc-get-iv-size.html"
+><B
+CLASS="function"
+>mcrypt_enc_get_iv_size()</B
+></A
+> and
+     <A
+HREF="function.mcrypt-create-iv.html"
+><B
+CLASS="function"
+>mcrypt_create_iv()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mcrypt-get-cipher-name.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mcrypt-get-key-size.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mcrypt_get_cipher_name</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mcrypt.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mcrypt_get_key_size</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

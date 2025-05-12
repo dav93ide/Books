@@ -1,0 +1,381 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>popen</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="pclose"
+HREF="function.pclose.html"><LINK
+REL="NEXT"
+TITLE="readfile"
+HREF="function.readfile.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pclose.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.readfile.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.popen"
+></A
+>popen</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN42715"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>popen&nbsp;--&nbsp;Apre un puntatore ad un file di processo</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN42718"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>popen</B
+> ( string command, string mode )<BR
+></BR
+><P
+> 
+     Apre una pipe ad un processo eseguito forzando il comando dato 
+     da command.
+    </P
+><P
+> 
+     Restituisce un puntatore a file identico a quello restituito da
+     <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>, eccetto che per il fatto che è unidirezionale (può 
+     solo essere usato per la lettura o la scrittura) e deve essere chiudo con
+     <A
+HREF="function.pclose.html"
+><B
+CLASS="function"
+>pclose()</B
+></A
+>. Questo puntatore può essere usato con
+     <A
+HREF="function.fgets.html"
+><B
+CLASS="function"
+>fgets()</B
+></A
+>, <A
+HREF="function.fgetss.html"
+><B
+CLASS="function"
+>fgetss()</B
+></A
+> e
+     <A
+HREF="function.fwrite.html"
+><B
+CLASS="function"
+>fwrite()</B
+></A
+>.
+    </P
+><P
+>&#13;     Se si verifica un errore, restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Se si sta cercando un supporto bi-direzionale (2 vie), utilizzare
+      <A
+HREF="function.proc-open.html"
+><B
+CLASS="function"
+>proc_open()</B
+></A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN42742"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>popen()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$handle </font><font color="#007700">= </font><font color="#0000BB">popen</font><font color="#007700">(</font><font color="#DD0000">"/bin/ls"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Se il comando che deve essere eseguito non è trovato, la funzione
+     restituisce una risorsa valida. Questo sembra strano, ma ha un senso;
+     esso permette di accedere ai messaggi di erore restituiti dalla shell:
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN42747"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />error_reporting</font><font color="#007700">(</font><font color="#0000BB">E_ALL</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Aggiunge una redirezione, così possiamo ottenere stderr. */<br /></font><font color="#0000BB">$handle </font><font color="#007700">= </font><font color="#0000BB">popen</font><font color="#007700">(</font><font color="#DD0000">'/path/to/spooge 2&gt;&amp;1'</font><font color="#007700">, </font><font color="#DD0000">'r'</font><font color="#007700">);<br />echo </font><font color="#DD0000">"'$handle'; " </font><font color="#007700">. </font><font color="#0000BB">gettype</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#0000BB">$read </font><font color="#007700">= </font><font color="#0000BB">fread</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">2096</font><font color="#007700">);<br />echo </font><font color="#0000BB">$read</font><font color="#007700">;<br /></font><font color="#0000BB">pclose</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Quando si abilita la 
+<A
+HREF="features.safe-mode.html"
+>modalità sicura</A
+>, si può eseguire
+soltanto gli eseguibili presenti nella directory <A
+HREF="features.safe-mode.html#ini.safe-mode-exec-dir"
+>safe_mode_exec_dir</A
+>.
+Per motivi pratici, attualmente, non ` permesso avere <VAR
+CLASS="literal"
+>..</VAR
+>
+come componente del percorso di un eseguibile. </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Con la <A
+HREF="features.safe-mode.html"
+>modalità sicura</A
+> attivata,
+tutte le parole che seguono il comando iniziale sono trattate come argomenti. Quindi,
+<VAR
+CLASS="literal"
+>echo y | echo x</VAR
+> diventa <VAR
+CLASS="literal"
+>echo "y | echo x"</VAR
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.pclose.html"
+><B
+CLASS="function"
+>pclose()</B
+></A
+>, <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>
+     e <A
+HREF="function.proc-open.html"
+><B
+CLASS="function"
+>proc_open()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pclose.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.readfile.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pclose</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>readfile</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

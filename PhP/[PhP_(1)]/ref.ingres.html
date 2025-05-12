@@ -1,0 +1,898 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Ingres II Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="ifxus_write_slob"
+HREF="function.ifxus-write-slob.html"><LINK
+REL="NEXT"
+TITLE="ingres_autocommit"
+HREF="function.ingres-autocommit.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ifxus-write-slob.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ingres-autocommit.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.ingres"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LIX. Ingres II Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN65062"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ingres.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     These functions allow you to access Ingres II database servers.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      If you already used PHP extensions to access other database
+      servers, note that Ingres doesn't allow concurrent queries and/or
+      transaction over one connection, thus you won't find any result
+      or transaction handle in this extension. The result of a query
+      must be treated before sending another query, and a transaction
+      must be committed or rolled back before opening another
+      transaction (which is automatically done when sending the first
+      query).
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ingres.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     To compile PHP with Ingres support, you need the Open API library
+     and header files included with Ingres II. 
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ingres.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  This <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> extension
+is not bundled with PHP.
+  Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+  <A
+HREF="http://pecl.php.net/package/ingres"
+TARGET="_top"
+>http://pecl.php.net/package/ingres</A
+>.
+ </P
+><P
+>&#13;  In order to have these functions available, you must compile PHP with
+  Ingres support by using the
+  <VAR
+CLASS="option"
+>--with-ingres[=DIR]</VAR
+> option, where DIR is
+  the Ingres base directory, which defaults to <TT
+CLASS="filename"
+>/II/ingres</TT
+>.
+  If the II_SYSTEM environment variable isn't correctly set you may have to
+  use <VAR
+CLASS="option"
+>--with-ingres=DIR</VAR
+>
+  to specify your Ingres installation directory.
+ </P
+><P
+>&#13;  When using this extension with Apache, if Apache does not start
+  and complains with "PHP Fatal error: Unable to start ingres_ii
+  module in Unknown on line 0" then make sure the environment
+  variable II_SYSTEM is correctly set. Adding "export
+  II_SYSTEM="/home/ingres/II" in the script that starts Apache, just
+  before launching httpd, should be fine.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ingres.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN65086"
+></A
+><P
+><B
+>Tabella 1. Ingres configuration options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>ingres.allow_persistent</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>ingres.max_persistent</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>ingres.max_links</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>ingres.default_database</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>ingres.default_user</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>ingres.default_password</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.0.2.</TD
+></TR
+><TR
+><TD
+>ingres.report_db_warnings</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since version 1.1.0 of the PECL extension.</TD
+></TR
+><TR
+><TD
+>ingres.cursor_mode</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since version 1.1.0 of the PECL extension.</TD
+></TR
+><TR
+><TD
+>ingres.blob_segment_length</TD
+><TD
+>"4096"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since version 1.2.0 of the PECL extension.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ingres.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ingres.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_ASSOC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Columns are returned into the array having the fieldname as the array index.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_NUM</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Columns are returned into the array having a numerical index to the fields. This index starts with 1, the first field in the result.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_BOTH</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Columns are returned into the array having both a numerical index and the fieldname as the array index. 
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_EXT_VERSION</B
+></TT
+> 
+    (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies the version of the Ingres Extension. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_API_VERSION</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies the version of Ingres OpenAPI the extension was built against. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_CURSOR_READONLY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Specifies that Ingres cursors should be opened in 'readonly' mode. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_CURSOR_UPDATE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Specifies that Ingres cursors should be opened 'for update'. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_DATE_MULTINATIONAL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Equivalent to the II_DATE_FORMAT setting of MULTINATIONAL. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_DATE_MULTINATIONAL4</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Equivalent to the II_DATE_FORMAT setting of MULTINATIONAL4. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_DATE_FINNISH</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Equivalent to the II_DATE_FORMAT setting of FINNISH. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_DATE_ISO</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Equivalent to the II_DATE_FORMAT setting of ISO. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_DATE_ISO4</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Equivalent to the II_DATE_FORMAT setting of ISO4. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_DATE_GERMAN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Equivalent to the II_DATE_FORMAT setting of GERMAN. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_DATE_MDY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Equivalent to the II_DATE_FORMAT setting of MDY. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_DATE_DMY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Equivalent to the II_DATE_FORMAT setting of DMY. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_DATE_YMD</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Equivalent to the II_DATE_FORMAT setting of YMD. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_MONEY_LEADING</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Speifies the currency character should be placed a the start of a money
+     value. Equivalent to setting II_MONEY_FORMAT to 'L:'. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>INGRES_MONEY_TRAILING</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Speifies the currency character should be placed a the end of a money
+     value. Equivalent to setting II_MONEY_FORMAT to 'T:'. Available since version 1.2.0 of the PECL extension.
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.ingres-autocommit.html"
+>ingres_autocommit</A
+>&nbsp;--&nbsp;Switch autocommit on or off</DT
+><DT
+><A
+HREF="function.ingres-close.html"
+>ingres_close</A
+>&nbsp;--&nbsp;Close an Ingres II database connection</DT
+><DT
+><A
+HREF="function.ingres-commit.html"
+>ingres_commit</A
+>&nbsp;--&nbsp;Commit a transaction</DT
+><DT
+><A
+HREF="function.ingres-connect.html"
+>ingres_connect</A
+>&nbsp;--&nbsp;
+     Open a connection to an Ingres II database
+    </DT
+><DT
+><A
+HREF="function.ingres-cursor.html"
+>ingres_cursor</A
+>&nbsp;--&nbsp;Gets a cursor name for a given link resource</DT
+><DT
+><A
+HREF="function.ingres-errno.html"
+>ingres_errno</A
+>&nbsp;--&nbsp;Gets the last ingres error number generated</DT
+><DT
+><A
+HREF="function.ingres-error.html"
+>ingres_error</A
+>&nbsp;--&nbsp;Gets a meaningful error message for the last error generated</DT
+><DT
+><A
+HREF="function.ingres-errsqlstate.html"
+>ingres_errsqlstate</A
+>&nbsp;--&nbsp;Gets the last SQLSTATE error code generated</DT
+><DT
+><A
+HREF="function.ingres-fetch-array.html"
+>ingres_fetch_array</A
+>&nbsp;--&nbsp;Fetch a row of result into an array</DT
+><DT
+><A
+HREF="function.ingres-fetch-object.html"
+>ingres_fetch_object</A
+>&nbsp;--&nbsp;Fetch a row of result into an object</DT
+><DT
+><A
+HREF="function.ingres-fetch-row.html"
+>ingres_fetch_row</A
+>&nbsp;--&nbsp;
+     Fetch a row of result into an enumerated array
+    </DT
+><DT
+><A
+HREF="function.ingres-field-length.html"
+>ingres_field_length</A
+>&nbsp;--&nbsp;Get the length of a field</DT
+><DT
+><A
+HREF="function.ingres-field-name.html"
+>ingres_field_name</A
+>&nbsp;--&nbsp;Get the name of a field in a query result</DT
+><DT
+><A
+HREF="function.ingres-field-nullable.html"
+>ingres_field_nullable</A
+>&nbsp;--&nbsp;Test if a field is nullable</DT
+><DT
+><A
+HREF="function.ingres-field-precision.html"
+>ingres_field_precision</A
+>&nbsp;--&nbsp;Get the precision of a field</DT
+><DT
+><A
+HREF="function.ingres-field-scale.html"
+>ingres_field_scale</A
+>&nbsp;--&nbsp;Get the scale of a field</DT
+><DT
+><A
+HREF="function.ingres-field-type.html"
+>ingres_field_type</A
+>&nbsp;--&nbsp;
+     Get the type of a field in a query result
+    </DT
+><DT
+><A
+HREF="function.ingres-num-fields.html"
+>ingres_num_fields</A
+>&nbsp;--&nbsp;
+     Get the number of fields returned by the last query
+    </DT
+><DT
+><A
+HREF="function.ingres-num-rows.html"
+>ingres_num_rows</A
+>&nbsp;--&nbsp;
+     Get the number of rows affected or returned by the last query
+    </DT
+><DT
+><A
+HREF="function.ingres-pconnect.html"
+>ingres_pconnect</A
+>&nbsp;--&nbsp;
+     Open a persistent connection to an Ingres II database
+    </DT
+><DT
+><A
+HREF="function.ingres-query.html"
+>ingres_query</A
+>&nbsp;--&nbsp;Send a SQL query to Ingres II</DT
+><DT
+><A
+HREF="function.ingres-rollback.html"
+>ingres_rollback</A
+>&nbsp;--&nbsp;Roll back a transaction</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ifxus-write-slob.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ingres-autocommit.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ifxus_write_slob</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ingres_autocommit</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>px_create_fp</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Paradox File Access"
+HREF="ref.paradox.html"><LINK
+REL="PREVIOUS"
+TITLE="px_close"
+HREF="function.px-close.html"><LINK
+REL="NEXT"
+TITLE="px_delete"
+HREF="function.px-delete.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.px-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.px-delete.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.px-create-fp"
+></A
+>px_create_fp</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN120234"
+></A
+><P
+>    (PECL)</P
+>px_create_fp&nbsp;--&nbsp;Create a new paradox database</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN120237"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>px_create_fp</B
+> ( resource pxdoc, resource file, array fielddesc )<BR
+></BR
+><P
+>&#13;   Create a new paradox database file. The actual file has to be opened before
+   with <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>. Make sure the file is writable. The first
+   parameter is the return value of <A
+HREF="function.px-new.html"
+><B
+CLASS="function"
+>px_new()</B
+></A
+>.
+   <VAR
+CLASS="option"
+>fielddesc</VAR
+> is an array containing one element for each
+   field containing its specification. Each field specification is an array
+   itself with either two or three elements.The first element is always a
+   string value used as the name of the field. It may not be larger than ten
+   characters. The second element contains the field type which is one of the
+   constants listed in the table
+   <A
+HREF="ref.paradox.html#paradox.table-fieldtypes"
+>Constants for field types</A
+>.
+   In the case of a character field, you will have to provide a third element
+   specifying the length of the field.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>This function is highly experimental, due to insufficient
+    documentation of the paradox file format. Database files created with this
+    function can be opened by <A
+HREF="function.px-open-fp.html"
+><B
+CLASS="function"
+>px_open_fp()</B
+></A
+> and has been
+    successfully opened by the Paradox software, but your milage may vary.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN120259"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN120264"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN120267"
+></A
+><P
+><B
+>Esempio 1. Creating a Paradox database with two fields</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if(!</font><font color="#0000BB">$pxdoc </font><font color="#007700">= </font><font color="#0000BB">px_new</font><font color="#007700">()) {<br />&nbsp;&nbsp;</font><font color="#FF8000">/* Error handling */<br /></font><font color="#007700">}<br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"test.db"</font><font color="#007700">, </font><font color="#DD0000">"w+"</font><font color="#007700">);<br /></font><font color="#0000BB">$fields </font><font color="#007700">= array(array(</font><font color="#DD0000">"col1"</font><font color="#007700">, </font><font color="#DD0000">"S"</font><font color="#007700">), array(</font><font color="#DD0000">"col2"</font><font color="#007700">, </font><font color="#DD0000">"I"</font><font color="#007700">));<br />if(!</font><font color="#0000BB">px_create_fp</font><font color="#007700">(</font><font color="#0000BB">$pxdoc</font><font color="#007700">, </font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">$fields</font><font color="#007700">)) {<br />&nbsp;&nbsp;</font><font color="#FF8000">/* Error handling */<br /></font><font color="#007700">}<br /></font><font color="#0000BB">px_set_tablename</font><font color="#007700">(</font><font color="#0000BB">$pxdoc</font><font color="#007700">, </font><font color="#DD0000">"testtable"</font><font color="#007700">);<br />for(</font><font color="#0000BB">$i</font><font color="#007700">=-</font><font color="#0000BB">50</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">&lt;</font><font color="#0000BB">50</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">++) {<br />&nbsp;&nbsp;</font><font color="#0000BB">$rec </font><font color="#007700">= array(</font><font color="#0000BB">$i</font><font color="#007700">, -</font><font color="#0000BB">$i</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">px_put_record</font><font color="#007700">(</font><font color="#0000BB">$pxdoc</font><font color="#007700">, </font><font color="#0000BB">$rec</font><font color="#007700">);<br />}&nbsp;&nbsp;&nbsp;<br /></font><font color="#0000BB">px_close</font><font color="#007700">(</font><font color="#0000BB">$pxdoc</font><font color="#007700">);<br /></font><font color="#0000BB">px_delete</font><font color="#007700">(</font><font color="#0000BB">$pxdoc</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN120270"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.px-new.html"
+><B
+CLASS="function"
+>px_new()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.px-put-record.html"
+><B
+CLASS="function"
+>px_put_record()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.px-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.px-delete.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>px_close</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.paradox.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>px_delete</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fputcsv</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="fpassthru"
+HREF="function.fpassthru.html"><LINK
+REL="NEXT"
+TITLE="fputs"
+HREF="function.fputs.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fpassthru.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fputs.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fputcsv"
+></A
+>fputcsv</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN41812"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>fputcsv&nbsp;--&nbsp;
+     Format line as CSV and write to file pointer
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41815"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>fputcsv</B
+> ( resource handle [, array fields [, string delimiter [, string enclosure]]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>fputcsv()</B
+> formats a line (passed as a
+     <VAR
+CLASS="parameter"
+>fields</VAR
+> array) as CSV and write it to the
+     specified file <VAR
+CLASS="parameter"
+>handle</VAR
+>. Returns the length of the
+     written string, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on failure.
+    </P
+><P
+>&#13;     The optional <VAR
+CLASS="parameter"
+>delimiter</VAR
+> parameter sets the field
+     delimiter (one character only). Defaults as a comma: <VAR
+CLASS="literal"
+>,</VAR
+>.
+    </P
+><P
+>&#13;     The optional <VAR
+CLASS="parameter"
+>enclosure</VAR
+> parameter sets the field 
+     enclosure (one character only) and defaults to a double quotation mark:
+     <VAR
+CLASS="literal"
+>"</VAR
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN41844"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>fputcsv()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$list </font><font color="#007700">= array (<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'aaa,bbb,ccc,dddd'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'123,456,789'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'"aaa","bbb"'<br /></font><font color="#007700">);<br /><br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'file.csv'</font><font color="#007700">, </font><font color="#DD0000">'w'</font><font color="#007700">);<br /><br />foreach (</font><font color="#0000BB">$list </font><font color="#007700">as </font><font color="#0000BB">$line</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fputcsv</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">split</font><font color="#007700">(</font><font color="#DD0000">','</font><font color="#007700">, </font><font color="#0000BB">$line</font><font color="#007700">));<br />}<br /><br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Se il <VAR
+CLASS="literal"
+>PHP</VAR
+> ha
+dei problemi a riconoscere la fine riga nella lettura di file su
+o creati da computer Macintosh, si può abilitare il parametro
+di configurazione <A
+HREF="ref.filesystem.html#ini.auto-detect-line-endings"
+>auto_detect_line_endings</A
+>.</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also <A
+HREF="function.fgetcsv.html"
+><B
+CLASS="function"
+>fgetcsv()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fpassthru.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fputs.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fpassthru</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fputs</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

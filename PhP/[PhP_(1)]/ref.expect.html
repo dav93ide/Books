@@ -1,0 +1,742 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Expect Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="read_exif_data"
+HREF="function.read-exif-data.html"><LINK
+REL="NEXT"
+TITLE="expect_expectl"
+HREF="function.expect-expectl.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.read-exif-data.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.expect-expectl.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.expect"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XXXIV. Expect Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN38370"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="expect.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     This extension allows to interact with processes through PTY. You may
+     consider using the <A
+HREF="wrappers.expect.html"
+><VAR
+CLASS="literal"
+>expect://</VAR
+>
+     wrapper</A
+> with the <A
+HREF="ref.filesystem.html"
+>filesystem
+     functions</A
+> which provide a simpler and more intuitive interface.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="expect.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     This module uses the functions of the <A
+HREF="http://expect.nist.gov/"
+TARGET="_top"
+>expect</A
+> library.
+     You need libexpect version &#62;= 5.43.0.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="expect.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  This <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> extension
+is not bundled with PHP.
+  Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+  <A
+HREF="http://pecl.php.net/package/expect"
+TARGET="_top"
+>http://pecl.php.net/package/expect</A
+>.
+ </P
+><P
+>&#13;  In PHP 4 this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> extensions
+source can be found in the <TT
+CLASS="filename"
+>ext/</TT
+> directory within the
+PHP source or at the <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> link above.
+  In order to use these functions you must compile PHP with expect support
+  by using the <VAR
+CLASS="option"
+>--with-expect[=DIR]</VAR
+> 
+  configure option.
+ </P
+><P
+>&#13;  Windows users will enable <TT
+CLASS="filename"
+>php_expect.dll</TT
+> inside
+  of <TT
+CLASS="filename"
+>php.ini</TT
+> in order to use these functions.
+  In PHP 4 this <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> resides in
+the <TT
+CLASS="filename"
+>extensions/</TT
+> directory within the PHP Windows
+binaries download.
+  You may download this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+>
+extension <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> from the <A
+HREF="http://www.php.net/downloads.php"
+TARGET="_top"
+>&#13;PHP Downloads</A
+> page or at <A
+HREF="http://snaps.php.net/"
+TARGET="_top"
+>&#13;http://snaps.php.net/</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="expect.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  In order to configure expect extension, there are configuration options
+  in the <A
+HREF="configuration.html#configuration.file"
+>configuration file</A
+> <TT
+CLASS="filename"
+>php.ini</TT
+>.
+  <DIV
+CLASS="table"
+><A
+NAME="AEN38407"
+></A
+><P
+><B
+>Tabella 1. Expect Opioni di configurazione</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>expect.timeout</TD
+><TD
+>"10"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>expect.loguser</TD
+><TD
+>"On"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>expect.logfile</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.expect.timeout"
+></A
+><VAR
+CLASS="parameter"
+>expect.timeout</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      The timeout period for waiting for the data, when using the
+      <A
+HREF="function.expect-expectl.html"
+><B
+CLASS="function"
+>expect_expectl()</B
+></A
+> function.
+     </P
+><P
+>&#13;      A value of "-1" disables a timeout from occurring.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       A value of "0" causes the <A
+HREF="function.expect-expectl.html"
+><B
+CLASS="function"
+>expect_expectl()</B
+></A
+>
+       function to return immediately.
+      </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="ini.expect.loguser"
+></A
+><VAR
+CLASS="parameter"
+>expect.loguser</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Whether expect should send any output from the spawned process to stdout.
+      Since interactive programs typically echo their input, this usually suffices
+      to show both sides of the conversation.
+     </P
+></DD
+><DT
+><A
+NAME="ini.expect.logfile"
+></A
+><VAR
+CLASS="parameter"
+>expect.logfile</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Name of the file, where the output from the spawned process will be
+      written. If this file doesn't exist, it will be created.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       If this configuration is not empty, the output is written regardless of
+       the value of <A
+HREF="ref.expect.html#ini.expect.loguser"
+>expect.loguser</A
+>.
+      </P
+></BLOCKQUOTE
+></DIV
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="expect.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="expect.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="constants.expect.exp_glob"
+></A
+><TT
+CLASS="constant"
+><B
+>EXP_GLOB</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Indicates that the pattern is a glob-style string pattern.
+    </P
+></DD
+><DT
+><A
+NAME="constants.expect.exp_exact"
+></A
+><TT
+CLASS="constant"
+><B
+>EXP_EXACT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Indicates that the pattern is an exact string.
+    </P
+></DD
+><DT
+><A
+NAME="constants.expect.exp_regexp"
+></A
+><TT
+CLASS="constant"
+><B
+>EXP_REGEXP</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Indicates that the pattern is a regexp-style string pattern.
+    </P
+></DD
+><DT
+><A
+NAME="constants.expect.exp_eof"
+></A
+><TT
+CLASS="constant"
+><B
+>EXP_EOF</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Value, returned by <A
+HREF="function.expect-expectl.html"
+><B
+CLASS="function"
+>expect_expectl()</B
+></A
+>, when EOF is
+     reached.
+    </P
+></DD
+><DT
+><A
+NAME="constants.expect.exp_timeout"
+></A
+><TT
+CLASS="constant"
+><B
+>EXP_TIMEOUT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Value, returned by <A
+HREF="function.expect-expectl.html"
+><B
+CLASS="function"
+>expect_expectl()</B
+></A
+> upon timeout of
+     seconds, specified in value of <A
+HREF="ref.expect.html#ini.expect.timeout"
+>expect.timeout</A
+>
+    </P
+></DD
+><DT
+><A
+NAME="constants.expect.exp_fullbuffer"
+></A
+><TT
+CLASS="constant"
+><B
+>EXP_FULLBUFFER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Value, returned by <A
+HREF="function.expect-expectl.html"
+><B
+CLASS="function"
+>expect_expectl()</B
+></A
+> if no pattern have
+     been matched.
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="expect.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     This example connects to the remote host via SSH, and prints the remote
+     uptime.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN38512"
+></A
+><P
+><B
+>Esempio 1. Expect Usage Example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />ini_set </font><font color="#007700">(</font><font color="#DD0000">"expect.loguser"</font><font color="#007700">, </font><font color="#DD0000">"Off"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$stream </font><font color="#007700">= </font><font color="#0000BB">popen </font><font color="#007700">(</font><font color="#DD0000">"expect://ssh root@remotehost uptime"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$cases </font><font color="#007700">= array (<br />&nbsp;&nbsp;array (</font><font color="#0000BB">0 </font><font color="#007700">=&gt; </font><font color="#DD0000">"password:"</font><font color="#007700">, </font><font color="#0000BB">1 </font><font color="#007700">=&gt; </font><font color="#0000BB">PASSWORD</font><font color="#007700">)<br />);<br /><br />switch (</font><font color="#0000BB">expect_expectl </font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">, </font><font color="#0000BB">$cases</font><font color="#007700">))<br />{<br /> case </font><font color="#0000BB">PASSWORD</font><font color="#007700">:<br />&nbsp;&nbsp;</font><font color="#0000BB">fwrite </font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">, </font><font color="#DD0000">"password\n"</font><font color="#007700">);<br />&nbsp;&nbsp;break;<br /> <br /> default:<br />&nbsp;&nbsp;die (</font><font color="#DD0000">"Error was occurred while connecting to the remote host!\n"</font><font color="#007700">);<br />}<br /><br />while (</font><font color="#0000BB">$line </font><font color="#007700">= </font><font color="#0000BB">fgets </font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">)) {<br />&nbsp;&nbsp;print </font><font color="#0000BB">$line</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">fclose </font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.expect-expectl.html"
+>expect_expectl</A
+>&nbsp;--&nbsp;Waits until the output from a process matches one
+  of the patterns, a specified time period has passed, or an EOF is seen
+  </DT
+><DT
+><A
+HREF="function.expect-popen.html"
+>expect_popen</A
+>&nbsp;--&nbsp;Exectute command via Bourne shell, and open the PTY stream to
+  the process</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.read-exif-data.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.expect-expectl.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>read_exif_data</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>expect_expectl</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

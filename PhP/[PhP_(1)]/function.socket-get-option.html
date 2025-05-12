@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>socket_get_option</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni relative ai Socket"
+HREF="ref.sockets.html"><LINK
+REL="PREVIOUS"
+TITLE="socket_create"
+HREF="function.socket-create.html"><LINK
+REL="NEXT"
+TITLE="socket_getpeername"
+HREF="function.socket-getpeername.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.socket-create.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.socket-getpeername.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.socket-get-option"
+></A
+>socket_get_option</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN154286"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PHP 5)</P
+>socket_get_option&nbsp;--&nbsp;Ottiene le opzioni per un socket</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN154289"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>socket_get_option</B
+> ( resource socket, int level, int optname )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>socket_get_option()</B
+> restituisce i valori per il parametro
+     indicato in <VAR
+CLASS="parameter"
+>optname</VAR
+> per il socket indicato
+     da <VAR
+CLASS="parameter"
+>socket</VAR
+>. La funzione restituisce
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se non riesce.
+    </P
+><P
+>&#13;     Il parametro  <VAR
+CLASS="parameter"
+>level</VAR
+> specifica a quale livello di protocollo
+     risiede l'opzione cercata. Ad esempio, per recuperare le informzioni su opzioni a livello di socket,
+     il parametro <VAR
+CLASS="parameter"
+>level</VAR
+> deve essere impostato a SOL_SOCKET. Altri livelli
+     tipo TCP, possono essere utilizzati specificando il numero del livello.
+     I numeri dei livelli dei protocolli possono essere ottenuti tramite <A
+HREF="function.getprotobyname.html"
+><B
+CLASS="function"
+>getprotobyname()</B
+></A
+>.
+    </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN154315"
+></A
+><P
+><B
+>Tabella 1. Opzioni per i socket disponibili</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Opzione</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>SO_DEBUG</TD
+><TD
+>&#13;        Riporta informazioni per il debug.
+       </TD
+></TR
+><TR
+><TD
+>SO_ACCEPTCONN</TD
+><TD
+>&#13;        Indica se il socket è abilitato in ascolto. 
+       </TD
+></TR
+><TR
+><TD
+>SO_BROADCAST</TD
+><TD
+>&#13;        Indica se sono supportate le trasmissioni dei messaggi di broadcast. 
+       </TD
+></TR
+><TR
+><TD
+>SO_REUSEADDR</TD
+><TD
+>&#13;        Riporta se gli indirizzi locali possono essere riutilizzati. 
+       </TD
+></TR
+><TR
+><TD
+>SO_KEEPALIVE</TD
+><TD
+>&#13;        Riporta se la connesisone deve essere mantenuta attiva tramite la trasmissione 
+        periodica di messaggi. Se il socket connesso non risponde a questi messaggi,
+        la connessione viene interrotta ed i processi che stavano scrivendo in quel socket riceveranno
+        il segnale SIGPIPE.
+       </TD
+></TR
+><TR
+><TD
+>SO_LINGER</TD
+><TD
+>&#13;        Indice se il <VAR
+CLASS="parameter"
+>socket</VAR
+> debba ritardare il <A
+HREF="function.socket-close.html"
+><B
+CLASS="function"
+>socket_close()</B
+></A
+> se vi sono dati.
+       </TD
+></TR
+><TR
+><TD
+>SO_OOBINLINE</TD
+><TD
+>&#13;        Indica se il <VAR
+CLASS="parameter"
+>socket</VAR
+> gestisce i dati fuori-banda.
+       </TD
+></TR
+><TR
+><TD
+>SO_SNDBUF</TD
+><TD
+>&#13;        Riporta le dimensioni del buffer di trasmissione. 
+       </TD
+></TR
+><TR
+><TD
+>SO_RCVBUF</TD
+><TD
+>&#13;        Riporta le dimensioni del buffer di ricezione. 
+       </TD
+></TR
+><TR
+><TD
+>SO_ERROR</TD
+><TD
+>&#13;        Restituisce informaizoni sugli stati di errore e li ripulisce. 
+       </TD
+></TR
+><TR
+><TD
+>SO_TYPE</TD
+><TD
+>&#13;        Restituisce il tipo di<VAR
+CLASS="parameter"
+>socket</VAR
+>.
+       </TD
+></TR
+><TR
+><TD
+>SO_DONTROUTE</TD
+><TD
+>&#13;        Indica se i messaggi in uscita ignorano i parametri standard di routing.
+       </TD
+></TR
+><TR
+><TD
+>SO_RCVLOWAT</TD
+><TD
+>&#13;        Indica il numero minimo di byte da processare da parte del  <VAR
+CLASS="parameter"
+>socket</VAR
+> per le operazioni
+        di input (default 1).
+       </TD
+></TR
+><TR
+><TD
+>SO_RCVTIMEO</TD
+><TD
+>&#13;        Tempo di timeout per le operazioni di input. 
+       </TD
+></TR
+><TR
+><TD
+>SO_SNDLOWAT</TD
+><TD
+>&#13;        Riporta il numero minimo di byte da processare da parte del <VAR
+CLASS="parameter"
+>socket</VAR
+> per le operazioni di output.
+       </TD
+></TR
+><TR
+><TD
+>SO_SNDTIMEO</TD
+><TD
+>&#13;        Indica il tempo di timeout specificando il tempo che una funzione di output
+        resti bloccata in attesa di potere inviare i dati. 
+       </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Nelle versioni di PHP antecedenti la 4.3.0, questa funzione 
+      era chiamata <VAR
+CLASS="literal"
+>socket_getopt()</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.socket-create.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.socket-getpeername.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>socket_create</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sockets.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>socket_getpeername</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

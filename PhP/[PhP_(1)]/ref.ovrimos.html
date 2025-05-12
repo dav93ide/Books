@@ -1,0 +1,420 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Ovrimos SQL Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="output_reset_rewrite_vars"
+HREF="function.output-reset-rewrite-vars.html"><LINK
+REL="NEXT"
+TITLE="ovrimos_close"
+HREF="function.ovrimos-close.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.output-reset-rewrite-vars.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ovrimos-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.ovrimos"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CIV. Ovrimos SQL Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN119529"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ovrimos.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Ovrimos SQL Server, is a client/server, transactional RDBMS
+     combined with Web capabilities and fast transactions.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questo modulo è stato spostato nel repository <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> e non sarà più rilascio con il
+PHP dalla versione 5.1.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questo modulo non è
+disponibile su piattaforme Windows.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ovrimos.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     You'll need to install the
+     sqlcli library available in the Ovrimos SQL Server distribution.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ovrimos.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  To enable Ovrimos support in PHP just compile PHP with the
+  <VAR
+CLASS="option"
+>--with-ovrimos[=DIR]</VAR
+>
+  parameter to your configure line. DIR is the Ovrimos' libsqlcli install
+  directory.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ovrimos.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ovrimos.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ovrimos.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN119555"
+></A
+><P
+><B
+>Esempio 1. 
+       Connect to Ovrimos SQL Server and select from a system table
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$conn </font><font color="#007700">= </font><font color="#0000BB">ovrimos_connect</font><font color="#007700">(</font><font color="#DD0000">"server.domain.com"</font><font color="#007700">, </font><font color="#DD0000">"8001"</font><font color="#007700">, </font><font color="#DD0000">"admin"</font><font color="#007700">, </font><font color="#DD0000">"password"</font><font color="#007700">);<br />if (</font><font color="#0000BB">$conn </font><font color="#007700">!= </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Connection ok!"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$res </font><font color="#007700">= </font><font color="#0000BB">ovrimos_exec</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"select table_id, table_name from sys.tables"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$res </font><font color="#007700">!= </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Statement ok!"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">ovrimos_result_all</font><font color="#007700">(</font><font color="#0000BB">$res</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">ovrimos_free_result</font><font color="#007700">(</font><font color="#0000BB">$res</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">ovrimos_close</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     This will just connect to an Ovrimos SQL server.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.ovrimos-close.html"
+>ovrimos_close</A
+>&nbsp;--&nbsp;Closes the connection to ovrimos</DT
+><DT
+><A
+HREF="function.ovrimos-commit.html"
+>ovrimos_commit</A
+>&nbsp;--&nbsp;Commits the transaction</DT
+><DT
+><A
+HREF="function.ovrimos-connect.html"
+>ovrimos_connect</A
+>&nbsp;--&nbsp;Connect to the specified database</DT
+><DT
+><A
+HREF="function.ovrimos-cursor.html"
+>ovrimos_cursor</A
+>&nbsp;--&nbsp;Returns the name of the cursor</DT
+><DT
+><A
+HREF="function.ovrimos-exec.html"
+>ovrimos_exec</A
+>&nbsp;--&nbsp;Executes an SQL statement</DT
+><DT
+><A
+HREF="function.ovrimos-execute.html"
+>ovrimos_execute</A
+>&nbsp;--&nbsp;Executes a prepared SQL statement</DT
+><DT
+><A
+HREF="function.ovrimos-fetch-into.html"
+>ovrimos_fetch_into</A
+>&nbsp;--&nbsp;Fetches a row from the result set</DT
+><DT
+><A
+HREF="function.ovrimos-fetch-row.html"
+>ovrimos_fetch_row</A
+>&nbsp;--&nbsp;Fetches a row from the result set</DT
+><DT
+><A
+HREF="function.ovrimos-field-len.html"
+>ovrimos_field_len</A
+>&nbsp;--&nbsp;Returns the length of the output column</DT
+><DT
+><A
+HREF="function.ovrimos-field-name.html"
+>ovrimos_field_name</A
+>&nbsp;--&nbsp;Returns the output column name</DT
+><DT
+><A
+HREF="function.ovrimos-field-num.html"
+>ovrimos_field_num</A
+>&nbsp;--&nbsp;
+     Returns the (1-based) index of the output column
+    </DT
+><DT
+><A
+HREF="function.ovrimos-field-type.html"
+>ovrimos_field_type</A
+>&nbsp;--&nbsp;
+     Returns the (numeric) type of the output column
+    </DT
+><DT
+><A
+HREF="function.ovrimos-free-result.html"
+>ovrimos_free_result</A
+>&nbsp;--&nbsp;Frees the specified result_id</DT
+><DT
+><A
+HREF="function.ovrimos-longreadlen.html"
+>ovrimos_longreadlen</A
+>&nbsp;--&nbsp;
+     Specifies how many bytes are to be retrieved from long datatypes
+    </DT
+><DT
+><A
+HREF="function.ovrimos-num-fields.html"
+>ovrimos_num_fields</A
+>&nbsp;--&nbsp;Returns the number of columns</DT
+><DT
+><A
+HREF="function.ovrimos-num-rows.html"
+>ovrimos_num_rows</A
+>&nbsp;--&nbsp;
+     Returns the number of rows affected by update operations
+    </DT
+><DT
+><A
+HREF="function.ovrimos-prepare.html"
+>ovrimos_prepare</A
+>&nbsp;--&nbsp;Prepares an SQL statement</DT
+><DT
+><A
+HREF="function.ovrimos-result-all.html"
+>ovrimos_result_all</A
+>&nbsp;--&nbsp;
+     Prints the whole result set as an HTML table
+    </DT
+><DT
+><A
+HREF="function.ovrimos-result.html"
+>ovrimos_result</A
+>&nbsp;--&nbsp;Retrieves the output column</DT
+><DT
+><A
+HREF="function.ovrimos-rollback.html"
+>ovrimos_rollback</A
+>&nbsp;--&nbsp;Rolls back the transaction</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.output-reset-rewrite-vars.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ovrimos-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>output_reset_rewrite_vars</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ovrimos_close</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

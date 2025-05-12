@@ -1,0 +1,667 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni per SNMP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="simplexml_load_string"
+HREF="function.simplexml-load-string.html"><LINK
+REL="NEXT"
+TITLE="snmp_get_quick_print"
+HREF="function.snmp-get-quick-print.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.simplexml-load-string.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.snmp-get-quick-print.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.snmp"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXXXVII. Funzioni per SNMP</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN151382"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="snmp.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="snmp.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Per potere utilizzare le funzioni SNMP su un sistema Unix, occorre installare il 
+     pacchetto 
+     <A
+HREF="http://www.net-snmp.org/"
+TARGET="_top"
+>NET SNMP</A
+>. Sui sistemi Windows, invece, 
+     le funzioni SNMP sono disponibili soltanto su NT e non sui sistemi Windows 95 e 98.    
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="snmp.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Attenzione: per potere usare il pacchetto UCD SNMP, occorre definire
+  NO_ZEROLENGTH_COMMUNITY a 1 prima di compilarlo. Dopo avere configurato 
+  UCD SNMP, occorre editare il file config.h, cercare NO_ZEROLENGTH_COMMUNITY
+  e decommentare la linea #define. Alla fine si deve ottenere:
+  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="c"
+>#define NO_ZEROLENGTH_COMMUNITY 1</PRE
+></TD
+></TR
+></TABLE
+>
+  Ora si può compilare PHP con <VAR
+CLASS="option"
+>--with-snmp[=DIR]</VAR
+>.
+ </P
+><P
+>&#13;  Se durante l'uso dei comandi SNMP dovessero comparire degli errori di "segmentation fault",
+  non seguire le istruzioni precedenti. Se non si desidera ricompilare il pacchetto
+  UCD SNMP, si può optare per compilare PHP con l'opzione
+  <VAR
+CLASS="option"
+>--enable-ucd-snmp-hack</VAR
+> che
+  aggira questo problema.
+ </P
+><P
+>&#13;  La distribuzione per Windows contiene i file di supporto per SNMP 
+  nella directory <TT
+CLASS="filename"
+>mibs</TT
+>. Questa directory dovrebbe esse spostata
+  in <TT
+CLASS="filename"
+>DRIVE:\usr\mibs</TT
+>, dove DRIVE deve essere sostituito
+  con la lettera del disco su cui è installato il PHP, ad 
+  esempio <TT
+CLASS="filename"
+>c:\usr\mibs</TT
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="snmp.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="snmp.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="snmp.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_VALUE_LIBRARY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_VALUE_PLAIN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_VALUE_OBJECT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_BIT_STR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_OCTET_STR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_OPAQUE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_NULL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_OBJECT_ID</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_IPADDRESS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_COUNTER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_UNSIGNED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_TIMETICKS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_UINTEGER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_INTEGER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SNMP_COUNTER64</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.snmp-get-quick-print.html"
+>snmp_get_quick_print</A
+>&nbsp;--&nbsp;
+      Restituisce il valore corrente per il parametro quick_print della libreria UCD
+    </DT
+><DT
+><A
+HREF="function.snmp-get-valueretrieval.html"
+>snmp_get_valueretrieval</A
+>&nbsp;--&nbsp;
+   Return the method how the SNMP values will be returned
+  </DT
+><DT
+><A
+HREF="function.snmp-read-mib.html"
+>snmp_read_mib</A
+>&nbsp;--&nbsp;
+   Reads and parses a MIB file into the active MIB tree
+  </DT
+><DT
+><A
+HREF="function.snmp-set-enum-print.html"
+>snmp_set_enum_print</A
+>&nbsp;--&nbsp;
+   Return all values that are enums with their enum value instead of the raw integer
+  </DT
+><DT
+><A
+HREF="function.snmp-set-oid-numeric-print.html"
+>snmp_set_oid_numeric_print</A
+>&nbsp;--&nbsp;
+   Return all objects including their respective object id within the specified one
+  </DT
+><DT
+><A
+HREF="function.snmp-set-quick-print.html"
+>snmp_set_quick_print</A
+>&nbsp;--&nbsp;Setta il valore di quick_print
+    </DT
+><DT
+><A
+HREF="function.snmp-set-valueretrieval.html"
+>snmp_set_valueretrieval</A
+>&nbsp;--&nbsp;
+   Specify the method how the SNMP values will be returned
+  </DT
+><DT
+><A
+HREF="function.snmpget.html"
+>snmpget</A
+>&nbsp;--&nbsp;Preleva un oggetto SNMP</DT
+><DT
+><A
+HREF="function.snmpgetnext.html"
+>snmpgetnext</A
+>&nbsp;--&nbsp;
+   Fetch a SNMP object
+  </DT
+><DT
+><A
+HREF="function.snmprealwalk.html"
+>snmprealwalk</A
+>&nbsp;--&nbsp;
+     Restituisce tutti gli oggetti compresi i rispettivi ID di oggetto
+    </DT
+><DT
+><A
+HREF="function.snmpset.html"
+>snmpset</A
+>&nbsp;--&nbsp;Valorizza un oggetto SNMP</DT
+><DT
+><A
+HREF="function.snmpwalk.html"
+>snmpwalk</A
+>&nbsp;--&nbsp;Scarica tutti gli oggetti SNMP da un agente</DT
+><DT
+><A
+HREF="function.snmpwalkoid.html"
+>snmpwalkoid</A
+>&nbsp;--&nbsp;Richiesta dell'albero delle informazioni di una macchina di rete
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.simplexml-load-string.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.snmp-get-quick-print.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>simplexml_load_string</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>snmp_get_quick_print</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

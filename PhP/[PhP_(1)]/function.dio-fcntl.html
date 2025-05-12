@@ -1,0 +1,494 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>dio_fcntl</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per l'IO diretto"
+HREF="ref.dio.html"><LINK
+REL="PREVIOUS"
+TITLE="dio_close"
+HREF="function.dio-close.html"><LINK
+REL="NEXT"
+TITLE="dio_open"
+HREF="function.dio-open.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dio-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dio-open.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.dio-fcntl"
+></A
+>dio_fcntl</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN28277"
+></A
+><P
+>    (PHP 4 &#62;= 4.2.0, PHP 5 &#60;= 5.0.4)</P
+>dio_fcntl&nbsp;--&nbsp;Esegue la funzione C fcntl su un descrittore di file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN28280"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>dio_fcntl</B
+> ( resource fd, int cmd [, mixed args] )<BR
+></BR
+><P
+>&#13;   La funzione <B
+CLASS="function"
+>dio_fcntl()</B
+> esegue le operazioni
+   specificate dal parametro <VAR
+CLASS="parameter"
+>cmd</VAR
+> sul descrittore
+   di file <VAR
+CLASS="parameter"
+>fd</VAR
+>. Qualora i comandi richiedano
+   informazioni addizionali occorre valorizzare <VAR
+CLASS="parameter"
+>args</VAR
+> con tali informazioni.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione non è
+ implementata su piattaforme Windows</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN28301"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>fd</VAR
+></DT
+><DD
+><P
+>&#13;        Descrittore di file restituito da <A
+HREF="function.dio-open.html"
+><B
+CLASS="function"
+>dio_open()</B
+></A
+>.
+       </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>cmd</VAR
+></DT
+><DD
+><P
+>&#13;        Può indicare una delle seguenti operazioni:
+        <P
+></P
+><UL
+><LI
+><P
+>&#13;           <TT
+CLASS="constant"
+><B
+>F_SETLK</B
+></TT
+> - imposta o azzera un lock. Se il lock è impostato
+           da un'altro processo la funzione <B
+CLASS="function"
+>dio_fcntl()</B
+> restituisce
+           -1.
+          </P
+></LI
+><LI
+><P
+>&#13;           <TT
+CLASS="constant"
+><B
+>F_SETLKW</B
+></TT
+> - come <TT
+CLASS="constant"
+><B
+>F_SETLK</B
+></TT
+>, ma nel caso in cui il lock sia impostato da 
+           un'altro processo la funzione <B
+CLASS="function"
+>dio_fcntl()</B
+> attende
+           sino a quando il blocco non viene rimosso.
+          </P
+></LI
+><LI
+><P
+>&#13;           <TT
+CLASS="constant"
+><B
+>F_GETLK</B
+></TT
+> - la <B
+CLASS="function"
+>dio_fcntl()</B
+> restituisce un array
+           associativo (come descritto precedentemente) se qualche altro processo
+           impedisce il lock. Se non vi sono problemi la chiave "type" sarà impostata
+           a <TT
+CLASS="constant"
+><B
+>F_UNLCK</B
+></TT
+>.
+          </P
+></LI
+><LI
+><P
+>&#13;           <TT
+CLASS="constant"
+><B
+>F_DUPFD</B
+></TT
+> - trova il più piccolo numero di descrittore di file disponibile
+           che sia maggiore o uguale rispetto ad <VAR
+CLASS="parameter"
+>args</VAR
+>
+           e lo restituisce.
+          </P
+></LI
+><LI
+><P
+>&#13;           <TT
+CLASS="constant"
+><B
+>F_SETF</B
+></TT
+>L - Imposta i flag del descrittore di file al valore specificato da
+           <VAR
+CLASS="parameter"
+>args</VAR
+>. Tale valore può essere <TT
+CLASS="constant"
+><B
+>O_APPEND</B
+></TT
+>,
+           <TT
+CLASS="constant"
+><B
+>O_NONBLOCK</B
+></TT
+> oppure <TT
+CLASS="constant"
+><B
+>O_ASYNC</B
+></TT
+>. Per utilizzare
+           <TT
+CLASS="constant"
+><B
+>O_ASYNC</B
+></TT
+> occorre utilizzare l'estensione
+           <A
+HREF="ref.pcntl.html"
+>PCNTL</A
+>.
+          </P
+></LI
+></UL
+>
+       </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>args</VAR
+></DT
+><DD
+><P
+>&#13;        Il parametro <VAR
+CLASS="parameter"
+>args</VAR
+> è un array associativo, nei casi in cui
+        <VAR
+CLASS="parameter"
+>cmd</VAR
+> è impostato a <TT
+CLASS="constant"
+><B
+>F_SETLK</B
+></TT
+> oppure a <TT
+CLASS="constant"
+><B
+>F_SETLLW</B
+></TT
+>, contiene
+        le seguenti chiavi:
+        <P
+></P
+><UL
+><LI
+><P
+>&#13;          "start" - offset da cui comincia il lock
+         </P
+></LI
+><LI
+><P
+>&#13;          "length" - dimensione dell'area bloccata, zero significa fine file
+         </P
+></LI
+><LI
+><P
+>&#13;          "wenth" - a cosa  l_start è relativo: 
+           può valere <TT
+CLASS="constant"
+><B
+>SEEK_SET</B
+></TT
+>,
+          <TT
+CLASS="constant"
+><B
+>SEEK_END</B
+></TT
+> o <TT
+CLASS="constant"
+><B
+>SEEK_CUR</B
+></TT
+>
+         </P
+></LI
+><LI
+><P
+>&#13;          "type" - tipo di lock: può essere <TT
+CLASS="constant"
+><B
+>F_RDLCK</B
+></TT
+> (lock in lettura),
+          <TT
+CLASS="constant"
+><B
+>F_WRLCK</B
+></TT
+> (lock in scrittura) oppure
+          <TT
+CLASS="constant"
+><B
+>F_UNLCK</B
+></TT
+> (rimozione del lock)
+         </P
+></LI
+></UL
+>
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN28368"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce il valore della chiamata C.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN28371"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN28374"
+></A
+><P
+><B
+>Esempio 1. Impostare e cancellare un lock</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> <br />$fd </font><font color="#007700">= </font><font color="#0000BB">dio_open</font><font color="#007700">(</font><font color="#DD0000">'/dev/ttyS0'</font><font color="#007700">, </font><font color="#0000BB">O_RDWR</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">dio_fcntl</font><font color="#007700">(</font><font color="#0000BB">$fd</font><font color="#007700">, </font><font color="#0000BB">F_SETLK</font><font color="#007700">, Array(</font><font color="#DD0000">"type"</font><font color="#007700">=&gt;</font><font color="#0000BB">F_WRLCK</font><font color="#007700">)) == -</font><font color="#0000BB">1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// the file descriptor appears locked<br />&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">"The lock can not be cleared. It is held by someone else."</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Lock succesfully set/cleared"</font><font color="#007700">;<br />}<br /> <br /></font><font color="#0000BB">dio_close</font><font color="#007700">(</font><font color="#0000BB">$fd</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dio-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dio-open.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>dio_close</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dio.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>dio_open</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

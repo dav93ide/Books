@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>socket_last_error</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni relative ai Socket"
+HREF="ref.sockets.html"><LINK
+REL="PREVIOUS"
+TITLE="socket_getsockname"
+HREF="function.socket-getsockname.html"><LINK
+REL="NEXT"
+TITLE="socket_listen"
+HREF="function.socket-listen.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.socket-getsockname.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.socket-listen.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.socket-last-error"
+></A
+>socket_last_error</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN154491"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PHP 5)</P
+>socket_last_error&nbsp;--&nbsp;Restituisce l'ultimo errore su un socket. </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN154494"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>socket_last_error</B
+> ( [resource socket] )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Questa funzione restituisce il codice di errore di un socket.
+    </P
+><P
+> 
+     Se a questa funzione si passa una risorsa di tipo socket, essa restituisce
+     l'ultimo errore occorso in quel socket. Se, al contrario, si omette di indicare il
+     socket, verrà restituito l'ultimo errore generato dalle funzioni dei socket.
+     Il secondo caso è particolarmente utile per funzioni tipo
+     <A
+HREF="function.socket-create.html"
+><B
+CLASS="function"
+>socket_create()</B
+></A
+>, che in caso di errore non restituiscono un
+     socket, o <A
+HREF="function.socket-select.html"
+><B
+CLASS="function"
+>socket_select()</B
+></A
+>, che possono fallire per ragioni
+     non direttamente collegate ad un particolare socket. Il codice di errore è 
+     utilizzabile dalla funzione <A
+HREF="function.socket-strerror.html"
+><B
+CLASS="function"
+>socket_strerror()</B
+></A
+> per ottenere un testo
+     con la spiegazione del codice di errore dato.
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">false </font><font color="#007700">== (</font><font color="#0000BB">$socket </font><font color="#007700">= @</font><font color="#0000BB">socket_create</font><font color="#007700">(</font><font color="#0000BB">AF_INET</font><font color="#007700">, </font><font color="#0000BB">SOCK_STREAM</font><font color="#007700">, </font><font color="#0000BB">SOL_TCP</font><font color="#007700">))) { <br />&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">"Non si riesce a creare il socket, codice di errore: " </font><font color="#007700">. </font><font color="#0000BB">socket_last_error</font><font color="#007700">() . <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">",descrizione: " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">socket_last_error</font><font color="#007700">())); <br />} <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+> 
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+> 
+      <B
+CLASS="function"
+>socket_last_error()</B
+> non rimuove il codice di errore, utilizzare
+      <A
+HREF="function.socket-clear-error.html"
+><B
+CLASS="function"
+>socket_clear_error()</B
+></A
+> per questo scopo. 
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.socket-getsockname.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.socket-listen.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>socket_getsockname</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sockets.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>socket_listen</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

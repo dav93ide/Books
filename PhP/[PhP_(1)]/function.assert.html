@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>assert</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PHP Opzioni&Informazioni"
+HREF="ref.info.html"><LINK
+REL="PREVIOUS"
+TITLE="assert_options"
+HREF="function.assert-options.html"><LINK
+REL="NEXT"
+TITLE="dl"
+HREF="function.dl.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.assert-options.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dl.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.assert"
+></A
+>assert</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN129418"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>assert&nbsp;--&nbsp;Verifica se un'asserzione è <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN129422"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>assert</B
+> ( mixed assertion )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>assert()</B
+> verifica se la data
+     <VAR
+CLASS="parameter"
+>assertion</VAR
+> è <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, nel caso intraprende le
+     opportune azioni.
+    </P
+><P
+>&#13;     Se il parametro <VAR
+CLASS="parameter"
+>assertion</VAR
+> è una stringa 
+     questo sarà considerato da  <B
+CLASS="function"
+>assert()</B
+> come codice PHP.
+     I vantaggi di usare le stringhe con <VAR
+CLASS="parameter"
+>assertion</VAR
+> sono
+     che si ha meno overhead nella verifica e la visualizzazione dei messaggi
+     che contengono <VAR
+CLASS="parameter"
+>assertion</VAR
+> quando questa
+     fallisce. Ciò significa che se si passa una condizione booleana
+     come <VAR
+CLASS="parameter"
+>assertion</VAR
+>, questa condizione non sarà mostrata
+     come parametro della funzione che può essere definita con <A
+HREF="function.assert-options.html"
+><B
+CLASS="function"
+>assert_options()</B
+></A
+>,
+     la condizione sarò in stringa prima di chiamare la funzione handler, e il valore
+     booleano <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> viene convertito in una stringa vuota.
+    </P
+><P
+>&#13;     Le asserzioni dovrebbero essere utilizzate solo per il debug. Si possono
+     usare per controlli di coerenza che sono sempre <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>
+     e che, in caso contrario, indichino errori di programmazione,
+     oppure per verificare la presenza o meni di certe caratteristiche, tipo le estensioni,
+     oppure certi limiti di sistema o caratteristiche.
+    </P
+><P
+>&#13;     Le asserzioni non dovrebbero essere utilizzate per le normali operazioni di
+     runtime quali il controllo dei parametri di input. Come regola si deve avere
+     che il programma possa girare senza la presenza delle regole di 
+     asserzione.
+    </P
+><P
+>&#13;     Il comportamento di <B
+CLASS="function"
+>assert()</B
+> può essere impostato
+     tramite <A
+HREF="function.assert-options.html"
+><B
+CLASS="function"
+>assert_options()</B
+></A
+> oppure tramite .ini-settings come descritto
+     nel pagine del manuale relative a quelle funzioni.
+    </P
+><P
+>&#13;     La funzione <A
+HREF="function.assert-options.html"
+><B
+CLASS="function"
+>assert_options()</B
+></A
+> e/o il parametro
+     ASSERT_CALLBACK permetto di attivare una funzione di callback
+     per gestire una asserzione fallita.
+    </P
+><P
+>&#13;     I callback di <B
+CLASS="function"
+>assert()</B
+> sono particolarmente utili
+     per costruire suite di test poiché permettono di catturare facilmente
+     il codice passato all'assert, oltre alle informazioni
+     su dove l'assert è scattato. Sebbene quest'ultime informazioni siano
+     rilevabili anche con altri metodi, l'uso delle asserzione rende il tutto
+     più semplice!
+    </P
+><P
+>&#13;     Le funzioni di callback devono accettare tre parametri. Il primo
+     conterrà il nome del file in cui si trova l'asserzione fallita. Il secondo parametro
+     conterrà il numero di linea dell'asserzione fallita, ed il terzo
+     conterrà l'espressione dell'asserzione (se fornito - valori alfanumerici
+     quali 1 o due" non saranno passati a questo
+     parametro).
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN129454"
+></A
+><P
+><B
+>Esempio 1. Gestione di una asserzione fallita con codice personalizzato</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Attiva le asserzioni <br /></font><font color="#0000BB">assert_options</font><font color="#007700">(</font><font color="#0000BB">ASSERT_ACTIVE</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /></font><font color="#0000BB">assert_options</font><font color="#007700">(</font><font color="#0000BB">ASSERT_WARNING</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br /></font><font color="#0000BB">assert_options</font><font color="#007700">(</font><font color="#0000BB">ASSERT_QUIET_EVAL</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Crea la funzione personalizzata<br /></font><font color="#007700">function </font><font color="#0000BB">my_assert_handler</font><font color="#007700">(</font><font color="#0000BB">$file</font><font color="#007700">, </font><font color="#0000BB">$line</font><font color="#007700">, </font><font color="#0000BB">$code</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;hr&gt;Assertion Failed:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File '$file'&lt;br /&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Line '$line'&lt;br /&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code '$code'&lt;br /&gt;&lt;hr /&gt;"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// Imposta il callback<br /></font><font color="#0000BB">assert_options</font><font color="#007700">(</font><font color="#0000BB">ASSERT_CALLBACK</font><font color="#007700">, </font><font color="#DD0000">'my_assert_handler'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Crea una asserzione che fallisce<br /></font><font color="#0000BB">assert</font><font color="#007700">(</font><font color="#DD0000">'mysql_query("")'</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.assert-options.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dl.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>assert_options</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.info.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>dl</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

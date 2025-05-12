@@ -1,0 +1,433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>substr</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="substr_replace"
+HREF="function.substr-replace.html"><LINK
+REL="NEXT"
+TITLE="trim"
+HREF="function.trim.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.substr-replace.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.trim.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.substr"
+></A
+>substr</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN166431"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>substr&nbsp;--&nbsp;Restituisce parte di una stringa</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN166434"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>substr</B
+> ( string string, int start [, int length] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>substr()</B
+> restituisce la porzione di <VAR
+CLASS="parameter"
+>string</VAR
+>
+     indicata dai parametri <VAR
+CLASS="parameter"
+>start</VAR
+> e
+     <VAR
+CLASS="parameter"
+>length</VAR
+>.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>start</VAR
+> non è negativo, la stringa restituita
+     inizierà dalla posizione <VAR
+CLASS="parameter"
+>start</VAR
+> di 
+     <VAR
+CLASS="parameter"
+>string</VAR
+>, partendo da zero. Ad esempio,
+     nella stringa '<VAR
+CLASS="literal"
+>abcdef</VAR
+>', il carattere alla posizione
+     <VAR
+CLASS="literal"
+>0</VAR
+> è '<VAR
+CLASS="literal"
+>a</VAR
+>', il carattere alla
+     posizione <VAR
+CLASS="literal"
+>2</VAR
+> è
+     '<VAR
+CLASS="literal"
+>c</VAR
+>', e così via.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN166462"
+></A
+><P
+><B
+>Esempio 1. Esempi di base di <B
+CLASS="function"
+>substr()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">'abcdef'</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// bcdef<br /></font><font color="#007700">echo </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">'abcdef'</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// bcd<br /></font><font color="#007700">echo </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">'abcdef'</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">4</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// abcd<br /></font><font color="#007700">echo </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">'abcdef'</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">8</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// abcdef<br /></font><font color="#007700">echo </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">'abcdef'</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">); </font><font color="#FF8000">// f<br /><br />// Accedere al singolo carattere<br />//&nbsp;&nbsp;tramite le parentesi graffe è un'altra possibilità<br /></font><font color="#0000BB">$string </font><font color="#007700">= </font><font color="#DD0000">'abcdef'</font><font color="#007700">;<br />echo </font><font color="#0000BB">$string</font><font color="#007700">{</font><font color="#0000BB">0</font><font color="#007700">};&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// a<br /></font><font color="#007700">echo </font><font color="#0000BB">$string</font><font color="#007700">{</font><font color="#0000BB">3</font><font color="#007700">};&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// d<br /></font><font color="#007700">echo </font><font color="#0000BB">$string</font><font color="#007700">{</font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$string</font><font color="#007700">)-</font><font color="#0000BB">1</font><font color="#007700">}; </font><font color="#FF8000">// f<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>start</VAR
+> è negativo, la stringa restituita
+     inizierà dal carattere <VAR
+CLASS="parameter"
+>start</VAR
+>
+     dalla fine di <VAR
+CLASS="parameter"
+>string</VAR
+>.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN166470"
+></A
+><P
+><B
+>Esempio 2. Utilizzo di valori negativi di <VAR
+CLASS="parameter"
+>start</VAR
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$rest </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">"abcdef"</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// restituisce "f"<br /></font><font color="#0000BB">$rest </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">"abcdef"</font><font color="#007700">, -</font><font color="#0000BB">2</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// restituisce "ef"<br /></font><font color="#0000BB">$rest </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">"abcdef"</font><font color="#007700">, -</font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">); </font><font color="#FF8000">// restituisce "d"<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>length</VAR
+> è indicato ed è positivo, la stringa 
+     restituita conterrà almeno <VAR
+CLASS="parameter"
+>length</VAR
+> caratteri
+     partendo da <VAR
+CLASS="parameter"
+>start</VAR
+> (in base alla lunghezza di
+     <VAR
+CLASS="parameter"
+>string</VAR
+>). Se <VAR
+CLASS="parameter"
+>string</VAR
+> è minore
+     o uguale a <VAR
+CLASS="parameter"
+>start</VAR
+>, la funzione restituisce
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>length</VAR
+> è indicato ed è negativo, allora saranno omessi
+     <VAR
+CLASS="parameter"
+>length</VAR
+> caratteri dalla fine di <VAR
+CLASS="parameter"
+>string</VAR
+>
+     (dopo avere calcolato la posizione iniziale, nel caso in cui
+     <VAR
+CLASS="parameter"
+>start</VAR
+> sia negativo).  Se
+     <VAR
+CLASS="parameter"
+>start</VAR
+> indica una posizione successiva a questo troncamento,
+     la funzione restituirà una stringa vuota.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN166488"
+></A
+><P
+><B
+>Esempio 3. Utilizzo di valori negativi per <VAR
+CLASS="parameter"
+>length</VAR
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$rest </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">"abcdef"</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// returns "abcde"<br /></font><font color="#0000BB">$rest </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">"abcdef"</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// returns "cde"<br /></font><font color="#0000BB">$rest </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">"abcdef"</font><font color="#007700">, </font><font color="#0000BB">4</font><font color="#007700">, -</font><font color="#0000BB">4</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// returns ""<br /></font><font color="#0000BB">$rest </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#DD0000">"abcdef"</font><font color="#007700">, -</font><font color="#0000BB">3</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">); </font><font color="#FF8000">// returns "de"<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Vedere anche <A
+HREF="function.strrchr.html"
+><B
+CLASS="function"
+>strrchr()</B
+></A
+>,
+     <A
+HREF="function.substr-replace.html"
+><B
+CLASS="function"
+>substr_replace()</B
+></A
+>,
+     <A
+HREF="function.ereg.html"
+><B
+CLASS="function"
+>ereg()</B
+></A
+>,
+     <A
+HREF="function.trim.html"
+><B
+CLASS="function"
+>trim()</B
+></A
+>,
+     <A
+HREF="function.mb-substr.html"
+><B
+CLASS="function"
+>mb_substr()</B
+></A
+> e
+     <A
+HREF="function.wordwrap.html"
+><B
+CLASS="function"
+>wordwrap()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.substr-replace.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.trim.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>substr_replace</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>trim</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

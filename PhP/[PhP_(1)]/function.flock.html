@@ -1,0 +1,425 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>flock</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="filetype"
+HREF="function.filetype.html"><LINK
+REL="NEXT"
+TITLE="fnmatch"
+HREF="function.fnmatch.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.filetype.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fnmatch.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.flock"
+></A
+>flock</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN41488"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.7, PHP 4, PHP 5)</P
+>flock&nbsp;--&nbsp;Sistema di bloccaggio file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41491"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>flock</B
+> ( resource handle, int operation [, int &#38;wouldblock] )<BR
+></BR
+><P
+>&#13;     Il PHP supporta un tecnologia portabile per bloccare file completi in modalità
+     advisory (tutti i programmi che vi accedono, devono usare lo stesso tipo di 
+     bloccaggio o non funzionerà).
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+	  <B
+CLASS="function"
+>flock()</B
+>è obbligatorio sotto Windows.
+	 </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <B
+CLASS="function"
+>flock()</B
+> opera su <VAR
+CLASS="parameter"
+>handle</VAR
+>
+     che deve essere un puntatore ad un file aperto. 
+     <VAR
+CLASS="parameter"
+>operation</VAR
+> può assumere uno dei valori 
+     seguenti:
+    </P
+><P
+>&#13;     <P
+></P
+><UL
+><LI
+><P
+>&#13;         Per acquisire una chiave condivisa (in lettura), imposta
+         <VAR
+CLASS="parameter"
+>operation</VAR
+> a <TT
+CLASS="constant"
+><B
+>LOCK_SH</B
+></TT
+> (usa 1 prima di 
+         PHP 4.0.1).
+       </P
+></LI
+><LI
+><P
+>&#13;         Per acquisire una chiave esclusiva (in scrittura), imposta
+         <VAR
+CLASS="parameter"
+>operation</VAR
+> a <TT
+CLASS="constant"
+><B
+>LOCK_EX</B
+></TT
+> (usa 2 prima di
+         PHP 4.0.1).
+       </P
+></LI
+><LI
+><P
+>&#13;         Per rilasciare una chiave (condivisa o esclusiva), imposta
+         <VAR
+CLASS="parameter"
+>operation</VAR
+> a <TT
+CLASS="constant"
+><B
+>LOCK_UN</B
+></TT
+> (usa 3 prima
+         PHP 4.0.1).
+       </P
+></LI
+><LI
+><P
+>&#13;        Se non vuoi che <B
+CLASS="function"
+>flock()</B
+> blocchi mentre, 
+        imposta come <TT
+CLASS="constant"
+><B
+>LOCK_NB</B
+></TT
+> (4 prima di PHP 4.0.1)
+        <VAR
+CLASS="parameter"
+>operation</VAR
+>.
+       </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>flock()</B
+> ti permette di utilizzare un semplice modello di
+     lettura/scrittura che in teoria può essere usato su qualsiasi piattaforma
+     (inclusi molti sistemi Unix e anche Windows).  Il terzo argomento (opzionale)
+     può essere impostato a <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se la chiave puo bloccare (EWOULDBLOCK
+     errno condition). Il blocco è realizzato anche da <A
+HREF="function.fclose.html"
+><B
+CLASS="function"
+>fclose()</B
+></A
+>
+  	     (che è anche richiamata automaticamente quando lo script termina).
+    </P
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN41540"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>flock()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> <br />$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"/tmp/lock.txt"</font><font color="#007700">, </font><font color="#DD0000">"w+"</font><font color="#007700">);<br /> <br />if (</font><font color="#0000BB">flock</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">LOCK_EX</font><font color="#007700">)) { </font><font color="#FF8000">// Esegue un lock esclusivo<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"Write something here\n"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">flock</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">LOCK_UN</font><font color="#007700">); </font><font color="#FF8000">// rilascia il lock<br /></font><font color="#007700">} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Non si riesce ad eseguire il lock del file !"</font><font color="#007700">;<br />}<br /> <br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /> <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Poiché <B
+CLASS="function"
+>flock()</B
+> richiede il puntatore ad un file, può occorre
+      utilizzare un speciale file di lock per proteggere l'accesso a eventuali file che si desidera
+      azzerare attraverso l'apertura in modalità di scrittura (usando "w" o "w+" come argomento
+      di <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>).
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      La funzione <B
+CLASS="function"
+>flock()</B
+> non funzione con NFS e con diversi altri file system
+      di rete. Verificare sulla documentazione del proprio sistema operativo.
+     </P
+><P
+>&#13;      Su molti sistemi operativi <B
+CLASS="function"
+>flock()</B
+> è implementato a livello
+      di processo. Usando un server API multithread quale
+      ISAPI non potrai basarti su <B
+CLASS="function"
+>flock()</B
+> per proteggere
+      i file da altri script PHP che girino in thread paralleli della stessa istanza 
+      del server!
+     </P
+><P
+>&#13;      La funzione <B
+CLASS="function"
+>flock()</B
+> non è supportata su file system antiquati tipo
+      <VAR
+CLASS="literal"
+>FAT</VAR
+> e i suoi derivati e pertanto in tali ambienti restituirà sempre
+      <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> (questo è vero soprattutto per gli utenti di
+      Windows 98).
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.filetype.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fnmatch.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>filetype</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fnmatch</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

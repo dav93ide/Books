@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Filesystem Security</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Security"
+HREF="security.html"><LINK
+REL="PREVIOUS"
+TITLE="Installed as an Apache module"
+HREF="security.apache.html"><LINK
+REL="NEXT"
+TITLE="Database Security"
+HREF="security.database.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="security.apache.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="security.database.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="security.filesystem"
+>Capitolo 26. Filesystem Security</A
+></H1
+><P
+>&#13;    PHP is subject to the security built into most server systems with
+    respect to permissions on a file and directory basis. This allows
+    you to control which files in the filesystem may be read. Care
+    should be taken with any files which are world readable to ensure
+    that they are safe for reading by all users who have access to that
+    filesystem.
+   </P
+><P
+>&#13;    Since PHP was designed to allow user level access to the filesystem,
+    it's entirely possible to write a PHP script that will allow you
+    to read system files such as /etc/passwd, modify your ethernet
+    connections, send massive printer jobs out, etc. This has some
+    obvious implications, in that you need to ensure that the files
+    that you read from and write to are the appropriate ones.
+   </P
+><P
+>&#13;    Consider the following script, where a user indicates that they'd
+    like to delete a file in their home directory. This assumes a
+    situation where a PHP web interface is regularly used for file
+    management, so the Apache user is allowed to delete files in
+    the user home directories.
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6553"
+></A
+><P
+><B
+>Esempio 26-1. Poor variable checking leads to....</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// remove a file from the user's home directory<br /></font><font color="#0000BB">$username </font><font color="#007700">= </font><font color="#0000BB">$_POST</font><font color="#007700">[</font><font color="#DD0000">'user_submitted_name'</font><font color="#007700">];<br /></font><font color="#0000BB">$homedir </font><font color="#007700">= </font><font color="#DD0000">"/home/$username"</font><font color="#007700">;<br /></font><font color="#0000BB">$file_to_delete </font><font color="#007700">= </font><font color="#DD0000">"$userfile"</font><font color="#007700">;<br /></font><font color="#0000BB">unlink </font><font color="#007700">(</font><font color="#DD0000">"$homedir/$userfile"</font><font color="#007700">);<br />echo </font><font color="#DD0000">"$file_to_delete has been deleted!"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   Since the username is postable from a user form, they can submit
+   a username and file belonging to someone else, and delete files.
+   In this case, you'd want to use some other form of authentication.
+   Consider what could happen if the variables submitted were
+   "../etc/" and "passwd". The code would then effectively read:
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6556"
+></A
+><P
+><B
+>Esempio 26-2. ... A filesystem attack</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// removes a file from anywhere on the hard drive that<br />// the PHP user has access to. If PHP has root access:<br /></font><font color="#0000BB">$username </font><font color="#007700">= </font><font color="#DD0000">"../etc/"</font><font color="#007700">;<br /></font><font color="#0000BB">$homedir </font><font color="#007700">= </font><font color="#DD0000">"/home/../etc/"</font><font color="#007700">;<br /></font><font color="#0000BB">$file_to_delete </font><font color="#007700">= </font><font color="#DD0000">"passwd"</font><font color="#007700">;<br /></font><font color="#0000BB">unlink </font><font color="#007700">(</font><font color="#DD0000">"/home/../etc/passwd"</font><font color="#007700">);<br />echo </font><font color="#DD0000">"/home/../etc/passwd has been deleted!"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    There are two important measures you should take to prevent these
+    issues.
+    <P
+></P
+><UL
+><LI
+><P
+>&#13;       Only allow limited permissions to the PHP web user binary.
+      </P
+></LI
+><LI
+><P
+>&#13;       Check all variables which are submitted.
+      </P
+></LI
+></UL
+>
+    Here is an improved script:
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6564"
+></A
+><P
+><B
+>Esempio 26-3. More secure file name checking</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// removes a file from the hard drive that<br />// the PHP user has access to.<br /></font><font color="#0000BB">$username </font><font color="#007700">= </font><font color="#0000BB">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'REMOTE_USER'</font><font color="#007700">]; </font><font color="#FF8000">// using an authentication mechanisim<br /><br /></font><font color="#0000BB">$homedir </font><font color="#007700">= </font><font color="#DD0000">"/home/$username"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$file_to_delete </font><font color="#007700">= </font><font color="#0000BB">basename</font><font color="#007700">(</font><font color="#DD0000">"$userfile"</font><font color="#007700">); </font><font color="#FF8000">// strip paths<br /></font><font color="#0000BB">unlink </font><font color="#007700">(</font><font color="#0000BB">$homedir</font><font color="#007700">/</font><font color="#0000BB">$file_to_delete</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"/home/logging/filedelete.log"</font><font color="#007700">,</font><font color="#DD0000">"+a"</font><font color="#007700">); </font><font color="#FF8000">//log the deletion<br /></font><font color="#0000BB">$logstring </font><font color="#007700">= </font><font color="#DD0000">"$username $homedir $file_to_delete"</font><font color="#007700">;<br /></font><font color="#0000BB">fwrite </font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">$logstring</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"$file_to_delete has been deleted!"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    However, even this is not without it's flaws. If your authentication
+    system allowed users to create their own user logins, and a user
+    chose the login "../etc/", the system is once again exposed. For
+    this reason, you may prefer to write a more customized check:
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6567"
+></A
+><P
+><B
+>Esempio 26-4. More secure file name checking</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$username </font><font color="#007700">= </font><font color="#0000BB">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'REMOTE_USER'</font><font color="#007700">]; </font><font color="#FF8000">// using an authentication mechanisim<br /></font><font color="#0000BB">$homedir </font><font color="#007700">= </font><font color="#DD0000">"/home/$username"</font><font color="#007700">;<br /><br />if (!</font><font color="#0000BB">ereg</font><font color="#007700">(</font><font color="#DD0000">'^[^./][^/]*$'</font><font color="#007700">, </font><font color="#0000BB">$userfile</font><font color="#007700">))<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'bad filename'</font><font color="#007700">); </font><font color="#FF8000">//die, do not process<br /><br /></font><font color="#007700">if (!</font><font color="#0000BB">ereg</font><font color="#007700">(</font><font color="#DD0000">'^[^./][^/]*$'</font><font color="#007700">, </font><font color="#0000BB">$username</font><font color="#007700">))<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'bad username'</font><font color="#007700">); </font><font color="#FF8000">//die, do not process<br />//etc...<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Depending on your operating system, there are a wide variety of files
+    which you should be concerned about, including device entries (/dev/
+    or COM1), configuration files (/etc/ files and the .ini files),
+    well known file storage areas (/home/, My Documents), etc. For this
+    reason, it's usually easier to create a policy where you forbid
+    everything except for what you explicitly allow.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="security.apache.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="security.database.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Installed as an Apache module</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="security.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Database Security</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

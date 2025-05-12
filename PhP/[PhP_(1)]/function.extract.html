@@ -1,0 +1,642 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>extract</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Array"
+HREF="ref.array.html"><LINK
+REL="PREVIOUS"
+TITLE="end"
+HREF="function.end.html"><LINK
+REL="NEXT"
+TITLE="in_array"
+HREF="function.in-array.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.end.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.in-array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.extract"
+></A
+>extract</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN12132"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.7, PHP 4, PHP 5)</P
+>extract&nbsp;--&nbsp;
+     Importa le variabili nella tabella dei simboli
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN12135"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>extract</B
+> ( array var_array [, int extract_type [, string prefix]] )<BR
+></BR
+><P
+>&#13;     Questa funzione viene usata per importare delle variabili da un array nella
+     tabella dei simbloi corrente. Riceve un array associativo
+     <VAR
+CLASS="parameter"
+>var_array</VAR
+> e interpreta le chiavi come nomi di
+     variabile e i valori come valori di variabile. Per ogni coppia chiave/valore
+     verrà creata una variabile nella tabella dei simboli corrente, coerentemente con
+     i parametri <VAR
+CLASS="parameter"
+>extract_type</VAR
+> e
+     <VAR
+CLASS="parameter"
+>prefix</VAR
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Dalla versione 4.0.5 questa funzione restituisce il numero di
+      variabili estratte.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <TT
+CLASS="constant"
+><B
+>EXTR_IF_EXISTS</B
+></TT
+> e <TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_IF_EXISTS</B
+></TT
+> sono stati introdotti nella versione 4.2.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <TT
+CLASS="constant"
+><B
+>EXTR_REFS</B
+></TT
+> è stata introdotta nella versione 4.3.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <B
+CLASS="function"
+>extract()</B
+> controlla ogni chiave per stabilire se 
+     costituisce un nome valido di variabile e se ci sono collisioni con
+     variabili già esistenti nella tabella dei simboli. Il modo in cui vengono trattate le
+     chiavi invalide/numeriche e le collisioni è determinato da
+     <VAR
+CLASS="parameter"
+>extract_type</VAR
+>. Può essere uno dei
+     seguenti valori:
+     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_OVERWRITE</B
+></TT
+></DT
+><DD
+><P
+>&#13;         Se avviene una collisione, sovrascrive la variabile esistente.
+        </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_SKIP</B
+></TT
+></DT
+><DD
+><P
+>&#13;         Se avviene una collisione, non sovrascrive la variabile
+         esistente.
+        </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_SAME</B
+></TT
+></DT
+><DD
+><P
+>Se avviene una collisione, mette come prefisso al nome della variabile il
+        parametro <VAR
+CLASS="parameter"
+>prefix</VAR
+>.
+        </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_ALL</B
+></TT
+></DT
+><DD
+><P
+>&#13;         Mette come prefisso di tutte le variabili il parametro 
+         <VAR
+CLASS="parameter"
+>prefix</VAR
+>. Dal PHP 4.0.5 questo avviene
+         anche per i valori numerici.
+        </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_INVALID</B
+></TT
+></DT
+><DD
+><P
+>&#13;         Mette come prefisso, solo per i nomi di variabili invalidi/numerici, 
+         il parametro <VAR
+CLASS="parameter"
+>prefix</VAR
+>. Questa opzione è stata aggiunta in 
+         PHP 4.0.5.
+        </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_IF_EXISTS</B
+></TT
+></DT
+><DD
+><P
+>&#13;         Sovrascrive la variabile solo se già esiste nella
+         tabella dei simboli, altrimenti non fa nulla. Questo è utile
+         per definire una lista di variabili valide e quindi estrarre
+         solo quelle variabili definite in $_REQUEST, per
+         esempio. Questa opzione è stata aggiunta in PHP 4.2.0.
+        </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_IF_EXISTS</B
+></TT
+></DT
+><DD
+><P
+>&#13;         Crea nomi di variabili con il prefisso solo se la versione senza prefisso
+         della stessa variable esiste nella tabella dei simboli. Questa
+         opzione è stata aggiunta in PHP 4.2.0.
+        </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_REFS</B
+></TT
+></DT
+><DD
+><P
+>&#13;         Estrae le variabili come riferimenti. Questo in effetti significa che i
+         valori delle variabili importate referenziano i valori del
+         parametro <VAR
+CLASS="parameter"
+>var_array</VAR
+>. Si può usare questo flag
+         da solo o combinarlo con gli altri mediante un OR nel parametro
+         <VAR
+CLASS="parameter"
+>extract_type</VAR
+>. Questo flag è stato aggiunto nel PHP
+         4.3.0.
+        </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>extract_type</VAR
+> non è specificato, si
+     assume che sia <TT
+CLASS="constant"
+><B
+>EXTR_OVERWRITE</B
+></TT
+>.
+    </P
+><P
+>&#13;     Si noti che <VAR
+CLASS="parameter"
+>prefix</VAR
+> è richiesto solo se
+     <VAR
+CLASS="parameter"
+>extract_type</VAR
+> è <TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_SAME</B
+></TT
+>,
+     <TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_ALL</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_INVALID</B
+></TT
+> 
+     o <TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_IF_EXISTS</B
+></TT
+>. Se
+     il risultato non è un nome di variabile valido, non
+     viene importato nella tabella dei simboli.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>extract()</B
+> restituisce il numero di variabili importate
+     con successo nella tabella dei simboli.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Non utilizzare <B
+CLASS="function"
+>extract()</B
+> su dati non convalidati, come
+      gli input degli utenti ($_GET, ...). Se lo si deve fare, ad esempio per eseguire temporaneamente
+      vecchio codice basato su
+      <A
+HREF="security.globals.html"
+>register_globals</A
+>,
+      sincerarsi di utilizzare uno dei valori di
+      <VAR
+CLASS="parameter"
+>extract_type</VAR
+> come
+      <TT
+CLASS="constant"
+><B
+>EXTR_SKIP</B
+></TT
+> e ricordarsi che occorre estrarre
+      <VAR
+CLASS="varname"
+>$_SERVER</VAR
+>, <VAR
+CLASS="varname"
+>$_SESSION</VAR
+>,
+      <VAR
+CLASS="varname"
+>$_COOKIE</VAR
+>, <VAR
+CLASS="varname"
+>$_POST</VAR
+> e
+      <VAR
+CLASS="varname"
+>$_GET</VAR
+> in questo ordine.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Un possibile uso di <B
+CLASS="function"
+>extract()</B
+> è quello di importare nella tabella dei simboli
+     variabili contenute in un array associativo restituito da
+     <A
+HREF="function.wddx-deserialize.html"
+><B
+CLASS="function"
+>wddx_deserialize()</B
+></A
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN12238"
+></A
+><P
+><B
+>Esempio 1. esempio di<B
+CLASS="function"
+>extract()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">/* Si supponga che $array_variabili sia un array restituito da<br />&nbsp;&nbsp;&nbsp;wddx_deserialize */<br /><br /></font><font color="#0000BB">$dimensione </font><font color="#007700">= </font><font color="#DD0000">"grande"</font><font color="#007700">;<br /></font><font color="#0000BB">$array_variabili </font><font color="#007700">= array(</font><font color="#DD0000">"colore" </font><font color="#007700">=&gt; </font><font color="#DD0000">"blu"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"dimensione"&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"media"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"forma" </font><font color="#007700">=&gt; </font><font color="#DD0000">"sfera"</font><font color="#007700">);<br /></font><font color="#0000BB">extract</font><font color="#007700">(</font><font color="#0000BB">$array_variabili</font><font color="#007700">, </font><font color="#0000BB">EXTR_PREFIX_SAME</font><font color="#007700">, </font><font color="#DD0000">"wddx"</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"$colore, $dimensione, $forma, $wddx_dimensione</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       L'esempio mostrerà:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>blu, grande, sfera, media</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     La variabile <VAR
+CLASS="varname"
+>$dimensione</VAR
+> non è stata sovrascritta, in quanto è
+     specificato <TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_SAME</B
+></TT
+>, che ha portato alla
+     creazione di <VAR
+CLASS="varname"
+>$wddx_dimensione</VAR
+>.  Se fosse stato specificato <TT
+CLASS="constant"
+><B
+>EXTR_SKIP</B
+></TT
+>,
+     $wddx_dimensione non sarebbe stata creata.
+     <TT
+CLASS="constant"
+><B
+>EXTR_OVERWRITE</B
+></TT
+> avrebbe portato <VAR
+CLASS="varname"
+>$dimensione</VAR
+> ad assumere
+     il valore "medio", e <TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_ALL</B
+></TT
+> avrebbe fatto creare nuove variabili
+     chiamate <VAR
+CLASS="varname"
+>$wddx_colore</VAR
+>,
+     <VAR
+CLASS="varname"
+>$wddx_dimensione</VAR
+> e
+     <VAR
+CLASS="varname"
+>$wddx_forma</VAR
+>.
+    </P
+><P
+>&#13;     Si deve usare un array associativo, un array indicizzato numericamente
+     non produce risultati a meno di non usare
+     <TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_ALL</B
+></TT
+> o <TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_INVALID</B
+></TT
+>.
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.compact.html"
+><B
+CLASS="function"
+>compact()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.end.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.in-array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>end</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.array.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>in_array</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

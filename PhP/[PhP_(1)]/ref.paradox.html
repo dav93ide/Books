@@ -1,0 +1,986 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Paradox File Access</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="ovrimos_rollback"
+HREF="function.ovrimos-rollback.html"><LINK
+REL="NEXT"
+TITLE="px_close"
+HREF="function.px-close.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ovrimos-rollback.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.px-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.paradox"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CV. Paradox File Access</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN119963"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="paradox.intro"
+>Introduzione</A
+></H1
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questo modulo è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di queste
+funzioni, i nomi di queste funzioni, in definitiva tutto ciò 
+che è documentato qui può cambiare nei futuri rilasci 
+del PHP senza preavviso. Siete avvisati, l'uso di questo modulo 
+è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;    This module allows to read Paradox database and primary index files. It
+    has initial support for creating Paradox databases. Consider it to be
+    experimental due to lack of documentation of the Paradox file format.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     This module has not been tested on other platforms than Debian/GNU Linux
+     for PPC.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     This module is also in development and may change, though I don't expect
+     major changes to the API.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="paradox.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    You need at least PHP 5.0.0 and libpx &#62;= 0.1.9. The paradox library
+    (libpx) is available at
+    <A
+HREF="http://pxlib.sourceforge.net"
+TARGET="_top"
+>http://pxlib.sourceforge.net</A
+>.    
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="paradox.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  A short installation note: just type
+  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$ pear install paradox</PRE
+></TD
+></TR
+></TABLE
+>
+  in your console. 
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="paradox.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="paradox.oo-api"
+>Object oriented API</A
+></H1
+><P
+>&#13;    The paradox extension provides also an object oriented API. It consists of
+    only one class called paradox_doc. Its methods only differ from the
+    functions in its name and of course the missing first parameter. The
+    following table will list all methods and its equivalent functions.
+
+    <DIV
+CLASS="table"
+><A
+NAME="paradox.table-class-methods"
+></A
+><P
+><B
+>Tabella 1. Methods of class paradox_doc</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Name of method</TH
+><TH
+>Equivalent function</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>Constructor</TD
+><TD
+><A
+HREF="function.px-new.html"
+><B
+CLASS="function"
+>px_new()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>Destructor</TD
+><TD
+><A
+HREF="function.px-delete.html"
+><B
+CLASS="function"
+>px_delete()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>open_fp()</B
+></TD
+><TD
+><A
+HREF="function.px-open-fp.html"
+><B
+CLASS="function"
+>px_open_fp()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>create_fp()</B
+></TD
+><TD
+><A
+HREF="function.px-create-fp.html"
+><B
+CLASS="function"
+>px_create_fp()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>close()</B
+></TD
+><TD
+><A
+HREF="function.px-close.html"
+><B
+CLASS="function"
+>px_close()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>numrecords()</B
+></TD
+><TD
+><A
+HREF="function.px-numrecords.html"
+><B
+CLASS="function"
+>px_numrecords()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>numfields()</B
+></TD
+><TD
+><A
+HREF="function.px-numfields.html"
+><B
+CLASS="function"
+>px_numfields()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>get_record()</B
+></TD
+><TD
+><A
+HREF="function.px-get-record.html"
+><B
+CLASS="function"
+>px_get_record()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>put_record()</B
+></TD
+><TD
+><A
+HREF="function.px-put-record.html"
+><B
+CLASS="function"
+>px_put_record()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>get_field()</B
+></TD
+><TD
+><A
+HREF="function.px-get-field.html"
+><B
+CLASS="function"
+>px_get_field()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>get_schema()</B
+></TD
+><TD
+><A
+HREF="function.px-get-schema.html"
+><B
+CLASS="function"
+>px_get_schema()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>get_info()</B
+></TD
+><TD
+><A
+HREF="function.px-get-info.html"
+><B
+CLASS="function"
+>px_get_info()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>set_parameter()</B
+></TD
+><TD
+><A
+HREF="function.px-set-parameter.html"
+><B
+CLASS="function"
+>px_set_parameter()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>get_parameter()</B
+></TD
+><TD
+><A
+HREF="function.px-get-parameter.html"
+><B
+CLASS="function"
+>px_get_parameter()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>set_value()</B
+></TD
+><TD
+><A
+HREF="function.px-set-value.html"
+><B
+CLASS="function"
+>px_set_value()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>get_value()</B
+></TD
+><TD
+><A
+HREF="function.px-get-value.html"
+><B
+CLASS="function"
+>px_get_value()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>get_info()</B
+></TD
+><TD
+><A
+HREF="function.px-get-info.html"
+><B
+CLASS="function"
+>px_get_info()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>set_targetencoding()</B
+></TD
+><TD
+><A
+HREF="function.px-set-targetencoding.html"
+><B
+CLASS="function"
+>px_set_targetencoding()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>set_tablename()</B
+></TD
+><TD
+><A
+HREF="function.px-set-tablename.html"
+><B
+CLASS="function"
+>px_set_tablename()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>set_blob_file()</B
+></TD
+><TD
+><A
+HREF="function.px-set-blob-file.html"
+><B
+CLASS="function"
+>px_set_blob_file()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>timestamp2string()</B
+></TD
+><TD
+><A
+HREF="function.px-timestamp2string.html"
+><B
+CLASS="function"
+>px_timestamp2string()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="paradox.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+>&#13;  The following two tables lists all constants defined by the paradox
+  extension.
+  <DIV
+CLASS="table"
+><A
+NAME="paradox.table-fieldtypes"
+></A
+><P
+><B
+>Tabella 2. Contants for field types</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>PX_FIELD_ALPHA</TD
+><TD
+>Character data with fixed length</TD
+></TR
+><TR
+><TD
+>PX_FIELD_DATE</TD
+><TD
+>Date</TD
+></TR
+><TR
+><TD
+>PX_FIELD_SHORT</TD
+><TD
+>Short integer (2 Bytes)</TD
+></TR
+><TR
+><TD
+>PX_FIELD_LONG</TD
+><TD
+>Long integer (4 Bytes)</TD
+></TR
+><TR
+><TD
+>PX_FIELD_CURRENCY</TD
+><TD
+>same as PX_FIELD_NUMBER</TD
+></TR
+><TR
+><TD
+>PX_FIELD_NUMBER</TD
+><TD
+>Double</TD
+></TR
+><TR
+><TD
+>PX_FIELD_LOGICAL</TD
+><TD
+>Boolean</TD
+></TR
+><TR
+><TD
+>PX_FIELD_MEMOBLOB</TD
+><TD
+>Binary large object (not supported)</TD
+></TR
+><TR
+><TD
+>PX_FIELD_BLOB</TD
+><TD
+>Binary large object (not supported)</TD
+></TR
+><TR
+><TD
+>PX_FIELD_FMTMEMOBLOB</TD
+><TD
+>Binary large object (not supported)</TD
+></TR
+><TR
+><TD
+>PX_FIELD_OLE</TD
+><TD
+>OLE object (basically a blob, not supported)</TD
+></TR
+><TR
+><TD
+>PX_FIELD_GRAPHIC</TD
+><TD
+>Graphic (basically a blob, not supported)</TD
+></TR
+><TR
+><TD
+>PX_FIELD_TIME</TD
+><TD
+>time</TD
+></TR
+><TR
+><TD
+>PX_FIELD_TIMESTAMP</TD
+><TD
+>timestamp (like the unix timestamp)</TD
+></TR
+><TR
+><TD
+>PX_FIELD_AUTOINC</TD
+><TD
+>Auto incrementing interger (like PX_FIELD_LONG)</TD
+></TR
+><TR
+><TD
+>PX_FIELD_BCD</TD
+><TD
+>Decimal number stored in bcd format (not supported)</TD
+></TR
+><TR
+><TD
+>PX_FIELD_BYTES</TD
+><TD
+>Array of Bytes with not more than 255 bytes (not supported)</TD
+></TR
+><TR
+><TD
+>PX_KEYTOLOWER</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>PX_KEYTOUPPER</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  <DIV
+CLASS="table"
+><A
+NAME="paradox.table-filetypes"
+></A
+><P
+><B
+>Tabella 3. Contants for file types</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>PX_FILE_INDEX_DB</TD
+><TD
+>Indexed database</TD
+></TR
+><TR
+><TD
+>PX_FILE_PRIM_INDEX</TD
+><TD
+>Primary index</TD
+></TR
+><TR
+><TD
+>PX_FILE_NON_INDEX_DB</TD
+><TD
+>None indexed database</TD
+></TR
+><TR
+><TD
+>PX_FILE_NON_INC_SEC_INDEX</TD
+><TD
+>None incremental secondary index (not supported)</TD
+></TR
+><TR
+><TD
+>PX_FILE_SEC_INDEX</TD
+><TD
+>Secondary index (not supported)</TD
+></TR
+><TR
+><TD
+>PX_FILE_INC_SEC_INDEX</TD
+><TD
+>Incremental secondary index (not supported)</TD
+></TR
+><TR
+><TD
+>PX_FILE_NON_INC_SEC_INDEX_G</TD
+><TD
+>(not supported)</TD
+></TR
+><TR
+><TD
+>PX_FILE_SEC_INDEX_G</TD
+><TD
+>(not supported)</TD
+></TR
+><TR
+><TD
+>PX_FILE_INC_SEC_INDEX_G</TD
+><TD
+>(not supported)</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.px-close.html"
+>px_close</A
+>&nbsp;--&nbsp;Closes a paradox database</DT
+><DT
+><A
+HREF="function.px-create-fp.html"
+>px_create_fp</A
+>&nbsp;--&nbsp;Create a new paradox database</DT
+><DT
+><A
+HREF="function.px-delete.html"
+>px_delete</A
+>&nbsp;--&nbsp;Deletes resource of paradox database</DT
+><DT
+><A
+HREF="function.px-get-field.html"
+>px_get_field</A
+>&nbsp;--&nbsp;Returns the specification of a single field</DT
+><DT
+><A
+HREF="function.px-get-info.html"
+>px_get_info</A
+>&nbsp;--&nbsp;Return lots of information about a paradox file</DT
+><DT
+><A
+HREF="function.px-get-parameter.html"
+>px_get_parameter</A
+>&nbsp;--&nbsp;Gets a parameter</DT
+><DT
+><A
+HREF="function.px-get-record.html"
+>px_get_record</A
+>&nbsp;--&nbsp;Returns record of paradox database</DT
+><DT
+><A
+HREF="function.px-get-schema.html"
+>px_get_schema</A
+>&nbsp;--&nbsp;Returns the database schema</DT
+><DT
+><A
+HREF="function.px-get-value.html"
+>px_get_value</A
+>&nbsp;--&nbsp;Gets a value</DT
+><DT
+><A
+HREF="function.px-new.html"
+>px_new</A
+>&nbsp;--&nbsp;Create a new paradox object</DT
+><DT
+><A
+HREF="function.px-numfields.html"
+>px_numfields</A
+>&nbsp;--&nbsp;Returns number of fields in a database</DT
+><DT
+><A
+HREF="function.px-numrecords.html"
+>px_numrecords</A
+>&nbsp;--&nbsp;Returns number of records in a database</DT
+><DT
+><A
+HREF="function.px-open-fp.html"
+>px_open_fp</A
+>&nbsp;--&nbsp;Open paradox database</DT
+><DT
+><A
+HREF="function.px-put-record.html"
+>px_put_record</A
+>&nbsp;--&nbsp;Stores record into paradox database</DT
+><DT
+><A
+HREF="function.px-set-blob-file.html"
+>px_set_blob_file</A
+>&nbsp;--&nbsp;Sets the file where blobs are read from</DT
+><DT
+><A
+HREF="function.px-set-parameter.html"
+>px_set_parameter</A
+>&nbsp;--&nbsp;Sets a parameter</DT
+><DT
+><A
+HREF="function.px-set-tablename.html"
+>px_set_tablename</A
+>&nbsp;--&nbsp;Sets the name of a table (deprecated)</DT
+><DT
+><A
+HREF="function.px-set-targetencoding.html"
+>px_set_targetencoding</A
+>&nbsp;--&nbsp;Sets the encoding for character fields (deprecated)</DT
+><DT
+><A
+HREF="function.px-set-value.html"
+>px_set_value</A
+>&nbsp;--&nbsp;Sets a value</DT
+><DT
+><A
+HREF="function.px-timestamp2string.html"
+>px_timestamp2string</A
+>&nbsp;--&nbsp;
+   Converts the timestamp into a string.
+  </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ovrimos-rollback.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.px-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ovrimos_rollback</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>px_close</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

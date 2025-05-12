@@ -1,0 +1,378 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>php_stream_make_seekable</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Streams Common API Reference"
+HREF="streams.common-api.html"><LINK
+REL="PREVIOUS"
+TITLE="php_stream_copy_to_mem"
+HREF="streams.php-stream-copy-to-mem.html"><LINK
+REL="NEXT"
+TITLE="php_stream_cast"
+HREF="streams.php-stream-cast.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="streams.php-stream-copy-to-mem.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="streams.php-stream-cast.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="streams.php-stream-make-seekable"
+></A
+>php_stream_make_seekable</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN184403"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>php_stream_make_seekable&nbsp;--&nbsp;Convert a stream into a stream is seekable</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN184406"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>php_stream_make_seekable</B
+> ( php_stream * origstream, php_stream ** newstream, int flags )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>php_stream_make_seekable()</B
+> checks if <VAR
+CLASS="parameter"
+>origstream</VAR
+> is
+     seekable.   If it is not, it will copy the data into a new temporary stream.
+     If successful, <VAR
+CLASS="parameter"
+>newstream</VAR
+> is always set to the stream that is valid to use, even if the original
+     stream was seekable.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>flags</VAR
+> allows you to specify your preference for the seekable stream that is
+     returned: use <TT
+CLASS="constant"
+><B
+>PHP_STREAM_NO_PREFERENCE</B
+></TT
+> to use the default seekable stream
+     (which uses a dynamically expanding memory buffer, but switches to temporary file backed storage
+     when the stream size becomes large), or use <TT
+CLASS="constant"
+><B
+>PHP_STREAM_PREFER_STDIO</B
+></TT
+> to
+     use "regular" temporary file backed storage.
+    </P
+><P
+>&#13;     <DIV
+CLASS="table"
+><A
+NAME="AEN184429"
+></A
+><P
+><B
+>Tabella 44-1. <B
+CLASS="function"
+>php_stream_make_seekable()</B
+> return values</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Value</TH
+><TH
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>PHP_STREAM_UNCHANGED</TD
+><TD
+>Original stream was seekable anyway. <VAR
+CLASS="parameter"
+>newstream</VAR
+> is set to the value
+          of <VAR
+CLASS="parameter"
+>origstream</VAR
+>.
+         </TD
+></TR
+><TR
+><TD
+>PHP_STREAM_RELEASED</TD
+><TD
+>Original stream was not seekable and has been released. <VAR
+CLASS="parameter"
+>newstream</VAR
+> is set to the
+          new seekable stream.  You should not access <VAR
+CLASS="parameter"
+>origstream</VAR
+> anymore.
+         </TD
+></TR
+><TR
+><TD
+>PHP_STREAM_FAILED</TD
+><TD
+>An error occurred while attempting conversion. <VAR
+CLASS="parameter"
+>newstream</VAR
+> is set to NULL;
+          <VAR
+CLASS="parameter"
+>origstream</VAR
+> is still valid.
+         </TD
+></TR
+><TR
+><TD
+>PHP_STREAM_CRITICAL</TD
+><TD
+>An error occurred while attempting conversion that has left <VAR
+CLASS="parameter"
+>origstream</VAR
+> in
+         an indeterminate state. <VAR
+CLASS="parameter"
+>newstream</VAR
+> is set to NULL and it is highly recommended
+         that you close <VAR
+CLASS="parameter"
+>origstream</VAR
+>.
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      If you need to seek and write to the stream, it does not make sense to use this function, because the stream
+      it returns is not guaranteed to be bound to the same resource as the original stream.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      If you only need to seek forwards, there is no need to call this function, as the streams API will emulate
+      forward seeks when the whence parameter is <TT
+CLASS="constant"
+><B
+>SEEK_CUR</B
+></TT
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      If <VAR
+CLASS="parameter"
+>origstream</VAR
+> is network based, this function will block until the whole contents
+      have been downloaded.
+      </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      NEVER call this function with an <VAR
+CLASS="parameter"
+>origstream</VAR
+> that is reference by a file pointer
+      in a PHP script!  This function may cause the underlying stream to be closed which could cause a crash
+      when the script next accesses the file pointer!
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     In many cases, this function can only succeed when <VAR
+CLASS="parameter"
+>origstream</VAR
+> is a newly opened
+     stream with no data buffered in the stream layer.  For that reason, and because this function is complicated to
+     use correctly, it is recommended that you use <B
+CLASS="function"
+>php_stream_open_wrapper()</B
+> and pass in
+     <TT
+CLASS="constant"
+><B
+>PHP_STREAM_MUST_SEEK</B
+></TT
+> in your options instead of calling this function directly.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="streams.php-stream-copy-to-mem.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="streams.php-stream-cast.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>php_stream_copy_to_mem</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="streams.common-api.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>php_stream_cast</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

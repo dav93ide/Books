@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mktime</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Data e Ora"
+HREF="ref.datetime.html"><LINK
+REL="PREVIOUS"
+TITLE="microtime"
+HREF="function.microtime.html"><LINK
+REL="NEXT"
+TITLE="strftime"
+HREF="function.strftime.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.microtime.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.strftime.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mktime"
+></A
+>mktime</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN24071"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mktime&nbsp;--&nbsp;Restituisce la UNIX timestamp per una data</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN24074"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>mktime</B
+> ( int hour, int minute, int second, int month, int day, int year [, int is_dst] )<BR
+></BR
+><P
+>&#13;     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Attenzione:</I
+></SPAN
+> Nota lo strano ordine degli
+     argomenti, che differiscono dal normale ordine degli argomenti in una normale chiamata
+     UNIX mktime() e che non si presta bene a far
+     comparire i parametri da destra a sinistra (guarda sotto). E' un comune errore
+     la confusione di questi argomenti in uno script.
+    </P
+><P
+>&#13;     Restituisce la Unix timestamp corrispondente all'argomento 
+     dato. Questa timestamp è un intero lungo contenente il numero di
+     secondi tra la Unix Epoch (January 1 1970) e la data e orario 
+     specificati.
+    </P
+><P
+>&#13;     Gli argomenti possono essere omessi nell'ordine da destra a sinistra; degli
+     argomenti omessi saranno impostati con l'attuale valore accordandolo
+     alla data e orario locale.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>is_dst</VAR
+> può essere impostato su 1 se l'orario è
+     nell'ora legale, 0 altrimenti, o -1 (di default)
+     se è sconosciuta la presenza dell'ora legale o 
+     meno. Se è sconosciuto, il PHP proverà ad impostarlo da se. Questo può
+     causare un risultato non aspettato (ma non sbagliato).
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <VAR
+CLASS="parameter"
+>is_dst</VAR
+> è stato aggiunto nella verisone 3.0.10.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <B
+CLASS="function"
+>mktime()</B
+> è usata per fare calcoli tra date
+     e validazioni, come può calcolare automaticamente il corretto 
+     valore per un valore fuori dall'intervallo valido. Per esempio, ognuna delle seguenti
+     linee produce la stringa "Jan-01-1998".
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN24111"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>mktime()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+echo date ("M-d-Y", mktime (0,0,0,12,32,1997));<br />echo date ("M-d-Y", mktime (0,0,0,13,1,1997));<br />echo date ("M-d-Y", mktime (0,0,0,1,1,1998));<br />echo date ("M-d-Y", mktime (0,0,0,1,1,98));</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <VAR
+CLASS="parameter"
+>Year</VAR
+> può avere sia 2 che 4 cifre,
+     con valori compresi tra 0-69 e 2000-2069 oppure tra 70-99 e
+     1970-1999 (sui sistemi dove time_t è un intero segnato a 32bit, come
+     sulla maggior parte dei PC di oggi, l'intervallo valido per
+     <VAR
+CLASS="parameter"
+>year</VAR
+> è tra 1902 e 2037).
+    </P
+><P
+>&#13;     L'ultimo giorno del mese dato può essere espresso come il giorno "0" 
+     del mese successivo, non come il giorno -1. Entrami i seguenti esempi
+     produrranno la stringa "L'ultimo giorno di Feb 2000 è: 29".
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN24118"
+></A
+><P
+><B
+>Esempio 2. L'ultimo giorno del mese successivo</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$lastday = mktime (0,0,0,3,0,2000);<br />echo strftime ("L'ultimo giorno di Feb 2000 è: %d", $lastday);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />$lastday = mktime (0,0,0,4,-31,2000);<br />echo strftime ("L'ultimo giorno di Feb 2000 è: %d", $lastday);</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;    Date con anno, mese e giorno uguali a 0 non sono considerate valide 
+    (altrimenti saranno considerate come 30.11.1999, quando hanno uno strano
+     behavior).
+    </P
+><P
+>&#13;     Guarda anche <A
+HREF="function.date.html"
+><B
+CLASS="function"
+>date()</B
+></A
+> e <A
+HREF="function.time.html"
+><B
+CLASS="function"
+>time()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.microtime.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.strftime.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>microtime</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.datetime.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>strftime</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

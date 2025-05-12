@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDOStatement::errorInfo</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Functions"
+HREF="ref.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="PDOStatement::errorCode"
+HREF="function.pdostatement-errorcode.html"><LINK
+REL="NEXT"
+TITLE="PDOStatement::execute"
+HREF="function.pdostatement-execute.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-errorcode.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-execute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDOStatement-errorInfo"
+></A
+>PDOStatement::errorInfo</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN128482"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDOStatement::errorInfo&nbsp;--&nbsp;
+     Fetch extended error information associated with the last operation on the statement handle
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128485"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>PDOStatement::errorInfo</B
+> ( void  )<BR
+></BR
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128491"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;     <B
+CLASS="function"
+>PDOStatement::errorInfo()</B
+> returns an array of
+     error information about the last operation performed by this
+     statement handle. The array consists of the following fields:
+     <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN128495"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Element</TH
+><TH
+>Information</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>0</TD
+><TD
+>SQLSTATE error code (a five-character alphanumeric identifier defined
+                 in the ANSI SQL standard).</TD
+></TR
+><TR
+><TD
+>1</TD
+><TD
+>Driver-specific error code.</TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+>Driver-specific error message.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128511"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128514"
+></A
+><P
+><B
+>Esempio 1. Displaying errorInfo() fields for a PDO_ODBC connection to a DB2 database</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Provoke an error -- the BONES table does not exist */<br /></font><font color="#0000BB">$sth </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">'SELECT skull FROM bones'</font><font color="#007700">);<br /></font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br /><br />echo </font><font color="#DD0000">"\nPDOStatement::errorInfo():\n"</font><font color="#007700">;<br /></font><font color="#0000BB">$arr </font><font color="#007700">= </font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">errorInfo</font><font color="#007700">();<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$arr</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>PDOStatement::errorInfo():
+Array
+(
+    [0] =&#62; 42S02
+    [1] =&#62; -204
+    [2] =&#62; [IBM][CLI Driver][DB2/LINUX] SQL0204N  "DANIELS.BONES" is an undefined name.  SQLSTATE=42704
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128519"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;     <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::errorCode()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::errorInfo()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::errorCode()</B
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdostatement-errorcode.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pdostatement-execute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDOStatement::errorCode</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDOStatement::execute</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

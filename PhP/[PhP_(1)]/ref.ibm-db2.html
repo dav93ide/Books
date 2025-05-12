@@ -1,0 +1,1124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>IBM DB2, Cloudscape and Apache Derby Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="hw_api->userlist"
+HREF="function.hwapi-userlist.html"><LINK
+REL="NEXT"
+TITLE="db2_autocommit"
+HREF="function.db2-autocommit.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.hwapi-userlist.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-autocommit.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.ibm-db2"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LI. IBM DB2, Cloudscape and Apache Derby Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN52143"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ibm-db2.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    These functions enable you to access IBM DB2 Universal Database, IBM
+    Cloudscape, and Apache Derby databases using the DB2 Call Level Interface
+    (DB2 CLI).
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ibm-db2.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    To connect to IBM DB2 Universal Database for Linux, UNIX, and Windows, or
+    IBM Cloudscape, or Apache Derby, you must install an IBM DB2 Universal
+    Database client on the same computer on which you are running PHP. The
+    extension has been developed and tested with DB2 Version 8.2.
+   </P
+><P
+>&#13;    To connect to IBM DB2 Universal Database for z/OS or iSeries, you also
+    require IBM DB2 Connect or the equivalent DRDA gateway software.
+   </P
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="ibm-db2.requirements.unix"
+>Requirements on Linux or Unix</A
+></H2
+><P
+>&#13;     The user invoking the PHP executable or SAPI must specify the DB2 instance
+     before accessing these functions. You can set the name of the DB2 instance
+     in <TT
+CLASS="filename"
+>php.ini</TT
+> using the <VAR
+CLASS="literal"
+>ibm_db2.instance_name</VAR
+>
+     configuration option, or you can source the DB2 instance profile before
+     invoking the PHP executable.
+    </P
+><P
+>&#13;     If you created a DB2 instance named <VAR
+CLASS="literal"
+>db2inst1</VAR
+> in
+     <TT
+CLASS="filename"
+>/home/db2inst1/</TT
+>, for example, you can add the
+     following line to <TT
+CLASS="filename"
+>php.ini</TT
+>:
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>ibm_db2.instance_name=db2inst1</PRE
+></TD
+></TR
+></TABLE
+>
+     If you do not set this option in <TT
+CLASS="filename"
+>php.ini</TT
+>, you must issue the
+     following command to modify your environment variables to enable access to
+     DB2:
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>bash$ source /home/db2inst1/sqllib/db2profile</PRE
+></TD
+></TR
+></TABLE
+>
+     To enable your PHP-enabled Web server to access these functions, you must
+     either set the <VAR
+CLASS="literal"
+>ibm_db2.instance_name</VAR
+> configuration
+     option in <TT
+CLASS="filename"
+>php.ini</TT
+>, or source the DB2 instance environment in your Web
+     server start script (typically <TT
+CLASS="filename"
+>/etc/init.d/httpd</TT
+> or
+     <TT
+CLASS="filename"
+>/etc/init.d/apache</TT
+>).
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ibm-db2.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  To build the ibm_db2 extension, the DB2 application development header
+  files and libraries must be installed on your system. DB2 does not install
+  these by default, so you may have to return to your DB2 installer and add
+  this option. The header files are included with the DB2 Application
+  Development Client freely available for download from the IBM DB2 Universal
+  Database <A
+HREF="http://www-306.ibm.com/software/data/db2/udb/support/downloadv8.html"
+TARGET="_top"
+>support site</A
+>.
+ </P
+><P
+>&#13;  If you add the DB2 application development header files and libraries to
+  a Linux or Unix operating system on which DB2 was already installed, you
+  must issue the command <B
+CLASS="command"
+>db2iupdt -e</B
+> to update the symbolic
+  links to the header files and libraries in your DB2 instances.
+ </P
+><P
+>&#13;  ibm_db2 is a  <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> extension, so follow the
+  instructions in <A
+HREF="install.pecl.html"
+>Capitolo 7</A
+> to install the ibm_db2
+  extension for PHP. Issue the <B
+CLASS="command"
+>configure</B
+> command to point
+  to the location of your DB2 header files and libraries as follows:
+  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>bash$ ./configure --with-IBM_DB2=/path/to/DB2</PRE
+></TD
+></TR
+></TABLE
+>
+  The <B
+CLASS="command"
+>configure</B
+> command defaults to
+  <TT
+CLASS="filename"
+>/opt/IBM/db2/V8.1</TT
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="extname.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN52185"
+></A
+><P
+><B
+>Tabella 1. ibm_db2 Opioni di configurazione</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>ibm_db2.binmode</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>ibm_db2.instance_name</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.ibm-db2.binmode"
+></A
+><VAR
+CLASS="parameter"
+>ibm_db2.binmode</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      This option controls the mode used for converting to and from binary
+      data in the PHP application.
+      <P
+></P
+><UL
+><LI
+><P
+>&#13;         1 (DB2_BINARY)
+        </P
+></LI
+><LI
+><P
+>&#13;         2 (DB2_CONVERT)
+        </P
+></LI
+><LI
+><P
+>&#13;         3 (DB2_PASSTHRU)
+        </P
+></LI
+></UL
+>
+     </P
+></DD
+><DT
+><A
+NAME="ini.ibm-db2.instance-name"
+></A
+><VAR
+CLASS="parameter"
+>ibm_db2.instance_name</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      On Linux and UNIX operating systems, this option defines the name of the
+      instance to use for cataloged database connections. If this option is set,
+      its value overrides the DB2INSTANCE environment variable setting.
+     </P
+><P
+>&#13;      This option is ignored on Windows operating systems.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ibm-db2.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_BINARY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+     Specifies that binary data shall be returned as is. This is the default
+     mode.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_CONVERT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies that binary data shall be converted to a hexadecimal encoding
+     and returned as an ASCII string.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_PASSTHRU</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies that binary data shall be converted to a <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> value.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_SCROLLABLE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+> 
+     Specifies a scrollable cursor for a statement resource. This mode enables
+     random access to rows in a result set, but currently is supported only by
+     IBM DB2 Universal Database.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_FORWARD_ONLY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies a forward-only cursor for a statement resource. This is the
+     default cursor type and is supported on all database servers.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_PARAM_IN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies the PHP variable should be bound as an IN parameter for a
+     stored procedure.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_PARAM_OUT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies the PHP variable should be bound as an OUT parameter for a
+     stored procedure.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_PARAM_INOUT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies the PHP variable should be bound as an INOUT parameter for a
+     stored procedure.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_PARAM_FILE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies that the column should be bound directly to a file for input or
+     output.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_AUTOCOMMIT_ON</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies that autocommit should be turned on.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_AUTOCOMMIT_OFF</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies that autocommit should be turned off.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_DOUBLE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies that the variable should be bound as a DOUBLE, FLOAT, or REAL
+     data type.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_LONG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies that the variable should be bound as a SMALLINT, INTEGER, or
+     BIGINT data type.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DB2_CHAR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Specifies that the variable should be bound as a CHAR or VARCHAR data type.
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ibm-db2.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;    The ibm_db2 extension returns connection resources, statement resources,
+    and result set resources.
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.db2-autocommit.html"
+>db2_autocommit</A
+>&nbsp;--&nbsp;
+   Returns or sets the AUTOCOMMIT state for a database connection
+  </DT
+><DT
+><A
+HREF="function.db2-bind-param.html"
+>db2_bind_param</A
+>&nbsp;--&nbsp;
+   Binds a PHP variable to an SQL statement parameter
+  </DT
+><DT
+><A
+HREF="function.db2-client-info.html"
+>db2_client_info</A
+>&nbsp;--&nbsp;Returns an object with properties that describe the DB2 database client</DT
+><DT
+><A
+HREF="function.db2-close.html"
+>db2_close</A
+>&nbsp;--&nbsp;
+   Closes a database connection
+  </DT
+><DT
+><A
+HREF="function.db2-column-privileges.html"
+>db2_column_privileges</A
+>&nbsp;--&nbsp;
+   Returns a result set listing the columns and associated privileges for a table
+  </DT
+><DT
+><A
+HREF="function.db2-columns.html"
+>db2_columns</A
+>&nbsp;--&nbsp;
+   Returns a result set listing the columns and associated metadata for a table
+  </DT
+><DT
+><A
+HREF="function.db2-commit.html"
+>db2_commit</A
+>&nbsp;--&nbsp;
+   Commits a transaction
+  </DT
+><DT
+><A
+HREF="function.db2-conn-error.html"
+>db2_conn_error</A
+>&nbsp;--&nbsp;
+   Returns a string containing the SQLSTATE returned by the last connection attempt
+  </DT
+><DT
+><A
+HREF="function.db2-conn-errormsg.html"
+>db2_conn_errormsg</A
+>&nbsp;--&nbsp;
+   Returns the last connection error message and SQLCODE value
+  </DT
+><DT
+><A
+HREF="function.db2-connect.html"
+>db2_connect</A
+>&nbsp;--&nbsp;
+   Returns a connection to a database
+  </DT
+><DT
+><A
+HREF="function.db2-cursor-type.html"
+>db2_cursor_type</A
+>&nbsp;--&nbsp;
+   Returns the cursor type used by a statement resource
+  </DT
+><DT
+><A
+HREF="function.db2-exec.html"
+>db2_exec</A
+>&nbsp;--&nbsp;
+   Executes an SQL statement directly
+  </DT
+><DT
+><A
+HREF="function.db2-execute.html"
+>db2_execute</A
+>&nbsp;--&nbsp;
+   Executes a prepared SQL statement
+  </DT
+><DT
+><A
+HREF="function.db2-fetch-array.html"
+>db2_fetch_array</A
+>&nbsp;--&nbsp;
+   Returns an array, indexed by column position, representing a row in a result set
+  </DT
+><DT
+><A
+HREF="function.db2-fetch-assoc.html"
+>db2_fetch_assoc</A
+>&nbsp;--&nbsp;
+   Returns an array, indexed by column name, representing a row in a result set
+  </DT
+><DT
+><A
+HREF="function.db2-fetch-both.html"
+>db2_fetch_both</A
+>&nbsp;--&nbsp;
+   Returns an array, indexed by both column name and position, representing a row in a result set
+  </DT
+><DT
+><A
+HREF="function.db2-fetch-object.html"
+>db2_fetch_object</A
+>&nbsp;--&nbsp;
+   Returns an object with properties representing columns in the fetched row
+  </DT
+><DT
+><A
+HREF="function.db2-fetch-row.html"
+>db2_fetch_row</A
+>&nbsp;--&nbsp;
+   Sets the result set pointer to the next row or requested row
+  </DT
+><DT
+><A
+HREF="function.db2-field-display-size.html"
+>db2_field_display_size</A
+>&nbsp;--&nbsp;
+   Returns the maximum number of bytes required to display a column
+  </DT
+><DT
+><A
+HREF="function.db2-field-name.html"
+>db2_field_name</A
+>&nbsp;--&nbsp;
+   Returns the name of the column in the result set
+  </DT
+><DT
+><A
+HREF="function.db2-field-num.html"
+>db2_field_num</A
+>&nbsp;--&nbsp;
+   Returns the position of the named column in a result set
+  </DT
+><DT
+><A
+HREF="function.db2-field-precision.html"
+>db2_field_precision</A
+>&nbsp;--&nbsp;
+   Returns the precision of the indicated column in a result set
+  </DT
+><DT
+><A
+HREF="function.db2-field-scale.html"
+>db2_field_scale</A
+>&nbsp;--&nbsp;
+   Returns the scale of the indicated column in a result set
+  </DT
+><DT
+><A
+HREF="function.db2-field-type.html"
+>db2_field_type</A
+>&nbsp;--&nbsp;
+   Returns the data type of the indicated column in a result set
+  </DT
+><DT
+><A
+HREF="function.db2-field-width.html"
+>db2_field_width</A
+>&nbsp;--&nbsp;
+   Returns the width of the current value of the indicated column in a result set
+  </DT
+><DT
+><A
+HREF="function.db2-foreign-keys.html"
+>db2_foreign_keys</A
+>&nbsp;--&nbsp;
+   Returns a result set listing the foreign keys for a table
+  </DT
+><DT
+><A
+HREF="function.db2-free-result.html"
+>db2_free_result</A
+>&nbsp;--&nbsp;
+   Frees resources associated with a result set
+  </DT
+><DT
+><A
+HREF="function.db2-free-stmt.html"
+>db2_free_stmt</A
+>&nbsp;--&nbsp;
+   Frees resources associated with the indicated statement resource
+  </DT
+><DT
+><A
+HREF="function.db2-next-result.html"
+>db2_next_result</A
+>&nbsp;--&nbsp;
+   Requests the next result set from a stored procedure
+  </DT
+><DT
+><A
+HREF="function.db2-num-fields.html"
+>db2_num_fields</A
+>&nbsp;--&nbsp;
+   Returns the number of fields contained in a result set
+  </DT
+><DT
+><A
+HREF="function.db2-num-rows.html"
+>db2_num_rows</A
+>&nbsp;--&nbsp;
+   Returns the number of rows affected by an SQL statement
+  </DT
+><DT
+><A
+HREF="function.db2-pconnect.html"
+>db2_pconnect</A
+>&nbsp;--&nbsp;
+   Returns a persistent connection to a database
+  </DT
+><DT
+><A
+HREF="function.db2-prepare.html"
+>db2_prepare</A
+>&nbsp;--&nbsp;
+   Prepares an SQL statement to be executed
+  </DT
+><DT
+><A
+HREF="function.db2-primary-keys.html"
+>db2_primary_keys</A
+>&nbsp;--&nbsp;
+   Returns a result set listing primary keys for a table
+  </DT
+><DT
+><A
+HREF="function.db2-procedure-columns.html"
+>db2_procedure_columns</A
+>&nbsp;--&nbsp;
+   Returns a result set listing stored procedure parameters
+  </DT
+><DT
+><A
+HREF="function.db2-procedures.html"
+>db2_procedures</A
+>&nbsp;--&nbsp;
+   Returns a result set listing the stored procedures registered in a database
+  </DT
+><DT
+><A
+HREF="function.db2-result.html"
+>db2_result</A
+>&nbsp;--&nbsp;
+   Returns a single column from a row in the result set
+  </DT
+><DT
+><A
+HREF="function.db2-rollback.html"
+>db2_rollback</A
+>&nbsp;--&nbsp;
+   Rolls back a transaction
+  </DT
+><DT
+><A
+HREF="function.db2-server-info.html"
+>db2_server_info</A
+>&nbsp;--&nbsp;Returns an object with properties that describe the DB2 database server</DT
+><DT
+><A
+HREF="function.db2-special-columns.html"
+>db2_special_columns</A
+>&nbsp;--&nbsp;
+   Returns a result set listing the unique row identifier columns for a table
+  </DT
+><DT
+><A
+HREF="function.db2-statistics.html"
+>db2_statistics</A
+>&nbsp;--&nbsp;
+   Returns a result set listing the index and statistics for a table
+  </DT
+><DT
+><A
+HREF="function.db2-stmt-error.html"
+>db2_stmt_error</A
+>&nbsp;--&nbsp;
+   Returns a string containing the SQLSTATE returned by an SQL statement
+  </DT
+><DT
+><A
+HREF="function.db2-stmt-errormsg.html"
+>db2_stmt_errormsg</A
+>&nbsp;--&nbsp;
+   Returns a string containing the last SQL statement error message
+  </DT
+><DT
+><A
+HREF="function.db2-table-privileges.html"
+>db2_table_privileges</A
+>&nbsp;--&nbsp;
+   Returns a result set listing the tables and associated privileges in a database
+  </DT
+><DT
+><A
+HREF="function.db2-tables.html"
+>db2_tables</A
+>&nbsp;--&nbsp;
+   Returns a result set listing the tables and associated metadata in a database
+  </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.hwapi-userlist.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-autocommit.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>hw_api-&#62;userlist</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_autocommit</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

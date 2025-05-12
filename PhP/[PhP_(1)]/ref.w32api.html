@@ -1,0 +1,579 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni W32api</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="vpopmail_set_user_quota"
+HREF="function.vpopmail-set-user-quota.html"><LINK
+REL="NEXT"
+TITLE="w32api_deftype"
+HREF="function.w32api-deftype.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.vpopmail-set-user-quota.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.w32api-deftype.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.w32api"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CLVI. Funzioni W32api</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN174872"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="w32api.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Questa è una generica API verso le DLL. In origine fu scritta per consentire
+     l'accesso alle API Win32 dal PHP, sebbene si possa anche accedere
+     a funzioni esportate da altre DLL.
+    </P
+><P
+>&#13;     Attualmente i tipi di dati supportati dal modulo sono i generici tipi PHP 
+     (strings, booleans, floats, integers e null) e i tipi definiti dall'utente tramite <A
+HREF="function.w32api-deftype.html"
+><B
+CLASS="function"
+>w32api_deftype()</B
+></A
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questo modulo è stato spostato nel repository <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> e non sarà più rilascio con il
+PHP dalla versione 5.1.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questo modulo è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di queste
+funzioni, i nomi di queste funzioni, in definitiva tutto ciò 
+che è documentato qui può cambiare nei futuri rilasci 
+del PHP senza preavviso. Siete avvisati, l'uso di questo modulo 
+è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="w32api.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Questo modulo gira solo su sistemi Windows.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="w32api.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="w32api.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="w32api.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;     Questo modulo definisce un solo tipo di risorsa utilizzata per i tipi di dati definiti dall'utente.
+     Il nome i questa risorsa è <VAR
+CLASS="literal"
+>"dynaparm"</VAR
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="w32api.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>DC_MICROSOFT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DC_BORLAND</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DC_CALL_CDECL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DC_CALL_STD</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DC_RETVAL_MATH4</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DC_RETVAL_MATH8</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DC_CALL_STD_BO</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DC_CALL_STD_MS</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DC_CALL_STD_M8</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DC_FLAG_ARGPTR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="w32api.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     Nel seguente esempio si ottiene da quanto tempo il sistema è attivo
+     ed il risultato viene visualizzato in una finestra.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN174965"
+></A
+><P
+><B
+>Esempio 1. Ottenere il tempo di attività e visualizzarlo in una finestra</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Definizione delle costanti richieste, dati ottenuti da<br />// Visual Studio/Tools/Winapi/WIN32API.txt<br /></font><font color="#0000BB">define</font><font color="#007700">(</font><font color="#DD0000">"MB_OK"</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// Carico il modulo<br /></font><font color="#0000BB">dl</font><font color="#007700">(</font><font color="#DD0000">"php_w32api.dll"</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// Registrazione della funzione GetTickCount da kernel32.dll<br /></font><font color="#0000BB">w32api_register_function</font><font color="#007700">(</font><font color="#DD0000">"kernel32.dll"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"GetTickCount"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"long"</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// Registrazione della funzione MessageBoxA da User32.dll<br /></font><font color="#0000BB">w32api_register_function</font><font color="#007700">(</font><font color="#DD0000">"User32.dll"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"MessageBoxA"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"long"</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// Ottiene il dato cercato<br /></font><font color="#0000BB">$ticks </font><font color="#007700">= </font><font color="#0000BB">GetTickCount</font><font color="#007700">();<br /> <br /></font><font color="#FF8000">// Converte in formato umano<br /></font><font color="#0000BB">$secs&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">floor</font><font color="#007700">(</font><font color="#0000BB">$ticks </font><font color="#007700">/ </font><font color="#0000BB">1000</font><font color="#007700">);<br /></font><font color="#0000BB">$mins&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">floor</font><font color="#007700">(</font><font color="#0000BB">$secs </font><font color="#007700">/ </font><font color="#0000BB">60</font><font color="#007700">);<br /></font><font color="#0000BB">$hours </font><font color="#007700">= </font><font color="#0000BB">floor</font><font color="#007700">(</font><font color="#0000BB">$mins </font><font color="#007700">/ </font><font color="#0000BB">60</font><font color="#007700">);<br /> <br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#0000BB">sprintf</font><font color="#007700">(</font><font color="#DD0000">"You have been using your computer for:" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"\r\n %d Milliseconds, or \r\n %d Seconds" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"or \r\n %d mins or\r\n %d hours %d mins."</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$ticks</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$secs</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$mins</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$hours</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$mins </font><font color="#007700">- (</font><font color="#0000BB">$hours</font><font color="#007700">*</font><font color="#0000BB">60</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp; <br /></font><font color="#FF8000">// Visualizza la finestra con il bottone di OK<br /></font><font color="#0000BB">MessageBoxA</font><font color="#007700">(</font><font color="#0000BB">NULL</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$str</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"Uptime Information"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">MB_OK</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.w32api-deftype.html"
+>w32api_deftype</A
+>&nbsp;--&nbsp;...) Definisce un tipo per l'uso con altre w32api_functions</DT
+><DT
+><A
+HREF="function.w32api-init-dtype.html"
+>w32api_init_dtype</A
+>&nbsp;--&nbsp;
+     Crea un'istanza ai tipi di dati typename e li riempie con i valori forniti
+    </DT
+><DT
+><A
+HREF="function.w32api-invoke-function.html"
+>w32api_invoke_function</A
+>&nbsp;--&nbsp;....) Invoca la funzione funcname con gli argomenti passati dopo il nome della funzione</DT
+><DT
+><A
+HREF="function.w32api-register-function.html"
+>w32api_register_function</A
+>&nbsp;--&nbsp;Registra la funzione function_name dalla libreria con PHP</DT
+><DT
+><A
+HREF="function.w32api-set-call-method.html"
+>w32api_set_call_method</A
+>&nbsp;--&nbsp;Imposta il metodo di chiamata usato</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.vpopmail-set-user-quota.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.w32api-deftype.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>vpopmail_set_user_quota</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>w32api_deftype</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

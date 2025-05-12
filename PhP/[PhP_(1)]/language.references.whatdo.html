@@ -1,0 +1,554 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Che cosa fanno i riferimenti</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Spiegazioni sui riferimenti"
+HREF="language.references.html"><LINK
+REL="PREVIOUS"
+TITLE="Spiegazioni sui riferimenti"
+HREF="language.references.html"><LINK
+REL="NEXT"
+TITLE="Cosa i riferimenti non sono"
+HREF="language.references.arent.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.references.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 21. Spiegazioni sui riferimenti</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.references.arent.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.references.whatdo"
+>Che cosa fanno i riferimenti</A
+></H1
+><P
+>&#13;    I riferimenti permettono di creare due o più variabili che si riferiscono allo
+    stesso contenuto. Questo significa, che scrivendo:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6301"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$a </font><font color="#007700">=&amp; </font><font color="#0000BB">$b</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    <VAR
+CLASS="varname"
+>$a</VAR
+> e <VAR
+CLASS="varname"
+>$b</VAR
+>
+    puntano allo stesso contenuto.
+    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <VAR
+CLASS="varname"
+>$a</VAR
+> e <VAR
+CLASS="varname"
+>$b</VAR
+> sono completamente
+      uguali, ma <VAR
+CLASS="varname"
+>$a</VAR
+> non è un puntatore a
+      <VAR
+CLASS="varname"
+>$b</VAR
+> o vice versa,
+      <VAR
+CLASS="varname"
+>$a</VAR
+> e <VAR
+CLASS="varname"
+>$b</VAR
+> puntano semplicemente nello
+      stesso posto.
+     </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Se si copia una matrice contenete dei riferimenti, i valori non sono dereferenziati.
+     Questo vale anche per le matrici passate per valore alle funzioni.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   Questa sintassi si può usare con le funzioni, nella restituzione per riferimento,
+   e con l'operatore <VAR
+CLASS="literal"
+>new</VAR
+> (da PHP 4.0.4 in poi):
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6317"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$bar </font><font color="#007700">=&amp; new </font><font color="#0000BB">fooclass</font><font color="#007700">();<br /></font><font color="#0000BB">$foo </font><font color="#007700">=&amp; </font><font color="#0000BB">find_var</font><font color="#007700">(</font><font color="#0000BB">$bar</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Se non si usa l'operatore <VAR
+CLASS="literal"
+>&#38;</VAR
+> l'oggeto appena creato
+     viene copiato. Usando <VAR
+CLASS="literal"
+>$this</VAR
+> in una classe,
+     opererà sulla sua istanza corrente. L'assegnazione senza
+     <VAR
+CLASS="literal"
+>&#38;</VAR
+> copia perciò l'istanza (l'oggetto) e
+     <VAR
+CLASS="literal"
+>$this</VAR
+> opera sulla copia, che non è sempre ciò che
+     si desidera. Normalmente si lavora su una singola istanza di oggetto,
+     sia per motivi di prestazioni che di consumo di memoria.
+     </P
+><P
+>&#13;      Utilizzando l'operatore <VAR
+CLASS="literal"
+>@</VAR
+> con new, si <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>sopprimono
+      </I
+></SPAN
+> gli errori nel costruttore in questo modo
+      <VAR
+CLASS="literal"
+>@new</VAR
+>, il metodo però non funziona se si usa l'istruzione
+      <VAR
+CLASS="literal"
+>&#38;new</VAR
+>. Questa è una limitazione dello Zend
+      Engine e provoca un parser error.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     Se si assegna un riferimento ad una varibile dichiarata <VAR
+CLASS="literal"
+>global</VAR
+>
+     dall'interno di una funzione, il riferimento sarà visibile solo all'interno della funzione stessa.
+     Si può evitare tutto ciò utilizzando la matrice <VAR
+CLASS="varname"
+>$GLOBALS</VAR
+>.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6334"
+></A
+><P
+><B
+>Esempio 21-1. Riferimenti di varibiali globali all'interno di una funzione</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$var1 </font><font color="#007700">= </font><font color="#DD0000">"Example variable"</font><font color="#007700">;<br /></font><font color="#0000BB">$var2 </font><font color="#007700">= </font><font color="#DD0000">""</font><font color="#007700">;<br /> <br />function </font><font color="#0000BB">global_references</font><font color="#007700">(</font><font color="#0000BB">$use_globals</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;global </font><font color="#0000BB">$var1</font><font color="#007700">, </font><font color="#0000BB">$var2</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">$use_globals</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$var2 </font><font color="#007700">=&amp; </font><font color="#0000BB">$var1</font><font color="#007700">; </font><font color="#FF8000">// visible only inside the function<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$GLOBALS</font><font color="#007700">[</font><font color="#DD0000">"var2"</font><font color="#007700">] =&amp; </font><font color="#0000BB">$var1</font><font color="#007700">; </font><font color="#FF8000">// visible also in global context<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">}<br />}<br /> <br /></font><font color="#0000BB">global_references</font><font color="#007700">(</font><font color="#0000BB">false</font><font color="#007700">);<br />echo </font><font color="#DD0000">"var2 is set to '$var2'</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">; </font><font color="#FF8000">// var2 is set to ''<br /></font><font color="#0000BB">global_references</font><font color="#007700">(</font><font color="#0000BB">true</font><font color="#007700">);<br />echo </font><font color="#DD0000">"var2 is set to '$var2'</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">; </font><font color="#FF8000">// var2 is set to 'Example variable'<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Si pensi a <VAR
+CLASS="literal"
+>global $var;</VAR
+> come ad una scorciatoia per <VAR
+CLASS="literal"
+>$var
+     =&#38; $GLOBALS['var'];</VAR
+>. Quindi assegnando altri riferimenti
+     a <VAR
+CLASS="literal"
+>$var</VAR
+> si cambia soltanto il riferimento della variabile locale.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Se si assegna un valore ad una variabile con riferimenti in una istruzione
+     <A
+HREF="control-structures.foreach.html"
+>foreach</A
+>,
+     anche la variabile a cui si fa riferimento sarà modificata.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6343"
+></A
+><P
+><B
+>Esempio 21-2. Riferimenti e istruzione foreach</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$ref </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br /></font><font color="#0000BB">$row </font><font color="#007700">=&amp; </font><font color="#0000BB">$ref</font><font color="#007700">;<br />foreach (array(</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">) as </font><font color="#0000BB">$row</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// esegue qualcosa<br /></font><font color="#007700">}<br />echo </font><font color="#0000BB">$ref</font><font color="#007700">; </font><font color="#FF8000">// 3 - ultimo elemento dell'array<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     Spesso le matrici complesse sono copiate che referenziate. Il seguente
+     esempio non gira come atteso.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6348"
+></A
+><P
+><B
+>Esempio 21-3. Riferimenti con matrici complesse</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$top </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'A' </font><font color="#007700">=&gt; array(),<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'B' </font><font color="#007700">=&gt; array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'B_b' </font><font color="#007700">=&gt; array(),<br />&nbsp;&nbsp;&nbsp;&nbsp;),<br />);<br /> <br /></font><font color="#0000BB">$top</font><font color="#007700">[</font><font color="#DD0000">'A'</font><font color="#007700">][</font><font color="#DD0000">'parent'</font><font color="#007700">] = &amp;</font><font color="#0000BB">$top</font><font color="#007700">;<br /></font><font color="#0000BB">$top</font><font color="#007700">[</font><font color="#DD0000">'B'</font><font color="#007700">][</font><font color="#DD0000">'parent'</font><font color="#007700">] = &amp;</font><font color="#0000BB">$top</font><font color="#007700">;<br /></font><font color="#0000BB">$top</font><font color="#007700">[</font><font color="#DD0000">'B'</font><font color="#007700">][</font><font color="#DD0000">'B_b'</font><font color="#007700">][</font><font color="#DD0000">'data'</font><font color="#007700">] = </font><font color="#DD0000">'test'</font><font color="#007700">;<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$top</font><font color="#007700">[</font><font color="#DD0000">'A'</font><font color="#007700">][</font><font color="#DD0000">'parent'</font><font color="#007700">][</font><font color="#DD0000">'B'</font><font color="#007700">][</font><font color="#DD0000">'B_b'</font><font color="#007700">]); </font><font color="#FF8000">// array()<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;    Il secondo utilizzo del riferimento è il passaggio di una variabile
+    per riferimento. Questo si fa dichiarando una variabile locale di una funzione e
+    una variabile nell'ambito della chiamata del riferimento con lo stesso contenuto. Esempio:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6352"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">foo</font><font color="#007700">(&amp;</font><font color="#0000BB">$var</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$var</font><font color="#007700">++;<br />}<br /><br /></font><font color="#0000BB">$a</font><font color="#007700">=</font><font color="#0000BB">5</font><font color="#007700">;<br /></font><font color="#0000BB">foo</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    <VAR
+CLASS="varname"
+>$a</VAR
+> assume il valore 6. Questo accade perchè
+    nella funzione <VAR
+CLASS="varname"
+>foo</VAR
+>, la variabile
+    <VAR
+CLASS="varname"
+>$var</VAR
+> si riferisce allo stesso contenuto di
+    <VAR
+CLASS="varname"
+>$a</VAR
+>. Si vedano le spiegazioni più dettagliate per <A
+HREF="language.references.pass.html"
+>passaggio per riferimento</A
+>.
+   </P
+><P
+>&#13;    Il terzo utilizzo del riferimento è il <A
+HREF="language.references.return.html"
+>ritorno per riferimento</A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.references.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.references.arent.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Spiegazioni sui riferimenti</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.references.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Cosa i riferimenti non sono</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

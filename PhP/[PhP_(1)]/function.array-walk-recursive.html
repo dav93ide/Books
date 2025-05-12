@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>array_walk_recursive</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Array"
+HREF="ref.array.html"><LINK
+REL="PREVIOUS"
+TITLE="array_values"
+HREF="function.array-values.html"><LINK
+REL="NEXT"
+TITLE="array_walk"
+HREF="function.array-walk.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.array-values.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.array-walk.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.array-walk-recursive"
+></A
+>array_walk_recursive</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN11685"
+></A
+><P
+>    (PHP 5)</P
+>array_walk_recursive&nbsp;--&nbsp;
+   Apply a user function recursively to every member of an array
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN11688"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>array_walk_recursive</B
+> ( array &#38;input, callback funcname [, mixed userdata] )<BR
+></BR
+><P
+>&#13;   Applies the user-defined function <VAR
+CLASS="parameter"
+>funcname</VAR
+> to each
+   element of the <VAR
+CLASS="parameter"
+>input</VAR
+> array. This function will recur
+   into deeper arrays. Typically,  <VAR
+CLASS="parameter"
+>funcname</VAR
+> takes on two
+   parameters. The <VAR
+CLASS="parameter"
+>input</VAR
+> parameter's value being the first, and
+   the key/index second. If the optional <VAR
+CLASS="parameter"
+>userdata</VAR
+>
+   parameter is supplied, it will be passed as the third parameter to
+   the callback <VAR
+CLASS="parameter"
+>funcname</VAR
+>.
+  </P
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    If <VAR
+CLASS="parameter"
+>funcname</VAR
+> needs to be working with the
+    actual values of the array, specify the first parameter of
+    <VAR
+CLASS="parameter"
+>funcname</VAR
+> as a 
+    <A
+HREF="language.references.html"
+>reference</A
+>. Then,
+    any changes made to those elements will be made in the 
+    original array itself.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN11718"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>array_walk_recursive()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$sweet </font><font color="#007700">= array(</font><font color="#DD0000">'a' </font><font color="#007700">=&gt; </font><font color="#DD0000">'apple'</font><font color="#007700">, </font><font color="#DD0000">'b' </font><font color="#007700">=&gt; </font><font color="#DD0000">'banana'</font><font color="#007700">);<br /></font><font color="#0000BB">$fruits </font><font color="#007700">= array(</font><font color="#DD0000">'sweet' </font><font color="#007700">=&gt; </font><font color="#0000BB">$sweet</font><font color="#007700">, </font><font color="#DD0000">'sour' </font><font color="#007700">=&gt; </font><font color="#DD0000">'lemon'</font><font color="#007700">);<br /><br />function </font><font color="#0000BB">test_print</font><font color="#007700">(</font><font color="#0000BB">$item</font><font color="#007700">, </font><font color="#0000BB">$key</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$key holds $item</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">array_walk_recursive</font><font color="#007700">(</font><font color="#0000BB">$fruits</font><font color="#007700">, </font><font color="#DD0000">'test_print'</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+a holds apple<br />b holds banana<br />sour holds lemon</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;     You may notice that the key 'sweet' is never displayed. Any key that holds an
+     <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> will not be passed to the function.
+    </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   See also <A
+HREF="function.array-walk.html"
+><B
+CLASS="function"
+>array_walk()</B
+></A
+>, and
+   information about the <A
+HREF="language.pseudo-types.html#language.types.callback"
+>callback</A
+> type.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.array-values.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.array-walk.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>array_values</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.array.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>array_walk</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

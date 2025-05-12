@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Patterns</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><LINK
+REL="PREVIOUS"
+TITLE="Object Iteration"
+HREF="language.oop5.iterations.html"><LINK
+REL="NEXT"
+TITLE="Magic Methods"
+HREF="language.oop5.magic.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop5.iterations.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 19. Classes and Objects (PHP 5)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop5.magic.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop5.patterns"
+>Patterns</A
+></H1
+><P
+>&#13;  Patterns are ways to describe best practices and good designs.
+  They show a flexible solution to common programming problems.
+ </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.patterns.factory"
+>Factory</A
+></H2
+><P
+>&#13;   The Factory pattern allows for the instantiation of objects
+   at runtime. It is called a Factory Pattern since it is
+   responsible for "manufacturing" an object.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5998"
+></A
+><P
+><B
+>Esempio 19-23. Factory Method</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Example<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// The factory method<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">static function </font><font color="#0000BB">factory</font><font color="#007700">(</font><font color="#0000BB">$type</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (include_once </font><font color="#DD0000">'Drivers/' </font><font color="#007700">. </font><font color="#0000BB">$type </font><font color="#007700">. </font><font color="#DD0000">'.php'</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$classname </font><font color="#007700">= </font><font color="#DD0000">'Driver_' </font><font color="#007700">. </font><font color="#0000BB">$type</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return new </font><font color="#0000BB">$classname</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">throw </font><font color="#007700">new </font><font color="#0000BB">Exception </font><font color="#007700">(</font><font color="#DD0000">'Driver not found'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;    Defining this method in a class allows drivers to be loaded on the
+    fly. If the <VAR
+CLASS="literal"
+>Example</VAR
+> class was a database
+    abstraction class, loading a <VAR
+CLASS="literal"
+>MySQL</VAR
+> and
+    <VAR
+CLASS="literal"
+>SQLite</VAR
+> driver could be done as follows:
+   </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Load a MySQL Driver<br /></font><font color="#0000BB">$mysql </font><font color="#007700">= </font><font color="#0000BB">Example</font><font color="#007700">::</font><font color="#0000BB">factory</font><font color="#007700">(</font><font color="#DD0000">'MySQL'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Load a SQLite Driver<br /></font><font color="#0000BB">$sqlite </font><font color="#007700">= </font><font color="#0000BB">Example</font><font color="#007700">::</font><font color="#0000BB">factory</font><font color="#007700">(</font><font color="#DD0000">'SQLite'</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.patterns.singleton"
+>Singleton</A
+></H2
+><P
+>&#13;   The Singleton pattern applies to situations in which
+   there needs to be a single instance of a class.
+   The most common example of this is a database connection.
+   Implementing this pattern allows a programmer to make this
+   single instance easily accessible by many other objects.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6009"
+></A
+><P
+><B
+>Esempio 19-24. Singleton Function</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Example<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Hold an instance of the class<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private </font><font color="#007700">static </font><font color="#0000BB">$instance</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// A private constructor; prevents direct creation of object<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private </font><font color="#007700">function </font><font color="#0000BB">__construct</font><font color="#007700">() <br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'I am constructed'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// The singleton method<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">static function </font><font color="#0000BB">singleton</font><font color="#007700">() <br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!isset(</font><font color="#0000BB">self</font><font color="#007700">::</font><font color="#0000BB">$instance</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$c </font><font color="#007700">= </font><font color="#0000BB">__CLASS__</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">self</font><font color="#007700">::</font><font color="#0000BB">$instance </font><font color="#007700">= new </font><font color="#0000BB">$c</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">self</font><font color="#007700">::</font><font color="#0000BB">$instance</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Example method<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">bark</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Woof!'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Prevent users to clone the instance<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">__clone</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">trigger_error</font><font color="#007700">(</font><font color="#DD0000">'Clone is not allowed.'</font><font color="#007700">, </font><font color="#0000BB">E_USER_ERROR</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;    This allows a single instance of the <VAR
+CLASS="literal"
+>Example</VAR
+>
+    class to be retrieved.
+   </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// This would fail because the constructor is private<br /></font><font color="#0000BB">$test </font><font color="#007700">= new </font><font color="#0000BB">Example</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// This will always retrieve a single instance of the class<br /></font><font color="#0000BB">$test </font><font color="#007700">= </font><font color="#0000BB">Example</font><font color="#007700">::</font><font color="#0000BB">singleton</font><font color="#007700">();<br /></font><font color="#0000BB">$test</font><font color="#007700">-&gt;</font><font color="#0000BB">bark</font><font color="#007700">();<br /><br /></font><font color="#FF8000">// This will issue an E_USER_ERROR.<br /></font><font color="#0000BB">$test_clone </font><font color="#007700">= </font><font color="#0000BB">clone</font><font color="#007700">(</font><font color="#0000BB">$test</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop5.iterations.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop5.magic.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Object Iteration</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Magic Methods</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

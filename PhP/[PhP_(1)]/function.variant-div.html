@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>variant_div</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di supporto COM per Windows"
+HREF="ref.com.html"><LINK
+REL="PREVIOUS"
+TITLE="variant_date_to_timestamp"
+HREF="function.variant-date-to-timestamp.html"><LINK
+REL="NEXT"
+TITLE="variant_eqv"
+HREF="function.variant-eqv.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.variant-date-to-timestamp.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.variant-eqv.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.variant-div"
+></A
+>variant_div</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN19138"
+></A
+><P
+>    (PHP 5)</P
+>variant_div&nbsp;--&nbsp;
+     Returns the result from dividing two variants
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN19141"
+></A
+><H2
+>Description</H2
+>mixed <B
+CLASS="methodname"
+>variant_div</B
+> ( mixed left, mixed right )<BR
+></BR
+><P
+>&#13;      Divides <VAR
+CLASS="parameter"
+>left</VAR
+> by <VAR
+CLASS="parameter"
+>right</VAR
+> and
+      returns the result, subject to the following rules:
+ 
+      <DIV
+CLASS="table"
+><A
+NAME="AEN19155"
+></A
+><P
+><B
+>Tabella 1. Variant Division Rules</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>If</TH
+><TH
+>Then</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>Both expressions are of the string, date, character, boolean type</TD
+><TD
+>Double is returned</TD
+></TR
+><TR
+><TD
+>One expression is a string type and the other a
+        character</TD
+><TD
+>Division and a double is returned</TD
+></TR
+><TR
+><TD
+>One expression is numeric and the other is a string</TD
+><TD
+>Division and a double is returned.</TD
+></TR
+><TR
+><TD
+>Both expressions are numeric</TD
+><TD
+>Division and a double is returned</TD
+></TR
+><TR
+><TD
+>Either expression is NULL</TD
+><TD
+>NULL is returned</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="parameter"
+>right</VAR
+> is empty and
+        <VAR
+CLASS="parameter"
+>left</VAR
+> is anything but empty</TD
+><TD
+>A com_exception with code <TT
+CLASS="constant"
+><B
+>DISP_E_DIVBYZERO</B
+></TT
+>
+        is thrown</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="parameter"
+>left</VAR
+> is empty and
+        <VAR
+CLASS="parameter"
+>right</VAR
+> is anything but empty.</TD
+><TD
+>0 as type double is returned</TD
+></TR
+><TR
+><TD
+>Both expressions are empty</TD
+><TD
+>A com_exception with code <TT
+CLASS="constant"
+><B
+>DISP_E_OVERFLOW</B
+></TT
+>
+        is thrown</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+ As with all the variant arithmetic functions, the parameters for this function
+ can be either a PHP native type (integer, string, floating point, boolean or
+ <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>), or an instance of a COM, VARIANT or DOTNET class.  PHP native types
+ will be converted to variants using the same rules as found in the constructor
+ for the <A
+HREF="class.variant.html"
+>VARIANT</A
+> class.  COM and DOTNET objects
+ will have the value of their default property taken and used as the variant value.
+</P
+><P
+>&#13; The variant arithmetic functions are wrappers around the similarly named
+ functions in the COM library; for more information on these functions, consult
+ the MSDN library.  The PHP functions are named slightly differently; for example
+ variant_add() in PHP corresponds to VarAdd() in the MSDN documentation.
+</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.variant-date-to-timestamp.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.variant-eqv.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>variant_date_to_timestamp</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.com.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>variant_eqv</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

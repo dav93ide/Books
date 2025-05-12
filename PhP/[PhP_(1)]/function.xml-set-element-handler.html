@@ -1,0 +1,384 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>xml_set_element_handler</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni relative al parser XML"
+HREF="ref.xml.html"><LINK
+REL="PREVIOUS"
+TITLE="xml_set_default_handler"
+HREF="function.xml-set-default-handler.html"><LINK
+REL="NEXT"
+TITLE="xml_set_end_namespace_decl_handler"
+HREF="function.xml-set-end-namespace-decl-handler.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xml-set-default-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.xml-set-end-namespace-decl-handler.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.xml-set-element-handler"
+></A
+>xml_set_element_handler</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN177627"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.6, PHP 4, PHP 5)</P
+>xml_set_element_handler&nbsp;--&nbsp;Valorizza i gestori di inizio e fine elemento</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN177630"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>xml_set_element_handler</B
+> ( resource parser, callback gestore_inizio_elemento, callback gestore_fine_elemento )<BR
+></BR
+><P
+>&#13;     La funzione indica le funzioni di gestione di inizio e fine elemento per il
+     <VAR
+CLASS="parameter"
+>parser</VAR
+> XML.
+     <VAR
+CLASS="parameter"
+>gestore_inizio_elemento</VAR
+> e
+     <VAR
+CLASS="parameter"
+>gestore_fine_elemento</VAR
+> sono stringhe contenenti
+     i nomi di funzioni che devono esistere quando
+     viene eseguito <A
+HREF="function.xml-parse.html"
+><B
+CLASS="function"
+>xml_parse()</B
+></A
+> per il
+     <VAR
+CLASS="parameter"
+>parser</VAR
+>.
+    </P
+><P
+>&#13;     La funzione indicata da <VAR
+CLASS="parameter"
+>gestore_inizio_elemento</VAR
+>
+     deve accettare tre parametri:
+     <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>gestore</VAR
+></B
+> ( resource parser, string nome, array attibuti )<BR
+></BR
+>
+     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>parser</VAR
+></DT
+><DD
+><P
+>&#13;         Il primo parametro, <VAR
+CLASS="replaceable"
+>parser</VAR
+>, è il riferimento
+         al parser XML chiamante il gestore.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>nome</VAR
+></DT
+><DD
+><P
+>&#13;         Il secondo parametro, <VAR
+CLASS="parameter"
+>nome</VAR
+>, contiene il nome
+         dell'elemento per il quale viene chiamato il gestore. Se è attivo il
+         <A
+HREF="ref.xml.html#xml.case-folding"
+>case-folding</A
+> per questo parser,
+         il nome dell'elemento sarà in maiuscolo.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>attributi</VAR
+></DT
+><DD
+><P
+>&#13;         Il terzo parametro, <VAR
+CLASS="parameter"
+>attributi</VAR
+>, contiene un array
+         associativo con gli attributi dell'elemento (se presenti). Le chiavi
+         di questo array sono i nomi degli attributi, mentre i valori delle chiavi sono i valori
+         degli attributi. I nomi degli attributi sono <A
+HREF="ref.xml.html#xml.case-folding"
+>case-folded</A
+> allo stesso modo dei
+         nomi degli elementi. I valori degli attributi <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non</I
+></SPAN
+>
+         lo sono.
+        </P
+><P
+>&#13;         L'ordine originale degli attributi può essere recuperato attraversando
+         <VAR
+CLASS="parameter"
+>attributi</VAR
+> in modo normale utilizzando la funzione
+         <A
+HREF="function.each.html"
+><B
+CLASS="function"
+>each()</B
+></A
+>. La prima chiave dell'array è il primo attributo,
+         e così via.
+        </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     La funzione indicata da <VAR
+CLASS="parameter"
+>gestore_fine_elemento</VAR
+>
+     deve accettare due parametri:
+     <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>gestore</VAR
+></B
+> ( resource parser, string nome )<BR
+></BR
+>
+     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>parser</VAR
+></DT
+><DD
+><P
+>&#13;         Il primo parametro, <VAR
+CLASS="replaceable"
+>parser</VAR
+>, è il riferimento
+         al parser XML chiamante il gestore.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>nome</VAR
+></DT
+><DD
+><P
+>&#13;         Il secondo parametro, <VAR
+CLASS="parameter"
+>nome</VAR
+>, contiene il nome
+         dell'elemento per il quale viene chiamato il gestore. Se è attivo il
+         <A
+HREF="ref.xml.html#xml.case-folding"
+>case-folding</A
+> per questo parser,
+         il nome dell'elemento sarà in maiuscolo.
+        </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     Se il nome della funzione del gestore viene valorizzato con una stringa vuota oppure a <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>,
+     il gestore in questione viene disabilitato.
+    </P
+><P
+>&#13;     La funzione restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se il gestore viene attivato, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se 
+     <VAR
+CLASS="parameter"
+>parser</VAR
+> non indica un parser XML.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Invece di un nome di funzione è
+possibile passare un vettore contenente un riferimento ad un oggetto e un nome di
+metodo.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xml-set-default-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.xml-set-end-namespace-decl-handler.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>xml_set_default_handler</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.xml.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>xml_set_end_namespace_decl_handler</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

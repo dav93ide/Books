@@ -1,0 +1,441 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>List of Supported Protocols/Wrappers</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Appendici"
+HREF="appendixes.html"><LINK
+REL="PREVIOUS"
+TITLE="List of Resource Types"
+HREF="resource.html"><LINK
+REL="NEXT"
+TITLE="Socket"
+HREF="wrappers.socket.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="appendix"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="resource.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="wrappers.socket.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="appendix"
+><H1
+><A
+NAME="wrappers"
+>Appendice M. List of Supported Protocols/Wrappers</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="wrappers.html#wrappers.file"
+>Filesystem</A
+></DT
+><DT
+><A
+HREF="wrappers.socket.html"
+>Socket</A
+></DT
+><DT
+><A
+HREF="wrappers.http.html"
+>HTTP and HTTPS</A
+></DT
+><DT
+><A
+HREF="wrappers.ftp.html"
+>FTP and FTPS</A
+></DT
+><DT
+><A
+HREF="wrappers.php.html"
+>PHP input/output streams</A
+></DT
+><DT
+><A
+HREF="wrappers.compression.html"
+>Compression Streams</A
+></DT
+><DT
+><A
+HREF="wrappers.ssh2.html"
+>Secure Shell 2</A
+></DT
+><DT
+><A
+HREF="wrappers.audio.html"
+>Audio Streams</A
+></DT
+><DT
+><A
+HREF="wrappers.expect.html"
+>Process Interaction Streams</A
+></DT
+></DL
+></DIV
+><P
+>&#13;  The following is a list of the various URL style protocols that
+  PHP has built-in for use with the filesystem functions such as
+  <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+> and <A
+HREF="function.copy.html"
+><B
+CLASS="function"
+>copy()</B
+></A
+>.
+  In addition to these wrappers, as of PHP 4.3.0, you can write
+  your own wrappers using PHP script and
+  <A
+HREF="function.stream-wrapper-register.html"
+><B
+CLASS="function"
+>stream_wrapper_register()</B
+></A
+>.
+ </P
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="wrappers.file"
+>Filesystem</A
+></H1
+><P
+>All versions of PHP. Explicitly using <TT
+CLASS="filename"
+>file://</TT
+> since PHP 4.3.0</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>/path/to/file.ext</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>relative/path/to/file.ext</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>fileInCwd.ext</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>C:/path/to/winfile.ext</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>C:\path\to\winfile.ext</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>\\smbserver\share\path\to\winfile.ext</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>file:///path/to/file.ext</TT
+></P
+></LI
+></UL
+><P
+>&#13;   <TT
+CLASS="filename"
+>file://</TT
+> is the default wrapper used with PHP and represents the local filesystem.
+   When a relative path is specified (a path which does not begin with /, \, \\, or a windows drive letter)
+   the path provided will be applied against the current working directory.  In many cases this is the
+   directory in which the script resides unless it has been changed.  Using the CLI sapi, this defaults
+   to the directory from which the script was called.
+  </P
+><P
+>&#13;   With some functions, such as <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+> and <A
+HREF="function.file-get-contents.html"
+><B
+CLASS="function"
+>file_get_contents()</B
+></A
+>,
+   <VAR
+CLASS="literal"
+>include_path</VAR
+> may be optionally searched for relative paths as well.
+  </P
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN211142"
+></A
+><P
+><B
+>Tabella M-1. Wrapper Summary</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Attribute</TH
+><TH
+>Supported</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>Restricted by <A
+HREF="ref.filesystem.html#ini.allow-url-fopen"
+>allow_url_fopen</A
+>.</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Allows Reading</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Writing</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Appending</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Simultaneous Reading and Writing</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+></TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.unlink.html"
+><B
+CLASS="function"
+>unlink()</B
+></A
+></TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rename.html"
+><B
+CLASS="function"
+>rename()</B
+></A
+></TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.mkdir.html"
+><B
+CLASS="function"
+>mkdir()</B
+></A
+></TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rmdir.html"
+><B
+CLASS="function"
+>rmdir()</B
+></A
+></TD
+><TD
+>Yes</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="resource.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="wrappers.socket.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>List of Resource Types</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="appendixes.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Socket</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

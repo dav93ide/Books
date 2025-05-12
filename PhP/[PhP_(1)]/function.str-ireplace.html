@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>str_ireplace</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="sscanf"
+HREF="function.sscanf.html"><LINK
+REL="NEXT"
+TITLE="str_pad"
+HREF="function.str-pad.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sscanf.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.str-pad.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.str-ireplace"
+></A
+>str_ireplace</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN164939"
+></A
+><P
+>    (PHP 5)</P
+>str_ireplace&nbsp;--&nbsp;
+     Versione insensibile alle miuscole/minuscole di <A
+HREF="function.str-replace.html"
+><B
+CLASS="function"
+>str_replace()</B
+></A
+>
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN164943"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>str_ireplace</B
+> ( mixed search, mixed replace, mixed subject [, int &#38;count] )<BR
+></BR
+><P
+>&#13;     Questa funzione restituisce una stringa od una matrice con tutte le occorrenze
+     di <VAR
+CLASS="parameter"
+>search</VAR
+> in <VAR
+CLASS="parameter"
+>subject</VAR
+>
+     (non distinguendo tra maiuscole e minuscole) sostituite con il valore <VAR
+CLASS="parameter"
+>replace</VAR
+> 
+     Se non occorrono particolari regole di sostituzione si dovrebbe utilizzare
+     questa funzione anziché <A
+HREF="function.eregi-replace.html"
+><B
+CLASS="function"
+>eregi_replace()</B
+></A
+> o
+     <A
+HREF="function.preg-replace.html"
+><B
+CLASS="function"
+>preg_replace()</B
+></A
+> con il parametro <VAR
+CLASS="literal"
+>i</VAR
+>.
+    </P
+><P
+>&#13;     Se il parametro <VAR
+CLASS="parameter"
+>subject</VAR
+> è una matrice, allora la ricerca
+     e la sostituzione viene eseguita su ogni elemento di
+     <VAR
+CLASS="parameter"
+>subject</VAR
+>, ed il valore restituito è pure quello una
+     matrice.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>search</VAR
+> e
+     <VAR
+CLASS="parameter"
+>replace</VAR
+> sono matrici, allora
+     <B
+CLASS="function"
+>str_ireplace()</B
+> prende i valori da ciascuna matrice
+     e li utilizza per fare la ricerca e la sostituzione in
+     <VAR
+CLASS="parameter"
+>subject</VAR
+>. Se
+     <VAR
+CLASS="parameter"
+>replace</VAR
+> ha meno valori di
+     <VAR
+CLASS="parameter"
+>search</VAR
+>, allora si utilizza una stringa vuota per sostituire
+     i valori mancanti. Se <VAR
+CLASS="parameter"
+>search</VAR
+>
+     è una matrice e <VAR
+CLASS="parameter"
+>replace</VAR
+> è una stringa; allora
+     questa stringa viene utilizzata per sostituire ogni valore di
+     <VAR
+CLASS="parameter"
+>search</VAR
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164981"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>str_ireplace()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$bodytag </font><font color="#007700">= </font><font color="#0000BB">str_ireplace</font><font color="#007700">(</font><font color="#DD0000">"%body%"</font><font color="#007700">, </font><font color="#DD0000">"black"</font><font color="#007700">, </font><font color="#DD0000">"&lt;body text=%BODY%&gt;"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Questa funzione è sicura con i dati binari.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Dal PHP 5.0.0 il numero dei testi trovati e sostituiti
+      sarà restituito in <VAR
+CLASS="parameter"
+>count</VAR
+> 
+      che deve essere passato per riferimento.
+      Prima del PHP 5.0.0 questo parametro non è disponibile.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche:
+     <A
+HREF="function.str-replace.html"
+><B
+CLASS="function"
+>str_replace()</B
+></A
+>,
+     <A
+HREF="function.ereg-replace.html"
+><B
+CLASS="function"
+>ereg_replace()</B
+></A
+>,
+     <A
+HREF="function.preg-replace.html"
+><B
+CLASS="function"
+>preg_replace()</B
+></A
+> e
+     <A
+HREF="function.strtr.html"
+><B
+CLASS="function"
+>strtr()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sscanf.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.str-pad.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sscanf</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>str_pad</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

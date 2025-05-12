@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>msg_send</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per i semafori, la memoria condivisa ed IPC"
+HREF="ref.sem.html"><LINK
+REL="PREVIOUS"
+TITLE="msg_remove_queue"
+HREF="function.msg-remove-queue.html"><LINK
+REL="NEXT"
+TITLE="msg_set_queue"
+HREF="function.msg-set-queue.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.msg-remove-queue.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.msg-set-queue.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.msg-send"
+></A
+>msg_send</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN148507"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PHP 5)</P
+>msg_send&nbsp;--&nbsp;
+     Invia un messaggio ad una coda di messaggi
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148510"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>msg_send</B
+> ( resource coda, int tipo_messaggio, mixed messaggio [, bool serialize [, bool blocco [, int &#38;codice_errore]]] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>msg_send()</B
+> invia il <VAR
+CLASS="parameter"
+>messaggio</VAR
+> di tipo
+     <VAR
+CLASS="parameter"
+>tipo_messaggio</VAR
+> (che DEVE essere maggiore di 0) ad una
+     coda di messaggi indicata in <VAR
+CLASS="parameter"
+>coda</VAR
+>.
+    </P
+><P
+>&#13;     Se il messaggio è troppo grande per essere contenuto nella coda, lo script attenderà
+     fino a quando un'altro processo, leggendo i messaggi dalla coda, non libera lo spazio
+     necessario per il messaggio da inviare.
+     Questo viene detto blocco; si può prevenire il blocco indicando
+     nel parametro opzionale <VAR
+CLASS="parameter"
+>blocco</VAR
+> il valore <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, in questo
+     caso <B
+CLASS="function"
+>msg_send()</B
+> restituirà immediatamente <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se il messaggio
+     è troppo grande per la coda, e impostando il parametro opzionale
+     <VAR
+CLASS="parameter"
+>codice_errore</VAR
+> a EAGAIN, si indica di ritentare
+     l'invio del messaggio dopo poco tempo.
+    </P
+><P
+>&#13;     Il parametro opzionale <VAR
+CLASS="parameter"
+>serialize</VAR
+> controlla come inviare 
+     il <VAR
+CLASS="parameter"
+>messaggio</VAR
+>.  <VAR
+CLASS="parameter"
+>serialize</VAR
+>, quando
+     è impostato al valore di default <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>, indica che il <VAR
+CLASS="parameter"
+>messaggio</VAR
+>,
+     prima di essere inviato alla coda, deve essere serializzato utilizzando 
+     il medesimo meccanismo del modulo delle sessioni. Questo permette ad array complessi o
+     ad oggetti di essere inviati ad altri script PHP, oppure, se si sta usando il modulo di serializzazione di WDDX,
+     di essere inviati a client compatibili con WDDX.
+    </P
+><P
+>&#13;     Una volta eseguito con successo l'invio, la struttura dati della coda dei messaggi viene aggiornata
+     come segue: <VAR
+CLASS="parameter"
+>msg_lspid</VAR
+> viene impostato all'ID di processo del 
+     processo chiamante, <VAR
+CLASS="parameter"
+>msg_qnum</VAR
+> viene incrementato di 1 e
+     <VAR
+CLASS="parameter"
+>msg_stime</VAR
+> viene impostato all'ora corrente.
+    </P
+><P
+>&#13;     Vedere anche: <A
+HREF="function.msg-remove-queue.html"
+><B
+CLASS="function"
+>msg_remove_queue()</B
+></A
+>,
+     <A
+HREF="function.msg-receive.html"
+><B
+CLASS="function"
+>msg_receive()</B
+></A
+>,
+     <A
+HREF="function.msg-stat-queue.html"
+><B
+CLASS="function"
+>msg_stat_queue()</B
+></A
+> e
+     <A
+HREF="function.msg-set-queue.html"
+><B
+CLASS="function"
+>msg_set_queue()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.msg-remove-queue.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.msg-set-queue.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>msg_remove_queue</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>msg_set_queue</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

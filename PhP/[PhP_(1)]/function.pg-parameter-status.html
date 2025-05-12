@@ -1,0 +1,466 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pg_parameter_status</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni PostgreSQL"
+HREF="ref.pgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="pg_options"
+HREF="function.pg-options.html"><LINK
+REL="NEXT"
+TITLE="pg_pconnect"
+HREF="function.pg-pconnect.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pg-options.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-pconnect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pg-parameter-status"
+></A
+>pg_parameter_status</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN134003"
+></A
+><P
+>    (PHP 5)</P
+>pg_parameter_status&nbsp;--&nbsp;Looks up a current parameter setting of the server.</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134006"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>pg_parameter_status</B
+> ( resource connection, string param_name )<BR
+></BR
+>string <B
+CLASS="methodname"
+>pg_parameter_status</B
+> ( string param_name )<BR
+></BR
+><P
+>&#13;    Looks up a current parameter setting of the server.
+  </P
+><P
+>&#13;    Certain parameter values are reported by the server automatically at 
+    connection startup or whenever their values change. <B
+CLASS="function"
+>pg_parameter_status()</B
+> can be 
+    used to interrogate these settings. It returns the current value of a 
+    parameter if known, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if the parameter is not known.
+  </P
+><P
+>&#13;    Parameters reported as of PostgreSQL 8.0 include <VAR
+CLASS="literal"
+>server_version</VAR
+>, 
+    <VAR
+CLASS="literal"
+>server_encoding</VAR
+>, <VAR
+CLASS="literal"
+>client_encoding</VAR
+>, 
+    <VAR
+CLASS="literal"
+>is_superuser</VAR
+>, <VAR
+CLASS="literal"
+>session_authorization</VAR
+>, 
+    <VAR
+CLASS="literal"
+>DateStyle</VAR
+>, <VAR
+CLASS="literal"
+>TimeZone</VAR
+>, and <VAR
+CLASS="literal"
+>integer_datetimes</VAR
+>.
+    (<VAR
+CLASS="literal"
+>server_encoding</VAR
+>, <VAR
+CLASS="literal"
+>TimeZone</VAR
+>, and 
+    <VAR
+CLASS="literal"
+>integer_datetimes</VAR
+> were not reported by releases before 8.0.) Note that 
+    <VAR
+CLASS="literal"
+>server_version</VAR
+>, <VAR
+CLASS="literal"
+>server_encoding</VAR
+> and <VAR
+CLASS="literal"
+>integer_datetimes</VAR
+> 
+    cannot change after PostgreSQL startup.
+  </P
+><P
+>&#13;    PostgreSQL 7.3 or lower servers do not report parameter settings,
+    <B
+CLASS="function"
+>pg_parameter_status()</B
+>
+    includes logic to obtain values for <VAR
+CLASS="literal"
+>server_version</VAR
+> and 
+    <VAR
+CLASS="literal"
+>client_encoding</VAR
+>
+    anyway. Applications are encouraged to use <B
+CLASS="function"
+>pg_parameter_status()</B
+> rather than ad 
+    hoc code to determine these values.
+  </P
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      On a pre-7.4
+      PostgreSQL server, changing <VAR
+CLASS="literal"
+>client_encoding</VAR
+> via <VAR
+CLASS="literal"
+>SET</VAR
+> after connection startup will 
+      not be reflected by <B
+CLASS="function"
+>pg_parameter_status()</B
+>.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134052"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       PostgreSQL database connection resource.  When 
+       <VAR
+CLASS="parameter"
+>connection</VAR
+> is not present, the default connection 
+       is used. The default connection is the last connection made by 
+       <A
+HREF="function.pg-connect.html"
+><B
+CLASS="function"
+>pg_connect()</B
+></A
+> or <A
+HREF="function.pg-pconnect.html"
+><B
+CLASS="function"
+>pg_pconnect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>param_name</VAR
+></DT
+><DD
+><P
+>&#13;         Possible <VAR
+CLASS="parameter"
+>param_name</VAR
+> values include <VAR
+CLASS="literal"
+>server_version</VAR
+>, 
+        <VAR
+CLASS="literal"
+>server_encoding</VAR
+>, <VAR
+CLASS="literal"
+>client_encoding</VAR
+>, 
+        <VAR
+CLASS="literal"
+>is_superuser</VAR
+>, <VAR
+CLASS="literal"
+>session_authorization</VAR
+>, 
+        <VAR
+CLASS="literal"
+>DateStyle</VAR
+>, <VAR
+CLASS="literal"
+>TimeZone</VAR
+>, and 
+        <VAR
+CLASS="literal"
+>integer_datetimes</VAR
+>.
+        </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134078"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>A <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+> containing the value of the parameter, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on failure or invalid
+  <VAR
+CLASS="parameter"
+>param_name</VAR
+>.</P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134084"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN134087"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>pg_parameter_status()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;$dbconn </font><font color="#007700">= </font><font color="#0000BB">pg_connect</font><font color="#007700">(</font><font color="#DD0000">"dbname=publisher"</font><font color="#007700">) or die(</font><font color="#DD0000">"Could not connect"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;echo </font><font color="#DD0000">"Server encoding: "</font><font color="#007700">, </font><font color="#0000BB">pg_parameter_status</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"server_encoding"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Server encoding: SQL_ASCII</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pg-options.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-pconnect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pg_options</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pgsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_pconnect</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mkdir</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="lstat"
+HREF="function.lstat.html"><LINK
+REL="NEXT"
+TITLE="move_uploaded_file"
+HREF="function.move-uploaded-file.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.lstat.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.move-uploaded-file.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mkdir"
+></A
+>mkdir</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN42512"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mkdir&nbsp;--&nbsp;Crea una directory</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN42515"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>mkdir</B
+> ( string pathname [, int mode [, bool recursive [, resource context]]] )<BR
+></BR
+><P
+>&#13;     Tenta di creare la directory specificata da pathname.
+    </P
+><P
+>&#13;     Nota che probabilmente vuoi specificare mode come un ottale, per cui deve
+     iniziare con uno zero.
+     La modalità è anche modificata dall'umask corrente, che
+     puoi cambiare con <A
+HREF="function.umask.html"
+><B
+CLASS="function"
+>umask()</B
+></A
+>.
+    </P
+><P
+>&#13;     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Il parametro mode è ignorato sui sistemi Windows, ed è opzionale dal PHP 4.2.0.
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><P
+>&#13;     Il parametro mode viene impostato a 0777 per default; ciò significa dare i maggiori
+     accessi possibili. Per maggiori dettagli sui valori di mode, leggere le pagine
+     relative a <A
+HREF="function.chmod.html"
+><B
+CLASS="function"
+>chmod()</B
+></A
+>.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN42540"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>mkdir()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />mkdir</font><font color="#007700">(</font><font color="#DD0000">"/path/to/my/dir"</font><font color="#007700">, </font><font color="#0000BB">0700</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      A partire da PHP 5.0.0 la funzione <B
+CLASS="function"
+>mkdir()</B
+> può anche essere
+      utilizzata con <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>alcuni</I
+></SPAN
+> wrapper URL. Fare riferimento a <A
+HREF="wrappers.html"
+>Appendice M</A
+>
+      per avere l'elenco dei wrapper supportati da <B
+CLASS="function"
+>mkdir()</B
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      I parametri <VAR
+CLASS="parameter"
+>recursive</VAR
+> e <VAR
+CLASS="parameter"
+>context</VAR
+> sono
+      stati aggiunti in PHP 5.0.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Quando <A
+HREF="features.safe-mode.html"
+>safe-mode</A
+> è abilitato, PHP controlla che 
+la directory nella quale si sta lavorando, abbia lo stesso UID dello 
+script che è in esecuzione.</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.rmdir.html"
+><B
+CLASS="function"
+>rmdir()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.lstat.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.move-uploaded-file.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>lstat</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>move_uploaded_file</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

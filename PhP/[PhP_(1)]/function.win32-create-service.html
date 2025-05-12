@@ -1,0 +1,447 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>win32_create_service</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="win32service Functions"
+HREF="ref.win32service.html"><LINK
+REL="PREVIOUS"
+TITLE="win32service Functions"
+HREF="ref.win32service.html"><LINK
+REL="NEXT"
+TITLE="win32_delete_service"
+HREF="function.win32-delete-service.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.win32service.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.win32-delete-service.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.win32-create-service"
+></A
+>win32_create_service</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN175501"
+></A
+><P
+>    (PECL)</P
+>win32_create_service&nbsp;--&nbsp;Creates a new service entry in the SCM database</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN175504"
+></A
+><H2
+>Descrizione</H2
+>long <B
+CLASS="methodname"
+>win32_create_service</B
+> ( array details [, string machine] )<BR
+></BR
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN175515"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>details</VAR
+></DT
+><DD
+><P
+>&#13;       An array of service details:
+       <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>service</VAR
+></DT
+><DD
+><P
+>&#13;           The short name of the service.  This is the name that you
+           will use to control the service using the <VAR
+CLASS="literal"
+>net</VAR
+>
+           command.  The service must be unique (no two services can share the
+           same name), and, ideally, should avoid having spaces in the name.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>display</VAR
+></DT
+><DD
+><P
+>The display name of the service.  This is the name that you
+          will see in the Services Applet.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>user</VAR
+></DT
+><DD
+><P
+>&#13;           The name of the user account under which you want the service to
+           run.  If omitted, the service will run as the LocalSystem account.
+           If the username is specified, you must also provide a password.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>password</VAR
+></DT
+><DD
+><P
+>&#13;           The password that corresponds to the <VAR
+CLASS="parameter"
+>user</VAR
+>.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>path</VAR
+></DT
+><DD
+><P
+>&#13;           The full path to the executable module that will be launched when
+           the service is started.  If omitted, the path to the current PHP
+           process will be used.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>params</VAR
+></DT
+><DD
+><P
+>&#13;           Command line parameters to pass to the service when it starts.
+           If you want to run a PHP script as the service, then the first
+           parameter should be the full path to the PHP script that you intend
+           to run.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>load_order</VAR
+></DT
+><DD
+><P
+>&#13;           Controls the load_order.  This is not yet fully supported.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>svc_type</VAR
+></DT
+><DD
+><P
+>&#13;           Sets the service type.  If omitted, the default value is
+           <TT
+CLASS="constant"
+><B
+>WIN32_SERVICE_WIN32_OWN_PROCESS</B
+></TT
+>.
+           Don't change this unless you know what you're doing.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>start_type</VAR
+></DT
+><DD
+><P
+>&#13;           Specifies how the service should be started.  The default is
+           <TT
+CLASS="constant"
+><B
+>WIN32_SERVICE_AUTO_START</B
+></TT
+> which means the the
+           service will be launched when the machine starts up.
+          </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>error_control</VAR
+></DT
+><DD
+><P
+>&#13;           Informs the SCM what it should do when it detects a problem with
+           the service.  The default is
+           <TT
+CLASS="constant"
+><B
+>WIN32_SERVER_ERROR_IGNORE</B
+></TT
+>.  Changing this
+           value is not yet fully supported.
+          </P
+></DD
+></DL
+></DIV
+>
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>machine</VAR
+></DT
+><DD
+><P
+>&#13;       The optional machine name on which you want to create a service.
+       If omitted, it will use the local machine.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN175585"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> on success, otherwise returns a win32 error code.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN175589"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN175592"
+></A
+><P
+><B
+>Esempio 1. A <B
+CLASS="function"
+>win32_create_service()</B
+> example</B
+></P
+><P
+>&#13;     Any text that describes the purpose of the example, or
+     what goes on in the example should go here (inside the
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$x </font><font color="#007700">= </font><font color="#0000BB">win32_create_service</font><font color="#007700">(array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'service' </font><font color="#007700">=&gt; </font><font color="#DD0000">'dummyphp'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'display' </font><font color="#007700">=&gt; </font><font color="#DD0000">'sample dummy PHP service'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'params' </font><font color="#007700">=&gt; </font><font color="#0000BB">__FILE__ </font><font color="#007700">. </font><font color="#DD0000">' run'</font><font color="#007700">,<br />));<br /></font><font color="#0000BB">debug_zval_dump</font><font color="#007700">(</font><font color="#0000BB">$x</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN175597"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.win32-delete-service.html"
+><B
+CLASS="function"
+>win32_delete_service()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.win32service.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.win32-delete-service.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>win32service Functions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.win32service.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>win32_delete_service</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

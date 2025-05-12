@@ -1,0 +1,383 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>stream_get_contents</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stream Functions"
+HREF="ref.stream.html"><LINK
+REL="PREVIOUS"
+TITLE="stream_filter_remove"
+HREF="function.stream-filter-remove.html"><LINK
+REL="NEXT"
+TITLE="stream_get_filters"
+HREF="function.stream-get-filters.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.stream-filter-remove.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.stream-get-filters.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.stream-get-contents"
+></A
+>stream_get_contents</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN161108"
+></A
+><P
+>    (PHP 5)</P
+>stream_get_contents&nbsp;--&nbsp;Reads remainder of a stream into a string</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN161111"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>stream_get_contents</B
+> ( resource handle [, int maxlength [, int offset]] )<BR
+></BR
+><P
+> 
+     Identical to <A
+HREF="function.file-get-contents.html"
+><B
+CLASS="function"
+>file_get_contents()</B
+></A
+>, except that
+     <B
+CLASS="function"
+>stream_get_contents()</B
+> operates on an already open
+     stream resource and returns the remaining contents in a string, up to
+     <VAR
+CLASS="parameter"
+>maxlength</VAR
+> bytes and starting at the specified
+     <VAR
+CLASS="parameter"
+>offset</VAR
+>.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN161130"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;    <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>handle</VAR
+> (<A
+HREF="language.types.resource.html"
+><B
+CLASS="type"
+>resource</B
+></A
+>)</DT
+><DD
+><P
+>&#13;        A stream resource (e.g. returned from <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>)
+       </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>maxlength</VAR
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;        The maximum bytes to read. Defaults to -1 (read all the remaining
+        buffer).
+       </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>offset</VAR
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;        Seek to the specified offset before reading. Added in PHP 5.1.0.
+       </P
+></DD
+></DL
+></DIV
+>
+   </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN161153"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;    Returns a string, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on failure.
+   </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN161157"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN161160"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>stream_get_contents()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#007700">if (</font><font color="#0000BB">$stream </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'http://www.example.com'</font><font color="#007700">, </font><font color="#DD0000">'r'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// print all the page starting at the offset 10<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#0000BB">stream_get_contents</font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">);<br />}<br /><br /><br />if (</font><font color="#0000BB">$stream </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'http://www.example.net'</font><font color="#007700">, </font><font color="#DD0000">'r'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// print the first 5 bytes<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#0000BB">stream_get_contents</font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">, </font><font color="#0000BB">5</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN161164"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;     <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.fgets.html"
+><B
+CLASS="function"
+>fgets()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.fread.html"
+><B
+CLASS="function"
+>fread()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.fpassthru.html"
+><B
+CLASS="function"
+>fpassthru()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione è
+ binary-safe (gestisce correttamente i file binari)</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.stream-filter-remove.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.stream-get-filters.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>stream_filter_remove</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.stream.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>stream_get_filters</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

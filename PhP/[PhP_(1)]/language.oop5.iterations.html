@@ -1,0 +1,348 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Object Iteration</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><LINK
+REL="PREVIOUS"
+TITLE="Overloading"
+HREF="language.oop5.overloading.html"><LINK
+REL="NEXT"
+TITLE="Patterns"
+HREF="language.oop5.patterns.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop5.overloading.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 19. Classes and Objects (PHP 5)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop5.patterns.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop5.iterations"
+>Object Iteration</A
+></H1
+><P
+>&#13;
+   PHP 5 provides a way for objects to be defined so it is possible to iterate
+   through a list of items, with, for example a <A
+HREF="control-structures.foreach.html"
+>foreach</A
+> statement. By default,
+   all <A
+HREF="language.oop5.visibility.html"
+>visible</A
+> properties will be used
+   for the iteration.
+
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5965"
+></A
+><P
+><B
+>Esempio 19-20. Simple Object Iteration</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">MyClass<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $var1 </font><font color="#007700">= </font><font color="#DD0000">'value 1'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $var2 </font><font color="#007700">= </font><font color="#DD0000">'value 2'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $var3 </font><font color="#007700">= </font><font color="#DD0000">'value 3'</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">protected $protected </font><font color="#007700">= </font><font color="#DD0000">'protected var'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private&nbsp;&nbsp;&nbsp;$private&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">'private var'</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">iterateVisible</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"MyClass::iterateVisible:\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach(</font><font color="#0000BB">$this </font><font color="#007700">as </font><font color="#0000BB">$key </font><font color="#007700">=&gt; </font><font color="#0000BB">$value</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"$key =&gt; $value</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$class </font><font color="#007700">= new </font><font color="#0000BB">MyClass</font><font color="#007700">();<br /><br />foreach(</font><font color="#0000BB">$class </font><font color="#007700">as </font><font color="#0000BB">$key </font><font color="#007700">=&gt; </font><font color="#0000BB">$value</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"$key =&gt; $value</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br />echo </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br /><br /></font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">iterateVisible</font><font color="#007700">();<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+var1 =&gt; value 1<br />var2 =&gt; value 2<br />var3 =&gt; value 3<br /><br />MyClass::iterateVisible:<br />var1 =&gt; value 1<br />var2 =&gt; value 2<br />var3 =&gt; value 3<br />protected =&gt; protected var<br />private =&gt; private var</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;  As the output shows, the <A
+HREF="control-structures.foreach.html"
+>foreach</A
+> iterated through all
+  <A
+HREF="language.oop5.visibility.html"
+>visible</A
+> variables that can be
+  accessed. To take it a step further you can <VAR
+CLASS="varname"
+>implement</VAR
+> one
+  of PHP 5's internal <A
+HREF="language.oop5.interfaces.html"
+>interface</A
+> named
+  <VAR
+CLASS="varname"
+>Iterator</VAR
+>. This allows the object to decide what and how
+  the object will be iterated.
+ </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5976"
+></A
+><P
+><B
+>Esempio 19-21. Object Iteration implementing Iterator</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">MyIterator implements Iterator<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private $var </font><font color="#007700">= array();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">__construct</font><font color="#007700">(</font><font color="#0000BB">$array</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">is_array</font><font color="#007700">(</font><font color="#0000BB">$array</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">var </font><font color="#007700">= </font><font color="#0000BB">$array</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">rewind</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"rewinding\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">reset</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">var</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">current</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$var </font><font color="#007700">= </font><font color="#0000BB">current</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">var</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"current: $var</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$var</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">key</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$var </font><font color="#007700">= </font><font color="#0000BB">key</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">var</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"key: $var</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$var</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">next</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$var </font><font color="#007700">= </font><font color="#0000BB">next</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">var</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"next: $var</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$var</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">valid</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$var </font><font color="#007700">= </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">current</font><font color="#007700">() !== </font><font color="#0000BB">false</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"valid: </font><font color="#007700">{</font><font color="#DD0000">$var</font><font color="#007700">}\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$var</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$values </font><font color="#007700">= array(</font><font color="#0000BB">1</font><font color="#007700">,</font><font color="#0000BB">2</font><font color="#007700">,</font><font color="#0000BB">3</font><font color="#007700">);<br /></font><font color="#0000BB">$it </font><font color="#007700">= new </font><font color="#0000BB">MyIterator</font><font color="#007700">(</font><font color="#0000BB">$values</font><font color="#007700">);<br /><br />foreach (</font><font color="#0000BB">$it </font><font color="#007700">as </font><font color="#0000BB">$a </font><font color="#007700">=&gt; </font><font color="#0000BB">$b</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"$a: $b</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+rewinding<br />current: 1<br />valid: 1<br />current: 1<br />key: 0<br />0: 1<br />next: 2<br />current: 2<br />valid: 1<br />current: 2<br />key: 1<br />1: 2<br />next: 3<br />current: 3<br />valid: 1<br />current: 3<br />key: 2<br />2: 3<br />next:<br />current:<br />valid:</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   You can also define your class so that it doesn't have to define
+   all the <VAR
+CLASS="varname"
+>Iterator</VAR
+> functions by simply implementing
+   the PHP 5 <VAR
+CLASS="varname"
+>IteratorAggregate</VAR
+> interface.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5984"
+></A
+><P
+><B
+>Esempio 19-22. Object Iteration implementing IteratorAggregate</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">MyCollection implements IteratorAggregate<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private $items </font><font color="#007700">= array();<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private $count </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Required definition of interface IteratorAggregate<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">getIterator</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return new </font><font color="#0000BB">MyIterator</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">items</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">add</font><font color="#007700">(</font><font color="#0000BB">$value</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">items</font><font color="#007700">[</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">count</font><font color="#007700">++] = </font><font color="#0000BB">$value</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$coll </font><font color="#007700">= new </font><font color="#0000BB">MyCollection</font><font color="#007700">();<br /></font><font color="#0000BB">$coll</font><font color="#007700">-&gt;</font><font color="#0000BB">add</font><font color="#007700">(</font><font color="#DD0000">'value 1'</font><font color="#007700">);<br /></font><font color="#0000BB">$coll</font><font color="#007700">-&gt;</font><font color="#0000BB">add</font><font color="#007700">(</font><font color="#DD0000">'value 2'</font><font color="#007700">);<br /></font><font color="#0000BB">$coll</font><font color="#007700">-&gt;</font><font color="#0000BB">add</font><font color="#007700">(</font><font color="#DD0000">'value 3'</font><font color="#007700">);<br /><br />foreach (</font><font color="#0000BB">$coll </font><font color="#007700">as </font><font color="#0000BB">$key </font><font color="#007700">=&gt; </font><font color="#0000BB">$val</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"key/value: </font><font color="#007700">[</font><font color="#DD0000">$key -&gt; $val</font><font color="#007700">]\n\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+rewinding<br />current: value 1<br />valid: 1<br />current: value 1<br />key: 0<br />key/value: [0 -&gt; value 1]<br /><br />next: value 2<br />current: value 2<br />valid: 1<br />current: value 2<br />key: 1<br />key/value: [1 -&gt; value 2]<br /><br />next: value 3<br />current: value 3<br />valid: 1<br />current: value 3<br />key: 2<br />key/value: [2 -&gt; value 3]<br /><br />next:<br />current:<br />valid:</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    For more examples of iterators, see the
+    <A
+HREF="ref.spl.html"
+>SPL Extension</A
+>.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop5.overloading.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop5.patterns.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Overloading</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Patterns</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

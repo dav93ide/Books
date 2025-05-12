@@ -1,0 +1,352 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ltrim</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="localeconv"
+HREF="function.localeconv.html"><LINK
+REL="NEXT"
+TITLE="md5_file"
+HREF="function.md5-file.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.localeconv.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.md5-file.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ltrim"
+></A
+>ltrim</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN163747"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>ltrim&nbsp;--&nbsp;
+     Rimuove gli spazi (o altri caratteri) dall'inizio di una stringa
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN163750"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>ltrim</B
+> ( string str [, string charlist] )<BR
+></BR
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il secondo parametro è stato aggiunto nella versione 4.1.0 di PHP.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Questa funzione restituisce la stringa <VAR
+CLASS="parameter"
+>str</VAR
+> a cui sono stati rimossi gli spazi
+     iniziali.
+     Senza la specifica del secondo parametro
+     <B
+CLASS="function"
+>ltrim()</B
+> rimuoverà i seguenti caratteri:
+     
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        " " (<ACRONYM
+CLASS="acronym"
+>ASCII</ACRONYM
+> <VAR
+CLASS="literal"
+>32</VAR
+> 
+        (<VAR
+CLASS="literal"
+>0x20</VAR
+>)), spazio ordinario.
+       </P
+></LI
+><LI
+><P
+>&#13;        "\t" (<ACRONYM
+CLASS="acronym"
+>ASCII</ACRONYM
+> <VAR
+CLASS="literal"
+>9</VAR
+> 
+        (<VAR
+CLASS="literal"
+>0x09</VAR
+>)), tab.
+       </P
+></LI
+><LI
+><P
+>&#13;        "\n" (<ACRONYM
+CLASS="acronym"
+>ASCII</ACRONYM
+> <VAR
+CLASS="literal"
+>10</VAR
+> 
+        (<VAR
+CLASS="literal"
+>0x0A</VAR
+>)), newline (line feed).
+       </P
+></LI
+><LI
+><P
+>&#13;        "\r" (<ACRONYM
+CLASS="acronym"
+>ASCII</ACRONYM
+> <VAR
+CLASS="literal"
+>13</VAR
+> 
+        (<VAR
+CLASS="literal"
+>0x0D</VAR
+>)), carriage return.
+       </P
+></LI
+><LI
+><P
+>&#13;        "\0" (<ACRONYM
+CLASS="acronym"
+>ASCII</ACRONYM
+> <VAR
+CLASS="literal"
+>0</VAR
+> 
+        (<VAR
+CLASS="literal"
+>0x00</VAR
+>)), il byte <VAR
+CLASS="literal"
+>NUL</VAR
+>.
+       </P
+></LI
+><LI
+><P
+> 
+        "\x0B" (<ACRONYM
+CLASS="acronym"
+>ASCII</ACRONYM
+> <VAR
+CLASS="literal"
+>11</VAR
+> 
+        (<VAR
+CLASS="literal"
+>0x0B</VAR
+>)), il tab verticale.
+       </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     Si può anche specificare i caratteri che si desidera rimuovere, indicandoli
+     nel parametro <VAR
+CLASS="parameter"
+>charlist</VAR
+>.
+     Quest'ultimo è costituito da un semplice elenco di caratteri da rimuovere. Con
+     <VAR
+CLASS="literal"
+>..</VAR
+> si può specificare un range di caratteri.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN163801"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>ltrim()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$text </font><font color="#007700">= </font><font color="#DD0000">"\t\tThese are a few words :) ...&nbsp;&nbsp;"</font><font color="#007700">;<br /></font><font color="#0000BB">$trimmed </font><font color="#007700">= </font><font color="#0000BB">ltrim</font><font color="#007700">(</font><font color="#0000BB">$text</font><font color="#007700">);<br /></font><font color="#FF8000">// $trimmed = "These are a few words :) ...&nbsp;&nbsp;"<br /></font><font color="#0000BB">$trimmed </font><font color="#007700">= </font><font color="#0000BB">ltrim</font><font color="#007700">(</font><font color="#0000BB">$text</font><font color="#007700">, </font><font color="#DD0000">" \t."</font><font color="#007700">);<br /></font><font color="#FF8000">// $trimmed = "These are a few words :) ...&nbsp;&nbsp;"<br /></font><font color="#0000BB">$clean </font><font color="#007700">= </font><font color="#0000BB">ltrim</font><font color="#007700">(</font><font color="#0000BB">$binary</font><font color="#007700">, </font><font color="#DD0000">"\x00..\x1F"</font><font color="#007700">);<br /></font><font color="#FF8000">// rimuove i caratteri di controllo ASCII dall'inizio di $binary <br />// (from 0 to 31 inclusive)<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Vedere anche <A
+HREF="function.trim.html"
+><B
+CLASS="function"
+>trim()</B
+></A
+> and <A
+HREF="function.rtrim.html"
+><B
+CLASS="function"
+>rtrim()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.localeconv.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.md5-file.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>localeconv</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>md5_file</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

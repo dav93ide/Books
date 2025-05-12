@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>tidy_get_opt_doc</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Tidy Functions"
+HREF="ref.tidy.html"><LINK
+REL="PREVIOUS"
+TITLE="tidy_get_html"
+HREF="function.tidy-get-html.html"><LINK
+REL="NEXT"
+TITLE="tidy_get_output"
+HREF="function.tidy-get-output.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.tidy-get-html.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.tidy-get-output.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.tidy-get-opt-doc"
+></A
+>tidy_get_opt_doc</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN170444"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>tidy_get_opt_doc&nbsp;--&nbsp;
+   Returns the documentation for the given option name
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN170447"
+></A
+><H2
+>Descrizione</H2
+><P
+>Procedural style:</P
+>string <B
+CLASS="methodname"
+>tidy_get_opt_doc</B
+> ( tidy object, string optname )<BR
+></BR
+><P
+>Object oriented style:</P
+>string <B
+CLASS="methodname"
+>tidy-&#62;getOptDoc</B
+> ( string optname )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>tidy_get_opt_doc()</B
+> returns the documentation for the
+   given option name.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    You need at least libtidy from 25 April, 2005 for this function be
+    available.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN170470"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>object</VAR
+></DT
+><DD
+><P
+>&#13;       A tidy object
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>optname</VAR
+></DT
+><DD
+><P
+>&#13;       The option name
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN170484"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a string if the option exists and has documentation available, or
+   <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> otherwise.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN170488"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN170491"
+></A
+><P
+><B
+>Esempio 1. Print all options along with their documentation and default value</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$tidy </font><font color="#007700">= new </font><font color="#0000BB">tidy</font><font color="#007700">;<br /></font><font color="#0000BB">$config </font><font color="#007700">= </font><font color="#0000BB">$tidy</font><font color="#007700">-&gt;</font><font color="#0000BB">getConfig</font><font color="#007700">();<br /><br /></font><font color="#0000BB">ksort</font><font color="#007700">(</font><font color="#0000BB">$config</font><font color="#007700">);<br /><br />foreach (</font><font color="#0000BB">$config </font><font color="#007700">as </font><font color="#0000BB">$opt </font><font color="#007700">=&gt; </font><font color="#0000BB">$val</font><font color="#007700">) {<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">$doc </font><font color="#007700">= </font><font color="#0000BB">$tidy</font><font color="#007700">-&gt;</font><font color="#0000BB">getOptDoc</font><font color="#007700">(</font><font color="#0000BB">$opt</font><font color="#007700">))<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$doc </font><font color="#007700">= </font><font color="#DD0000">'no documentation available!'</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$val </font><font color="#007700">= (</font><font color="#0000BB">$tidy</font><font color="#007700">-&gt;</font><font color="#0000BB">getOpt</font><font color="#007700">(</font><font color="#0000BB">$opt</font><font color="#007700">) === </font><font color="#0000BB">true</font><font color="#007700">)&nbsp;&nbsp;? </font><font color="#DD0000">'true'&nbsp;&nbsp;</font><font color="#007700">: </font><font color="#0000BB">$val</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$val </font><font color="#007700">= (</font><font color="#0000BB">$tidy</font><font color="#007700">-&gt;</font><font color="#0000BB">getOpt</font><font color="#007700">(</font><font color="#0000BB">$opt</font><font color="#007700">) === </font><font color="#0000BB">false</font><font color="#007700">) ? </font><font color="#DD0000">'false' </font><font color="#007700">: </font><font color="#0000BB">$val</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;p&gt;&lt;b&gt;$opt&lt;/b&gt; (default: '$val')&lt;br /&gt;"</font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"$doc&lt;/p&gt;&lt;hr /&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN170494"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.tidy-get-config.html"
+><B
+CLASS="function"
+>tidy_get_config()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.tidy-getopt.html"
+><B
+CLASS="function"
+>tidy_getopt()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.tidy-get-html.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.tidy-get-output.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>tidy_get_html</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.tidy.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>tidy_get_output</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,668 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Classi e Oggetti (PHP 4)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Struttura del Linguaggio"
+HREF="langref.html"><LINK
+REL="PREVIOUS"
+TITLE="Funzioni interne (built-in)"
+HREF="functions.internal.html"><LINK
+REL="NEXT"
+TITLE="extends"
+HREF="keyword.extends.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="functions.internal.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="keyword.extends.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="language.oop"
+>Capitolo 18. Classi e Oggetti (PHP 4)</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="language.oop.html#keyword.class"
+><VAR
+CLASS="literal"
+>Classi</VAR
+></A
+></DT
+><DT
+><A
+HREF="keyword.extends.html"
+><VAR
+CLASS="literal"
+>extends</VAR
+></A
+></DT
+><DT
+><A
+HREF="language.oop.constructor.html"
+><VAR
+CLASS="literal"
+>Costruttori</VAR
+></A
+></DT
+><DT
+><A
+HREF="keyword.paamayim-nekudotayim.html"
+>Operatore Scope Resolution (<VAR
+CLASS="literal"
+>::</VAR
+>)</A
+></DT
+><DT
+><A
+HREF="keyword.parent.html"
+><VAR
+CLASS="literal"
+>parent</VAR
+></A
+></DT
+><DT
+><A
+HREF="language.oop.serialization.html"
+>Serializzare oggetti - oggetti nelle sessioni</A
+></DT
+><DT
+><A
+HREF="language.oop.magic-functions.html"
+>Le funzioni magiche <VAR
+CLASS="literal"
+>__sleep</VAR
+> e <VAR
+CLASS="literal"
+>__wakeup</VAR
+></A
+></DT
+><DT
+><A
+HREF="language.oop.newref.html"
+>Riferimenti all'interno del costruttore</A
+></DT
+><DT
+><A
+HREF="language.oop.object-comparison.html"
+>Confronto di oggetti</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="keyword.class"
+><VAR
+CLASS="literal"
+>Classi</VAR
+></A
+></H1
+><P
+>&#13;    Una classe è una collezione di variabili e funzioni che utilizzano
+    queste variabili. Una classe si definisce usando la seguente sintassi:
+   </P
+><P
+> 
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5501"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Cart </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$items</font><font color="#007700">;&nbsp;&nbsp;</font><font color="#FF8000">// Articoli nel carrello<br />&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;// Aggiunge $num articoli di $artnr nel carrello<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">function </font><font color="#0000BB">add_item </font><font color="#007700">(</font><font color="#0000BB">$artnr</font><font color="#007700">, </font><font color="#0000BB">$num</font><font color="#007700">)&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">items</font><font color="#007700">[</font><font color="#0000BB">$artnr</font><font color="#007700">] += </font><font color="#0000BB">$num</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Prende $num articoli di $artnr e li rimuove dal carrello<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">function </font><font color="#0000BB">remove_item </font><font color="#007700">(</font><font color="#0000BB">$artnr</font><font color="#007700">, </font><font color="#0000BB">$num</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">items</font><font color="#007700">[</font><font color="#0000BB">$artnr</font><font color="#007700">] &gt; </font><font color="#0000BB">$num</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">items</font><font color="#007700">[</font><font color="#0000BB">$artnr</font><font color="#007700">] -= </font><font color="#0000BB">$num</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">true</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} elseif (</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">items</font><font color="#007700">[</font><font color="#0000BB">$artnr</font><font color="#007700">] == </font><font color="#0000BB">$num</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unset(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">items</font><font color="#007700">[</font><font color="#0000BB">$artnr</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">true</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">false</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Il codice definisce una classe chiamata Cart composta da un array
+    associativo che archivia gli articoli nel carrello e due funzioni
+    per aggiungere e rimuovere gli articoli dal carrello stesso.
+   </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NON</I
+></SPAN
+> spezzate una definizione di classe in
+     più file o in più blocchi PHP. Si può anche <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>EVITARE</I
+></SPAN
+> di spezzare
+     la definizione di una classe in più blocchi PHP, a meno che la suddivisione non
+     sia all'interno della dichiarazione di un metodo. Il seguente codice non funziona:
+    </P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5509"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">test </font><font color="#007700">{<br /></font><font color="#0000BB">?&gt;<br />&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">function </font><font color="#0000BB">test</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">'OK'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Tuttavia è permessa la seguente struttura:
+    </P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5513"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">test </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">test</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">?&gt;<br /></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">print </font><font color="#DD0000">'OK'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;    Le seguenti note cautelative sono valide per PHP 4.
+   </P
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     Il nome <VAR
+CLASS="literal"
+>stdClass</VAR
+> è usato esclusivamente da
+     Zend ed è riservato. Non è quindi possibile creare una classe chiamata
+     <VAR
+CLASS="literal"
+>stdClass</VAR
+> in PHP.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      I nomi di funzione <VAR
+CLASS="literal"
+>__sleep</VAR
+> e
+      <VAR
+CLASS="literal"
+>__wakeup</VAR
+> sono riservati e magici nelle classi PHP.
+      Non è possibile creare funzioni con questi nomi nelle classi definite
+      dall'utente, a meno che non sia desiderata la funzionalità magica connessa
+      a questi nomi. Si veda sotto per avere più informazioni.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      PHP riserva tutti i nomi di funzione che iniziano con __ a
+      funzioni magiche. Si suggerisce di non usare nomi di funzioni che utilizzano
+      con i caratteri __ in PHP a meno che non si desideri implementare una funzionalità magica.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     In PHP 4, sono permesse inizializzazioni di variabili con valori costanti solamente 
+     grazie all'uso di <VAR
+CLASS="literal"
+>var</VAR
+>. Per inizializzare variabili con valori 
+     non-costanti, bisogna creare una funzione d'inizializzazione che è chiamata 
+     automaticamente all'istanziazione di un oggetto da una classe. Questo tipo di 
+     funzione si chiama costruttore (vedi sotto).
+    </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5528"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Cart </font><font color="#007700">{<br /></font><font color="#FF8000">/* questo non funziona in PHP 4. */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">var </font><font color="#0000BB">$todays_date </font><font color="#007700">= </font><font color="#0000BB">date</font><font color="#007700">(</font><font color="#DD0000">"Y-m-d"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$name </font><font color="#007700">= </font><font color="#0000BB">$firstname</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$owner </font><font color="#007700">= </font><font color="#DD0000">'Fred ' </font><font color="#007700">. </font><font color="#DD0000">'Jones'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* E' permesso l'uso di matrici contenenti costanti */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">var </font><font color="#0000BB">$items </font><font color="#007700">= array(</font><font color="#DD0000">"VCR"</font><font color="#007700">, </font><font color="#DD0000">"TV"</font><font color="#007700">);<br />}<br /><br /></font><font color="#FF8000">/* Questo è corretto. */<br /></font><font color="#007700">class </font><font color="#0000BB">Cart </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$todays_date</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$name</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$owner</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$items</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$items </font><font color="#007700">= array(</font><font color="#DD0000">"VCR"</font><font color="#007700">, </font><font color="#DD0000">"TV"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">Cart</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">todays_date </font><font color="#007700">= </font><font color="#0000BB">date</font><font color="#007700">(</font><font color="#DD0000">"Y-m-d"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">name </font><font color="#007700">= </font><font color="#0000BB">$GLOBALS</font><font color="#007700">[</font><font color="#DD0000">'firstname'</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* etc ... */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    Le classi sono tipi del linguaggio, e sono modelli per
+    variabili reali. Per creare una variabile oggetto si usa
+    l'operatore <VAR
+CLASS="literal"
+>new</VAR
+>.
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5532"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$cart </font><font color="#007700">= new </font><font color="#0000BB">Cart</font><font color="#007700">;<br /></font><font color="#0000BB">$cart</font><font color="#007700">-&gt;</font><font color="#0000BB">add_item</font><font color="#007700">(</font><font color="#DD0000">"10"</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$another_cart </font><font color="#007700">= new </font><font color="#0000BB">Cart</font><font color="#007700">;<br /></font><font color="#0000BB">$another_cart</font><font color="#007700">-&gt;</font><font color="#0000BB">add_item</font><font color="#007700">(</font><font color="#DD0000">"0815"</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    Il codice sopra, genera gli oggetti $cart e $another_cart, dalla classe
+    Cart. La funzione add_item() dell'oggetto $cart è chiamata per
+    aggiungere una ricorrenza dell'articolo numero 10 a $cart.
+    Ad $another_cart sono aggiunte 3 ricorrenze dell'articolo numero
+    0815.
+   </P
+><P
+>&#13;    Sia $cart che $another_cart dispongono delle funzioni add_item(),
+    remove_item() e della variabile $items, ma per ogni oggetto queste
+    sono funzioni e variabili sono distinte. Potete pensare agli oggetti come
+    a qualcosa di simile alle directories di un filesystem. In un
+    filesystem si possono avere due diversi files <TT
+CLASS="filename"
+>README.TXT</TT
+>, purchè
+    siano in directories differenti. Così come in un filesystem dovete
+    digitare il nome (percorso) completo per raggiungere un determinato
+    file partendo da una directory toplevel, così dovete specificare il
+    nome completo di una funzione o variabile che desiderate richiamare
+    da un oggetto. Per PHP, la directory toplevel è il namespace globale
+    dell'oggetto ed il separatore del pathname (/) è -&#62;. Così $cart-&#62;items
+    e $another_cart-&#62;items sono due diverse variabili che differiscono per il nome.
+    Si noti che la variabile si chiama $cart-&#62;items, e non $cart-&#62;$items,
+    questo perchè le variabili il PHP si scrivono con un unico simbolo di dollaro.
+
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5537"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// corretto con un singolo $<br /></font><font color="#0000BB">$cart</font><font color="#007700">-&gt;</font><font color="#0000BB">items </font><font color="#007700">= array(</font><font color="#DD0000">"10" </font><font color="#007700">=&gt; </font><font color="#0000BB">1</font><font color="#007700">); <br /><br /></font><font color="#FF8000">// non valido, perchè $cart-&gt;$items diventa $cart-&gt;""<br /></font><font color="#0000BB">$cart</font><font color="#007700">-&gt;</font><font color="#0000BB">$items </font><font color="#007700">= array(</font><font color="#DD0000">"10" </font><font color="#007700">=&gt; </font><font color="#0000BB">1</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// corretto, ma non sempre può funzionare:<br />// $cart-&gt;$myvar diventa $cart-&gt;items<br /></font><font color="#0000BB">$myvar </font><font color="#007700">= </font><font color="#DD0000">'items'</font><font color="#007700">;<br /></font><font color="#0000BB">$cart</font><font color="#007700">-&gt;</font><font color="#0000BB">$myvar </font><font color="#007700">= array(</font><font color="#DD0000">"10" </font><font color="#007700">=&gt; </font><font color="#0000BB">1</font><font color="#007700">);&nbsp;&nbsp;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    Quando si definisce una classe, non è possibile prevedere quale nome avrà
+    l'oggetto istanziato nel programma. Quando la classe Cart è stata scritta,
+    non si poteva prevedere che l'oggetto istanziato da essa si sarebbe potuto
+    chiamare $cart o $another_cart. Quindi non è possibile scrivere $cart-&#62;items
+    all'interno della classe Cart in fase di progettazione. Per poter accedere alle
+    funzioni e alle variabili interne di una classe perciò si usa la pseudo-variabile
+    $this che può essere letta come 'la mia\il mio' o 'di questo oggetto'. Quindi,
+    '$this-&#62;items[$artnr] += $num' può essere letto come 'aggiungi $num al contatore
+    $artnr al del mio array degli articoli' o 'aggiungi $num al contatore $artnr dell'array
+    degli articoli di questo oggetto'.
+
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     La pseudo variabile <VAR
+CLASS="varname"
+>$this</VAR
+> di norma non è definita se
+     il metodo in cui è utilizzata è richiamato staticamente. Tuttavia questa
+     non è la regola: <VAR
+CLASS="varname"
+>$this</VAR
+> è definita se il metodo è chiamato staticamente
+     da un'altro oggetto. In questo caso il valore di 
+     <VAR
+CLASS="varname"
+>$this</VAR
+> è l'oggetto chiamante. Tutto ciò viene 
+     illustrato dal seguente esempio:
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5545"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">A<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">foo</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (isset(</font><font color="#0000BB">$this</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'$this is defined ('</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">get_class</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">")\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"\$this is not defined.\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /> <br />class </font><font color="#0000BB">B<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">bar</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">A</font><font color="#007700">::</font><font color="#0000BB">foo</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /> <br /></font><font color="#0000BB">$a </font><font color="#007700">= new </font><font color="#0000BB">A</font><font color="#007700">();<br /></font><font color="#0000BB">$a</font><font color="#007700">-&gt;</font><font color="#0000BB">foo</font><font color="#007700">();<br /></font><font color="#0000BB">A</font><font color="#007700">::</font><font color="#0000BB">foo</font><font color="#007700">();<br /></font><font color="#0000BB">$b </font><font color="#007700">= new </font><font color="#0000BB">B</font><font color="#007700">();<br /></font><font color="#0000BB">$b</font><font color="#007700">-&gt;</font><font color="#0000BB">bar</font><font color="#007700">();<br /></font><font color="#0000BB">B</font><font color="#007700">::</font><font color="#0000BB">bar</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$this is defined (a)
+$this is not defined.
+$this is defined (b)
+$this is not defined.</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Ci sono molte utili funzioni per manipolare classi ed oggetti. Se 
+    desiderate conoscerle potete dare un'occhiata alle 
+    <A
+HREF="ref.classobj.html"
+>Class/Object Functions</A
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="functions.internal.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="keyword.extends.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Funzioni interne (built-in)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="langref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>extends</VAR
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

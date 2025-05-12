@@ -1,0 +1,1503 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Variabili predefinite</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Parole riservate nel PHP"
+HREF="reserved.html"><LINK
+REL="PREVIOUS"
+TITLE="Parole riservate nel PHP"
+HREF="reserved.html"><LINK
+REL="NEXT"
+TITLE="Predefined Classes"
+HREF="reserved.classes.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="reserved.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice K. Parole riservate nel PHP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="reserved.classes.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="reserved.variables"
+>Variabili predefinite</A
+></H1
+><P
+>&#13;    A partire dal PHP 4.1.0, il metodo raccomandato per ottenere le
+    <A
+HREF="language.variables.external.html"
+>variabili esterne</A
+> Ã¨
+    quello di usare i superglobals, come spiegato piÃ¹ sotto. In precedenza, gli sviluppatori si appoggiavano
+    ai <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+>
+    o agli array predefiniti (<VAR
+CLASS="varname"
+>$HTTP_*_VARS</VAR
+>).
+    
+    As of PHP 5.0.0, the long PHP
+<A
+HREF="language.variables.predefined.html"
+>predefined variable</A
+>
+arrays may be disabled with the
+<A
+HREF="ini.core.html#ini.register-long-arrays"
+>register_long_arrays</A
+>
+directive.
+   </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="reserved.variables.server"
+>Variabili di server: <VAR
+CLASS="varname"
+>$_SERVER</VAR
+></A
+></H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Introdotta dal PHP 4.1.0. Nelle versioni precedenti, utilizzare
+      <VAR
+CLASS="varname"
+>$HTTP_SERVER_VARS</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <VAR
+CLASS="varname"
+>$_SERVER</VAR
+> Ã¨ un array che contiene informazioni
+     quali header, percorsi e posizioni degli script. Le voci in questo
+     array sono create dal server web. non c'Ã¨ garanzia che 
+     ogni server web fornisca queste informazioni; i server possono ometterne alcune,
+     oppure fornirne altre non contemplate qui. Detto questo, gran parte di
+     queste variabili sono contemplate nelle <A
+HREF="http://hoohoo.ncsa.uiuc.edu/cgi/env.html"
+TARGET="_top"
+>specifiche CGI 1.1</A
+>, quindi Ã¨ molto probabile
+     ritrovarle in questo array.
+    </P
+><P
+>&#13;     Questo array Ã¨ una variabile 'superglobal', o globale automatica. CiÃ²
+     siginifica che Ã¨ disponibile in tutti gli scope all'interno di uno
+     script. Non Ã¨ necessario scrivere <B
+CLASS="command"
+>global
+     $_SERVER;</B
+> per accedervi in una funzione o metodo, come
+     invece occorreva fare con <VAR
+CLASS="varname"
+>$HTTP_SERVER_VARS</VAR
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="varname"
+>$HTTP_SERVER_VARS</VAR
+> contiene le stesse informazioni,
+     ma non Ã¨ autoglobal. (si noti che
+     <VAR
+CLASS="varname"
+>$HTTP_SERVER_VARS</VAR
+> e <VAR
+CLASS="varname"
+>$_SERVER</VAR
+>
+     sono variabili distinte e che PHP le tratta di conseguenza)
+    </P
+><P
+>&#13;     Se la direttiva <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+> 
+     Ã¨ impostata, queste informazioni saranno rese disponibili anche nello
+     scope globale dello script; quindi in variabili diverse da
+     <VAR
+CLASS="varname"
+>$_SERVER</VAR
+> e <VAR
+CLASS="varname"
+>$HTTP_SERVER_VARS</VAR
+> 
+     arrays.  Per la documentazione correlata, vedere il capitolo sulla sicurezza intitolato 
+     <A
+HREF="security.globals.html"
+>Utilizzo dei Register
+      Globals</A
+>. Queste variabili globali individuali non sono autoglobal.
+    </P
+><P
+>&#13;     You may or may not find any of the following elements in
+     $_SERVER. Note that few, if any, of these will be available (or
+     indeed have any meaning) if running PHP on the command line.
+    </P
+><P
+>&#13;     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>'<VAR
+CLASS="varname"
+>PHP_SELF</VAR
+>'</DT
+><DD
+><P
+>&#13;         The filename of the currently executing script, relative to
+         the document root. For instance,
+         <VAR
+CLASS="varname"
+>$_SERVER['PHP_SELF']</VAR
+> in a script at the
+         address <TT
+CLASS="filename"
+>http://example.com/test.php/foo.bar</TT
+>
+         would be <TT
+CLASS="filename"
+>/test.php/foo.bar</TT
+>.
+         The <A
+HREF="language.constants.predefined.html"
+>__FILE__</A
+>
+         constant contains the full path and filename of the current (i.e.
+         included) file.
+        </P
+><P
+>&#13;         If PHP is running as a command-line processor this variable contains
+         the script name since PHP 4.3.0. Previously it was not available.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>argv</VAR
+>'</DT
+><DD
+><P
+>&#13;         Array of arguments passed to the script. When the script is
+         run on the command line, this gives C-style access to the
+         command line parameters. When called via the GET method, this
+         will contain the query string.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>argc</VAR
+>'</DT
+><DD
+><P
+>&#13;         Contains the number of command line parameters passed to the
+         script (if run on the command line).
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>GATEWAY_INTERFACE</VAR
+>'</DT
+><DD
+><P
+>&#13;         What revision of the CGI specification the server is using;
+         i.e. '<VAR
+CLASS="literal"
+>CGI/1.1</VAR
+>'.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>SERVER_NAME</VAR
+>'</DT
+><DD
+><P
+>&#13;         The name of the server host under which the current script is
+         executing. If the script is running on a virtual host, this
+         will be the value defined for that virtual host.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>SERVER_SOFTWARE</VAR
+>'</DT
+><DD
+><P
+>&#13;         Server identification string, given in the headers when
+         responding to requests.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>SERVER_PROTOCOL</VAR
+>'</DT
+><DD
+><P
+>&#13;         Name and revision of the information protocol via which the
+         page was requested; i.e. '<VAR
+CLASS="literal"
+>HTTP/1.0</VAR
+>';
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>REQUEST_METHOD</VAR
+>'</DT
+><DD
+><P
+>&#13;         Which request method was used to access the page; i.e. '<VAR
+CLASS="literal"
+>GET</VAR
+>',
+         '<VAR
+CLASS="literal"
+>HEAD</VAR
+>', '<VAR
+CLASS="literal"
+>POST</VAR
+>', '<VAR
+CLASS="literal"
+>PUT</VAR
+>'.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>REQUEST_TIME</VAR
+>'</DT
+><DD
+><P
+>&#13;         The timestamp of the start of the request. Available since PHP 5.1.0.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>QUERY_STRING</VAR
+>'</DT
+><DD
+><P
+>&#13;         The query string, if any, via which the page was accessed.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>DOCUMENT_ROOT</VAR
+>'</DT
+><DD
+><P
+>&#13;         The document root directory under which the current script is
+         executing, as defined in the server's configuration file.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>HTTP_ACCEPT</VAR
+>'</DT
+><DD
+><P
+>&#13;         Contents of the <VAR
+CLASS="literal"
+>Accept:</VAR
+> header from the
+         current request, if there is one.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>HTTP_ACCEPT_CHARSET</VAR
+>'</DT
+><DD
+><P
+>&#13;         Contents of the <VAR
+CLASS="literal"
+>Accept-Charset:</VAR
+> header
+         from the current request, if there is one. Example:
+         '<VAR
+CLASS="literal"
+>iso-8859-1,*,utf-8</VAR
+>'.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>HTTP_ACCEPT_ENCODING</VAR
+>'</DT
+><DD
+><P
+>&#13;         Contents of the <VAR
+CLASS="literal"
+>Accept-Encoding:</VAR
+> header
+         from the current request, if there is one. Example: '<VAR
+CLASS="literal"
+>gzip</VAR
+>'.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>HTTP_ACCEPT_LANGUAGE</VAR
+>'</DT
+><DD
+><P
+>&#13;         Contents of the <VAR
+CLASS="literal"
+>Accept-Language:</VAR
+> header
+         from the current request, if there is one. Example: '<VAR
+CLASS="literal"
+>en</VAR
+>'.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>HTTP_CONNECTION</VAR
+>'</DT
+><DD
+><P
+>&#13;         Contents of the <VAR
+CLASS="literal"
+>Connection:</VAR
+> header from
+         the current request, if there is one. Example: '<VAR
+CLASS="literal"
+>Keep-Alive</VAR
+>'.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>HTTP_HOST</VAR
+>'</DT
+><DD
+><P
+>&#13;         Contents of the <VAR
+CLASS="literal"
+>Host:</VAR
+> header from the
+         current request, if there is one.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>HTTP_REFERER</VAR
+>'</DT
+><DD
+><P
+>&#13;         The address of the page (if any) which referred the user
+         agent to the current page. This is set by the user agent. Not
+         all user agents will set this, and some provide the ability
+         to modify <VAR
+CLASS="varname"
+>HTTP_REFERER</VAR
+> as a feature. In
+         short, it cannot really be trusted.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>HTTP_USER_AGENT</VAR
+>'</DT
+><DD
+><P
+>&#13;         Contents of the <VAR
+CLASS="literal"
+>User-Agent:</VAR
+> header from
+         the current request, if there is one. This is a string
+         denoting the user agent being which is accessing the page. A
+         typical example is: <SAMP
+CLASS="computeroutput"
+>Mozilla/4.5 [en] (X11; U;
+         Linux 2.2.9 i586)</SAMP
+>. Among other things, you
+         can use this value with <A
+HREF="function.get-browser.html"
+><B
+CLASS="function"
+>get_browser()</B
+></A
+> to
+         tailor your page's output to the capabilities of the user
+         agent.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>REMOTE_ADDR</VAR
+>'</DT
+><DD
+><P
+>&#13;         The IP address from which the user is viewing the current
+         page.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>REMOTE_HOST</VAR
+>'</DT
+><DD
+><P
+>&#13;         The Host name from which the user is viewing the current
+         page.  The reverse dns lookup is based off the 
+         <VAR
+CLASS="varname"
+>REMOTE_ADDR</VAR
+> of the user.
+        </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+          Your web server must be configured to create this variable. For
+          example in Apache you'll need <VAR
+CLASS="literal"
+>HostnameLookups On</VAR
+>
+          inside <TT
+CLASS="filename"
+>httpd.conf</TT
+> for it to exist.  See also
+          <A
+HREF="function.gethostbyaddr.html"
+><B
+CLASS="function"
+>gethostbyaddr()</B
+></A
+>.
+         </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>REMOTE_PORT</VAR
+>'</DT
+><DD
+><P
+>&#13;         The port being used on the user's machine to communicate with
+         the web server.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>SCRIPT_FILENAME</VAR
+>'</DT
+><DD
+><P
+>&#13;         The absolute pathname of the currently executing script.
+         <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+           If a script is executed with the CLI, as a relative path,
+           such as <TT
+CLASS="filename"
+>file.php</TT
+> or 
+           <TT
+CLASS="filename"
+>../file.php</TT
+>, 
+           <VAR
+CLASS="varname"
+>$_SERVER['SCRIPT_FILENAME']</VAR
+> will 
+           contain the relative path specified by the user.
+          </P
+></BLOCKQUOTE
+></DIV
+>
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>SERVER_ADMIN</VAR
+>'</DT
+><DD
+><P
+>&#13;         The value given to the SERVER_ADMIN (for Apache) directive in
+         the web server configuration file. If the script is running
+         on a virtual host, this will be the value defined for that
+         virtual host.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>SERVER_PORT</VAR
+>'</DT
+><DD
+><P
+>&#13;         The port on the server machine being used by the web server
+         for communication. For default setups, this will be '<VAR
+CLASS="literal"
+>80</VAR
+>';
+         using SSL, for instance, will change this to whatever your
+         defined secure HTTP port is.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>SERVER_SIGNATURE</VAR
+>'</DT
+><DD
+><P
+>&#13;         String containing the server version and virtual host name
+         which are added to server-generated pages, if enabled.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>PATH_TRANSLATED</VAR
+>'</DT
+><DD
+><P
+>&#13;         Filesystem- (not document root-) based path to the current
+         script, after the server has done any virtual-to-real
+         mapping.
+        </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+          As of PHP 4.3.2, <VAR
+CLASS="envar"
+>PATH_TRANSLATED</VAR
+> is no longer set 
+          implicitly under the Apache 2 <ACRONYM
+CLASS="acronym"
+>SAPI</ACRONYM
+> in contrast 
+          to the situation in Apache 1, where it's set to the same value as 
+          the <VAR
+CLASS="envar"
+>SCRIPT_FILENAME</VAR
+> server variable when it's not 
+          populated by Apache.  This change was made to comply with the 
+          <ACRONYM
+CLASS="acronym"
+>CGI</ACRONYM
+> specification that 
+          <VAR
+CLASS="envar"
+>PATH_TRANSLATED</VAR
+> should only exist if 
+          <VAR
+CLASS="envar"
+>PATH_INFO</VAR
+> is defined.
+         </P
+><P
+>&#13;          Apache 2 users may use <VAR
+CLASS="literal"
+>AcceptPathInfo = On</VAR
+> inside
+          <TT
+CLASS="filename"
+>httpd.conf</TT
+> to define <VAR
+CLASS="envar"
+>PATH_INFO</VAR
+>.
+         </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>SCRIPT_NAME</VAR
+>'</DT
+><DD
+><P
+>&#13;         Contains the current script's path. This is useful for pages
+         which need to point to themselves.
+         The <A
+HREF="language.constants.predefined.html"
+>__FILE__</A
+>
+         constant contains the full path and filename of the current (i.e.
+         included) file.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>REQUEST_URI</VAR
+>'</DT
+><DD
+><P
+>&#13;         The URI which was given in order to access this page; for
+         instance, '<VAR
+CLASS="literal"
+>/index.html</VAR
+>'.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>PHP_AUTH_USER</VAR
+>'</DT
+><DD
+><P
+>&#13;         When running under Apache as module doing HTTP authentication this
+         variable is set to the username provided by the user.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>PHP_AUTH_PW</VAR
+>'</DT
+><DD
+><P
+>&#13;         When running under Apache as module doing HTTP authentication this
+         variable is set to the password provided by the user.
+        </P
+></DD
+><DT
+>'<VAR
+CLASS="varname"
+>AUTH_TYPE</VAR
+>'</DT
+><DD
+><P
+>&#13;         When running under Apache as module doing HTTP authenticated this
+         variable is set to the authentication type.
+        </P
+></DD
+></DL
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="reserved.variables.environment"
+>Environment variables: <VAR
+CLASS="varname"
+>$_ENV</VAR
+></A
+></H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Introduced in 4.1.0. In earlier versions, use
+      <VAR
+CLASS="varname"
+>$HTTP_ENV_VARS</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     These variables are imported into PHP's global namespace from the
+     environment under which the PHP parser is running. Many are
+     provided by the shell under which PHP is running and different
+     systems are likely running different kinds of shells, a
+     definitive list is impossible. Please see your shell's
+     documentation for a list of defined environment variables.
+    </P
+><P
+>&#13;     Other environment variables include the CGI variables, placed
+     there regardless of whether PHP is running as a server module or
+     CGI processor.
+    </P
+><P
+>&#13;     This is a 'superglobal', or automatic global, variable. This
+     simply means that it is available in all scopes throughout a
+     script. You don't need to do a <B
+CLASS="command"
+>global
+     $_ENV;</B
+> to access it within functions or methods, as
+     you do with <VAR
+CLASS="varname"
+>$HTTP_ENV_VARS</VAR
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="varname"
+>$HTTP_ENV_VARS</VAR
+> contains the same initial
+     information, but is not an autoglobal. (Note that
+     <VAR
+CLASS="varname"
+>$HTTP_ENV_VARS</VAR
+> and <VAR
+CLASS="varname"
+>$_ENV</VAR
+>
+     are different variables and that PHP handles them as such)
+    </P
+><P
+>&#13;     If the <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+> directive
+     is set, then these variables will also be made available in the
+     global scope of the script; i.e., separate from the
+     <VAR
+CLASS="varname"
+>$_ENV</VAR
+> and <VAR
+CLASS="varname"
+>$HTTP_ENV_VARS</VAR
+> 
+     arrays.  For related information, see the security chapter titled 
+     <A
+HREF="security.globals.html"
+>Using Register
+      Globals</A
+>. These individual globals are not autoglobals.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="reserved.variables.cookies"
+>HTTP Cookies: <VAR
+CLASS="varname"
+>$_COOKIE</VAR
+></A
+></H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Introduced in 4.1.0. In earlier versions, use
+      <VAR
+CLASS="varname"
+>$HTTP_COOKIE_VARS</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     An associative array of variables passed to the current script
+     via HTTP cookies.  Automatically global in any scope. 
+    </P
+><P
+>&#13;     This is a 'superglobal', or automatic global, variable. This
+     simply means that it is available in all scopes throughout a
+     script. You don't need to do a <B
+CLASS="command"
+>global
+     $_COOKIE;</B
+> to access it within functions or methods, as
+     you do with <VAR
+CLASS="varname"
+>$HTTP_COOKIE_VARS</VAR
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="varname"
+>$HTTP_COOKIE_VARS</VAR
+> contains the same initial
+     information, but is not an autoglobal. (Note that
+     <VAR
+CLASS="varname"
+>$HTTP_COOKIE_VARS</VAR
+> and <VAR
+CLASS="varname"
+>$_COOKIE</VAR
+>
+     are different variables and that PHP handles them as such)
+    </P
+><P
+>&#13;     If the <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+> directive
+     is set, then these variables will also be made available in the
+     global scope of the script; i.e., separate from the
+     <VAR
+CLASS="varname"
+>$_COOKIE</VAR
+> and <VAR
+CLASS="varname"
+>$HTTP_COOKIE_VARS</VAR
+> 
+     arrays.  For related information, see the security chapter titled 
+     <A
+HREF="security.globals.html"
+>Using Register
+      Globals</A
+>. These individual globals are not autoglobals.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="reserved.variables.get"
+>HTTP GET variables: <VAR
+CLASS="varname"
+>$_GET</VAR
+></A
+></H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Introduced in 4.1.0. In earlier versions, use
+      <VAR
+CLASS="varname"
+>$HTTP_GET_VARS</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     An associative array of variables passed to the current script
+     via the HTTP GET method.  Automatically global in any scope. 
+    </P
+><P
+>&#13;     This is a 'superglobal', or automatic global, variable. This
+     simply means that it is available in all scopes throughout a
+     script. You don't need to do a <B
+CLASS="command"
+>global
+     $_GET;</B
+> to access it within functions or methods, as
+     you do with <VAR
+CLASS="varname"
+>$HTTP_GET_VARS</VAR
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="varname"
+>$HTTP_GET_VARS</VAR
+> contains the same initial
+     information, but is not an autoglobal. (Note that
+     <VAR
+CLASS="varname"
+>$HTTP_GET_VARS</VAR
+> and <VAR
+CLASS="varname"
+>$_GET</VAR
+>
+     are different variables and that PHP handles them as such)
+    </P
+><P
+>&#13;     If the <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+> directive
+     is set, then these variables will also be made available in the
+     global scope of the script; i.e., separate from the
+     <VAR
+CLASS="varname"
+>$_GET</VAR
+> and <VAR
+CLASS="varname"
+>$HTTP_GET_VARS</VAR
+> 
+     arrays.  For related information, see the security chapter titled 
+     <A
+HREF="security.globals.html"
+>Using Register
+      Globals</A
+>. These individual globals are not autoglobals.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="reserved.variables.post"
+>HTTP POST variables: <VAR
+CLASS="varname"
+>$_POST</VAR
+></A
+></H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Introduced in 4.1.0. In earlier versions, use
+      <VAR
+CLASS="varname"
+>$HTTP_POST_VARS</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     An associative array of variables passed to the current script
+     via the HTTP POST method.  Automatically global in any scope. 
+    </P
+><P
+>&#13;     This is a 'superglobal', or automatic global, variable. This
+     simply means that it is available in all scopes throughout a
+     script. You don't need to do a <B
+CLASS="command"
+>global
+     $_POST;</B
+> to access it within functions or methods, as
+     you do with <VAR
+CLASS="varname"
+>$HTTP_POST_VARS</VAR
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="varname"
+>$HTTP_POST_VARS</VAR
+> contains the same initial
+     information, but is not an autoglobal. (Note that
+     <VAR
+CLASS="varname"
+>$HTTP_POST_VARS</VAR
+> and <VAR
+CLASS="varname"
+>$_POST</VAR
+>
+     are different variables and that PHP handles them as such)
+    </P
+><P
+>&#13;     If the <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+> directive
+     is set, then these variables will also be made available in the
+     global scope of the script; i.e., separate from the
+     <VAR
+CLASS="varname"
+>$_POST</VAR
+> and <VAR
+CLASS="varname"
+>$HTTP_POST_VARS</VAR
+> 
+     arrays.  For related information, see the security chapter titled 
+     <A
+HREF="security.globals.html"
+>Using Register
+      Globals</A
+>. These individual globals are not autoglobals.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="reserved.variables.files"
+>HTTP File upload variables: <VAR
+CLASS="varname"
+>$_FILES</VAR
+></A
+></H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Introduced in 4.1.0. In earlier versions, use
+      <VAR
+CLASS="varname"
+>$HTTP_POST_FILES</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     An associative array of items uploaded to the current script
+     via the HTTP POST method.  Automatically global in any scope. 
+    </P
+><P
+>&#13;     This is a 'superglobal', or automatic global, variable. This
+     simply means that it is available in all scopes throughout a
+     script. You don't need to do a <B
+CLASS="command"
+>global
+     $_FILES;</B
+> to access it within functions or methods, as
+     you do with <VAR
+CLASS="varname"
+>$HTTP_POST_FILES</VAR
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="varname"
+>$HTTP_POST_FILES</VAR
+> contains the same
+     information, but is not an autoglobal. (Note that
+     <VAR
+CLASS="varname"
+>$HTTP_POST_FILES</VAR
+> and <VAR
+CLASS="varname"
+>$_FILES</VAR
+>
+     are different variables and that PHP handles them as such)
+    </P
+><P
+>&#13;     If the <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+> directive
+     is set, then these variables will also be made available in the
+     global scope of the script; i.e., separate from the
+     <VAR
+CLASS="varname"
+>$_FILES</VAR
+> and <VAR
+CLASS="varname"
+>$HTTP_POST_FILES</VAR
+> 
+     arrays.  For related information, see the security chapter titled 
+     <A
+HREF="security.globals.html"
+>Using Register
+      Globals</A
+>. These individual globals are not autoglobals.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="reserved.variables.request"
+>Request variables: <VAR
+CLASS="varname"
+>$_REQUEST</VAR
+></A
+></H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Introduced in 4.1.0. There is no equivalent array in earlier
+      versions. 
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Prior to PHP 4.3.0, <VAR
+CLASS="varname"
+>$_FILES</VAR
+> information was 
+      also included in <VAR
+CLASS="varname"
+>$_REQUEST</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     An associative array consisting of the contents of
+     <VAR
+CLASS="varname"
+>$_GET</VAR
+>, <VAR
+CLASS="varname"
+>$_POST</VAR
+>,
+     and <VAR
+CLASS="varname"
+>$_COOKIE</VAR
+>.
+    </P
+><P
+>&#13;     This is a 'superglobal', or automatic global, variable. This
+     simply means that it is available in all scopes throughout a
+     script. You don't need to do a <B
+CLASS="command"
+>global
+     $_REQUEST;</B
+> to access it within functions or methods.
+    </P
+><P
+>&#13;     If the <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+> directive
+     is set, then these variables will also be made available in the
+     global scope of the script; i.e., separate from the
+     <VAR
+CLASS="varname"
+>$_REQUEST</VAR
+> array.  For related information, see
+     the security chapter titled <A
+HREF="security.globals.html"
+>Using Register
+     Globals</A
+>. These individual globals are not autoglobals.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="reserved.variables.session"
+>Session variables: <VAR
+CLASS="varname"
+>$_SESSION</VAR
+></A
+></H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Introduced in 4.1.0. In earlier versions, use
+      <VAR
+CLASS="varname"
+>$HTTP_SESSION_VARS</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     An associative array containing session variables available to
+     the current script. See the <A
+HREF="ref.session.html"
+>Session
+      functions</A
+> documentation for more information on how this
+     is used.
+    </P
+><P
+>&#13;     This is a 'superglobal', or automatic global, variable. This
+     simply means that it is available in all scopes throughout a
+     script. You don't need to do a <B
+CLASS="command"
+>global
+     $_SESSION;</B
+> to access it within functions or methods, as
+     you do with <VAR
+CLASS="varname"
+>$HTTP_SESSION_VARS</VAR
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="varname"
+>$HTTP_SESSION_VARS</VAR
+> contains the same
+     information, but is not an autoglobal. (Note that
+     <VAR
+CLASS="varname"
+>$HTTP_SESSION_VARS</VAR
+> and <VAR
+CLASS="varname"
+>$_SESSION</VAR
+>
+     are different variables and that PHP handles them as such) 
+    </P
+><P
+>&#13;     If the <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+> directive
+     is set, then these variables will also be made available in the
+     global scope of the script; i.e., separate from the
+     <VAR
+CLASS="varname"
+>$_SESSION</VAR
+> and <VAR
+CLASS="varname"
+>$HTTP_SESSION_VARS</VAR
+> 
+     arrays.  For related information, see the security chapter titled 
+     <A
+HREF="security.globals.html"
+>Using Register
+      Globals</A
+>. These individual globals are not autoglobals.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="reserved.variables.globals"
+>Global variables: <VAR
+CLASS="varname"
+>$GLOBALS</VAR
+></A
+></H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <VAR
+CLASS="varname"
+>$GLOBALS</VAR
+> has been available since PHP 3.0.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     An associative array containing references to all variables which
+     are currently defined in the global scope of the script. The
+     variable names are the keys of the array.
+    </P
+><P
+>&#13;     This is a 'superglobal', or automatic global, variable. This
+     simply means that it is available in all scopes throughout a
+     script. You don't need to do a <B
+CLASS="command"
+>global
+     $GLOBALS;</B
+> to access it within functions or methods.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="reserved.variables.phperrormsg"
+>The previous error message: <VAR
+CLASS="varname"
+>$php_errormsg</VAR
+></A
+></H2
+><P
+>&#13;     <VAR
+CLASS="varname"
+>$php_errormsg</VAR
+> is a variable containing the
+     text of the last error message generated by PHP. This variable
+     will only be available within the scope in which the error
+     occurred, and only if the <A
+HREF="ref.errorfunc.html#ini.track-errors"
+>track_errors</A
+> configuration
+     option is turned on (it defaults to off).
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="reserved.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="reserved.classes.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Parole riservate nel PHP</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="reserved.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Predefined Classes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

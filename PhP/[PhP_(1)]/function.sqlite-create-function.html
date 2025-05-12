@@ -1,0 +1,506 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sqlite_create_function</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SQLite"
+HREF="ref.sqlite.html"><LINK
+REL="PREVIOUS"
+TITLE="sqlite_create_aggregate"
+HREF="function.sqlite-create-aggregate.html"><LINK
+REL="NEXT"
+TITLE="sqlite_current"
+HREF="function.sqlite-current.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-create-aggregate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-current.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sqlite-create-function"
+></A
+>sqlite_create_function</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN156937"
+></A
+><P
+>    (PHP 5)</P
+>sqlite_create_function<P
+>    (no version information, might be only in CVS)</P
+>SQLiteDatabase-&#62;createFunction&nbsp;--&nbsp;
+   Registra una funzione utente  "regolare" da utilizzare nelle istruzioni SQL
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156941"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>sqlite_create_function</B
+> ( resource dbhandle, string function_name, callback callback [, int num_args] )<BR
+></BR
+><P
+>Versione ad oggetti (metodo):</P
+>class <B
+CLASS="classname"
+>SQLiteDatabase</B
+> { <BR
+></BR
+>bool <B
+CLASS="methodname"
+>createFunction</B
+> ( string function_name, callback callback [, int num_args] )<BR
+></BR
+>}<P
+>&#13;  La funzione <B
+CLASS="function"
+>sqlite_create_function()</B
+> permette di registrare una funzione
+   PHP in SQLite come <ACRONYM
+CLASS="acronym"
+>UDF</ACRONYM
+> (funzione definita dall'utente, User Defined
+   Function), in modo che possa essere richiamata dalle istruzioni SQL.
+  </P
+><P
+>&#13;   Le UDF possono essere utilizzate in qualsiasi istruzione SQL che permetta di richiamare funzioni,
+   tipo SELECT e UPDATE e anche i triggers.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156978"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>dbhandle</VAR
+></DT
+><DD
+><P
+>&#13;       Risorsa SQLite Database restituita da <B
+CLASS="function"
+>sqlite_open
+       ()</B
+> quando usato in modo procedurale. Questo parametro non è
+       richiesto nel metodo ad oggetti.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>function_name</VAR
+></DT
+><DD
+><P
+>&#13;       Indica il nome della funzione   che si vuole utilizzare nelle istruzioni SQL.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>callback</VAR
+></DT
+><DD
+><P
+>&#13;       Funzione di callback richiamata per gestire la funzione SQL.
+      </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        Le funzioni di callback devono restituire un tipo noto a SQLite
+        (ad esempio un <A
+HREF="language.types.html#language.types.intro"
+>tipo scalare</A
+>).
+       </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>num_args</VAR
+></DT
+><DD
+><P
+>&#13;       Indicazione al parser SQLite se la funzione di callback accetta
+       un numero predefinito di argomenti.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Two alternative syntaxes are
+supported for compatibility with other database extensions (such as MySQL).
+The preferred form is the first, where the <VAR
+CLASS="parameter"
+>dbhandle</VAR
+>
+parameter is the first parameter to the function.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157009"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN157012"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>sqlite_create_function()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">md5_and_reverse</font><font color="#007700">(</font><font color="#0000BB">$string</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">strrev</font><font color="#007700">(</font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">$string</font><font color="#007700">));<br />}<br /><br />if (</font><font color="#0000BB">$dbhandle </font><font color="#007700">= </font><font color="#0000BB">sqlite_open</font><font color="#007700">(</font><font color="#DD0000">'mysqlitedb'</font><font color="#007700">, </font><font color="#0000BB">0666</font><font color="#007700">, </font><font color="#0000BB">$sqliteerror</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">sqlite_create_function</font><font color="#007700">(</font><font color="#0000BB">$dbhandle</font><font color="#007700">, </font><font color="#DD0000">'md5rev'</font><font color="#007700">, </font><font color="#DD0000">'md5_and_reverse'</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$sql&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">'SELECT md5rev(filename) FROM files'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$rows </font><font color="#007700">= </font><font color="#0000BB">sqlite_array_query</font><font color="#007700">(</font><font color="#0000BB">$dbhandle</font><font color="#007700">, </font><font color="#0000BB">$sql</font><font color="#007700">);<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Error opening sqlite db: ' </font><font color="#007700">. </font><font color="#0000BB">$sqliteerror</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   In questo esempio abbiamo una funzione che calcola il valore md5 di una
+   stringa e lo inverte. Quando sono eseguite le istruzioni SQL, queste restituiscono
+   il nome del file trasformato dalla nostra funzione. Il valore restituito in
+   <VAR
+CLASS="parameter"
+>$rows</VAR
+> contiene il risultato processato.
+  </P
+><P
+>&#13;   L'aspetto interessante di questa tecnica è che non è necessario elaborare
+   i dati di una query utilizzando un ciclo foreach() dopo avere eseguito una query per ottenere i dati
+  </P
+><P
+>&#13;   Il PHP registra una speciale funzione chiamata <VAR
+CLASS="literal"
+>php</VAR
+> quando apre
+   il database la prima volta. La funzione php può essere utilizzata per chiamare qualsiasi
+   funzione PHP senza doverla registrare prima.
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN157022"
+></A
+><P
+><B
+>Esempio 2. Esempio dell'uso della funzione php</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$rows </font><font color="#007700">= </font><font color="#0000BB">sqlite_array_query</font><font color="#007700">(</font><font color="#0000BB">$dbhandle</font><font color="#007700">, </font><font color="#DD0000">"SELECT php('md5', filename) from files"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;     Questo esempio chiamerà la funzione  <A
+HREF="function.md5.html"
+><B
+CLASS="function"
+>md5()</B
+></A
+> per ciasuna colonna
+     <VAR
+CLASS="literal"
+>filename</VAR
+> del database e restituirà il risultato
+     in <VAR
+CLASS="parameter"
+>$rows</VAR
+>
+    </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Per motivi di performance, il PHP non convertirà in automatico i dati binari
+    passati da/per la UDF. Occorre convertire manualmente i parametri
+    e restituire i valori nel medesimo modo, se si desidera elaborare i dati binari.
+    Guardare le pagine relative a <A
+HREF="function.sqlite-udf-encode-binary.html"
+><B
+CLASS="function"
+>sqlite_udf_encode_binary()</B
+></A
+>
+    e <A
+HREF="function.sqlite-udf-decode-binary.html"
+><B
+CLASS="function"
+>sqlite_udf_decode_binary()</B
+></A
+> per maggiori dettagli.
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+    Non è raccomandabile l'uso delle UDF per processare dati
+    binari, a meno che non siano richieste all'applicazione elevate
+    performance.
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+    Si può utilizzare <B
+CLASS="function"
+>sqlite_create_function()</B
+> e
+    <A
+HREF="function.sqlite-create-aggregate.html"
+><B
+CLASS="function"
+>sqlite_create_aggregate()</B
+></A
+> per sovrascrivere le funzioni SQL
+    native in SQLite.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157039"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.sqlite-create-aggregate.html"
+><B
+CLASS="function"
+>sqlite_create_aggregate()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sqlite-create-aggregate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sqlite-current.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sqlite_create_aggregate</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sqlite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sqlite_current</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

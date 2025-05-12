@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ssh2_sftp_lstat</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Secure Shell2 Functions"
+HREF="ref.ssh2.html"><LINK
+REL="PREVIOUS"
+TITLE="ssh2_scp_send"
+HREF="function.ssh2-scp-send.html"><LINK
+REL="NEXT"
+TITLE="ssh2_sftp_mkdir"
+HREF="function.ssh2-sftp-mkdir.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-scp-send.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-sftp-mkdir.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ssh2-sftp-lstat"
+></A
+>ssh2_sftp_lstat</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN159912"
+></A
+><P
+>    (PECL)</P
+>ssh2_sftp_lstat&nbsp;--&nbsp;
+     Stat a symbolic link     
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159915"
+></A
+><H2
+>Description</H2
+>array <B
+CLASS="methodname"
+>ssh2_sftp_lstat</B
+> ( resource sftp, string path )<BR
+></BR
+><P
+>&#13;     Stats a symbolic link on the remote filesystem <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>without</I
+></SPAN
+>
+     following the link.  This function is similar to using the
+     <A
+HREF="function.lstat.html"
+><B
+CLASS="function"
+>lstat()</B
+></A
+> function with the
+     <A
+HREF="wrappers.ssh2.html"
+>ssh2.sftp://</A
+> wrapper in PHP5
+     and returns the same values.  See the documentation for
+     <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+> for details on the values which may be returned.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN159931"
+></A
+><P
+><B
+>Esempio 1. Stating a symbolic link via SFTP</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$connection </font><font color="#007700">= </font><font color="#0000BB">ssh2_connect</font><font color="#007700">(</font><font color="#DD0000">'shell.example.com'</font><font color="#007700">, </font><font color="#0000BB">22</font><font color="#007700">);<br /></font><font color="#0000BB">ssh2_auth_password</font><font color="#007700">(</font><font color="#0000BB">$connection</font><font color="#007700">, </font><font color="#DD0000">'username'</font><font color="#007700">, </font><font color="#DD0000">'password'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$sftp </font><font color="#007700">= </font><font color="#0000BB">ssh2_sftp</font><font color="#007700">(</font><font color="#0000BB">$connection</font><font color="#007700">);<br /></font><font color="#0000BB">$statinfo </font><font color="#007700">= </font><font color="#0000BB">ssh2_lstat</font><font color="#007700">(</font><font color="#0000BB">$sftp</font><font color="#007700">, </font><font color="#DD0000">'/path/to/symlink'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$filesize </font><font color="#007700">= </font><font color="#0000BB">$statinfo</font><font color="#007700">[</font><font color="#DD0000">'size'</font><font color="#007700">];<br /></font><font color="#0000BB">$group </font><font color="#007700">= </font><font color="#0000BB">$statinfo</font><font color="#007700">[</font><font color="#DD0000">'gid'</font><font color="#007700">];<br /></font><font color="#0000BB">$owner </font><font color="#007700">= </font><font color="#0000BB">$statinfo</font><font color="#007700">[</font><font color="#DD0000">'uid'</font><font color="#007700">];<br /></font><font color="#0000BB">$atime </font><font color="#007700">= </font><font color="#0000BB">$statinfo</font><font color="#007700">[</font><font color="#DD0000">'atime'</font><font color="#007700">];<br /></font><font color="#0000BB">$mtime </font><font color="#007700">= </font><font color="#0000BB">$statinfo</font><font color="#007700">[</font><font color="#DD0000">'mtime'</font><font color="#007700">];<br /></font><font color="#0000BB">$mode </font><font color="#007700">= </font><font color="#0000BB">$statinfo</font><font color="#007700">[</font><font color="#DD0000">'mode'</font><font color="#007700">];<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     See Also:
+     <A
+HREF="function.ssh2-sftp-stat.html"
+><B
+CLASS="function"
+>ssh2_sftp_stat()</B
+></A
+>,
+     <A
+HREF="function.lstat.html"
+><B
+CLASS="function"
+>lstat()</B
+></A
+>, and
+     <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ssh2-scp-send.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ssh2-sftp-mkdir.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ssh2_scp_send</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ssh2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ssh2_sftp_mkdir</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

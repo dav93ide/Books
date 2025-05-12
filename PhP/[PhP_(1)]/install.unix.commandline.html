@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>CGI and commandline setups</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation on Unix systems"
+HREF="install.unix.html"><LINK
+REL="PREVIOUS"
+TITLE="Sun, iPlanet and Netscape servers on Sun Solaris"
+HREF="install.unix.sun.html"><LINK
+REL="NEXT"
+TITLE="HP-UX specific installation notes"
+HREF="install.unix.hpux.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.unix.sun.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 4. Installation on Unix systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.unix.hpux.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.unix.commandline"
+>CGI and commandline setups</A
+></H1
+><P
+>&#13;    The default is to build PHP as a CGI program.  This creates a
+    commandline interpreter, which can be used for CGI processing, or
+    for non-web-related PHP scripting.  If you are running a web
+    server PHP has module support for, you should generally go for
+    that solution for performance reasons.  However, the CGI version
+    enables users to run different PHP-enabled pages under
+    different user-ids.
+   </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>By using the CGI setup, your server
+is open to several possible attacks. Please read our
+<A
+HREF="security.cgi-bin.html"
+>CGI security section</A
+> to learn how to
+defend yourself from those attacks.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;    As of PHP 4.3.0, some important additions have happened to PHP.  A new
+    SAPI named CLI also exists and it has the same name as the CGI binary.
+    What is installed at <VAR
+CLASS="literal"
+>{PREFIX}/bin/php</VAR
+> depends on your
+    configure line and this is described in detail in the manual section
+    named <A
+HREF="features.commandline.html"
+>Using PHP from the command
+    line</A
+>. For further details please read that section of the manual.
+   </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.commandline.testing"
+>Testing</A
+></H2
+><P
+>&#13;     If you have built PHP as a CGI program, you may test your build
+     by typing <B
+CLASS="command"
+>make test</B
+>.  It is always a good idea
+     to test your build.  This way you may catch a problem with PHP on
+     your platform early instead of having to struggle with it later.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.commandline.benchmarking"
+>Benchmarking</A
+></H2
+><P
+>&#13;     If you have built PHP 3 as a CGI program, you may benchmark your
+     build by typing <B
+CLASS="command"
+>make bench</B
+>. Note that if 
+     <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+> is on by default, the benchmark may not be able to finish if
+     it takes longer then the 30 seconds allowed. This is because the
+     <A
+HREF="function.set-time-limit.html"
+><B
+CLASS="function"
+>set_time_limit()</B
+></A
+> can not be used in 
+     <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+>. Use the <A
+HREF="ref.info.html#ini.max-execution-time"
+>max_execution_time</A
+>
+     configuration setting to control this time for your own
+     scripts. <B
+CLASS="command"
+>make bench</B
+> ignores the <A
+HREF="configuration.html#configuration.file"
+>configuration file</A
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        <B
+CLASS="command"
+>make bench</B
+> is only available for PHP 3.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.commandline.using-variables"
+>Using Variables</A
+></H2
+><P
+>&#13;      Some <A
+HREF="reserved.variables.html#reserved.variables.server"
+>server supplied
+      environment variables</A
+> are not defined in the 
+      current <A
+HREF="http://hoohoo.ncsa.uiuc.edu/cgi/env.html"
+TARGET="_top"
+>CGI/1.1 specification</A
+>.
+      Only the following variables are defined there: <VAR
+CLASS="varname"
+>AUTH_TYPE</VAR
+>, 
+      <VAR
+CLASS="varname"
+>CONTENT_LENGTH</VAR
+>, <VAR
+CLASS="varname"
+>CONTENT_TYPE</VAR
+>,
+      <VAR
+CLASS="varname"
+>GATEWAY_INTERFACE</VAR
+>, <VAR
+CLASS="varname"
+>PATH_INFO</VAR
+>, 
+      <VAR
+CLASS="varname"
+>PATH_TRANSLATED</VAR
+>, <VAR
+CLASS="varname"
+>QUERY_STRING</VAR
+>,
+      <VAR
+CLASS="varname"
+>REMOTE_ADDR</VAR
+>, <VAR
+CLASS="varname"
+>REMOTE_HOST</VAR
+>, 
+      <VAR
+CLASS="varname"
+>REMOTE_IDENT</VAR
+>, <VAR
+CLASS="varname"
+>REMOTE_USER</VAR
+>,
+      <VAR
+CLASS="varname"
+>REQUEST_METHOD</VAR
+>, <VAR
+CLASS="varname"
+>SCRIPT_NAME</VAR
+>, 
+      <VAR
+CLASS="varname"
+>SERVER_NAME</VAR
+>, <VAR
+CLASS="varname"
+>SERVER_PORT</VAR
+>,
+      <VAR
+CLASS="varname"
+>SERVER_PROTOCOL</VAR
+>, and <VAR
+CLASS="varname"
+>SERVER_SOFTWARE</VAR
+>.
+      Everything else should be treated as 'vendor extensions'.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.unix.sun.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.unix.hpux.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Sun, iPlanet and Netscape servers on Sun Solaris</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.unix.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>HP-UX specific installation notes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

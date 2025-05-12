@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Utilizzare il Debugger</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Debugging PHP"
+HREF="debugger.html"><LINK
+REL="PREVIOUS"
+TITLE="Debugging PHP"
+HREF="debugger.html"><LINK
+REL="NEXT"
+TITLE="Debugger Protocol"
+HREF="debugger-protocol.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="debugger.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice E. Debugging PHP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="debugger-protocol.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="debugger-using"
+>Utilizzare il Debugger</A
+></H1
+><P
+>&#13;    Il debugger interno del PHP 3 è utile per tracciare errori non
+    visibili. Il debugger funziona tramite una connessione ad una porta
+    <ACRONYM
+CLASS="acronym"
+>TCP</ACRONYM
+> che viene attivata ogni volta che viene eseguito il PHP 3.
+    Tutti i messaggi di errore generati da quella richiesta, vengono inviati
+    a questa connessione TCP. Questa modalità è pensata per i
+    "server di debugging" che possono essere eseguiti all'interno di un
+    <ACRONYM
+CLASS="acronym"
+>IDE</ACRONYM
+> o di un editor programmabile (tipo Emacs).
+   </P
+><P
+>&#13;    Come configurare il debugger:
+    <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+> 
+       impostare una porta TCP per il debugger nel <A
+HREF="configuration.html#configuration.file"
+>file di configurazione</A
+> (<A
+HREF="ini.core.html#ini.debugger.port"
+>debugger.port</A
+>) e attivarla
+       (<A
+HREF="ini.core.html#ini.debugger.enabled"
+>debugger.enabled</A
+>).
+      </P
+></LI
+><LI
+><P
+> 
+       Impostare un TCP listener sulla porta scelta (per esempio
+       <B
+CLASS="command"
+>socket -l -s 1400</B
+> su UNIX).
+      </P
+></LI
+><LI
+><P
+> 
+       Nel codice, eseguire
+       "debugger_on(<VAR
+CLASS="replaceable"
+>host</VAR
+>)", dove
+       <VAR
+CLASS="replaceable"
+>host</VAR
+> è l'indirizzo IP o il nome 
+       dell'host su cui è in esecuzione il <ACRONYM
+CLASS="acronym"
+>TCP</ACRONYM
+> listener.
+      </P
+></LI
+></OL
+>
+    Dopo di chè, tutti le avvertenze, notizie ecc. verranno
+    mostrate in questo socket, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>anche qualora li spegneste con 
+    <A
+HREF="function.error-reporting.html"
+><B
+CLASS="function"
+>error_reporting()</B
+></A
+></I
+></SPAN
+>.  
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="debugger.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="debugger-protocol.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Debugging PHP</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="debugger.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Debugger Protocol</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,385 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>maxdb_fetch_row</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MaxDB PHP Extension"
+HREF="ref.maxdb.html"><LINK
+REL="PREVIOUS"
+TITLE="maxdb_fetch_object"
+HREF="function.maxdb-fetch-object.html"><LINK
+REL="NEXT"
+TITLE="maxdb_fetch"
+HREF="function.maxdb-fetch.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.maxdb-fetch-object.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.maxdb-fetch.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.maxdb-fetch-row"
+></A
+>maxdb_fetch_row</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN72935"
+></A
+><P
+>    (PECL)</P
+>maxdb_fetch_row<P
+>    (no version information, might be only in CVS)</P
+>result-&#62;fetch_row&nbsp;--&nbsp;Get a result row as an enumerated array</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN72939"
+></A
+><H2
+>Description</H2
+><P
+>Procedural style:</P
+>mixed <B
+CLASS="methodname"
+>maxdb_fetch_row</B
+> ( resource result )<BR
+></BR
+><P
+>Object oriented style (method):</P
+>class <B
+CLASS="classname"
+>result</B
+> { <BR
+></BR
+>mixed <B
+CLASS="methodname"
+>fetch_row</B
+> ( void  )<BR
+></BR
+>}<P
+>&#13;     Returns an array that corresponds to the fetched row, or <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> if there are no more rows. 
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>maxdb_fetch_row()</B
+> fetches one row of data from the result set represented by
+     <VAR
+CLASS="parameter"
+>result</VAR
+> and returns it as an enumerated array, where each column is stored
+     in an array offset starting from 0 (zero). Each subsequent call to the
+     <B
+CLASS="function"
+>maxdb_fetch_row()</B
+> function will return the next row within the result set,
+     or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if there are no more rows.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN72963"
+></A
+><H2
+>Return values</H2
+><P
+>&#13;     <B
+CLASS="function"
+>maxdb_fetch_row()</B
+> returns an array that corresponds to the fetched row
+     or <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> if there are no more rows in result set.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>This function sets NULL fields to
+PHP <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> value.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN72971"
+></A
+><H2
+>See also</H2
+><P
+>&#13;     <A
+HREF="function.maxdb-fetch-array.html"
+><B
+CLASS="function"
+>maxdb_fetch_array()</B
+></A
+>,
+     <A
+HREF="function.maxdb-fetch-assoc.html"
+><B
+CLASS="function"
+>maxdb_fetch_assoc()</B
+></A
+>,
+     <B
+CLASS="function"
+>maxdb_fetch_resource()</B
+>.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN72977"
+></A
+><H2
+>Example</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN72979"
+></A
+><P
+><B
+>Esempio 1. Object oriented style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$maxdb </font><font color="#007700">= new </font><font color="#0000BB">maxdb</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"MONA"</font><font color="#007700">, </font><font color="#DD0000">"RED"</font><font color="#007700">, </font><font color="#DD0000">"DEMODB"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">maxdb_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /> <br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#DD0000">"SELECT name, state FROM hotel.city ORDER by zip"</font><font color="#007700">;<br /><br />if (</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#0000BB">$query</font><font color="#007700">)) {<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* fetch object array */<br />&nbsp;&nbsp;&nbsp;</font><font color="#007700">while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch_row</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"%s (%s)\n"</font><font color="#007700">, </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">], </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* free result set */<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br />}<br /><br /></font><font color="#FF8000">/* close connection */<br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN72982"
+></A
+><P
+><B
+>Esempio 2. Procedural style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$link </font><font color="#007700">= </font><font color="#0000BB">maxdb_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"MONA"</font><font color="#007700">, </font><font color="#DD0000">"RED"</font><font color="#007700">, </font><font color="#DD0000">"DEMODB"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">maxdb_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#DD0000">"SELECT name, state FROM hotel.city ORDER by zip"</font><font color="#007700">;<br /><br />if (</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">maxdb_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#0000BB">$query</font><font color="#007700">)) {<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* fetch associative array */<br />&nbsp;&nbsp;&nbsp;</font><font color="#007700">while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">maxdb_fetch_row</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"%s (%s)\n"</font><font color="#007700">, </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">], </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* free result set */<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">maxdb_free_result</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />}<br /><br /></font><font color="#FF8000">/* close connection */<br /></font><font color="#0000BB">maxdb_close</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     The above examples would produce the following output:
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>New York (NY)
+New York (NY)
+Long Island (NY)
+Albany (NY)
+Washington (DC)
+Washington (DC)
+Washington (DC)
+Silver Spring (MD)
+Daytona Beach (FL)
+Deerfield Beach (FL)
+Clearwater (FL)
+Cincinnati (OH)
+Detroit (MI)
+Rosemont (IL)
+Chicago (IL)
+Chicago (IL)
+New Orleans (LA)
+Dallas (TX)
+Los Angeles (CA)
+Hollywood (CA)
+Long Beach (CA)
+Palm Springs (CA)
+Irvine (CA)
+Santa Clara (CA)
+Portland (OR)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.maxdb-fetch-object.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.maxdb-fetch.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>maxdb_fetch_object</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.maxdb.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>maxdb_fetch</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

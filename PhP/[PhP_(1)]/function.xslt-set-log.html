@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>xslt_set_log</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni XSLT"
+HREF="ref.xslt.html"><LINK
+REL="PREVIOUS"
+TITLE="xslt_set_error_handler"
+HREF="function.xslt-set-error-handler.html"><LINK
+REL="NEXT"
+TITLE="xslt_set_object"
+HREF="function.xslt-set-object.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xslt-set-error-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.xslt-set-object.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.xslt-set-log"
+></A
+>xslt_set_log</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN180475"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PECL)</P
+>xslt_set_log&nbsp;--&nbsp;Imposta il file di log per scrivere i messaggi di log</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180478"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>xslt_set_log</B
+> ( resource xh [, mixed log] )<BR
+></BR
+><P
+>&#13;     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>xh</VAR
+></DT
+><DD
+><P
+>&#13;         Un riferimento all'XSLT parser.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>log</VAR
+></DT
+><DD
+><P
+>&#13;        Questo parametro può essere un valore booleano che può essere settato su on o off oppure una
+        stringa contenente il file di log incluso dei log di errore.
+       </P
+></DD
+></DL
+></DIV
+></P
+><P
+>&#13;     Questa funzione permette di impostare il file nel quale vuoi i messaggi di log di XSLT,
+     i messaggi di log di XSLT sono differenti dagli altri messaggi di errore, nei quali messaggi di log non siano
+     presenti i messaggi di errore ma piuttosto messaggi inerenti allo stato del processore di XSLT.
+     Sono usati per il debugging dell'XSLT, quando 
+     qualcosa va storto.
+    </P
+><P
+>&#13;     Per default il logging è disabilitato, ma se vuoi abilitarlo devi prima richiamare
+     <B
+CLASS="function"
+>xslt_set_log()</B
+> con un parametro booleano il quale abilita il logging, poi se 
+     vuoi impostare il file di log per fare il debug, devi poi passargli una stringa contenente il 
+     nome del file:
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Please note that <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>file://</I
+></SPAN
+>
+is needed in front of path if you use Windows.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180507"
+></A
+><H2
+>Esempi</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN180509"
+></A
+><P
+><B
+>Esempio 1. Uso delle features del Logging di XSLT</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$xh </font><font color="#007700">= </font><font color="#0000BB">xslt_create</font><font color="#007700">();<br /></font><font color="#0000BB">xslt_set_log</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#0000BB">true</font><font color="#007700">);<br /></font><font color="#0000BB">xslt_set_log</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#0000BB">getcwd</font><font color="#007700">() . </font><font color="#DD0000">'/myfile.log'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">xslt_process</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#DD0000">'dog.xml'</font><font color="#007700">, </font><font color="#DD0000">'pets.xsl'</font><font color="#007700">);<br />echo </font><font color="#0000BB">$result</font><font color="#007700">;<br /><br /></font><font color="#0000BB">xslt_free</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xslt-set-error-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.xslt-set-object.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>xslt_set_error_handler</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.xslt.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>xslt_set_object</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

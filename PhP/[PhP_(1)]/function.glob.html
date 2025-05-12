@@ -1,0 +1,420 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>glob</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="fwrite"
+HREF="function.fwrite.html"><LINK
+REL="NEXT"
+TITLE="is_dir"
+HREF="function.is-dir.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fwrite.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.is-dir.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.glob"
+></A
+>glob</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN42143"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PHP 5)</P
+>glob&nbsp;--&nbsp;Find pathnames matching a pattern</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN42146"
+></A
+><H2
+>Description</H2
+>array <B
+CLASS="methodname"
+>glob</B
+> ( string pattern [, int flags] )<BR
+></BR
+><P
+>&#13;     The <B
+CLASS="function"
+>glob()</B
+> function searches for all the pathnames
+     matching <VAR
+CLASS="parameter"
+>pattern</VAR
+> according to the rules used by
+     the libc glob() function, which is similar to the rules used by common
+     shells. No tilde expansion or parameter substitution is done.
+    </P
+><P
+>&#13;     Returns an array containing the matched files/directories or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on
+     error.
+    </P
+><P
+>&#13;    Valid flags:
+    <P
+></P
+><UL
+><LI
+><P
+>&#13;       <TT
+CLASS="constant"
+><B
+>GLOB_MARK</B
+></TT
+> - Adds a slash to each item returned
+      </P
+></LI
+><LI
+><P
+>&#13;       <TT
+CLASS="constant"
+><B
+>GLOB_NOSORT</B
+></TT
+> - Return files as they appear in the 
+       directory (no sorting)
+      </P
+></LI
+><LI
+><P
+>&#13;       <TT
+CLASS="constant"
+><B
+>GLOB_NOCHECK</B
+></TT
+> - Return the search pattern if no 
+       files matching it were found
+      </P
+></LI
+><LI
+><P
+>&#13;       <TT
+CLASS="constant"
+><B
+>GLOB_NOESCAPE</B
+></TT
+> - Backslashes do not quote 
+       metacharacters
+      </P
+></LI
+><LI
+><P
+>&#13;       <TT
+CLASS="constant"
+><B
+>GLOB_BRACE</B
+></TT
+> - Expands {a,b,c} to match 'a', 'b', 
+       or 'c'
+      </P
+></LI
+><LI
+><P
+>&#13;       <TT
+CLASS="constant"
+><B
+>GLOB_ONLYDIR</B
+></TT
+> - Return only directory entries 
+       which match the pattern
+      </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        Before PHP 4.3.3 <TT
+CLASS="constant"
+><B
+>GLOB_ONLYDIR</B
+></TT
+> was 
+        <SPAN
+CLASS="strong"
+><B
+CLASS="emphasis"
+>not</B
+></SPAN
+>
+        available on Windows and other systems not using the GNU
+        C library.
+       </P
+></BLOCKQUOTE
+></DIV
+></LI
+><LI
+><P
+>&#13;       <TT
+CLASS="constant"
+><B
+>GLOB_ERR</B
+></TT
+> - Stop on read errors (like unreadable  
+       directories), by default errors are ignored
+      </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        <TT
+CLASS="constant"
+><B
+>GLOB_ERR</B
+></TT
+> was added in PHP 5.1
+       </P
+></BLOCKQUOTE
+></DIV
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN42193"
+></A
+><P
+><B
+>Esempio 1. 
+       Convenient way how <B
+CLASS="function"
+>glob()</B
+> can replace
+       <A
+HREF="function.opendir.html"
+><B
+CLASS="function"
+>opendir()</B
+></A
+> and friends.
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">foreach (</font><font color="#0000BB">glob</font><font color="#007700">(</font><font color="#DD0000">"*.txt"</font><font color="#007700">) as </font><font color="#0000BB">$filename</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$filename size " </font><font color="#007700">. </font><font color="#0000BB">filesize</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Output will look something like:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>funclist.txt size 44686
+funcsummary.txt size 267625
+quickref.txt size 137820</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione non è eseguibile con 
+<A
+HREF="features.remote-files.html"
+>file remoti</A
+>, ma con file 
+accessibili attraverso il filesystem del server.</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also <A
+HREF="function.opendir.html"
+><B
+CLASS="function"
+>opendir()</B
+></A
+>,
+     <A
+HREF="function.readdir.html"
+><B
+CLASS="function"
+>readdir()</B
+></A
+>,
+     <A
+HREF="function.closedir.html"
+><B
+CLASS="function"
+>closedir()</B
+></A
+>, and <A
+HREF="function.fnmatch.html"
+><B
+CLASS="function"
+>fnmatch()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fwrite.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.is-dir.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fwrite</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>is_dir</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

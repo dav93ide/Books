@@ -1,0 +1,387 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pg_field_type_oid</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni PostgreSQL"
+HREF="ref.pgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="pg_field_size"
+HREF="function.pg-field-size.html"><LINK
+REL="NEXT"
+TITLE="pg_field_type"
+HREF="function.pg-field-type.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pg-field-size.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-field-type.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pg-field-type-oid"
+></A
+>pg_field_type_oid</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN133316"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>pg_field_type_oid&nbsp;--&nbsp;
+   Returns the type ID (OID) for the corresponding field number
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN133319"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>pg_field_type_oid</B
+> ( resource result, int field_number )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>pg_field_type_oid()</B
+> returns an integer containing the
+   OID of the base type of the given <VAR
+CLASS="parameter"
+>field_number</VAR
+> in the
+   given PostgreSQL <VAR
+CLASS="parameter"
+>result</VAR
+> resource.
+  </P
+><P
+>&#13;    You can get more information about the field type by querying PostgreSQL's
+    <VAR
+CLASS="literal"
+>pg_type</VAR
+> system table using the OID obtained with this function.
+    The PostgreSQL <B
+CLASS="function"
+>format_type()</B
+> function will convert a
+    type OID into an SQL standard type name.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    If the field uses a PostgreSQL domain (rather than a basic type), it is
+    the OID of the domain's underlying type that is returned, rather than the OID
+    of the domain itself.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN133339"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>result</VAR
+></DT
+><DD
+><P
+>&#13;       PostgreSQL query result resource, returned by <A
+HREF="function.pg-query.html"
+><B
+CLASS="function"
+>pg_query()</B
+></A
+>,
+       <A
+HREF="function.pg-query-params.html"
+><B
+CLASS="function"
+>pg_query_params()</B
+></A
+> or <A
+HREF="function.pg-execute.html"
+><B
+CLASS="function"
+>pg_execute()</B
+></A
+>
+       (among others).
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>field_number</VAR
+></DT
+><DD
+><P
+>&#13;        Field number, starting from 0.
+       </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN133356"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   The OID of the field's base type. <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> is returned on error.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN133360"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN133363"
+></A
+><P
+><B
+>Esempio 1. Getting information about fields</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;$dbconn </font><font color="#007700">= </font><font color="#0000BB">pg_connect</font><font color="#007700">(</font><font color="#DD0000">"dbname=publisher"</font><font color="#007700">) or die(</font><font color="#DD0000">"Could not connect"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;</font><font color="#FF8000">// Assume 'title' is a varchar type<br />&nbsp;&nbsp;</font><font color="#0000BB">$res </font><font color="#007700">= </font><font color="#0000BB">pg_query</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"select title from authors where author = 'Orwell'"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;echo </font><font color="#DD0000">"Title field type OID: "</font><font color="#007700">, </font><font color="#0000BB">pg_field_type_oid</font><font color="#007700">(</font><font color="#0000BB">$res</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Title field type OID: 1043</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+> 
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN133368"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.pg-field-type.html"
+><B
+CLASS="function"
+>pg_field_type()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.pg-field-prtlen.html"
+><B
+CLASS="function"
+>pg_field_prtlen()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.pg-field-name.html"
+><B
+CLASS="function"
+>pg_field_name()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pg-field-size.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-field-type.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pg_field_size</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pgsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_field_type</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,427 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pdo_stmt_t definition</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Driver How-To"
+HREF="internals.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="pdo_dbh_t definition"
+HREF="internals.pdo.pdo-dbh-t.html"><LINK
+REL="NEXT"
+TITLE="Constants"
+HREF="internals.pdo.constants.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="internals.pdo.pdo-dbh-t.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 45. PDO Driver How-To</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="internals.pdo.constants.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="internals.pdo.pdo_stmt_t"
+>pdo_stmt_t definition</A
+></H1
+><P
+>&#13;  All fields should be treated as read-only unless explicitly stated
+  otherwise.
+ </P
+><DIV
+CLASS="figure"
+><A
+NAME="AEN185947"
+></A
+><P
+><B
+>Figura 45-2. pdo_stmt_t</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="c"
+>/* represents a prepared statement */
+struct _pdo_stmt_t {
+    /* driver specifics */
+    struct pdo_stmt_methods *methods;   <A
+NAME="internals.pdo.stmt.co.methods"
+><IMG
+SRC="../images/callouts/1.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(1)"></A
+>
+    void *driver_data;                  <A
+NAME="internals.pdo.stmt.co.driver-data"
+><IMG
+SRC="../images/callouts/2.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(2)"></A
+>
+
+    /* if true, we've already successfully executed this statement at least
+     * once */
+    unsigned executed:1;                <A
+NAME="internals.pdo.stmt.co.executed"
+><IMG
+SRC="../images/callouts/3.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(3)"></A
+>
+    /* if true, the statement supports placeholders and can implement
+     * bindParam() for its prepared statements, if false, PDO should
+     * emulate prepare and bind on its behalf */
+    unsigned supports_placeholders:2;   <A
+NAME="internals.pdo.stmt.co.holder"
+><IMG
+SRC="../images/callouts/4.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(4)"></A
+>
+
+    /* the number of columns in the result set; not valid until after
+     * the statement has been executed at least once.  In some cases, might
+     * not be valid until fetch (at the driver level) has been called at least once.
+     * */
+    int column_count;                   <A
+NAME="internals.pdo.stmt.co.colcount"
+><IMG
+SRC="../images/callouts/5.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(5)"></A
+>
+    struct pdo_column_data *columns;    <A
+NAME="internals.pdo.stmt.co.cols"
+><IMG
+SRC="../images/callouts/6.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(6)"></A
+>
+
+    /* points at the dbh that this statement was prepared on */
+    pdo_dbh_t *dbh;
+
+    /* keep track of bound input parameters.  Some drivers support
+     * input/output parameters, but you can't rely on that working */
+    HashTable *bound_params;
+    /* When rewriting from named to positional, this maps positions to names */
+    HashTable *bound_param_map; 
+    /* keep track of PHP variables bound to named (or positional) columns
+     * in the result set */
+    HashTable *bound_columns;
+
+    /* not always meaningful */
+    long row_count;
+
+    /* used to hold the statement's current query */
+    char *query_string;
+    int query_stringlen;
+
+    /* the copy of the query with expanded binds ONLY for emulated-prepare drivers */
+    char *active_query_string;
+    int active_query_stringlen;
+
+    /* the cursor specific error code. */
+    pdo_error_type error_code;
+
+    /* used by the query parser for driver specific
+     * parameter naming (see pgsql driver for example) */
+    const char *named_rewrite_template;
+};</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="calloutlist"
+><DL
+COMPACT="COMPACT"
+><DT
+><A
+HREF="internals.pdo.pdo_stmt_t.html#internals.pdo.stmt.co.methods"
+><IMG
+SRC="../images/callouts/1.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(1)"></A
+></DT
+><DD
+>&#13;    The driver <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>must</I
+></SPAN
+> set this during
+    <B
+CLASS="function"
+>SKEL_handle_preparer()</B
+>.
+   </DD
+><DT
+><A
+HREF="internals.pdo.pdo_stmt_t.html#internals.pdo.stmt.co.driver-data"
+><IMG
+SRC="../images/callouts/2.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(2)"></A
+></DT
+><DD
+>&#13;    This item is for use by the driver; the intended usage is to store a
+    pointer (during <B
+CLASS="function"
+>SKEL_handle_factory()</B
+>) 
+    to whatever instance data is required to maintain a connection to
+    the database.
+   </DD
+><DT
+><A
+HREF="internals.pdo.pdo_stmt_t.html#internals.pdo.stmt.co.executed"
+><IMG
+SRC="../images/callouts/3.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(3)"></A
+></DT
+><DD
+>&#13;    This is set by PDO after the statement has been executed for the first
+    time.  Your driver can inspect this value to determine if it can skip
+    one-time actions as an optimization.
+   </DD
+><DT
+><A
+HREF="internals.pdo.pdo_stmt_t.html#internals.pdo.stmt.co.holder"
+><IMG
+SRC="../images/callouts/4.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(4)"></A
+></DT
+><DD
+>&#13;    Discussed in more detail in <A
+HREF="internals.pdo.implementing.html#internals.pdo.preparer"
+>la Sezione <I
+>SKEL_handle_preparer</I
+></A
+>
+   </DD
+><DT
+><A
+HREF="internals.pdo.pdo_stmt_t.html#internals.pdo.stmt.co.colcount"
+><IMG
+SRC="../images/callouts/5.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(5)"></A
+></DT
+><DD
+>&#13;    Your driver is responsible for setting this field to the number of
+    columns available in a result set.  This is usually set during
+    <B
+CLASS="function"
+>SKEL_stmt_execute()</B
+> but with some database
+    implementations, the column count may not be available until
+    <B
+CLASS="function"
+>SKEL_stmt_fetch()</B
+> has been called at least once.
+    Drivers that <B
+CLASS="function"
+>SKEL_stmt_next_rowset()</B
+> should update the
+    column count when a new rowset is available.
+   </DD
+><DT
+><A
+HREF="internals.pdo.pdo_stmt_t.html#internals.pdo.stmt.co.cols"
+><IMG
+SRC="../images/callouts/6.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(6)"></A
+></DT
+><DD
+>&#13;    PDO will allocate this field based on the value that you set for the
+    column count.  You are responsible for populating each column during
+    <B
+CLASS="function"
+>SKEL_stmt_describe()</B
+>.  You must set the
+    <VAR
+CLASS="parameter"
+>precision</VAR
+>, <VAR
+CLASS="parameter"
+>maxlen</VAR
+>,
+    <VAR
+CLASS="parameter"
+>name</VAR
+>, <VAR
+CLASS="parameter"
+>namelen</VAR
+> and
+    <VAR
+CLASS="parameter"
+>param_type</VAR
+> members for each column.
+    The <VAR
+CLASS="parameter"
+>name</VAR
+> is expected to be allocated using
+    <B
+CLASS="function"
+>emalloc()</B
+>; PDO will <B
+CLASS="function"
+>efree()</B
+> at the
+    appropriate time.
+   </DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="internals.pdo.pdo-dbh-t.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="internals.pdo.constants.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pdo_dbh_t definition</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="internals.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Constants</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

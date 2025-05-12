@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Caricamento di più file</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caricare file"
+HREF="features.file-upload.html"><LINK
+REL="PREVIOUS"
+TITLE="Common Pitfalls"
+HREF="features.file-upload.common-pitfalls.html"><LINK
+REL="NEXT"
+TITLE="Supporto per metodo PUT"
+HREF="features.file-upload.put-method.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="features.file-upload.common-pitfalls.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 38. Caricare file</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="features.file-upload.put-method.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="features.file-upload.multiple"
+>Caricamento di più file</A
+></H1
+><P
+>&#13;    E' possibile inviare più file contemporanemante utilizzando in
+    <VAR
+CLASS="literal"
+>input</VAR
+> <VAR
+CLASS="literal"
+>nomi</VAR
+> differenti.
+   </P
+><P
+>&#13;    E' possibile caricare più file contemporaneamente e avere 
+    le informazioni organizzate automaticamente in array. Per questo 
+    è necessario utilizzare la medesima sintassi di invio di array da form HTML che 
+    è utilizzata con select e checkbox multipli:
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Il supporto per il caricamento di file multipliè stato aggiunto in PHP 3.0.10.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN7185"
+></A
+><P
+><B
+>Esempio 38-4. Caricamento di più file</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;form action="file-upload.php" method="post" enctype="multipart/form-data"&#62;
+  Send these files:&#60;br /&#62;
+  &#60;input name="userfile[]" type="file" /&#62;&#60;br /&#62;
+  &#60;input name="userfile[]" type="file" /&#62;&#60;br /&#62;
+  &#60;input type="submit" value="Send files" /&#62;
+&#60;/form&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Quando la form è inviata, gli array
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']</VAR
+>,
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['name']</VAR
+>, e
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['size']</VAR
+> saranno
+    inizializzati (come sarà valorizzato <VAR
+CLASS="varname"
+>$HTTP_POST_FILES</VAR
+>
+    per le versioni di PHP precedenti la 4.1.0).
+    Quando il parametro  <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+> è impostato a on
+    saranno presenti anche le variabili globali. Ognuno di questi è un array indicizzato numericamente 
+    con i valori relativi ai diversi file caricati.
+   </P
+><P
+>&#13;    Per esempio, si supponga che i nomi di file
+    <TT
+CLASS="filename"
+>/home/test/review.html</TT
+> e
+    <TT
+CLASS="filename"
+>/home/test/xwp.out</TT
+> siano inviati.  In questo 
+    caso, <VAR
+CLASS="varname"
+>$_FILES['userfile']['name'][0]</VAR
+> conterrebbe
+    il valore <TT
+CLASS="filename"
+>review.html</TT
+>,
+    e <VAR
+CLASS="varname"
+>$_FILES['userfile']['name'][1]</VAR
+> conterrebbe
+    il valore
+    <TT
+CLASS="filename"
+>xwp.out</TT
+>. Analogamente,
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['size'][0]</VAR
+> conterrebbe la dimensione di 
+    <TT
+CLASS="filename"
+>review.html</TT
+>, e così via.
+   </P
+><P
+>&#13;   	Anche
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['name'][0]</VAR
+>,
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['tmp_name'][0]</VAR
+>,
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['size'][0]</VAR
+>, e
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['type'][0]</VAR
+> sono impostati.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="features.file-upload.common-pitfalls.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="features.file-upload.put-method.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Common Pitfalls</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="features.file-upload.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Supporto per metodo PUT</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

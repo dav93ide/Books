@@ -1,0 +1,719 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Integers</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Types"
+HREF="language.types.html"><LINK
+REL="PREVIOUS"
+TITLE="Booleans"
+HREF="language.types.boolean.html"><LINK
+REL="NEXT"
+TITLE="Floating point numbers"
+HREF="language.types.float.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.types.boolean.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 11. Types</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.types.float.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.types.integer"
+>Integers</A
+></H1
+><P
+>&#13;     An <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+> is a number of the set 
+     Z = {..., -2, -1, 0, 1, 2, ...}.
+    </P
+><P
+>&#13;     See also:
+     <A
+HREF="ref.gmp.html"
+>Arbitrary length integer / GMP</A
+>,
+     <A
+HREF="language.types.float.html"
+>Floating point numbers</A
+>, and
+     <A
+HREF="ref.bc.html"
+>Arbitrary precision / BCMath</A
+>
+    </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.integer.syntax"
+>Syntax</A
+></H2
+><P
+>&#13;      Integers can be specified in decimal (10-based), hexadecimal (16-based)
+      or octal (8-based) notation, optionally preceded by a sign (- or +).
+     </P
+><P
+>&#13;      If you use the octal notation, you must precede the number with a 
+      <VAR
+CLASS="literal"
+>0</VAR
+> (zero), to use hexadecimal notation precede
+      the number with <VAR
+CLASS="literal"
+>0x</VAR
+>.
+      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN2889"
+></A
+><P
+><B
+>Esempio 11-1. Integer literals</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$a </font><font color="#007700">= </font><font color="#0000BB">1234</font><font color="#007700">; </font><font color="#FF8000">// decimal number<br /></font><font color="#0000BB">$a </font><font color="#007700">= -</font><font color="#0000BB">123</font><font color="#007700">; </font><font color="#FF8000">// a negative number<br /></font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#0000BB">0123</font><font color="#007700">; </font><font color="#FF8000">// octal number (equivalent to 83 decimal)<br /></font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#0000BB">0x1A</font><font color="#007700">; </font><font color="#FF8000">// hexadecimal number (equivalent to 26 decimal)<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+      Formally the possible structure for integer literals is:
+      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN2892"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>decimal     : [1-9][0-9]*
+            | 0
+
+hexadecimal : 0[xX][0-9a-fA-F]+
+
+octal       : 0[0-7]+
+
+integer     : [+-]?decimal
+            | [+-]?hexadecimal
+            | [+-]?octal</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+      The size of an integer is platform-dependent, although a 
+      maximum value of about two billion is the usual value 
+      (that's 32 bits signed). PHP does not support unsigned
+      integers.
+     </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;       If an invalid digit is passed to octal integer (i.e. 8 or 9), the rest
+       of the number is ignored.
+       <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN2896"
+></A
+><P
+><B
+>Esempio 11-2. Octal weirdness</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />var_dump</font><font color="#007700">(</font><font color="#0000BB">01090</font><font color="#007700">); </font><font color="#FF8000">// 010 octal = 8 decimal<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.integer.overflow"
+>Integer overflow</A
+></H2
+><P
+>&#13;      If you specify a number beyond the bounds of the <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>
+      type, it will be interpreted as a <A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+> instead. Also, if
+      you perform an operation that results in a number beyond the bounds of
+      the <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+> type, a <A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+> will be returned
+      instead.
+
+      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN2906"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$large_number </font><font color="#007700">=&nbsp;&nbsp;</font><font color="#0000BB">2147483647</font><font color="#007700">;<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$large_number</font><font color="#007700">);<br /></font><font color="#FF8000">// output: int(2147483647)<br /><br /></font><font color="#0000BB">$large_number </font><font color="#007700">=&nbsp;&nbsp;</font><font color="#0000BB">2147483648</font><font color="#007700">;<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$large_number</font><font color="#007700">);<br /></font><font color="#FF8000">// output: float(2147483648)<br /><br />// this doesn't go for hexadecimal specified integers:<br /></font><font color="#0000BB">var_dump</font><font color="#007700">( </font><font color="#0000BB">0x100000000 </font><font color="#007700">);<br /></font><font color="#FF8000">// output: int(2147483647)<br /><br /></font><font color="#0000BB">$million </font><font color="#007700">= </font><font color="#0000BB">1000000</font><font color="#007700">;<br /></font><font color="#0000BB">$large_number </font><font color="#007700">=&nbsp;&nbsp;</font><font color="#0000BB">50000 </font><font color="#007700">* </font><font color="#0000BB">$million</font><font color="#007700">;<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$large_number</font><font color="#007700">);<br /></font><font color="#FF8000">// output: float(50000000000)<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+      <DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;        Unfortunately, there was a bug in PHP so that this
+        does not always work correctly when there are negative numbers
+        involved. For example: when you do <VAR
+CLASS="literal"
+>-50000 *
+        $million</VAR
+>, the result will be
+        <VAR
+CLASS="literal"
+>-429496728</VAR
+>. However, when both operands are
+        positive there is no problem.
+       </P
+><P
+>&#13;        This is solved in PHP 4.1.0.
+       </P
+></TD
+></TR
+></TABLE
+></DIV
+>
+     </P
+><P
+>&#13;      There is no integer division operator in PHP.
+      <VAR
+CLASS="literal"
+>1/2</VAR
+> yields the <A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+>
+      <VAR
+CLASS="literal"
+>0.5</VAR
+>. You can cast the value to
+      an integer to always round it downwards, or you can
+      use the <A
+HREF="function.round.html"
+><B
+CLASS="function"
+>round()</B
+></A
+> function.
+      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN2918"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />var_dump</font><font color="#007700">(</font><font color="#0000BB">25</font><font color="#007700">/</font><font color="#0000BB">7</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// float(3.5714285714286) <br /></font><font color="#0000BB">var_dump</font><font color="#007700">((int) (</font><font color="#0000BB">25</font><font color="#007700">/</font><font color="#0000BB">7</font><font color="#007700">)); </font><font color="#FF8000">// int(3)<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">round</font><font color="#007700">(</font><font color="#0000BB">25</font><font color="#007700">/</font><font color="#0000BB">7</font><font color="#007700">));&nbsp;&nbsp;</font><font color="#FF8000">// float(4) <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.integer.casting"
+>Converting to integer</A
+></H2
+><P
+>&#13;       To explicitly convert a value to <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>, use either
+       the <VAR
+CLASS="literal"
+>(int)</VAR
+> or the <VAR
+CLASS="literal"
+>(integer)</VAR
+> cast.
+       However, in most cases you do not need to use the cast, since a value
+       will be automatically converted if an operator, function or 
+       control structure requires an <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+> argument.
+       You can also convert a value to integer with the function
+       <A
+HREF="function.intval.html"
+><B
+CLASS="function"
+>intval()</B
+></A
+>.
+      </P
+><P
+>&#13;       See also <A
+HREF="language.types.type-juggling.html"
+>type-juggling</A
+>.
+      </P
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="language.types.integer.casting.from-boolean"
+>From <A
+HREF="language.types.boolean.html"
+>booleans</A
+></A
+></H3
+><P
+>&#13;        <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> will yield 
+        <VAR
+CLASS="literal"
+>0</VAR
+> (zero), and <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> 
+        will yield <VAR
+CLASS="literal"
+>1</VAR
+> (one).
+       </P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="language.types.integer.casting.from-float"
+>From <A
+HREF="language.types.float.html"
+>floating point numbers</A
+></A
+></H3
+><P
+>&#13;        When converting from float to integer, the number will
+        be rounded <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>towards zero</I
+></SPAN
+>.
+       </P
+><P
+>&#13;        If the float is beyond the boundaries of integer
+        (usually <VAR
+CLASS="literal"
+>+/- 2.15e+9 = 2^31</VAR
+>), 
+        the result is undefined, since the float hasn't
+        got enough precision to give an exact integer result.
+        No warning, not even a notice will be issued in this 
+        case!
+       </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;        Never cast an unknown fraction to <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>, as this can
+        sometimes lead to unexpected results.
+        <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN2948"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo (int) ( (</font><font color="#0000BB">0.1</font><font color="#007700">+</font><font color="#0000BB">0.7</font><font color="#007700">) * </font><font color="#0000BB">10 </font><font color="#007700">); </font><font color="#FF8000">// echoes 7!<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+        
+        See for more information the <A
+HREF="language.types.float.html#warn.float-precision"
+>warning 
+        about float-precision</A
+>.
+       </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="language.types.integer.casting.from-string"
+>From strings</A
+></H3
+><P
+>&#13;        See <A
+HREF="language.types.string.html#language.types.string.conversion"
+>String 
+        conversion to numbers</A
+>
+       </P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="language.types.integer.casting.from-other"
+>From other types</A
+></H3
+><P
+>&#13;        <DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;          Behaviour of converting to integer is undefined for other
+          types. Currently, the behaviour is the same as if the value
+          was first <A
+HREF="language.types.boolean.html#language.types.boolean.casting"
+>converted to boolean</A
+>. However, do
+          <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> rely on this behaviour, as it can
+          change without notice.
+         </P
+></TD
+></TR
+></TABLE
+></DIV
+>
+       </P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.types.boolean.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.types.float.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Booleans</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.types.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Floating point numbers</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

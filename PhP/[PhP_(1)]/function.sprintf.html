@@ -1,0 +1,865 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sprintf</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="soundex"
+HREF="function.soundex.html"><LINK
+REL="NEXT"
+TITLE="sscanf"
+HREF="function.sscanf.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.soundex.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sscanf.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sprintf"
+></A
+>sprintf</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN164779"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>sprintf&nbsp;--&nbsp;Restituisce una stringa formattata</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN164782"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>sprintf</B
+> ( string format [, mixed args [, mixed ...]] )<BR
+></BR
+><P
+>&#13;     La funzione restituisce una stringa formattata in base al parametro 
+     <VAR
+CLASS="parameter"
+>format</VAR
+>.
+    </P
+><P
+>&#13;     La stringa di formato è composta da 0 o più direttive:
+     i caratteri ordinari (escluso il <VAR
+CLASS="literal"
+>%</VAR
+>) sono
+     copiati direttamente nel risultato, mentre le <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>specifiche 
+     di conversione</I
+></SPAN
+>, scaricano il proprio parametro.
+     Queste note si applicano alle funzioni <A
+HREF="function.fprintf.html"
+><B
+CLASS="function"
+>fprintf()</B
+></A
+>,
+     <B
+CLASS="function"
+>sprintf()</B
+> e <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+>.     
+    </P
+><P
+>&#13;     Ciascun parametro di conversione consiste nel segno percento
+     (<VAR
+CLASS="literal"
+>%</VAR
+>), seguito da uno più dei seguenti elementi
+     nell'ordine si ha:
+     <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;        Un parametro opzionale di <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>specifica del segno</I
+></SPAN
+> che forza la presenza del segno
+        (- oppure +) in caso di numero. Per default, si usa soltanto il segno - 
+        se il numero è negativo. Questo parametro forza i numeri positiva ad avere
+        il segno +, ed è stato aggiunto in PHP 4.3.0.
+       </P
+></LI
+><LI
+><P
+>&#13;        Un parametro opzionale per la specifica del <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>riempimento</I
+></SPAN
+>
+        che indica quale carattere sarà utilizzato per completare la stringa risultante
+        in modo da raggiungere la dimensione richiesta. Questo può essere uno spazio oppure uno
+        <VAR
+CLASS="literal"
+>0</VAR
+> (il carattere zero).  Per default si completa con
+        spazi. Un carattere di riempimento alternativo può essere indicato 
+        anteponendo a questo l'apice singolo (<VAR
+CLASS="literal"
+>'</VAR
+>).
+        Vedere gli esempi seguenti.
+       </P
+></LI
+><LI
+><P
+>&#13;        Un parametro opzionale per la specifica dell'<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>allineamento</I
+></SPAN
+> 
+        che indica se la stringa risultante debba essere giustificata a destra o a sinistra.
+        Per default le stringhe sono giustificate a destra; il carattere
+        <VAR
+CLASS="literal"
+>-</VAR
+> forza la giustificazione a sinistra.
+       </P
+></LI
+><LI
+><P
+>&#13;        Un parametro numerico opzionale per la specifica della <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>dimensione</I
+></SPAN
+>
+        che indica di quanti caratteri (come minimo) debba essere lunga la
+        stringa.
+       </P
+></LI
+><LI
+><P
+>&#13;        Un parametro opzionale per indicare la <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>precisione</I
+></SPAN
+> per indicare
+        quante cifre decimali debbano essere visualizzate per i numeri in virgola mobile.
+        Quando si usa questo parametro in una stringa si impone come una sorta di punto di
+        cutoff, esso imposta un limite alla lunghezza della stringa.
+       </P
+></LI
+><LI
+><P
+>&#13;       Una specifica di <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>tipo</I
+></SPAN
+> che indica il tipo 
+        di dati dell'argomento. I possibili tipi sono:
+        <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>%</VAR
+> - il carattere percento. Nessun
+          argomento è richiesto.
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>b</VAR
+> - l'argomento è trattato come un 
+          intero e sarà presentato come numero binario.
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>c</VAR
+> - l'argomento è trattato come un 
+          intero e sarà presentato come carattere ASCII
+          del valore corrispondente.
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>d</VAR
+> - l'argomento è trattato come un 
+          intero e sarà presentato come un numero decimale con segno.
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>e</VAR
+> - l'argomento è reso con notazione
+          scientifica (ad esempio 1.2e+2).
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>u</VAR
+> - l'argomento è trattato come un 
+          intero e sarà presentato come un numero decimale senza segno.
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>f</VAR
+> - l'argomento è trattato come un 
+          <A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+> e sarà presentato come un numero in virgola mobile (influenzato dalle impostazioni locali).
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>F</VAR
+> - l'argomento è trattato come un numero 
+          float, e sarà presentato come un numero in virgola mobile (non influenzato dalle impostazioni locali).
+          Disponibile da PHP 4.3.10 e PHP 5.0.3.
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>o</VAR
+> - l'argomento è trattato come un 
+          intero e sarà presentato come un numero ottale.
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>s</VAR
+> - l'argomento sarà trattato e presentato
+          come una stringa.
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>x</VAR
+> - l'argomento sarà trattato come un intero
+          e presentato in forma esadecimale (con le lettere in
+          minuscolo).
+         </TD
+></TR
+><TR
+><TD
+>&#13;          <VAR
+CLASS="literal"
+>X</VAR
+> - l'argomento è trattato come un 
+          intero e sarà presentato come un numero esadecimale (con le 
+          lettere maiuscole).
+         </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+       </P
+></LI
+></OL
+>
+    </P
+><P
+>&#13;     A partire dal PHP 4.0.6 la stringa di formato supporta 
+     lo scambio dei parametri. Eccone un esempio:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164855"
+></A
+><P
+><B
+>Esempio 1. Scambio dei parametri</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$format </font><font color="#007700">= </font><font color="#DD0000">"There are %d monkeys in the %s"</font><font color="#007700">;<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#0000BB">$format</font><font color="#007700">, </font><font color="#0000BB">$num</font><font color="#007700">, </font><font color="#0000BB">$location</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Questo esempio visualizza: "There are 5 monkeys in the tree".  Ma
+     supponiamo di volere creare una stringa di formato in file a parte,
+     perchè vogliamo rendere la procedura internazionale; e pertanto riscriviamo 
+     l'esempio come:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164858"
+></A
+><P
+><B
+>Esempio 2. Scambio dei parametri</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$format </font><font color="#007700">= </font><font color="#DD0000">"The %s contains %d monkeys"</font><font color="#007700">;<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#0000BB">$format</font><font color="#007700">, </font><font color="#0000BB">$num</font><font color="#007700">, </font><font color="#0000BB">$location</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Ora abbiamo un problema. L'ordine dei segnaposto nella stringa di
+     formato non coincide con l'ordine dei parametri.
+     Si vorrebbe potere lasciare inalterato il codice e potere indicare 
+     a quale parametro si riferisce il segnaposto.
+     Ciò può essere fatto modificando la stringa di formato come:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164861"
+></A
+><P
+><B
+>Esempio 3. Scambio dei parametri</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$format </font><font color="#007700">= </font><font color="#DD0000">"The %2\$s contains %1\$d monkeys"</font><font color="#007700">;<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#0000BB">$format</font><font color="#007700">, </font><font color="#0000BB">$num</font><font color="#007700">, </font><font color="#0000BB">$location</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Un beneficio aggiuntivo è che si possono ripetere i segnaposto
+     senza dovere ripetere i parametri. Ad esempio:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164864"
+></A
+><P
+><B
+>Esempio 4. Scambio di parametri</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$format </font><font color="#007700">= </font><font color="#DD0000">"The %2\$s contains %1\$d monkeys.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;That's a nice %2\$s full of %1\$d monkeys."</font><font color="#007700">;<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#0000BB">$format</font><font color="#007700">, </font><font color="#0000BB">$num</font><font color="#007700">, </font><font color="#0000BB">$location</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+>,
+     <A
+HREF="function.sscanf.html"
+><B
+CLASS="function"
+>sscanf()</B
+></A
+>, <A
+HREF="function.fscanf.html"
+><B
+CLASS="function"
+>fscanf()</B
+></A
+>, 
+     <A
+HREF="function.vsprintf.html"
+><B
+CLASS="function"
+>vsprintf()</B
+></A
+> e
+     <A
+HREF="function.number-format.html"
+><B
+CLASS="function"
+>number_format()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN164873"
+></A
+><H2
+>Esempi</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164875"
+></A
+><P
+><B
+>Esempio 5. Esempi di uso di <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$n </font><font color="#007700">=&nbsp;&nbsp;</font><font color="#0000BB">43951789</font><font color="#007700">;<br /></font><font color="#0000BB">$u </font><font color="#007700">= -</font><font color="#0000BB">43951789</font><font color="#007700">;<br /></font><font color="#0000BB">$c </font><font color="#007700">= </font><font color="#0000BB">65</font><font color="#007700">; </font><font color="#FF8000">// ASCII 65 is 'A'<br /><br />// attenzione che i doppi %%, visualizzano il carattere '%' <br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%b = '%b'\n"</font><font color="#007700">, </font><font color="#0000BB">$n</font><font color="#007700">); </font><font color="#FF8000">// rappresentazione binaria<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%c = '%c'\n"</font><font color="#007700">, </font><font color="#0000BB">$c</font><font color="#007700">); </font><font color="#FF8000">// visualizza un carattere ASCII, coma la funzione chr()<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%d = '%d'\n"</font><font color="#007700">, </font><font color="#0000BB">$n</font><font color="#007700">); </font><font color="#FF8000">// rappresentazione di un intero standard<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%e = '%e'\n"</font><font color="#007700">, </font><font color="#0000BB">$n</font><font color="#007700">); </font><font color="#FF8000">// notazione scientifica<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%u = '%u'\n"</font><font color="#007700">, </font><font color="#0000BB">$n</font><font color="#007700">); </font><font color="#FF8000">// rappresentazione di un intero positivo privo di segno<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%u = '%u'\n"</font><font color="#007700">, </font><font color="#0000BB">$u</font><font color="#007700">); </font><font color="#FF8000">// rappresentazione di un intero negativo privo di segno<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%f = '%f'\n"</font><font color="#007700">, </font><font color="#0000BB">$n</font><font color="#007700">); </font><font color="#FF8000">// rappresentazine in virgola mobile<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%o = '%o'\n"</font><font color="#007700">, </font><font color="#0000BB">$n</font><font color="#007700">); </font><font color="#FF8000">// rappresentazione ottale<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%s = '%s'\n"</font><font color="#007700">, </font><font color="#0000BB">$n</font><font color="#007700">); </font><font color="#FF8000">// stringa<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%x = '%x'\n"</font><font color="#007700">, </font><font color="#0000BB">$n</font><font color="#007700">); </font><font color="#FF8000">// rappresentazione esadecimale (minuscolo)<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%X = '%X'\n"</font><font color="#007700">, </font><font color="#0000BB">$n</font><font color="#007700">); </font><font color="#FF8000">// rappresentazione esadecimale (maiuscolo)<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%+d = '%+d'\n"</font><font color="#007700">, </font><font color="#0000BB">$n</font><font color="#007700">); </font><font color="#FF8000">// indicazione del segno su un intero positivo<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%%+d = '%+d'\n"</font><font color="#007700">, </font><font color="#0000BB">$u</font><font color="#007700">); </font><font color="#FF8000">// indicazione del segno su un intero negativo<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;      L'output di questo programma sarà:
+     </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>%b = '10100111101010011010101101'
+%c = 'A'
+%d = '43951789'
+%e = '4.39518e+7'
+%u = '43951789'
+%u = '4251015507'
+%f = '43951789.000000'
+%o = '247523255'
+%s = '43951789'
+%x = '29ea6ad'
+%X = '29EA6AD'
+%+d = '+43951789'
+%+d = '-43951789'</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164881"
+></A
+><P
+><B
+>Esempio 6. <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+>: specifiche di stringa</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$s </font><font color="#007700">= </font><font color="#DD0000">'monkey'</font><font color="#007700">;<br /></font><font color="#0000BB">$t </font><font color="#007700">= </font><font color="#DD0000">'many monkeys'</font><font color="#007700">;<br /><br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"[%s]\n"</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">); </font><font color="#FF8000">// output standard di stringa<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"[%10s]\n"</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">); </font><font color="#FF8000">// accostamento a destra con spazi<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"[%-10s]\n"</font><font color="#007700">,&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">); </font><font color="#FF8000">// accostamento a sinistra con spazi<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"[%010s]\n"</font><font color="#007700">,&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">); </font><font color="#FF8000">// completamento con zero funziona anche con le stringhe<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"[%'#10s]\n"</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#0000BB">$s</font><font color="#007700">); </font><font color="#FF8000">// utilizza il carattere di riempimento&nbsp;&nbsp;'#'<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"[%10.10s]\n"</font><font color="#007700">, </font><font color="#0000BB">$t</font><font color="#007700">); </font><font color="#FF8000">// accostamento a sinistra con taglio a 10 caratteri<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;      L'output di questo programma sarà:
+     </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>[monkey]
+[    monkey]
+[monkey    ]
+[0000monkey]
+[####monkey]
+[many monke]</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164887"
+></A
+><P
+><B
+>Esempio 7. <B
+CLASS="function"
+>sprintf()</B
+>: interi completati con zeri</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$isodate </font><font color="#007700">= </font><font color="#0000BB">sprintf</font><font color="#007700">(</font><font color="#DD0000">"%04d-%02d-%02d"</font><font color="#007700">, </font><font color="#0000BB">$year</font><font color="#007700">, </font><font color="#0000BB">$month</font><font color="#007700">, </font><font color="#0000BB">$day</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164891"
+></A
+><P
+><B
+>Esempio 8. <B
+CLASS="function"
+>sprintf()</B
+>: formattazione della moneta</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$money1 </font><font color="#007700">= </font><font color="#0000BB">68.75</font><font color="#007700">;<br /></font><font color="#0000BB">$money2 </font><font color="#007700">= </font><font color="#0000BB">54.35</font><font color="#007700">;<br /></font><font color="#0000BB">$money </font><font color="#007700">= </font><font color="#0000BB">$money1 </font><font color="#007700">+ </font><font color="#0000BB">$money2</font><font color="#007700">;<br /></font><font color="#FF8000">// echo $money visualizzerà "123.1";<br /></font><font color="#0000BB">$formatted </font><font color="#007700">= </font><font color="#0000BB">sprintf</font><font color="#007700">(</font><font color="#DD0000">"%01.2f"</font><font color="#007700">, </font><font color="#0000BB">$money</font><font color="#007700">);<br /></font><font color="#FF8000">// echo $formatted visualizzerà "123.10"<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164895"
+></A
+><P
+><B
+>Esempio 9. <B
+CLASS="function"
+>sprintf()</B
+>: notazione scientifica</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$number </font><font color="#007700">= </font><font color="#0000BB">362525200</font><font color="#007700">;<br /><br />echo </font><font color="#0000BB">sprintf</font><font color="#007700">(</font><font color="#DD0000">"%.3e"</font><font color="#007700">, </font><font color="#0000BB">$number</font><font color="#007700">); </font><font color="#FF8000">// visualizza 3.63e+8<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.soundex.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sscanf.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>soundex</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sscanf</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

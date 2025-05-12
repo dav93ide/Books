@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mb_convert_case</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Multibyte String Functions"
+HREF="ref.mbstring.html"><LINK
+REL="PREVIOUS"
+TITLE="Multibyte String Functions"
+HREF="ref.mbstring.html"><LINK
+REL="NEXT"
+TITLE="mb_convert_encoding"
+HREF="function.mb-convert-encoding.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.mbstring.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mb-convert-encoding.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mb-convert-case"
+></A
+>mb_convert_case</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN90900"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PHP 5)</P
+>mb_convert_case&nbsp;--&nbsp;Perform case folding on a string</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN90903"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>mb_convert_case</B
+> ( string str, int mode [, string encoding] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mb_convert_case()</B
+> returns case folded version of
+     <VAR
+CLASS="parameter"
+>string</VAR
+> converted in the way specified by
+     <VAR
+CLASS="parameter"
+>mode</VAR
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>mode</VAR
+> can be one of MB_CASE_UPPER, MB_CASE_LOWER
+     or MB_CASE_TITLE.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>encoding</VAR
+> specifies the encoding of
+     <VAR
+CLASS="parameter"
+>str</VAR
+>; if omitted, the internal character encoding
+     value will be used.
+    </P
+><P
+>&#13;     The return value is str with the appropriate case folding applied.
+    </P
+><P
+>&#13;     By contrast to the standard case folding functions such as
+     <A
+HREF="function.strtolower.html"
+><B
+CLASS="function"
+>strtolower()</B
+></A
+> and <A
+HREF="function.strtoupper.html"
+><B
+CLASS="function"
+>strtoupper()</B
+></A
+>,
+     case folding is performed on the basis of the Unicode character
+     properties. Thus the behaviour of this function is not affected
+     by locale settings and it can convert any characters that have
+     'alphabetic' property, such as A-umlaut (Ä). 
+    </P
+><P
+>&#13;     For more information about the Unicode properties, please see <A
+HREF="http://www.unicode.org/unicode/reports/tr21/"
+TARGET="_top"
+>http://www.unicode.org/unicode/reports/tr21/</A
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN90933"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>mb_convert_case()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$str </font><font color="#007700">= </font><font color="#DD0000">"mary had a Little lamb and she loved it so"</font><font color="#007700">;<br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#0000BB">mb_convert_case</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">, </font><font color="#0000BB">MB_CASE_UPPER</font><font color="#007700">, </font><font color="#DD0000">"UTF-8"</font><font color="#007700">);<br />echo </font><font color="#0000BB">$str</font><font color="#007700">; </font><font color="#FF8000">// Prints MARY HAD A LITTLE LAMB AND SHE LOVED IT SO<br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#0000BB">mb_convert_case</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">, </font><font color="#0000BB">MB_CASE_TITLE</font><font color="#007700">, </font><font color="#DD0000">"UTF-8"</font><font color="#007700">);<br />echo </font><font color="#0000BB">$str</font><font color="#007700">; </font><font color="#FF8000">// Prints Mary Had A Little Lamb And She Loved It So<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     See also <A
+HREF="function.mb-strtolower.html"
+><B
+CLASS="function"
+>mb_strtolower()</B
+></A
+>,
+     <A
+HREF="function.mb-strtoupper.html"
+><B
+CLASS="function"
+>mb_strtoupper()</B
+></A
+>, 
+     <A
+HREF="function.strtolower.html"
+><B
+CLASS="function"
+>strtolower()</B
+></A
+>,
+     <A
+HREF="function.strtoupper.html"
+><B
+CLASS="function"
+>strtoupper()</B
+></A
+>,
+     <A
+HREF="function.ucfirst.html"
+><B
+CLASS="function"
+>ucfirst()</B
+></A
+> e
+     <A
+HREF="function.ucwords.html"
+><B
+CLASS="function"
+>ucwords()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.mbstring.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mb-convert-encoding.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Multibyte String Functions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mbstring.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mb_convert_encoding</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

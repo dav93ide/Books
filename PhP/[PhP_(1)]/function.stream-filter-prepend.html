@@ -1,0 +1,348 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>stream_filter_prepend</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stream Functions"
+HREF="ref.stream.html"><LINK
+REL="PREVIOUS"
+TITLE="stream_filter_append"
+HREF="function.stream-filter-append.html"><LINK
+REL="NEXT"
+TITLE="stream_filter_register"
+HREF="function.stream-filter-register.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.stream-filter-append.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.stream-filter-register.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.stream-filter-prepend"
+></A
+>stream_filter_prepend</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN160898"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PHP 5)</P
+>stream_filter_prepend&nbsp;--&nbsp;Attach a filter to a stream</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN160901"
+></A
+><H2
+>Description</H2
+>resource <B
+CLASS="methodname"
+>stream_filter_prepend</B
+> ( resource stream, string filtername [, int read_write [, mixed params]] )<BR
+></BR
+><P
+>&#13;     Adds <VAR
+CLASS="parameter"
+>filtername</VAR
+> to the list of filters
+     attached to <VAR
+CLASS="parameter"
+>stream</VAR
+>.  This filter will be
+     added with the specified <VAR
+CLASS="parameter"
+>params</VAR
+>
+     to the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>beginning</I
+></SPAN
+> of the list and
+     will therefore be called first during stream operations.  To
+     add a filter to the end of the list, use
+     <A
+HREF="function.stream-filter-append.html"
+><B
+CLASS="function"
+>stream_filter_append()</B
+></A
+>.
+    </P
+><P
+>&#13;     By default, <B
+CLASS="function"
+>stream_filter_prepend()</B
+> will
+     attach the filter to the <VAR
+CLASS="literal"
+>read filter chain</VAR
+>
+     if the file was opened for reading (i.e. File Mode:
+     <VAR
+CLASS="literal"
+>r</VAR
+>, and/or <VAR
+CLASS="literal"
+>+</VAR
+>).  The filter
+     will also be attached to the <VAR
+CLASS="literal"
+>write filter chain</VAR
+>
+     if the file was opened for writing (i.e. File Mode:
+     <VAR
+CLASS="literal"
+>w</VAR
+>, <VAR
+CLASS="literal"
+>a</VAR
+>, and/or <VAR
+CLASS="literal"
+>+</VAR
+>).
+     <TT
+CLASS="constant"
+><B
+>STREAM_FILTER_READ</B
+></TT
+>,
+     <TT
+CLASS="constant"
+><B
+>STREAM_FILTER_WRITE</B
+></TT
+>, and/or
+     <TT
+CLASS="constant"
+><B
+>STREAM_FILTER_ALL</B
+></TT
+> can also be passed to the
+     <VAR
+CLASS="parameter"
+>read_write</VAR
+> parameter to override this behavior.
+     See <A
+HREF="function.stream-filter-append.html"
+><B
+CLASS="function"
+>stream_filter_append()</B
+></A
+> for an example of
+     using this parameter.
+    </P
+><P
+>&#13;     As of PHP 5.1.0, this function returns a resource which
+     can be used to refer to this filter instance during a call
+     to <A
+HREF="function.stream-filter-remove.html"
+><B
+CLASS="function"
+>stream_filter_remove()</B
+></A
+>.
+     Prior to PHP 5.1.0, this function returns <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> on success
+     or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on failure.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>When using custom (user) filters: </B
+>
+      <A
+HREF="function.stream-filter-register.html"
+><B
+CLASS="function"
+>stream_filter_register()</B
+></A
+> must be called first
+      in order to register the desired user filter to <VAR
+CLASS="parameter"
+>filtername</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Stream data is read from resources (both local and remote) in chunks,
+      with any unconsumed data kept in internal buffers.  When a new
+      filter is prepended to a stream, data in the internal buffers,
+      which has already been processed through other filters will 
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> be reprocessed through the new filter
+      at that time.  This differs from the behavior of
+      <A
+HREF="function.stream-filter-append.html"
+><B
+CLASS="function"
+>stream_filter_append()</B
+></A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also
+     <A
+HREF="function.stream-filter-register.html"
+><B
+CLASS="function"
+>stream_filter_register()</B
+></A
+>, and
+     <A
+HREF="function.stream-filter-append.html"
+><B
+CLASS="function"
+>stream_filter_append()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.stream-filter-append.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.stream-filter-register.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>stream_filter_append</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.stream.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>stream_filter_register</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

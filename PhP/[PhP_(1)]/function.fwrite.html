@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fwrite</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="ftruncate"
+HREF="function.ftruncate.html"><LINK
+REL="NEXT"
+TITLE="glob"
+HREF="function.glob.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ftruncate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.glob.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fwrite"
+></A
+>fwrite</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN42098"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>fwrite&nbsp;--&nbsp;Scrive un file salvaguardando la corrispondenza binaria</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN42101"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>fwrite</B
+> ( resource handle, string string [, int length] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>fwrite()</B
+> scrive il contenuto di
+     <VAR
+CLASS="parameter"
+>string</VAR
+> nel flusso del file puntato da
+     <VAR
+CLASS="parameter"
+>handle</VAR
+>. Se l'argomento <VAR
+CLASS="parameter"
+>length</VAR
+>
+     è specificato la scrittura si arresterà dopo aver scritto
+     <VAR
+CLASS="parameter"
+>length</VAR
+> byte o alla fine di 
+     <VAR
+CLASS="parameter"
+>string</VAR
+> se si verificasse 
+     prima.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>fwrite()</B
+> returns the number of bytes
+     written, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on error.
+    </P
+><P
+>&#13;     Nota che se il parametro <VAR
+CLASS="parameter"
+>length</VAR
+> viene specificato,
+     allora l'opzione di configurazione <A
+HREF="ref.info.html#ini.magic-quotes-runtime"
+>magic_quotes_runtime</A
+>
+     verrà ignorata e nessuno slash verrà 
+     skippato da <VAR
+CLASS="parameter"
+>string</VAR
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Su sistemi che differenzino fra file binari e di testo 
+      (come Windows) il file deve essere aperto includendo 'b' nel paramentro mode di
+      <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN42133"
+></A
+><P
+><B
+>Esempio 1. Un semplice esempio di fwrite</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$filename </font><font color="#007700">= </font><font color="#DD0000">'test.txt'</font><font color="#007700">;<br /></font><font color="#0000BB">$somecontent </font><font color="#007700">= </font><font color="#DD0000">"Aggiunge questa riga al file\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Verifica che il file esista e sia riscrivibile<br /></font><font color="#007700">if (</font><font color="#0000BB">is_writable</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">)) {<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// In questo esempio apriamo $filename in append mode.<br />&nbsp;&nbsp;&nbsp;&nbsp;// Il puntatore del file è posizionato in fondo al file<br />&nbsp;&nbsp;&nbsp;&nbsp;// è qui che verrà posizionato $somecontent quando eseguiremo fwrite().<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (!</font><font color="#0000BB">$handle </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">, </font><font color="#DD0000">'a'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Non si riesce ad aprire il file ($filename)"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Scrive $somecontent nel file aperto.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (!</font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">$somecontent</font><font color="#007700">) ===</font><font color="#0000BB">FALSE</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Non si riesce a scrivere nel file ($filename)"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Riuscito, scritto ($somecontent) nel file ($filename)"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /><br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Il file $filename non è accessibile"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.fread.html"
+><B
+CLASS="function"
+>fread()</B
+></A
+>, 
+     <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>,
+     <A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+>, 
+     <A
+HREF="function.popen.html"
+><B
+CLASS="function"
+>popen()</B
+></A
+> e
+     <A
+HREF="function.file-put-contents.html"
+><B
+CLASS="function"
+>file_put_contents()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ftruncate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.glob.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ftruncate</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>glob</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

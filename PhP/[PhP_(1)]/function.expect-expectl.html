@@ -1,0 +1,438 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>expect_expectl</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Expect Functions"
+HREF="ref.expect.html"><LINK
+REL="PREVIOUS"
+TITLE="Expect Functions"
+HREF="ref.expect.html"><LINK
+REL="NEXT"
+TITLE="expect_popen"
+HREF="function.expect-popen.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.expect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.expect-popen.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.expect-expectl"
+></A
+>expect_expectl</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN38516"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>expect_expectl&nbsp;--&nbsp;Waits until the output from a process matches one
+  of the patterns, a specified time period has passed, or an EOF is seen
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN38519"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>expect_expectl</B
+> ( resource expect, array cases )<BR
+></BR
+><P
+>&#13;   Waits until the output from a process matches one of the patterns,
+   a specified time period has passed, or an EOF is seen.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN38531"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>expect</VAR
+></DT
+><DD
+><P
+>&#13;       An Expect stream, previously opened with
+       <A
+HREF="function.expect-popen.html"
+><B
+CLASS="function"
+>expect_popen()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>cases</VAR
+></DT
+><DD
+><P
+>&#13;       An array of expect cases. Each expect case is an indexed array,
+       as described in the following table:
+       <DIV
+CLASS="table"
+><A
+NAME="AEN38546"
+></A
+><P
+><B
+>Tabella 1. Expect Case Array</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Index Key</TH
+><TH
+>Value Type</TH
+><TH
+>Description</TH
+><TH
+>Is Mandatory</TH
+><TH
+>Default Value</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>0</TD
+><TD
+>string</TD
+><TD
+>pattern, that will be matched against the output from the stream</TD
+><TD
+>yes</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>1</TD
+><TD
+>mixed</TD
+><TD
+>value, that will be returned by this function, if the pattern matches</TD
+><TD
+>yes</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+>integer</TD
+><TD
+>&#13;            pattern type, one of:
+            <A
+HREF="ref.expect.html#constants.expect.exp_glob"
+><TT
+CLASS="constant"
+><B
+>EXP_GLOB</B
+></TT
+></A
+>,
+            <A
+HREF="ref.expect.html#constants.expect.exp_exact"
+><TT
+CLASS="constant"
+><B
+>EXP_EXACT</B
+></TT
+></A
+>
+            or
+            <A
+HREF="ref.expect.html#constants.expect.exp_regexp"
+><TT
+CLASS="constant"
+><B
+>EXP_REGEXP</B
+></TT
+></A
+>
+           </TD
+><TD
+>no</TD
+><TD
+><A
+HREF="ref.expect.html#constants.expect.exp_glob"
+><TT
+CLASS="constant"
+><B
+>EXP_GLOB</B
+></TT
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN38583"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns value associated with the pattern that was matched.
+  </P
+><P
+>&#13;   On failure this function returns:
+   <A
+HREF="ref.expect.html#constants.expect.exp_eof"
+><TT
+CLASS="constant"
+><B
+>EXP_EOF</B
+></TT
+></A
+>,
+   <A
+HREF="ref.expect.html#constants.expect.exp_timeout"
+><TT
+CLASS="constant"
+><B
+>EXP_TIMEOUT</B
+></TT
+></A
+>
+   or
+   <A
+HREF="ref.expect.html#constants.expect.exp_fullbuffer"
+><TT
+CLASS="constant"
+><B
+>EXP_FULLBUFFER</B
+></TT
+></A
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN38593"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN38596"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>expect_expectl()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Copies file from remote host:<br /></font><font color="#0000BB">ini_set </font><font color="#007700">(</font><font color="#DD0000">"expect.timeout"</font><font color="#007700">, </font><font color="#0000BB">30</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$stream </font><font color="#007700">= </font><font color="#0000BB">popen </font><font color="#007700">(</font><font color="#DD0000">"expect://scp user@remotehost:/var/log/messages /home/user/messages.txt"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$cases </font><font color="#007700">= array (<br />&nbsp;&nbsp;array (</font><font color="#0000BB">0 </font><font color="#007700">=&gt; </font><font color="#DD0000">"password:"</font><font color="#007700">, </font><font color="#0000BB">1 </font><font color="#007700">=&gt; </font><font color="#0000BB">PASSWORD</font><font color="#007700">),<br />&nbsp;&nbsp;array (</font><font color="#0000BB">0 </font><font color="#007700">=&gt; </font><font color="#DD0000">"yes/no)?"</font><font color="#007700">, </font><font color="#0000BB">1 </font><font color="#007700">=&gt; </font><font color="#0000BB">YESNO</font><font color="#007700">)<br />);<br /><br />while (</font><font color="#0000BB">true</font><font color="#007700">) {<br /> switch (</font><font color="#0000BB">expect_expectl </font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">, </font><font color="#0000BB">$cases</font><font color="#007700">))<br /> {<br />&nbsp;&nbsp;case </font><font color="#0000BB">PASSWORD</font><font color="#007700">:<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fwrite </font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">, </font><font color="#DD0000">"password\n"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;break;<br /><br />&nbsp;&nbsp;case </font><font color="#0000BB">YESNO</font><font color="#007700">:<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fwrite </font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">, </font><font color="#DD0000">"yes\n"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;break;<br /><br />&nbsp;&nbsp;case </font><font color="#0000BB">EXP_TIMEOUT</font><font color="#007700">:<br />&nbsp;&nbsp;case </font><font color="#0000BB">EXP_EOF</font><font color="#007700">:<br />&nbsp;&nbsp;&nbsp;break </font><font color="#0000BB">2</font><font color="#007700">;<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;default:<br />&nbsp;&nbsp;&nbsp;die (</font><font color="#DD0000">"Error has occurred!\n"</font><font color="#007700">);<br /> }<br />}<br /><br /></font><font color="#0000BB">fclose </font><font color="#007700">(</font><font color="#0000BB">$stream</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN38600"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.expect-popen.html"
+><B
+CLASS="function"
+>expect_popen()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.expect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.expect-popen.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Expect Functions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.expect.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>expect_popen</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

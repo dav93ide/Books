@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>DOMDocument-&#62;xinclude()</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="DOM Functions"
+HREF="ref.dom.html"><LINK
+REL="PREVIOUS"
+TITLE="DOMDocument->validate()"
+HREF="function.dom-domdocument-validate.html"><LINK
+REL="NEXT"
+TITLE="DOMElement->__construct()"
+HREF="function.dom-domelement-construct.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dom-domdocument-validate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dom-domelement-construct.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.dom-domdocument-xinclude"
+></A
+>DOMDocument-&#62;xinclude()</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN32303"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>DOMDocument-&#62;xinclude()&nbsp;--&nbsp;
+   Sostituisce gli XIncludes in un oggetto DOMDocument
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN32306"
+></A
+><H2
+>Descrizione</H2
+>class <B
+CLASS="classname"
+>DOMDocument</B
+> { <BR
+></BR
+>int <B
+CLASS="methodname"
+>xinclude</B
+> ( [int options] )<BR
+></BR
+>}<P
+>&#13;   Sostituisce gli <A
+HREF="http://www.w3.org/TR/xinclude/"
+TARGET="_top"
+>XIncludes</A
+> in un oggetto DOMDocument.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Poichè libxml2 risolve automaticamente le entità, quetso metodo può dare 
+    risultati inaspettati si il fil eXML incluso ha una DTD collegata.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN32321"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>options</VAR
+></DT
+><DD
+><P
+>&#13;       <A
+HREF="ref.libxml.html#libxml.constants"
+>parametri libxml</A
+>. Disponibile da
+       PHP 5.1.0 e Libxml 2.6.7.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN32331"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce il numero di XIncludes nel documento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN32334"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN32337"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di DOMDocument-&#62;xinclude()</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$xml </font><font color="#007700">= &lt;&lt;&lt;EOD<br /></font><font color="#0000BB">&lt;?xml version="1.0" ?&gt;<br />&lt;chapter xmlns:xi="http://www.w3.org/2001/XInclude"&gt;<br /> &lt;title&gt;Books of the other guy..&lt;/title&gt;<br /> &lt;para&gt;<br />&nbsp;&nbsp;&lt;xi:include href="book.xml"&gt;<br />&nbsp;&nbsp;&nbsp;&lt;xi:fallback&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;error&gt;xinclude: book.xml not found&lt;/error&gt;<br />&nbsp;&nbsp;&nbsp;&lt;/xi:fallback&gt;<br />&nbsp;&nbsp;&lt;/xi:include&gt;<br /> &lt;/para&gt;<br />&lt;/chapter&gt;<br /></font><font color="#007700">EOD;<br /><br /></font><font color="#0000BB">$dom </font><font color="#007700">= new </font><font color="#0000BB">DOMDocument</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// output formattato<br /></font><font color="#0000BB">$dom</font><font color="#007700">-&gt;</font><font color="#0000BB">preserveWhiteSpace </font><font color="#007700">= </font><font color="#0000BB">false</font><font color="#007700">;<br /></font><font color="#0000BB">$dom</font><font color="#007700">-&gt;</font><font color="#0000BB">formatOutput </font><font color="#007700">= </font><font color="#0000BB">true</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// carica la stringa XML definita in precedenza<br /></font><font color="#0000BB">$dom</font><font color="#007700">-&gt;</font><font color="#0000BB">loadXML</font><font color="#007700">(</font><font color="#0000BB">$xml</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// sostituisce gli xincludes<br /></font><font color="#0000BB">$dom</font><font color="#007700">-&gt;</font><font color="#0000BB">xinclude</font><font color="#007700">();<br /><br />echo </font><font color="#0000BB">$dom</font><font color="#007700">-&gt;</font><font color="#0000BB">saveXML</font><font color="#007700">();<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà
+qualcosa simile a:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="xml"
+>&#60;?xml version="1.0"?&#62;
+&#60;chapter xmlns:xi="http://www.w3.org/2001/XInclude"&#62;
+  &#60;title&#62;Books of the other guy..&#60;/title&#62;
+  &#60;para&#62;
+    &#60;row xml:base="/home/didou/book.xml"&#62;
+       &#60;entry&#62;The Grapes of Wrath&#60;/entry&#62;
+       &#60;entry&#62;John Steinbeck&#60;/entry&#62;
+       &#60;entry&#62;en&#60;/entry&#62;
+       &#60;entry&#62;0140186409&#60;/entry&#62;
+      &#60;/row&#62;
+    &#60;row xml:base="/home/didou/book.xml"&#62;
+       &#60;entry&#62;The Pearl&#60;/entry&#62;
+       &#60;entry&#62;John Steinbeck&#60;/entry&#62;
+       &#60;entry&#62;en&#60;/entry&#62;
+       &#60;entry&#62;014017737X&#60;/entry&#62;
+      &#60;/row&#62;
+    &#60;row xml:base="/home/didou/book.xml"&#62;
+       &#60;entry&#62;Samarcande&#60;/entry&#62;
+       &#60;entry&#62;Amine Maalouf&#60;/entry&#62;
+       &#60;entry&#62;fr&#60;/entry&#62;
+       &#60;entry&#62;2253051209&#60;/entry&#62;
+      &#60;/row&#62;
+  &#60;/para&#62;
+&#60;/chapter&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dom-domdocument-validate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dom-domelement-construct.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>DOMDocument-&#62;validate()</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dom.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DOMElement-&#62;__construct()</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_list_tables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_list_processes"
+HREF="function.mysql-list-processes.html"><LINK
+REL="NEXT"
+TITLE="mysql_num_fields"
+HREF="function.mysql-num-fields.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-list-processes.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-num-fields.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-list-tables"
+></A
+>mysql_list_tables</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN93851"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mysql_list_tables&nbsp;--&nbsp;Elenca le tabelle in un database MySQL</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN93854"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>mysql_list_tables</B
+> ( string database [, resource identificativoi_connessione] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_list_tables()</B
+> accetta un nome di database e
+     restituisce un risultato puntatore in modo molto simile
+     alla funzione <A
+HREF="function.mysql-query.html"
+><B
+CLASS="function"
+>mysql_query()</B
+></A
+>.
+     Usare la funzione <A
+HREF="function.mysql-tablename.html"
+><B
+CLASS="function"
+>mysql_tablename()</B
+></A
+> per
+     esplorare questo risultato puntatore o qualsiasi funzione per i risultati delle tabelle,
+     come <A
+HREF="function.mysql-fetch-array.html"
+><B
+CLASS="function"
+>mysql_fetch_array()</B
+></A
+>.
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>database</VAR
+> è il nome del
+     database da cui recuperare la lista di tabelle. in caso di errore,
+     <B
+CLASS="function"
+>mysql_list_tables()</B
+> restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+    </P
+><P
+>&#13;     Per motivi di compatibilità con il passato, anche
+	 <B
+CLASS="function"
+>mysql_listtables()</B
+> può essere usata.
+	 Questo comunque è sconsigliato.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN93876"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>mysql_list_tables()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$nome_db </font><font color="#007700">= </font><font color="#DD0000">'nome_db_mysql'</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">mysql_connect</font><font color="#007700">(</font><font color="#DD0000">'host_mysql'</font><font color="#007700">, </font><font color="#DD0000">'utente_mysql'</font><font color="#007700">, </font><font color="#DD0000">'password_mysql'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">'Connessione a mysql non riuscita'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$risultato </font><font color="#007700">= </font><font color="#0000BB">mysql_list_tables</font><font color="#007700">(</font><font color="#0000BB">$nome_db</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">$risultato</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"Errorore database, Impossibile elencare le tabelle\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">'Errore MySQL: ' </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$riga </font><font color="#007700">= </font><font color="#0000BB">mysql_fetch_row</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"Tabella: $riga</font><font color="#007700">[</font><font color="#DD0000">0</font><font color="#007700">]\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_free_result</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;    Vedere anche: <A
+HREF="function.mysql-list-dbs.html"
+><B
+CLASS="function"
+>mysql_list_dbs()</B
+></A
+>
+    e <A
+HREF="function.mysql-tablename.html"
+><B
+CLASS="function"
+>mysql_tablename()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-list-processes.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-num-fields.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_list_processes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_num_fields</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

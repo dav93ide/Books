@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ocinlogon</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Oracle 8"
+HREF="ref.oci8.html"><LINK
+REL="PREVIOUS"
+TITLE="ocinewdescriptor"
+HREF="function.ocinewdescriptor.html"><LINK
+REL="NEXT"
+TITLE="ocinumcols"
+HREF="function.ocinumcols.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ocinewdescriptor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ocinumcols.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ocinlogon"
+></A
+>ocinlogon</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN113216"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.8, PHP 4, PHP 5)</P
+>ocinlogon&nbsp;--&nbsp;Stabilisce, una nuova connessione a Oracle.</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN113219"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>ocinlogon</B
+> ( string username, string password [, string db] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>ocinlogon()</B
+> crea una nuova connessione
+     a un database Oracle 8 e si autentica.  Il terzo parametro opzionale
+     può contenere il nome della istanza Oracle locale o il nome
+     della voce in tnsnames.ora a cui ci si vuole connettere.
+     Se il terzo parametro opzionale non è specificato, PHP usa la
+     variabile d'ambiente ORACLE_SID (istanza di Oracle) o TWO_TASK
+     (in tnsnames.ora) per determinare a quale database collegarsi.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>ocinlogon()</B
+> forza una nuova connessione. 
+     Si deve usare quando si ha necessità di isolare un insieme di transazioni. Di
+     default, le connessioni sono condivise a livello di pagina se si usa
+     <A
+HREF="function.ocilogon.html"
+><B
+CLASS="function"
+>ocilogon()</B
+></A
+> o a livello di processo del web server
+     se si usa <A
+HREF="function.ociplogon.html"
+><B
+CLASS="function"
+>ociplogon()</B
+></A
+>.  Se ci sono connessioni
+     multiple aperte con <B
+CLASS="function"
+>ocinlogon()</B
+>, tutti i
+     commit e rollback avverranno solo sulla connessione specificata.
+    </P
+><P
+>&#13;     Questo esempio dimostra come le connessioni sono isolate.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN113241"
+></A
+><P
+><B
+>Esempio 1. esempio di <B
+CLASS="function"
+>ocinlogon()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php
+print "&#60;HTML&#62;&#60;PRE&#62;";
+$db = "";
+
+$c1 = ocilogon("scott","tiger",$db);
+$c2 = ocinlogon("scott","tiger",$db);
+
+function create_table($conn)
+{ $stmt = ociparse($conn,"create table scott.hallo (test
+varchar2(64))");
+  ociexecute($stmt);
+  echo $conn." created table\n\n";
+}
+
+function drop_table($conn)
+{ $stmt = ociparse($conn,"drop table scott.hallo");
+  ociexecute($stmt);
+  echo $conn." dropped table\n\n";
+}
+
+function insert_data($conn)
+{ $stmt = ociparse($conn,"insert into scott.hallo 
+            values('$conn' || ' ' || to_char(sysdate,'DD-MON-YY HH24:MI:SS'))");
+  ociexecute($stmt,OCI_DEFAULT);
+  echo $conn." inserted hallo\n\n";
+}
+
+function delete_data($conn)
+{ $stmt = ociparse($conn,"delete from scott.hallo");
+  ociexecute($stmt,OCI_DEFAULT);
+  echo $conn." deleted hallo\n\n";
+}
+
+function commit($conn)
+{ ocicommit($conn);
+  echo $conn." committed\n\n";
+}
+
+function rollback($conn)
+{ ocirollback($conn);
+  echo $conn." rollback\n\n";
+}
+
+function select_data($conn)
+{ $stmt = ociparse($conn,"select * from scott.hallo");
+  ociexecute($stmt,OCI_DEFAULT);
+  echo $conn."----selecting\n\n";
+  while (ocifetch($stmt))
+    echo $conn." &#60;".ociresult($stmt,"TEST")."&#62;\n\n";
+  echo $conn."----done\n\n";
+}
+
+create_table($c1);
+insert_data($c1);
+
+select_data($c1);   
+select_data($c2);   
+
+rollback($c1);      
+
+select_data($c1);   
+select_data($c2);   
+
+insert_data($c2);   
+commit($c2);        
+
+select_data($c1);   
+
+delete_data($c1);   
+select_data($c1);   
+select_data($c2);   
+commit($c1);        
+
+select_data($c1);
+select_data($c2);
+
+drop_table($c1);
+print "&#60;/PRE&#62;&#60;/HTML&#62;";
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.ocilogon.html"
+><B
+CLASS="function"
+>ocilogon()</B
+></A
+> e
+     <A
+HREF="function.ociplogon.html"
+><B
+CLASS="function"
+>ociplogon()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ocinewdescriptor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ocinumcols.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ocinewdescriptor</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.oci8.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ocinumcols</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

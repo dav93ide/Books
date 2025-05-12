@@ -1,0 +1,567 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Predefined variables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Variables"
+HREF="language.variables.html"><LINK
+REL="PREVIOUS"
+TITLE="Variables"
+HREF="language.variables.html"><LINK
+REL="NEXT"
+TITLE="Variable scope"
+HREF="language.variables.scope.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.variables.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 12. Variables</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.variables.scope.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.variables.predefined"
+>Predefined variables</A
+></H1
+><P
+>&#13;    PHP provides a large number of predefined variables to any script
+    which it runs. Many of these variables, however, cannot be fully
+    documented as they are dependent upon which server is running, the
+    version and setup of the server, and other factors. Some of these
+    variables will not be available when PHP is run on the 
+    <A
+HREF="features.commandline.html"
+>command line</A
+>. 
+    For a listing of these variables, please see the section on 
+    <A
+HREF="reserved.variables.html"
+>Reserved Predefined Variables</A
+>.
+   </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     In PHP 4.2.0 and later, the default value for the PHP directive <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+> is 
+     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>off</I
+></SPAN
+>. This is a major change in PHP.  Having 
+     register_globals <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>off</I
+></SPAN
+> affects the set of predefined 
+     variables available in the global scope.  For example, to get 
+     <VAR
+CLASS="varname"
+>DOCUMENT_ROOT</VAR
+> you'll use 
+     <VAR
+CLASS="varname"
+>$_SERVER['DOCUMENT_ROOT']</VAR
+> instead of 
+     <VAR
+CLASS="varname"
+>$DOCUMENT_ROOT</VAR
+>, or <VAR
+CLASS="varname"
+>$_GET['id']</VAR
+> from 
+     the URL <VAR
+CLASS="literal"
+>http://www.example.com/test.php?id=3</VAR
+> instead 
+     of <VAR
+CLASS="varname"
+>$id</VAR
+>, or <VAR
+CLASS="varname"
+>$_ENV['HOME']</VAR
+> instead of 
+     <VAR
+CLASS="varname"
+>$HOME</VAR
+>.
+    </P
+><P
+>&#13;     For related information on this change, read the configuration entry for 
+     <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+>, the security 
+     chapter on <A
+HREF="security.globals.html"
+>Using Register Globals
+     </A
+>, as well as the PHP <A
+HREF="http://www.php.net/release_4_1_0.php"
+TARGET="_top"
+>4.1.0
+     </A
+> and <A
+HREF="http://www.php.net/release_4_2_0.php"
+TARGET="_top"
+>4.2.0</A
+> Release 
+     Announcements.
+    </P
+><P
+>&#13;     Using the available PHP Reserved Predefined Variables, like the 
+     <A
+HREF="language.variables.predefined.html#language.variables.superglobals"
+>superglobal arrays</A
+>, 
+     is preferred.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;    From version 4.1.0 onward, PHP provides an additional set of predefined arrays
+    containing variables from the web server (if applicable), the
+    environment, and user input. These new arrays are rather special
+    in that they are automatically global--i.e., automatically
+    available in every scope. For this reason, they are often known as
+    'autoglobals' or 'superglobals'. (There is no mechanism in PHP for
+    user-defined superglobals.) The superglobals are listed below;
+    however, for a listing of their contents and further discussion on
+    PHP predefined variables and their natures, please see the section
+    <A
+HREF="reserved.variables.html"
+>Reserved Predefined Variables</A
+>.  
+    Also, you'll notice how the older predefined variables 
+    (<VAR
+CLASS="varname"
+>$HTTP_*_VARS</VAR
+>) still exist.
+
+    As of PHP 5.0.0, the long PHP
+<A
+HREF="language.variables.predefined.html"
+>predefined variable</A
+>
+arrays may be disabled with the
+<A
+HREF="ini.core.html#ini.register-long-arrays"
+>register_long_arrays</A
+>
+directive.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Variable variables: </B
+>
+     Superglobals cannot be used as 
+     <A
+HREF="language.variables.variable.html"
+>variable variables</A
+>
+     inside functions or class methods.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Even though both the superglobal and HTTP_*_VARS can exist at the same
+     time; they are not identical, so modifying one will not change the other.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    If certain variables in <A
+HREF="ini.core.html#ini.variables-order"
+>variables_order</A
+> are not set, their
+    appropriate PHP predefined arrays are also left empty.
+   </P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><P
+><B
+>PHP Superglobals</B
+></P
+><DL
+><DT
+><A
+HREF="reserved.variables.html#reserved.variables.globals"
+>$GLOBALS</A
+></DT
+><DD
+><P
+>&#13;       Contains a reference to every variable which is currently
+       available within the global scope of the script. The keys of
+       this array are the names of the global variables.
+       <VAR
+CLASS="varname"
+>$GLOBALS</VAR
+> has existed since PHP 3.
+      </P
+></DD
+><DT
+><A
+HREF="reserved.variables.html#reserved.variables.server"
+>$_SERVER</A
+></DT
+><DD
+><P
+>&#13;       Variables set by the web server or otherwise directly related
+       to the execution environment of the current script. Analogous
+       to the old <VAR
+CLASS="varname"
+>$HTTP_SERVER_VARS</VAR
+> array (which is
+       still available, but deprecated).
+      </P
+></DD
+><DT
+><A
+HREF="reserved.variables.html#reserved.variables.get"
+>$_GET</A
+></DT
+><DD
+><P
+>&#13;       Variables provided to the script via URL query string. Analogous to the
+       old <VAR
+CLASS="varname"
+>$HTTP_GET_VARS</VAR
+> array (which is still
+       available, but deprecated).
+      </P
+></DD
+><DT
+><A
+HREF="reserved.variables.html#reserved.variables.post"
+>$_POST</A
+></DT
+><DD
+><P
+>&#13;       Variables provided to the script via HTTP POST. Analogous to the
+       old <VAR
+CLASS="varname"
+>$HTTP_POST_VARS</VAR
+> array (which is still
+       available, but deprecated).
+      </P
+></DD
+><DT
+><A
+HREF="reserved.variables.html#reserved.variables.cookies"
+>$_COOKIE</A
+></DT
+><DD
+><P
+>&#13;       Variables provided to the script via HTTP cookies. Analogous to
+       the old <VAR
+CLASS="varname"
+>$HTTP_COOKIE_VARS</VAR
+> array (which is
+       still available, but deprecated).
+      </P
+></DD
+><DT
+><A
+HREF="reserved.variables.html#reserved.variables.files"
+>$_FILES</A
+></DT
+><DD
+><P
+>&#13;       Variables provided to the script via HTTP post file
+       uploads. Analogous to the old
+       <VAR
+CLASS="varname"
+>$HTTP_POST_FILES</VAR
+> array (which is still
+       available, but deprecated). See <A
+HREF="features.file-upload.html#features.file-upload.post-method"
+>POST method
+        uploads</A
+> for more information.
+      </P
+></DD
+><DT
+><A
+HREF="reserved.variables.html#reserved.variables.environment"
+>$_ENV</A
+></DT
+><DD
+><P
+>&#13;       Variables provided to the script via the environment. Analogous
+       to the old <VAR
+CLASS="varname"
+>$HTTP_ENV_VARS</VAR
+> array (which is
+       still available, but deprecated).
+      </P
+></DD
+><DT
+><A
+HREF="reserved.variables.html#reserved.variables.request"
+>$_REQUEST</A
+></DT
+><DD
+><P
+>&#13;       Variables provided to the script via the GET, POST, and COOKIE input
+       mechanisms, and which therefore cannot be trusted. The presence and
+       order of variable inclusion in this array is defined according to the
+       PHP <A
+HREF="ini.core.html#ini.variables-order"
+>variables_order</A
+>
+       configuration directive. This array has no direct analogue in versions
+       of PHP prior to 4.1.0.  See also 
+       <A
+HREF="function.import-request-variables.html"
+><B
+CLASS="function"
+>import_request_variables()</B
+></A
+>.
+      </P
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;        Since PHP 4.3.0, FILE information from <VAR
+CLASS="varname"
+>$_FILES</VAR
+> does
+        not exist in <VAR
+CLASS="varname"
+>$_REQUEST</VAR
+>.
+       </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        When running on the <A
+HREF="features.commandline.html"
+>command line
+        </A
+>, this will <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> include the 
+        <VAR
+CLASS="varname"
+>argv</VAR
+> and <VAR
+CLASS="varname"
+>argc</VAR
+> entries; these are 
+        present in the <VAR
+CLASS="varname"
+>$_SERVER</VAR
+> array.
+       </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+HREF="reserved.variables.html#reserved.variables.session"
+>$_SESSION</A
+></DT
+><DD
+><P
+>&#13;       Variables which are currently registered to a script's
+       session. Analogous to the old
+       <VAR
+CLASS="varname"
+>$HTTP_SESSION_VARS</VAR
+> array (which is still
+       available, but deprecated). See the <A
+HREF="ref.session.html"
+>Session handling functions</A
+> section
+       for more information.
+      </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.variables.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.variables.scope.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Variables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.variables.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Variable scope</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

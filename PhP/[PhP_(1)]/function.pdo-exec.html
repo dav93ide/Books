@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDO::exec</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Functions"
+HREF="ref.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="PDO::errorInfo"
+HREF="function.pdo-errorinfo.html"><LINK
+REL="NEXT"
+TITLE="PDO::getAttribute"
+HREF="function.pdo-getattribute.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdo-errorinfo.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pdo-getattribute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDO-exec"
+></A
+>PDO::exec</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN127740"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDO::exec&nbsp;--&nbsp;
+   Execute an SQL statement and return the number of affected rows
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN127743"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>PDO::exec</B
+> ( string statement )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>PDO::exec()</B
+> executes an SQL statement in
+   a single function call, returning the number of rows affected by the
+   statement.
+  </P
+><P
+>&#13;   <B
+CLASS="function"
+>PDO::exec()</B
+> does not return results from a SELECT
+   statement. For a SELECT statement that you only need to issue once
+   during your program, consider issuing <B
+CLASS="function"
+>PDO::query()</B
+>.
+   For a statement that you need to issue multiple times, prepare 
+   a PDOStatement object with <B
+CLASS="function"
+>PDO::prepare()</B
+> and issue
+   the statement with <B
+CLASS="function"
+>PDOStatement::execute()</B
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN127758"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>statement</VAR
+></DT
+><DD
+><P
+>&#13;        The SQL statement to prepare and execute.
+       </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN127767"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   <B
+CLASS="function"
+>PDO::exec()</B
+> returns the number of rows that were modified
+   or deleted by the SQL statement you issued. If no rows were affected, 
+   <B
+CLASS="function"
+>PDO::exec()</B
+> returns <VAR
+CLASS="literal"
+>0</VAR
+>. 
+  </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione può
+restituire il Booleano <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, ma può anche restituire un valore non-Booleano valutato
+come <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, come ad esempio <VAR
+CLASS="literal"
+>0</VAR
+> o
+"". Per favore fare riferimento alla sezione <A
+HREF="language.types.boolean.html"
+>Booleans</A
+> per maggiori 
+informazioni. Usare <A
+HREF="language.operators.comparison.html"
+>l'operatore 
+=== </A
+> per controllare il valore restituito da questa 
+funzione.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   The following example incorrectly relies on the return value of
+   <B
+CLASS="function"
+>PDO::exec()</B
+>, wherein a statement that affected 0 rows
+   results in a call to <A
+HREF="function.die.html"
+><B
+CLASS="function"
+>die()</B
+></A
+>:
+   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$db</font><font color="#007700">-&gt;</font><font color="#0000BB">exec</font><font color="#007700">() or die(</font><font color="#0000BB">$db</font><font color="#007700">-&gt;</font><font color="#0000BB">errorInfo</font><font color="#007700">());<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN127784"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN127787"
+></A
+><P
+><B
+>Esempio 1. Issuing a DELETE statement</B
+></P
+><P
+>&#13;     Count the number of rows deleted by a DELETE statement with no WHERE
+     clause.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$dbh </font><font color="#007700">= new </font><font color="#0000BB">PDO</font><font color="#007700">(</font><font color="#DD0000">'odbc:sample'</font><font color="#007700">, </font><font color="#DD0000">'db2inst1'</font><font color="#007700">, </font><font color="#DD0000">'ibmdb2'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Delete all rows from the FRUIT table */<br /></font><font color="#0000BB">$count </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">exec</font><font color="#007700">(</font><font color="#DD0000">"DELETE FROM fruit WHERE colour = 'red'"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Return number of rows that were deleted */<br /></font><font color="#007700">print(</font><font color="#DD0000">"Deleted $count rows.</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Deleted 1 rows.</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN127793"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::prepare()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::query()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::execute()</B
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdo-errorinfo.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pdo-getattribute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDO::errorInfo</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDO::getAttribute</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

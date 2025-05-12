@@ -1,0 +1,700 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Advanced PHP debugger</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="apc_store"
+HREF="function.apc-store.html"><LINK
+REL="NEXT"
+TITLE="apd_breakpoint"
+HREF="function.apd-breakpoint.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.apc-store.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.apd-breakpoint.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.apd"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>IV. Advanced PHP debugger</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN9244"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apd.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     APD is the Advanced PHP Debugger. It was written to provide profiling and
+     debugging capabilities for PHP code, as well as to provide the ability to
+     print out a full stack backtrace. APD supports interactive debugging, but
+     by default it writes data to trace files. It also offers event based
+     logging so that varying levels of information (including function calls,
+     arguments passed, timings, etc.) can be turned on or off for individual
+     scripts.
+    <DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     APD is a Zend Extension, modifying the way the internals of PHP handle 
+     function calls, and thus may or may not be compatible with other Zend 
+     Extensions (for example Zend Optimizer). 
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apd.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  APD is currently available as a PECL extension from 
+  <A
+HREF="http://pecl.php.net/package/apd"
+TARGET="_top"
+>http://pecl.php.net/package/apd</A
+>.
+  Make sure you have installed the CGI version of PHP and it is available
+  in your current path along with the phpize script.
+ </P
+><P
+>&#13;  Run the following command to download, build, and install the latest stable
+  version of APD:
+ <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>pear install apd</PRE
+></TD
+></TR
+></TABLE
+>
+ </P
+><P
+>&#13;  This automatically installs the APD Zend module into your PHP
+  extensions directory. It is not mandatory to keep it there; you can
+  store the module in any directory PHP can read as long as you set
+  the zend_extension parameter accordingly.
+ </P
+><P
+>&#13;  Windows users can download the extension dll <TT
+CLASS="filename"
+>php_apd.dll</TT
+>
+  from <A
+HREF="http://snaps.php.net/win32/PECL_STABLE/"
+TARGET="_top"
+>http://snaps.php.net/win32/PECL_STABLE/</A
+>.
+ </P
+><P
+>&#13;  In your INI file, add the following lines:
+ </P
+><P
+>&#13;  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="php.ini"
+>zend_extension = /absolute/path/to/apd.so
+apd.dumpdir = /absolute/path/to/trace/directory
+apd.statement_tracing = 0</PRE
+></TD
+></TR
+></TABLE
+>
+ </P
+><P
+>&#13;  Depending on your PHP build, the zend_extension directive can be one of the
+  following:
+ </P
+><P
+>&#13;  <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="script"
+>zend_extension              (non ZTS, non debug build)
+zend_extension_ts           (    ZTS, non debug build)
+zend_extension_debug        (non ZTS,     debug build)
+zend_extension_debug_ts     (    ZTS,     debug build)</PRE
+></TD
+></TR
+></TABLE
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apd.installwin32"
+>Building on Win32</A
+></H1
+><P
+>&#13;  To build APD under Windows you need a working PHP compilation
+  environment as described on http://php.net/ -- basically, it requires
+  you to have Microsoft Visual C++, win32build.zip, bison/flex, and some know how
+  to get it to work. Also ensure that adp.dsp has DOS line endings; if it has unix
+  line endings, Microsoft Visual C++ will complain about it.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apd.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN9274"
+></A
+><P
+><B
+>Tabella 1. APD Configuration Options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>apd.dumpdir</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>apd.statement_tracing</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.apd.dumpdir"
+></A
+><VAR
+CLASS="parameter"
+>apd.dumpdir</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Sets the directory in which APD writes profile dump files.
+      You can specify an absolute path or a relative path.
+     </P
+><P
+>&#13;      You can specify a different directory as an argument
+      to <A
+HREF="function.apd-set-pprof-trace.html"
+><B
+CLASS="function"
+>apd_set_pprof_trace()</B
+></A
+>.
+     </P
+></DD
+><DT
+><A
+NAME="ini.apd.statement-tracing"
+></A
+><VAR
+CLASS="parameter"
+>apd.statement_tracing</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;     Specfies whether or not to do per-line tracings. Turning this on (1) will
+     impact the performance of your application.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apd.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apd.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apd.examples"
+>How to use PHP-APD in your scripts</A
+></H1
+><DIV
+CLASS="procedure"
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;      As the first line of your PHP script, call the apd_set_pprof_trace() function
+      to start the trace:
+     </P
+><P
+>&#13;      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+apd_set_pprof_trace();</font>
+</code></TD
+></TR
+></TABLE
+>
+     </P
+><P
+>&#13;     You can insert the line anywhere in your script, but if you do not start
+     tracing at the beginning of your script you discard profile data that might
+     otherwise lead you to a performance bottleneck.
+     </P
+></LI
+><LI
+><P
+>&#13;      Now run your script. The dump output will be written to
+      <TT
+CLASS="filename"
+>apd.dumpdir/pprof_pid.ext</TT
+>.
+      <DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+        If you're running the CGI version of PHP, you will need to add the '-e'
+        flag to enable extended information for apd to work properly. For
+        example: 
+        <KBD
+CLASS="userinput"
+>php -e -f script.php</KBD
+>
+      </P
+></BLOCKQUOTE
+></DIV
+>
+     </P
+></LI
+><LI
+><P
+>&#13;      To display formatted profile data, issue the <B
+CLASS="command"
+>pprofp</B
+>
+      command with the sort and display options of your choice. The formatted
+      output will look something like:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>bash-2.05b$ pprofp -R /tmp/pprof.22141.0
+
+Trace for /home/dan/testapd.php
+Total Elapsed Time = 0.00
+Total System Time  = 0.00
+Total User Time    = 0.00
+
+
+Real         User        System             secs/    cumm
+%Time (excl/cumm)  (excl/cumm)  (excl/cumm) Calls    call    s/call  Memory Usage Name
+--------------------------------------------------------------------------------------
+100.0 0.00 0.00  0.00 0.00  0.00 0.00     1  0.0000   0.0009            0 main
+56.9 0.00 0.00  0.00 0.00  0.00 0.00     1  0.0005   0.0005            0 apd_set_pprof_trace
+28.0 0.00 0.00  0.00 0.00  0.00 0.00    10  0.0000   0.0000            0 preg_replace
+14.3 0.00 0.00  0.00 0.00  0.00 0.00    10  0.0000   0.0000            0 str_replace</PRE
+></TD
+></TR
+></TABLE
+>
+     </P
+><P
+>&#13;     The -R option used in this example sorts the profile table by the amount
+     of real time the script spent executing a given function. The "cumm call"
+     column reveals how many times each function was called, and the "s/call"
+     column reveals how many seconds each call to the function required, on
+     average.
+     </P
+></LI
+><LI
+><P
+>&#13;     To generate a calltree file that you can import into the KCacheGrind
+     profile analysis application, issue the <B
+CLASS="command"
+>pprof2calltree</B
+>
+     comand.
+     </P
+></LI
+></OL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="apd.contact"
+>Contact information</A
+></H1
+><P
+>&#13;      If you have comments, bugfixes, enhancements or want to help developing 
+      this beast, you can send an mail to 
+      <A
+HREF="mailto:apd@mail.communityconnect.com"
+TARGET="_top"
+>apd@mail.communityconnect.com</A
+>. Any help is very 
+      welcome.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.apd-breakpoint.html"
+>apd_breakpoint</A
+>&nbsp;--&nbsp;Stops the interpreter and waits on a CR from the socket</DT
+><DT
+><A
+HREF="function.apd-callstack.html"
+>apd_callstack</A
+>&nbsp;--&nbsp;Returns the current call stack as an array</DT
+><DT
+><A
+HREF="function.apd-clunk.html"
+>apd_clunk</A
+>&nbsp;--&nbsp;Throw a warning and a callstack</DT
+><DT
+><A
+HREF="function.apd-continue.html"
+>apd_continue</A
+>&nbsp;--&nbsp;Restarts the interpreter</DT
+><DT
+><A
+HREF="function.apd-croak.html"
+>apd_croak</A
+>&nbsp;--&nbsp;Throw an error, a callstack and then exit</DT
+><DT
+><A
+HREF="function.apd-dump-function-table.html"
+>apd_dump_function_table</A
+>&nbsp;--&nbsp;Outputs the current function table</DT
+><DT
+><A
+HREF="function.apd-dump-persistent-resources.html"
+>apd_dump_persistent_resources</A
+>&nbsp;--&nbsp;Return all persistent resources as an array</DT
+><DT
+><A
+HREF="function.apd-dump-regular-resources.html"
+>apd_dump_regular_resources</A
+>&nbsp;--&nbsp;Return all current regular resources as an array</DT
+><DT
+><A
+HREF="function.apd-echo.html"
+>apd_echo</A
+>&nbsp;--&nbsp;Echo to the debugging socket</DT
+><DT
+><A
+HREF="function.apd-get-active-symbols.html"
+>apd_get_active_symbols</A
+>&nbsp;--&nbsp;Get an array of the current variables names in the local scope</DT
+><DT
+><A
+HREF="function.apd-set-pprof-trace.html"
+>apd_set_pprof_trace</A
+>&nbsp;--&nbsp;Starts the session debugging</DT
+><DT
+><A
+HREF="function.apd-set-session-trace.html"
+>apd_set_session_trace</A
+>&nbsp;--&nbsp;Starts the session debugging</DT
+><DT
+><A
+HREF="function.apd-set-session.html"
+>apd_set_session</A
+>&nbsp;--&nbsp;Changes or sets the current debugging level</DT
+><DT
+><A
+HREF="function.apd-set-socket-session-trace.html"
+>apd_set_socket_session_trace</A
+>&nbsp;--&nbsp;Starts the remote session debugging</DT
+><DT
+><A
+HREF="function.override-function.html"
+>override_function</A
+>&nbsp;--&nbsp;Overrides built-in functions</DT
+><DT
+><A
+HREF="function.rename-function.html"
+>rename_function</A
+>&nbsp;--&nbsp;Renames orig_name to new_name in the global function_table</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.apc-store.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.apd-breakpoint.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>apc_store</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>apd_breakpoint</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

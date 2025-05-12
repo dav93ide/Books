@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>imageloadfont</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le immagini"
+HREF="ref.image.html"><LINK
+REL="PREVIOUS"
+TITLE="imageline"
+HREF="function.imageline.html"><LINK
+REL="NEXT"
+TITLE="imagepalettecopy"
+HREF="function.imagepalettecopy.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.imageline.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.imagepalettecopy.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.imageloadfont"
+></A
+>imageloadfont</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN60340"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>imageloadfont&nbsp;--&nbsp;Load a new font</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN60343"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>imageloadfont</B
+> ( string file )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>imageloadfont()</B
+> loads a user-defined bitmap
+     font and returns an identifier for the font (that is always
+     greater than 5, so it will not conflict with the built-in fonts).
+     It returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in case of error.
+    </P
+><P
+>&#13;     The font file format is currently binary and architecture
+     dependent.  This means you should generate the font files on the
+     same type of CPU as the machine you are running PHP on.
+    </P
+><P
+>&#13;     <DIV
+CLASS="table"
+><A
+NAME="AEN60356"
+></A
+><P
+><B
+>Tabella 1. Font file format</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>byte position</TH
+><TH
+>C data type</TH
+><TH
+>description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>byte 0-3</TD
+><TD
+>int</TD
+><TD
+>number of characters in the font</TD
+></TR
+><TR
+><TD
+>byte 4-7</TD
+><TD
+>int</TD
+><TD
+>&#13;          value of first character in the font (often 32 for space)
+         </TD
+></TR
+><TR
+><TD
+>byte 8-11</TD
+><TD
+>int</TD
+><TD
+>pixel width of each character</TD
+></TR
+><TR
+><TD
+>byte 12-15</TD
+><TD
+>int</TD
+><TD
+>pixel height of each character</TD
+></TR
+><TR
+><TD
+>byte 16-</TD
+><TD
+>char</TD
+><TD
+>&#13;          array with character data, one byte per pixel in each
+          character, for a total of (nchars*width*height) bytes.
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN60386"
+></A
+><P
+><B
+>Esempio 1. Using imageloadfont</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$im </font><font color="#007700">= </font><font color="#0000BB">imagecreatetruecolor</font><font color="#007700">(</font><font color="#0000BB">50</font><font color="#007700">, </font><font color="#0000BB">20</font><font color="#007700">);<br /></font><font color="#0000BB">$black </font><font color="#007700">= </font><font color="#0000BB">imagecolorallocate</font><font color="#007700">(</font><font color="#0000BB">$im</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br /></font><font color="#0000BB">$white </font><font color="#007700">= </font><font color="#0000BB">imagecolorallocate</font><font color="#007700">(</font><font color="#0000BB">$im</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">);<br /></font><font color="#0000BB">imagefilledrectangle</font><font color="#007700">(</font><font color="#0000BB">$im</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">49</font><font color="#007700">, </font><font color="#0000BB">19</font><font color="#007700">, </font><font color="#0000BB">$white</font><font color="#007700">);<br /></font><font color="#0000BB">$font </font><font color="#007700">= </font><font color="#0000BB">imageloadfont</font><font color="#007700">(</font><font color="#DD0000">"04b.gdf"</font><font color="#007700">);<br /></font><font color="#0000BB">imagestring</font><font color="#007700">(</font><font color="#0000BB">$im</font><font color="#007700">, </font><font color="#0000BB">$font</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#DD0000">"Hello"</font><font color="#007700">, </font><font color="#0000BB">$black</font><font color="#007700">);<br /></font><font color="#0000BB">imagepng</font><font color="#007700">(</font><font color="#0000BB">$im</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     See also <A
+HREF="function.imagefontwidth.html"
+><B
+CLASS="function"
+>imagefontwidth()</B
+></A
+> and
+     <A
+HREF="function.imagefontheight.html"
+><B
+CLASS="function"
+>imagefontheight()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.imageline.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.imagepalettecopy.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>imageline</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.image.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>imagepalettecopy</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

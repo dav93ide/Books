@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Testing</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Driver How-To"
+HREF="internals.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="Building"
+HREF="internals.pdo.building.html"><LINK
+REL="NEXT"
+TITLE="Packaging and distribution"
+HREF="internals.pdo.packaging.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="internals.pdo.building.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 45. PDO Driver How-To</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="internals.pdo.packaging.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="internals.pdo.testing"
+>Testing</A
+></H1
+><P
+>&#13;  PDO has a set of "core" tests that all drivers should pass before being
+  released.  They're designed to run from the PHP source distribution, so
+  running the tests for your driver requires moving things around a bit.
+  The suggested procedure is to obtain the latest PHP 5.1 snapshot and
+  perform the following step:
+ </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$ cp -r pdo_SKEL /path/to/php-5.1/ext</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;  This will allow the test harness to run your tests.  The next thing you
+  need to do is create a test that will redirect into the PDO common core tests.
+  The convention is to name this file <TT
+CLASS="filename"
+>common.phpt</TT
+>; it
+  should be placed in the tests subdirectory that was created by
+  <B
+CLASS="command"
+>ext_skel</B
+> when you created your extension skeleton.
+  The content of this file should look something like the following:
+ </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="phptest"
+>--TEST--
+SKEL
+--SKIPIF--
+&#60;?php # vim:ft=php
+if (!extension_loaded('pdo_SKEL')) print 'skip'; ?&#62;
+--REDIRECTTEST--
+if (false !== getenv('PDO_SKEL_TEST_DSN')) {
+# user set them from their shell
+   $config['ENV']['PDOTEST_DSN'] = getenv('PDO_SKEL_TEST_DSN');
+   $config['ENV']['PDOTEST_USER'] = getenv('PDO_SKEL_TEST_USER');
+   $config['ENV']['PDOTEST_PASS'] = getenv('PDO_SKEL_TEST_PASS');
+   if (false !== getenv('PDO_SKEL_TEST_ATTR')) {
+      $config['ENV']['PDOTEST_ATTR'] = getenv('PDO_SKEL_TEST_ATTR');
+   }
+   return $config;
+}
+return array(
+   'ENV' =&#62; array(
+           'PDOTEST_DSN' =&#62; 'SKEL:dsn',
+           'PDOTEST_USER' =&#62; 'username',
+           'PDOTEST_PASS' =&#62; 'password'
+       ),
+   'TESTS' =&#62; 'ext/pdo/tests'
+   );</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;  This will cause the common core tests to be run, passing the values of
+  <VAR
+CLASS="literal"
+>PDOTEST_DSN</VAR
+>, <VAR
+CLASS="literal"
+>PDOTEST_USER</VAR
+> and
+  <VAR
+CLASS="literal"
+>PDOTEST_PASS</VAR
+> to the PDO constructor as the
+  <VAR
+CLASS="parameter"
+>dsn</VAR
+>, <VAR
+CLASS="parameter"
+>username</VAR
+> and
+  <VAR
+CLASS="parameter"
+>password</VAR
+> parameters.  It will first check the environment, so
+  that appropriate values can be passed in when the test harness is run,
+  rather than hard-coding the database credentials into the test file.
+ </P
+><P
+>&#13;  The test harness can be invoked as follows:
+ </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$ cd /path/to/php-5.1
+$ make TESTS=ext/pdo_SKEL/tests PDO_SKEL_TEST_DSN="skel:dsn" \
+ PDO_SKEL_TEST_USER=user PDO_SKEL_TEST_PASS=pass test</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="internals.pdo.building.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="internals.pdo.packaging.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Building</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="internals.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Packaging and distribution</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

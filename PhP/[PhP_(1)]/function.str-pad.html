@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>str_pad</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="str_ireplace"
+HREF="function.str-ireplace.html"><LINK
+REL="NEXT"
+TITLE="str_repeat"
+HREF="function.str-repeat.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.str-ireplace.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.str-repeat.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.str-pad"
+></A
+>str_pad</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN164995"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.1, PHP 5)</P
+>str_pad&nbsp;--&nbsp;
+     Riempie una stringa con un'altra stringa portando la prima ad una lunghezza pre-determinata
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN164998"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>str_pad</B
+> ( string input, int pad_length [, string pad_string [, int pad_type]] )<BR
+></BR
+><P
+>&#13;     Questa funzione restituisce la stringa <VAR
+CLASS="parameter"
+>input</VAR
+>
+     riempita per una data lunghezza a sinistra, a destra, o in entrambi i lati.
+     Se il parametro opzionale
+     <VAR
+CLASS="parameter"
+>pad_string</VAR
+> non viene passato, l'
+     <VAR
+CLASS="parameter"
+>input</VAR
+> viene completato con spazi, altrimenti viene
+     completato con i caratteri di <VAR
+CLASS="parameter"
+>pad_string</VAR
+>
+     fino al limite.
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>pad_type</VAR
+>, opzionale, può valere
+     <TT
+CLASS="constant"
+><B
+>STR_PAD_RIGHT</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>STR_PAD_LEFT</B
+></TT
+>,
+     oppure <TT
+CLASS="constant"
+><B
+>STR_PAD_BOTH</B
+></TT
+>. Se non si indica
+     <VAR
+CLASS="parameter"
+>pad_type</VAR
+> lo si assume pari a
+     <TT
+CLASS="constant"
+><B
+>STR_PAD_RIGHT</B
+></TT
+>.
+    </P
+><P
+>&#13;     Se il valore di <VAR
+CLASS="parameter"
+>pad_length</VAR
+> è negativo oppure
+     minore della stringa di input, non si ha nessun completamento.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN165030"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>str_pad()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$input </font><font color="#007700">= </font><font color="#DD0000">"Alien"</font><font color="#007700">;<br />echo </font><font color="#0000BB">str_pad</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// produces "Alien&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<br /></font><font color="#007700">echo </font><font color="#0000BB">str_pad</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">, </font><font color="#DD0000">"-="</font><font color="#007700">, </font><font color="#0000BB">STR_PAD_LEFT</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// produces "-=-=-Alien"<br /></font><font color="#007700">echo </font><font color="#0000BB">str_pad</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">, </font><font color="#DD0000">"_"</font><font color="#007700">, </font><font color="#0000BB">STR_PAD_BOTH</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// produces "__Alien___"<br /></font><font color="#007700">echo </font><font color="#0000BB">str_pad</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">, </font><font color="#0000BB">6 </font><font color="#007700">, </font><font color="#DD0000">"___"</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// produces "Alien_"<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il parametro <VAR
+CLASS="parameter"
+>pad_string</VAR
+> può essere troncato 
+      se il numero di caratteri necessari al completamento non può essere diviso 
+      per la lunghezza di <VAR
+CLASS="parameter"
+>pad_string</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.str-ireplace.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.str-repeat.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>str_ireplace</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>str_repeat</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

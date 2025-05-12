@@ -1,0 +1,610 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Caricare file</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caratteristiche"
+HREF="features.html"><LINK
+REL="PREVIOUS"
+TITLE="Dealing with XForms"
+HREF="features.xforms.html"><LINK
+REL="NEXT"
+TITLE="Spiegazione dei messaggi di errore"
+HREF="features.file-upload.errors.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="features.xforms.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="features.file-upload.errors.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="features.file-upload"
+>Capitolo 38. Caricare file</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="features.file-upload.html#features.file-upload.post-method"
+>Metodo POST per caricamento di file</A
+></DT
+><DT
+><A
+HREF="features.file-upload.errors.html"
+>Spiegazione dei messaggi di errore</A
+></DT
+><DT
+><A
+HREF="features.file-upload.common-pitfalls.html"
+>Common Pitfalls</A
+></DT
+><DT
+><A
+HREF="features.file-upload.multiple.html"
+>Caricamento di più file</A
+></DT
+><DT
+><A
+HREF="features.file-upload.put-method.html"
+>Supporto per metodo PUT</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="features.file-upload.post-method"
+>Metodo POST per caricamento di file</A
+></H1
+><P
+>&#13;    Questa caratteristica permette di caricare sia file di testo
+    che binari.  Utilizzando le funzioni di PHP per l'autenticazione e manipolazione dei file,
+    è possibile avere pieno controllo su chi ha i permessi per caricare un file e su
+    ciò che deve essere fatto una volta che il file è stato caricato.
+   </P
+><P
+>&#13;    Il PHP è in grado di riceve upload di file da qualsiasi browser
+    compatibile con la RFC-1867 (compresi <SPAN
+CLASS="productname"
+>Netscape Navigator 3</SPAN
+>
+    e successivi, <SPAN
+CLASS="productname"
+>Microsoft Internet Explorer 3</SPAN
+>
+    con le patch di Microsoft, oppure le versioni successive senza patch).
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Note relative alla configurazione: </B
+>
+      Si vedano i parametri <A
+HREF="ini.core.html#ini.file-uploads"
+>file_uploads</A
+>,
+      <A
+HREF="ini.core.html#ini.upload-max-filesize"
+>upload_max_filesize</A
+>,
+      <A
+HREF="ini.core.html#ini.upload-tmp-dir"
+>upload_tmp_dir</A
+>, 
+      <A
+HREF="ini.core.html#ini.post-max-size"
+>post_max_size</A
+> e
+      <A
+HREF="ref.info.html#ini.max-input-time"
+>max_input_time</A
+>
+      nel <TT
+CLASS="filename"
+>php.ini</TT
+>
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    Si noti che PHP permette l'upload di file con metodo PUT come utilizzato dai
+    programmi <SPAN
+CLASS="productname"
+>Netscape Composer</SPAN
+> e 
+    W3C <SPAN
+CLASS="productname"
+>Amaya</SPAN
+>. Si veda <A
+HREF="features.file-upload.put-method.html"
+>Supporto per metodo PUT
+    </A
+> per maggiori dettagli.
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN7033"
+></A
+><P
+><B
+>Esempio 38-1. Form di caricamento file</B
+></P
+><P
+>&#13;      La schermata di caricamento di un file può essere costruita con una form
+      particolare, di questo tipo:
+     </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;!-- Tipo di codifcia dei dati, DEVE essere specificato come segue --&#62;
+&#60;form enctype="multipart/form-data" action="__URL__" method="POST"&#62;
+    &#60;!-- MAX_FILE_SIZE deve precedere campo di input del nome file --&#62;
+    &#60;input type="hidden" name="MAX_FILE_SIZE" value="30000" /&#62;
+    &#60;!-- Il nome dell'elemento di input determina il nome nell'array $_FILES --&#62;
+    Send this file: &#60;input name="userfile" type="file" /&#62;
+    &#60;input type="submit" value="Send File" /&#62;
+&#60;/form&#62;</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;      L'<VAR
+CLASS="literal"
+>__URL__</VAR
+> dell'esempio precedente deve essere sostituito
+      con il puntamento ad un file PHP.
+     </P
+><P
+>&#13;      Il campo nascosto <VAR
+CLASS="literal"
+>MAX_FILE_SIZE</VAR
+> (misurato in byte) deve precedere
+      il campo di input del file, ed il suo valore indica la dimensione massima di file accettata.
+      Questa è un'informazione per il browser, ma anche il PHP lo verifica.
+      E' facile aggirare questa impostazione sul browser,
+      quindi non fate affidamento sul fatto che il navigatore si comporti come desiderato! 
+      L'impostazione PHP lato server per la dimensione  massima non può comunque essere aggirata. 
+      Tuttavia si può comunque inserire
+      MAX_FILE_SIZE per evitare all'utente di attendere il trasferimento di un file
+      prima di scoprire che è di dimensioni eccessive.
+     </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Accertarsi che il form di upload abbia l'impostazione <VAR
+CLASS="literal"
+>enctype="multipart/form-data"</VAR
+>
+     altrimentio non funzionerà.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    A partire dal PHP 4.1.0 esiste la variabile globale 
+    <A
+HREF="reserved.variables.html#reserved.variables.files"
+>$_FILES</A
+>. (Utilizzare <VAR
+CLASS="varname"
+>$HTTP_POST_FILES</VAR
+>
+    nelle versioni precedenti).
+    Queste matrici contengono tutte le informazioni sui file inviati.
+   </P
+><P
+>&#13;    Di seguito verrà illustrato il contenuto di
+    <A
+HREF="reserved.variables.html#reserved.variables.files"
+>$_FILES</A
+> nel caso dell'esempio precedente. Si
+    noti che si assume come nome del file inviato <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>userfile</I
+></SPAN
+>, come nell'esempio
+    precedente. Nella realtà questo può assurmere nome.
+    <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="varname"
+>$_FILES['userfile']['name']</VAR
+></DT
+><DD
+><P
+>&#13;        Il nome originale del file sulla macchina dell'utente.
+       </P
+></DD
+><DT
+><VAR
+CLASS="varname"
+>$_FILES['userfile']['type']</VAR
+></DT
+><DD
+><P
+>&#13;        Il mime-type del file, se il browser fornisce questa informazione. 
+	Un esempio potrebbe essere <VAR
+CLASS="literal"
+>"image/gif"</VAR
+>.
+       </P
+></DD
+><DT
+><VAR
+CLASS="varname"
+>$_FILES['userfile']['size']</VAR
+></DT
+><DD
+><P
+>&#13;        La dimensione, in bytes, del file caricato.
+       </P
+></DD
+><DT
+><VAR
+CLASS="varname"
+>$_FILES['userfile']['tmp_name']</VAR
+></DT
+><DD
+><P
+>&#13;        Il nome del file temporaneo in cui il file caricato è salvato 
+	sul server.
+       </P
+></DD
+><DT
+><VAR
+CLASS="varname"
+>$_FILES['userfile']['error']</VAR
+></DT
+><DD
+><P
+>&#13;        Il <A
+HREF="features.file-upload.errors.html"
+>codice di errore</A
+>
+        associato all'upload di questo file. Questo elemento è stato aggiunto nella versione 4.2.0 di PHP.
+       </P
+></DD
+></DL
+></DIV
+>
+   </P
+><P
+>&#13;    I file sono, di default, salvati in una directory temporanea sul server, a meno 
+    che un diverso percorso sia specificato nella direttiva <A
+HREF="ini.core.html#ini.upload-tmp-dir"
+>upload_tmp_dir</A
+> nel file 
+    <TT
+CLASS="filename"
+>php.ini</TT
+>. La directory del server predefinita può essere 
+    cambiata impostando la variabile di ambiente <VAR
+CLASS="envar"
+>TMPDIR</VAR
+> in cui 
+    è in esecuzione PHP. Non è possibile impostare questa variabile utilizzando 
+    la funzione <A
+HREF="function.putenv.html"
+><B
+CLASS="function"
+>putenv()</B
+></A
+> da uno script PHP. 
+    Questa variabile di ambiente può anche essere usata per assicurarsi che
+    anche altre operazioni stiano lavorando sui file caricati.
+        <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN7083"
+></A
+><P
+><B
+>Esempio 38-2. Verifica dell'upload di file</B
+></P
+><P
+>&#13;      Si vedano le definizioni delle funzioni <A
+HREF="function.is-uploaded-file.html"
+><B
+CLASS="function"
+>is_uploaded_file()</B
+></A
+> e
+      <A
+HREF="function.move-uploaded-file.html"
+><B
+CLASS="function"
+>move_uploaded_file()</B
+></A
+> per maggiori dettagli.
+      L'esempio seguente illustra il processamento di un file inviato tramite un
+      form.
+     </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Nelle versioni di PHP precedenti alla 4.1.0 si deve utilizzare&nbsp;&nbsp;$HTTP_POST_FILES anzichè <br />// $_FILES.<br /></font><font color="#0000BB">$uploaddir </font><font color="#007700">= </font><font color="#DD0000">'/var/www/uploads/'</font><font color="#007700">;<br /></font><font color="#0000BB">$uploadfile </font><font color="#007700">= </font><font color="#0000BB">$uploaddir </font><font color="#007700">. </font><font color="#0000BB">basename</font><font color="#007700">(</font><font color="#0000BB">$_FILES</font><font color="#007700">[</font><font color="#DD0000">'userfile'</font><font color="#007700">][</font><font color="#DD0000">'name'</font><font color="#007700">]);<br />echo </font><font color="#DD0000">"&lt;pre&gt;"</font><font color="#007700">;<br />if (</font><font color="#0000BB">move_uploaded_file</font><font color="#007700">(</font><font color="#0000BB">$_FILES</font><font color="#007700">[</font><font color="#DD0000">'userfile'</font><font color="#007700">][</font><font color="#DD0000">'tmp_name'</font><font color="#007700">], </font><font color="#0000BB">$uploadfile</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"File is valid, and was successfully uploaded.\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Possibile attacco tramite file upload!\n"</font><font color="#007700">; <br />}<br />echo </font><font color="#DD0000">'Alcune infromazioni di debug:'</font><font color="#007700">;<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$_FILES</font><font color="#007700">); <br /><br />print </font><font color="#DD0000">"&lt;/pre&gt;"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Lo script PHP che riceve il file caricato dovrebbe implementare la  
+    logica necessaria per determinare cosa deve essere fatto con il file 
+    caricato.  E' possibile, per esempio, utilizzare la variabile 
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['size']</VAR
+> per eliminare file che siano troppo 
+    grandi o troppo piccoli.  E' possibile utillizzare la variabile 
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['type']</VAR
+> per eliminare tutti i file che non soddisfano certi criteri. 
+    A partire da PHP 4.2.0, si può utilizzare <VAR
+CLASS="varname"
+>$_FILES['userfile']['error']</VAR
+> 
+    ed organizzare la logica in base ai <A
+HREF="features.file-upload.errors.html"
+>codici di errore</A
+>.
+    Quale che sia la logica, bisognerebbe comunque sempre
+    cancellare il file dalla directory temporanea e spostarlo da qualche
+    altra parte.
+   </P
+><P
+>&#13;    Se non si è selezinato alcun file per l'upload, il PHP restituità
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['size']</VAR
+> a 0, e
+    <VAR
+CLASS="varname"
+>$_FILES['userfile']['tmp_name']</VAR
+> vuoto.
+   </P
+><P
+>&#13;    Il file sarà eliminato dalla directory temporanea al termine della richiesta
+     se non è stato mosso e rinominato.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN7098"
+></A
+><P
+><B
+>Esempio 38-3. Upload di una serie di file</B
+></P
+><P
+>&#13;      Il PHP supporta le <A
+HREF="faq.html.html#faq.html.arrays"
+>matrici HTML</A
+>
+      anche con i file.
+     </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;form action="" method="post" enctype="multipart/form-data"&#62;
+&#60;p&#62;Pictures:
+&#60;input type="file" name="pictures[]" /&#62;
+&#60;input type="file" name="pictures[]" /&#62;
+&#60;input type="file" name="pictures[]" /&#62;
+&#60;input type="submit" value="Send" /&#62;
+&#60;/p&#62;
+&#60;/form&#62;</PRE
+></TD
+></TR
+></TABLE
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">foreach (</font><font color="#0000BB">$_FILES</font><font color="#007700">[</font><font color="#DD0000">"pictures"</font><font color="#007700">][</font><font color="#DD0000">"error"</font><font color="#007700">] as </font><font color="#0000BB">$key </font><font color="#007700">=&gt; </font><font color="#0000BB">$error</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$error </font><font color="#007700">== </font><font color="#0000BB">UPLOAD_ERR_OK</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$tmp_name </font><font color="#007700">= </font><font color="#0000BB">$_FILES</font><font color="#007700">[</font><font color="#DD0000">"pictures"</font><font color="#007700">][</font><font color="#DD0000">"tmp_name"</font><font color="#007700">][</font><font color="#0000BB">$key</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$name </font><font color="#007700">= </font><font color="#0000BB">$_FILES</font><font color="#007700">[</font><font color="#DD0000">"pictures"</font><font color="#007700">][</font><font color="#DD0000">"name"</font><font color="#007700">][</font><font color="#0000BB">$key</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">move_uploaded_file</font><font color="#007700">(</font><font color="#0000BB">$tmp_name</font><font color="#007700">, </font><font color="#DD0000">"data/$name"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="features.xforms.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="features.file-upload.errors.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Dealing with XForms</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="features.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Spiegazione dei messaggi di errore</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

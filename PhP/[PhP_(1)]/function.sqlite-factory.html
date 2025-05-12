@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sqlite_factory</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SQLite"
+HREF="ref.sqlite.html"><LINK
+REL="PREVIOUS"
+TITLE="sqlite_exec"
+HREF="function.sqlite-exec.html"><LINK
+REL="NEXT"
+TITLE="sqlite_fetch_all"
+HREF="function.sqlite-fetch-all.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-fetch-all.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sqlite-factory"
+></A
+>sqlite_factory</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN157286"
+></A
+><P
+>    (PHP 5)</P
+>sqlite_factory&nbsp;--&nbsp;Apre un database SQLite e restituisce un oggetto SQLiteDatabase</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157289"
+></A
+><H2
+>Descrizione</H2
+>SQLiteDatabase <B
+CLASS="methodname"
+>sqlite_factory</B
+> ( string filename [, int mode [, string &#38;error_message]] )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>sqlite_factory()</B
+> si comporta in modo simile a 
+   <A
+HREF="function.sqlite-open.html"
+><B
+CLASS="function"
+>sqlite_open()</B
+></A
+> in quanto apre un database SQLITE o
+   cerca di crearlo se non esiste. Tuttavia, la funzione restituisce
+   un oggetto
+   <A
+HREF="missing-stuff.html#sqlite.class.sqlitedatabase"
+>SQLiteDatabase</A
+> anzichè una risorsa.
+   Vedere la pagina del manuale di <A
+HREF="function.sqlite-open.html"
+><B
+CLASS="function"
+>sqlite_open()</B
+></A
+> per maggiori dettagli.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157308"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>filename</VAR
+></DT
+><DD
+><P
+>&#13;       Il nome del file del database SQLite.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>mode</VAR
+></DT
+><DD
+><P
+>&#13;       Modalità del file. Intesa per essere utilizzata per aprire il database
+       in modalità sola lettura. Attualmente questo parametro è ignorato dalla libreria
+       SQLite. Il valore di default è il valore ottale
+       <VAR
+CLASS="literal"
+>0666</VAR
+> ed è l'impostazione raccomandata.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>error_message</VAR
+></DT
+><DD
+><P
+>&#13;       Passato per riferimento ed è impostato per restituire un messaggio di errore descrittivo
+       del perchè il database non può essere aperto in caso di errore.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157328"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce un oggetto SQLiteDatabase in caso di successo, <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> in caso di errore.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157332"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN157335"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>sqlite_factory()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$dbhandle </font><font color="#007700">= </font><font color="#0000BB">sqlite_factory</font><font color="#007700">(</font><font color="#DD0000">'sqlitedb'</font><font color="#007700">);<br /></font><font color="#0000BB">$dbhandle</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">'SELECT user_id, username FROM users'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Funzione equivalente a */<br /><br /></font><font color="#0000BB">$dbhandle </font><font color="#007700">= new </font><font color="#0000BB">SQLiteDatabase</font><font color="#007700">(</font><font color="#DD0000">'sqlitedb'</font><font color="#007700">);<br /></font><font color="#0000BB">$dbhandle</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">'SELECT user_id, username FROM users'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157339"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.sqlite-open.html"
+><B
+CLASS="function"
+>sqlite_open()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sqlite-popen.html"
+><B
+CLASS="function"
+>sqlite_popen()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sqlite-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sqlite-fetch-all.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sqlite_exec</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sqlite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sqlite_fetch_all</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

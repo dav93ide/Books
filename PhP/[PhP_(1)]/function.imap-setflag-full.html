@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>imap_setflag_full</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IMAP, POP3 and NNTP Functions"
+HREF="ref.imap.html"><LINK
+REL="PREVIOUS"
+TITLE="imap_setacl"
+HREF="function.imap-setacl.html"><LINK
+REL="NEXT"
+TITLE="imap_sort"
+HREF="function.imap-sort.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.imap-setacl.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.imap-sort.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.imap-setflag-full"
+></A
+>imap_setflag_full</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN63701"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.3, PHP 4, PHP 5)</P
+>imap_setflag_full&nbsp;--&nbsp;Sets flags on messages</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN63704"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>imap_setflag_full</B
+> ( resource stream, string sequence, string flag [, string options] )<BR
+></BR
+><P
+>&#13;     This function causes a store to add the specified 
+     <VAR
+CLASS="parameter"
+>flag</VAR
+> to the flags set for the messages
+     in the specified <VAR
+CLASS="parameter"
+>sequence</VAR
+>.
+    </P
+><P
+>&#13;     The flags which you can set are "\\Seen", "\\Answered",
+     "\\Flagged", "\\Deleted", and "\\Draft" (as defined
+     by RFC2060).
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>options</VAR
+> are a bit mask and may contain 
+     the single option:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        <TT
+CLASS="constant"
+><B
+>ST_UID</B
+></TT
+> - The sequence argument contains UIDs 
+        instead of sequence numbers
+       </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN63732"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>imap_setflag_full()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$mbox </font><font color="#007700">= </font><font color="#0000BB">imap_open</font><font color="#007700">(</font><font color="#DD0000">"{your.imap.host:143}"</font><font color="#007700">, </font><font color="#DD0000">"username"</font><font color="#007700">, </font><font color="#DD0000">"password"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"can't connect: " </font><font color="#007700">. </font><font color="#0000BB">imap_last_error</font><font color="#007700">());<br /> <br /></font><font color="#0000BB">$status </font><font color="#007700">= </font><font color="#0000BB">imap_setflag_full</font><font color="#007700">(</font><font color="#0000BB">$mbox</font><font color="#007700">, </font><font color="#DD0000">"2,5"</font><font color="#007700">, </font><font color="#DD0000">"\\Seen \\Flagged"</font><font color="#007700">);<br /> <br />echo </font><font color="#0000BB">gettype</font><font color="#007700">(</font><font color="#0000BB">$status</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />echo </font><font color="#0000BB">$status </font><font color="#007700">. </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /> <br /></font><font color="#0000BB">imap_close</font><font color="#007700">(</font><font color="#0000BB">$mbox</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     See also: <A
+HREF="function.imap-clearflag-full.html"
+><B
+CLASS="function"
+>imap_clearflag_full()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.imap-setacl.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.imap-sort.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>imap_setacl</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.imap.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>imap_sort</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

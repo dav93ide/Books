@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>i18n_loc_set_default</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Unicode Functions"
+HREF="ref.unicode.html"><LINK
+REL="PREVIOUS"
+TITLE="i18n_loc_get_default"
+HREF="function.i18n-loc-get-default.html"><LINK
+REL="NEXT"
+TITLE="unicode_encode"
+HREF="function.unicode-encode.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.i18n-loc-get-default.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.unicode-encode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.i18n-loc-set-default"
+></A
+>i18n_loc_set_default</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN172156"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>i18n_loc_set_default&nbsp;--&nbsp;Set the default Locale</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172159"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>i18n_loc_set_default</B
+> ( string name )<BR
+></BR
+><P
+>&#13;   Sets the default Locale for PHP programs. Please note that this has nothing
+   to do with <A
+HREF="function.setlocale.html"
+><B
+CLASS="function"
+>setlocale()</B
+></A
+> nor with the system locale.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172169"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>name</VAR
+></DT
+><DD
+><P
+>&#13;       The new Locale name. A comprehensive list of the supported locales is
+       available at <A
+HREF="http://www-950.ibm.com/software/globalization/icu/demo/locales/en/?d_=en"
+TARGET="_top"
+>http://www-950.ibm.com/software/globalization/icu/demo/locales/en/?d_=en</A
+>.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172179"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172184"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN172187"
+></A
+><P
+><B
+>Esempio 1. A <B
+CLASS="function"
+>i18n_loc_set_default()</B
+> example</B
+></P
+><P
+>&#13;     This example demonstrates a possible usage of
+     <B
+CLASS="function"
+>i18n_loc_set_default()</B
+> to localize the
+     <A
+HREF="function.sort.html"
+><B
+CLASS="function"
+>sort()</B
+></A
+> functions.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">// the list of the strings to sort<br /></font><font color="#0000BB">$array </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'caramelo'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'cacto'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'caçada'<br /></font><font color="#007700">);<br /><br /></font><font color="#FF8000">// set our locale (Portuguese, in this case)<br /></font><font color="#0000BB">i18n_loc_set_default</font><font color="#007700">(</font><font color="#DD0000">'pt_PT'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// sort using the locale we previously set<br /></font><font color="#0000BB">sort</font><font color="#007700">(</font><font color="#0000BB">$array</font><font color="#007700">, </font><font color="#0000BB">SORT_LOCALE_STRING</font><font color="#007700">);<br /><br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$array</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array
+(
+    [0] =&#62; caçada
+    [1] =&#62; cacto
+    [2] =&#62; caramelo
+)</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;     If we didn't use the locale, PHP would sort the string using the ASCII
+     characters value, thus returning (wrongly):
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array
+(
+    [0] =&#62; cacto
+    [1] =&#62; caramelo
+    [2] =&#62; caçada
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172198"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.i18n-loc-get-default.html"
+><B
+CLASS="function"
+>i18n_loc_get_default()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.i18n-loc-get-default.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.unicode-encode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>i18n_loc_get_default</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.unicode.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>unicode_encode</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

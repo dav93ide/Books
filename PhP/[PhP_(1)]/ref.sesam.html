@@ -1,0 +1,1356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>SESAM Database Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="shm_remove"
+HREF="function.shm-remove.html"><LINK
+REL="NEXT"
+TITLE="sesam_affected_rows"
+HREF="function.sesam-affected-rows.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.shm-remove.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sesam-affected-rows.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.sesam"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXXXII. SESAM Database Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN148894"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     SESAM/SQL-Server is a mainframe database system, developed by
+     Fujitsu Siemens Computers, Germany. It runs on high-end mainframe
+     servers using the operating system BS2000/OSD.
+    </P
+><P
+>&#13;     In numerous productive BS2000 installations, SESAM/SQL-Server has
+     proven 
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        the ease of use of Java-, Web- and client/server connectivity,
+       </P
+></LI
+><LI
+><P
+>&#13;        the capability to work with an availability of more than
+        99.99%,
+       </P
+></LI
+><LI
+><P
+>&#13;        the ability to manage tens and even hundreds of thousands of
+        users.
+       </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     There is a PHP 3 SESAM interface available which allows
+     database operations via PHP-scripts.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Access to SESAM is only available with the latest CVS-Version of
+      PHP 3. PHP 4 does not support the SESAM database.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.sesam-oml"
+></A
+><VAR
+CLASS="parameter"
+>sesam_oml</VAR
+>
+       <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;        Name of BS2000 PLAM library containing the loadable SESAM
+        driver modules.  Required for using SESAM functions. The
+        BS2000 PLAM library must be set ACCESS=READ,SHARE=YES
+        because it must be readable by the apache server's user id.
+       </P
+></DD
+><DT
+><A
+NAME="ini.sesam-configfile"
+></A
+><VAR
+CLASS="parameter"
+>sesam_configfile</VAR
+>
+       <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;        Name of SESAM application configuration file. Required for
+        using SESAM functions.  The BS2000 file must be readable by
+        the apache server's user id.
+       </P
+><P
+>&#13;        The application configuration file will usually contain a
+        configuration like (see SESAM
+        reference manual):
+        <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN148927"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="bs2000"
+>CNF=B
+NAM=K
+NOTYPE</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+       </P
+></DD
+><DT
+><A
+NAME="ini.sesam-messagecatalog"
+></A
+><VAR
+CLASS="parameter"
+>sesam_messagecatalog</VAR
+>
+       <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;        Name of SESAM message catalog file.  In most cases, this
+        directive is not necessary. Only if the SESAM message file
+        is not installed in the system's BS2000 message file table,
+        it can be set with this directive.
+       </P
+><P
+>&#13;        The message catalog must be set ACCESS=READ,SHARE=YES because
+        it must be readable by the apache server's user id.
+       </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.config-notes"
+>Configuration notes</A
+></H1
+><P
+>&#13;     There is no standalone support for the PHP SESAM interface, it
+     works only as an integrated Apache module. In the Apache PHP
+     module, this <A
+HREF="ref.sesam.html#sesam.configuration"
+>SESAM interface is
+     configured</A
+> using Apache directives.
+     <DIV
+CLASS="table"
+><A
+NAME="AEN148940"
+></A
+><P
+><B
+>Tabella 1. SESAM Configuration directives</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Directive</TH
+><TH
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>php3_sesam_oml</VAR
+></TD
+><TD
+>&#13;          Name of BS2000 PLAM library containing the loadable SESAM
+          driver modules.  Required for using SESAM functions.
+          <P
+>&#13;          Example:
+          <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN148953"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache"
+>php3_sesam_oml $.SYSLNK.SESAM-SQL.030</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+         </P
+>
+       </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>php3_sesam_configfile</VAR
+></TD
+><TD
+>&#13;      Name of SESAM application configuration file.  Required for
+      using SESAM functions.
+       <P
+>&#13;        Example:
+        <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN148960"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache"
+>php3_sesam_configfile $SESAM.SESAM.CONF.AW</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+        It will usually contain a configuration like (see SESAM
+        reference manual):
+        <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN148962"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="bs2000"
+>CNF=B
+NAM=K
+NOTYPE</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+       </P
+>
+     </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>php3_sesam_messagecatalog</VAR
+></TD
+><TD
+>&#13;      Name of SESAM message catalog file.  In most cases, this
+      directive is not necessary. Only if the SESAM message file
+      is not installed in the system's BS2000 message file table,
+      it can be set with this directive.
+       <P
+>&#13;        Example:
+        <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN148969"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache"
+>php3_sesam_messagecatalog $.SYSMES.SESAM-SQL.030</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+       </P
+>
+     </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     In addition to the configuration of the PHP/SESAM interface, you
+     have to configure the SESAM-Database server itself on your
+     mainframe as usual. That means:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;    starting the SESAM database handler (DBH), and
+       </P
+></LI
+><LI
+><P
+>&#13;    connecting the databases with the SESAM database handler
+       </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     To get a connection between a PHP script and the database
+     handler, the <VAR
+CLASS="literal"
+>CNF</VAR
+> and <VAR
+CLASS="literal"
+>NAM</VAR
+>
+     parameters of the selected SESAM configuration file must match
+     the id of the started database handler.
+    </P
+><P
+>&#13;     In case of distributed databases you have to start a
+     SESAM/SQL-DCN agent with the distribution table including the
+     host and database names.
+    </P
+><P
+>&#13;     The communication between PHP (running in the POSIX subsystem)
+     and the database handler (running outside the POSIX subsystem) is
+     realized by a special driver module called SQLSCI and SESAM
+     connection modules using common memory.  Because of the common
+     memory access, and because PHP is a static part of the web
+     server, database accesses are very fast, as they do not require
+     remote accesses via ODBC, JDBC or UTM.
+    </P
+><P
+>&#13;     Only a small stub loader (SESMOD) is linked with PHP, and the
+     SESAM connection modules are pulled in from SESAM's OML PLAM
+     library.  In the <A
+HREF="ref.sesam.html#sesam.configuration"
+>configuration</A
+>, you must tell PHP
+     the name of this PLAM library, and the file link to use for the
+     SESAM configuration file (As of SESAM V3.0, SQLSCI is available
+     in the SESAM Tool Library, which is part of the standard
+     distribution).
+    </P
+><P
+>&#13;     Because the SQL command quoting for single quotes uses duplicated
+     single quotes (as opposed to a single quote preceded by a
+     backslash, used in some other databases), it is advisable to set
+     the PHP configuration directives <A
+HREF="ref.info.html#ini.magic-quotes-gpc"
+><VAR
+CLASS="literal"
+>php3_magic_quotes_gpc</VAR
+></A
+>
+     and <A
+HREF="ref.sybase.html#ini.magic-quotes-sybase"
+><VAR
+CLASS="literal"
+>php3_magic_quotes_sybase</VAR
+></A
+>
+     to <VAR
+CLASS="literal"
+>On</VAR
+> for all PHP scripts using the SESAM
+     interface.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.runtime"
+>Runtime considerations</A
+></H1
+><P
+>&#13;     Because of limitations of the BS2000 process model, the driver
+     can be loaded only after the Apache server has forked off its
+     server child processes. This will slightly slow down the initial
+     SESAM request of each child, but subsequent accesses will respond
+     at full speed.
+    </P
+><P
+>&#13;     When explicitly defining a Message Catalog for SESAM, that
+     catalog will be loaded each time the driver is loaded (i.e., at
+     the initial SESAM request). The BS2000 operating system prints a
+     message after successful load of the message catalog, which will
+     be sent to Apache's error_log file. BS2000 currently does not
+     allow suppression of this message, it will slowly fill up the
+     log.
+    </P
+><P
+>&#13;     Make sure that the SESAM OML PLAM library and SESAM configuration
+     file are readable by the user id running the web server.
+     Otherwise, the server will be unable to load the driver, and will
+     not allow to call any SESAM functions. Also, access to the
+     database must be granted to the user id under which the Apache
+     server is running. Otherwise, connections to the SESAM database
+     handler will fail.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.cursor-types"
+>Cursor Types</A
+></H1
+><P
+>&#13;     The result cursors which are allocated for SQL "select type"
+     queries can be either "sequential" or "scrollable". Because of
+     the larger memory overhead needed by "scrollable" cursors, the
+     default is "sequential".
+    </P
+><P
+>&#13;     When using "scrollable" cursors, the cursor can be freely
+     positioned on the result set. For each "scrollable" query, there
+     are global default values for the scrolling type (initialized to:
+     <VAR
+CLASS="literal"
+>SESAM_SEEK_NEXT</VAR
+>) and the scrolling offset
+     which can either be set once by
+     <A
+HREF="function.sesam-seek-row.html"
+><B
+CLASS="function"
+>sesam_seek_row()</B
+></A
+> or each time when fetching a
+     row using <A
+HREF="function.sesam-fetch-row.html"
+><B
+CLASS="function"
+>sesam_fetch_row()</B
+></A
+>. When fetching a
+     row using a "scrollable" cursor, the following post-processing is
+     done for the global default values for the scrolling type and
+     scrolling offset:
+     <DIV
+CLASS="table"
+><A
+NAME="AEN149002"
+></A
+><P
+><B
+>Tabella 2. Scrolled Cursor Post-Processing</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Scroll Type</TH
+><TH
+>Action</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_NEXT</VAR
+></TD
+><TD
+>none</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_PRIOR</VAR
+></TD
+><TD
+>none</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_FIRST</VAR
+></TD
+><TD
+>&#13;      set scroll type to <VAR
+CLASS="literal"
+>SESAM_SEEK_NEXT</VAR
+>
+     </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_LAST</VAR
+></TD
+><TD
+>&#13;      set scroll type to <VAR
+CLASS="literal"
+>SESAM_SEEK_PRIOR</VAR
+>
+     </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_ABSOLUTE</VAR
+></TD
+><TD
+>Auto-Increment internal offset value</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_RELATIVE</VAR
+></TD
+><TD
+>none. (maintain global default 
+      <VAR
+CLASS="parameter"
+>&#13;       offset</VAR
+> value, which allows for, e.g., fetching
+       each 10th row backwards)
+     </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.porting-note"
+>Porting note</A
+></H1
+><P
+>&#13;     Because in the PHP world it is natural to start indexes at zero
+     (rather than 1), some adaptions have been made to the SESAM
+     interface: whenever an indexed array is starting with index 1 in
+     the native SESAM interface, the PHP interface uses index 0 as a
+     starting point. E.g., when retrieving columns with
+     <A
+HREF="function.sesam-fetch-row.html"
+><B
+CLASS="function"
+>sesam_fetch_row()</B
+></A
+>, the first column has the
+     index 0, and the subsequent columns have indexes up to (but not
+     including) the column count ($array["count"]).  When porting
+     SESAM applications from other high level languages to PHP, be
+     aware of this changed interface. Where appropriate, the
+     description of the respective PHP sesam functions include a note
+     that the index is zero based.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.security"
+>Security concerns</A
+></H1
+><P
+>&#13;     When allowing access to the SESAM databases, the web server user
+     should only have as little privileges as possible. For most
+     databases, only read access privilege should be granted.
+     Depending on your usage scenario, add more access rights as you
+     see fit. Never allow full control to any database for any user
+     from the 'net! Restrict access to PHP scripts which must
+     administer the database by using password control and/or SSL
+     security.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.migration"
+>Migration from other SQL databases</A
+></H1
+><P
+>&#13;     No two SQL dialects are ever 100% compatible. When porting 
+     SQL applications from other database interfaces to SESAM,
+     some adaption may be required. The following typical
+     differences should be noted:
+     <P
+></P
+><UL
+><LI
+><P
+>Vendor specific data types</P
+><P
+>&#13;    Some vendor specific data types may have to be replaced by
+    standard SQL data types (e.g., <VAR
+CLASS="literal"
+>TEXT</VAR
+> could
+    be replaced by <VAR
+CLASS="literal"
+>VARCHAR(max. size)</VAR
+>).
+       </P
+></LI
+><LI
+><P
+>Keywords as SQL identifiers</P
+><P
+>&#13;    In SESAM (as in standard SQL), such identifiers must be
+    enclosed in double quotes (or renamed).
+       </P
+></LI
+><LI
+><P
+>&#13;    Display length in data types
+       </P
+><P
+>&#13;    SESAM data types have a precision, not a display
+    length. Instead of <VAR
+CLASS="literal"
+>int(4)</VAR
+> (intended use:
+    integers up to '9999'), SESAM requires simply
+    <VAR
+CLASS="literal"
+>int</VAR
+> for an implied size of 31 bits. Also,
+    the only datetime data types available in SESAM are:
+    <VAR
+CLASS="literal"
+>DATE</VAR
+>, <VAR
+CLASS="literal"
+>TIME(3)</VAR
+> and
+    <VAR
+CLASS="literal"
+>TIMESTAMP(3)</VAR
+>.
+       </P
+></LI
+><LI
+><P
+>&#13;    SQL types with vendor-specific <VAR
+CLASS="literal"
+>unsigned</VAR
+>,
+    <VAR
+CLASS="literal"
+>zerofill</VAR
+>, or
+    <VAR
+CLASS="literal"
+>auto_increment</VAR
+> attributes
+       </P
+><P
+>&#13;    <VAR
+CLASS="literal"
+>Unsigned</VAR
+> and<VAR
+CLASS="literal"
+> zerofill</VAR
+>
+    are not supported.  <VAR
+CLASS="literal"
+>Auto_increment</VAR
+> is
+    automatic (use <VAR
+CLASS="literal"
+>"INSERT ...  VALUES(*, ...)"</VAR
+>
+    instead of <VAR
+CLASS="literal"
+>"... VALUES(0, ...)"</VAR
+> to take
+    advantage of SESAM-implied auto-increment.
+       </P
+></LI
+><LI
+><P
+>&#13;    <B
+CLASS="command"
+>int ... DEFAULT '0000'</B
+>
+       </P
+><P
+>&#13;    Numeric variables must not be initialized with string
+    constants. Use <B
+CLASS="command"
+>DEFAULT 0</B
+> instead. To
+    initialize variables of the datetime SQL data types, the
+    initialization string must be prefixed with the respective
+    type keyword, as in: <VAR
+CLASS="literal"
+> CREATE TABLE exmpl ( xtime
+    timestamp(3) DEFAULT TIMESTAMP '1970-01-01 00:00:00.000' NOT
+    <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> ); </VAR
+>
+       </P
+></LI
+><LI
+><P
+>&#13;    <B
+CLASS="command"
+>$count = xxxx_num_rows();</B
+>
+       </P
+><P
+>&#13;    Some databases promise to guess/estimate the number of the
+    rows in a query result, even though the returned value is
+    grossly incorrect.  SESAM does not know the number of rows in
+    a query result before actually fetching them. If you REALLY
+    need the count, try <B
+CLASS="command"
+>SELECT COUNT(...) WHERE
+    ...</B
+>, it will tell you the number of hits.  A second
+    query will (hopefully) return the results.
+       </P
+></LI
+><LI
+><P
+>&#13;    <B
+CLASS="command"
+>DROP TABLE thename;</B
+>
+       </P
+><P
+>&#13;    In SESAM, in the <B
+CLASS="command"
+>DROP TABLE</B
+> command, the
+    table name must be either followed by the keyword
+    <VAR
+CLASS="literal"
+>RESTRICT</VAR
+> or
+    <VAR
+CLASS="literal"
+>CASCADE</VAR
+>. When specifying
+    <VAR
+CLASS="literal"
+>RESTRICT</VAR
+>, an error is returned if there are
+    dependent objects (e.g., VIEWs), while with
+    <VAR
+CLASS="literal"
+>CASCADE</VAR
+>, dependent objects will be deleted
+    along with the specified table.
+       </P
+></LI
+></UL
+>
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.sql-types"
+>Notes on the use of various SQL types</A
+></H1
+><P
+>&#13;     SESAM does not currently support the BLOB type. A future version
+     of SESAM will have support for BLOB.
+    </P
+><P
+>&#13;     At the PHP interface, the following type conversions are
+     automatically applied when retrieving SQL fields:
+     <DIV
+CLASS="table"
+><A
+NAME="AEN149100"
+></A
+><P
+><B
+>Tabella 3. SQL to PHP Type Conversions</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>SQL Type</TH
+><TH
+>PHP Type</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>SMALLINT, INTEGER</TD
+><TD
+><A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></TD
+></TR
+><TR
+><TD
+>NUMERIC, DECIMAL, FLOAT, REAL, DOUBLE</TD
+><TD
+><A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+></TD
+></TR
+><TR
+><TD
+>DATE, TIME, TIMESTAMP</TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+></TR
+><TR
+><TD
+>VARCHAR, CHARACTER</TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+     When retrieving a complete row, the result is returned as an
+     array. Empty fields are not filled in, so you will have to check
+     for the existence of the individual fields yourself (use
+     <A
+HREF="function.isset.html"
+><B
+CLASS="function"
+>isset()</B
+></A
+> or <A
+HREF="function.empty.html"
+><B
+CLASS="function"
+>empty()</B
+></A
+> to test
+     for empty fields).  That allows more user control over the
+     appearance of empty fields (than in the case of an empty string
+     as the representation of an empty field).
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.multiple-fields"
+>Support of SESAM's "multiple fields" feature</A
+></H1
+><P
+>&#13;     The special "multiple fields" feature of SESAM allows a column to
+     consist of an array of fields. Such a "multiple field" column can
+     be created like this:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN149129"
+></A
+><P
+><B
+>Esempio 1. Creating a "multiple field" column</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="sesam"
+>CREATE TABLE multi_field_test (
+    pkey CHAR(20) PRIMARY KEY,
+    multi(3) CHAR(12)
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     and can be filled in using:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN149132"
+></A
+><P
+><B
+>Esempio 2. Filling a "multiple field" column</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="sesam"
+>INSERT INTO multi_field_test (pkey, multi(2..3) )
+    VALUES ('Second', &#60;'first_val', 'second_val'&#62;)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Note that (like in this case) leading empty sub-fields are
+     ignored, and the filled-in values are collapsed, so that in the
+     above example the result will appear as multi(1..2) instead of
+     multi(2..3).
+    </P
+><P
+>&#13;     When retrieving a result row, "multiple columns" are accessed
+     like "inlined" additional columns. In the example above, "pkey"
+     will have the index 0, and the three "multi(1..3)" columns will
+     be accessible as indices 1 through 3.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sesam.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     For specific SESAM details, please refer to <A
+HREF="http://its.siemens.de/lobs/its/techinf/oltp/sesam/manuals/index_en.htm"
+TARGET="_top"
+>the SESAM/SQL-Server documentation
+     (english)</A
+> or <A
+HREF="http://its.siemens.de/lobs/its/techinf/oltp/sesam/manuals/index_gr.htm"
+TARGET="_top"
+>the
+     SESAM/SQL-Server documentation (german)</A
+>, both available
+     online, or use the respective manuals.
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.sesam-affected-rows.html"
+>sesam_affected_rows</A
+>&nbsp;--&nbsp;
+     Get number of rows affected by an immediate query
+    </DT
+><DT
+><A
+HREF="function.sesam-commit.html"
+>sesam_commit</A
+>&nbsp;--&nbsp;
+     Commit pending updates to the SESAM database
+    </DT
+><DT
+><A
+HREF="function.sesam-connect.html"
+>sesam_connect</A
+>&nbsp;--&nbsp;Open SESAM database connection</DT
+><DT
+><A
+HREF="function.sesam-diagnostic.html"
+>sesam_diagnostic</A
+>&nbsp;--&nbsp;
+     Return status information for last SESAM call
+    </DT
+><DT
+><A
+HREF="function.sesam-disconnect.html"
+>sesam_disconnect</A
+>&nbsp;--&nbsp;Detach from SESAM connection</DT
+><DT
+><A
+HREF="function.sesam-errormsg.html"
+>sesam_errormsg</A
+>&nbsp;--&nbsp;Returns error message of last SESAM call</DT
+><DT
+><A
+HREF="function.sesam-execimm.html"
+>sesam_execimm</A
+>&nbsp;--&nbsp;Execute an "immediate" SQL-statement</DT
+><DT
+><A
+HREF="function.sesam-fetch-array.html"
+>sesam_fetch_array</A
+>&nbsp;--&nbsp;Fetch one row as an associative array</DT
+><DT
+><A
+HREF="function.sesam-fetch-result.html"
+>sesam_fetch_result</A
+>&nbsp;--&nbsp;Return all or part of a query result</DT
+><DT
+><A
+HREF="function.sesam-fetch-row.html"
+>sesam_fetch_row</A
+>&nbsp;--&nbsp;Fetch one row as an array</DT
+><DT
+><A
+HREF="function.sesam-field-array.html"
+>sesam_field_array</A
+>&nbsp;--&nbsp;
+     Return meta information about individual columns in a result
+    </DT
+><DT
+><A
+HREF="function.sesam-field-name.html"
+>sesam_field_name</A
+>&nbsp;--&nbsp;
+     Return one column name of the result set
+    </DT
+><DT
+><A
+HREF="function.sesam-free-result.html"
+>sesam_free_result</A
+>&nbsp;--&nbsp;Releases resources for the query</DT
+><DT
+><A
+HREF="function.sesam-num-fields.html"
+>sesam_num_fields</A
+>&nbsp;--&nbsp;
+     Return the number of fields/columns in a result set
+    </DT
+><DT
+><A
+HREF="function.sesam-query.html"
+>sesam_query</A
+>&nbsp;--&nbsp;Perform a SESAM SQL query and prepare the result</DT
+><DT
+><A
+HREF="function.sesam-rollback.html"
+>sesam_rollback</A
+>&nbsp;--&nbsp;
+     Discard any pending updates to the SESAM database
+    </DT
+><DT
+><A
+HREF="function.sesam-seek-row.html"
+>sesam_seek_row</A
+>&nbsp;--&nbsp;
+     Set scrollable cursor mode for subsequent fetches
+    </DT
+><DT
+><A
+HREF="function.sesam-settransaction.html"
+>sesam_settransaction</A
+>&nbsp;--&nbsp;Set SESAM transaction parameters</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.shm-remove.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sesam-affected-rows.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>shm_remove</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sesam_affected_rows</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

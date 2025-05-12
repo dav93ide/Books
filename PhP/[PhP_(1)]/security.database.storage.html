@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Encrypted Storage Model</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Database Security"
+HREF="security.database.html"><LINK
+REL="PREVIOUS"
+TITLE="Connecting to Database"
+HREF="security.database.connection.html"><LINK
+REL="NEXT"
+TITLE="SQL Injection"
+HREF="security.database.sql-injection.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="security.database.connection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 27. Database Security</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="security.database.sql-injection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="security.database.storage"
+>Encrypted Storage Model</A
+></H1
+><P
+>&#13;     SSL/SSH protects data travelling from the client to the server, SSL/SSH
+     does not protect the persistent data stored in a database. SSL is an
+     on-the-wire protocol.
+    </P
+><P
+>&#13;     Once an attacker gains access to your database directly (bypassing the
+     webserver), the stored sensitive data may be exposed or misused, unless
+     the information is protected by the database itself. Encrypting the data
+     is a good way to mitigate this threat, but very few databases offer this
+     type of data encryption.
+    </P
+><P
+>&#13;     The easiest way to work around this problem is to first create your own
+     encryption package, and then use it from within your PHP scripts. PHP
+     can assist you in this with several extensions, such as <A
+HREF="ref.mcrypt.html"
+>Mcrypt</A
+> and <A
+HREF="ref.mhash.html"
+>Mhash</A
+>, covering a wide variety of encryption
+     algorithms. The script encrypts the data before inserting it into the database, and decrypts
+     it when retrieving. See the references for further examples of how
+     encryption works.
+    </P
+><P
+>&#13;     In case of truly hidden data, if its raw representation is not needed
+     (i.e. not be displayed), hashing may also be taken into consideration.
+     The well-known example for the hashing is storing the MD5 hash of a
+     password in a database, instead of the password itself. See also
+     <A
+HREF="function.crypt.html"
+><B
+CLASS="function"
+>crypt()</B
+></A
+> and <A
+HREF="function.md5.html"
+><B
+CLASS="function"
+>md5()</B
+></A
+>.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6597"
+></A
+><P
+><B
+>Esempio 27-1. Using hashed password field</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">// storing password hash<br /></font><font color="#0000BB">$query&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">sprintf</font><font color="#007700">(</font><font color="#DD0000">"INSERT INTO users(name,pwd) VALUES('%s','%s');"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">addslashes</font><font color="#007700">(</font><font color="#0000BB">$username</font><font color="#007700">), </font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">$password</font><font color="#007700">));<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_query</font><font color="#007700">(</font><font color="#0000BB">$connection</font><font color="#007700">, </font><font color="#0000BB">$query</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// querying if user submitted the right password<br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#0000BB">sprintf</font><font color="#007700">(</font><font color="#DD0000">"SELECT 1 FROM users WHERE name='%s' AND pwd='%s';"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">addslashes</font><font color="#007700">(</font><font color="#0000BB">$username</font><font color="#007700">), </font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">$password</font><font color="#007700">));<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_query</font><font color="#007700">(</font><font color="#0000BB">$connection</font><font color="#007700">, </font><font color="#0000BB">$query</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">pg_num_rows</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">) &gt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Welcome, $username!'</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Authentication failed for $username.'</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="security.database.connection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="security.database.sql-injection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Connecting to Database</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="security.database.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>SQL Injection</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

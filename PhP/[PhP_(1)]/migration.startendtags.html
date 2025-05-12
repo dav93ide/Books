@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Inizio/fine tags di PHP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Migrazione da PHP/FI 2 a PHP 3"
+HREF="migration.html"><LINK
+REL="PREVIOUS"
+TITLE="old_function"
+HREF="migration.old-function.html"><LINK
+REL="NEXT"
+TITLE="Sintassi di if..endif"
+HREF="migration.if-endif.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="migration.old-function.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice D. Migrazione da PHP/FI 2 a PHP 3</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="migration.if-endif.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="migration.startendtags"
+>Inizio/fine tags di PHP</A
+></H1
+><P
+>&#13;   La prima cosa che probabilmente noterete è la modificha dei tag
+   del inizio e della fine di PHP.  Il vecchio <VAR
+CLASS="literal"
+>&#60;? &#62;</VAR
+>
+   è stato sostituito da tre nuove forme possibili: 
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN199810"
+></A
+><P
+><B
+>Esempio D-1. Migrazione: vecchio inizio/fine tag</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;? </font><font color="#007700">echo </font><font color="#DD0000">"Questo &amp;egrave; il codice di PHP/FI 2.0\n"</font><font color="#007700">; </font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   La versione 2.0, PHP/FI supporta anche questa variazione:
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN199813"
+></A
+><P
+><B
+>Esempio D-2. Migrazione: primo nuovo inizio/fine tag</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;? </font><font color="#007700">echo </font><font color="#DD0000">"Questo &amp;egrave; il codice di PHP 3.0\n"</font><font color="#007700">; </font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+   Nota che il tag della fine ora consiste di un punto interrogativo
+   e di un superiore-che carattere anziché solamente un superiore-che.
+   Comunque, se pensate di usare XML sul vostro server, avrete dei problemi
+   con la prima nuova variazione perché PHP potrebbe provare ad eseguire
+   il XML markup nei documenti XML come un codice PHP. Per questa
+   raggione, la seguente variazione è stata introdotta:
+
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN199816"
+></A
+><P
+><B
+>Esempio D-3. Migrazione: secondo nuovo inizio/fine tag</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php </font><font color="#007700">echo </font><font color="#DD0000">"Questo &amp;egrave; il codice di PHP 3.0\n"</font><font color="#007700">; </font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+   Alcune persone hanno avuto dei problemi con gli editor che
+   non capiscono affatto i tag di istruzione del processo.
+   Microsoft FrontPage è un tale editor. Per evitare un suo
+   comportamento scoretto la seguente variazione è anche stata
+   introdotta:
+
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN199819"
+></A
+><P
+><B
+>Esempio D-4. Migrazione: terzo nuovo inizio/fine tag</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;script language="php"&gt;<br /><br />&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">"Questo &amp;egrave; il codice di PHP 3.0\n"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">&lt;/script&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="migration.old-function.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="migration.if-endif.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>old_function</VAR
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="migration.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Sintassi di if..endif</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

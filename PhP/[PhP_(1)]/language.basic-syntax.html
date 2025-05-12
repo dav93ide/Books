@@ -1,0 +1,428 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Sintassi Fondamentale</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Struttura del Linguaggio"
+HREF="langref.html"><LINK
+REL="PREVIOUS"
+TITLE="Struttura del Linguaggio"
+HREF="langref.html"><LINK
+REL="NEXT"
+TITLE="Separazione delle istruzioni"
+HREF="language.basic-syntax.instruction-separation.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="langref.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.basic-syntax.instruction-separation.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="language.basic-syntax"
+>Capitolo 10. Sintassi Fondamentale</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="language.basic-syntax.html#language.basic-syntax.phpmode"
+>Modi per uscire dalla modalità HTML</A
+></DT
+><DT
+><A
+HREF="language.basic-syntax.instruction-separation.html"
+>Separazione delle istruzioni</A
+></DT
+><DT
+><A
+HREF="language.basic-syntax.comments.html"
+>Commenti</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.basic-syntax.phpmode"
+>Modi per uscire dalla modalità HTML</A
+></H1
+><P
+>&#13;    Quando il PHP inizia a esaminare un file, cerca i tag di apertura e di chiusura,
+    che indicano dove iniziare e terminare l'interpretazione del codice.
+    Questa tecnica permette al PHP di essere incorporato in tutte
+    le tipologie di documenti, poichè ogni cosa esterna ai tag
+    di apertura e di chiusura viene ignoarat dal parser PHP.
+    Il più delle volte si vedrà codice PHP racchiuso in documenti HTML,
+    come nel seguente esempio.
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN2681"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+&lt;p&gt;This is going to be ignored.&lt;/p&gt;<br /><font color="#0000BB">&lt;?php </font><font color="#007700">echo </font><font color="#DD0000">'While this is going to be parsed.'</font><font color="#007700">; </font><font color="#0000BB">?&gt;<br /></font>&lt;p&gt;This will also be ignored.&lt;/p&gt;</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Si possono usare anche strutture più avanzate:
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN2684"
+></A
+><P
+><B
+>Esempio 10-1. Escape avanzato</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">$expression</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">?&gt;<br /></font>&nbsp;&nbsp;&nbsp;&nbsp;&lt;strong&gt;This is true.&lt;/strong&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000BB">&lt;?php<br /></font><font color="#007700">} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">?&gt;<br /></font>&nbsp;&nbsp;&nbsp;&nbsp;&lt;strong&gt;This is false.&lt;/strong&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000BB">&lt;?php<br /></font><font color="#007700">}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    Questo codice funziona come atteso, perchè quando il PHP trova il tag di chiusura ?&#62;,
+    inizia a visualizzare tutto ciò che incontra sino a quando non si raggiunge
+    un'altro tag di apertura. L'esempio è semplificato, ovviamente,
+    ma nella visualizzazzione di grossi blocchi di testo uscire dalla
+    modalità di parsing del codice PHP è generalmente più efficiente che inviare il tutto
+    tramite <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+> o
+    <A
+HREF="function.print.html"
+><B
+CLASS="function"
+>print()</B
+></A
+>.
+   </P
+><P
+> 
+    Esistono 4 set di tag che possono essere utilizzati per delimitare
+    blocchi di codice PHP. Soltanto due di questi (&#60;?php. . .?&#62; e &#60;script language="php"&#62;. . .&#60;/script&#62;)
+    sono sempre disponibili.
+    Gli altri due sono i tag brevi e i tag stile <SPAN
+CLASS="productname"
+>ASP</SPAN
+>
+    e possono essere attivati o disattivati tramite il file di configurazione
+    <TT
+CLASS="filename"
+>php.ini</TT
+>. Sebbene i tag brevi o quelli in stile <SPAN
+CLASS="productname"
+>ASP</SPAN
+>
+    possano essere pratici, questi sono meno
+    portabili e, in generale, sconsigliati.
+    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Occorre notare che se si intende inserire codice
+      PHP all'interno di testi XMl o XHTML, occorre utilizzare 
+      &#60;?php ?&#62; per essere conformi allo standard XML.
+     </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN2696"
+></A
+><P
+><B
+>Esempio 10-2. Tag di apertura e di chiusura</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+1.&nbsp;&nbsp;<font color="#0000BB">&lt;?php </font><font color="#007700">echo </font><font color="#DD0000">'se si vogliono produrre documenti XHTML o XML, si utilizzi questo modo'</font><font color="#007700">; </font><font color="#0000BB">?&gt;<br /></font>2.&nbsp;&nbsp;<font color="#0000BB">&lt;script language="php"&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">'alcuni editor (tipo FrontPage) non <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amano le istruzioni di elaborazione'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">&lt;/script&gt;<br /></font><br />3.&nbsp;&nbsp;<font color="#0000BB">&lt;? </font><font color="#007700">echo </font><font color="#DD0000">'questo è il più semplice, ovvero come istruzione SGML'</font><font color="#007700">; </font><font color="#0000BB">?&gt;<br /></font>&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000BB">&lt;?= espressione ?&gt;</font>&nbsp;&nbsp;Questa è un'abbreviazione per "<font color="#0000BB">&lt;? </font><font color="#007700">echo </font><font color="#0000BB">espressione ?&gt;</font>"<br /> <br /><br />4.&nbsp;&nbsp;&lt;% echo 'Opzionalmente puoi utilizzare tag nello stile ASP'; %&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;%= $variable; # Questo &amp;egrave; una abbreviazione per "&lt;% echo ..." %&gt;</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Sebbene i tag utilizzati negli esempi 1 e 2 siano sempre
+     disponibili, l'esempio uno rappresenta la situazione più comunemente 
+     utilizzata, e la più raccomandata dei due.
+    </P
+><P
+>&#13;     I tag brevi (esempio tre) sono disponibili soltanto se sono stati
+     abilitati tramite il parametro <A
+HREF="ini.core.html#ini.short-open-tag"
+>short_open_tag</A
+>
+     del <TT
+CLASS="filename"
+>php.ini</TT
+>, oppure se il PHP è stato configurato con
+     <VAR
+CLASS="option"
+>--enable-short-tags</VAR
+>.
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Se si utilizza il PHP 3 si può anche avere disponibili i tag brevi tramite
+       la funzione <B
+CLASS="function"
+>short_tags()</B
+>. <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Questo
+       vale solo per il PHP 3!</I
+></SPAN
+>
+      </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+><P
+>&#13;    I tag in stile <SPAN
+CLASS="productname"
+>ASP</SPAN
+> (esempio quattro) sono disponibili soltanto quando
+    sono abilitati tramite il parametro 
+    <A
+HREF="ini.core.html#ini.asp-tags"
+>asp_tags</A
+> del <TT
+CLASS="filename"
+>php.ini</TT
+>
+    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il supporto per i tag nello stile <SPAN
+CLASS="productname"
+>ASP</SPAN
+> è stato aggiunto nella versione 3.0.4.
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><P
+>&#13;     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      L'utilizzo dei tag brevi dovrebbe essere evitato nello sviluppo
+      di applicazioni o librerie destinate alla distribuzione o destinati
+      a server di produzione PHP di cui non si ha il controllo poichè questi
+      tag potrebbero non essere attivi sul server di destinazione. Per avere maggiore
+      portabilità, codice redistribuibile, occorre essere certi di non utilizzare i tag brevi.
+     </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="langref.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.basic-syntax.instruction-separation.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Struttura del Linguaggio</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="langref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Separazione delle istruzioni</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

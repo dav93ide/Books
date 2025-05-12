@@ -1,0 +1,487 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_query</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_ping"
+HREF="function.mysql-ping.html"><LINK
+REL="NEXT"
+TITLE="mysql_real_escape_string"
+HREF="function.mysql-real-escape-string.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-ping.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-real-escape-string.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-query"
+></A
+>mysql_query</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN94005"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mysql_query&nbsp;--&nbsp;Invia una query MySQL</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN94008"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>mysql_query</B
+> ( string query [, resource identificativo_connessione [, int modo_risultato]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_query()</B
+> invia una query al database
+     attualmente attivo sul server associato all'identificativo di conmnessione
+     specificato. Se
+     <VAR
+CLASS="parameter"
+>identificativo_connessione</VAR
+> non è specificato, viene considerata l'ultima
+     connessione aperta. Se nessuna connessione è aperta, la funzione prova
+     a stabilire una connessione come se <A
+HREF="function.mysql-connect.html"
+><B
+CLASS="function"
+>mysql_connect()</B
+></A
+> fosse
+     richiamata senza argomenti ed usa questa.
+    </P
+><P
+>&#13;     Il paramentro opzionale <VAR
+CLASS="parameter"
+>modo_risultato</VAR
+>
+     può essere MYSQL_USE_RESULT e MYSQL_STORE_RESULT. Il valore 
+	 predefinito MYSQL_STORE_RESULT, così il risultato è bufferato.
+     Vedere anche <A
+HREF="function.mysql-unbuffered-query.html"
+><B
+CLASS="function"
+>mysql_unbuffered_query()</B
+></A
+> per la
+     controparte di questo comportamento.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      La stringa della query non dovrebbe terminare con un punto e virgola.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Solo per le istruzioni SELECT, SHOW, EXPLAIN o DESCRIBE
+     <B
+CLASS="function"
+>mysql_query()</B
+>
+     restituisce un identificativo di risorsa o <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se la query non
+     è stata eseguita correttamente. Per altri tipi di istruzioni SQL,
+     <B
+CLASS="function"
+>mysql_query()</B
+> restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo
+     e <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di errore. Un valore restituito diverso da <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+     indica che la query era lecita ed è stata eseguita dal
+     server. Questo non indica niente riguardo il numero di
+     righe coinvolte o restituite. è assolutamente possibile che una query
+     abbia successo ma che non coinvolga o restituisca nessuna riga.
+    </P
+><P
+>&#13;     La seguente query non è valida sintatticamente, quindi
+     <B
+CLASS="function"
+>mysql_query()</B
+> fallisce e restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN94041"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>mysql_query()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$risultato </font><font color="#007700">= </font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"SELECT * WHERE 1=1"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Query non valida: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">());<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     La seguente query non è semanticamente valida se
+     <VAR
+CLASS="literal"
+>mia_colonna</VAR
+> non è una colonna della tabella
+     <VAR
+CLASS="literal"
+>mia_tabella</VAR
+>, quindi <B
+CLASS="function"
+>mysql_query()</B
+>
+     fallisce e retituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN94050"
+></A
+><P
+><B
+>Esempio 2. <B
+CLASS="function"
+>mysql_query()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$risultato </font><font color="#007700">= </font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"SELECT mia_colonna FROM mia_tabella"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Query non valida: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">());<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_query()</B
+> fallisce e restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+     anche se non si hanno i permessi per accedere alle tabelle cui la query
+     fa riferimento.
+    </P
+><P
+>&#13;     Assumendo che la query abbia succeesso, si può richiamare
+     <A
+HREF="function.mysql-num-rows.html"
+><B
+CLASS="function"
+>mysql_num_rows()</B
+></A
+> per scoprire quante righe
+     sono state restituite da un'istruzione SELECT o
+     <A
+HREF="function.mysql-affected-rows.html"
+><B
+CLASS="function"
+>mysql_affected_rows()</B
+></A
+> per scoprire quante
+     righe sono state coinvolte da un'istruzione DELETE, INSERT, REPLACE 
+	 o UPDATE.
+    </P
+><P
+>&#13;     Solo per le istruzioni SELECT, SHOW, DESCRIBE o EXPLAIN,
+     <B
+CLASS="function"
+>mysql_query()</B
+>
+     restituisce un nuovo identificativo di risultato che si può passare a
+     <A
+HREF="function.mysql-fetch-array.html"
+><B
+CLASS="function"
+>mysql_fetch_array()</B
+></A
+> e ad altre
+     funzioni che si occupano dei risultati delle tabelle. Quando si conclude il trattamento
+     del risultato, si possono liberare le risorse associate ad esso
+     richiamando <A
+HREF="function.mysql-free-result.html"
+><B
+CLASS="function"
+>mysql_free_result()</B
+></A
+>. Comunqe la
+     memoria sarà liberata automaticamente Al termnine dell'esecuzione
+     dello script.
+    </P
+><P
+>&#13;     Vedere anche: <A
+HREF="function.mysql-num-rows.html"
+><B
+CLASS="function"
+>mysql_num_rows()</B
+></A
+>,
+     <A
+HREF="function.mysql-affected-rows.html"
+><B
+CLASS="function"
+>mysql_affected_rows()</B
+></A
+>,
+     <A
+HREF="function.mysql-unbuffered-query.html"
+><B
+CLASS="function"
+>mysql_unbuffered_query()</B
+></A
+>,
+     <A
+HREF="function.mysql-free-result.html"
+><B
+CLASS="function"
+>mysql_free_result()</B
+></A
+>,
+     <A
+HREF="function.mysql-fetch-array.html"
+><B
+CLASS="function"
+>mysql_fetch_array()</B
+></A
+>,
+     <A
+HREF="function.mysql-fetch-row.html"
+><B
+CLASS="function"
+>mysql_fetch_row()</B
+></A
+>,
+     <A
+HREF="function.mysql-fetch-assoc.html"
+><B
+CLASS="function"
+>mysql_fetch_assoc()</B
+></A
+>,
+     <A
+HREF="function.mysql-result.html"
+><B
+CLASS="function"
+>mysql_result()</B
+></A
+>,
+     <A
+HREF="function.mysql-select-db.html"
+><B
+CLASS="function"
+>mysql_select_db()</B
+></A
+> e
+     <A
+HREF="function.mysql-connect.html"
+><B
+CLASS="function"
+>mysql_connect()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-ping.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-real-escape-string.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_ping</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_real_escape_string</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Extension Possibilities</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Zend API: Hacking the Core of PHP"
+HREF="zend.html"><LINK
+REL="PREVIOUS"
+TITLE="Overview"
+HREF="zend.overview.html"><LINK
+REL="NEXT"
+TITLE="Source Layout"
+HREF="zend.layout.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="zend.overview.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 46. Zend API: Hacking the Core of PHP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="zend.layout.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="zend.possibilities"
+>Extension Possibilities</A
+></H1
+><P
+>&#13;   As shown in <A
+HREF="zend.overview.html#fig.internal-struct"
+>Figura 46-1</A
+> above, PHP can be extended primarily at
+   three points: external modules, built-in modules, and the Zend
+   engine. The following sections discuss these options.
+  </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.possibilities.external"
+>External Modules</A
+></H2
+><P
+>&#13;    External modules can be loaded at script runtime using the
+    function <A
+HREF="function.dl.html"
+><B
+CLASS="function"
+>dl()</B
+></A
+>. This function loads a shared
+    object from disk and makes its functionality available to the
+    script to which it's being bound. After the script is terminated,
+    the external module is discarded from memory. This method has both
+    advantages and disadvantages, as described in the following table:
+    
+    <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN186132"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="col1"><COL
+WIDTH="1*"
+TITLE="col2"><TBODY
+><TR
+><TD
+>Advantages</TD
+><TD
+>Disadvantages</TD
+></TR
+><TR
+><TD
+>&#13;         External modules don't require recompiling of PHP.
+        </TD
+><TD
+>&#13;         The shared objects need to be loaded every time a script is
+         being executed (every hit), which is very slow.
+        </TD
+></TR
+><TR
+><TD
+>&#13;         The size of PHP remains small by "outsourcing" certain
+         functionality.
+        </TD
+><TD
+>&#13;         External additional files clutter up the disk.
+        </TD
+></TR
+><TR
+><TD
+>&nbsp;</TD
+><TD
+>&#13;         Every script that wants to use an external module's
+         functionality has to specifically include a call to
+         <A
+HREF="function.dl.html"
+><B
+CLASS="function"
+>dl()</B
+></A
+>, or the <VAR
+CLASS="literal"
+>extension</VAR
+>
+         tag in <TT
+CLASS="filename"
+>php.ini</TT
+> needs to be modified
+         (which is not always a suitable solution).
+        </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+> To sum up, external modules are great for
+    third-party products, small additions to PHP that are rarely used,
+    or just for testing purposes. To develop additional functionality
+    quickly, external modules provide the best results. For frequent
+    usage, larger implementations, and complex code, the disadvantages
+    outweigh the advantages.
+   </P
+><P
+>&#13;    Third parties might consider using the
+    <VAR
+CLASS="literal"
+>extension</VAR
+> tag in <TT
+CLASS="filename"
+>php.ini</TT
+>
+    to create additional external modules to PHP. These external
+    modules are completely detached from the main package, which is a
+    very handy feature in commercial environments. Commercial
+    distributors can simply ship disks or archives containing only
+    their additional modules, without the need to create fixed and
+    solid PHP binaries that don't allow other modules to be bound to
+    them.
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.possibilities.builtin"
+>Built-in Modules</A
+></H2
+><P
+>&#13;    Built-in modules are compiled directly into PHP and carried around
+    with every PHP process; their functionality is instantly available
+    to every script that's being run. Like external modules, built-in
+    modules have advantages and disadvantages, as described in the
+    following table:
+    <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN186158"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="col1"><COL
+WIDTH="1*"
+TITLE="col2"><TBODY
+><TR
+><TD
+>Advantages</TD
+><TD
+>Disadvantages</TD
+></TR
+><TR
+><TD
+>&#13;         No need to load the module specifically; the functionality is
+         instantly available.
+        </TD
+><TD
+>&#13;         Changes to built-in modules require recompiling of PHP.
+        </TD
+></TR
+><TR
+><TD
+>&#13;         No external files clutter up the disk; everything resides in
+         the PHP binary.
+        </TD
+><TD
+>&#13;         The PHP binary grows and consumes more memory.
+        </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+> Built-in modules are best when you have a solid
+    library of functions that remains relatively unchanged, requires
+    better than poor-to-average performance, or is used frequently by
+    many scripts on your site. The need to recompile PHP is quickly
+    compensated by the benefit in speed and ease of use. However,
+    built-in modules are not ideal when rapid development of small
+    additions is required.
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.possibilities.engine"
+>The Zend Engine</A
+></H2
+><P
+>&#13;    Of course, extensions can also be implemented directly in the Zend
+    engine. This strategy is good if you need a change in the language
+    behavior or require special functions to be built directly into
+    the language core. In general, however, modifications to the Zend
+    engine should be avoided. Changes here result in incompatibilities
+    with the rest of the world, and hardly anyone will ever adapt to
+    specially patched Zend engines. Modifications can't be detached
+    from the main PHP sources and are overridden with the next update
+    using the "official" source repositories. Therefore, this method
+    is generally considered bad practice and, due to its rarity, is
+    not covered in this book.
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="zend.overview.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="zend.layout.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Overview</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="zend.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Source Layout</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

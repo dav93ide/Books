@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ftp_chmod</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni FTP"
+HREF="ref.ftp.html"><LINK
+REL="PREVIOUS"
+TITLE="ftp_chdir"
+HREF="function.ftp-chdir.html"><LINK
+REL="NEXT"
+TITLE="ftp_close"
+HREF="function.ftp-close.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ftp-chdir.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ftp-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ftp-chmod"
+></A
+>ftp_chmod</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN46763"
+></A
+><P
+>    (PHP 5)</P
+>ftp_chmod&nbsp;--&nbsp;Set permissions on a file via FTP</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN46766"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>ftp_chmod</B
+> ( resource ftp_stream, int mode, string filename )<BR
+></BR
+><P
+> 
+   Sets the permissions on the specified remote file to 
+   <VAR
+CLASS="parameter"
+>mode</VAR
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN46782"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>ftp_stream</VAR
+></DT
+><DD
+><P
+>&#13;       The link identifier of the FTP connection.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>mode</VAR
+></DT
+><DD
+><P
+>&#13;       The new permissions, given as an <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>octal</I
+></SPAN
+> value.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>filename</VAR
+></DT
+><DD
+><P
+>&#13;       The remote file.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN46802"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns the new file permissions on success or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on error.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN46806"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN46809"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>ftp_chmod()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$file </font><font color="#007700">= </font><font color="#DD0000">'public_html/index.php'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// set up basic connection<br /></font><font color="#0000BB">$conn_id </font><font color="#007700">= </font><font color="#0000BB">ftp_connect</font><font color="#007700">(</font><font color="#0000BB">$ftp_server</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// login with username and password<br /></font><font color="#0000BB">$login_result </font><font color="#007700">= </font><font color="#0000BB">ftp_login</font><font color="#007700">(</font><font color="#0000BB">$conn_id</font><font color="#007700">, </font><font color="#0000BB">$ftp_user_name</font><font color="#007700">, </font><font color="#0000BB">$ftp_user_pass</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// try to chmod $file to 644<br /></font><font color="#007700">if (</font><font color="#0000BB">ftp_chmod</font><font color="#007700">(</font><font color="#0000BB">$conn_id</font><font color="#007700">, </font><font color="#0000BB">0644</font><font color="#007700">, </font><font color="#0000BB">$file</font><font color="#007700">) !== </font><font color="#0000BB">false</font><font color="#007700">) {<br /> echo </font><font color="#DD0000">"$file chmoded successfully to 644</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />} else {<br /> echo </font><font color="#DD0000">"could not chmod $file</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// close the connection<br /></font><font color="#0000BB">ftp_close</font><font color="#007700">(</font><font color="#0000BB">$conn_id</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN46813"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.chmod.html"
+><B
+CLASS="function"
+>chmod()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ftp-chdir.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ftp-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ftp_chdir</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ftp.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ftp_close</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

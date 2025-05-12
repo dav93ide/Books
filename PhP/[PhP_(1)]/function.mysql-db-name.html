@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_db_name</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_data_seek"
+HREF="function.mysql-data-seek.html"><LINK
+REL="NEXT"
+TITLE="mysql_db_query"
+HREF="function.mysql-db-query.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-data-seek.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-db-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-db-name"
+></A
+>mysql_db_name</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN93042"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.6, PHP 4, PHP 5)</P
+>mysql_db_name&nbsp;--&nbsp;Ottiene dei dati dal risultato</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN93045"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>mysql_db_name</B
+> ( resource risultato, int riga [, mixed campo] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_db_name()</B
+> accetta come primo paramentro
+     il puntatore al risultato dalla chiamata a
+     <A
+HREF="function.mysql-list-dbs.html"
+><B
+CLASS="function"
+>mysql_list_dbs()</B
+></A
+>. Il parametro
+     <VAR
+CLASS="parameter"
+>riga</VAR
+> è un indice compreso nell'intervallo del
+     risultato.
+    </P
+><P
+>&#13;     Se intercorre un errore, viene restituito <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. Usare
+     <A
+HREF="function.mysql-errno.html"
+><B
+CLASS="function"
+>mysql_errno()</B
+></A
+> e
+     <A
+HREF="function.mysql-error.html"
+><B
+CLASS="function"
+>mysql_error()</B
+></A
+> per determinare la natura
+     dell'errore.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN93067"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>mysql_db_name()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;error_reporting</font><font color="#007700">(</font><font color="#0000BB">E_ALL</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_connect</font><font color="#007700">(</font><font color="#DD0000">'dbhost'</font><font color="#007700">, </font><font color="#DD0000">'nome_utente'</font><font color="#007700">, </font><font color="#DD0000">'password'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$db_list </font><font color="#007700">= </font><font color="#0000BB">mysql_list_dbs</font><font color="#007700">();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$conteggio </font><font color="#007700">= </font><font color="#0000BB">mysql_num_rows</font><font color="#007700">(</font><font color="#0000BB">$lista_db</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$i </font><font color="#007700">&lt; </font><font color="#0000BB">$conteggio</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">mysql_db_name</font><font color="#007700">(</font><font color="#0000BB">$lista_db</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i</font><font color="#007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Per motivi di compatibilità con il passato, anche <B
+CLASS="function"
+>mysql_dbname()</B
+> è
+     è accettata. Questo comunque è sconsigliato.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-data-seek.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-db-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_data_seek</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_db_query</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

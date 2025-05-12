@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mt_rand</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Matematiche"
+HREF="ref.math.html"><LINK
+REL="PREVIOUS"
+TITLE="mt_getrandmax"
+HREF="function.mt-getrandmax.html"><LINK
+REL="NEXT"
+TITLE="mt_srand"
+HREF="function.mt-srand.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mt-getrandmax.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mt-srand.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mt-rand"
+></A
+>mt_rand</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN70848"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.6, PHP 4, PHP 5)</P
+>mt_rand&nbsp;--&nbsp;Genera un valore casuale migliore</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN70851"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>mt_rand</B
+> ( [int min, int max] )<BR
+></BR
+><P
+>&#13;     Molti generatori di numeri casuali di vecchie libc hanno caratteristiche
+     dubbie o sconosciute e sono lenti. Di default, PHP usa il
+     generatore di numeri casuali libc con la funzione <A
+HREF="function.rand.html"
+><B
+CLASS="function"
+>rand()</B
+></A
+>.
+     La funzione <B
+CLASS="function"
+>mt_rand()</B
+> è un sostituto 
+     per questa.  Usa un generatore di numeri casuali con
+     caratteristiche conosciute, il  <A
+HREF="http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html"
+TARGET="_top"
+>Mersenne Twister</A
+>, il quale produce 
+     numeri casuali quattro volte più velocemente di libc.
+    </P
+><P
+>&#13;     Se invocata senza i parametri opzionali <VAR
+CLASS="parameter"
+>min</VAR
+>,
+     <VAR
+CLASS="parameter"
+>max</VAR
+>, <B
+CLASS="function"
+>mt_rand()</B
+>
+     restituisce un valore pseudo-casuale compreso fra 0 e
+     <TT
+CLASS="constant"
+><B
+>RAND_MAX</B
+></TT
+>.  Se ad esempio si desidera un numero casuale
+     compreso fra 5 e 15 (inclusi), usare <VAR
+CLASS="literal"
+>mt_rand
+     (5, 15)</VAR
+>.
+    </P
+><P
+> 
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN70873"
+></A
+><P
+><B
+>Esempio 1. Esempio per <B
+CLASS="function"
+>mt_rand()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br /></font><font color="#007700">echo </font><font color="#0000BB">mt_rand</font><font color="#007700">() . </font><font color="#DD0000">"\n"</font><font color="#007700">; <br />echo </font><font color="#0000BB">mt_rand</font><font color="#007700">() . </font><font color="#DD0000">"\n"</font><font color="#007700">; <br />echo </font><font color="#0000BB">mt_rand</font><font color="#007700">(</font><font color="#0000BB">5</font><font color="#007700">, </font><font color="#0000BB">15</font><font color="#007700">); <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+> 
+       L'esempio precedente visualizzerà qualcosa simile a: 
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>1604716014 
+1478613278 
+6</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+> 
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Come in PHP 4.2.0, non vi è necessità
+di inizializzare il generatore di numeri casuali con <A
+HREF="function.srand.html"
+><B
+CLASS="function"
+>srand()</B
+></A
+> oppure
+con <A
+HREF="function.mt-srand.html"
+><B
+CLASS="function"
+>mt_srand()</B
+></A
+> poichè viene eseguito in modo automatico.
+</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Nelle versioni precedenti la 3.0.7 il significato di
+      <VAR
+CLASS="parameter"
+>max</VAR
+> era <VAR
+CLASS="parameter"
+>range</VAR
+>. Per
+      ottenere lo stesso risultato in queste vecchie versioni un breve
+      esempio dovrebbe essere il seguente: <VAR
+CLASS="literal"
+>mt_rand (5, 11)</VAR
+>, si
+      otterrà un numero casuale compreso fra 5 e 15.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche
+     <A
+HREF="function.mt-srand.html"
+><B
+CLASS="function"
+>mt_srand()</B
+></A
+>,
+     <A
+HREF="function.mt-getrandmax.html"
+><B
+CLASS="function"
+>mt_getrandmax()</B
+></A
+> e
+     <A
+HREF="function.rand.html"
+><B
+CLASS="function"
+>rand()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mt-getrandmax.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mt-srand.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mt_getrandmax</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.math.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mt_srand</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>call_user_method</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per Classi/Oggetti "
+HREF="ref.classobj.html"><LINK
+REL="PREVIOUS"
+TITLE="call_user_method_array"
+HREF="function.call-user-method-array.html"><LINK
+REL="NEXT"
+TITLE="class_exists"
+HREF="function.class-exists.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.call-user-method-array.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.class-exists.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.call-user-method"
+></A
+>call_user_method</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN15063"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.3, PHP 4, PHP 5)</P
+>call_user_method&nbsp;--&nbsp;
+     Chiama un metodo dell'oggetto indicato [deprecated] 
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN15066"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>call_user_method</B
+> ( string nome_metodo, object &#38;obj [, mixed parametro [, mixed ...]] )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      A partire dalla versione 4.1.0 l'uso della funzione <B
+CLASS="function"
+>call_user_method()</B
+> 
+      è sconsigliato; in sostituzione utilizzare la serie <A
+HREF="function.call-user-func.html"
+><B
+CLASS="function"
+>call_user_func()</B
+></A
+>
+      con la sintassi <VAR
+CLASS="literal"
+>array(&#38;$obj, "method_name")</VAR
+>.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Richiama il metodo indicato da <VAR
+CLASS="parameter"
+>nome_metodo</VAR
+> 
+     dell'oggetto <VAR
+CLASS="parameter"
+>oggetto</VAR
+>. Di seguito si fornisce
+     un esempio di utilizzo. Qui si definisce una classe, si istanzia un 
+     oggetto, e si utilizza <B
+CLASS="function"
+>call_user_method()</B
+> per 
+     richiamare il metodo <VAR
+CLASS="varname"
+>stampa_info</VAR
+>
+    </P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN15094"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Stato </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$NOME</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$TLD</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">Stato</font><font color="#007700">(</font><font color="#0000BB">$nome</font><font color="#007700">, </font><font color="#0000BB">$tld</font><font color="#007700">) <br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">NOME </font><font color="#007700">= </font><font color="#0000BB">$nome</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">TLD </font><font color="#007700">= </font><font color="#0000BB">$tld</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">stampa_info</font><font color="#007700">(</font><font color="#0000BB">$prestr </font><font color="#007700">= </font><font color="#DD0000">""</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$prestr </font><font color="#007700">. </font><font color="#DD0000">"Stato: " </font><font color="#007700">. </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">NOME </font><font color="#007700">. </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$prestr </font><font color="#007700">. </font><font color="#DD0000">"Dominio di primo livello: " </font><font color="#007700">. </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">TLD </font><font color="#007700">. </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$paese </font><font color="#007700">= new </font><font color="#0000BB">Stato</font><font color="#007700">(</font><font color="#DD0000">"Peru"</font><font color="#007700">, </font><font color="#DD0000">"pe"</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"* Richiamo il metodo direttamente\n"</font><font color="#007700">;<br /></font><font color="#0000BB">$paese</font><font color="#007700">-&gt;</font><font color="#0000BB">stampa_info</font><font color="#007700">();<br /><br />echo </font><font color="#DD0000">"\n* utilizzo dello stesso metodo in modo indiretto\n"</font><font color="#007700">;<br /></font><font color="#0000BB">call_user_method</font><font color="#007700">(</font><font color="#DD0000">"stampa_info"</font><font color="#007700">, </font><font color="#0000BB">$paese</font><font color="#007700">, </font><font color="#DD0000">"\t"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.call-user-func-array.html"
+><B
+CLASS="function"
+>call_user_func_array()</B
+></A
+> e
+     <A
+HREF="function.call-user-func.html"
+><B
+CLASS="function"
+>call_user_func()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.call-user-method-array.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.class-exists.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>call_user_method_array</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.classobj.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>class_exists</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

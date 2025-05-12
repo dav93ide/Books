@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pg_connect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni PostgreSQL"
+HREF="ref.pgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="pg_close"
+HREF="function.pg-close.html"><LINK
+REL="NEXT"
+TITLE="pg_connection_busy"
+HREF="function.pg-connection-busy.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pg-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-connection-busy.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pg-connect"
+></A
+>pg_connect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN132523"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>pg_connect&nbsp;--&nbsp;Stabilisce una connessione PostgreSQL</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132526"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>pg_connect</B
+> ( string stringa_connessione )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>pg_connect()</B
+> restituisce una risorsa di connessione
+     necessaria per l'utilizzo delle altre funzioni PostgreSQL.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>pg_connect()</B
+> stabilisce una connessione a un
+     database PostgreSQL specificato da
+     <VAR
+CLASS="parameter"
+>stringa_connessione</VAR
+>. Restituisce una risorsa di
+     connessione in caso di successo. Restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, se la connessione non può
+     essere stabilita. <VAR
+CLASS="parameter"
+>stringa_connessione</VAR
+> dovrebbe essere una
+     stringa racchiusa tra apici.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN132541"
+></A
+><P
+><B
+>Esempio 1. Uso di pg_connect</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$dbconn </font><font color="#007700">= </font><font color="#0000BB">pg_connect </font><font color="#007700">(</font><font color="#DD0000">"dbname=mary"</font><font color="#007700">);<br /></font><font color="#FF8000">//collegamento ad un database chiamato "mary"<br /></font><font color="#0000BB">$dbconn2 </font><font color="#007700">= </font><font color="#0000BB">pg_connect </font><font color="#007700">(</font><font color="#DD0000">"host=localhost port=5432 dbname=mary"</font><font color="#007700">);<br /></font><font color="#FF8000">//collegamento ad un database chiamato "mary" su "localhost" alla porta "5432"<br /></font><font color="#0000BB">$dbconn3 </font><font color="#007700">= </font><font color="#0000BB">pg_connect </font><font color="#007700">(</font><font color="#DD0000">"host=sheep port=5432 dbname=mary user=lamb password=foo"</font><font color="#007700">);<br /></font><font color="#FF8000">//collegamento ad un database chiamato "mary" sull'host "sheep" con una username ed una password<br /></font><font color="#0000BB">$conn_string </font><font color="#007700">= </font><font color="#DD0000">"host=sheep port=5432 dbname=test user=lamb password=bar"</font><font color="#007700">;<br /></font><font color="#0000BB">$dbconn4 </font><font color="#007700">= </font><font color="#0000BB">pg_connect </font><font color="#007700">(</font><font color="#0000BB">$conn_string</font><font color="#007700">);<br /></font><font color="#FF8000">//collegamento ad un database chiamato "test" sull'host "sheep" con una username ed una password<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Gli argomenti che si possono passare a 
+     <VAR
+CLASS="parameter"
+>connection_string</VAR
+> includono
+     <VAR
+CLASS="parameter"
+>host</VAR
+>, <VAR
+CLASS="parameter"
+>port</VAR
+>,
+     <VAR
+CLASS="parameter"
+>tty</VAR
+>, <VAR
+CLASS="parameter"
+>options</VAR
+>,
+     <VAR
+CLASS="parameter"
+>dbname</VAR
+>, <VAR
+CLASS="parameter"
+>user</VAR
+>, e
+     <VAR
+CLASS="parameter"
+>password</VAR
+>.
+    </P
+><P
+>&#13;     Se viene eseguita una seconda chiamata a <B
+CLASS="function"
+>pg_connect()</B
+> con
+     stessi argomenti nella <VAR
+CLASS="parameter"
+>stringa_connessione</VAR
+>, non
+     viene stabilita una nuova connessione, bensì viene restituita la
+     risorsa che punta alla connessione già aperta. Si possono
+     avere connessioni multiple allo stesso database se si usano
+     stringhe di connessione differenti.
+    </P
+><P
+>&#13;     La sintassi a parametri multipli:
+     <B
+CLASS="command"
+>$conn = pg_connect ("host", "port", "options", "tty", "dbname")
+     </B
+>
+     è deprecata.
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.pg-pconnect.html"
+><B
+CLASS="function"
+>pg_pconnect()</B
+></A
+>,
+     <A
+HREF="function.pg-close.html"
+><B
+CLASS="function"
+>pg_close()</B
+></A
+>, <A
+HREF="function.pg-host.html"
+><B
+CLASS="function"
+>pg_host()</B
+></A
+>,
+     <A
+HREF="function.pg-port.html"
+><B
+CLASS="function"
+>pg_port()</B
+></A
+>, <A
+HREF="function.pg-tty.html"
+><B
+CLASS="function"
+>pg_tty()</B
+></A
+>,
+     <A
+HREF="function.pg-options.html"
+><B
+CLASS="function"
+>pg_options()</B
+></A
+> e <A
+HREF="function.pg-dbname.html"
+><B
+CLASS="function"
+>pg_dbname()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pg-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-connection-busy.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pg_close</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pgsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_connection_busy</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

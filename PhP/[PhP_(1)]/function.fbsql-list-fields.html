@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fbsql_list_fields</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FrontBase Functions"
+HREF="ref.fbsql.html"><LINK
+REL="PREVIOUS"
+TITLE="fbsql_list_dbs"
+HREF="function.fbsql-list-dbs.html"><LINK
+REL="NEXT"
+TITLE="fbsql_list_tables"
+HREF="function.fbsql-list-tables.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-list-dbs.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-list-tables.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fbsql-list-fields"
+></A
+>fbsql_list_fields</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN46085"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PHP 5)</P
+>fbsql_list_fields&nbsp;--&nbsp;Elenca i campi di un set di risultati</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN46088"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>fbsql_list_fields</B
+> ( string database_name, string table_name [, resource link_identifier] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>fbsql_list_fields()</B
+> recupera informazioni
+     sulla tabella data. I parametri passati sono il nome del database 
+     ed il nome della tabella. La funzione resituisce un puntatore alle infomrazioni
+     che può essere utilizzato con 
+     <A
+HREF="function.fbsql-field-flags.html"
+><B
+CLASS="function"
+>fbsql_field_flags()</B
+></A
+>,
+     <A
+HREF="function.fbsql-field-len.html"
+><B
+CLASS="function"
+>fbsql_field_len()</B
+></A
+>,
+     <A
+HREF="function.fbsql-field-name.html"
+><B
+CLASS="function"
+>fbsql_field_name()</B
+></A
+> e
+     <A
+HREF="function.fbsql-field-type.html"
+><B
+CLASS="function"
+>fbsql_field_type()</B
+></A
+>.
+    </P
+><P
+>&#13;     Il valore restituito è un intero positivo. La funzione restituisce
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se si verifica un errore. In caso di errore, nel campo
+     <VAR
+CLASS="literal"
+>$phperrmsg</VAR
+> si avrà un testo con la descrizione dell'errore, e,
+     a meno che la funzione non sia richiamata come <VAR
+CLASS="literal"
+>@fbsql()</VAR
+>
+     questo testo sarà visualizzato.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN46113"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>fbsql_list_fields()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$link </font><font color="#007700">= </font><font color="#0000BB">fbsql_connect</font><font color="#007700">(</font><font color="#DD0000">'localhost'</font><font color="#007700">, </font><font color="#DD0000">'myname'</font><font color="#007700">, </font><font color="#DD0000">'secret'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$fields </font><font color="#007700">= </font><font color="#0000BB">fbsql_list_fields</font><font color="#007700">(</font><font color="#DD0000">"database1"</font><font color="#007700">, </font><font color="#DD0000">"table1"</font><font color="#007700">, </font><font color="#0000BB">$link</font><font color="#007700">);<br /></font><font color="#0000BB">$columns </font><font color="#007700">= </font><font color="#0000BB">fbsql_num_fields</font><font color="#007700">(</font><font color="#0000BB">$fields</font><font color="#007700">);<br /><br />for (</font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$i </font><font color="#007700">&lt; </font><font color="#0000BB">$columns</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">fbsql_field_name</font><font color="#007700">(</font><font color="#0000BB">$fields</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       L'esempio precedente visualizzerà:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>field1
+field2
+field3
+...</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fbsql-list-dbs.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fbsql-list-tables.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fbsql_list_dbs</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.fbsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fbsql_list_tables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

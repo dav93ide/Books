@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>imagepstext</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le immagini"
+HREF="ref.image.html"><LINK
+REL="PREVIOUS"
+TITLE="imagepsslantfont"
+HREF="function.imagepsslantfont.html"><LINK
+REL="NEXT"
+TITLE="imagerectangle"
+HREF="function.imagerectangle.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.imagepsslantfont.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.imagerectangle.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.imagepstext"
+></A
+>imagepstext</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN60665"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.9, PHP 4, PHP 5)</P
+>imagepstext&nbsp;--&nbsp;To draw a text string over an image using PostScript Type1 fonts</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN60668"
+></A
+><H2
+>Description</H2
+>array <B
+CLASS="methodname"
+>imagepstext</B
+> ( resource image, string text, resource font, int size, int foreground, int background, int x, int y [, int space, int tightness, float angle, int antialias_steps] )<BR
+></BR
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>foreground</VAR
+> is the color in which the text
+     will be painted.  <VAR
+CLASS="parameter"
+>Background</VAR
+> is the color
+     to which the text will try to fade in with antialiasing. No
+     pixels with the color <VAR
+CLASS="parameter"
+>background</VAR
+> are
+     actually painted, so the background image does not need to be of
+     solid color.
+    </P
+><P
+>&#13;     The coordinates given by <VAR
+CLASS="parameter"
+>x</VAR
+>,
+     <VAR
+CLASS="parameter"
+>y</VAR
+> will define the origin (or reference
+     point) of the first character (roughly the lower-left corner of
+     the character).  This is different from the
+     <A
+HREF="function.imagestring.html"
+><B
+CLASS="function"
+>imagestring()</B
+></A
+>, where <VAR
+CLASS="parameter"
+>x</VAR
+>,
+     <VAR
+CLASS="parameter"
+>y</VAR
+> define the upper-right corner of the
+     first character. Refer to PostScript documentation about fonts and
+     their measuring system if you have trouble understanding how this
+     works.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>space</VAR
+> allows you to change the default
+     value of a space in a font.  This amount is added to the normal
+     value and can also be negative.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>tightness</VAR
+> allows you to control the amount
+     of white space between characters. This amount is added to the
+     normal character width and can also be negative.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>angle</VAR
+> is in degrees.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>size</VAR
+> is expressed in pixels.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>antialias_steps</VAR
+> allows you to control the
+     number of colours used for antialiasing text. Allowed values are
+     4 and 16. The higher value is recommended for text sizes lower
+     than 20, where the effect in text quality is quite visible.  With
+     bigger sizes, use 4. It's less computationally intensive.
+    </P
+><P
+>&#13;     Parameters <VAR
+CLASS="parameter"
+>space</VAR
+> and
+     <VAR
+CLASS="parameter"
+>tightness</VAR
+> are expressed in character space
+     units, where 1 unit is 1/1000th of an em-square.
+    </P
+><P
+>&#13;     Parameters <VAR
+CLASS="parameter"
+>space</VAR
+>,
+     <VAR
+CLASS="parameter"
+>tightness</VAR
+>, <VAR
+CLASS="parameter"
+>angle</VAR
+>
+     and <VAR
+CLASS="parameter"
+>antialias_steps</VAR
+> are optional.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione è disponibile soltanto
+se il PHP ` compilato utilizzando <VAR
+CLASS="option"
+>--with-t1lib</VAR
+>.
+</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     This function returns an array containing the following elements:
+     <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN60741"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+>0</TD
+><TD
+>lower left x-coordinate</TD
+></TR
+><TR
+><TD
+>1</TD
+><TD
+>lower left y-coordinate</TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+>upper right x-coordinate</TD
+></TR
+><TR
+><TD
+>3</TD
+><TD
+>upper right y-coordinate</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></P
+><P
+>&#13;     See also <A
+HREF="function.imagepsbbox.html"
+><B
+CLASS="function"
+>imagepsbbox()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.imagepsslantfont.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.imagerectangle.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>imagepsslantfont</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.image.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>imagerectangle</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

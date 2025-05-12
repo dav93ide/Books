@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fpassthru</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="fopen"
+HREF="function.fopen.html"><LINK
+REL="NEXT"
+TITLE="fputcsv"
+HREF="function.fputcsv.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fopen.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fputcsv.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fpassthru"
+></A
+>fpassthru</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN41767"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>fpassthru&nbsp;--&nbsp;Invia tutti i dati rimanenti su un puntartore a file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41770"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>fpassthru</B
+> ( resource handle )<BR
+></BR
+><P
+>&#13;     Legge fino a EOF sul puntatore al file dato e scrive i risultati sul buffer di
+     output.
+    </P
+><P
+>&#13;     Se si verifica un errore, <B
+CLASS="function"
+>fpassthru()</B
+> restituisce
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. In caso positivo <B
+CLASS="function"
+>fpassthru()</B
+> restituisce
+     il numero di caratteri letti da <VAR
+CLASS="parameter"
+>handle</VAR
+> scritti
+     in output.  
+    </P
+><P
+>The file pointer must be valid, and must point to
+a file successfully opened by <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+> or
+<A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+>.</P
+><P
+>&#13;     Può essere necessario chiamare<A
+HREF="function.rewind.html"
+><B
+CLASS="function"
+>rewind()</B
+></A
+> per resettare il puntatore al file all'inizio del file stesso nel caso si abbbia già scritto dai dati nel file. Il file viene chiuso quando si sia chiamata <B
+CLASS="function"
+>fpassthru()</B
+> leggendolo (lasciando<VAR
+CLASS="parameter"
+>handle</VAR
+> inutilizzato).
+    </P
+><P
+>&#13;     Se desideri semplicemente inviare il contenuto di un file sul buffer di output, 
+     senza doverlo modificare o posizionarti in un particolare offset,
+     potresti preferire <A
+HREF="function.readfile.html"
+><B
+CLASS="function"
+>readfile()</B
+></A
+>, che ti salva la
+     chiamata a <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Quando si utilizza <B
+CLASS="function"
+>fpassthru()</B
+> con file binari su sistemi Windows
+      si dovrebbe essere certi di aprire il file in modalità binaria
+      aggiungendo <VAR
+CLASS="literal"
+>b</VAR
+> alla modalità utilizzata nella chiamata a
+      <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>.
+     </P
+><P
+>&#13;      Si incoraggia l'uso del flag <VAR
+CLASS="literal"
+>b</VAR
+> quando si trattano file binari,
+      anche se il sistema non lo richiede; in questo modo si rendono gli script
+      più trasportabili.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN41802"
+></A
+><P
+><B
+>Esempio 1. Utilizzo di  <B
+CLASS="function"
+>fpassthru()</B
+> con file binari</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> <br /></font><font color="#FF8000">// apre il file in modalità binaria<br /></font><font color="#0000BB">$name </font><font color="#007700">= </font><font color="#DD0000">".\public\dev\img\ok.png"</font><font color="#007700">;<br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#0000BB">$name</font><font color="#007700">, </font><font color="#DD0000">'rb'</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// invia i giusti header<br /></font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">"Content-Type: image/png"</font><font color="#007700">);<br /></font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">"Content-Length: " </font><font color="#007700">. </font><font color="#0000BB">filesize</font><font color="#007700">(</font><font color="#0000BB">$name</font><font color="#007700">));<br /> <br /></font><font color="#FF8000">// invia l'immagine ed esce dallo script<br /></font><font color="#0000BB">fpassthru</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br />exit;<br /> <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.readfile.html"
+><B
+CLASS="function"
+>readfile()</B
+></A
+>,
+     <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>, <A
+HREF="function.popen.html"
+><B
+CLASS="function"
+>popen()</B
+></A
+> e
+     <A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fopen.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fputcsv.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fopen</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fputcsv</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

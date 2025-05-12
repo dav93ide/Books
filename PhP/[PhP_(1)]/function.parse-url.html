@@ -1,0 +1,461 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>parse_url</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="URL Functions"
+HREF="ref.url.html"><LINK
+REL="PREVIOUS"
+TITLE="http_build_query"
+HREF="function.http-build-query.html"><LINK
+REL="NEXT"
+TITLE="rawurldecode"
+HREF="function.rawurldecode.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.http-build-query.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.rawurldecode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.parse-url"
+></A
+>parse_url</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN172449"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>parse_url&nbsp;--&nbsp;Parse a URL and return its components</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172452"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>parse_url</B
+> ( string url )<BR
+></BR
+><P
+>&#13;   This function parses a URL and returns an associative array containing any
+   of the various components of the URL that are present.
+  </P
+><P
+>&#13;   This function is <SPAN
+CLASS="strong"
+><B
+CLASS="emphasis"
+>not</B
+></SPAN
+> meant to validate
+   the given URL, it only breaks it up into the above listed parts. Partial
+   URLs are also accepted, <B
+CLASS="function"
+>parse_url()</B
+> tries its best to
+   parse them correctly.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172464"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>url</VAR
+></DT
+><DD
+><P
+>&#13;       The URL to parse
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172473"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   On seriously malformed URLs, <B
+CLASS="function"
+>parse_url()</B
+> may return
+   <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> and emit a <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+>. Otherwise an associative
+   array is returned, whose components may be (at least one):
+   <P
+></P
+><UL
+><LI
+><P
+>&#13;      <CODE
+CLASS="structfield"
+>scheme</CODE
+> - e.g. http
+     </P
+></LI
+><LI
+><P
+>&#13;      <CODE
+CLASS="structfield"
+>host</CODE
+> 
+     </P
+></LI
+><LI
+><P
+>&#13;      <CODE
+CLASS="structfield"
+>port</CODE
+>
+     </P
+></LI
+><LI
+><P
+>&#13;      <CODE
+CLASS="structfield"
+>user</CODE
+>
+     </P
+></LI
+><LI
+><P
+>&#13;      <CODE
+CLASS="structfield"
+>pass</CODE
+>
+     </P
+></LI
+><LI
+><P
+>&#13;      <CODE
+CLASS="structfield"
+>path</CODE
+>
+     </P
+></LI
+><LI
+><P
+>&#13;      <CODE
+CLASS="structfield"
+>query</CODE
+> - after the question mark <VAR
+CLASS="literal"
+>?</VAR
+>
+     </P
+></LI
+><LI
+><P
+>&#13;      <CODE
+CLASS="structfield"
+>fragment</CODE
+> - after the hashmark <VAR
+CLASS="literal"
+>#</VAR
+>
+     </P
+></LI
+></UL
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172506"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN172509"
+></A
+><P
+><B
+>Esempio 1. A <B
+CLASS="function"
+>parse_url()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$url </font><font color="#007700">= </font><font color="#DD0000">'http://username:password@hostname/path?arg=value#anchor'</font><font color="#007700">;<br /><br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">parse_url</font><font color="#007700">(</font><font color="#0000BB">$url</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array
+(
+    [scheme] =&#62; http
+    [host] =&#62; hostname
+    [user] =&#62; username
+    [pass] =&#62; password
+    [path] =&#62; /path
+    [query] =&#62; arg=value
+    [fragment] =&#62; anchor
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172515"
+></A
+><H2
+>Note</H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    This function doesn't work with relative URLs.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172519"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.pathinfo.html"
+><B
+CLASS="function"
+>pathinfo()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.parse-str.html"
+><B
+CLASS="function"
+>parse_str()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.dirname.html"
+><B
+CLASS="function"
+>dirname()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.basename.html"
+><B
+CLASS="function"
+>basename()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.http-build-query.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.rawurldecode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>http_build_query</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.url.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>rawurldecode</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

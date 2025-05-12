@@ -1,0 +1,525 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>scandir</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le directory"
+HREF="ref.dir.html"><LINK
+REL="PREVIOUS"
+TITLE="rewinddir"
+HREF="function.rewinddir.html"><LINK
+REL="NEXT"
+TITLE="DOM Functions"
+HREF="ref.dom.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.rewinddir.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.dom.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.scandir"
+></A
+>scandir</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN29053"
+></A
+><P
+>    (PHP 5)</P
+>scandir&nbsp;--&nbsp;List files and directories inside the specified path</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN29056"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>scandir</B
+> ( string directory [, int sorting_order [, resource context]] )<BR
+></BR
+><P
+>&#13;   Returns an <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> of files and directories from the
+   <VAR
+CLASS="parameter"
+>directory</VAR
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN29073"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>directory</VAR
+></DT
+><DD
+><P
+>&#13;       The directory that will be scanned.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>sorting_order</VAR
+></DT
+><DD
+><P
+>&#13;       By default, the sorted order is alphabetical in ascending order.  If
+       the optional <VAR
+CLASS="parameter"
+>sorting_order</VAR
+> is used (set to 1),
+       then the sort order is alphabetical in descending order.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>context</VAR
+></DT
+><DD
+><P
+>&#13;       For a description of the <VAR
+CLASS="parameter"
+>context</VAR
+> parameter, 
+       refer to <A
+HREF="ref.stream.html"
+>the streams section</A
+> of
+       the manual.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN29095"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns an <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> of filenames on success, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on 
+   failure. If <VAR
+CLASS="parameter"
+>directory</VAR
+> is not a directory, then 
+   boolean <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> is returned, and an error of level 
+   <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+> is generated.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN29103"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN29106"
+></A
+><P
+><B
+>Esempio 1. A simple <B
+CLASS="function"
+>scandir()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$dir&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">'/tmp'</font><font color="#007700">;<br /></font><font color="#0000BB">$files1 </font><font color="#007700">= </font><font color="#0000BB">scandir</font><font color="#007700">(</font><font color="#0000BB">$dir</font><font color="#007700">);<br /></font><font color="#0000BB">$files2 </font><font color="#007700">= </font><font color="#0000BB">scandir</font><font color="#007700">(</font><font color="#0000BB">$dir</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /><br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$files1</font><font color="#007700">);<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$files2</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà
+qualcosa simile a:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array
+(
+    [0] =&#62; .
+    [1] =&#62; ..
+    [2] =&#62; bar.php
+    [3] =&#62; foo.txt
+    [4] =&#62; somedir
+)
+Array
+(
+    [0] =&#62; somedir
+    [1] =&#62; foo.txt
+    [2] =&#62; bar.php
+    [3] =&#62; ..
+    [4] =&#62; .
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN29113"
+></A
+><P
+><B
+>Esempio 2. PHP 4 alternatives to <B
+CLASS="function"
+>scandir()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$dir </font><font color="#007700">= </font><font color="#DD0000">"/tmp"</font><font color="#007700">;<br /></font><font color="#0000BB">$dh&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">opendir</font><font color="#007700">(</font><font color="#0000BB">$dir</font><font color="#007700">);<br />while (</font><font color="#0000BB">false </font><font color="#007700">!== (</font><font color="#0000BB">$filename </font><font color="#007700">= </font><font color="#0000BB">readdir</font><font color="#007700">(</font><font color="#0000BB">$dh</font><font color="#007700">))) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$files</font><font color="#007700">[] = </font><font color="#0000BB">$filename</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">sort</font><font color="#007700">(</font><font color="#0000BB">$files</font><font color="#007700">);<br /><br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$files</font><font color="#007700">);<br /><br /></font><font color="#0000BB">rsort</font><font color="#007700">(</font><font color="#0000BB">$files</font><font color="#007700">);<br /><br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$files</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà
+qualcosa simile a:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array
+(
+    [0] =&#62; .
+    [1] =&#62; ..
+    [2] =&#62; bar.php
+    [3] =&#62; foo.txt
+    [4] =&#62; somedir
+)
+Array
+(
+    [0] =&#62; somedir
+    [1] =&#62; foo.txt
+    [2] =&#62; bar.php
+    [3] =&#62; ..
+    [4] =&#62; .
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN29119"
+></A
+><H2
+>Note</H2
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>È possibile utilizzare una URL come un
+nome di file con questa funzione se <A
+HREF="ref.filesystem.html#ini.allow-url-fopen"
+>fopen wrappers</A
+> è stata abilitata.
+Per maggiori informazioni su come specificare i nomi di file vedere <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>
+e <A
+HREF="wrappers.html"
+>Appendice M</A
+> per avere la lista dei protocolli URL
+supportati.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN29126"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.opendir.html"
+><B
+CLASS="function"
+>opendir()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.readdir.html"
+><B
+CLASS="function"
+>readdir()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.glob.html"
+><B
+CLASS="function"
+>glob()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.is-dir.html"
+><B
+CLASS="function"
+>is_dir()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sort.html"
+><B
+CLASS="function"
+>sort()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.rewinddir.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.dom.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>rewinddir</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dir.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DOM Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

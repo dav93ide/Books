@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Restituzione per riferimento</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Spiegazioni sui riferimenti"
+HREF="language.references.html"><LINK
+REL="PREVIOUS"
+TITLE="Passaggio per riferimento"
+HREF="language.references.pass.html"><LINK
+REL="NEXT"
+TITLE="Cancellare riferimenti"
+HREF="language.references.unset.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.references.pass.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 21. Spiegazioni sui riferimenti</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.references.unset.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.references.return"
+>Restituzione per riferimento</A
+></H1
+><P
+>&#13;    La restituzione per riferimento è utile quando si vuole usare una funzione
+    per trovare quale variabile un riferimento dovrebbe limitare. 
+    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non</I
+></SPAN
+> utilizzare il ritorno per riferimento per incrementare le prestazioni,
+    l'engine è abbastanza abile da ottimizzare il codice per proprio conto. Restituire valori per riferimento
+    solo se si hanno validi motivi tecnici! Per
+    restituire per riferimento, si usa questa sintassi:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6403"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function &amp;</font><font color="#0000BB">find_var</font><font color="#007700">(</font><font color="#0000BB">$param</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;...</font><font color="#0000BB">codice</font><font color="#007700">...<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$found_var</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">$foo </font><font color="#007700">=&amp; </font><font color="#0000BB">find_var</font><font color="#007700">(</font><font color="#0000BB">$bar</font><font color="#007700">);<br /></font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">x </font><font color="#007700">= </font><font color="#0000BB">2</font><font color="#007700">; <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    In questo esempio, la proprietà dell'oggetto restituito dalla funzione
+    <VAR
+CLASS="varname"
+>find_var</VAR
+> viene impostata, non la
+    copia, come sarebbe stato senza l'uso della sintassi del riferimento.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Diversamente dal passaggio di un parametro, bisogna utilizzare
+     <VAR
+CLASS="literal"
+>&#38;</VAR
+> in entrambi i posti - nella dichiarazione per indicare che
+     si vuole restituire per riferimento, e non per copia come di consueto, 
+     e per indicare nella chiamata, il collegamento del riferimento, piuttosto che l'usuale 
+     assegnazione che verrebbe fatta per <VAR
+CLASS="varname"
+>$foo</VAR
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Se si tenta di restituire un valore per riferimento da una funzione con la sintassi:
+     <VAR
+CLASS="literal"
+>return ($found_var);</VAR
+> questo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non</I
+></SPAN
+> funzionerà
+     poichè si sta tntando di restituire per riferimento il risultato di un'
+     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>espressione</I
+></SPAN
+>, e non una variabile. Da una funzione, si possono restituire
+     per riferimento solo le variabili.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.references.pass.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.references.unset.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Passaggio per riferimento</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.references.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Cancellare riferimenti</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

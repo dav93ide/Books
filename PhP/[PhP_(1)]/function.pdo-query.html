@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDO::query</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Functions"
+HREF="ref.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="PDO::prepare"
+HREF="function.pdo-prepare.html"><LINK
+REL="NEXT"
+TITLE="PDO::quote"
+HREF="function.pdo-quote.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdo-prepare.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pdo-quote.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDO-query"
+></A
+>PDO::query</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN127995"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDO::query&nbsp;--&nbsp;
+   Executes an SQL statement, returning a result set as a PDOStatement object
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN127998"
+></A
+><H2
+>Descrizione</H2
+>PDOStatement <B
+CLASS="methodname"
+>PDO::query</B
+> ( string statement )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>PDO::query()</B
+> executes an SQL statement in
+   a single function call, returning the result set (if any) returned by the
+   statement as a PDOStatement object.
+  </P
+><P
+>&#13;   For a query that you need to issue multiple times, you will realize better
+   performance if you prepare a PDOStatement object using
+   <B
+CLASS="function"
+>PDO::prepare()</B
+> and issue the statement with multiple
+   calls to <B
+CLASS="function"
+>PDOStatement::execute()</B
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128011"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>statement</VAR
+></DT
+><DD
+><P
+>&#13;        The SQL statement to prepare and execute.
+       </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128020"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;    <B
+CLASS="function"
+>PDO::query()</B
+> returns a PDOStatement object.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128024"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128027"
+></A
+><P
+><B
+>Esempio 1. Demonstrate PDO::query</B
+></P
+><P
+>&#13;     A nice feature of <B
+CLASS="function"
+>PDO::query()</B
+> is that it
+     enables you to iterate over the rowset returned by a
+     successfully executed SELECT statement.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">getFruit</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$sql </font><font color="#007700">= </font><font color="#DD0000">'SELECT name, colour, calories FROM fruit ORDER BY name'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach (</font><font color="#0000BB">$conn</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#0000BB">$sql</font><font color="#007700">) as </font><font color="#0000BB">$row</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">'NAME'</font><font color="#007700">] . </font><font color="#DD0000">"\t"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">'COLOUR'</font><font color="#007700">] . </font><font color="#DD0000">"\t"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">'CALORIES'</font><font color="#007700">] . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>apple   red     150
+banana  yellow  250
+kiwi    brown   75
+lemon   yellow  25
+orange  orange  300
+pear    green   150
+watermelon      pink    90</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128034"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::exec()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::prepare()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::execute()</B
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdo-prepare.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pdo-quote.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDO::prepare</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDO::quote</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

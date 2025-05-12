@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_field_name</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_field_len"
+HREF="function.mysql-field-len.html"><LINK
+REL="NEXT"
+TITLE="mysql_field_seek"
+HREF="function.mysql-field-seek.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-field-len.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-field-seek.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-field-name"
+></A
+>mysql_field_name</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN93488"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mysql_field_name&nbsp;--&nbsp;
+     Ottiene il nome del campo specificato in un risultato
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN93491"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>mysql_field_name</B
+> ( resource risultato, int indice_campo )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_field_name()</B
+> restituisce il nome del
+     campo specificato dall'indice. <VAR
+CLASS="parameter"
+>risultato</VAR
+> deve essere un
+     identificativo di risultato valido e <VAR
+CLASS="parameter"
+>indice_campo</VAR
+> è
+     lo spiazzamento numerico del campo.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <VAR
+CLASS="parameter"
+>indice_campo</VAR
+> inizia da 0.
+     </P
+><P
+>&#13;      Es. L'indice del terzo campo è in realtà 2, l'indice
+      del quarto campo è 3 e così via.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN93511"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>mysql_field_name()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+/* La tabella utenti è costituita da tre campi:<br /> *&nbsp;&nbsp;&nbsp;id_utente<br /> *&nbsp;&nbsp;&nbsp;nome_utente<br /> *&nbsp;&nbsp;&nbsp;password<br /> */<br />$connessione = mysql_connect('localhost', "utente_mysql", "password_mysql");<br />mysql_select_db($nome_db, $connessione)<br />&nbsp;&nbsp;&nbsp;&nbsp;or die("Errore nella selezione di $dbname: " . mysql_error());<br />$risultato = mysql_query("select * from utenti", $connessione);<br /><br />echo mysql_field_name($risultato, 0) . "\n";<br />echo mysql_field_name($risultato, 2);</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       L'esempio riportato sopra dovrebbe produrre il seguente output:
+       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>id_utente
+password</PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Per motivi di compatibilità con il passato, anche <B
+CLASS="function"
+>mysql_fieldname()</B
+>
+     può essere usata. Questo comunque è sconsigliato.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-field-len.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-field-seek.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_field_len</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_field_seek</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pg_set_error_verbosity</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni PostgreSQL"
+HREF="ref.pgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="pg_set_client_encoding"
+HREF="function.pg-set-client-encoding.html"><LINK
+REL="NEXT"
+TITLE="pg_trace"
+HREF="function.pg-trace.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pg-set-client-encoding.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-trace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pg-set-error-verbosity"
+></A
+>pg_set_error_verbosity</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN134839"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>pg_set_error_verbosity&nbsp;--&nbsp;
+   Determines the verbosity of messages returned by <A
+HREF="function.pg-last-error.html"
+><B
+CLASS="function"
+>pg_last_error()</B
+></A
+> 
+   and <A
+HREF="function.pg-result-error.html"
+><B
+CLASS="function"
+>pg_result_error()</B
+></A
+>.
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134844"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>pg_set_error_verbosity</B
+> ( resource connection, int verbosity )<BR
+></BR
+>int <B
+CLASS="methodname"
+>pg_set_error_verbosity</B
+> ( int verbosity )<BR
+></BR
+><P
+>&#13;    Determines the verbosity of messages returned by <A
+HREF="function.pg-last-error.html"
+><B
+CLASS="function"
+>pg_last_error()</B
+></A
+> 
+    and <A
+HREF="function.pg-result-error.html"
+><B
+CLASS="function"
+>pg_result_error()</B
+></A
+>.
+  </P
+><P
+>&#13;   <B
+CLASS="function"
+>pg_set_error_verbosity()</B
+> sets the verbosity mode, returning the connection's previous 
+   setting. In <TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_TERSE</B
+></TT
+> mode, returned messages include severity, primary text, and 
+   position only; this will normally fit on a single line. The default mode (<TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_DEFAULT</B
+></TT
+>)
+   produces messages that include the above plus any detail, hint, or context 
+   fields (these may span multiple lines). The <TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_VERBOSE</B
+></TT
+> mode includes all available 
+   fields. Changing the verbosity does not affect the messages available from 
+   already-existing result objects, only subsequently-created ones.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134869"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       PostgreSQL database connection resource.  When 
+       <VAR
+CLASS="parameter"
+>connection</VAR
+> is not present, the default connection 
+       is used. The default connection is the last connection made by 
+       <A
+HREF="function.pg-connect.html"
+><B
+CLASS="function"
+>pg_connect()</B
+></A
+> or <A
+HREF="function.pg-pconnect.html"
+><B
+CLASS="function"
+>pg_pconnect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>verbosity</VAR
+></DT
+><DD
+><P
+>&#13;       The required verbosity: <TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_TERSE</B
+></TT
+>,
+       <TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_DEFAULT</B
+></TT
+>
+       or <TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_VERBOSE</B
+></TT
+>.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134889"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   The previous verbosity level: <TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_TERSE</B
+></TT
+>,
+   <TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_DEFAULT</B
+></TT
+>
+   or <TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_VERBOSE</B
+></TT
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134895"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN134898"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>pg_set_error_verbosity()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;$dbconn </font><font color="#007700">= </font><font color="#0000BB">pg_connect</font><font color="#007700">(</font><font color="#DD0000">"dbname=publisher"</font><font color="#007700">) or die(</font><font color="#DD0000">"Could not connect"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;if (!</font><font color="#0000BB">pg_connection_busy</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">pg_send_query</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"select * from doesnotexist;"</font><font color="#007700">);<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</font><font color="#0000BB">pg_set_error_verbosity</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#0000BB">PGSQL_ERRORS_VERBOSE</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$res1 </font><font color="#007700">= </font><font color="#0000BB">pg_get_result</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">);<br />&nbsp;&nbsp;echo </font><font color="#0000BB">pg_result_error</font><font color="#007700">(</font><font color="#0000BB">$res1</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134902"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.pg-last-error.html"
+><B
+CLASS="function"
+>pg_last_error()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.pg-result-error.html"
+><B
+CLASS="function"
+>pg_result_error()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pg-set-client-encoding.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-trace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pg_set_client_encoding</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pgsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_trace</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

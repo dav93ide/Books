@@ -1,0 +1,465 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Costanti</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Struttura del Linguaggio"
+HREF="langref.html"><LINK
+REL="PREVIOUS"
+TITLE="Variables from outside PHP"
+HREF="language.variables.external.html"><LINK
+REL="NEXT"
+TITLE="Costanti magiche"
+HREF="language.constants.predefined.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.variables.external.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.constants.predefined.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="language.constants"
+>Capitolo 13. Costanti</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="language.constants.html#language.constants.syntax"
+>Sintassi</A
+></DT
+><DT
+><A
+HREF="language.constants.predefined.html"
+>Costanti magiche</A
+></DT
+></DL
+></DIV
+><P
+>&#13;   Una costante è un identificatore (nome) per un valore. Come si può intuire, 
+   tale valore non può cambiare durante l'esecuzione dello script
+   (fanno eccezione le <A
+HREF="language.constants.predefined.html"
+>costanti magiche</A
+>,
+   che, in realtà, non sono costanti). Una costante è
+   "case-sensitive" per default. È convenzione comune che i nomi di costante
+   siano sempre maiuscoli.
+  </P
+><P
+>&#13;   In PHP il nome di una costante segue le regole di qualsiasi "etichetta".
+   Un nome di costante valido inizia con una lettera o underscore, seguita
+   da un numero qualsiasi di caratteri alfanumerici o underscore.
+   L'espressione regolare che esprime questa convenzione è:
+   <VAR
+CLASS="literal"
+>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*</VAR
+>
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3946"
+></A
+><P
+><B
+>Esempio 13-1. Nomi di costanti validi ed errati</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Nomi validi<br /></font><font color="#0000BB">define</font><font color="#007700">(</font><font color="#DD0000">"FOO"</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"something"</font><font color="#007700">);<br /></font><font color="#0000BB">define</font><font color="#007700">(</font><font color="#DD0000">"FOO2"</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"something else"</font><font color="#007700">);<br /></font><font color="#0000BB">define</font><font color="#007700">(</font><font color="#DD0000">"FOO_BAR"</font><font color="#007700">, </font><font color="#DD0000">"something more"</font><font color="#007700">)<br /> <br /></font><font color="#FF8000">// Nomi di costante errati<br /></font><font color="#0000BB">define</font><font color="#007700">(</font><font color="#DD0000">"2FOO"</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"something"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp; <br /></font><font color="#FF8000">// Nomi validi, ma da evitare:<br />// un domani potrebbero essere utilizzati dal PHP per fornire costanti magiche<br />// e quindi si avrebbero problemi nello script<br /></font><font color="#0000BB">define</font><font color="#007700">(</font><font color="#DD0000">"__FOO__"</font><font color="#007700">, </font><font color="#DD0000">"something"</font><font color="#007700">); <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    In questo contesto una lettera è a-z, A-Z e i caratteri ASCII
+    dal 127 al 255 (0x7f-0xff).
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   Come le <A
+HREF="language.variables.predefined.html"
+>superglobals</A
+>, costante è sempre globale.
+   Si può accedere alle costanti da qualsiasi punto dello script senza tenere conto della
+   visibilità. Per maggiori dettagli sulla visibilità, leggere la sezione 
+   <A
+HREF="language.variables.scope.html"
+>variable scope</A
+>.
+  </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.constants.syntax"
+>Sintassi</A
+></H1
+><P
+>&#13;    È possibile definire una variabile utilizzando la funzione
+    <A
+HREF="function.define.html"
+><B
+CLASS="function"
+>define()</B
+></A
+>. Una volta definita, a una costante
+    non è possibile cambiare il valore o eliminarla.
+   </P
+><P
+>&#13;    Le costanti possono contenere solo dati di tipo scalare
+    (<A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+>, <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>, 
+    <A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+> e <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>).
+   </P
+><P
+>&#13;    Per ottenere il valore di una costante è sufficiente specificarne il nome.
+    A differenza delle variabili, <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non</I
+></SPAN
+> è necessario
+    anteporre il simbolo <VAR
+CLASS="literal"
+>$</VAR
+> al nome di una variabile.
+    Si può anche utilizzare la funzione  <A
+HREF="function.constant.html"
+><B
+CLASS="function"
+>constant()</B
+></A
+>, 
+    per leggere il valore di una costante, nel caso in cui se ne ottenga 
+    dinamicamente il nome. 
+    Si utilizzi <A
+HREF="function.get-defined-constants.html"
+><B
+CLASS="function"
+>get_defined_constants()</B
+></A
+> per ottenere
+    una lista delle variabili definite.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Costanti e variabili (globali) si trovano in un "namespace" differente. 
+     Questo implica che generalmente <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> e 
+     <VAR
+CLASS="varname"
+>$TRUE</VAR
+> sono differenti.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    Se si utilizza il nome di una costante che non è definita, PHP assume che
+    detto valore sia il nome della costante stessa, come se si fosse inserito il testo nel nome . Quando ciò accade
+    PHP segnala il problema con un <A
+HREF="ref.errorfunc.html"
+>E_NOTICE</A
+>.
+    Vedere anche il capitolo del manuale sul perchè <A
+HREF="language.types.array.html#language.types.array.foo-bar"
+>$foo[bar]</A
+>
+    è errata (a meno che prima non definisca <VAR
+CLASS="literal"
+>bar</VAR
+> come costante con  <A
+HREF="function.define.html"
+><B
+CLASS="function"
+>define()</B
+></A
+>).
+    Per sapere se una costante è definita, si può utilizzare la 
+    funzione <A
+HREF="function.defined.html"
+><B
+CLASS="function"
+>defined()</B
+></A
+>.
+   </P
+><P
+>&#13;    Di seguito sono riportate le principali differenze rispetto le variabili:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        Le costanti non iniziano con il segno del dollaro
+        (<VAR
+CLASS="literal"
+>$</VAR
+>);
+       </P
+></LI
+><LI
+><P
+>&#13;        Le costanti possono essere definite solo con la funzione
+        <A
+HREF="function.define.html"
+><B
+CLASS="function"
+>define()</B
+></A
+> e non tramite assegnazione;
+       </P
+></LI
+><LI
+><P
+>&#13;        Le costanti possono essere definite e utilizzate ovunque
+        senza seguire le regole di visibilità;
+       </P
+></LI
+><LI
+><P
+>&#13;        Una volta impostate, le costanti non posso essere redefinite
+        e ne annullate;
+       </P
+></LI
+><LI
+><P
+>&#13;        Le costanti possono essere solo valori scalari;
+       </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3993"
+></A
+><P
+><B
+>Esempio 13-2. Definizione di costanti</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php
+define("COSTANTE", "Ciao mondo.");
+echo COSTANTE; // stampa "Ciao mondo."
+echo Costante; // stampa "Costante" e genera una notice.
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.variables.external.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.constants.predefined.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Variables from outside PHP</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="langref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Costanti magiche</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

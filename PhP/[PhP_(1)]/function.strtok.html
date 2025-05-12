@@ -1,0 +1,409 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>strtok</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="strstr"
+HREF="function.strstr.html"><LINK
+REL="NEXT"
+TITLE="strtolower"
+HREF="function.strtolower.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.strstr.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.strtolower.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.strtok"
+></A
+>strtok</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN166147"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>strtok&nbsp;--&nbsp;Suddivide una stringa in token</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN166150"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>strtok</B
+> ( string str, string token )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>strtok()</B
+> suddivide la stringa(<VAR
+CLASS="parameter"
+>str</VAR
+>)
+     in piccole stringhe (tokens), in cui ciascun token è delimitato dal
+     carattere indicato in <VAR
+CLASS="parameter"
+>token</VAR
+>.
+     Perciò, se si ha la stringa  "This is an example string" la si può
+     dividere nelle singole parole utilizzando come separatore
+     lo spazio.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN166165"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>strtok()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$string </font><font color="#007700">= </font><font color="#DD0000">"This is\tan example\nstring"</font><font color="#007700">;<br /></font><font color="#FF8000">/* Use tab and newline as tokenizing characters as well&nbsp;&nbsp;*/<br /></font><font color="#0000BB">$tok </font><font color="#007700">= </font><font color="#0000BB">strtok</font><font color="#007700">(</font><font color="#0000BB">$string</font><font color="#007700">, </font><font color="#DD0000">" \n\t"</font><font color="#007700">);<br />while (</font><font color="#0000BB">$tok </font><font color="#007700">!== </font><font color="#0000BB">false</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Word=$tok&lt;br /&gt;"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$tok </font><font color="#007700">= </font><font color="#0000BB">strtok</font><font color="#007700">(</font><font color="#DD0000">" \n\t"</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Soltanto la prima chiamata a <B
+CLASS="function"
+>strtok()</B
+> utilizza il parametro stringa.
+     Ogni chiamata successiva richiede solo il carattere da utilizzare, poichè
+     la funzione tiene traccia di dove è arrivata nella stringa corrente. Per ripartire da capo
+     o iniziare con una nuova stringa ri-chiamare <B
+CLASS="function"
+>strtok()</B
+>
+     con il parametro stringa. Nota: si possono mettere più caratteri
+     come separatori di stringhe. Il testo iniziale verrà suddiviso
+     quando viene trovato uno qualsiasi di questi caratteri.
+     Attenzione che soltanto la prima chiamata di strtok userà l'argomento stringa.
+    </P
+><P
+>&#13;     Il comportamento su segmenti vuoti è cambiato dal PHP 4.1.0. La vecchia
+     versione restituiva una stringa vuota, mentre la nuova, più correttamente,
+     salta quella parte di stringa:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN166173"
+></A
+><P
+><B
+>Esempio 2. Vecchio comportamento di <B
+CLASS="function"
+>strtok()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$first_token&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">strtok</font><font color="#007700">(</font><font color="#DD0000">'/something'</font><font color="#007700">, </font><font color="#DD0000">'/'</font><font color="#007700">);<br /></font><font color="#0000BB">$second_token </font><font color="#007700">= </font><font color="#0000BB">strtok</font><font color="#007700">(</font><font color="#DD0000">'/'</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$first_token</font><font color="#007700">, </font><font color="#0000BB">$second_token</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Output:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>string(0) ""
+    string(9) "something"</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN166179"
+></A
+><P
+><B
+>Esempio 3. Nuovo comportamento di <B
+CLASS="function"
+>strtok()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$first_token&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">strtok</font><font color="#007700">(</font><font color="#DD0000">'/something'</font><font color="#007700">, </font><font color="#DD0000">'/'</font><font color="#007700">);<br /></font><font color="#0000BB">$second_token </font><font color="#007700">= </font><font color="#0000BB">strtok</font><font color="#007700">(</font><font color="#DD0000">'/'</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$first_token</font><font color="#007700">, </font><font color="#0000BB">$second_token</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Output:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>string(9) "something"
+    bool(false)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione può
+restituire il Booleano <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, ma può anche restituire un valore non-Booleano valutato
+come <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, come ad esempio <VAR
+CLASS="literal"
+>0</VAR
+> o
+"". Per favore fare riferimento alla sezione <A
+HREF="language.types.boolean.html"
+>Booleans</A
+> per maggiori 
+informazioni. Usare <A
+HREF="language.operators.comparison.html"
+>l'operatore 
+=== </A
+> per controllare il valore restituito da questa 
+funzione.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Vedere anche: <A
+HREF="function.split.html"
+><B
+CLASS="function"
+>split()</B
+></A
+> e
+     <A
+HREF="function.explode.html"
+><B
+CLASS="function"
+>explode()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.strstr.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.strtolower.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>strstr</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>strtolower</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

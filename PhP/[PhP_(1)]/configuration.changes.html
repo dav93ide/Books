@@ -1,0 +1,567 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>How to change configuration settings</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Runtime Configuration"
+HREF="configuration.html"><LINK
+REL="PREVIOUS"
+TITLE="Runtime Configuration"
+HREF="configuration.html"><LINK
+REL="NEXT"
+TITLE="Struttura del Linguaggio"
+HREF="langref.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="configuration.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 9. Runtime Configuration</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="langref.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="configuration.changes"
+>How to change configuration settings</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="configuration.changes.apache"
+>Running PHP as an Apache module</A
+></H2
+><P
+>&#13;     When using PHP as an Apache module, you can also change the
+     configuration settings using directives in Apache configuration
+     files (e.g. <TT
+CLASS="filename"
+>httpd.conf</TT
+>) and <TT
+CLASS="filename"
+>.htaccess</TT
+> files. You will need
+     "AllowOverride Options" or "AllowOverride All" privileges to do so.
+    </P
+><P
+>&#13;     With PHP 4 and PHP 5, there are several Apache directives that allow you
+     to change the PHP configuration from within the Apache configuration
+     files.  For a listing of which directives are 
+     <TT
+CLASS="constant"
+><B
+>PHP_INI_ALL</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>PHP_INI_PERDIR</B
+></TT
+>, 
+     or <TT
+CLASS="constant"
+><B
+>PHP_INI_SYSTEM</B
+></TT
+>, have a look at the
+     <A
+HREF="ini.html#ini.list"
+>List of php.ini directives</A
+> appendix.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      With PHP 3, there are Apache directives that correspond to each
+      configuration setting in the <TT
+CLASS="filename"
+>php3.ini</TT
+> name,
+      except the name is prefixed by "php3_".
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><SPAN
+CLASS="systemitem"
+>php_value</SPAN
+>
+        <VAR
+CLASS="parameter"
+>name</VAR
+>
+        <VAR
+CLASS="parameter"
+>value</VAR
+></DT
+><DD
+><P
+>&#13;         Sets the value of the specified directive.
+         Can be used only with <TT
+CLASS="constant"
+><B
+>PHP_INI_ALL</B
+></TT
+> and <TT
+CLASS="constant"
+><B
+>PHP_INI_PERDIR</B
+></TT
+> type directives.
+         To clear a previously set value use <VAR
+CLASS="literal"
+>none</VAR
+> as the value.
+        </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+          Don't use <SPAN
+CLASS="systemitem"
+>php_value</SPAN
+> to set boolean values.
+          <SPAN
+CLASS="systemitem"
+>php_flag</SPAN
+> (see below) should be used instead.
+         </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><SPAN
+CLASS="systemitem"
+>php_flag</SPAN
+>
+        <VAR
+CLASS="parameter"
+>name</VAR
+>
+        <VAR
+CLASS="parameter"
+>on|off</VAR
+></DT
+><DD
+><P
+>&#13;         Used to set a boolean configuration directive.
+         Can be used only with <TT
+CLASS="constant"
+><B
+>PHP_INI_ALL</B
+></TT
+> and
+         <TT
+CLASS="constant"
+><B
+>PHP_INI_PERDIR</B
+></TT
+> type directives.
+        </P
+></DD
+><DT
+><SPAN
+CLASS="systemitem"
+>php_admin_value</SPAN
+>
+        <VAR
+CLASS="parameter"
+>name</VAR
+>
+        <VAR
+CLASS="parameter"
+>value</VAR
+></DT
+><DD
+><P
+>&#13;         Sets the value of the specified directive.
+         This <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>can not be used</I
+></SPAN
+> in <TT
+CLASS="filename"
+>.htaccess</TT
+> files.
+         Any directive type set with <SPAN
+CLASS="systemitem"
+>php_admin_value</SPAN
+>
+         can not be overridden by <TT
+CLASS="filename"
+>.htaccess</TT
+> or virtualhost directives.
+         To clear a previously set value use <VAR
+CLASS="literal"
+>none</VAR
+> as the value.
+        </P
+></DD
+><DT
+><SPAN
+CLASS="systemitem"
+>php_admin_flag</SPAN
+>
+        <VAR
+CLASS="parameter"
+>name</VAR
+>
+        <VAR
+CLASS="parameter"
+>on|off</VAR
+></DT
+><DD
+><P
+>&#13;         Used to set a boolean configuration directive.
+         This <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>can not be used</I
+></SPAN
+> in <TT
+CLASS="filename"
+>.htaccess</TT
+> files.
+         Any directive type set with <SPAN
+CLASS="systemitem"
+>php_admin_flag</SPAN
+>
+         can not be overridden by <TT
+CLASS="filename"
+>.htaccess</TT
+> or virtualhost directives.
+        </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN2648"
+></A
+><P
+><B
+>Esempio 9-2. Apache configuration example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="ini"
+>&#60;IfModule mod_php5.c&#62;
+  php_value include_path ".:/usr/local/lib/php"
+  php_admin_flag safe_mode on
+&#60;/IfModule&#62;
+&#60;IfModule mod_php4.c&#62;
+  php_value include_path ".:/usr/local/lib/php"
+  php_admin_flag safe_mode on
+&#60;/IfModule&#62;
+&#60;IfModule mod_php3.c&#62;
+  php3_include_path ".:/usr/local/lib/php"
+  php3_safe_mode on
+&#60;/IfModule&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      PHP constants do not exist outside of PHP. For example, in 
+      <TT
+CLASS="filename"
+>httpd.conf</TT
+> you can not use PHP constants 
+      such as <TT
+CLASS="constant"
+><B
+>E_ALL</B
+></TT
+> or <TT
+CLASS="constant"
+><B
+>E_NOTICE</B
+></TT
+> 
+      to set the <A
+HREF="ref.errorfunc.html#ini.error-reporting"
+>error_reporting</A
+> 
+      directive as they will have no meaning and will evaluate to
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>0</I
+></SPAN
+>. Use the associated bitmask values instead.
+      These constants can be used in <TT
+CLASS="filename"
+>php.ini</TT
+>
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="configuration.changes.windows"
+>Changing PHP configuration via the Windows registry</A
+></H2
+><P
+>&#13;      When running PHP on Windows, the configuration values can be
+      modified on a per-directory basis using the Windows registry. The
+      configuration values are stored in the registry key 
+      <VAR
+CLASS="literal"
+>HKLM\SOFTWARE\PHP\Per Directory Values</VAR
+>, 
+      in the sub-keys corresponding to the path names. For example, configuration 
+      values for the directory <VAR
+CLASS="literal"
+>c:\inetpub\wwwroot</VAR
+> would
+      be stored in the key <VAR
+CLASS="literal"
+>HKLM\SOFTWARE\PHP\Per Directory
+      Values\c\inetpub\wwwroot</VAR
+>. The settings for the
+      directory would be active for any script running from this
+      directory or any subdirectory of it. The values under the key
+      should have the name of the PHP configuration directive and the
+      string value. PHP constants in the values are not parsed. 
+      However, only configuration values changeable in PHP_INI_USER can be set
+      this way, PHP_INI_PERDIR values can not.
+     </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="configuration.changes.other"
+>Other interfaces to PHP</A
+></H2
+><P
+>&#13;     Regardless of how you run PHP, you can change certain values at runtime
+     of your scripts through <A
+HREF="function.ini-set.html"
+><B
+CLASS="function"
+>ini_set()</B
+></A
+>. See the documentation
+     on the <A
+HREF="function.ini-set.html"
+><B
+CLASS="function"
+>ini_set()</B
+></A
+> page for more information.
+    </P
+><P
+>&#13;     If you are interested in a complete list of configuration settings
+     on your system with their current values, you can execute the
+     <A
+HREF="function.phpinfo.html"
+><B
+CLASS="function"
+>phpinfo()</B
+></A
+> function, and review the resulting
+     page. You can also access the values of individual configuration
+     directives at runtime using <A
+HREF="function.ini-get.html"
+><B
+CLASS="function"
+>ini_get()</B
+></A
+> or
+     <A
+HREF="function.get-cfg-var.html"
+><B
+CLASS="function"
+>get_cfg_var()</B
+></A
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="configuration.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="langref.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Runtime Configuration</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="configuration.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Struttura del Linguaggio</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

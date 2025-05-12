@@ -1,0 +1,435 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDO::sqliteCreateFunction</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SQLite Functions (PDO_SQLITE)"
+HREF="ref.pdo-sqlite.html"><LINK
+REL="PREVIOUS"
+TITLE="PDO::sqliteCreateAggregate"
+HREF="function.pdo-sqlitecreateaggregate.html"><LINK
+REL="NEXT"
+TITLE="Secure Shell2 Functions"
+HREF="ref.ssh2.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdo-sqlitecreateaggregate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.ssh2.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDO-sqliteCreateFunction"
+></A
+>PDO::sqliteCreateFunction</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN159026"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDO::sqliteCreateFunction&nbsp;--&nbsp;
+   Registers a User Defined Function for use in SQL statements
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159029"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>PDO::sqliteCreateFunction</B
+> ( string function_name, callback callback [, int num_args] )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   <B
+CLASS="function"
+>PDO::sqliteCreateFunction()</B
+> allows you to register a PHP
+   function with SQLite as an <ACRONYM
+CLASS="acronym"
+>UDF</ACRONYM
+> (User Defined
+   Function), so that it can be called from within your SQL statements.
+  </P
+><P
+>&#13;   The UDF can be used in any SQL statement that can call functions, such as
+   SELECT and UPDATE statements and also in triggers.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159050"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>function_name</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the function used in SQL statements.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>callback</VAR
+></DT
+><DD
+><P
+>&#13;       Callback function to handle the defined SQL function.
+      </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        Callback functions should return a type understood by SQLite (i.e.
+        <A
+HREF="language.types.html#language.types.intro"
+>scalar type</A
+>).
+       </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>num_args</VAR
+></DT
+><DD
+><P
+>&#13;       Hint to the SQLite parser if the callback function accepts a
+       predetermined number of arguments.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Two alternative syntaxes are
+supported for compatibility with other database extensions (such as MySQL).
+The preferred form is the first, where the <VAR
+CLASS="parameter"
+>dbhandle</VAR
+>
+parameter is the first parameter to the function.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159075"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN159078"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>PDO::sqliteCreateFunction()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">md5_and_reverse</font><font color="#007700">(</font><font color="#0000BB">$string</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">strrev</font><font color="#007700">(</font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">$string</font><font color="#007700">));<br />}<br /><br /></font><font color="#0000BB">$db </font><font color="#007700">= new </font><font color="#0000BB">PDO</font><font color="#007700">(</font><font color="#DD0000">'sqlite:sqlitedb'</font><font color="#007700">);<br /></font><font color="#0000BB">$db</font><font color="#007700">-&gt;</font><font color="#0000BB">sqliteCreateFunction</font><font color="#007700">(</font><font color="#DD0000">'md5rev'</font><font color="#007700">, </font><font color="#DD0000">'md5_and_reverse'</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /></font><font color="#0000BB">$rows </font><font color="#007700">= </font><font color="#0000BB">$db</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">'SELECT md5rev(filename) FROM files'</font><font color="#007700">)-&gt;</font><font color="#0000BB">fetchAll</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   In this example, we have a function that calculates the md5 sum of a
+   string, and then reverses it.  When the SQL statement executes, it
+   returns the value of the filename transformed by our function.  The data
+   returned in <VAR
+CLASS="parameter"
+>$rows</VAR
+> contains the processed result.
+  </P
+><P
+>&#13;   The beauty of this technique is that you do not need to process the
+   result using a foreach() loop after you have queried for the data.
+  </P
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+    You can use <B
+CLASS="function"
+>PDO::sqliteCreateFunction()</B
+> and
+    <B
+CLASS="function"
+>PDO::sqliteCreateAggregate()</B
+> to override SQLite native
+    SQL functions.
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    This method is not available with the SQLite2 driver.
+    Use the old style sqlite API for that instead.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159091"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::sqliteCreateAggregate()</B
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sqlite-create-function.html"
+><B
+CLASS="function"
+>sqlite_create_function()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sqlite-create-aggregate.html"
+><B
+CLASS="function"
+>sqlite_create_aggregate()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdo-sqlitecreateaggregate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.ssh2.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDO::sqliteCreateAggregate</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo-sqlite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Secure Shell2 Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

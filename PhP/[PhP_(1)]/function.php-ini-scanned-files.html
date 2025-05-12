@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>php_ini_scanned_files</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PHP Opzioni&Informazioni"
+HREF="ref.info.html"><LINK
+REL="PREVIOUS"
+TITLE="memory_get_usage"
+HREF="function.memory-get-usage.html"><LINK
+REL="NEXT"
+TITLE="php_logo_guid"
+HREF="function.php-logo-guid.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.memory-get-usage.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.php-logo-guid.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.php-ini-scanned-files"
+></A
+>php_ini_scanned_files</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN130179"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PHP 5)</P
+>php_ini_scanned_files&nbsp;--&nbsp;Restituisce l'elenco dei file .ini leti dalla directory ini aggiuntiva</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN130182"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>php_ini_scanned_files</B
+> ( void  )<BR
+></BR
+><P
+>&#13;      <B
+CLASS="function"
+>php_ini_scanned_files()</B
+> restituisce un elenco separato da virgola
+      dei file di configurazione letti dopo il <TT
+CLASS="filename"
+>php.ini</TT
+>. Questi file sono
+      cercati nella directory specificata dall'opzione
+      <VAR
+CLASS="option"
+>--with-config-file-scan-dir</VAR
+> impostata al momento
+      della compila.
+     </P
+><P
+>&#13;      La funzione restituisce la lista separata da virgola se riesce.  Al contrario, se 
+      l'impostazione <VAR
+CLASS="option"
+>--with-config-files-scan-dir</VAR
+> non è configurata
+      la funzione resttuisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. Se un file non è riconoscibile, questo sarà inserito
+      nell'elenco restituito, ma il PHP darà errore.
+      Questo errore sarà visualizzato sia al momento della compila sia utilizzando     
+      <B
+CLASS="function"
+>php_ini_scanned_files()</B
+>.
+     </P
+><P
+>&#13;      La lista restituita comprende anche il percorso di include specificato in       
+      <VAR
+CLASS="option"
+>--with-config-file-scan-dir</VAR
+>. Ogni virgola è seguita
+      da un carattere di a capo (newline).
+     </P
+><P
+>&#13;      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN130199"
+></A
+><P
+><B
+>Esempio 1. Un semplice esempio di lista restuita dalla funzione</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">$filelist </font><font color="#007700">= </font><font color="#0000BB">php_ini_scanned_files</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$filelist</font><font color="#007700">) &gt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$files </font><font color="#007700">= </font><font color="#0000BB">explode</font><font color="#007700">(</font><font color="#DD0000">','</font><font color="#007700">, </font><font color="#0000BB">$filelist</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach (</font><font color="#0000BB">$files </font><font color="#007700">as </font><font color="#0000BB">$file</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;li&gt;" </font><font color="#007700">. </font><font color="#0000BB">trim</font><font color="#007700">(</font><font color="#0000BB">$file</font><font color="#007700">) . </font><font color="#DD0000">"&lt;/li&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+><P
+>&#13;      Vedere anche <A
+HREF="function.ini-set.html"
+><B
+CLASS="function"
+>ini_set()</B
+></A
+> e <A
+HREF="function.phpinfo.html"
+><B
+CLASS="function"
+>phpinfo()</B
+></A
+>.
+     </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.memory-get-usage.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.php-logo-guid.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>memory_get_usage</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.info.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>php_logo_guid</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

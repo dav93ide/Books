@@ -1,0 +1,915 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PHP and HTML</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FAQ: Frequently Asked Questions (domande e risposte ricorrenti)"
+HREF="faq.html"><LINK
+REL="PREVIOUS"
+TITLE="Using PHP"
+HREF="faq.using.html"><LINK
+REL="NEXT"
+TITLE="PHP e COM"
+HREF="faq.com.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="faq.using.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="faq.com.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="faq.html"
+>Capitolo 55. PHP and HTML</A
+></H1
+><P
+>&#13;   PHP and HTML interact a lot: PHP can generate HTML, and HTML
+   can pass information to PHP.  Before reading these faqs, it's
+   important you learn how to <A
+HREF="language.variables.external.html"
+>&#13;   retrieve variables from outside of PHP</A
+>.  The manual page on
+   this topic includes many examples as well.  Pay close attention to
+   what <VAR
+CLASS="literal"
+>register_globals</VAR
+> means to you too.
+  </P
+><DIV
+CLASS="qandaset"
+><DL
+><DT
+>1. <A
+HREF="faq.html.html#faq.html.encoding"
+>&#13;      What encoding/decoding do I need when I pass a value through a form/URL?
+     </A
+></DT
+><DT
+>2. <A
+HREF="faq.html.html#faq.html.form-image"
+>&#13;      I'm trying to use an &#60;input type="image"&#62; tag, but 
+      the <VAR
+CLASS="varname"
+>$foo.x</VAR
+> and <VAR
+CLASS="varname"
+>$foo.y</VAR
+> variables
+      aren't available.  <VAR
+CLASS="varname"
+>$_GET['foo.x']</VAR
+> isn't existing
+      either.  Where are they?  
+     </A
+></DT
+><DT
+>3. <A
+HREF="faq.html.html#faq.html.arrays"
+>How do I create arrays in a HTML &#60;form&#62;?</A
+></DT
+><DT
+>4. <A
+HREF="faq.html.html#faq.html.select-multiple"
+>&#13;      How do I get all the results from a select multiple HTML tag?
+     </A
+></DT
+><DT
+>5. <A
+HREF="faq.html.html#faq.html.javascript-variable"
+>&#13;      How can I pass a variable from Javascript to PHP?
+     </A
+></DT
+></DL
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.html.encoding"
+></A
+><B
+>1. </B
+>
+      What encoding/decoding do I need when I pass a value through a form/URL?
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      There are several stages for which encoding is important. Assuming that
+      you have a <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+> <VAR
+CLASS="varname"
+>$data</VAR
+>, which contains
+      the string you want to pass on in a non-encoded way, these are the
+      relevant stages:
+      <P
+></P
+><UL
+><LI
+><P
+>&#13;         HTML interpretation. In order to specify a random string, you
+         <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>must</I
+></SPAN
+> include it in double quotes, and 
+         <A
+HREF="function.htmlspecialchars.html"
+><B
+CLASS="function"
+>htmlspecialchars()</B
+></A
+> the whole value.
+        </P
+></LI
+><LI
+><P
+>&#13;         URL: A URL consists of several parts. If you want your data to be
+         interpreted as one item, you <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>must</I
+></SPAN
+> encode it with
+         <A
+HREF="function.urlencode.html"
+><B
+CLASS="function"
+>urlencode()</B
+></A
+>.
+        </P
+></LI
+></UL
+>
+     </P
+><P
+>&#13;      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN198774"
+></A
+><P
+><B
+>Esempio 55-1. A hidden HTML form element</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">"&lt;input type='hidden' value='" </font><font color="#007700">. </font><font color="#0000BB">htmlspecialchars</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">) . </font><font color="#DD0000">"' /&gt;\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+      <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        It is wrong to <A
+HREF="function.urlencode.html"
+><B
+CLASS="function"
+>urlencode()</B
+></A
+>
+        <VAR
+CLASS="varname"
+>$data</VAR
+>, because it's the browsers responsibility to
+        <A
+HREF="function.urlencode.html"
+><B
+CLASS="function"
+>urlencode()</B
+></A
+> the data. All popular browsers do that
+        correctly. Note that this will happen regardless of the method (i.e.,
+        GET or POST). You'll only notice this in case of GET request though,
+        because POST requests are usually hidden.
+       </P
+></BLOCKQUOTE
+></DIV
+>
+      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN198782"
+></A
+><P
+><B
+>Esempio 55-2. Data to be edited by the user</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">"&lt;textarea name='mydata'&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">htmlspecialchars</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">).</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;/textarea&gt;"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+      <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        The data is shown in the browser as intended, because the browser will
+        interpret the HTML escaped symbols.
+       </P
+><P
+>&#13;        Upon submitting, either via GET or POST, the data will be urlencoded
+        by the browser for transferring, and directly urldecoded by PHP. So in
+        the end, you don't need to do any urlencoding/urldecoding yourself,
+        everything is handled automagically.
+       </P
+></BLOCKQUOTE
+></DIV
+>
+      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN198788"
+></A
+><P
+><B
+>Esempio 55-3. In a URL</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">"&lt;a href='" </font><font color="#007700">. </font><font color="#0000BB">htmlspecialchars</font><font color="#007700">(</font><font color="#DD0000">"/nextpage.php?stage=23&amp;data=" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">urlencode</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">)) . </font><font color="#DD0000">"'&gt;\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+      <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        In fact you are faking a HTML GET request, therefore it's necessary to
+        manually <A
+HREF="function.urlencode.html"
+><B
+CLASS="function"
+>urlencode()</B
+></A
+> the data.
+       </P
+></BLOCKQUOTE
+></DIV
+>
+      <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        You need to <A
+HREF="function.htmlspecialchars.html"
+><B
+CLASS="function"
+>htmlspecialchars()</B
+></A
+> the whole URL, because the
+        URL occurs as value of an HTML-attribute. In this case, the browser
+        will first un-<A
+HREF="function.htmlspecialchars.html"
+><B
+CLASS="function"
+>htmlspecialchars()</B
+></A
+> the value, and then pass
+        the URL on. PHP will understand the URL correctly, because you
+        <B
+CLASS="function"
+>urlencoded()</B
+> the data.
+       </P
+><P
+>&#13;        You'll notice that the <VAR
+CLASS="literal"
+>&#38;</VAR
+> in the URL is replaced
+        by <VAR
+CLASS="literal"
+>&#38;amp;</VAR
+>. Although most browsers will recover
+        if you forget this, this isn't always possible. So even if your URL is
+        not dynamic, you <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>need</I
+></SPAN
+> to
+        <A
+HREF="function.htmlspecialchars.html"
+><B
+CLASS="function"
+>htmlspecialchars()</B
+></A
+> the URL.
+       </P
+></BLOCKQUOTE
+></DIV
+>
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.html.form-image"
+></A
+><B
+>2. </B
+>
+      I'm trying to use an &#60;input type="image"&#62; tag, but 
+      the <VAR
+CLASS="varname"
+>$foo.x</VAR
+> and <VAR
+CLASS="varname"
+>$foo.y</VAR
+> variables
+      aren't available.  <VAR
+CLASS="varname"
+>$_GET['foo.x']</VAR
+> isn't existing
+      either.  Where are they?  
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      When submitting a form, it is possible to use an image instead of
+      the standard submit button with a tag like:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;input type="image" src="image.gif" name="foo" /&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+      When the user clicks somewhere on the image, the accompanying form
+      will be transmitted to the server with two additional variables:
+      <VAR
+CLASS="varname"
+>foo.x</VAR
+> and <VAR
+CLASS="varname"
+>foo.y</VAR
+>.
+     </P
+><P
+>&#13;      Because <VAR
+CLASS="varname"
+>foo.x</VAR
+> and <VAR
+CLASS="varname"
+>foo.y</VAR
+> would
+      make invalid variable names in PHP, they are automagically converted to
+      <VAR
+CLASS="varname"
+>foo_x</VAR
+> and <VAR
+CLASS="varname"
+>foo_y</VAR
+>. That is, the
+      periods are replaced with underscores.  So, you'd access these variables
+      like any other described within the section on retrieving 
+      <A
+HREF="language.variables.external.html"
+>variables from outside of 
+      PHP</A
+>.  For example, <VAR
+CLASS="varname"
+>$_GET['foo_x']</VAR
+>.
+      <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+         Spaces in request variable names are converted to underscores.
+       </P
+></BLOCKQUOTE
+></DIV
+>
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.html.arrays"
+></A
+><B
+>3. </B
+>How do I create arrays in a HTML &#60;form&#62;?</P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      To get your &#60;form&#62; result sent as an 
+      <A
+HREF="language.types.array.html"
+>array</A
+> to your PHP script
+      you name the &#60;input&#62;, &#60;select&#62; or &#60;textarea&#62;
+      elements like this:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;input name="MyArray[]" /&#62;
+&#60;input name="MyArray[]" /&#62;
+&#60;input name="MyArray[]" /&#62;
+&#60;input name="MyArray[]" /&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+      Notice the square brackets after the variable name, that's what
+      makes it an array. You can group the elements into different arrays
+      by assigning the same name to different elements:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;input name="MyArray[]" /&#62;
+&#60;input name="MyArray[]" /&#62;
+&#60;input name="MyOtherArray[]" /&#62;
+&#60;input name="MyOtherArray[]" /&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+      This produces two arrays, MyArray and MyOtherArray, that gets sent
+      to the PHP script.  It's also possible to assign specific keys
+      to your arrays:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;input name="AnotherArray[]" /&#62;
+&#60;input name="AnotherArray[]" /&#62;
+&#60;input name="AnotherArray[email]" /&#62;
+&#60;input name="AnotherArray[phone]" /&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+      The AnotherArray array will now contain the keys 0, 1, email and phone.
+      </P
+><P
+>&#13;       <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+         Specifying an arrays key is optional in HTML.  If you do not specify
+         the keys, the array gets filled in the order the elements appear in
+         the form.  Our first example will contain keys 0, 1, 2 and 3.
+        </P
+></BLOCKQUOTE
+></DIV
+>
+      </P
+><P
+>&#13;      See also
+      <A
+HREF="ref.array.html"
+>Array Functions</A
+> and
+      <A
+HREF="language.variables.external.html"
+>Variables from outside PHP</A
+>.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.html.select-multiple"
+></A
+><B
+>4. </B
+>
+      How do I get all the results from a select multiple HTML tag?
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      The select multiple tag in an HTML construct allows users to
+      select multiple items from a list. These items are then passed
+      to the action handler for the form. The problem is that they
+      are all passed with the same widget name. I.e.
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;select name="var" multiple="yes"&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+      Each selected option will arrive at the action handler as:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>var=option1
+var=option2
+var=option3</PRE
+></TD
+></TR
+></TABLE
+>
+      Each option will overwrite the contents of the previous
+      <VAR
+CLASS="varname"
+>$var</VAR
+> variable. The solution is to use
+      PHP's "array from form element" feature. The following
+      should be used:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;select name="var[]" multiple="yes"&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+      This tells PHP to treat <VAR
+CLASS="varname"
+>$var</VAR
+> as an array and
+      each assignment of a value to var[] adds an item to the array.
+      The first item becomes <VAR
+CLASS="varname"
+>$var[0]</VAR
+>, the next
+      <VAR
+CLASS="varname"
+>$var[1]</VAR
+>, etc. The <A
+HREF="function.count.html"
+><B
+CLASS="function"
+>count()</B
+></A
+>
+      function can be used to determine how many options were selected,
+      and the <A
+HREF="function.sort.html"
+><B
+CLASS="function"
+>sort()</B
+></A
+> function can be used to sort
+      the option array if necessary.
+     </P
+><P
+>&#13;      Note that if you are using JavaScript the <VAR
+CLASS="literal"
+>[]</VAR
+>
+      on the element name might cause you problems when you try to
+      refer to the element by name. Use it's numerical form element
+      ID instead, or enclose the variable name in single quotes and
+      use that as the index to the elements array, for example:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>variable = documents.forms[0].elements['var[]'];</PRE
+></TD
+></TR
+></TABLE
+>
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.html.javascript-variable"
+></A
+><B
+>5. </B
+>
+      How can I pass a variable from Javascript to PHP?
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      Since Javascript is (usually) a client-side technology, and
+      PHP is (usually) a server-side technology, and since HTTP is a
+      "stateless" protocol, the two languages cannot directly share
+      variables.
+     </P
+><P
+>&#13;      It is, however, possible to pass variables between the two.
+      One way of accomplishing this is to generate Javascript code
+      with PHP, and have the browser refresh itself, passing specific
+      variables back to the PHP script. The example below shows
+      precisely how to do this -- it allows PHP code to capture screen
+      height and width, something that is normally only possible on
+      the client side.
+     </P
+><P
+>&#13;      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (isset(</font><font color="#0000BB">$_GET</font><font color="#007700">[</font><font color="#DD0000">'width'</font><font color="#007700">]) AND isset(</font><font color="#0000BB">$_GET</font><font color="#007700">[</font><font color="#DD0000">'height'</font><font color="#007700">])) {<br />&nbsp;&nbsp;</font><font color="#FF8000">// output the geometry variables<br />&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">"Screen width is: "</font><font color="#007700">. </font><font color="#0000BB">$_GET</font><font color="#007700">[</font><font color="#DD0000">'width'</font><font color="#007700">] .</font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"Screen height is: "</font><font color="#007700">. </font><font color="#0000BB">$_GET</font><font color="#007700">[</font><font color="#DD0000">'height'</font><font color="#007700">] .</font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;</font><font color="#FF8000">// pass the geometry variables<br />&nbsp;&nbsp;// (preserve the original query string<br />&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;-- post variables will need to handled differently)<br /><br />&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">"&lt;script language='javascript'&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"&nbsp;&nbsp;location.href=</font><font color="#007700">\"${</font><font color="#DD0000">_SERVER</font><font color="#007700">[</font><font color="#DD0000">'SCRIPT_NAME'</font><font color="#007700">]}</font><font color="#DD0000">?</font><font color="#007700">${</font><font color="#DD0000">_SERVER</font><font color="#007700">[</font><font color="#DD0000">'QUERY_STRING'</font><font color="#007700">]}</font><font color="#DD0000">"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#DD0000">"&amp;width=\" + screen.width + \"&amp;height=\" + screen.height;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;/script&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;exit();<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+>
+     </P
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="faq.using.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="faq.com.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using PHP</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="faq.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PHP e COM</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

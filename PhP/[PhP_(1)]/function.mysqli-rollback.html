@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysqli_rollback</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Improved Extension"
+HREF="ref.mysqli.html"><LINK
+REL="PREVIOUS"
+TITLE="mysqli_report"
+HREF="function.mysqli-report.html"><LINK
+REL="NEXT"
+TITLE="mysqli_rpl_parse_enabled"
+HREF="function.mysqli-rpl-parse-enabled.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysqli-report.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysqli-rpl-parse-enabled.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysqli-rollback"
+></A
+>mysqli_rollback</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN97839"
+></A
+><P
+>    (PHP 5)</P
+>mysqli_rollback<P
+>    (no version information, might be only in CVS)</P
+>mysqli-&#62;rollback&nbsp;--&nbsp;Rolls back current transaction</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN97843"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>mysqli_rollback</B
+> ( mysqli link )<BR
+></BR
+>class <B
+CLASS="classname"
+>mysqli</B
+> { <BR
+></BR
+>bool <B
+CLASS="methodname"
+>rollback</B
+> ( void  )<BR
+></BR
+>}<P
+>&#13;     Rollbacks the current transaction for the database specified by the
+     <VAR
+CLASS="parameter"
+>link</VAR
+> parameter.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN97860"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN97865"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;     <A
+HREF="function.mysqli-commit.html"
+><B
+CLASS="function"
+>mysqli_commit()</B
+></A
+> e
+     <A
+HREF="function.mysqli-autocommit.html"
+><B
+CLASS="function"
+>mysqli_autocommit()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN97870"
+></A
+><H2
+>Esempi</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN97872"
+></A
+><P
+><B
+>Esempio 1. Object oriented style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$mysqli </font><font color="#007700">= new </font><font color="#0000BB">mysqli</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"my_user"</font><font color="#007700">, </font><font color="#DD0000">"my_password"</font><font color="#007700">, </font><font color="#DD0000">"world"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">mysqli_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">mysqli_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#FF8000">/* disable autocommit */<br /></font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">autocommit</font><font color="#007700">(</font><font color="#0000BB">FALSE</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"CREATE TABLE myCity LIKE City"</font><font color="#007700">);<br /></font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"ALTER TABLE myCity Type=InnoDB"</font><font color="#007700">);<br /></font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"INSERT INTO myCity SELECT * FROM City LIMIT 50"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* commit insert */<br /></font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">commit</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* delete all rows */<br /></font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"DELETE FROM myCity"</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"SELECT COUNT(*) FROM myCity"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch_row</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%d rows in table myCity.\n"</font><font color="#007700">, </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Free result */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br />}<br /><br /></font><font color="#FF8000">/* Rollback */<br /></font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">rollback</font><font color="#007700">();<br /><br />if (</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"SELECT COUNT(*) FROM myCity"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch_row</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%d rows in table myCity (after rollback).\n"</font><font color="#007700">, </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Free result */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br />}<br /><br /></font><font color="#FF8000">/* Drop table myCity */<br /></font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"DROP TABLE myCity"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN97875"
+></A
+><P
+><B
+>Esempio 2. Procedural style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$link </font><font color="#007700">= </font><font color="#0000BB">mysqli_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"my_user"</font><font color="#007700">, </font><font color="#DD0000">"my_password"</font><font color="#007700">, </font><font color="#DD0000">"world"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">mysqli_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">mysqli_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#FF8000">/* disable autocommit */<br /></font><font color="#0000BB">mysqli_autocommit</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#0000BB">FALSE</font><font color="#007700">);<br /><br /></font><font color="#0000BB">mysqli_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"CREATE TABLE myCity LIKE City"</font><font color="#007700">);<br /></font><font color="#0000BB">mysqli_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"ALTER TABLE myCity Type=InnoDB"</font><font color="#007700">);<br /></font><font color="#0000BB">mysqli_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"INSERT INTO myCity SELECT * FROM City LIMIT 50"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* commit insert */<br /></font><font color="#0000BB">mysqli_commit</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* delete all rows */<br /></font><font color="#0000BB">mysqli_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"DELETE FROM myCity"</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">mysqli_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"SELECT COUNT(*) FROM myCity"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">mysqli_fetch_row</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%d rows in table myCity.\n"</font><font color="#007700">, </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Free result */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysqli_free_result</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />}<br /><br /></font><font color="#FF8000">/* Rollback */<br /></font><font color="#0000BB">mysqli_rollback</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">mysqli_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"SELECT COUNT(*) FROM myCity"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">mysqli_fetch_row</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%d rows in table myCity (after rollback).\n"</font><font color="#007700">, </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Free result */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysqli_free_result</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />}<br /><br /></font><font color="#FF8000">/* Drop table myCity */<br /></font><font color="#0000BB">mysqli_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"DROP TABLE myCity"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">mysqli_close</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>0 rows in table myCity.
+50 rows in table myCity (after rollback).</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysqli-report.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysqli-rpl-parse-enabled.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysqli_report</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysqli.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysqli_rpl_parse_enabled</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

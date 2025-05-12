@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>DomDocument-&#62;html_dump_mem</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni DOM XML"
+HREF="ref.domxml.html"><LINK
+REL="PREVIOUS"
+TITLE="DomDocument->get_elements_by_tagname"
+HREF="function.domdocument-get-elements-by-tagname.html"><LINK
+REL="NEXT"
+TITLE="DomDocument->xinclude"
+HREF="function.domdocument-xinclude.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.domdocument-get-elements-by-tagname.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.domdocument-xinclude.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.domdocument-html-dump-mem"
+></A
+>DomDocument-&#62;html_dump_mem</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN35691"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>DomDocument-&#62;html_dump_mem&nbsp;--&nbsp;
+     Scarica la struttura XML interna in una stringa come HTML
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN35694"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>DomDocument-&#62;html_dump_mem</B
+> ( void  )<BR
+></BR
+><P
+>&#13;     La funzione crea un documento HTML dalla rappresentazione DOM. Solitamente
+     si richiama questa funzione dopo avere costruito un nuovo documento DOM da zero,
+     come nell'esempio seguente.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN35702"
+></A
+><P
+><B
+>Esempio 1. Creazione dell'intestazione di un documento HTML</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">// Crea il documento<br /></font><font color="#0000BB">$doc </font><font color="#007700">= </font><font color="#0000BB">domxml_new_doc</font><font color="#007700">(</font><font color="#DD0000">"1.0"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$root </font><font color="#007700">= </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">create_element</font><font color="#007700">(</font><font color="#DD0000">"html"</font><font color="#007700">);<br /></font><font color="#0000BB">$root </font><font color="#007700">= </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">append_child</font><font color="#007700">(</font><font color="#0000BB">$root</font><font color="#007700">);<br /></font><font color="#0000BB">$head </font><font color="#007700">= </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">create_element</font><font color="#007700">(</font><font color="#DD0000">"head"</font><font color="#007700">);<br /></font><font color="#0000BB">$head </font><font color="#007700">= </font><font color="#0000BB">$root</font><font color="#007700">-&gt;</font><font color="#0000BB">append_child</font><font color="#007700">(</font><font color="#0000BB">$head</font><font color="#007700">);<br /></font><font color="#0000BB">$title </font><font color="#007700">= </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">create_element</font><font color="#007700">(</font><font color="#DD0000">"title"</font><font color="#007700">);<br /></font><font color="#0000BB">$title </font><font color="#007700">= </font><font color="#0000BB">$head</font><font color="#007700">-&gt;</font><font color="#0000BB">append_child</font><font color="#007700">(</font><font color="#0000BB">$title</font><font color="#007700">);<br /></font><font color="#0000BB">$text </font><font color="#007700">= </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">create_text_node</font><font color="#007700">(</font><font color="#DD0000">"This is the title"</font><font color="#007700">);<br /></font><font color="#0000BB">$text </font><font color="#007700">= </font><font color="#0000BB">$title</font><font color="#007700">-&gt;</font><font color="#0000BB">append_child</font><font color="#007700">(</font><font color="#0000BB">$text</font><font color="#007700">);<br />echo </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">html_dump_mem</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="xml"
+>&#60;html&#62;&#60;head&#62;&#60;title&#62;This is the title&#60;/title&#62;&#60;/head&#62;&#60;/html&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.domdocument-dump-file.html"
+><B
+CLASS="function"
+>domdocument_dump_file()</B
+></A
+> e
+     <A
+HREF="function.domdocument-html-dump-mem.html"
+><B
+CLASS="function"
+>domdocument_html_dump_mem()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.domdocument-get-elements-by-tagname.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.domdocument-xinclude.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>DomDocument-&#62;get_elements_by_tagname</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.domxml.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DomDocument-&#62;xinclude</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fscanf</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="fread"
+HREF="function.fread.html"><LINK
+REL="NEXT"
+TITLE="fseek"
+HREF="function.fseek.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fread.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fseek.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fscanf"
+></A
+>fscanf</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN41915"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.1, PHP 5)</P
+>fscanf&nbsp;--&nbsp;Analizza l'input da un file secondo un determinato formato</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41918"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>fscanf</B
+> ( resource handle, string format [, mixed &#38;...] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>fscanf()</B
+> è simile a 
+     <A
+HREF="function.sscanf.html"
+><B
+CLASS="function"
+>sscanf()</B
+></A
+>, ma prende il proprio input da un file 
+     associato con <VAR
+CLASS="parameter"
+>handle</VAR
+> e interpreta 
+     l'input in accordo con il parametro 
+     <VAR
+CLASS="parameter"
+>format</VAR
+>, che viene descritto nella documentazione della funzione
+     <A
+HREF="function.sprintf.html"
+><B
+CLASS="function"
+>sprintf()</B
+></A
+>. Se vengono passati solo due parametri
+     a questa funzione, i valori esaminati verranno restituiti in un vettore.
+     Altrimenti, se vengono passati i parametri opzionali, la funzione restituirà
+     il numero dei valori assegnati. I parametri opzionali
+     devono essere passati da reference.
+    </P
+><P
+>&#13;     Ogni spazio nella stringa di formato identifica uno spazio nel flusso
+     di input. Questo significa che anche i tab <VAR
+CLASS="literal"
+>\t</VAR
+> presenti nella stringa
+     di formato possono identiicare uno spazio nel flusso di input.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN41941"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>fscanf()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$handle </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"users.txt"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br />while (</font><font color="#0000BB">$userinfo </font><font color="#007700">= </font><font color="#0000BB">fscanf </font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#DD0000">"%s\t%s\t%s\n"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;list (</font><font color="#0000BB">$name</font><font color="#007700">, </font><font color="#0000BB">$profession</font><font color="#007700">, </font><font color="#0000BB">$countrycode</font><font color="#007700">) = </font><font color="#0000BB">$userinfo</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">//... fai quacosa coi valori ...<br /></font><font color="#007700">}<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN41945"
+></A
+><P
+><B
+>Esempio 2. Cntyennts of users.txt</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="txt"
+>javier  argonaut        pe
+hiroshi sculptor        jp
+robert  slacker us
+luigi   florist it</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Nelle versioni di PHP precedenti alla 4.3.0, il numero massimo di caratteri
+      letti da un file era di 512 (o fino al primo \n, dipende da quale si incontra prima).
+      Dal PHP 4.3.0 si possono esaminare linee di lunghezza arbitraria.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.fread.html"
+><B
+CLASS="function"
+>fread()</B
+></A
+>, <A
+HREF="function.fgets.html"
+><B
+CLASS="function"
+>fgets()</B
+></A
+>,
+     <A
+HREF="function.fgetss.html"
+><B
+CLASS="function"
+>fgetss()</B
+></A
+>, <A
+HREF="function.sscanf.html"
+><B
+CLASS="function"
+>sscanf()</B
+></A
+>,
+     <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+> e <A
+HREF="function.sprintf.html"
+><B
+CLASS="function"
+>sprintf()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fread.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fseek.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fread</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fseek</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

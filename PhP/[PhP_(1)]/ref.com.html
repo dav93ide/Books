@@ -1,0 +1,1537 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni di supporto COM per Windows</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="cpdf_translate"
+HREF="function.cpdf-translate.html"><LINK
+REL="NEXT"
+TITLE="COM"
+HREF="class.com.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.cpdf-translate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="class.com.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.com"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XV. Funzioni di supporto COM per Windows</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN17993"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="com.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     COM è una tecnologia che permette il riutilizzo del codice scritto in un qualsiasi
+     linguaggio utilizzando una convenzione standard di chiamate e nascondendo
+     dietro a delle API i dettagli di implementazione quali la macchina su cui il Componente
+     è conservato e il file eseguibile che lo ospita. Si può pernsare a COM com a un meccanismo
+     avanzato di Remote Procedure Call (RPC) con alcune basi di programmazione ad oggetti. 
+     COM separa l'implementazione dall'interfaccia.
+    </P
+><P
+>&#13;     COM incoraggia il versioning, la separazione tra interfaccia e 
+     implementazione e l'occultamento dei dettagli dell'implementazione, come la posizione dell'eseguibile e 
+     il linguaggio di programmazione.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="com.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Le funzioni COM sono disponibili solo sulle versioni Windows di PHP.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="com.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+><P
+> La versione per Windows di PHP
+ha già compilato il supporto per questo modulo. Non occorre caricare alcun modulo
+addizionale per potere utilizzare queste funzioni.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="com.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN18010"
+></A
+><P
+><B
+>Tabella 1. opzioni di configurazione Com</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile in</TH
+><TH
+>Log variazioni</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>com.allow_dcom</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Disponibile dal PHP 4.0.5.</TD
+></TR
+><TR
+><TD
+>com.autoregister_typelib</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>PHP_INI_SYSTEM in PHP 4. Disponibile in PHP 4.1.0.</TD
+></TR
+><TR
+><TD
+>com.autoregister_verbose</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>PHP_INI_SYSTEM in PHP 4. Disponibile dal PHP 4.1.0.</TD
+></TR
+><TR
+><TD
+>com.autoregister_casesensitive</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>PHP_INI_SYSTEM in PHP 4. Disponibile dal PHP 4.1.0.</TD
+></TR
+><TR
+><TD
+>com.code_page</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Disponibile dal PHP 5.0.0.</TD
+></TR
+><TR
+><TD
+>com.typelib_file</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Disponibile dal PHP 4.0.5.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.com.allow-dcom"
+></A
+><VAR
+CLASS="parameter"
+>com.allow_dcom</VAR
+></DT
+><DD
+><P
+>&#13;     Quando è impostato a on, il PHP è abilitao ad operare come client D-COM
+     (COM distribuito) e permette agli script PHP di istanziare oggetti
+     COM su un server remoto.
+    </P
+></DD
+><DT
+><A
+NAME="ini.com.autoregister-typelib"
+></A
+><VAR
+CLASS="parameter"
+>com.autoregister_typelib</VAR
+></DT
+><DD
+><P
+>&#13;     Quando questo parametro è impostato a on il PHP tenta di registrare costanti
+     dalla libreria dei tipi dell'oggetto che istanzia, se l'pggetto implementa
+     l'interfaccia richiesta per ottenere le informazioni in oggetto.
+     Se distinguere tra nomi dlle costanti maiuscoli e minuscoli è controllato
+     dal parametro
+     <A
+HREF="ref.com.html#ini.com.autoregister-casesensitive"
+><I
+CLASS="term"
+>&#13;     <VAR
+CLASS="parameter"
+>com.autoregister_casesensitive</VAR
+>
+    </I
+></A
+>.
+    </P
+></DD
+><DT
+><A
+NAME="ini.com.autoregister-verbose"
+></A
+><VAR
+CLASS="parameter"
+>com.autoregister_verbose</VAR
+></DT
+><DD
+><P
+>&#13;     When this is turned on, any problems with loading a typelibrary during
+     object instantiation will be reported using the PHP error mechanism.
+     The default is off, which does not emit any indication if there was
+     an error finding or loading the type library.
+    </P
+></DD
+><DT
+><A
+NAME="ini.com.autoregister-casesensitive"
+></A
+><VAR
+CLASS="parameter"
+>com.autoregister_casesensitive</VAR
+></DT
+><DD
+><P
+>&#13;     When this is turned on (the default), constants found in auto-loaded
+     type libraries will be registered case sensitively.  See
+     <A
+HREF="function.com-load-typelib.html"
+><B
+CLASS="function"
+>com_load_typelib()</B
+></A
+> for more details.
+    </P
+></DD
+><DT
+><A
+NAME="ini.com.code-page"
+></A
+><VAR
+CLASS="parameter"
+>com.code_page</VAR
+></DT
+><DD
+><P
+>&#13;     It controls the default character set code-page to use when passing
+     strings to and from COM objects.  If set to an empty string, PHP will
+     assume that you want <TT
+CLASS="constant"
+><B
+>CP_ACP</B
+></TT
+>, which is the default
+     system ANSI code page.
+    </P
+><P
+>&#13;     If the text in your scripts is encoded using a different
+     encoding/character set by default, setting this directive will save you
+     from having to pass the code page as a parameter to the <A
+HREF="class.com.html"
+>COM</A
+> class constructor.  Please note that by
+     using this directive (as with any PHP configuration directive), your PHP
+     script becomes less portable; you should use the COM constructor parameter
+     whenever possible.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      This configuration directive was introduced with PHP 5.
+     </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="ini.com.typelib-file"
+></A
+><VAR
+CLASS="parameter"
+>com.typelib_file</VAR
+></DT
+><DD
+><P
+>&#13;     When set, this should hold the path to a file that contains a list
+     of typelibraries that should be loaded on startup.  Each line of
+     the file will be treated as the type library name and loaded as
+     though you had called <A
+HREF="function.com-load-typelib.html"
+><B
+CLASS="function"
+>com_load_typelib()</B
+></A
+>.
+     The constants will be registered persistently, so that the library
+     only needs to be loaded once.  If a type library name ends with the
+     string <VAR
+CLASS="literal"
+>#cis</VAR
+> or <VAR
+CLASS="literal"
+>#case_insensitive</VAR
+>,
+     then the constants from that library will be registered case
+     insensitively.
+    </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="com.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>CLSCTX_INPROC_SERVER</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CLSCTX_INPROC_HANDLER</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CLSCTX_LOCAL_SERVER</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CLSCTX_REMOTE_SERVER</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CLSCTX_SERVER</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CLSCTX_ALL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_NULL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_EMPTY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_UI1</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_I2</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_I4</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_R4</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_R8</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_BOOL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_ERROR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_CY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_DATE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_BSTR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_DECIMAL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_UNKNOWN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_DISPATCH</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_VARIANT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_I1</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_UI2</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_UI4</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_INT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_UINT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_ARRAY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>VT_BYREF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CP_ACP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CP_MACCP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CP_OEMCP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CP_UTF7</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CP_UTF8</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CP_SYMBOL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CP_THREAD_ACP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="com.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     Per maggiori informazioni su COM si leggano le <A
+HREF="http://www.microsoft.com/Com/resources/comdocs.asp"
+TARGET="_top"
+>specifiche
+     COM</A
+> o si guardi anche la documentazione di Don Box su 
+     <A
+HREF="http://www.develop.com/essentialcom/sources/YACL.htm"
+TARGET="_top"
+>Yet Another COM Library (YACL)</A
+> 
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="class.com.html"
+>COM</A
+>&nbsp;--&nbsp;classe COM</DT
+><DT
+><A
+HREF="class.dotnet.html"
+>DOTNET</A
+>&nbsp;--&nbsp;DOTNET class</DT
+><DT
+><A
+HREF="class.variant.html"
+>VARIANT</A
+>&nbsp;--&nbsp;classe VARIANT</DT
+><DT
+><A
+HREF="function.com-addref.html"
+>com_addref</A
+>&nbsp;--&nbsp;
+    Incrementa il contatore di referenze.
+   </DT
+><DT
+><A
+HREF="function.com-create-guid.html"
+>com_create_guid</A
+>&nbsp;--&nbsp;
+     Generate a globally unique identifier (GUID)
+    </DT
+><DT
+><A
+HREF="function.com-event-sink.html"
+>com_event_sink</A
+>&nbsp;--&nbsp;
+     Connect events from a COM object to a PHP object
+    </DT
+><DT
+><A
+HREF="function.com-get-active-object.html"
+>com_get_active_object</A
+>&nbsp;--&nbsp;
+     Returns a handle to an already running instance of a COM object
+    </DT
+><DT
+><A
+HREF="function.com-get.html"
+>com_get</A
+>&nbsp;--&nbsp;
+    Ricava il valore di una proprietà di un componente COM
+   </DT
+><DT
+><A
+HREF="function.com-invoke.html"
+>com_invoke</A
+>&nbsp;--&nbsp;
+    Chiama un metodo di un componente COM.
+   </DT
+><DT
+><A
+HREF="function.com-isenum.html"
+>com_isenum</A
+>&nbsp;--&nbsp;Recupera un IEnumVariant</DT
+><DT
+><A
+HREF="function.com-load-typelib.html"
+>com_load_typelib</A
+>&nbsp;--&nbsp;Carica una Typelib</DT
+><DT
+><A
+HREF="function.com-load.html"
+>com_load</A
+>&nbsp;--&nbsp;
+    Crea un nuovo riferimento a un componente COM
+   </DT
+><DT
+><A
+HREF="function.com-message-pump.html"
+>com_message_pump</A
+>&nbsp;--&nbsp;
+     Process COM messages, sleeping for up to timeoutms milliseconds
+    </DT
+><DT
+><A
+HREF="function.com-print-typeinfo.html"
+>com_print_typeinfo</A
+>&nbsp;--&nbsp;
+     Print out a PHP class definition for a dispatchable interface
+    </DT
+><DT
+><A
+HREF="function.com-propget.html"
+>com_propget</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.com-get.html"
+><B
+CLASS="function"
+>com_get()</B
+></A
+></DT
+><DT
+><A
+HREF="function.com-propput.html"
+>com_propput</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.com-set.html"
+><B
+CLASS="function"
+>com_set()</B
+></A
+></DT
+><DT
+><A
+HREF="function.com-propset.html"
+>com_propset</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.com-set.html"
+><B
+CLASS="function"
+>com_set()</B
+></A
+></DT
+><DT
+><A
+HREF="function.com-release.html"
+>com_release</A
+>&nbsp;--&nbsp;
+    Decrementa il contaotre di referenze.
+   </DT
+><DT
+><A
+HREF="function.com-set.html"
+>com_set</A
+>&nbsp;--&nbsp;
+    Assegna un valore a una proprietà di un oggetto COM 
+   </DT
+><DT
+><A
+HREF="function.variant-abs.html"
+>variant_abs</A
+>&nbsp;--&nbsp;
+     Returns the absolute value of a variant
+    </DT
+><DT
+><A
+HREF="function.variant-add.html"
+>variant_add</A
+>&nbsp;--&nbsp;
+     "Adds" two variant values together and returns the result
+    </DT
+><DT
+><A
+HREF="function.variant-and.html"
+>variant_and</A
+>&nbsp;--&nbsp;
+     performs a bitwise AND operation between two variants and returns the result
+    </DT
+><DT
+><A
+HREF="function.variant-cast.html"
+>variant_cast</A
+>&nbsp;--&nbsp;
+     Convert a variant into a new variant object of another type
+    </DT
+><DT
+><A
+HREF="function.variant-cat.html"
+>variant_cat</A
+>&nbsp;--&nbsp;
+     concatenates two variant values together and returns the result
+    </DT
+><DT
+><A
+HREF="function.variant-cmp.html"
+>variant_cmp</A
+>&nbsp;--&nbsp;
+     Compares two variants
+    </DT
+><DT
+><A
+HREF="function.variant-date-from-timestamp.html"
+>variant_date_from_timestamp</A
+>&nbsp;--&nbsp;
+     Returns a variant date representation of a unix timestamp
+    </DT
+><DT
+><A
+HREF="function.variant-date-to-timestamp.html"
+>variant_date_to_timestamp</A
+>&nbsp;--&nbsp;
+     Converts a variant date/time value to unix timestamp
+    </DT
+><DT
+><A
+HREF="function.variant-div.html"
+>variant_div</A
+>&nbsp;--&nbsp;
+     Returns the result from dividing two variants
+    </DT
+><DT
+><A
+HREF="function.variant-eqv.html"
+>variant_eqv</A
+>&nbsp;--&nbsp;
+     Performs a bitwise equivalence on two variants
+    </DT
+><DT
+><A
+HREF="function.variant-fix.html"
+>variant_fix</A
+>&nbsp;--&nbsp;
+     Returns the integer portion ? of a variant
+    </DT
+><DT
+><A
+HREF="function.variant-get-type.html"
+>variant_get_type</A
+>&nbsp;--&nbsp;Returns the type of a variant object</DT
+><DT
+><A
+HREF="function.variant-idiv.html"
+>variant_idiv</A
+>&nbsp;--&nbsp;
+     Converts variants to integers and then returns the result from dividing them
+    </DT
+><DT
+><A
+HREF="function.variant-imp.html"
+>variant_imp</A
+>&nbsp;--&nbsp;
+     Performs a bitwise implication on two variants
+    </DT
+><DT
+><A
+HREF="function.variant-int.html"
+>variant_int</A
+>&nbsp;--&nbsp;
+     Returns the integer portion of a variant
+    </DT
+><DT
+><A
+HREF="function.variant-mod.html"
+>variant_mod</A
+>&nbsp;--&nbsp;
+     Divides two variants and returns only the remainder
+    </DT
+><DT
+><A
+HREF="function.variant-mul.html"
+>variant_mul</A
+>&nbsp;--&nbsp;
+     multiplies the values of the two variants and returns the result
+    </DT
+><DT
+><A
+HREF="function.variant-neg.html"
+>variant_neg</A
+>&nbsp;--&nbsp;
+     Performs logical negation on a variant
+    </DT
+><DT
+><A
+HREF="function.variant-not.html"
+>variant_not</A
+>&nbsp;--&nbsp;
+     Performs bitwise not negation on a variant
+    </DT
+><DT
+><A
+HREF="function.variant-or.html"
+>variant_or</A
+>&nbsp;--&nbsp;
+     Performs a logical disjunction on two variants
+    </DT
+><DT
+><A
+HREF="function.variant-pow.html"
+>variant_pow</A
+>&nbsp;--&nbsp;
+     Returns the result of performing the power function with two variants
+    </DT
+><DT
+><A
+HREF="function.variant-round.html"
+>variant_round</A
+>&nbsp;--&nbsp;
+     Rounds a variant to the specified number of decimal places
+    </DT
+><DT
+><A
+HREF="function.variant-set-type.html"
+>variant_set_type</A
+>&nbsp;--&nbsp;
+     Convert a variant into another type "in-place"
+    </DT
+><DT
+><A
+HREF="function.variant-set.html"
+>variant_set</A
+>&nbsp;--&nbsp;
+     Assigns a new value for a variant object
+    </DT
+><DT
+><A
+HREF="function.variant-sub.html"
+>variant_sub</A
+>&nbsp;--&nbsp;
+     subtracts the value of the right variant from the left variant value and returns the result
+    </DT
+><DT
+><A
+HREF="function.variant-xor.html"
+>variant_xor</A
+>&nbsp;--&nbsp;
+     Performs a logical exclusion on two variants
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.cpdf-translate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="class.com.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>cpdf_translate</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>COM</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

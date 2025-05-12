@@ -1,0 +1,380 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>session_register</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di gestione della sessione"
+HREF="ref.session.html"><LINK
+REL="PREVIOUS"
+TITLE="session_regenerate_id"
+HREF="function.session-regenerate-id.html"><LINK
+REL="NEXT"
+TITLE="session_save_path"
+HREF="function.session-save-path.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.session-regenerate-id.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.session-save-path.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.session-register"
+></A
+>session_register</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN150667"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>session_register&nbsp;--&nbsp;
+     Registra una o più variabili con la sessione corrente
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN150670"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>session_register</B
+> ( mixed name [, mixed ...] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>session_register()</B
+> accetta un numero di argomenti 
+     variabile, ognuno dei quali può sia essere una stringa contenente il nome di
+     una variabile o un array che contiene i nomi delle variabili o altri arrays.
+     Per ogni nome, <B
+CLASS="function"
+>session_register()</B
+> registra la variabile 
+     globale con quel nome nella sessione corrente.
+    </P
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Questo registra un variabile <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>global</I
+></SPAN
+>. Se volete
+      registrare una variabile di sessione interna a una funzione, avete bisogno di assicurarvi
+      di farla globale usando <B
+CLASS="function"
+>global()</B
+> o usate gli arrays di sessione
+      come scritto sotto.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Se state usando
+      <VAR
+CLASS="varname"
+>$HTTP_SESSION_VARS</VAR
+>/<VAR
+CLASS="varname"
+>$_SESSION</VAR
+>,
+      non usate <B
+CLASS="function"
+>session_register()</B
+>,
+      <A
+HREF="function.session-is-registered.html"
+><B
+CLASS="function"
+>session_is_registered()</B
+></A
+> e
+      <A
+HREF="function.session-unregister.html"
+><B
+CLASS="function"
+>session_unregister()</B
+></A
+>.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Questa funzione restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> quando tutte le variabili sono registrate
+     con successo nella sessione.
+    </P
+><P
+>&#13;     Se <A
+HREF="function.session-start.html"
+><B
+CLASS="function"
+>session_start()</B
+></A
+> non è stata chiamata prima che questa funzione
+     venga chiamata, avverrà una chiamata imlicita senza parametri 
+     a <A
+HREF="function.session-start.html"
+><B
+CLASS="function"
+>session_start()</B
+></A
+>.
+    </P
+><P
+>&#13;     Potete anche creare una variabile di sessione semplicemente impostando
+     l'appropriato membro di <VAR
+CLASS="varname"
+>$HTTP_SESSION_VARS</VAR
+>
+     o <VAR
+CLASS="varname"
+>$_SESSION</VAR
+> (PHP &#62;= 4.1.0) array.
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN150703"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$barney = "Una grande torta fiammeggiante.";<br />session_register("barney");<br /><br />$HTTP_SESSION_VARS["zim"] = "Mars attack.";<br /><br /># the auto-global $_SESSION array was introduced in PHP 4.1.0<br />$_SESSION["spongebob"] = "Ha i pantaloni a quadri.";</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Non è possibile registrare risorse variabili in una sessione.
+      Per esempio, non potete creare una connessione a un database e 
+      archiviare l'id della connessione come una variabile di sessione
+      e aspettarvi che la connessione sia ancora valida la prossima volta
+      che la sessione viene riastabilita. Le funzioni PHP che restituiscono
+      una risorsa sono identificate avendo un tipo di restituzione <VAR
+CLASS="literal"
+>resource</VAR
+>
+      nelle loro definizioni di funzione.  Una lista di funzioni che restituisce
+      risorse è disponibile nell'appendice <A
+HREF="resource.html"
+>resource types</A
+>.
+     </P
+><P
+>&#13;      Se viene usata <VAR
+CLASS="varname"
+>$_SESSION</VAR
+> (o
+      <VAR
+CLASS="varname"
+>$HTTP_SESSION_VARS</VAR
+> per PHP 4.0.6 or inferiore),
+      assegna la variabile a
+      <VAR
+CLASS="varname"
+>$_SESSION</VAR
+>. i.e. $_SESSION['var'] = 'ABC';
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.session-is-registered.html"
+><B
+CLASS="function"
+>session_is_registered()</B
+></A
+> e
+     <A
+HREF="function.session-unregister.html"
+><B
+CLASS="function"
+>session_unregister()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.session-regenerate-id.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.session-save-path.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>session_regenerate_id</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.session.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>session_save_path</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

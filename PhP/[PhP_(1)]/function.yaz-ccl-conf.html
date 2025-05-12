@@ -1,0 +1,338 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>yaz_ccl_conf</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="YAZ Functions"
+HREF="ref.yaz.html"><LINK
+REL="PREVIOUS"
+TITLE="yaz_addinfo"
+HREF="function.yaz-addinfo.html"><LINK
+REL="NEXT"
+TITLE="yaz_ccl_parse"
+HREF="function.yaz-ccl-parse.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.yaz-addinfo.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.yaz-ccl-parse.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.yaz-ccl-conf"
+></A
+>yaz_ccl_conf</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN180912"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.5, PECL)</P
+>yaz_ccl_conf&nbsp;--&nbsp;Configure CCL parser</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180915"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>yaz_ccl_conf</B
+> ( resource id, array config )<BR
+></BR
+><P
+>&#13;   This function configures the CCL query parser for a server with 
+   definitions of access points (CCL qualifiers) and their mapping to RPN.
+  </P
+><P
+>&#13;   To map a specific CCL query to RPN afterwards call the 
+   <A
+HREF="function.yaz-ccl-parse.html"
+><B
+CLASS="function"
+>yaz_ccl_parse()</B
+></A
+> function.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180929"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>id</VAR
+></DT
+><DD
+><P
+>&#13;       The connection resource returned by <A
+HREF="function.yaz-connect.html"
+><B
+CLASS="function"
+>yaz_connect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>config</VAR
+></DT
+><DD
+><P
+>&#13;       An array of configuration. Each key of the array is the name of a CCL
+       field and the corresponding value holds a string that specifies a 
+       mapping to RPN.
+      </P
+><P
+>&#13;       The mapping is a sequence of attribute-type, attribute-value pairs. 
+       Attribute-type and attribute-value is separated by an equal sign 
+       (<VAR
+CLASS="literal"
+>=</VAR
+>). Each pair is separated by white space.
+      </P
+><P
+>&#13;       Additional information can be found on the <A
+HREF="http://www.indexdata.dk/yaz/doc/tools.tkl#CCL"
+TARGET="_top"
+>CCL</A
+> page.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180948"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   No value is returned.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180951"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   In the example below, the CCL parser is configured to support three CCL
+   fields: <VAR
+CLASS="literal"
+>ti</VAR
+>, <VAR
+CLASS="literal"
+>au</VAR
+> and
+   <VAR
+CLASS="literal"
+>isbn</VAR
+>. Each field is mapped to their BIB-1 equivalent.
+   It is assumed that variable <VAR
+CLASS="literal"
+>$id</VAR
+> is the connection ID.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN180958"
+></A
+><P
+><B
+>Esempio 1. CCL configuration</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$fields </font><font color="#007700">= array(<br />&nbsp;&nbsp;</font><font color="#DD0000">"ti" </font><font color="#007700">=&gt; </font><font color="#DD0000">"1=4"</font><font color="#007700">,<br />&nbsp;&nbsp;</font><font color="#DD0000">"au"&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"1=1"</font><font color="#007700">,<br />&nbsp;&nbsp;</font><font color="#DD0000">"isbn" </font><font color="#007700">=&gt; </font><font color="#DD0000">"1=7"<br /></font><font color="#007700">);<br /></font><font color="#0000BB">yaz_ccl_conf</font><font color="#007700">(</font><font color="#0000BB">$id</font><font color="#007700">, </font><font color="#0000BB">$fields</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180961"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.yaz-ccl-parse.html"
+><B
+CLASS="function"
+>yaz_ccl_parse()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.yaz-addinfo.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.yaz-ccl-parse.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>yaz_addinfo</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.yaz.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>yaz_ccl_parse</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

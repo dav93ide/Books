@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>xslt_set_object</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni XSLT"
+HREF="ref.xslt.html"><LINK
+REL="PREVIOUS"
+TITLE="xslt_set_log"
+HREF="function.xslt-set-log.html"><LINK
+REL="NEXT"
+TITLE="xslt_set_sax_handler"
+HREF="function.xslt-set-sax-handler.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xslt-set-log.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.xslt-set-sax-handler.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.xslt-set-object"
+></A
+>xslt_set_object</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN180513"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PECL)</P
+>xslt_set_object&nbsp;--&nbsp;
+     Sets the object in which to resolve callback functions
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180516"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>xslt_set_object</B
+> ( resource processor, object &#38;obj )<BR
+></BR
+><P
+>&#13;     This function allows to use the <VAR
+CLASS="parameter"
+>processor</VAR
+> inside
+     an <VAR
+CLASS="parameter"
+>object</VAR
+> and to resolve all callback functions 
+     in it.
+    </P
+><P
+>&#13;     The callback functions can be declared with 
+     <B
+CLASS="function"
+>xml_set_sax_handlers()</B
+>, 
+     <A
+HREF="function.xslt-set-scheme-handlers.html"
+><B
+CLASS="function"
+>xslt_set_scheme_handlers()</B
+></A
+> or
+     <A
+HREF="function.xslt-set-error-handler.html"
+><B
+CLASS="function"
+>xslt_set_error_handler()</B
+></A
+> and are assumed to be methods
+     of <VAR
+CLASS="parameter"
+>object</VAR
+>.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180535"
+></A
+><H2
+>Esempi</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN180537"
+></A
+><P
+><B
+>Esempio 1. Using your own error handler as a method</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#007700">class </font><font color="#0000BB">my_xslt_processor </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$_xh</font><font color="#007700">; </font><font color="#FF8000">// our XSLT processor<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">function </font><font color="#0000BB">my_xslt_processor</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">_xh </font><font color="#007700">= </font><font color="#0000BB">xslt_create</font><font color="#007700">();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Make $this object the callback resolver<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">xslt_set_object</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">_xh</font><font color="#007700">, </font><font color="#0000BB">$this</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Let's handle the errors<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">xslt_set_error_handler</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">_xh</font><font color="#007700">, </font><font color="#DD0000">"my_xslt_error_handler"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">my_xslt_error_handler</font><font color="#007700">(</font><font color="#0000BB">$handler</font><font color="#007700">, </font><font color="#0000BB">$errno</font><font color="#007700">, </font><font color="#0000BB">$level</font><font color="#007700">, </font><font color="#0000BB">$info</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// for now, let's just see the arguments<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">func_get_args</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xslt-set-log.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.xslt-set-sax-handler.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>xslt_set_log</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.xslt.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>xslt_set_sax_handler</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

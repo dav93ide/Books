@@ -1,0 +1,1487 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni per le immagini</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="iis_stop_service"
+HREF="function.iis-stop-service.html"><LINK
+REL="NEXT"
+TITLE="gd_info"
+HREF="function.gd-info.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.iis-stop-service.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.gd-info.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.image"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LVI. Funzioni per le immagini</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN57628"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="image.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     In PHP puoi usare delle funzioni specifiche per sapere la dimensione di un'immagine
+     <ACRONYM
+CLASS="acronym"
+>JPEG</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>GIF</ACRONYM
+>,
+     <ACRONYM
+CLASS="acronym"
+>PNG</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>SWF</ACRONYM
+>,
+     <ACRONYM
+CLASS="acronym"
+>TIFF</ACRONYM
+> e <ACRONYM
+CLASS="acronym"
+>JPEG2000</ACRONYM
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="image.requirenments"
+>Requisiti</A
+></H1
+><P
+>&#13;     Se hai installato le librerie <ACRONYM
+CLASS="acronym"
+>GD</ACRONYM
+> (scaricabili su <A
+HREF="http://www.boutell.com/gd/"
+TARGET="_top"
+>http://www.boutell.com/gd/</A
+>) sarai anche in grado di creare immagini al volo 
+     e di modificarle.
+    </P
+><P
+>&#13;     I formati delle immagini sulle quali potrai agire dipendono dalla versione 
+     delle librerie <ACRONYM
+CLASS="acronym"
+>GD</ACRONYM
+> che hai installato, e dalle altre librerie di cui
+     <ACRONYM
+CLASS="acronym"
+>GD</ACRONYM
+> può aver bisogno per accedere a quei formati di immagine.
+     Versioni precedenti alla gd-1.6 supportano il formato GIF ma non quello PNG, 
+     mentre versioni superiori alla 
+     gd-1.6 supportano il formato PNG ma non il GIF.
+    </P
+><P
+>&#13;     Se hai compilato PHP con l'opzione <VAR
+CLASS="option"
+>--enable-exif</VAR
+> 
+     sarai in grado di lavorare con le informazioni memorizzate negli 
+     header delle immagini <ACRONYM
+CLASS="acronym"
+>JPEG</ACRONYM
+> e <ACRONYM
+CLASS="acronym"
+>TIFF</ACRONYM
+>. Queste 
+     funzioni non richiedono le librerie <ACRONYM
+CLASS="acronym"
+>GD</ACRONYM
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="image.installation"
+>Installazione</A
+></H1
+><P
+>&#13;     Per leggere e scrivere immagini in formato JPEG avrai bisogno di 
+     installare jpeg-6b (scaricabile da <A
+HREF="ftp://ftp.uu.net/graphics/jpeg/"
+TARGET="_top"
+>ftp://ftp.uu.net/graphics/jpeg/</A
+>) e 
+     quindi ricompilare le librerie <ACRONYM
+CLASS="acronym"
+>GD</ACRONYM
+>
+     in modo che usino jpeg-6b. Dovrai anche 
+     compilare PHP con l'opzione
+     <VAR
+CLASS="option"
+>--with-jpeg-dir=/percorso/per/jpeg-6b</VAR
+>.
+    </P
+><P
+>&#13;     Per aggiungere il supporto per i Font Type 1 dovrai installare t1lib (scaricabile
+     su <A
+HREF="ftp://sunsite.unc.edu/pub/Linux/libs/graphics/"
+TARGET="_top"
+>ftp://sunsite.unc.edu/pub/Linux/libs/graphics/</A
+>), e quindi aggiungere l'opzione
+     <VAR
+CLASS="option"
+>--with-t1lib[=dir]</VAR
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="image.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="image.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="image.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_GIF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_JPG</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_JPEG</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_PNG</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_WBMP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_XPM</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_COLOR_TILED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_COLOR_STYLED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_COLOR_BRUSHED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_COLOR_STYLEDBRUSHED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_COLOR_TRANSPARENT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_ARC_ROUNDED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_ARC_PIE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_ARC_CHORD</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_ARC_NOFILL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMG_ARC_EDGED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_GIF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_JPEG</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_PNG</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_SWF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_PSD</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_BMP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_WBMP</B
+></TT
+>
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;    
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_XBM</B
+></TT
+>
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;    
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_TIFF_II</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_TIFF_MM</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_IFF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_JB2</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_JPC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_JP2</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_JPX</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>IMAGETYPE_SWC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.gd-info.html"
+>gd_info</A
+>&nbsp;--&nbsp;Retrieve information about the currently installed GD library</DT
+><DT
+><A
+HREF="function.getimagesize.html"
+>getimagesize</A
+>&nbsp;--&nbsp;Get the size of an image</DT
+><DT
+><A
+HREF="function.image-type-to-extension.html"
+>image_type_to_extension</A
+>&nbsp;--&nbsp;
+   Get file extension for image type
+  </DT
+><DT
+><A
+HREF="function.image-type-to-mime-type.html"
+>image_type_to_mime_type</A
+>&nbsp;--&nbsp;Get Mime-Type for image-type returned by getimagesize, 
+    exif_read_data, exif_thumbnail, exif_imagetype</DT
+><DT
+><A
+HREF="function.image2wbmp.html"
+>image2wbmp</A
+>&nbsp;--&nbsp;Rende disponibile l'immagine per il browser o la salva in un file</DT
+><DT
+><A
+HREF="function.imagealphablending.html"
+>imagealphablending</A
+>&nbsp;--&nbsp;Set the blending mode for an image</DT
+><DT
+><A
+HREF="function.imageantialias.html"
+>imageantialias</A
+>&nbsp;--&nbsp;
+    Should antialias functions be used or not
+   </DT
+><DT
+><A
+HREF="function.imagearc.html"
+>imagearc</A
+>&nbsp;--&nbsp;Draw a partial ellipse</DT
+><DT
+><A
+HREF="function.imagechar.html"
+>imagechar</A
+>&nbsp;--&nbsp;Draw a character horizontally</DT
+><DT
+><A
+HREF="function.imagecharup.html"
+>imagecharup</A
+>&nbsp;--&nbsp;Draw a character vertically</DT
+><DT
+><A
+HREF="function.imagecolorallocate.html"
+>imagecolorallocate</A
+>&nbsp;--&nbsp;Allocate a color for an image</DT
+><DT
+><A
+HREF="function.imagecolorallocatealpha.html"
+>imagecolorallocatealpha</A
+>&nbsp;--&nbsp;Allocate a color for an image</DT
+><DT
+><A
+HREF="function.imagecolorat.html"
+>imagecolorat</A
+>&nbsp;--&nbsp;Get the index of the color of a pixel</DT
+><DT
+><A
+HREF="function.imagecolorclosest.html"
+>imagecolorclosest</A
+>&nbsp;--&nbsp;Get the index of the closest color to the specified color</DT
+><DT
+><A
+HREF="function.imagecolorclosestalpha.html"
+>imagecolorclosestalpha</A
+>&nbsp;--&nbsp;Get the index of the closest color to the specified color + alpha</DT
+><DT
+><A
+HREF="function.imagecolorclosesthwb.html"
+>imagecolorclosesthwb</A
+>&nbsp;--&nbsp;
+     Get the index of the color which has the hue, white and blackness nearest to the given color
+    </DT
+><DT
+><A
+HREF="function.imagecolordeallocate.html"
+>imagecolordeallocate</A
+>&nbsp;--&nbsp;De-allocate a color for an image</DT
+><DT
+><A
+HREF="function.imagecolorexact.html"
+>imagecolorexact</A
+>&nbsp;--&nbsp;Get the index of the specified color</DT
+><DT
+><A
+HREF="function.imagecolorexactalpha.html"
+>imagecolorexactalpha</A
+>&nbsp;--&nbsp;Get the index of the specified color + alpha</DT
+><DT
+><A
+HREF="function.imagecolormatch.html"
+>imagecolormatch</A
+>&nbsp;--&nbsp;
+    Makes the colors of the palette version of an image more closely match
+    the true color version
+   </DT
+><DT
+><A
+HREF="function.imagecolorresolve.html"
+>imagecolorresolve</A
+>&nbsp;--&nbsp;
+    Get the index of the specified color or its closest possible
+    alternative
+   </DT
+><DT
+><A
+HREF="function.imagecolorresolvealpha.html"
+>imagecolorresolvealpha</A
+>&nbsp;--&nbsp;
+    Get the index of the specified color + alpha or its closest possible
+    alternative
+   </DT
+><DT
+><A
+HREF="function.imagecolorset.html"
+>imagecolorset</A
+>&nbsp;--&nbsp;Set the color for the specified palette index</DT
+><DT
+><A
+HREF="function.imagecolorsforindex.html"
+>imagecolorsforindex</A
+>&nbsp;--&nbsp;Get the colors for an index</DT
+><DT
+><A
+HREF="function.imagecolorstotal.html"
+>imagecolorstotal</A
+>&nbsp;--&nbsp;Find out the number of colors in an image's palette</DT
+><DT
+><A
+HREF="function.imagecolortransparent.html"
+>imagecolortransparent</A
+>&nbsp;--&nbsp;Define a color as transparent</DT
+><DT
+><A
+HREF="function.imageconvolution.html"
+>imageconvolution</A
+>&nbsp;--&nbsp;
+     Apply a 3x3 convolution matrix, using coefficient div and offset
+    </DT
+><DT
+><A
+HREF="function.imagecopy.html"
+>imagecopy</A
+>&nbsp;--&nbsp;Copy part of an image</DT
+><DT
+><A
+HREF="function.imagecopymerge.html"
+>imagecopymerge</A
+>&nbsp;--&nbsp;Copy and merge part of an image</DT
+><DT
+><A
+HREF="function.imagecopymergegray.html"
+>imagecopymergegray</A
+>&nbsp;--&nbsp;Copy and merge part of an image with gray scale</DT
+><DT
+><A
+HREF="function.imagecopyresampled.html"
+>imagecopyresampled</A
+>&nbsp;--&nbsp;Copy and resize part of an image with resampling</DT
+><DT
+><A
+HREF="function.imagecopyresized.html"
+>imagecopyresized</A
+>&nbsp;--&nbsp;Copy and resize part of an image</DT
+><DT
+><A
+HREF="function.imagecreate.html"
+>imagecreate</A
+>&nbsp;--&nbsp;Create a new palette based image</DT
+><DT
+><A
+HREF="function.imagecreatefromgd2.html"
+>imagecreatefromgd2</A
+>&nbsp;--&nbsp;Create a new image from GD2 file or URL</DT
+><DT
+><A
+HREF="function.imagecreatefromgd2part.html"
+>imagecreatefromgd2part</A
+>&nbsp;--&nbsp;Create a new image from a given part of GD2 file or URL</DT
+><DT
+><A
+HREF="function.imagecreatefromgd.html"
+>imagecreatefromgd</A
+>&nbsp;--&nbsp;Create a new image from GD file or URL</DT
+><DT
+><A
+HREF="function.imagecreatefromgif.html"
+>imagecreatefromgif</A
+>&nbsp;--&nbsp;Create a new image from file or URL</DT
+><DT
+><A
+HREF="function.imagecreatefromjpeg.html"
+>imagecreatefromjpeg</A
+>&nbsp;--&nbsp;Create a new image from file or URL</DT
+><DT
+><A
+HREF="function.imagecreatefrompng.html"
+>imagecreatefrompng</A
+>&nbsp;--&nbsp;Create a new image from file or URL</DT
+><DT
+><A
+HREF="function.imagecreatefromstring.html"
+>imagecreatefromstring</A
+>&nbsp;--&nbsp;Create a new image from the image stream in the string</DT
+><DT
+><A
+HREF="function.imagecreatefromwbmp.html"
+>imagecreatefromwbmp</A
+>&nbsp;--&nbsp;Create a new image from file or URL</DT
+><DT
+><A
+HREF="function.imagecreatefromxbm.html"
+>imagecreatefromxbm</A
+>&nbsp;--&nbsp;Create a new image from file or URL</DT
+><DT
+><A
+HREF="function.imagecreatefromxpm.html"
+>imagecreatefromxpm</A
+>&nbsp;--&nbsp;Create a new image from file or URL</DT
+><DT
+><A
+HREF="function.imagecreatetruecolor.html"
+>imagecreatetruecolor</A
+>&nbsp;--&nbsp;Create a new true color image</DT
+><DT
+><A
+HREF="function.imagedashedline.html"
+>imagedashedline</A
+>&nbsp;--&nbsp;Draw a dashed line</DT
+><DT
+><A
+HREF="function.imagedestroy.html"
+>imagedestroy</A
+>&nbsp;--&nbsp;Destroy an image</DT
+><DT
+><A
+HREF="function.imageellipse.html"
+>imageellipse</A
+>&nbsp;--&nbsp;Draw an ellipse</DT
+><DT
+><A
+HREF="function.imagefill.html"
+>imagefill</A
+>&nbsp;--&nbsp;Flood fill</DT
+><DT
+><A
+HREF="function.imagefilledarc.html"
+>imagefilledarc</A
+>&nbsp;--&nbsp;Draw a partial ellipse and fill it</DT
+><DT
+><A
+HREF="function.imagefilledellipse.html"
+>imagefilledellipse</A
+>&nbsp;--&nbsp;Draw a filled ellipse</DT
+><DT
+><A
+HREF="function.imagefilledpolygon.html"
+>imagefilledpolygon</A
+>&nbsp;--&nbsp;Draw a filled polygon</DT
+><DT
+><A
+HREF="function.imagefilledrectangle.html"
+>imagefilledrectangle</A
+>&nbsp;--&nbsp;Draw a filled rectangle</DT
+><DT
+><A
+HREF="function.imagefilltoborder.html"
+>imagefilltoborder</A
+>&nbsp;--&nbsp;Flood fill to specific color</DT
+><DT
+><A
+HREF="function.imagefilter.html"
+>imagefilter</A
+>&nbsp;--&nbsp;
+     Applies a filter to an image
+    </DT
+><DT
+><A
+HREF="function.imagefontheight.html"
+>imagefontheight</A
+>&nbsp;--&nbsp;Get font height</DT
+><DT
+><A
+HREF="function.imagefontwidth.html"
+>imagefontwidth</A
+>&nbsp;--&nbsp;Get font width</DT
+><DT
+><A
+HREF="function.imageftbbox.html"
+>imageftbbox</A
+>&nbsp;--&nbsp;Give the bounding box of a text using fonts via freetype2</DT
+><DT
+><A
+HREF="function.imagefttext.html"
+>imagefttext</A
+>&nbsp;--&nbsp;Write text to the image using fonts using FreeType 2</DT
+><DT
+><A
+HREF="function.imagegammacorrect.html"
+>imagegammacorrect</A
+>&nbsp;--&nbsp;Apply a gamma correction to a GD image</DT
+><DT
+><A
+HREF="function.imagegd2.html"
+>imagegd2</A
+>&nbsp;--&nbsp;Output GD2 image to browser or file</DT
+><DT
+><A
+HREF="function.imagegd.html"
+>imagegd</A
+>&nbsp;--&nbsp;Output GD image to browser or file</DT
+><DT
+><A
+HREF="function.imagegif.html"
+>imagegif</A
+>&nbsp;--&nbsp;Output image to browser or file</DT
+><DT
+><A
+HREF="function.imageinterlace.html"
+>imageinterlace</A
+>&nbsp;--&nbsp;Enable or disable interlace</DT
+><DT
+><A
+HREF="function.imageistruecolor.html"
+>imageistruecolor</A
+>&nbsp;--&nbsp;Finds whether an image is a truecolor image</DT
+><DT
+><A
+HREF="function.imagejpeg.html"
+>imagejpeg</A
+>&nbsp;--&nbsp;Output image to browser or file</DT
+><DT
+><A
+HREF="function.imagelayereffect.html"
+>imagelayereffect</A
+>&nbsp;--&nbsp;
+     Set the alpha blending flag to use the bundled libgd layering effects
+    </DT
+><DT
+><A
+HREF="function.imageline.html"
+>imageline</A
+>&nbsp;--&nbsp;Draw a line</DT
+><DT
+><A
+HREF="function.imageloadfont.html"
+>imageloadfont</A
+>&nbsp;--&nbsp;Load a new font</DT
+><DT
+><A
+HREF="function.imagepalettecopy.html"
+>imagepalettecopy</A
+>&nbsp;--&nbsp;Copy the palette from one image to another</DT
+><DT
+><A
+HREF="function.imagepng.html"
+>imagepng</A
+>&nbsp;--&nbsp;Output a PNG image to either the browser or a file</DT
+><DT
+><A
+HREF="function.imagepolygon.html"
+>imagepolygon</A
+>&nbsp;--&nbsp;Draw a polygon</DT
+><DT
+><A
+HREF="function.imagepsbbox.html"
+>imagepsbbox</A
+>&nbsp;--&nbsp;
+     Give the bounding box of a text rectangle using PostScript Type1
+     fonts
+    </DT
+><DT
+><A
+HREF="function.imagepscopyfont.html"
+>imagepscopyfont</A
+>&nbsp;--&nbsp;
+     Make a copy of an already loaded font for further modification
+    </DT
+><DT
+><A
+HREF="function.imagepsencodefont.html"
+>imagepsencodefont</A
+>&nbsp;--&nbsp;Change the character encoding vector of a font</DT
+><DT
+><A
+HREF="function.imagepsextendfont.html"
+>imagepsextendfont</A
+>&nbsp;--&nbsp;Extend or condense a font</DT
+><DT
+><A
+HREF="function.imagepsfreefont.html"
+>imagepsfreefont</A
+>&nbsp;--&nbsp;Free memory used by a PostScript Type 1 font</DT
+><DT
+><A
+HREF="function.imagepsloadfont.html"
+>imagepsloadfont</A
+>&nbsp;--&nbsp;Load a PostScript Type 1 font from file</DT
+><DT
+><A
+HREF="function.imagepsslantfont.html"
+>imagepsslantfont</A
+>&nbsp;--&nbsp;Slant a font</DT
+><DT
+><A
+HREF="function.imagepstext.html"
+>imagepstext</A
+>&nbsp;--&nbsp;To draw a text string over an image using PostScript Type1 fonts</DT
+><DT
+><A
+HREF="function.imagerectangle.html"
+>imagerectangle</A
+>&nbsp;--&nbsp;Draw a rectangle</DT
+><DT
+><A
+HREF="function.imagerotate.html"
+>imagerotate</A
+>&nbsp;--&nbsp;Rotate an image with a given angle</DT
+><DT
+><A
+HREF="function.imagesavealpha.html"
+>imagesavealpha</A
+>&nbsp;--&nbsp;
+    Set the flag to save full alpha channel information (as opposed to
+    single-color transparency) when saving PNG images
+   </DT
+><DT
+><A
+HREF="function.imagesetbrush.html"
+>imagesetbrush</A
+>&nbsp;--&nbsp;Set the brush image for line drawing</DT
+><DT
+><A
+HREF="function.imagesetpixel.html"
+>imagesetpixel</A
+>&nbsp;--&nbsp;Set a single pixel</DT
+><DT
+><A
+HREF="function.imagesetstyle.html"
+>imagesetstyle</A
+>&nbsp;--&nbsp;Set the style for line drawing</DT
+><DT
+><A
+HREF="function.imagesetthickness.html"
+>imagesetthickness</A
+>&nbsp;--&nbsp;Set the thickness for line drawing</DT
+><DT
+><A
+HREF="function.imagesettile.html"
+>imagesettile</A
+>&nbsp;--&nbsp;Set the tile image for filling</DT
+><DT
+><A
+HREF="function.imagestring.html"
+>imagestring</A
+>&nbsp;--&nbsp;Draw a string horizontally</DT
+><DT
+><A
+HREF="function.imagestringup.html"
+>imagestringup</A
+>&nbsp;--&nbsp;Draw a string vertically</DT
+><DT
+><A
+HREF="function.imagesx.html"
+>imagesx</A
+>&nbsp;--&nbsp;Get image width</DT
+><DT
+><A
+HREF="function.imagesy.html"
+>imagesy</A
+>&nbsp;--&nbsp;Get image height</DT
+><DT
+><A
+HREF="function.imagetruecolortopalette.html"
+>imagetruecolortopalette</A
+>&nbsp;--&nbsp;Convert a true color image to a palette image</DT
+><DT
+><A
+HREF="function.imagettfbbox.html"
+>imagettfbbox</A
+>&nbsp;--&nbsp;Give the bounding box of a text using TrueType fonts</DT
+><DT
+><A
+HREF="function.imagettftext.html"
+>imagettftext</A
+>&nbsp;--&nbsp;Write text to the image using TrueType fonts</DT
+><DT
+><A
+HREF="function.imagetypes.html"
+>imagetypes</A
+>&nbsp;--&nbsp;Return the image types supported by this PHP build</DT
+><DT
+><A
+HREF="function.imagewbmp.html"
+>imagewbmp</A
+>&nbsp;--&nbsp;Output image to browser or file</DT
+><DT
+><A
+HREF="function.imagexbm.html"
+>imagexbm</A
+>&nbsp;--&nbsp;
+     Output XBM image to browser or file
+    </DT
+><DT
+><A
+HREF="function.iptcembed.html"
+>iptcembed</A
+>&nbsp;--&nbsp;Embed binary IPTC data into a JPEG image</DT
+><DT
+><A
+HREF="function.iptcparse.html"
+>iptcparse</A
+>&nbsp;--&nbsp;
+     Parse a binary IPTC <A
+HREF="http://www.iptc.org/"
+TARGET="_top"
+>http://www.iptc.org/</A
+>
+     block into single tags.
+    </DT
+><DT
+><A
+HREF="function.jpeg2wbmp.html"
+>jpeg2wbmp</A
+>&nbsp;--&nbsp;Convert JPEG image file to WBMP image file</DT
+><DT
+><A
+HREF="function.png2wbmp.html"
+>png2wbmp</A
+>&nbsp;--&nbsp;Convert PNG image file to WBMP image file</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.iis-stop-service.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.gd-info.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>iis_stop_service</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>gd_info</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

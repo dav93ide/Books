@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>gzencode</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di compressione Zlib"
+HREF="ref.zlib.html"><LINK
+REL="PREVIOUS"
+TITLE="gzdeflate"
+HREF="function.gzdeflate.html"><LINK
+REL="NEXT"
+TITLE="gzeof"
+HREF="function.gzeof.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.gzdeflate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.gzeof.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.gzencode"
+></A
+>gzencode</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN183028"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.4, PHP 5)</P
+>gzencode&nbsp;--&nbsp;Crea una stringa compressa con gzip</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183031"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>gzencode</B
+> ( string dati [, int livello [, int encoding_mode]] )<BR
+></BR
+><P
+>   
+     Questa funzione restituisce una versione compressa di
+     <VAR
+CLASS="parameter"
+>dati</VAR
+> compatibile con l'output del
+     programma <B
+CLASS="command"
+>gzip</B
+>, oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se si verifica un
+     errore. Il parametro opzionale <VAR
+CLASS="parameter"
+>livello</VAR
+>
+     varia da 0 (nessuna compressione) a 9 (compressione
+     massima), se il livello di compressione non viene specificato verrà
+     adottato quello di default della libreria zlib.
+    </P
+><P
+>&#13;     Si può anche impostare <TT
+CLASS="constant"
+><B
+>FORCE_GZIP</B
+></TT
+> (il default)
+     o <TT
+CLASS="constant"
+><B
+>FORCE_DEFLATE</B
+></TT
+> come terzo parametro opzionale
+     <VAR
+CLASS="parameter"
+>encoding_mode</VAR
+>. Se si utilizza
+     <TT
+CLASS="constant"
+><B
+>FORCE_DEFLATE</B
+></TT
+>, si ottiene una stringa compressa
+     col DEFLATE standard di zlib (comprendente gli header zlib) dopo l'header del file gzip
+     ma senza il checksum crc32 finale.
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       <VAR
+CLASS="parameter"
+>livello</VAR
+> è stato aggiunto nel PHP 4.2, prima di
+       questa versione <B
+CLASS="function"
+>gzencode()</B
+> aveva solo
+       i parametri <VAR
+CLASS="parameter"
+>dati</VAR
+> e (opzionale)
+       <VAR
+CLASS="parameter"
+>encoding_mode</VAR
+>.
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><P
+>&#13;     I dati risultanti contengono gli header e la struttura adeguati
+     per creare un file .gz standard, ad esempio:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN183062"
+></A
+><P
+><B
+>Esempio 1. Creare un file gzip</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$data </font><font color="#007700">= </font><font color="#0000BB">implode</font><font color="#007700">(</font><font color="#DD0000">""</font><font color="#007700">, </font><font color="#0000BB">file</font><font color="#007700">(</font><font color="#DD0000">"bigfile.txt"</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$gzdata </font><font color="#007700">= </font><font color="#0000BB">gzencode</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">, </font><font color="#0000BB">9</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"bigfile.txt.gz"</font><font color="#007700">, </font><font color="#DD0000">"w"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">$gzdata</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Per ulteriori informazioni sul formato dei file GZIP, consultare il documento:
+     <A
+HREF="http://www.faqs.org/rfcs/rfc1952"
+TARGET="_top"
+>GZIP file format specification
+     version 4.3</A
+> (RFC 1952).
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.gzcompress.html"
+><B
+CLASS="function"
+>gzcompress()</B
+></A
+>.
+     <A
+HREF="function.gzuncompress.html"
+><B
+CLASS="function"
+>gzuncompress()</B
+></A
+>,
+     <A
+HREF="function.gzdeflate.html"
+><B
+CLASS="function"
+>gzdeflate()</B
+></A
+>,
+     <A
+HREF="function.gzinflate.html"
+><B
+CLASS="function"
+>gzinflate()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.gzdeflate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.gzeof.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>gzdeflate</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.zlib.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>gzeof</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Case 2: using --enable-force-cgi-redirect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installed as CGI binary"
+HREF="security.cgi-bin.html"><LINK
+REL="PREVIOUS"
+TITLE="Case 1: only public files served"
+HREF="security.cgi-bin.default.html"><LINK
+REL="NEXT"
+TITLE="Case 3: setting doc_root or user_dir"
+HREF="security.cgi-bin.doc-root.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="security.cgi-bin.default.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 24. Installed as CGI binary</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="security.cgi-bin.doc-root.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="security.cgi-bin.force-redirect"
+>Case 2: using --enable-force-cgi-redirect</A
+></H1
+><P
+>&#13;     This compile-time option prevents anyone from calling PHP
+     directly with a URL like <TT
+CLASS="filename"
+>http://my.host/cgi-bin/php/secretdir/script.php</TT
+>.
+     Instead, PHP will only parse in this mode if it has gone through
+     a web server redirect rule.
+    </P
+><P
+>&#13;     Usually the redirection in the Apache configuration is done with
+     the following directives:
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache-conf"
+>Action php-script /cgi-bin/php
+AddHandler php-script .php</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;     This option has only been tested with the Apache web server, and
+     relies on Apache to set the non-standard CGI environment variable
+     <VAR
+CLASS="envar"
+>REDIRECT_STATUS</VAR
+> on redirected requests.  If your
+     web server does not support any way of telling if the request is
+     direct or redirected, you cannot use this option and you must use
+     one of the other ways of running the CGI version documented
+     here.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="security.cgi-bin.default.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="security.cgi-bin.doc-root.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Case 1: only public files served</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="security.cgi-bin.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Case 3: setting doc_root or user_dir</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Conversion Filters</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="List of Available Filters"
+HREF="filters.html"><LINK
+REL="PREVIOUS"
+TITLE="List of Available Filters"
+HREF="filters.html"><LINK
+REL="NEXT"
+TITLE="Compression Filters"
+HREF="filters.compression.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="filters.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice N. List of Available Filters</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="filters.compression.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="filters.convert"
+>Conversion Filters</A
+></H1
+><P
+>&#13;   Like the string.* filters, the convert.* filters perform actions
+   similar to their names.  The convert filters were added with
+   PHP 5.0.0.
+   For more information on a given filter, refer to the manual page for
+   the corresponding function.
+  </P
+><P
+>&#13;   <VAR
+CLASS="literal"
+>convert.base64-encode</VAR
+> and
+   <VAR
+CLASS="literal"
+>convert.base64-decode</VAR
+>
+   Use of these filters are equivalent to processing all stream data through
+   the <A
+HREF="function.base64-encode.html"
+><B
+CLASS="function"
+>base64_encode()</B
+></A
+> and <A
+HREF="function.base64-decode.html"
+><B
+CLASS="function"
+>base64_decode()</B
+></A
+>
+   functions respectively.
+   <VAR
+CLASS="literal"
+>convert.base64-encode</VAR
+> supports parameters given as
+   an associative array.  If <VAR
+CLASS="parameter"
+>line-length</VAR
+> is given, the
+   base64 output will be split into chunks of <VAR
+CLASS="parameter"
+>line-length</VAR
+>
+   characters each.  If <VAR
+CLASS="parameter"
+>line-break-chars</VAR
+> is given, each
+   chunk will be delimited by the characters given.  These parameters give the
+   same effect as using <A
+HREF="function.base64-encode.html"
+><B
+CLASS="function"
+>base64_encode()</B
+></A
+> with
+   <A
+HREF="function.chunk-split.html"
+><B
+CLASS="function"
+>chunk_split()</B
+></A
+>.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN212129"
+></A
+><P
+><B
+>Esempio N-5. 
+    convert.base64-encode &#38;
+    convert.base64-decode
+   </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'php://output'</font><font color="#007700">, </font><font color="#DD0000">'w'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'convert.base64-encode'</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"This is a test.\n"</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#FF8000">/* Outputs:&nbsp;&nbsp;VGhpcyBpcyBhIHRlc3QuCg==&nbsp;&nbsp;*/<br /><br /></font><font color="#0000BB">$param </font><font color="#007700">= array(</font><font color="#DD0000">'line-length' </font><font color="#007700">=&gt; </font><font color="#0000BB">8</font><font color="#007700">, </font><font color="#DD0000">'line-break-chars' </font><font color="#007700">=&gt; </font><font color="#DD0000">"\r\n"</font><font color="#007700">);<br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'php://output'</font><font color="#007700">, </font><font color="#DD0000">'w'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'convert.base64-encode'</font><font color="#007700">, </font><font color="#0000BB">STREAM_FILTER_WRITE</font><font color="#007700">, </font><font color="#0000BB">$param</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"This is a test.\n"</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#FF8000">/* Outputs:&nbsp;&nbsp;VGhpcyBp<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;cyBhIHRl<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;c3QuCg==&nbsp;&nbsp;*/<br /><br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'php://output'</font><font color="#007700">, </font><font color="#DD0000">'w'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'convert.base64-decode'</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"VGhpcyBpcyBhIHRlc3QuCg=="</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#FF8000">/* Outputs:&nbsp;&nbsp;This is a test.&nbsp;&nbsp;*/<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   <VAR
+CLASS="literal"
+>convert.quoted-printable-encode</VAR
+> and
+   <VAR
+CLASS="literal"
+>convert.quoted-printable-decode</VAR
+>
+   Use of the decode version of this filter is equivalent to processing all stream 
+   data through the <A
+HREF="function.quoted-printable-decode.html"
+><B
+CLASS="function"
+>quoted_printable_decode()</B
+></A
+> functions.
+   There is no function equivalent to <VAR
+CLASS="literal"
+>convert.quoted-printable-encode</VAR
+>.
+   <VAR
+CLASS="literal"
+>convert.quoted-printable-encode</VAR
+> supports parameters given as
+   an associative array.  In addition to the parameters supported by 
+   <VAR
+CLASS="literal"
+>convert.base64-encode</VAR
+>, <VAR
+CLASS="literal"
+>convert.quoted-printable-encode</VAR
+>
+   also supports boolean arguments <VAR
+CLASS="parameter"
+>binary</VAR
+> and
+   <VAR
+CLASS="parameter"
+>force-encode-first</VAR
+>.
+   <VAR
+CLASS="literal"
+>convert.base64-decode</VAR
+> only supports the
+   <VAR
+CLASS="parameter"
+>line-break-chars</VAR
+> parameter as a type-hint
+   for striping from the encoded payload.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN212144"
+></A
+><P
+><B
+>Esempio N-6. 
+    convert.quoted-printable-encode &#38;
+    convert.quoted-printable-decode
+   </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'php://output'</font><font color="#007700">, </font><font color="#DD0000">'w'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'convert.quoted-printable-encode'</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"This is a test.\n"</font><font color="#007700">);<br /></font><font color="#FF8000">/* Outputs:&nbsp;&nbsp;=This is a test.=0A&nbsp;&nbsp;*/<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="filters.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="filters.compression.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>List of Available Filters</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="filters.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Compression Filters</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

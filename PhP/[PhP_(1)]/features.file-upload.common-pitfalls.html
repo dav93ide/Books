@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Common Pitfalls</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caricare file"
+HREF="features.file-upload.html"><LINK
+REL="PREVIOUS"
+TITLE="Spiegazione dei messaggi di errore"
+HREF="features.file-upload.errors.html"><LINK
+REL="NEXT"
+TITLE="Caricamento di più file"
+HREF="features.file-upload.multiple.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="features.file-upload.errors.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 38. Caricare file</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="features.file-upload.multiple.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="features.file-upload.common-pitfalls"
+>Common Pitfalls</A
+></H1
+><P
+>&#13;    La voce <VAR
+CLASS="literal"
+>MAX_FILE_SIZE</VAR
+> non può specificare una dimensione del 
+     file maggiore di quella impostata dal parametro <A
+HREF="ini.core.html#ini.upload-max-filesize"
+>upload_max_filesize</A
+> del file php.ini.
+    L'impostazione di default è 2 Megabytes.
+   </P
+><P
+>&#13;    Se si è impostato un limite di memoria <A
+HREF="ini.core.html#ini.memory-limit"
+>memory_limit</A
+> può essere necessario ampliarlo. 
+    Occorre essere certi di impostare <A
+HREF="ini.core.html#ini.memory-limit"
+>memory_limit</A
+>
+    alle dimensioni appropriate.
+   </P
+><P
+>&#13;    Se <A
+HREF="ref.info.html#ini.max-execution-time"
+>max_execution_time</A
+>
+    è impostato ad un valore basso, l'esecuzione dello script può eccedere tale valore.
+    Ampliare <VAR
+CLASS="literal"
+>max_execution_time</VAR
+> ad un tempo sufficiente per l'upload.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     <A
+HREF="ref.info.html#ini.max-execution-time"
+>max_execution_time</A
+> influisce solo
+     sul tempo di esecuzione dello script. Il tempo utilizzato per attività
+     esterno allo script, tipo le chiamate di sistema
+     <A
+HREF="function.system.html"
+><B
+CLASS="function"
+>system()</B
+></A
+>, o la funzione 
+     <A
+HREF="function.sleep.html"
+><B
+CLASS="function"
+>sleep()</B
+></A
+>, le query nei database, il tempo inpiegato
+     nell'upload del file non è considerato nel computo del tempo
+     di esecuzione dello script.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     <A
+HREF="ref.info.html#ini.max-input-time"
+>max_input_time</A
+> imposta il tempo massimo,
+     in secondi, in cui lo script può ricevere dati; questo comprende
+     l'upload di file. Per file di grandi dimensioni o molteplici file, o su connessioni lente,
+     il valore di default <VAR
+CLASS="literal"
+>60 seconds</VAR
+> può essere sforato.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;    Se <A
+HREF="ini.core.html#ini.post-max-size"
+>post_max_size</A
+> è impostato ad un valore
+    troppo piccolo, non si può inviare file di grosse dimensioni.
+    Impostare <VAR
+CLASS="literal"
+>post_max_size</VAR
+> alle dimensioni appropriate.
+   </P
+><P
+>&#13;    Non controllare il file su cui si sta operando potrebbe dare agli utenti 
+	accesso a informazioni sensibili contenute in altre directory.
+   </P
+><P
+>&#13;    Si noti che che il server <SPAN
+CLASS="productname"
+>CERN httpd</SPAN
+> sembra eliminare qualsiasi cosa a partire
+    dal primo spazio nell'header mime content-type che riceve dal client.
+    Fino a che questo si verificherà, il server <SPAN
+CLASS="productname"
+>CERN httpd</SPAN
+> non supporterà la possibilità
+    di caricare file.
+   </P
+><P
+>&#13;    A causa della varietà di formati di directory, non si è in grado di
+    garantire che nomi di file strani (ad esempio contenenti spazi) siano gestiti correttamente.
+   </P
+><P
+>&#13;    Un sviluppatore non può mischiare normali campi di input con campi di upload di file con lo
+    stesso nome di campo (utilizzando nomi tipo <VAR
+CLASS="literal"
+>foo[]</VAR
+>).
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="features.file-upload.errors.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="features.file-upload.multiple.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Spiegazione dei messaggi di errore</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="features.file-upload.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Caricamento di più file</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,776 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Source Layout</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Zend API: Hacking the Core of PHP"
+HREF="zend.html"><LINK
+REL="PREVIOUS"
+TITLE="Extension Possibilities"
+HREF="zend.possibilities.html"><LINK
+REL="NEXT"
+TITLE="PHP's Automatic Build System"
+HREF="zend.build.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="zend.possibilities.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 46. Zend API: Hacking the Core of PHP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="zend.build.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="zend.layout"
+>Source Layout</A
+></H1
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Prior to working through the rest of this chapter, you should retrieve
+    clean, unmodified source trees of your favorite Web server. We're working with
+    Apache (available at 
+    <A
+HREF="http://www.apache.org/"
+TARGET="_top"
+>http://www.apache.org/</A
+>)
+    and, of course, with PHP (available at 
+    <A
+HREF="http://www.php.net/"
+TARGET="_top"
+>http://www.php.net/</A
+> - does
+    it need to be said?).
+   </P
+><P
+>&#13;    Make sure that you can compile a working PHP environment by
+    yourself! We won't go into this issue here, however, as you should
+    already have this most basic ability when studying this chapter.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   Before we start discussing code issues, you should familiarize
+   yourself with the source tree to be able to quickly navigate
+   through PHP's files. This is a must-have ability to implement and
+   debug extensions.
+  </P
+><P
+>&#13;   The following table describes the contents of the major directories.
+  </P
+><DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN186184"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="col1"><COL
+WIDTH="3.74*"
+TITLE="col2"><TBODY
+><TR
+><TD
+>Directory</TD
+><TD
+>Contents</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>php-src</TT
+></TD
+><TD
+>&#13;       Main PHP source files and main header files; here you'll find
+       all of PHP's API definitions, macros, etc. (important). 
+       Everything else is below this directory.
+      </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>php-src/ext</TT
+></TD
+><TD
+>&#13;       Repository for dynamic and built-in modules; by default, these
+       are the "official" PHP modules that have been integrated into
+       the main source tree. From PHP 4.0, it's possible to compile
+       these standard extensions as dynamic loadable modules (at
+       least, those that support it).
+      </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>php-src/main</TT
+></TD
+><TD
+>&#13;       This directory contains the main php macros and definitions. (important)
+      </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>php-src/pear</TT
+></TD
+><TD
+>&#13;       Directory for the PHP Extension and Application Repository. This directory contains
+       core PEAR files.
+      </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>php-src/sapi</TT
+></TD
+><TD
+>&#13;       Contains the code for the different server abstraction layers.
+      </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>TSRM</TT
+></TD
+><TD
+>&#13;       Location of the "Thread Safe Resource Manager" (TSRM) for Zend
+       and PHP.
+      </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>ZendEngine2</TT
+></TD
+><TD
+>&#13;       Location of the Zend Engine files; here you'll
+       find all of Zend's API definitions, macros, etc. (important).
+      </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;   Discussing all the files included in the PHP package is beyond the
+   scope of this chapter. However, you should take a close look at the
+   following files:<P
+></P
+><UL
+><LI
+><P
+>&#13;      <TT
+CLASS="filename"
+>php-src/main/php.h</TT
+>, located in the main PHP directory.
+      This file contains most of PHP's macro and API definitions.
+     </P
+></LI
+><LI
+><P
+>&#13;      <TT
+CLASS="filename"
+>php-src/Zend/zend.h</TT
+>, located in the main Zend directory.
+      This file contains most of Zend's macros and definitions.
+     </P
+></LI
+><LI
+><P
+>&#13;      <TT
+CLASS="filename"
+>php-src/Zend/zend_API.h</TT
+>, also located in the Zend
+      directory, which defines Zend's API.
+     </P
+></LI
+></UL
+> You should also follow some sub-inclusions from
+   these files; for example, the ones relating to the Zend executor,
+   the PHP initialization file support, and such. After reading these
+   files, take the time to navigate around the package a little to see
+   the interdependencies of all files and modules - how they relate to
+   each other and especially how they make use of each other. This
+   also helps you to adapt to the coding style in which PHP is
+   authored. To extend PHP, you should quickly adapt to this style.
+  </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.layout.conventions"
+>Extension Conventions</A
+></H2
+><P
+>&#13;    Zend is built using certain conventions; to avoid breaking its
+    standards, you should follow the rules described in the following
+    sections.
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.layout.macros"
+>Macros</A
+></H2
+><P
+>&#13;    For almost every important task, Zend ships predefined macros that
+    are extremely handy. The tables and figures in the following
+    sections describe most of the basic functions, structures, and
+    macros. The macro definitions can be found mainly in
+    <TT
+CLASS="filename"
+>zend.h</TT
+> and <TT
+CLASS="filename"
+>zend_API.h</TT
+>.
+    We suggest that you take a close look at these files after having
+    studied this chapter. (Although you can go ahead and read them
+    now, not everything will make sense to you yet.)
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.layout.memory-management"
+>Memory Management</A
+></H2
+><P
+>&#13;    Resource management is a crucial issue, especially in server
+    software. One of the most valuable resources is memory, and memory
+    management should be handled with extreme care. Memory management
+    has been partially abstracted in Zend, and you should stick to
+    this abstraction for obvious reasons: Due to the abstraction, Zend
+    gets full control over all memory allocations. Zend is able to
+    determine whether a block is in use, automatically freeing unused
+    blocks and blocks with lost references, and thus prevent memory
+    leaks. The functions to be used are described in the following
+    table: 
+    <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN186242"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="col1"><COL
+WIDTH="1.62*"
+TITLE="col2"><TBODY
+><TR
+><TD
+>Function</TD
+><TD
+>Description</TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>emalloc()</B
+></TD
+><TD
+>Serves as replacement for
+         <B
+CLASS="function"
+>malloc()</B
+>.</TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>efree()</B
+></TD
+><TD
+>Serves as replacement for
+         <B
+CLASS="function"
+>free()</B
+>.</TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>estrdup()</B
+></TD
+><TD
+>Serves as replacement for
+         <B
+CLASS="function"
+>strdup()</B
+>.</TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>estrndup()</B
+></TD
+><TD
+>Serves as replacement for
+         <B
+CLASS="function"
+>strndup()</B
+>. Faster than
+         <B
+CLASS="function"
+>estrdup()</B
+> and binary-safe. This is the
+         recommended function to use if you know the string length
+         prior to duplicating it.</TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>ecalloc()</B
+></TD
+><TD
+>Serves as replacement for
+         <B
+CLASS="function"
+>calloc()</B
+>.</TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>erealloc()</B
+></TD
+><TD
+>Serves as replacement for
+         <B
+CLASS="function"
+>realloc()</B
+>.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+> <B
+CLASS="function"
+>emalloc()</B
+>,
+    <B
+CLASS="function"
+>estrdup()</B
+>,  <B
+CLASS="function"
+>estrndup()</B
+>,
+    <B
+CLASS="function"
+>ecalloc()</B
+>, and <B
+CLASS="function"
+>erealloc()</B
+>
+    allocate internal memory; <B
+CLASS="function"
+>efree()</B
+> frees these
+    previously allocated blocks. Memory handled by the
+    <B
+CLASS="function"
+>e*()</B
+> functions is considered local to the
+    current process and is discarded as soon as the script executed by
+    this process is terminated. 
+    <DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      To allocate resident memory that survives termination of
+      the current script, you can use <B
+CLASS="function"
+>malloc()</B
+> and
+      <B
+CLASS="function"
+>free()</B
+>. This should only be done with extreme
+      care, however, and only in conjunction with demands of the Zend
+      API; otherwise, you risk memory leaks.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+>
+    Zend also features a thread-safe resource manager to
+    provide better native support for multithreaded Web servers. This
+    requires you to allocate local structures for all of your global
+    variables to allow concurrent threads to be run. Because the
+    thread-safe mode of Zend was not finished back when this was written, 
+    it is not yet extensively covered here.
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.layout.dir-and-file"
+>Directory and File Functions</A
+></H2
+><P
+>&#13;    The following directory and file functions should be used in Zend
+    modules. They behave exactly like their C counterparts, but
+    provide virtual working directory support on the thread level. 
+    <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN186295"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="col1"><COL
+WIDTH="1*"
+TITLE="col2"><TBODY
+><TR
+><TD
+>Zend Function</TD
+><TD
+>Regular C Function</TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>V_GETCWD()</B
+></TD
+><TD
+><A
+HREF="function.getcwd.html"
+><B
+CLASS="function"
+>getcwd()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>V_FOPEN()</B
+></TD
+><TD
+><A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>V_OPEN()</B
+></TD
+><TD
+><B
+CLASS="function"
+>open()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>V_CHDIR()</B
+></TD
+><TD
+><A
+HREF="function.chdir.html"
+><B
+CLASS="function"
+>chdir()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>V_GETWD()</B
+></TD
+><TD
+><B
+CLASS="function"
+>getwd()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>V_CHDIR_FILE()</B
+></TD
+><TD
+>&#13;         Takes a file path as an argument and changes the current
+         working directory to that file's directory.
+        </TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>V_STAT()</B
+></TD
+><TD
+><A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>V_LSTAT()</B
+></TD
+><TD
+><A
+HREF="function.lstat.html"
+><B
+CLASS="function"
+>lstat()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+></P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.layout.string-handling"
+>String Handling</A
+></H2
+><P
+>&#13;    Strings are handled a bit differently by the Zend engine
+    than other values such as integers, Booleans, etc., which don't require
+    additional memory allocation for storing their values. If you want to
+    return a string from a function, introduce a new string variable to the symbol
+    table, or do something similar, you have to make sure that the memory the
+    string will be occupying has previously been allocated, using the
+    aforementioned <B
+CLASS="function"
+>e*()</B
+> functions for allocation. (This might
+    not make much sense to you yet; just keep it somewhere in your head for now - we'll get
+    back to it shortly.)
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.layout.complex-types"
+>Complex Types</A
+></H2
+><P
+>&#13;    Complex types such as arrays and objects require
+    different treatment. Zend features a single API for these types - they're
+    stored using hash tables.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     To reduce complexity in the following source examples, we're only
+     working with simple types such as integers at first. A discussion about
+     creating more advanced types follows later in this chapter.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="zend.possibilities.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="zend.build.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Extension Possibilities</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="zend.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PHP's Automatic Build System</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

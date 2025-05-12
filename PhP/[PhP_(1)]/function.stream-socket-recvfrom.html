@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>stream_socket_recvfrom</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stream Functions"
+HREF="ref.stream.html"><LINK
+REL="PREVIOUS"
+TITLE="stream_socket_pair"
+HREF="function.stream-socket-pair.html"><LINK
+REL="NEXT"
+TITLE="stream_socket_sendto"
+HREF="function.stream-socket-sendto.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.stream-socket-pair.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.stream-socket-sendto.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.stream-socket-recvfrom"
+></A
+>stream_socket_recvfrom</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN161857"
+></A
+><P
+>    (PHP 5)</P
+>stream_socket_recvfrom&nbsp;--&nbsp;Receives data from a socket, connected or not </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN161860"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>stream_socket_recvfrom</B
+> ( resource socket, int length [, int flags [, string &#38;address]] )<BR
+></BR
+><P
+>&#13;     The function <B
+CLASS="function"
+>stream_socket_recvfrom()</B
+> accepts
+     data from a remote socket up to <VAR
+CLASS="parameter"
+>length</VAR
+> bytes.
+     If <VAR
+CLASS="parameter"
+>address</VAR
+> is provided it will be populated with
+     the address of the remote socket.
+    </P
+><P
+>&#13;     The value of <VAR
+CLASS="parameter"
+>flags</VAR
+> can be any combination
+     of the following:
+     <DIV
+CLASS="table"
+><A
+NAME="AEN161883"
+></A
+><P
+><B
+>Tabella 1. possible values for <VAR
+CLASS="parameter"
+>flags</VAR
+></B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>STREAM_OOB</B
+></TT
+></TD
+><TD
+>&#13;          Process OOB (out-of-band) data.
+         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>STREAM_PEEK</B
+></TT
+></TD
+><TD
+>&#13;          Retrieve data from the socket, but do not consume the buffer.
+          Subsequent calls to <A
+HREF="function.fread.html"
+><B
+CLASS="function"
+>fread()</B
+></A
+> or 
+          <B
+CLASS="function"
+>stream_socket_recvfrom()</B
+> will see
+          the same data.
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN161898"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>stream_socket_recvfrom()</B
+> Example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Open a server socket to port 1234 on localhost */<br /></font><font color="#0000BB">$server </font><font color="#007700">= </font><font color="#0000BB">stream_socket_server</font><font color="#007700">(</font><font color="#DD0000">'tcp://127.0.0.1:1234'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Accept a connection */<br /></font><font color="#0000BB">$socket </font><font color="#007700">= </font><font color="#0000BB">stream_socket_accept</font><font color="#007700">(</font><font color="#0000BB">$server</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Grab a packet (1500 is a typical MTU size) of OOB data */<br /></font><font color="#007700">echo </font><font color="#DD0000">"Received Out-Of-Band: '" </font><font color="#007700">. </font><font color="#0000BB">stream_socket_recvfrom</font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">, </font><font color="#0000BB">1500</font><font color="#007700">, </font><font color="#0000BB">STREAM_OOB</font><font color="#007700">) . </font><font color="#DD0000">"'\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Take a peek at the normal in-band data, but don't comsume it. */<br /></font><font color="#007700">echo </font><font color="#DD0000">"Data: '" </font><font color="#007700">. </font><font color="#0000BB">stream_socket_recvfrom</font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">, </font><font color="#0000BB">1500</font><font color="#007700">, </font><font color="#0000BB">STREAM_PEEK</font><font color="#007700">) . </font><font color="#DD0000">"'\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Get the exact same packet again, but remove it from the buffer this time. */<br /></font><font color="#007700">echo </font><font color="#DD0000">"Data: '" </font><font color="#007700">. </font><font color="#0000BB">stream_socket_recvfrom</font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">, </font><font color="#0000BB">1500</font><font color="#007700">) . </font><font color="#DD0000">"'\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Close it up */<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$server</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      If a message received is longer than the <VAR
+CLASS="parameter"
+>length</VAR
+>
+      parameter, excess bytes may be discarded depending on the type of socket
+      the message is received from (such as UDP).
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also 
+     <A
+HREF="function.stream-socket-sendto.html"
+><B
+CLASS="function"
+>stream_socket_sendto()</B
+></A
+>,
+     <A
+HREF="function.stream-socket-client.html"
+><B
+CLASS="function"
+>stream_socket_client()</B
+></A
+>, and
+     <A
+HREF="function.stream-socket-server.html"
+><B
+CLASS="function"
+>stream_socket_server()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.stream-socket-pair.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.stream-socket-sendto.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>stream_socket_pair</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.stream.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>stream_socket_sendto</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

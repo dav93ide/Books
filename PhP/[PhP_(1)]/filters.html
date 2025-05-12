@@ -1,0 +1,469 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>List of Available Filters</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Appendici"
+HREF="appendixes.html"><LINK
+REL="PREVIOUS"
+TITLE="Process Interaction Streams"
+HREF="wrappers.expect.html"><LINK
+REL="NEXT"
+TITLE="Conversion Filters"
+HREF="filters.convert.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="appendix"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="wrappers.expect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="filters.convert.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="appendix"
+><H1
+><A
+NAME="filters"
+>Appendice N. List of Available Filters</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="filters.html#filters.string"
+>String Filters</A
+></DT
+><DT
+><A
+HREF="filters.convert.html"
+>Conversion Filters</A
+></DT
+><DT
+><A
+HREF="filters.compression.html"
+>Compression Filters</A
+></DT
+><DT
+><A
+HREF="filters.encryption.html"
+>Encryption Filters</A
+></DT
+></DL
+></DIV
+><P
+>&#13;  The following is a list of a few built-in stream filters for
+  use with <A
+HREF="function.stream-filter-append.html"
+><B
+CLASS="function"
+>stream_filter_append()</B
+></A
+>.
+  Your version of PHP may have more filters (or fewer) than those
+  listed here.
+ </P
+><P
+>&#13;  It is worth noting a slight asymmetry between 
+  <A
+HREF="function.stream-filter-append.html"
+><B
+CLASS="function"
+>stream_filter_append()</B
+></A
+>
+  and <A
+HREF="function.stream-filter-prepend.html"
+><B
+CLASS="function"
+>stream_filter_prepend()</B
+></A
+>.  
+  Every PHP stream contains a small <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>read buffer</I
+></SPAN
+>
+  where it stores blocks of data retrieved from the
+  filesystem or other resource in order to process data
+  in the most efficient manner.  As soon as data is pulled
+  from the resource into the stream's internal buffer, it
+  is immediately processed through any attached filters whether
+  the PHP application is actually ready for the data or not.
+  If data is sitting in the read buffer when a filter is 
+  <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>appended</I
+></SPAN
+>, this data will be immediately
+  processed through that filter making the fact that it was
+  sitting in the buffer seem transparent.  However, if data is
+  sitting in the read buffer when a filter is 
+  <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>prepended</I
+></SPAN
+>, this data will <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NOT</I
+></SPAN
+>
+  be processed through that filter.  It will instead wait until
+  the next block of data is retrieved from the resource.
+ </P
+><P
+>&#13;  For a list of filters installed in your version of
+  PHP use <A
+HREF="function.stream-get-filters.html"
+><B
+CLASS="function"
+>stream_get_filters()</B
+></A
+>.
+ </P
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="filters.string"
+>String Filters</A
+></H1
+><P
+>&#13;   Each of these filters does precisely what their name implies and
+   correspond to the behavior of a built-in php string handling function.
+   For more information on a given filter, refer to the manual page for
+   the corresponding function.
+  </P
+><P
+>&#13;   <VAR
+CLASS="literal"
+>string.rot13</VAR
+>
+   (since PHP 4.3.0)
+   Use of this filter is equivalent to processing all stream data through
+   the <A
+HREF="function.str-rot13.html"
+><B
+CLASS="function"
+>str_rot13()</B
+></A
+> function.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN212093"
+></A
+><P
+><B
+>Esempio N-1. string.rot13</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'php://output'</font><font color="#007700">, </font><font color="#DD0000">'w'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'string.rot13'</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"This is a test.\n"</font><font color="#007700">);<br /></font><font color="#FF8000">/* Outputs:&nbsp;&nbsp;Guvf vf n grfg.&nbsp;&nbsp;&nbsp;*/<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   <VAR
+CLASS="literal"
+>string.toupper</VAR
+>
+   (since PHP 5.0.0)
+   Use of this filter is equivalent to processing all stream data through
+   the <A
+HREF="function.strtoupper.html"
+><B
+CLASS="function"
+>strtoupper()</B
+></A
+> function.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN212099"
+></A
+><P
+><B
+>Esempio N-2. string.toupper</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'php://output'</font><font color="#007700">, </font><font color="#DD0000">'w'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'string.toupper'</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"This is a test.\n"</font><font color="#007700">);<br /></font><font color="#FF8000">/* Outputs:&nbsp;&nbsp;THIS IS A TEST.&nbsp;&nbsp;&nbsp;*/<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   <VAR
+CLASS="literal"
+>string.tolower</VAR
+>
+   (since PHP 5.0.0)
+   Use of this filter is equivalent to processing all stream data through
+   the <A
+HREF="function.strtolower.html"
+><B
+CLASS="function"
+>strtolower()</B
+></A
+> function.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN212105"
+></A
+><P
+><B
+>Esempio N-3. string.tolower</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'php://output'</font><font color="#007700">, </font><font color="#DD0000">'w'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'string.tolower'</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"This is a test.\n"</font><font color="#007700">);<br /></font><font color="#FF8000">/* Outputs:&nbsp;&nbsp;this is a test.&nbsp;&nbsp;&nbsp;*/<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   <VAR
+CLASS="literal"
+>string.strip_tags</VAR
+>
+   (since PHP 5.0.0)
+   Use of this filter is equivalent to processing all stream data through
+   the <A
+HREF="function.strip-tags.html"
+><B
+CLASS="function"
+>strip_tags()</B
+></A
+> function.
+   It accepts parameters in one of two forms:
+   Either as a string containing a list of tags similar to the
+   second parameter of the <A
+HREF="function.strip-tags.html"
+><B
+CLASS="function"
+>strip_tags()</B
+></A
+> function,
+   or as an array of tag names.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN212112"
+></A
+><P
+><B
+>Esempio N-4. string.strip_tags</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'php://output'</font><font color="#007700">, </font><font color="#DD0000">'w'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'string.strip_tags'</font><font color="#007700">, </font><font color="#0000BB">STREAM_FILTER_WRITE</font><font color="#007700">, </font><font color="#DD0000">"&lt;b&gt;&lt;i&gt;&lt;u&gt;"</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"&lt;b&gt;bolded text&lt;/b&gt; enlarged to a &lt;h1&gt;level 1 heading&lt;/h1&gt;\n"</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#FF8000">/* Outputs:&nbsp;&nbsp;&lt;b&gt;bolded text&lt;/b&gt; enlarged to a level 1 heading&nbsp;&nbsp;&nbsp;*/<br /><br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'php://output'</font><font color="#007700">, </font><font color="#DD0000">'w'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'string.strip_tags'</font><font color="#007700">, </font><font color="#0000BB">STREAM_FILTER_WRITE</font><font color="#007700">, array(</font><font color="#DD0000">'b'</font><font color="#007700">,</font><font color="#DD0000">'i'</font><font color="#007700">,</font><font color="#DD0000">'u'</font><font color="#007700">));<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"&lt;b&gt;bolded text&lt;/b&gt; enlarged to a &lt;h1&gt;level 1 heading&lt;/h1&gt;\n"</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#FF8000">/* Outputs:&nbsp;&nbsp;&lt;b&gt;bolded text&lt;/b&gt; enlarged to a level 1 heading&nbsp;&nbsp;&nbsp;*/<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wrappers.expect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="filters.convert.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Process Interaction Streams</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="appendixes.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Conversion Filters</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

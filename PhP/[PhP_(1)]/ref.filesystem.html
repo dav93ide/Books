@@ -1,0 +1,1273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Filesystem Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="filepro"
+HREF="function.filepro.html"><LINK
+REL="NEXT"
+TITLE="basename"
+HREF="function.basename.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.filepro.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.basename.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.filesystem"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XXXVIII. Filesystem Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN40148"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="filesystem.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="filesystem.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Non sono richieste librerie esterne per compilare questo modulo, ma se si desidera
+     avere il supporto per LFS (file di grandi dimensioni) su Linux, occorre avere 
+     una versione recente di glibc e occorre compilare il PHP con i seguenti parametri:
+     <VAR
+CLASS="literal"
+>-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64</VAR
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="filesystem.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="filesystem.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN40164"
+></A
+><P
+><B
+>Tabella 1. Opzioni di configurazione per Filesystem e Streams</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>allow_url_fopen</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>user_agent</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>default_socket_timeout</TD
+><TD
+>"60"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>from</TD
+><TD
+>NULL</TD
+><TD
+>??</TD
+></TR
+><TR
+><TD
+>auto_detect_line_endings</TD
+><TD
+>"Off"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.allow-url-fopen"
+></A
+><VAR
+CLASS="parameter"
+>allow_url_fopen</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Questa opzione abilita i wrapper URL per fopen, in modo da potere accedere
+      ad oggetti URL come file. Per default sono forniti wrapper
+      per accedere a <A
+HREF="features.remote-files.html"
+>file remoti</A
+>
+      usando il protocollo ftp o http, alcune estensioni, tipo 
+      <A
+HREF="ref.zlib.html"
+>zlib</A
+>, possono registrarne altri.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Questa impostazione può essere impostata solamente nel php.ini 
+       per motivi di sicurezza.
+      </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Questa opzione è stata aggiunta subito dopo il rilascio di PHP 4.0.3.
+       Per le versioni fino a 4.0.3 compresa si può disabilitare questa opzione
+       solo al momento della compila utilizzando il parametro di configurazione
+       <A
+HREF="configure.html#configure.disable-url-fopen-wrapper"
+><VAR
+CLASS="parameter"
+>&#13;       --disable-url-fopen-wrapper</VAR
+></A
+>.
+      </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+> 
+       Nelle versioni precedenti alla 4.3.0 per i sistemi Windows, le suguenti
+       funzioni non supportano l'accesso a file remoti: <A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+>,
+       <A
+HREF="function.include-once.html"
+><B
+CLASS="function"
+>include_once()</B
+></A
+>, <A
+HREF="function.require.html"
+><B
+CLASS="function"
+>require()</B
+></A
+>,
+       <A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+> e le funzioni imagecreatefromXXX
+       nel modulo <A
+HREF="ref.image.html"
+>Riferimento LVI, <I
+>Funzioni per le immagini</I
+></A
+>.       
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+></DD
+><DT
+><A
+NAME="ini.user-agent"
+></A
+><VAR
+CLASS="parameter"
+>user_agent</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Definisce un agente utente il PHP.
+     </P
+></DD
+><DT
+><A
+NAME="ini.default-socket-timeout"
+></A
+><VAR
+CLASS="parameter"
+>default_socket_timeout</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      Timeout di default (in secondi) per gli stream sui socket.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Questa opzione di configurazione è stata inserita in PHP 4.3.0
+      </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="ini.from"
+></A
+><VAR
+CLASS="parameter"
+>from="joe@example.com"</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Imposta la password per l'ftp anonimo (il tuo indirizzo di posta elettronica).
+     </P
+></DD
+><DT
+><A
+NAME="ini.auto-detect-line-endings"
+></A
+><VAR
+CLASS="parameter"
+>auto_detect_line_endings</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Quando è attivato, il PHP esamina i dati letti da
+      <A
+HREF="function.fgets.html"
+><B
+CLASS="function"
+>fgets()</B
+></A
+> e <A
+HREF="function.file.html"
+><B
+CLASS="function"
+>file()</B
+></A
+> per vedere se si sta utilizzando
+      le convezioni di Unix, MS-Dos o Macintosh.
+     </P
+><P
+> Questo permette al PHP di operare con sistemi Macintosh,
+      ma, per default, l'opzione è impostata a Off, poichè vi è una piccola
+      penalizzazione di velocità nel cercare di individuare il tipo di EOL per la prima riga; e anche
+      perchè in alcuni casi si è sperimentato che l'utilizzo del carriage-returns come separatore nei sistemi
+      Unix ha generato comportamenti non compatibili con il passato.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Questa opzione è stata introdotta in PHP 4.3.0
+      </P
+></BLOCKQUOTE
+></DIV
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="filesystem.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;     </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="filesystem.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>GLOB_BRACE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>GLOB_ONLYDIR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>GLOB_MARK</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>GLOB_NOSORT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>GLOB_NOCHECK</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>GLOB_NOESCAPE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PATHINFO_DIRNAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PATHINFO_BASENAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PATHINFO_EXTENSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FILE_USE_INCLUDE_PATH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FILE_APPEND</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FILE_IGNORE_NEW_LINES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FILE_SKIP_EMPTY_LINES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="filesystem.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     Vedere anche le sezioni <A
+HREF="ref.dir.html"
+>Directory</A
+>
+     e <A
+HREF="ref.exec.html"
+>Esecuzione di programmi</A
+>.
+    </P
+><P
+>&#13;     Per avere un elenco e le spiegazioni sui vari wrapper URL che possono essere
+     utilizzati sui file remoti, vedere <A
+HREF="wrappers.html"
+>Appendice M</A
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.basename.html"
+>basename</A
+>&nbsp;--&nbsp;Restituisce il nome del file dal percorso indicato</DT
+><DT
+><A
+HREF="function.chgrp.html"
+>chgrp</A
+>&nbsp;--&nbsp;Cambia il gruppo del file</DT
+><DT
+><A
+HREF="function.chmod.html"
+>chmod</A
+>&nbsp;--&nbsp;Cambia le impostazioni del file</DT
+><DT
+><A
+HREF="function.chown.html"
+>chown</A
+>&nbsp;--&nbsp;Cambia il proprietario del file</DT
+><DT
+><A
+HREF="function.clearstatcache.html"
+>clearstatcache</A
+>&nbsp;--&nbsp;Libera la cache dello stato di un file</DT
+><DT
+><A
+HREF="function.copy.html"
+>copy</A
+>&nbsp;--&nbsp;Copia un file</DT
+><DT
+><A
+HREF="function.delete.html"
+>delete</A
+>&nbsp;--&nbsp;Vedere <A
+HREF="function.unlink.html"
+><B
+CLASS="function"
+>unlink()</B
+></A
+> oppure <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+></DT
+><DT
+><A
+HREF="function.dirname.html"
+>dirname</A
+>&nbsp;--&nbsp;Restituisce il nome della directory dal percorso indicato</DT
+><DT
+><A
+HREF="function.disk-free-space.html"
+>disk_free_space</A
+>&nbsp;--&nbsp;Restituisce lo spazio disponibile nella directory</DT
+><DT
+><A
+HREF="function.disk-total-space.html"
+>disk_total_space</A
+>&nbsp;--&nbsp;Restituisce lo spazio totale di una directory</DT
+><DT
+><A
+HREF="function.diskfreespace.html"
+>diskfreespace</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.disk-free-space.html"
+><B
+CLASS="function"
+>disk_free_space()</B
+></A
+></DT
+><DT
+><A
+HREF="function.fclose.html"
+>fclose</A
+>&nbsp;--&nbsp;Chiude un puntatore a file aperto</DT
+><DT
+><A
+HREF="function.feof.html"
+>feof</A
+>&nbsp;--&nbsp;Verifica se è stata raggiunta la fine del file su un puntatore a file</DT
+><DT
+><A
+HREF="function.fflush.html"
+>fflush</A
+>&nbsp;--&nbsp;Invia l'output in un file</DT
+><DT
+><A
+HREF="function.fgetc.html"
+>fgetc</A
+>&nbsp;--&nbsp;Prende un carattere da un puntatore a file</DT
+><DT
+><A
+HREF="function.fgetcsv.html"
+>fgetcsv</A
+>&nbsp;--&nbsp;Prende una riga da un puntatore a file e l'analizza in cerca di campi CSV</DT
+><DT
+><A
+HREF="function.fgets.html"
+>fgets</A
+>&nbsp;--&nbsp;Prende una riga da un puntatore a file</DT
+><DT
+><A
+HREF="function.fgetss.html"
+>fgetss</A
+>&nbsp;--&nbsp;Prende una riga da un puntatore a file ed elimina i tag HTML</DT
+><DT
+><A
+HREF="function.file-exists.html"
+>file_exists</A
+>&nbsp;--&nbsp;Controlla se un file o directory esiste</DT
+><DT
+><A
+HREF="function.file-get-contents.html"
+>file_get_contents</A
+>&nbsp;--&nbsp;Legge un file all'interno di una stringa</DT
+><DT
+><A
+HREF="function.file-put-contents.html"
+>file_put_contents</A
+>&nbsp;--&nbsp;Write a string to a file</DT
+><DT
+><A
+HREF="function.file.html"
+>file</A
+>&nbsp;--&nbsp;Legge l'intero file in un vettore</DT
+><DT
+><A
+HREF="function.fileatime.html"
+>fileatime</A
+>&nbsp;--&nbsp;Prende l'ora dell'ultimo accesso al file</DT
+><DT
+><A
+HREF="function.filectime.html"
+>filectime</A
+>&nbsp;--&nbsp;Prende l'ora in cui l'inode del file è stato modificato</DT
+><DT
+><A
+HREF="function.filegroup.html"
+>filegroup</A
+>&nbsp;--&nbsp;Restituisce il gruppo di un file</DT
+><DT
+><A
+HREF="function.fileinode.html"
+>fileinode</A
+>&nbsp;--&nbsp;Restituisce il numero di inode del file</DT
+><DT
+><A
+HREF="function.filemtime.html"
+>filemtime</A
+>&nbsp;--&nbsp;Restituisce l'ora delle modifiche al file</DT
+><DT
+><A
+HREF="function.fileowner.html"
+>fileowner</A
+>&nbsp;--&nbsp;Restituisce il proprietario del file</DT
+><DT
+><A
+HREF="function.fileperms.html"
+>fileperms</A
+>&nbsp;--&nbsp;Restituisce i permessi sui file</DT
+><DT
+><A
+HREF="function.filesize.html"
+>filesize</A
+>&nbsp;--&nbsp;Restituisce la dimensione del file</DT
+><DT
+><A
+HREF="function.filetype.html"
+>filetype</A
+>&nbsp;--&nbsp;Restituisce il tipo di file</DT
+><DT
+><A
+HREF="function.flock.html"
+>flock</A
+>&nbsp;--&nbsp;Sistema di bloccaggio file</DT
+><DT
+><A
+HREF="function.fnmatch.html"
+>fnmatch</A
+>&nbsp;--&nbsp;Match filename against a pattern</DT
+><DT
+><A
+HREF="function.fopen.html"
+>fopen</A
+>&nbsp;--&nbsp;Apre un file o un URL</DT
+><DT
+><A
+HREF="function.fpassthru.html"
+>fpassthru</A
+>&nbsp;--&nbsp;Invia tutti i dati rimanenti su un puntartore a file</DT
+><DT
+><A
+HREF="function.fputcsv.html"
+>fputcsv</A
+>&nbsp;--&nbsp;
+     Format line as CSV and write to file pointer
+    </DT
+><DT
+><A
+HREF="function.fputs.html"
+>fputs</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.fwrite.html"
+><B
+CLASS="function"
+>fwrite()</B
+></A
+></DT
+><DT
+><A
+HREF="function.fread.html"
+>fread</A
+>&nbsp;--&nbsp;Legge un file salvaguardando la corrispondenza binaria</DT
+><DT
+><A
+HREF="function.fscanf.html"
+>fscanf</A
+>&nbsp;--&nbsp;Analizza l'input da un file secondo un determinato formato</DT
+><DT
+><A
+HREF="function.fseek.html"
+>fseek</A
+>&nbsp;--&nbsp;Sposta un puntatore sul file</DT
+><DT
+><A
+HREF="function.fstat.html"
+>fstat</A
+>&nbsp;--&nbsp;Restituisce le informazioni riguardanti un file attraverso un puntatore al file aperto</DT
+><DT
+><A
+HREF="function.ftell.html"
+>ftell</A
+>&nbsp;--&nbsp;Comunica la posizione di lettura/scrittura del puntatore al file</DT
+><DT
+><A
+HREF="function.ftruncate.html"
+>ftruncate</A
+>&nbsp;--&nbsp;Tronca un file alla lunghezza data</DT
+><DT
+><A
+HREF="function.fwrite.html"
+>fwrite</A
+>&nbsp;--&nbsp;Scrive un file salvaguardando la corrispondenza binaria</DT
+><DT
+><A
+HREF="function.glob.html"
+>glob</A
+>&nbsp;--&nbsp;Find pathnames matching a pattern</DT
+><DT
+><A
+HREF="function.is-dir.html"
+>is_dir</A
+>&nbsp;--&nbsp;Dice se la stringa corrisponde ad una directory</DT
+><DT
+><A
+HREF="function.is-executable.html"
+>is_executable</A
+>&nbsp;--&nbsp;Dice se il file indicato è eseguibile</DT
+><DT
+><A
+HREF="function.is-file.html"
+>is_file</A
+>&nbsp;--&nbsp;Dice se il file è un file regolare</DT
+><DT
+><A
+HREF="function.is-link.html"
+>is_link</A
+>&nbsp;--&nbsp;Dice se il file è un link simbolico</DT
+><DT
+><A
+HREF="function.is-readable.html"
+>is_readable</A
+>&nbsp;--&nbsp;Dice se un file è leggibile</DT
+><DT
+><A
+HREF="function.is-uploaded-file.html"
+>is_uploaded_file</A
+>&nbsp;--&nbsp;Dice se un file fù caricato via HTTP POST.</DT
+><DT
+><A
+HREF="function.is-writable.html"
+>is_writable</A
+>&nbsp;--&nbsp;Dice se un file è scrivibile</DT
+><DT
+><A
+HREF="function.is-writeable.html"
+>is_writeable</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.is-writable.html"
+><B
+CLASS="function"
+>is_writable()</B
+></A
+></DT
+><DT
+><A
+HREF="function.link.html"
+>link</A
+>&nbsp;--&nbsp;Crea un hard link</DT
+><DT
+><A
+HREF="function.linkinfo.html"
+>linkinfo</A
+>&nbsp;--&nbsp;Restituisce informazioni su un collegamento</DT
+><DT
+><A
+HREF="function.lstat.html"
+>lstat</A
+>&nbsp;--&nbsp;Da informazioni su un file o un link simbolico</DT
+><DT
+><A
+HREF="function.mkdir.html"
+>mkdir</A
+>&nbsp;--&nbsp;Crea una directory</DT
+><DT
+><A
+HREF="function.move-uploaded-file.html"
+>move_uploaded_file</A
+>&nbsp;--&nbsp;Muove un file caricato in una nuova posizione</DT
+><DT
+><A
+HREF="function.parse-ini-file.html"
+>parse_ini_file</A
+>&nbsp;--&nbsp;Legge il file di configurazione</DT
+><DT
+><A
+HREF="function.pathinfo.html"
+>pathinfo</A
+>&nbsp;--&nbsp;Restituisce informazioni su un percorso di file</DT
+><DT
+><A
+HREF="function.pclose.html"
+>pclose</A
+>&nbsp;--&nbsp;Chiude un puntatore ad un file di processo</DT
+><DT
+><A
+HREF="function.popen.html"
+>popen</A
+>&nbsp;--&nbsp;Apre un puntatore ad un file di processo</DT
+><DT
+><A
+HREF="function.readfile.html"
+>readfile</A
+>&nbsp;--&nbsp;Invia un file</DT
+><DT
+><A
+HREF="function.readlink.html"
+>readlink</A
+>&nbsp;--&nbsp;Restituisce il target di un link simbolico</DT
+><DT
+><A
+HREF="function.realpath.html"
+>realpath</A
+>&nbsp;--&nbsp;Restituisce un percorso assoluto regolare</DT
+><DT
+><A
+HREF="function.rename.html"
+>rename</A
+>&nbsp;--&nbsp;Rinomina un file o una directory</DT
+><DT
+><A
+HREF="function.rewind.html"
+>rewind</A
+>&nbsp;--&nbsp;Riavvolge la posizione di un puntatore a file</DT
+><DT
+><A
+HREF="function.rmdir.html"
+>rmdir</A
+>&nbsp;--&nbsp;Rimuove una directory</DT
+><DT
+><A
+HREF="function.set-file-buffer.html"
+>set_file_buffer</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.stream-set-write-buffer.html"
+><B
+CLASS="function"
+>stream_set_write_buffer()</B
+></A
+></DT
+><DT
+><A
+HREF="function.stat.html"
+>stat</A
+>&nbsp;--&nbsp;Da informazioni su un file</DT
+><DT
+><A
+HREF="function.symlink.html"
+>symlink</A
+>&nbsp;--&nbsp;Crea un link simbolico</DT
+><DT
+><A
+HREF="function.tempnam.html"
+>tempnam</A
+>&nbsp;--&nbsp;Crea file con unico nome file</DT
+><DT
+><A
+HREF="function.tmpfile.html"
+>tmpfile</A
+>&nbsp;--&nbsp;Crea un file temporaneo</DT
+><DT
+><A
+HREF="function.touch.html"
+>touch</A
+>&nbsp;--&nbsp;Imposta l'ora di modifica di un file</DT
+><DT
+><A
+HREF="function.umask.html"
+>umask</A
+>&nbsp;--&nbsp;Cambia l'umask corrente</DT
+><DT
+><A
+HREF="function.unlink.html"
+>unlink</A
+>&nbsp;--&nbsp;Cancella un file</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.filepro.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.basename.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>filepro</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>basename</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

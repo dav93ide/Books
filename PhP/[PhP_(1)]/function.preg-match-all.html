@@ -1,0 +1,509 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>preg_match_all</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le espressioni regolari (Perl compatibili)"
+HREF="ref.pcre.html"><LINK
+REL="PREVIOUS"
+TITLE="preg_grep"
+HREF="function.preg-grep.html"><LINK
+REL="NEXT"
+TITLE="preg_match"
+HREF="function.preg-match.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.preg-grep.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.preg-match.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.preg-match-all"
+></A
+>preg_match_all</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN123588"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.9, PHP 4, PHP 5)</P
+>preg_match_all&nbsp;--&nbsp;Esegue un riconoscimento globale con le espressioni regolari</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN123591"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>preg_match_all</B
+> ( string espressione_regolare, string testo, array &#38;TestiRiconosciuti [, int flags [, int offset]] )<BR
+></BR
+><P
+>&#13;     La funzione ricerca tutte le espressioni regolari passate nel parametro <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+> all'interno 
+     della stringa <VAR
+CLASS="parameter"
+>testo</VAR
+>. I testi riconosciuti sono posti all'interno
+     della matrice <VAR
+CLASS="parameter"
+>TestiRiconosciuti</VAR
+>, nell'ordine specificato da 
+     <VAR
+CLASS="parameter"
+>flags</VAR
+>.
+    </P
+><P
+>&#13;     Dopo avere riconosciuto il primo segmento di testo, le ricerche seguenti
+     saranno effettuate a partire dall'ultima ricerca specificata.
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>flags</VAR
+> può essere la combinazione dei seguenti flag 
+     (da notare che non ha senso utilizzare  
+     <TT
+CLASS="constant"
+><B
+>PREG_PATTERN_ORDER</B
+></TT
+> in unione a   
+     <TT
+CLASS="constant"
+><B
+>PREG_SET_ORDER</B
+></TT
+>):  
+     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>PREG_PATTERN_ORDER</DT
+><DD
+><P
+>&#13;         I testi riconosciuti saranno organizzati in modo tale da avere
+         in $TestiRiconosciuti[0] la matrice di tutti i testi riconosciuti,
+         in $TestiRiconosciuti[1] la matrice di tutti i testi che soddisfino 
+         il primo criterio di riconoscimento posto tra parentesi tonde, in 
+         $TestiRiconosciuti[2] si avranno i testi che soddisfino il secondo 
+         criterio e cosi via.
+        </P
+><P
+>&#13;	 <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN123627"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />preg_match_all</font><font color="#007700">(</font><font color="#DD0000">"|&lt;[^&gt;]+&gt;(.*)&lt;/[^&gt;]+&gt;|U"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&lt;b&gt;example: &lt;/b&gt;&lt;div align=left&gt;this is a test&lt;/div&gt;"</font><font color="#007700">, <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$out</font><font color="#007700">, </font><font color="#0000BB">PREG_PATTERN_ORDER</font><font color="#007700">);<br />echo </font><font color="#0000BB">$out</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">][</font><font color="#0000BB">0</font><font color="#007700">].</font><font color="#DD0000">", "</font><font color="#007700">.</font><font color="#0000BB">$out</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">][</font><font color="#0000BB">1</font><font color="#007700">].</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />echo </font><font color="#0000BB">$out</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">][</font><font color="#0000BB">0</font><font color="#007700">].</font><font color="#DD0000">", "</font><font color="#007700">.</font><font color="#0000BB">$out</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">][</font><font color="#0000BB">1</font><font color="#007700">].</font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;           Questo esempio produrrà:
+          </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;b&#62;example: &#60;/b&#62;, &#60;div align=left&#62;this is a test&#60;/div&#62;
+example: , this is a test</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;           Nell'esempio, $out[0] contiene la matrice di tutte le stringhe
+           che soddisfano i criteri impostati, $out[1] contiene la matrice
+           dei testi delimitati dai tag.
+          </P
+><P
+></P
+></DIV
+>
+	</P
+></DD
+><DT
+>PREG_SET_ORDER</DT
+><DD
+><P
+>&#13;         Usando questo parametro come ordine dei riconoscimenti, si 
+         avrà in $TestiRiconosciuti[0] una matrice con il primo set
+         di testi riconosciuti, in $TestiRiconosciuti[1], la matrice 
+         con il secondo set di testi riconosciuti e così via.
+	 <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN123636"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />preg_match_all</font><font color="#007700">(</font><font color="#DD0000">"|&lt;[^&gt;]+&gt;(.*)&lt;/[^&gt;]+&gt;|U"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&lt;b&gt;example: &lt;/b&gt;&lt;div align=\"left\"&gt;this is a test&lt;/div&gt;"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$out</font><font color="#007700">, </font><font color="#0000BB">PREG_SET_ORDER</font><font color="#007700">);<br />echo </font><font color="#0000BB">$out</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">][</font><font color="#0000BB">0</font><font color="#007700">].</font><font color="#DD0000">", "</font><font color="#007700">.</font><font color="#0000BB">$out</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">][</font><font color="#0000BB">1</font><font color="#007700">].</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />echo </font><font color="#0000BB">$out</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">][</font><font color="#0000BB">0</font><font color="#007700">].</font><font color="#DD0000">", "</font><font color="#007700">.</font><font color="#0000BB">$out</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">][</font><font color="#0000BB">1</font><font color="#007700">].</font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;  	 Questo esempio visualizzerà:
+	 </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;b&#62;example: &#60;/b&#62;, example: 
+&#60;div align="left"&#62;this is a test&#60;/div&#62;, this is a test</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+        </P
+><P
+>&#13;         In questo esempio $out[0] è la matrice del primo set di testi
+         riconosciuti. Nel dettaglio $out[0][0] conterrà il testo che incrocia
+         l'intero criterio impostato, $out[0][1] conterrà il testo riconosciuto
+         tramite il prima regola di riconoscimento presente nel criterio globale.
+         Analogo discorso si può fare per $out[1]. In questo caso il ragionamento
+         verrà svolto su un secondo segmento della stringa che soddisfi le
+         condizioni poste dal criterio di riconoscimento.
+	</P
+></DD
+><DT
+>PREG_OFFSET_CAPTURE</DT
+><DD
+><P
+> 
+         Se viene impostato questo flag, per ogni testo riconosciuto viene restituito
+         l'offset della stringa. Occorre notare che questo cambia il tipo di valore
+         restituito nell'array, infatti ogni elemento è, a sua volta, un'array composto dalla
+         stringa riconosciuta, all'indice <VAR
+CLASS="literal"
+>0</VAR
+>, e dall'offset della stringa nell'indice
+         <VAR
+CLASS="literal"
+>1</VAR
+>. Questa costante è disponibile a partire dalla
+         versione 4.3.0 di PHP.
+        </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     Qualora non si specifichi il parametro <VAR
+CLASS="parameter"
+>flags</VAR
+>,
+     si assume per default il valore PREG_PATTERN_ORDER.
+    </P
+><P
+> 
+     Normalemente la ricerca parte dall'inizio della stringa oggetto di ricerca. Con il parametro
+     opzionale <VAR
+CLASS="parameter"
+>offset</VAR
+> si può specificare da dove cominciare
+     la ricerca. Equivale a passare <A
+HREF="function.substr.html"
+><B
+CLASS="function"
+>substr()</B
+></A
+>($testo, $offset) alla funzione 
+     <A
+HREF="function.preg-match.html"
+><B
+CLASS="function"
+>preg_match()</B
+></A
+> al posto del parametro testo.
+     Il parametro <VAR
+CLASS="parameter"
+>offset</VAR
+> è disponibile a partire dalla versione 4.3.3 di
+     PHP.
+    </P
+><P
+>&#13;     La funzione restituisce il numero dei riconoscimenti completi
+     svolti (che possono essere zero), oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> 
+     se si verificano degli errori.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123657"
+></A
+><P
+><B
+>Esempio 1. Esempio di come ottenere tutti i numeri di telefono da un testo.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />preg_match_all</font><font color="#007700">(</font><font color="#DD0000">"/\(?&nbsp;&nbsp;(\d{3})?&nbsp;&nbsp;\)?&nbsp;&nbsp;(?(1)&nbsp;&nbsp;[\-\s] ) \d{3}-\d{4}/x"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"Call 555-1212 or 1-800-555-1212"</font><font color="#007700">, </font><font color="#0000BB">$numeri</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123661"
+></A
+><P
+><B
+>Esempio 2. Ricerca di tag HTML</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Il parametro \\2 è un esempio di riferimento all'indietro. Questo dato informa la <br />// libreria pcre che deve considerare il secondo set di parentesi tonde (in questo <br />// caso il testo "([\w]+)"). Il backslash (\) aggiuntivo è reso obbligatorio dall'uso<br />// dei doppi apici.<br /></font><font color="#0000BB">$html </font><font color="#007700">= </font><font color="#DD0000">"&lt;b&gt;bold text&lt;/b&gt;&lt;a href=howdy.html&gt;click me&lt;/a&gt;"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">preg_match_all</font><font color="#007700">(</font><font color="#DD0000">"/(&lt;([\w]+)[^&gt;]*&gt;)(.*)(&lt;\/\\2&gt;)/"</font><font color="#007700">, </font><font color="#0000BB">$html</font><font color="#007700">, </font><font color="#0000BB">$matches</font><font color="#007700">);<br /><br />for (</font><font color="#0000BB">$i</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">&lt; </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$matches</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]); </font><font color="#0000BB">$i</font><font color="#007700">++) {<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"intero criterio: "</font><font color="#007700">.</font><font color="#0000BB">$matches</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">][</font><font color="#0000BB">$i</font><font color="#007700">].</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"parte 1: " </font><font color="#007700">. </font><font color="#0000BB">$matches</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">][</font><font color="#0000BB">$i</font><font color="#007700">] . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"parte 2: " </font><font color="#007700">. </font><font color="#0000BB">$matches</font><font color="#007700">[</font><font color="#0000BB">3</font><font color="#007700">][</font><font color="#0000BB">$i</font><font color="#007700">] . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"parte 3: " </font><font color="#007700">. </font><font color="#0000BB">$matches</font><font color="#007700">[</font><font color="#0000BB">4</font><font color="#007700">][</font><font color="#0000BB">$i</font><font color="#007700">] . </font><font color="#DD0000">"\n\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;      Questo esempio visualizzerà:
+     </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>intero criterio: &#60;b&#62;bold text&#60;/b&#62;
+parte 1: &#60;b&#62;
+parte 2: bold text
+parte 3: &#60;/b&#62;
+
+intero criterio: &#60;a href=howdy.html&#62;click me&#60;/a&#62;
+parte 1: &#60;a href=howdy.html&#62;
+parte 2: click me
+parte 3: &#60;/a&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.preg-match.html"
+><B
+CLASS="function"
+>preg_match()</B
+></A
+>,
+     <A
+HREF="function.preg-replace.html"
+><B
+CLASS="function"
+>preg_replace()</B
+></A
+>
+     e <A
+HREF="function.preg-split.html"
+><B
+CLASS="function"
+>preg_split()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.preg-grep.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.preg-match.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>preg_grep</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pcre.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>preg_match</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

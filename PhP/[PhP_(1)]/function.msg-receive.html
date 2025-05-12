@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>msg_receive</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per i semafori, la memoria condivisa ed IPC"
+HREF="ref.sem.html"><LINK
+REL="PREVIOUS"
+TITLE="msg_get_queue"
+HREF="function.msg-get-queue.html"><LINK
+REL="NEXT"
+TITLE="msg_remove_queue"
+HREF="function.msg-remove-queue.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.msg-get-queue.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.msg-remove-queue.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.msg-receive"
+></A
+>msg_receive</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN148392"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PHP 5)</P
+>msg_receive&nbsp;--&nbsp;
+     Riceve un messaggio da una coda
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148395"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>msg_receive</B
+> ( resource coda, int tipo_desiderato, int &#38;tipo_messaggio, int dimensione_max, mixed &#38;messaggio [, bool unserialize [, int flags [, int codice_errore [, int &#38;codice_errore]]]] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>msg_receive()</B
+> riceve il primo messaggio dalla coda 
+     specificata in <VAR
+CLASS="parameter"
+>coda</VAR
+> del tipo indicato in
+     <VAR
+CLASS="parameter"
+>tipo_desiderato</VAR
+>.
+     Il tipo di messaggio che è stato ricevuto viene memorizzato in
+     <VAR
+CLASS="parameter"
+>tipo_messaggio</VAR
+>.
+     La dimensione massima del messaggio accettata viene indicata
+     in <VAR
+CLASS="parameter"
+>dimensione_max</VAR
+>; se il messaggio nella coda è più grande,
+     la funzione darà esito negativo (a meno che non sia
+     impostato il parametro <VAR
+CLASS="parameter"
+>flags</VAR
+> come descritto in seguito).
+     Il messaggio ricevuto sarà memorizzato in <VAR
+CLASS="parameter"
+>messaggio</VAR
+>,
+     a meno che non si verifichino degli errori in ricezione, in tal caso il parametro
+     opzionale <VAR
+CLASS="parameter"
+>errorcode</VAR
+> sarà valorizzato con il valore
+     della variabile errno per aiutare ad identificare la causa.
+    </P
+><P
+>&#13;     Se il parametro <VAR
+CLASS="parameter"
+>tipo_desiderato</VAR
+> è 0, verrà restituito il
+     primo messaggio dalla coda. Se, invece, <VAR
+CLASS="parameter"
+>tipo_desiderato</VAR
+> è
+     maggiore di 0, sarà restuito il primo messaggio di quel tipo.
+     Mentre se <VAR
+CLASS="parameter"
+>tipo_desiderato</VAR
+> è minore di 0, sarà
+     restituito dalla coda il primo messaggio con il tipo più basso o uguale al
+     valore assoluto di <VAR
+CLASS="parameter"
+>tipo_desiderato</VAR
+>.
+     Se nessun messaggio soddisfa i criteri impostati, lo script attenderà fino
+     all'arrivo nella coda di un messaggio adeguato. Si può evitare il blocco dello script
+     indicando <TT
+CLASS="constant"
+><B
+>MSG_IPC_NOWAIT</B
+></TT
+> nel parametro <VAR
+CLASS="parameter"
+>flags</VAR
+>.
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>unserialize</VAR
+> (default <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>), se viene impostato
+     a <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> indica di trattare il messaggio come se fosse serializzato utilizzando lo stesso
+     meccanismo del modulo delle sessioni. In tal modo il messaggio può essere deserializzato e
+     restituito allo script. Questo permette di ricevere facilmente array o complesse
+     strutture oggetto da altri script PHP, o, se si sta utilizzando il
+     serializzatore WDDX, da sorgenti compatibili con WDDX.
+     Se <VAR
+CLASS="parameter"
+>unserialize</VAR
+> è impostato a <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, il messaggio sarà restituito
+     come una stringa.
+    </P
+><P
+>&#13;     Il parametro opzionale <VAR
+CLASS="parameter"
+>flags</VAR
+> permette di passare flag alla
+     chiamata di sistema msgrcv. Il default è 0, ma possono essere specificati uno
+     o più dei seguenti valori (sommandoli o legandoli con OR).
+     <DIV
+CLASS="table"
+><A
+NAME="AEN148451"
+></A
+><P
+><B
+>Tabella 1. Valori dei flag per msg_receive</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>MSG_IPC_NOWAIT</B
+></TT
+></TD
+><TD
+>Se non ci sono messaggi del
+          <VAR
+CLASS="parameter"
+>tipo_desiderato</VAR
+>, la funzione ritorna immediatamente senza
+          aspettare. La funzione fallirà e restituirà un valore intero 
+          corrispondente a ENOMSG.
+         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>MSG_EXCEPT</B
+></TT
+></TD
+><TD
+>Usando questo flag in combinazione con 
+          <VAR
+CLASS="parameter"
+>tipo_desiderato</VAR
+> maggiore di 0, si forza la 
+          funzione a ricevere il primo messaggio che non sia uguale a 
+          <VAR
+CLASS="parameter"
+>tipo_desiderato</VAR
+>.</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>MSG_NOERROR</B
+></TT
+></TD
+><TD
+>&#13;          Se il messaggio è più lungo di <VAR
+CLASS="parameter"
+>dimensione_max</VAR
+>,
+          l'attivazione di questo flag troncherà il messaggio a
+          <VAR
+CLASS="parameter"
+>dimensione_max</VAR
+> e non sarà segnalato alcun errore.
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     Una volta eseguita con successo la ricezione, la struttura dati della coda dei messaggi verrà aggiornata
+     come segue: <VAR
+CLASS="literal"
+>msg_lrpid</VAR
+> sarà impostato all'ID di processo del 
+     processo chiamante, <VAR
+CLASS="literal"
+>msg_qnum</VAR
+> verrà decrementato di 1 e
+     <VAR
+CLASS="literal"
+>msg_rtime</VAR
+> sarà impostato all'ora corrente.
+    </P
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>msg_receive()</B
+> restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se ha successo oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+     se non riesce. Se la funzione fallisce, il parametro opzionale
+     <VAR
+CLASS="parameter"
+>codice_errore</VAR
+> verrà impostato al valore
+     della variabile errno.
+    </P
+><P
+>&#13;     Vedere anche: <A
+HREF="function.msg-remove-queue.html"
+><B
+CLASS="function"
+>msg_remove_queue()</B
+></A
+>,
+     <A
+HREF="function.msg-send.html"
+><B
+CLASS="function"
+>msg_send()</B
+></A
+>,
+     <A
+HREF="function.msg-stat-queue.html"
+><B
+CLASS="function"
+>msg_stat_queue()</B
+></A
+> e
+     <A
+HREF="function.msg-set-queue.html"
+><B
+CLASS="function"
+>msg_set_queue()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.msg-get-queue.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.msg-remove-queue.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>msg_get_queue</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>msg_remove_queue</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

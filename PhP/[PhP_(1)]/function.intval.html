@@ -1,0 +1,398 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>intval</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per la gestione delle variabili"
+HREF="ref.var.html"><LINK
+REL="PREVIOUS"
+TITLE="import_request_variables"
+HREF="function.import-request-variables.html"><LINK
+REL="NEXT"
+TITLE="is_array"
+HREF="function.is-array.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.import-request-variables.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.is-array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.intval"
+></A
+>intval</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN173147"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>intval&nbsp;--&nbsp;Estrae il valore intero da una variabile</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN173150"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>intval</B
+> ( mixed var [, int base] )<BR
+></BR
+><P
+>&#13;   Estrae il valore intero di <VAR
+CLASS="parameter"
+>var</VAR
+>,
+   utilizzando la <VAR
+CLASS="parameter"
+>base</VAR
+> definita a parametro per la conversione. 
+   (La base vale 10 di default).   
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN173165"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>var</VAR
+></DT
+><DD
+><P
+>&#13;       Valore scalare da convertire in intero
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>base</VAR
+></DT
+><DD
+><P
+>&#13;      Base per la conversione (il default è 10)
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN173179"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Il valore intero di <VAR
+CLASS="parameter"
+>var</VAR
+> se riesce, oppure 0 in caso
+   di errore. Le matrici e gli oggetti vuoti restituiscono 0, la matrici e gli
+   oggetti pieni restituiscono 1.
+  </P
+><P
+>&#13;   Il valore massimo dipende dal sistema. Nei sistemi a 32 bit si ha come
+   valore per il caso di intero con segno il range da  -2147483648 a 2147483647. Così, ad esempio,
+   su tali sistemi, la riga <VAR
+CLASS="literal"
+>intval('1000000000000')</VAR
+> restituirà
+   2147483647. Il massimo valore per un intero con segno sui sistemi a 64 bit è
+   9223372036854775807.
+  </P
+><P
+>&#13;   Le stringhe probabilmente restituiranno 0, sebbene il valore restituito dipenda
+   dal primo carattere a sinistra della stringa. Si utilizzano le 
+   comuni di
+   <A
+HREF="language.types.integer.html#language.types.integer.casting"
+>integer casting</A
+> .
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN173187"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN173190"
+></A
+><P
+><B
+>Esempio 1. Esempi di uso di <B
+CLASS="function"
+>intval()</B
+></B
+></P
+><P
+>&#13;     I seguenti esempi sono basati su un sistema a 32 bit.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#0000BB">42</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 42<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#0000BB">4.2</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 4<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#DD0000">'42'</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 42<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#DD0000">'+42'</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 42<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#DD0000">'-42'</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// -42<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#0000BB">042</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 34<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#DD0000">'042'</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 42<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#0000BB">1e10</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 1410065408<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#DD0000">'1e10'</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 1<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#0000BB">0x1A</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 26<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#0000BB">42000000</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 42000000<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#0000BB">420000000000000000000</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 0<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#DD0000">'420000000000000000000'</font><font color="#007700">); </font><font color="#FF8000">// 2147483647<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#0000BB">42</font><font color="#007700">, </font><font color="#0000BB">8</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 42<br /></font><font color="#007700">echo </font><font color="#0000BB">intval</font><font color="#007700">(</font><font color="#DD0000">'42'</font><font color="#007700">, </font><font color="#0000BB">8</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// 34<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN173195"
+></A
+><H2
+>Note</H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Il parametro <VAR
+CLASS="parameter"
+>base</VAR
+> non ha influenza a meno che il parametro
+    <VAR
+CLASS="parameter"
+>var</VAR
+> non sia una stringa.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN173201"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.floatval.html"
+><B
+CLASS="function"
+>floatval()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.strval.html"
+><B
+CLASS="function"
+>strval()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.settype.html"
+><B
+CLASS="function"
+>settype()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.is-numeric.html"
+><B
+CLASS="function"
+>is_numeric()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="language.types.type-juggling.html"
+>Type juggling</A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="ref.bc.html"
+>BCMath Arbitrary Precision Mathematics Functions</A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.import-request-variables.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.is-array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>import_request_variables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.var.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>is_array</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

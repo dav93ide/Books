@@ -1,0 +1,403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pg_query_params</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni PostgreSQL"
+HREF="ref.pgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="pg_put_line"
+HREF="function.pg-put-line.html"><LINK
+REL="NEXT"
+TITLE="pg_query"
+HREF="function.pg-query.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pg-put-line.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pg-query-params"
+></A
+>pg_query_params</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN134271"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>pg_query_params&nbsp;--&nbsp;Submits a command to the server and waits for the result, with the ability to pass parameters separately from the SQL command text.</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134274"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>pg_query_params</B
+> ( resource connection, string query, array params )<BR
+></BR
+>resource <B
+CLASS="methodname"
+>pg_query_params</B
+> ( string query, array params )<BR
+></BR
+><P
+>&#13;    Submits a command to the server and waits for the result, with the ability 
+    to pass parameters separately from the SQL command text.
+  </P
+><P
+>&#13;    <B
+CLASS="function"
+>pg_query_params()</B
+> is like <A
+HREF="function.pg-query.html"
+><B
+CLASS="function"
+>pg_query()</B
+></A
+>, 
+    but offers additional functionality: parameter 
+    values can be specified separately from the command string proper. 
+    <B
+CLASS="function"
+>pg_query_params()</B
+> is supported only against PostgreSQL 7.4 or
+    higher connections; it will fail when using earlier versions.
+  </P
+><P
+>&#13;    If parameters are used, they are referred to in the <VAR
+CLASS="parameter"
+>query</VAR
+> 
+    string as $1, $2, etc.  <VAR
+CLASS="parameter"
+>params</VAR
+> specifies the actual values of the 
+    parameters. A <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> value in this array means the corresponding parameter is SQL
+    <VAR
+CLASS="literal"
+>NULL</VAR
+>.
+  </P
+><P
+>&#13;    The primary advantage of <B
+CLASS="function"
+>pg_query_params()</B
+> over <A
+HREF="function.pg-query.html"
+><B
+CLASS="function"
+>pg_query()</B
+></A
+> 
+    is that parameter values 
+    may be separated from the <VAR
+CLASS="parameter"
+>query</VAR
+> string, thus avoiding the need for tedious 
+    and error-prone quoting and escaping. Unlike <A
+HREF="function.pg-query.html"
+><B
+CLASS="function"
+>pg_query()</B
+></A
+>, 
+    <B
+CLASS="function"
+>pg_query_params()</B
+> allows at 
+    most one SQL command in the given string. (There can be semicolons in it, 
+    but not more than one nonempty command.)
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134313"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       PostgreSQL database connection resource.  When 
+       <VAR
+CLASS="parameter"
+>connection</VAR
+> is not present, the default connection 
+       is used. The default connection is the last connection made by 
+       <A
+HREF="function.pg-connect.html"
+><B
+CLASS="function"
+>pg_connect()</B
+></A
+> or <A
+HREF="function.pg-pconnect.html"
+><B
+CLASS="function"
+>pg_pconnect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>query</VAR
+></DT
+><DD
+><P
+>&#13;       The parameterised SQL statement.  Must contain only a single statement.
+       (multiple statements separated by semi-colons are not allowed.)  If any parameters 
+       are used, they are referred to as $1, $2, etc.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>params</VAR
+></DT
+><DD
+><P
+>&#13;        An array of parameter values to substitute for the $1, $2, etc. placeholders
+        in the original prepared query string.  The number of elements in the array
+        must match the number of placeholders.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134335"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;    A query result resource on success, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on failure.</P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134339"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN134342"
+></A
+><P
+><B
+>Esempio 1. Using <B
+CLASS="function"
+>pg_query_params()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Connect to a database named "mary"<br /></font><font color="#0000BB">$dbconn </font><font color="#007700">= </font><font color="#0000BB">pg_connect</font><font color="#007700">(</font><font color="#DD0000">"dbname=mary"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Find all shops named Joe's Widgets.&nbsp;&nbsp;Note that it is not necessary to<br />// escape "Joe's Widgets"<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_query_params</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">'SELECT * FROM shops WHERE name = $1'</font><font color="#007700">, array(</font><font color="#DD0000">"Joe's Widgets"</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Compare against just using pg_query<br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#0000BB">pg_escape_string</font><font color="#007700">(</font><font color="#DD0000">"Joe's Widgets"</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_query</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"SELECT * FROM shops WHERE name = '</font><font color="#007700">{</font><font color="#DD0000">$str</font><font color="#007700">}</font><font color="#DD0000">'"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134346"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.pg-query.html"
+><B
+CLASS="function"
+>pg_query()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pg-put-line.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pg_put_line</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pgsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_query</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

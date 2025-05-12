@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pg_fetch_all_columns</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni PostgreSQL"
+HREF="ref.pgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="pg_execute"
+HREF="function.pg-execute.html"><LINK
+REL="NEXT"
+TITLE="pg_fetch_all"
+HREF="function.pg-fetch-all.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pg-execute.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-fetch-all.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pg-fetch-all-columns"
+></A
+>pg_fetch_all_columns</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN132902"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>pg_fetch_all_columns&nbsp;--&nbsp;Fetches all rows in a particular result column as an array</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132905"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>pg_fetch_all_columns</B
+> ( resource result [, int column] )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>pg_fetch_all_columns()</B
+> returns an array that
+   contains all rows (records) in a particular column of the result resource.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>This function sets NULL fields to
+PHP <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> value.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132921"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>result</VAR
+></DT
+><DD
+><P
+>&#13;       PostgreSQL query result resource, returned by <A
+HREF="function.pg-query.html"
+><B
+CLASS="function"
+>pg_query()</B
+></A
+>,
+       <A
+HREF="function.pg-query-params.html"
+><B
+CLASS="function"
+>pg_query_params()</B
+></A
+> or <A
+HREF="function.pg-execute.html"
+><B
+CLASS="function"
+>pg_execute()</B
+></A
+>
+       (among others).
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>column</VAR
+></DT
+><DD
+><P
+>&#13;       Column number, zero-based, to be retrieved from the result resource.  Defaults
+       to the first column if not specified.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132938"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   An <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> with all values in the result column.
+  </P
+><P
+>&#13;   <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> is returned if <VAR
+CLASS="parameter"
+>column</VAR
+> is larger than the number 
+   of columns in the result, or on any other error.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132945"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN132948"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>pg_fetch_all_columns()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br />$conn </font><font color="#007700">= </font><font color="#0000BB">pg_pconnect</font><font color="#007700">(</font><font color="#DD0000">"dbname=publisher"</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$conn</font><font color="#007700">) {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"An error occured.\n"</font><font color="#007700">;<br />&nbsp;&nbsp;exit;<br />}<br /><br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_query</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"SELECT title, name, address FROM authors"</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$result</font><font color="#007700">) {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"An error occured.\n"</font><font color="#007700">;<br />&nbsp;&nbsp;exit;<br />}<br /><br /></font><font color="#FF8000">// Get an array of all author names<br /></font><font color="#0000BB">$arr </font><font color="#007700">= </font><font color="#0000BB">pg_fetch_all_columns</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /><br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$arr</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132952"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.pg-fetch-all.html"
+><B
+CLASS="function"
+>pg_fetch_all()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pg-execute.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-fetch-all.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pg_execute</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pgsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_fetch_all</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

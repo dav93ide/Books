@@ -1,0 +1,349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>stripslashes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="stripos"
+HREF="function.stripos.html"><LINK
+REL="NEXT"
+TITLE="stristr"
+HREF="function.stristr.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.stripos.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.stristr.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.stripslashes"
+></A
+>stripslashes</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN165575"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>stripslashes&nbsp;--&nbsp;
+     Rimuove gli slash aggiunti con <A
+HREF="function.addslashes.html"
+><B
+CLASS="function"
+>addslashes()</B
+></A
+>
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN165579"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>stripslashes</B
+> ( string str )<BR
+></BR
+><P
+>&#13;     Rimuove i backslash da una stringa.
+     (<VAR
+CLASS="literal"
+>\'</VAR
+> diventa <VAR
+CLASS="literal"
+>'</VAR
+> e così via.)
+     I doppi backslash (<VAR
+CLASS="literal"
+>\\</VAR
+>) sono ridotti ad un singolo
+     backslash (<VAR
+CLASS="literal"
+>\</VAR
+>). 
+    </P
+><P
+>&#13;     Un esempio di uso di <B
+CLASS="function"
+>stripslashes()</B
+> è dato dall'opzione PHP
+     <A
+HREF="ref.info.html#ini.magic-quotes-gpc"
+>magic_quotes_gpc</A
+>
+     che, quando è impostata a <VAR
+CLASS="literal"
+>on</VAR
+> (come è per default), e non siinseriscono
+     questi dati in una procedura (tipo in un database) che richiede il carattere di escape.
+     Ad esempio, se si visualizza dati da un form 
+     HTML.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN165597"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>stripslashes()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$str </font><font color="#007700">= </font><font color="#DD0000">"Is your name O\'reilly?"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Outputs: Is your name O'reilly?<br /></font><font color="#007700">echo </font><font color="#0000BB">stripslashes</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      La funzione <B
+CLASS="function"
+>stripslashes()</B
+> non è ricorsiva Se si desidera utilizzare
+      questa funzione su una matrice multi-dimensionale, occorre utilizzare una funzione ricorsiva.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN165605"
+></A
+><P
+><B
+>Esempio 2. Esempio di utilizzo di <B
+CLASS="function"
+>stripslashes()</B
+> su una matrice</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">stripslashes_deep</font><font color="#007700">(</font><font color="#0000BB">$value</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$value </font><font color="#007700">= </font><font color="#0000BB">is_array</font><font color="#007700">(</font><font color="#0000BB">$value</font><font color="#007700">) ?<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">array_map</font><font color="#007700">(</font><font color="#DD0000">'stripslashes_deep'</font><font color="#007700">, </font><font color="#0000BB">$value</font><font color="#007700">) :<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">stripslashes</font><font color="#007700">(</font><font color="#0000BB">$value</font><font color="#007700">);<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$value</font><font color="#007700">;<br />}<br /> <br /></font><font color="#FF8000">// Example<br /></font><font color="#0000BB">$array </font><font color="#007700">= array(</font><font color="#DD0000">"f\\'oo"</font><font color="#007700">, </font><font color="#DD0000">"b\\'ar"</font><font color="#007700">, array(</font><font color="#DD0000">"fo\\'o"</font><font color="#007700">, </font><font color="#DD0000">"b\\'ar"</font><font color="#007700">));<br /></font><font color="#0000BB">$array </font><font color="#007700">= </font><font color="#0000BB">stripslashes_deep</font><font color="#007700">(</font><font color="#0000BB">$array</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// Output<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$array</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array
+(
+    [0] =&#62; f'oo
+    [1] =&#62; b'ar
+    [2] =&#62; Array
+        (
+            [0] =&#62; fo'o
+            [1] =&#62; b'ar
+        )
+ 
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Per maggiori dettagli su "magic quotes", vedere <A
+HREF="function.get-magic-quotes-gpc.html"
+><B
+CLASS="function"
+>get_magic_quotes_gpc()</B
+></A
+>.
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.addslashes.html"
+><B
+CLASS="function"
+>addslashes()</B
+></A
+> e
+     <A
+HREF="function.get-magic-quotes-gpc.html"
+><B
+CLASS="function"
+>get_magic_quotes_gpc()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.stripos.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.stristr.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>stripos</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>stristr</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

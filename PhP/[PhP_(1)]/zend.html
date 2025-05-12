@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Zend API: Hacking the Core of PHP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PHP and Zend Engine Internals"
+HREF="internals.html"><LINK
+REL="PREVIOUS"
+TITLE="Error handling"
+HREF="internals.pdo.error-handling.html"><LINK
+REL="NEXT"
+TITLE="Overview"
+HREF="zend.overview.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="internals.pdo.error-handling.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="zend.overview.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="zend"
+>Capitolo 46. Zend API: Hacking the Core of PHP</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="zend.html#zend.intro"
+>Introduction</A
+></DT
+><DT
+><A
+HREF="zend.overview.html"
+>Overview</A
+></DT
+><DT
+><A
+HREF="zend.possibilities.html"
+>Extension Possibilities</A
+></DT
+><DT
+><A
+HREF="zend.layout.html"
+>Source Layout</A
+></DT
+><DT
+><A
+HREF="zend.build.html"
+>PHP's Automatic Build System</A
+></DT
+><DT
+><A
+HREF="zend.creating.html"
+>Creating Extensions</A
+></DT
+><DT
+><A
+HREF="zend.using.html"
+>Using Extensions</A
+></DT
+><DT
+><A
+HREF="zend.troubleshooting.html"
+>Troubleshooting</A
+></DT
+><DT
+><A
+HREF="zend.structure.html"
+>Source Discussion</A
+></DT
+><DT
+><A
+HREF="zend.arguments.html"
+>Accepting Arguments</A
+></DT
+><DT
+><A
+HREF="zend.variables.html"
+>Creating Variables</A
+></DT
+><DT
+><A
+HREF="zend.copy-constructor.html"
+>Duplicating Variable Contents: The Copy Constructor</A
+></DT
+><DT
+><A
+HREF="zend.returning.html"
+>Returning Values</A
+></DT
+><DT
+><A
+HREF="zend.printing.html"
+>Printing Information</A
+></DT
+><DT
+><A
+HREF="zend.startup-and-shutdown.html"
+>Startup and Shutdown Functions</A
+></DT
+><DT
+><A
+HREF="zend.calling-user-functions.html"
+>Calling User Functions</A
+></DT
+><DT
+><A
+HREF="zend.ini-file-support.html"
+>Initialization File Support</A
+></DT
+><DT
+><A
+HREF="zend.where-to-go.html"
+>Where to Go from Here</A
+></DT
+><DT
+><A
+HREF="zend.configuration-macros.html"
+>Reference: Some Configuration Macros</A
+></DT
+><DT
+><A
+HREF="zend.api-macros.html"
+>API Macros</A
+></DT
+><DT
+><A
+HREF="x188398.html"
+>API Functions (work in progress)</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="zend.intro"
+>Introduction</A
+></H1
+><BLOCKQUOTE
+CLASS="ABSTRACT"
+><DIV
+CLASS="abstract"
+><P
+></P
+><A
+NAME="AEN186095"
+></A
+><P
+>Those who know don't talk.</P
+><P
+>Those who talk don't know.</P
+><P
+></P
+></DIV
+></BLOCKQUOTE
+><P
+>&#13;  Sometimes, PHP "as is" simply isn't enough. Although these cases are rare
+  for the average user, professional applications will soon lead PHP to the edge
+  of its capabilities, in terms of either speed or functionality. New
+  functionality cannot always be implemented natively due to language
+  restrictions and inconveniences that arise when having to carry around a huge
+  library of default code appended to every single script, so another method
+  needs to be found for overcoming these eventual lacks in PHP.
+ </P
+><P
+>&#13;  As soon as this point is reached, it's time to touch the heart of PHP
+  and take a look at its core, the C code that makes PHP go.
+ </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="internals.pdo.error-handling.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="zend.overview.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Error handling</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="internals.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Overview</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

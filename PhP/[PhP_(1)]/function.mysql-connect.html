@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_connect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_close"
+HREF="function.mysql-close.html"><LINK
+REL="NEXT"
+TITLE="mysql_create_db"
+HREF="function.mysql-create-db.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-create-db.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-connect"
+></A
+>mysql_connect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN92918"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mysql_connect&nbsp;--&nbsp;Apre una connessione ad un server MySQL</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN92921"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>mysql_connect</B
+> ( [string server [, string nome_utente [, string password [, bool nuova_connessione [, int client_flags]]]]] )<BR
+></BR
+><P
+>&#13;     Restituisce un identificativo di connessione MySQL in caso di successo oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_connect()</B
+> stabilice una connessione
+     ad un server MySQL. I seguenti valore predefiniti sono assunti per
+     i parametri opzionali mancanti: <VAR
+CLASS="parameter"
+>server</VAR
+> =
+     'localhost:3306', <VAR
+CLASS="parameter"
+>nome_utente</VAR
+> = nome
+     dell'utente proprietario del processo server e
+     <VAR
+CLASS="parameter"
+>password</VAR
+> = password vuota.
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>server</VAR
+> può anche includere un numero di porta.
+     Es. "hostname:porta" o un percorso ad un socket
+     es. ":/percorso/al/socket" per il localhost.
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       il supporto per ":porta" è stato aggiunto nel PHP 3.0B4.
+      </P
+><P
+>&#13;       Il supporto per ":/percorso/al/socket" è stato aggiunto nel
+       PHP 3.0.10.
+      </P
+><P
+>&#13;       Si può eliminare il messaggio di errore nel caso di fallimento aggiungendo il prefisso
+       <A
+HREF="language.operators.errorcontrol.html"
+>@</A
+>
+       al un nome della funzione.
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><P
+>&#13;     Se si fa una seconda chiamata a <B
+CLASS="function"
+>mysql_connect()</B
+>
+     con gli stessi argomenti, nessuna nuova connessione sarà stabilita, ma
+     sarà restituito l'identificativo della connessione già aperta.
+     Il paramentro <VAR
+CLASS="parameter"
+>nuova_connessione</VAR
+> modifica questo
+     comportamento e fa sì che <B
+CLASS="function"
+>mysql_connect()</B
+> apra sempre
+     una nuova connessione, anche se <B
+CLASS="function"
+>mysql_connect()</B
+> era stata chiamata
+     prima con gli stessi parametri. il parametro <VAR
+CLASS="parameter"
+>client_flags</VAR
+>
+     può essere combinato con le costanti
+     MYSQL_CLIENT_COMPRESS, MYSQL_CLIENT_IGNORE_SPACE o
+     MYSQL_CLIENT_INTERACTIVE.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il paramentro <VAR
+CLASS="parameter"
+>nuova_connessione</VAR
+> è stato indrodotto
+      dal PHP 4.2.0
+     </P
+><P
+>&#13;      Il parametro <VAR
+CLASS="parameter"
+>client_flags</VAR
+> è stato introdotto dal
+      PHP 4.3.0
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     La connessione al server sarà chiusa prima della fine dell'esecuzione
+     dello script, a meno che questa non sia precedentemente chiusa esplicitamente richiamando
+     <A
+HREF="function.mysql-close.html"
+><B
+CLASS="function"
+>mysql_close()</B
+></A
+>.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN92968"
+></A
+><P
+><B
+>Esempio 1. Esempio di connessione MySQL</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$connessione </font><font color="#007700">= </font><font color="#0000BB">mysql_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"utente_mysql"</font><font color="#007700">, </font><font color="#DD0000">"password_mysql"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Connessione non riuscita: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;print (</font><font color="#DD0000">"Connesso con successo"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_close</font><font color="#007700">(</font><font color="#0000BB">$connessione</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+> Vedere anche
+     <A
+HREF="function.mysql-pconnect.html"
+><B
+CLASS="function"
+>mysql_pconnect()</B
+></A
+> e
+     <A
+HREF="function.mysql-close.html"
+><B
+CLASS="function"
+>mysql_close()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-create-db.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_close</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_create_db</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>substr_replace</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="substr_count"
+HREF="function.substr-count.html"><LINK
+REL="NEXT"
+TITLE="substr"
+HREF="function.substr.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.substr-count.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.substr.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.substr-replace"
+></A
+>substr_replace</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN166380"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>substr_replace&nbsp;--&nbsp;Sostuisce una porzione di testo</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN166383"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>substr_replace</B
+> ( string string, string replacement, int start [, int length] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>substr_replace()</B
+> sostituisce una copia di
+     <VAR
+CLASS="parameter"
+>string</VAR
+> delimitata dai parametri
+     <VAR
+CLASS="parameter"
+>start</VAR
+> e (opzionalmente)
+     <VAR
+CLASS="parameter"
+>length</VAR
+> con il testo indicato in
+     <VAR
+CLASS="parameter"
+>replacement</VAR
+>. Viene restituito il testo risultante.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>start</VAR
+> è positivo, la sostituzione inizierà
+     palla posizione <VAR
+CLASS="parameter"
+>start</VAR
+> di
+     <VAR
+CLASS="parameter"
+>string</VAR
+>.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>start</VAR
+> è negativo, la sostituzione inizierà
+     da <VAR
+CLASS="parameter"
+>start</VAR
+> caratteri dalla fine di
+     <VAR
+CLASS="parameter"
+>string</VAR
+>.
+    </P
+><P
+>&#13;     Se è indicato il parametro <VAR
+CLASS="parameter"
+>length</VAR
+> ed è positivo, indica
+     il numero di caratteri del testo
+     <VAR
+CLASS="parameter"
+>string</VAR
+> che devono essere sostituiti. Se questo parametro è negativo,
+     indica il numero di caratteri dalla fine di
+     <VAR
+CLASS="parameter"
+>string</VAR
+> a cui fermarsi nella sostituzione. Se non viene 
+     indicato, si utilizzerà il default strlen(
+     <VAR
+CLASS="parameter"
+>string</VAR
+> ); ad esempio si finirà la sostituzione alla fine di
+     <VAR
+CLASS="parameter"
+>string</VAR
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN166421"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>substr_replace()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$var </font><font color="#007700">= </font><font color="#DD0000">'ABCDEFGH:/MNRPQR/'</font><font color="#007700">;<br />echo </font><font color="#DD0000">"Original: $var&lt;hr /&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Questi due esempi sostituiscono tutte le occorrenze di $var con 'bob'. */<br /></font><font color="#007700">echo </font><font color="#0000BB">substr_replace</font><font color="#007700">(</font><font color="#0000BB">$var</font><font color="#007700">, </font><font color="#DD0000">'bob'</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">) . </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br />echo </font><font color="#0000BB">substr_replace</font><font color="#007700">(</font><font color="#0000BB">$var</font><font color="#007700">, </font><font color="#DD0000">'bob'</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$var</font><font color="#007700">)) . </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Inserisce 'bob' a destra all'inizio di $var. */<br /></font><font color="#007700">echo </font><font color="#0000BB">substr_replace</font><font color="#007700">(</font><font color="#0000BB">$var</font><font color="#007700">, </font><font color="#DD0000">'bob'</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">) . </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Nei successivi due esempi si sostituisce 'MNRPQR' in $var con 'bob'. */<br /></font><font color="#007700">echo </font><font color="#0000BB">substr_replace</font><font color="#007700">(</font><font color="#0000BB">$var</font><font color="#007700">, </font><font color="#DD0000">'bob'</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">) . </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br />echo </font><font color="#0000BB">substr_replace</font><font color="#007700">(</font><font color="#0000BB">$var</font><font color="#007700">, </font><font color="#DD0000">'bob'</font><font color="#007700">, -</font><font color="#0000BB">7</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">) . </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Cancella 'MNRPQR' da $var. */<br /></font><font color="#007700">echo </font><font color="#0000BB">substr_replace</font><font color="#007700">(</font><font color="#0000BB">$var</font><font color="#007700">, </font><font color="#DD0000">''</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">) . </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione è
+ binary-safe (gestisce correttamente i file binari)</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.str-replace.html"
+><B
+CLASS="function"
+>str_replace()</B
+></A
+> e
+     <A
+HREF="function.substr.html"
+><B
+CLASS="function"
+>substr()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.substr-count.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.substr.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>substr_count</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>substr</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

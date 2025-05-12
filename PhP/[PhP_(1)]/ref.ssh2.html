@@ -1,0 +1,923 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Secure Shell2 Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="PDO::sqliteCreateFunction"
+HREF="function.pdo-sqlitecreatefunction.html"><LINK
+REL="NEXT"
+TITLE="ssh2_auth_hostbased_file"
+HREF="function.ssh2-auth-hostbased-file.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdo-sqlitecreatefunction.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-auth-hostbased-file.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.ssh2"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXLIII. Secure Shell2 Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN159104"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ssh2.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Bindings to the <A
+HREF="http://sourceforge.net/projects/libssh2/"
+TARGET="_top"
+>libssh2</A
+> library which
+     provide access to resources (shell, remote exec, tunneling, file transfer)
+     on a remote machine using a secure cryptographic transport.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ssh2.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Windows</I
+></SPAN
+> binaries may be found at
+  <A
+HREF="http://snaps.php.net/"
+TARGET="_top"
+>http://snaps.php.net/</A
+>.
+  To install, download php_ssh2.dll to the folder specified
+  by your php.ini file's <VAR
+CLASS="literal"
+>extension_dir</VAR
+> directive.
+  Enable it by adding <VAR
+CLASS="literal"
+>extension=php_ssh2.dll</VAR
+>
+  to your php.ini and restarting your webserver.
+ </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>extension_dir=c:/php5/exts/
+extension=php_ssh2.dll</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;  <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Linux, BSD, and other *nix variants</I
+></SPAN
+>
+  can be compiled using the following steps:
+ </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;    Download and install <A
+HREF="http://www.openssl.org/"
+TARGET="_top"
+>OpenSSL</A
+>.
+    If you install OpenSSL via your distribution's packaging system
+    be sure to install the development libraries as well.
+    This will typically be a package named <VAR
+CLASS="literal"
+>openssl-dev</VAR
+>,
+    <VAR
+CLASS="literal"
+>openssl_devel</VAR
+>, or some variation thereof.
+   </P
+></LI
+><LI
+><P
+>&#13;    Download and install <A
+HREF="http://sourceforge.net/projects/libssh2/"
+TARGET="_top"
+>libssh2</A
+>.
+    Typically this means executing the following command from
+    the libssh2 source tree. <VAR
+CLASS="literal"
+>./configure &#38;&#38; make all install</VAR
+>.
+   </P
+></LI
+><LI
+><P
+>&#13;    Run the pear installer for PECL/ssh2: <VAR
+CLASS="literal"
+>pear install ssh2</VAR
+>
+   </P
+></LI
+><LI
+><P
+>&#13;    Copy <VAR
+CLASS="literal"
+>ssh2.so</VAR
+> from the directory indicated by the
+    build process to the location specified in your php.ini file under
+    <VAR
+CLASS="literal"
+>extension_dir</VAR
+>.
+   </P
+></LI
+><LI
+><P
+>&#13;    Add <VAR
+CLASS="literal"
+>extension=ssh2.so</VAR
+> to your php.ini
+   </P
+></LI
+><LI
+><P
+>&#13;    Restart your webserver to reload your php.ini settings.
+   </P
+></LI
+></UL
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Development Versions: </B
+>
+   There are currently no <VAR
+CLASS="literal"
+>stable</VAR
+> versions of PECL/ssh2,
+   to force installation of the <VAR
+CLASS="literal"
+>beta</VAR
+> version of PECL/ssh2
+   execute: <VAR
+CLASS="literal"
+>pear install ssh2-</VAR
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>beta</I
+></SPAN
+>
+  </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Compiling PECL/ssh2 without using the PEAR command: </B
+>
+   Rather than using <VAR
+CLASS="literal"
+>pear install ssh2</VAR
+> to automatically
+   download and install PECL/ssh2, you may download the tarball from
+   <A
+HREF="http://pecl.php.net/package/ssh2"
+TARGET="_top"
+>PECL</A
+>.
+   From the root of the unpacked tarball, run:
+   <VAR
+CLASS="literal"
+>phpize &#38;&#38; ./configure --with-ssh2 &#38;&#38; make</VAR
+>
+   to generate <VAR
+CLASS="literal"
+>ssh2.so</VAR
+>.
+   Once built, continue the installation from step 4 above.
+  </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;  Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+  <A
+HREF="http://pecl.php.net/package/ssh2"
+TARGET="_top"
+>http://pecl.php.net/package/ssh2</A
+>.
+ </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+   You will need version 0.4 or greater of the libssh2 library
+   (possibly higher, see release notes).
+  </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ssh2.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_FINGERPRINT_MD5</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Flag to <A
+HREF="function.ssh2-fingerprint.html"
+><B
+CLASS="function"
+>ssh2_fingerprint()</B
+></A
+> requesting hostkey
+     fingerprint as an MD5 hash.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_FINGERPRINT_SHA1</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Flag to <A
+HREF="function.ssh2-fingerprint.html"
+><B
+CLASS="function"
+>ssh2_fingerprint()</B
+></A
+> requesting hostkey
+     fingerprint as an SHA1 hash.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_FINGERPRINT_HEX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Flag to <A
+HREF="function.ssh2-fingerprint.html"
+><B
+CLASS="function"
+>ssh2_fingerprint()</B
+></A
+> requesting hostkey
+     fingerprint as a string of hexits.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_FINGERPRINT_RAW</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Flag to <A
+HREF="function.ssh2-fingerprint.html"
+><B
+CLASS="function"
+>ssh2_fingerprint()</B
+></A
+> requesting hostkey
+     fingerprint as a raw string of 8-bit characters.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_TERM_UNIT_CHARS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Flag to <A
+HREF="function.ssh2-shell.html"
+><B
+CLASS="function"
+>ssh2_shell()</B
+></A
+> specifying that
+     <VAR
+CLASS="parameter"
+>width</VAR
+> and <VAR
+CLASS="parameter"
+>height</VAR
+>
+     are provided as character sizes.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_TERM_UNIT_PIXELS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Flag to <A
+HREF="function.ssh2-shell.html"
+><B
+CLASS="function"
+>ssh2_shell()</B
+></A
+> specifying that
+     <VAR
+CLASS="parameter"
+>width</VAR
+> and <VAR
+CLASS="parameter"
+>height</VAR
+>
+     are provided in pixel units.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_DEFAULT_TERM_WIDTH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Default terminal width requested by <A
+HREF="function.ssh2-shell.html"
+><B
+CLASS="function"
+>ssh2_shell()</B
+></A
+>.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_DEFAULT_TERM_HEIGHT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Default terminal height requested by <A
+HREF="function.ssh2-shell.html"
+><B
+CLASS="function"
+>ssh2_shell()</B
+></A
+>.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_DEFAULT_TERM_UNIT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Default terminal units requested by <A
+HREF="function.ssh2-shell.html"
+><B
+CLASS="function"
+>ssh2_shell()</B
+></A
+>.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_STREAM_STDIO</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Flag to <A
+HREF="function.ssh2-fetch-stream.html"
+><B
+CLASS="function"
+>ssh2_fetch_stream()</B
+></A
+> requesting STDIO subchannel.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_STREAM_STDERR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Flag to <A
+HREF="function.ssh2-fetch-stream.html"
+><B
+CLASS="function"
+>ssh2_fetch_stream()</B
+></A
+> requesting STDERR subchannel.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SSH2_DEFAULT_TERMINAL</B
+></TT
+>
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Default terminal type (e.g. vt102, ansi, xterm, vanilla) requested
+     by <A
+HREF="function.ssh2-shell.html"
+><B
+CLASS="function"
+>ssh2_shell()</B
+></A
+>.
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.ssh2-auth-hostbased-file.html"
+>ssh2_auth_hostbased_file</A
+>&nbsp;--&nbsp;
+     Authenticate using a public hostkey
+    </DT
+><DT
+><A
+HREF="function.ssh2-auth-none.html"
+>ssh2_auth_none</A
+>&nbsp;--&nbsp;
+     Authenticate as "none"
+    </DT
+><DT
+><A
+HREF="function.ssh2-auth-password.html"
+>ssh2_auth_password</A
+>&nbsp;--&nbsp;
+     Authenticate over SSH using a plain password
+    </DT
+><DT
+><A
+HREF="function.ssh2-auth-pubkey-file.html"
+>ssh2_auth_pubkey_file</A
+>&nbsp;--&nbsp;
+     Authenticate using a public key
+    </DT
+><DT
+><A
+HREF="function.ssh2-connect.html"
+>ssh2_connect</A
+>&nbsp;--&nbsp;
+     Connect to an SSH server
+    </DT
+><DT
+><A
+HREF="function.ssh2-exec.html"
+>ssh2_exec</A
+>&nbsp;--&nbsp;
+     Execute a command on a remote server
+    </DT
+><DT
+><A
+HREF="function.ssh2-fetch-stream.html"
+>ssh2_fetch_stream</A
+>&nbsp;--&nbsp;
+     Fetch an extended data stream
+    </DT
+><DT
+><A
+HREF="function.ssh2-fingerprint.html"
+>ssh2_fingerprint</A
+>&nbsp;--&nbsp;
+     Retreive fingerprint of remote server
+    </DT
+><DT
+><A
+HREF="function.ssh2-methods-negotiated.html"
+>ssh2_methods_negotiated</A
+>&nbsp;--&nbsp;
+     Return list of negotiated methods
+    </DT
+><DT
+><A
+HREF="function.ssh2-publickey-add.html"
+>ssh2_publickey_add</A
+>&nbsp;--&nbsp;
+   Add an authorized publickey
+  </DT
+><DT
+><A
+HREF="function.ssh2-publickey-init.html"
+>ssh2_publickey_init</A
+>&nbsp;--&nbsp;
+   Initialize Publickey subsystem
+  </DT
+><DT
+><A
+HREF="function.ssh2-publickey-list.html"
+>ssh2_publickey_list</A
+>&nbsp;--&nbsp;
+   List currently authorized publickeys
+  </DT
+><DT
+><A
+HREF="function.ssh2-publickey-remove.html"
+>ssh2_publickey_remove</A
+>&nbsp;--&nbsp;
+   Remove an authorized publickey
+  </DT
+><DT
+><A
+HREF="function.ssh2-scp-recv.html"
+>ssh2_scp_recv</A
+>&nbsp;--&nbsp;
+     Request a file via SCP
+    </DT
+><DT
+><A
+HREF="function.ssh2-scp-send.html"
+>ssh2_scp_send</A
+>&nbsp;--&nbsp;
+     Send a file via SCP
+    </DT
+><DT
+><A
+HREF="function.ssh2-sftp-lstat.html"
+>ssh2_sftp_lstat</A
+>&nbsp;--&nbsp;
+     Stat a symbolic link     
+    </DT
+><DT
+><A
+HREF="function.ssh2-sftp-mkdir.html"
+>ssh2_sftp_mkdir</A
+>&nbsp;--&nbsp;
+     Create a directory     
+    </DT
+><DT
+><A
+HREF="function.ssh2-sftp-readlink.html"
+>ssh2_sftp_readlink</A
+>&nbsp;--&nbsp;
+     Return the target of a symbolic link     
+    </DT
+><DT
+><A
+HREF="function.ssh2-sftp-realpath.html"
+>ssh2_sftp_realpath</A
+>&nbsp;--&nbsp;
+     Resolve the realpath of a provided path string
+    </DT
+><DT
+><A
+HREF="function.ssh2-sftp-rename.html"
+>ssh2_sftp_rename</A
+>&nbsp;--&nbsp;
+     Rename a remote file     
+    </DT
+><DT
+><A
+HREF="function.ssh2-sftp-rmdir.html"
+>ssh2_sftp_rmdir</A
+>&nbsp;--&nbsp;
+     Remove a directory
+    </DT
+><DT
+><A
+HREF="function.ssh2-sftp-stat.html"
+>ssh2_sftp_stat</A
+>&nbsp;--&nbsp;
+     Stat a file on a remote filesystem     
+    </DT
+><DT
+><A
+HREF="function.ssh2-sftp-symlink.html"
+>ssh2_sftp_symlink</A
+>&nbsp;--&nbsp;
+     Create a symlink
+    </DT
+><DT
+><A
+HREF="function.ssh2-sftp-unlink.html"
+>ssh2_sftp_unlink</A
+>&nbsp;--&nbsp;
+     Delete a file
+    </DT
+><DT
+><A
+HREF="function.ssh2-sftp.html"
+>ssh2_sftp</A
+>&nbsp;--&nbsp;
+     Initialize SFTP subsystem
+    </DT
+><DT
+><A
+HREF="function.ssh2-shell.html"
+>ssh2_shell</A
+>&nbsp;--&nbsp;
+     Request an interactive shell
+    </DT
+><DT
+><A
+HREF="function.ssh2-tunnel.html"
+>ssh2_tunnel</A
+>&nbsp;--&nbsp;
+     Open a tunnel through a remote server
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdo-sqlitecreatefunction.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ssh2-auth-hostbased-file.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDO::sqliteCreateFunction</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ssh2_auth_hostbased_file</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

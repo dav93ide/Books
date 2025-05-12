@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pcntl_fork</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Process Control Functions"
+HREF="ref.pcntl.html"><LINK
+REL="PREVIOUS"
+TITLE="pcntl_exec"
+HREF="function.pcntl-exec.html"><LINK
+REL="NEXT"
+TITLE="pcntl_getpriority"
+HREF="function.pcntl-getpriority.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pcntl-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pcntl-getpriority.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pcntl-fork"
+></A
+>pcntl_fork</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN122354"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PHP 5)</P
+>pcntl_fork&nbsp;--&nbsp;Forks the currently running process</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN122357"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>pcntl_fork</B
+> ( void  )<BR
+></BR
+><P
+>&#13;    The <B
+CLASS="function"
+>pcntl_fork()</B
+> function creates a child
+    process that differs from the parent process only in its PID and
+    PPID. Please see your system's fork(2) man page for specific details as to
+    how fork works on your system.
+   </P
+><P
+>&#13;    On success, the PID of the child process is returned in the
+    parent's thread of execution, and a 0 is returned in the child's
+    thread of execution.  On failure, a -1 will be returned in the
+    parent's context, no child process will be created, and a PHP
+    error is raised.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN122366"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>pcntl_fork()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$pid </font><font color="#007700">= </font><font color="#0000BB">pcntl_fork</font><font color="#007700">();<br />if (</font><font color="#0000BB">$pid </font><font color="#007700">== -</font><font color="#0000BB">1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'could not fork'</font><font color="#007700">);<br />} else if (</font><font color="#0000BB">$pid</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// we are the parent<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">pcntl_wait</font><font color="#007700">(</font><font color="#0000BB">$status</font><font color="#007700">); </font><font color="#FF8000">//Protect against Zombie children<br /></font><font color="#007700">} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// we are the child<br /></font><font color="#007700">}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;    See also <A
+HREF="function.pcntl-waitpid.html"
+><B
+CLASS="function"
+>pcntl_waitpid()</B
+></A
+> and
+    <A
+HREF="function.pcntl-signal.html"
+><B
+CLASS="function"
+>pcntl_signal()</B
+></A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pcntl-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pcntl-getpriority.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pcntl_exec</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pcntl.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pcntl_getpriority</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Error handling</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Driver How-To"
+HREF="internals.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="Constants"
+HREF="internals.pdo.constants.html"><LINK
+REL="NEXT"
+TITLE="Zend API: Hacking the Core of PHP"
+HREF="zend.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="internals.pdo.constants.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 45. PDO Driver How-To</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="zend.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="internals.pdo.error-handling"
+>Error handling</A
+></H1
+><P
+>&#13;  Error handling is implemented using a hand-shaking protocol between 
+  PDO and the database driver code. The database driver code
+  signals PDO than an error has occurred via a failure
+  (<VAR
+CLASS="literal"
+>0</VAR
+>) return from any of the interface functions. If a zero
+  is returned, the field <VAR
+CLASS="parameter"
+>error_code</VAR
+> in the control block appropriate to the
+  context (either the pdo_dbh_t or pdo_stmt_t block). In practice, it is
+  probably a good idea to set the field in both blocks to the same value to
+  ensure the correct one is getting used.
+ </P
+><P
+>&#13;  The error_mode field is a six-byte field containing a 5 character ASCIIZ
+  SQLSTATE identifier code. This code drives the error message process. The
+  SQLSTATE code is used to look up an error message in the internal PDO error
+  message table (see pdo_sqlstate.c for a list of error codes and their
+  messages). If the code is not known to PDO, a default
+  <SPAN
+CLASS="QUOTE"
+>"Unknown Message"</SPAN
+> value will be used.
+ </P
+><P
+>&#13;  In addition to the SQLSTATE code and error message, PDO will
+  call the driver-specific fetch_err() routine to obtain supplemental data
+  for the particular error condition. This routine is passed an array into
+  which the driver may place additional information. This array has slot
+  positions assigned to particular types of supplemental info:
+ </P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;    A native error code. This will frequently be an error code obtained
+    from the database API.
+   </P
+></LI
+><LI
+><P
+>&#13;    A descriptive string. This string can contain anything additional
+    information related to the failure. Database drivers typically include
+    information such as an error message, code location of the failure, and
+    any additional descriptive information the driver developer feels
+    worthy of inclusion. It is generally a good idea to include all
+    diagnostic information obtainable
+    from the database interface at the time of the failure. For
+    driver-detected errors (such as memory allocation problems), the driver
+    developer can define whatever error information that seems appropriate.
+   </P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="internals.pdo.constants.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="zend.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Constants</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="internals.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Zend API: Hacking the Core of PHP</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

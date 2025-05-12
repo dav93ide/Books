@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>com_get_active_object</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di supporto COM per Windows"
+HREF="ref.com.html"><LINK
+REL="PREVIOUS"
+TITLE="com_event_sink"
+HREF="function.com-event-sink.html"><LINK
+REL="NEXT"
+TITLE="com_get"
+HREF="function.com-get.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.com-event-sink.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.com-get.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.com-get-active-object"
+></A
+>com_get_active_object</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN18539"
+></A
+><P
+>    (PHP 5)</P
+>com_get_active_object&nbsp;--&nbsp;
+     Returns a handle to an already running instance of a COM object
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN18542"
+></A
+><H2
+>Description</H2
+>variant <B
+CLASS="methodname"
+>com_get_active_object</B
+> ( string progid [, int code_page] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>com_get_active_object()</B
+> is similar to creating a new
+     instance of a <A
+HREF="class.com.html"
+>COM</A
+> object, except that it will
+     only return an object to your script if the object is already running.
+     OLE applications use something known as the Running Object Table to
+     allow well-known applications to be launched only once; this function
+     exposes the COM library function GetActiveObject() to get a handle on a
+     running instance.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>progid</VAR
+> must be either the ProgID or CLSID for the
+     object that you want to access (for example
+     <VAR
+CLASS="literal"
+>Word.Application</VAR
+>).  <VAR
+CLASS="parameter"
+>code_page</VAR
+>
+     acts in precisely the same way that it does for the <A
+HREF="class.com.html"
+>COM</A
+> class.
+    </P
+><P
+>&#13;     If the requested object is running, it will be returned to your script
+     just like any other COM object.  Otherwise a <VAR
+CLASS="literal"
+>com_exception</VAR
+>
+     will be raised.  There are a variety of reasons why
+     this function might fail, the most common being that the object is not
+     already running.  In that situation, the exception error code will be
+     <TT
+CLASS="constant"
+><B
+>MK_E_UNAVAILABLE</B
+></TT
+>; you can use the
+     <VAR
+CLASS="literal"
+>getCode</VAR
+> method of the exception object to check the
+     exception code.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Using <B
+CLASS="function"
+>com_get_active_object()</B
+> in a web server context
+      is not always a smart idea.  Most COM/OLE applications are not designed
+      to handle more than one client concurrently, even (or especially!)
+      Microsoft Office.  You should read <A
+HREF="http://support.microsoft.com/default.aspx?scid=kb;EN-US;q257757"
+TARGET="_top"
+>Considerations for Server-Side
+      Automation of Office</A
+> for more information on the general issues
+      involved.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.com-event-sink.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.com-get.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>com_event_sink</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.com.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>com_get</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>return</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Strutture di controllo"
+HREF="language.control-structures.html"><LINK
+REL="PREVIOUS"
+TITLE="declare"
+HREF="control-structures.declare.html"><LINK
+REL="NEXT"
+TITLE="require"
+HREF="function.require.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="control-structures.declare.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 16. Strutture di controllo</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.require.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="function.return"
+>return</A
+></H1
+><P
+>&#13;    Se viene chiamato all'interno di una funzione, l'istruzione <A
+HREF="function.return.html"
+><B
+CLASS="function"
+>return()</B
+></A
+>
+    termina immediatamente l'esecuzione della funzione corrente, e
+    restituisce il suo argomento come valore della funzione
+    chiamata. <A
+HREF="function.return.html"
+><B
+CLASS="function"
+>return()</B
+></A
+> terminerà anche l'esecuzione di un'istruzione
+    <A
+HREF="function.eval.html"
+><B
+CLASS="function"
+>eval()</B
+></A
+> o di un file di script.
+   </P
+><P
+>&#13;    Se viene chiamato in uno scope globale, allora verrà terrminata l'esecuzione
+    del file di script corrente. Nel caso in cui il file di script corrente sia un file chiamato da
+    <A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+> o <A
+HREF="function.require.html"
+><B
+CLASS="function"
+>require()</B
+></A
+>,
+    il controllo viene passato al file chiamante. Ciononostante, se
+    il file di script corrente è un file chiamato da <A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+>, allora
+    il valore dato da <A
+HREF="function.return.html"
+><B
+CLASS="function"
+>return()</B
+></A
+> verrà restituito
+    come valore della chiamata <A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+>. Se
+    viene chiamato <A
+HREF="function.return.html"
+><B
+CLASS="function"
+>return()</B
+></A
+> all'interno del file di script
+    principale, allora l'esecuzione dello script terminerà. Se il file di script corrente
+    è stato nominato da <A
+HREF="ini.core.html#ini.auto-prepend-file"
+>auto_prepend_file</A
+> o <A
+HREF="ini.core.html#ini.auto-append-file"
+>auto_append_file</A
+>
+    con le opzioni di configurazione nel<TT
+CLASS="filename"
+>php.ini</TT
+>, allora l'esecuzione di quello script
+    termina.
+   </P
+><P
+>Per maggiori informazioni, consultare <A
+HREF="functions.returning-values.html"
+>Valori restituiti</A
+>.
+   </P
+><P
+>&#13;    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Notate che poichè <A
+HREF="function.return.html"
+><B
+CLASS="function"
+>return()</B
+></A
+> è un costrutto di linguaggio
+      e non una funzione, le parentesi che circondano i suoi
+      argomenti sono <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>soltanto</I
+></SPAN
+> richieste se l'argomento
+      contiene un'espressione. E' comune non utilizzarle quando si ritorna una variabile,
+      ed inoltre il PHP ha meno lavoro da svolgere
+      in questo caso.
+     </P
+></BLOCKQUOTE
+></DIV
+>
+    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Non si dovrebbe <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>mai</I
+></SPAN
+> utilizzare le parantesi intorno alle variabili restituite
+      quando sono restituite per riferimento, poichè non funzionerebbe. Per riferimento
+      si possono restituire solo variabili, non il risultato di un'istruzione.
+      Se si utilizza <VAR
+CLASS="literal"
+>return ($a);</VAR
+> non si restituisce una variabile,
+      ma il risultato dell'espressione <VAR
+CLASS="literal"
+>($a)</VAR
+>
+      (che, ovviamente, è il valore di <VAR
+CLASS="varname"
+>$a</VAR
+>).
+      </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="control-structures.declare.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.require.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>declare</VAR
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.control-structures.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.require.html"
+><B
+CLASS="function"
+>require()</B
+></A
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

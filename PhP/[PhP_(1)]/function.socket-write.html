@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>socket_write</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni relative ai Socket"
+HREF="ref.sockets.html"><LINK
+REL="PREVIOUS"
+TITLE="socket_strerror"
+HREF="function.socket-strerror.html"><LINK
+REL="NEXT"
+TITLE="Standard PHP Library (SPL) Functions"
+HREF="ref.spl.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.socket-strerror.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.spl.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.socket-write"
+></A
+>socket_write</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN155075"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PHP 5)</P
+>socket_write&nbsp;--&nbsp;Scrive su un socket.</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN155078"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>socket_write</B
+> ( resource socket, string buffer [, int lunghezza] )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>socket_write()</B
+> scrive sul socket
+     <VAR
+CLASS="parameter"
+>socket</VAR
+> i dati tratti dal campo
+     <VAR
+CLASS="parameter"
+>buffer</VAR
+>.
+    </P
+><P
+>&#13;     Il parametro opzionale <VAR
+CLASS="parameter"
+>lunghezza</VAR
+> può specificare un
+     numero alternativo di bytes da scrivere nel socket. Se questa dimensione è maggiore
+     della lunghezza di  buffer, questa viene, in modo silenzioso, ridotta alla
+     lunghezza di buffer.
+    </P
+><P
+>&#13;     La funzione restituisce il numero di bytes scritti con successo nel socket, oppure  
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se si verifica un errore. Il codice di errore può essere rilevato con
+     <A
+HREF="function.socket-last-error.html"
+><B
+CLASS="function"
+>socket_last_error()</B
+></A
+>. Passando questo codice alla funzione
+     <A
+HREF="function.socket-strerror.html"
+><B
+CLASS="function"
+>socket_strerror()</B
+></A
+> si ottiene una spiegazione 
+     dell'errore. 
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+> 
+      <B
+CLASS="function"
+>socket_write()</B
+> non scrive necessariamente tutti i byte 
+      da un dato buffer. E' ammesso che, in base alle dimensioni dei buffer della rete 
+      ecc., soltanto un certo ammontare di dati, anche un solo byte, sia scritto
+      nel socket, nonostante il buffer sia di dimensioni maggiori. Si deve prestare attenzione
+      a ciò per evitare di non inviare il resto dei dati.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+> 
+      E' regolare per la funzione <B
+CLASS="function"
+>socket_write()</B
+> restituire
+      zero, ciò significa che non è stato scritto alcun byte. Si utilizzi
+      l'operatore <VAR
+CLASS="literal"
+>===</VAR
+> per testare il caso di <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+      nelle situazioni di errore.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+> 
+     Vedere anche 
+     <A
+HREF="function.socket-accept.html"
+><B
+CLASS="function"
+>socket_accept()</B
+></A
+>,
+     <A
+HREF="function.socket-bind.html"
+><B
+CLASS="function"
+>socket_bind()</B
+></A
+>,
+     <A
+HREF="function.socket-connect.html"
+><B
+CLASS="function"
+>socket_connect()</B
+></A
+>,
+     <A
+HREF="function.socket-listen.html"
+><B
+CLASS="function"
+>socket_listen()</B
+></A
+>,
+     <A
+HREF="function.socket-read.html"
+><B
+CLASS="function"
+>socket_read()</B
+></A
+> e
+     <A
+HREF="function.socket-strerror.html"
+><B
+CLASS="function"
+>socket_strerror()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.socket-strerror.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.spl.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>socket_strerror</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sockets.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Standard PHP Library (SPL) Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

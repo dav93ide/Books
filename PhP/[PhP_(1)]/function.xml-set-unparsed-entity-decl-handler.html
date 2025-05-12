@@ -1,0 +1,355 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>xml_set_unparsed_entity_decl_handler</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni relative al parser XML"
+HREF="ref.xml.html"><LINK
+REL="PREVIOUS"
+TITLE="xml_set_start_namespace_decl_handler"
+HREF="function.xml-set-start-namespace-decl-handler.html"><LINK
+REL="NEXT"
+TITLE="Funzioni XML-RPC"
+HREF="ref.xmlrpc.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xml-set-start-namespace-decl-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.xmlrpc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.xml-set-unparsed-entity-decl-handler"
+></A
+>xml_set_unparsed_entity_decl_handler</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN178017"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.6, PHP 4, PHP 5)</P
+>xml_set_unparsed_entity_decl_handler&nbsp;--&nbsp;
+     Valorizza il gestore delle dichiarazioni di entità non analizzate
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN178020"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>xml_set_unparsed_entity_decl_handler</B
+> ( resource parser, callback gestore )<BR
+></BR
+><P
+>&#13;     Indica al parser XML <VAR
+CLASS="parameter"
+>parser</VAR
+> la funzione per la
+     gestione delle dichiarazioni di entità non analizzate. Il <VAR
+CLASS="parameter"
+>gestore</VAR
+> è
+     una stringa contenente il nome di una funzione che deve esistere quando
+     viene eseguita la funzione <A
+HREF="function.xml-parse.html"
+><B
+CLASS="function"
+>xml_parse()</B
+></A
+>
+     per il <VAR
+CLASS="parameter"
+>parser</VAR
+>.
+    </P
+><P
+>&#13;     Questo gestore viene richiamato quando il parser XML incontra una
+     dichiarazione di entità esterna con una dichiarazione NDATA, tipo la 
+     seguente:
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="xml"
+>&#60;!ENTITY &#60;parameter&#62;name&#60;/parameter&#62; {&#60;parameter&#62;publicId&#60;/parameter&#62; | &#60;parameter&#62;systemId&#60;/parameter&#62;} 
+        NDATA &#60;parameter&#62;notationName&#60;/parameter&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere <A
+HREF="http://www.w3.org/TR/1998/REC-xml-19980210#sec-external-ent"
+TARGET="_top"
+>la sezione  4.2.2 delle
+     specifiche di XML 1.0</A
+> per la definizione di notazioni dichiarate
+     in entità esterne.
+    </P
+><P
+>&#13;     La funzione indicata da <VAR
+CLASS="parameter"
+>gestore</VAR
+> deve accettare
+     sei parametri:
+     <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>gestore</VAR
+></B
+> ( resource parser, string nome_entità, string base, string system_id, string public_id, string nome_notazione )<BR
+></BR
+>
+     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>parser</VAR
+></DT
+><DD
+><P
+>&#13;         Il primo parametro, <VAR
+CLASS="replaceable"
+>parser</VAR
+>, è il riferimento
+         al parser XML chiamante il 
+         gestore.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>nome_entità</VAR
+></DT
+><DD
+><P
+>&#13;         Il nome dell'entità che sta per essere definita.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>base</VAR
+></DT
+><DD
+><P
+>&#13;         Questa è la base per la risoluzione dell'identificatore system
+         (<VAR
+CLASS="parameter"
+>systemid</VAR
+>) delle entità esterne. Attualmente questo
+         parametro è sempre valorizzato con una stringa vuota.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>system_id</VAR
+></DT
+><DD
+><P
+>&#13;         Identificatore system per l'entità esterna.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>public_id</VAR
+></DT
+><DD
+><P
+> 
+         Identificatore public per l'entità esterna.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>nome_notazione</VAR
+></DT
+><DD
+><P
+> 
+         Nome della notazione di questa entità (vedere
+         <A
+HREF="function.xml-set-notation-decl-handler.html"
+><B
+CLASS="function"
+>xml_set_notation_decl_handler()</B
+></A
+>).
+        </P
+></DD
+></DL
+></DIV
+></P
+><P
+>&#13;     Se il nome della funzione del gestore viene valorizzato con una stringa vuota oppure a <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>,
+     il gestore in questione viene disabilitato.
+    </P
+><P
+>&#13;     La funzione restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se il gestore viene attivato, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se 
+     <VAR
+CLASS="parameter"
+>parser</VAR
+> non indica un parser XML.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Invece di un nome di funzione è
+possibile passare un vettore contenente un riferimento ad un oggetto e un nome di
+metodo.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xml-set-start-namespace-decl-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.xmlrpc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>xml_set_start_namespace_decl_handler</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.xml.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Funzioni XML-RPC</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

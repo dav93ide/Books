@@ -1,0 +1,581 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_special_columns</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_server_info"
+HREF="function.db2-server-info.html"><LINK
+REL="NEXT"
+TITLE="db2_statistics"
+HREF="function.db2-statistics.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-server-info.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-statistics.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-special-columns"
+></A
+>db2_special_columns</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN55316"
+></A
+><P
+>    (PECL)</P
+>db2_special_columns&nbsp;--&nbsp;
+   Returns a result set listing the unique row identifier columns for a table
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN55319"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>db2_special_columns</B
+> ( resource connection, string qualifier, string schema, string table_name, int scope )<BR
+></BR
+><P
+>&#13;   Returns a result set listing the unique row identifier columns for a table.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN55340"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       A valid connection to an IBM DB2, Cloudscape, or Apache Derby database.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>qualifier</VAR
+></DT
+><DD
+><P
+>&#13;       A qualifier for DB2 databases running on OS/390 or z/OS servers. For
+       other databases, pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> or an empty string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>schema</VAR
+></DT
+><DD
+><P
+>&#13;       The schema which contains the tables.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>table_name</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the table.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>scope</VAR
+></DT
+><DD
+><P
+>&#13;       Integer value representing the minimum duration for which the
+       unique row identifier is valid. This can be one of the following
+       values:
+       <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN55370"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Integer value</TH
+><TH
+>SQL constant</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>0</TD
+><TD
+>SQL_SCOPE_CURROW</TD
+><TD
+>Row identifier is valid only while the cursor is positioned
+           on the row.</TD
+></TR
+><TR
+><TD
+>1</TD
+><TD
+>SQL_SCOPE_TRANSACTION</TD
+><TD
+>Row identifier is valid for the duration of the
+            transaction.</TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+>SQL_SCOPE_SESSION</TD
+><TD
+>Row identifier is valid for the duration of the
+            connection.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN55390"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a statement resource with a result set containing rows with unique
+   row identifier information for a table. The rows are composed of the
+   following columns:
+   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN55393"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Column name</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>SCOPE</TD
+><TD
+>&#13;        <P
+>&#13;         <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN55404"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TD
+>Integer value</TD
+><TD
+>SQL constant</TD
+><TD
+>Description</TD
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>0</TD
+><TD
+>SQL_SCOPE_CURROW</TD
+><TD
+>Row identifier is valid only while the cursor is positioned
+             on the row.</TD
+></TR
+><TR
+><TD
+>1</TD
+><TD
+>SQL_SCOPE_TRANSACTION</TD
+><TD
+>Row identifier is valid for the duration of the
+              transaction.</TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+>SQL_SCOPE_SESSION</TD
+><TD
+>Row identifier is valid for the duration of the
+              connection.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+        </P
+>
+       </TD
+></TR
+><TR
+><TD
+>COLUMN_NAME</TD
+><TD
+>Name of the unique column.</TD
+></TR
+><TR
+><TD
+>DATA_TYPE</TD
+><TD
+>SQL data type for the column.</TD
+></TR
+><TR
+><TD
+>TYPE_NAME</TD
+><TD
+>Character string representation of the SQL data type for the
+       column.</TD
+></TR
+><TR
+><TD
+>COLUMN_SIZE</TD
+><TD
+>An integer value representing the size of the column.</TD
+></TR
+><TR
+><TD
+>BUFFER_LENGTH</TD
+><TD
+>&#13;        Maximum number of bytes necessary to store data from this column.
+       </TD
+></TR
+><TR
+><TD
+>DECIMAL_DIGITS</TD
+><TD
+>&#13;        The scale of the column, or <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> where scale is not applicable.
+       </TD
+></TR
+><TR
+><TD
+>NUM_PREC_RADIX</TD
+><TD
+>&#13;        An integer value of either <VAR
+CLASS="literal"
+>10</VAR
+> (representing
+        an exact numeric data type), <VAR
+CLASS="literal"
+>2</VAR
+> (representing an
+        approximate numeric data type), or <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> (representing a data type for
+        which radix is not applicable).
+       </TD
+></TR
+><TR
+><TD
+>PSEUDO_COLUMN</TD
+><TD
+>Always returns 1.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN55452"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-column-privileges.html"
+><B
+CLASS="function"
+>db2_column_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-columns.html"
+><B
+CLASS="function"
+>db2_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-foreign-keys.html"
+><B
+CLASS="function"
+>db2_foreign_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-primary-keys.html"
+><B
+CLASS="function"
+>db2_primary_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedure-columns.html"
+><B
+CLASS="function"
+>db2_procedure_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedures.html"
+><B
+CLASS="function"
+>db2_procedures()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-statistics.html"
+><B
+CLASS="function"
+>db2_statistics()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-table-privileges.html"
+><B
+CLASS="function"
+>db2_table_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-tables.html"
+><B
+CLASS="function"
+>db2_tables()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-server-info.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-statistics.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_server_info</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_statistics</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

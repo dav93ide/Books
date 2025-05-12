@@ -1,0 +1,508 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Audio Streams</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="List of Supported Protocols/Wrappers"
+HREF="wrappers.html"><LINK
+REL="PREVIOUS"
+TITLE="Secure Shell 2"
+HREF="wrappers.ssh2.html"><LINK
+REL="NEXT"
+TITLE="Process Interaction Streams"
+HREF="wrappers.expect.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="wrappers.ssh2.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice M. List of Supported Protocols/Wrappers</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="wrappers.expect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="wrappers.audio"
+>Audio Streams</A
+></H1
+><P
+><TT
+CLASS="filename"
+>ogg://</TT
+> PHP 4.3.0 and up (PECL) </P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>ogg://soundfile.ogg</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>ogg:///path/to/soundfile.ogg</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>ogg://http://www.example.com/path/to/soundstream.ogg</TT
+></P
+></LI
+></UL
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>This wrapper is not enabled by default: </B
+>
+    In order to use the <TT
+CLASS="filename"
+>ogg://</TT
+> wrapper you must install
+    the <A
+HREF="http://pecl.php.net/package/oggvorbis"
+TARGET="_top"
+>OGG/Vorbis</A
+> extension
+    available from <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+>.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   Files opened for reading via the <TT
+CLASS="filename"
+>ogg://</TT
+> wrapper
+   are treated as compressed audio encoded using the OGG/Vorbis codec.
+   Similarly, files opened for writing or appending via the 
+   <TT
+CLASS="filename"
+>ogg://</TT
+> wrapper are writen as compressed audio data.
+   <A
+HREF="function.stream-get-meta-data.html"
+><B
+CLASS="function"
+>stream_get_meta_data()</B
+></A
+>, when used on an OGG/Vorbis
+   file opened for reading will return various details about the stream
+   including the <VAR
+CLASS="parameter"
+>vendor</VAR
+> tag, any included
+   <VAR
+CLASS="parameter"
+>comments</VAR
+>, the number of 
+   <VAR
+CLASS="parameter"
+>channels</VAR
+>, the sampling <VAR
+CLASS="parameter"
+>rate</VAR
+>, 
+   and the encoding rate range described by: 
+   <VAR
+CLASS="parameter"
+>bitrate_lower</VAR
+>, <VAR
+CLASS="parameter"
+>bitrate_upper</VAR
+>,
+   <VAR
+CLASS="parameter"
+>bitrate_nominal</VAR
+>, and <VAR
+CLASS="parameter"
+>bitrate_window</VAR
+>.
+  </P
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN211922"
+></A
+><P
+><B
+>Tabella M-10. Wrapper Summary</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Attribute</TH
+><TH
+>Supported</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>Restricted by <A
+HREF="ref.filesystem.html#ini.allow-url-fopen"
+>allow_url_fopen</A
+>.</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Allows Reading</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Writing</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Appending</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Simultaneous Reading and Writing</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.unlink.html"
+><B
+CLASS="function"
+>unlink()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rename.html"
+><B
+CLASS="function"
+>rename()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.mkdir.html"
+><B
+CLASS="function"
+>mkdir()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rmdir.html"
+><B
+CLASS="function"
+>rmdir()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN211967"
+></A
+><P
+><B
+>Tabella M-11. Context options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Usage</TH
+><TH
+>Default</TH
+><TH
+>Mode</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>pcm_mode</VAR
+></TD
+><TD
+>&#13;        PCM encoding to apply while reading, one of:
+        <TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_U8</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_S8</B
+></TT
+>,
+        <TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_U16_BE</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_S16_BE</B
+></TT
+>,
+        <TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_U16_LE</B
+></TT
+>, and <TT
+CLASS="constant"
+><B
+>OGGVORBIS_PCM_S16_LE</B
+></TT
+>.
+        (8 vs 16 bit, signed or unsigned, big or little endian)
+       </TD
+><TD
+>OGGVORBIS_PCM_S16_LE</TD
+><TD
+>Read</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>rate</VAR
+></TD
+><TD
+>&#13;        Sampling rate of input data, expressed in Hz
+       </TD
+><TD
+>44100</TD
+><TD
+>Write/Append</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>bitrate</VAR
+></TD
+><TD
+>&#13;        When given as an integer, the fixed bitrate at which to encode. (16000 to 131072)
+        When given as a float, the variable bitrate quality to use. (-1.0 to 1.0)
+       </TD
+><TD
+>128000</TD
+><TD
+>Write/Append</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>channels</VAR
+></TD
+><TD
+>&#13;        The number of audio channels to encode, typically 1 (Mono), or 2 (Stero).
+        May range as high as 16.
+       </TD
+><TD
+>2</TD
+><TD
+>Write/Append</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>comments</VAR
+></TD
+><TD
+>&#13;        An array of string values to encode into the track header.
+       </TD
+><TD
+>&nbsp;</TD
+><TD
+>Write/Append</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wrappers.ssh2.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="wrappers.expect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Secure Shell 2</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="wrappers.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Process Interaction Streams</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

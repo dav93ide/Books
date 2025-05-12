@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>imagecopyresized</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le immagini"
+HREF="ref.image.html"><LINK
+REL="PREVIOUS"
+TITLE="imagecopyresampled"
+HREF="function.imagecopyresampled.html"><LINK
+REL="NEXT"
+TITLE="imagecreate"
+HREF="function.imagecreate.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.imagecopyresampled.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.imagecreate.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.imagecopyresized"
+></A
+>imagecopyresized</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN59102"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>imagecopyresized&nbsp;--&nbsp;Copy and resize part of an image</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN59105"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>imagecopyresized</B
+> ( resource dst_image, resource src_image, int dst_x, int dst_y, int src_x, int src_y, int dst_w, int dst_h, int src_w, int src_h )<BR
+></BR
+><P
+>&#13;    <B
+CLASS="function"
+>imagecopyresized()</B
+> copies a rectangular
+    portion of one image to another image.
+    <VAR
+CLASS="parameter"
+>dst_image</VAR
+> is the destination image,
+    <VAR
+CLASS="parameter"
+>src_image</VAR
+> is the source image identifier.
+    If the source and destination coordinates and width and heights
+    differ, appropriate stretching or shrinking of the image fragment
+    will be performed. The coordinates refer to the upper left
+    corner. This function can be used to copy regions within the
+    same image (if <VAR
+CLASS="parameter"
+>dst_image</VAR
+> is the same as
+    <VAR
+CLASS="parameter"
+>src_image</VAR
+>) but if the regions overlap the
+    results will be unpredictable.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     There is a problem due to palette image limitations (255+1 colors).
+     Resampling or filtering an image commonly needs more colors than 255, a
+     kind of approximation is used to calculate the new resampled pixel and its
+     color.  With a palette image we try to allocate a new color, if that
+     failed, we choose the closest (in theory) computed color.  This is
+     not always the closest visual color. That may produce a weird result, like
+     blank (or visually blank) images.  To skip this problem, please use a 
+     truecolor image as a destination image, such as one created by 
+     <A
+HREF="function.imagecreatetruecolor.html"
+><B
+CLASS="function"
+>imagecreatetruecolor()</B
+></A
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN59149"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN59152"
+></A
+><P
+><B
+>Esempio 1. Resizing an image</B
+></P
+><P
+>&#13;      This example will display the image at half size.
+     </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// File and new size<br /></font><font color="#0000BB">$filename </font><font color="#007700">= </font><font color="#DD0000">'test.jpg'</font><font color="#007700">;<br /></font><font color="#0000BB">$percent </font><font color="#007700">= </font><font color="#0000BB">0.5</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Content type<br /></font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'Content-type: image/jpeg'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Get new sizes<br /></font><font color="#007700">list(</font><font color="#0000BB">$width</font><font color="#007700">, </font><font color="#0000BB">$height</font><font color="#007700">) = </font><font color="#0000BB">getimagesize</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">);<br /></font><font color="#0000BB">$newwidth </font><font color="#007700">= </font><font color="#0000BB">$width </font><font color="#007700">* </font><font color="#0000BB">$percent</font><font color="#007700">;<br /></font><font color="#0000BB">$newheight </font><font color="#007700">= </font><font color="#0000BB">$height </font><font color="#007700">* </font><font color="#0000BB">$percent</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Load<br /></font><font color="#0000BB">$thumb </font><font color="#007700">= </font><font color="#0000BB">imagecreatetruecolor</font><font color="#007700">(</font><font color="#0000BB">$newwidth</font><font color="#007700">, </font><font color="#0000BB">$newheight</font><font color="#007700">);<br /></font><font color="#0000BB">$source </font><font color="#007700">= </font><font color="#0000BB">imagecreatefromjpeg</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Resize<br /></font><font color="#0000BB">imagecopyresized</font><font color="#007700">(</font><font color="#0000BB">$thumb</font><font color="#007700">, </font><font color="#0000BB">$source</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">$newwidth</font><font color="#007700">, </font><font color="#0000BB">$newheight</font><font color="#007700">, </font><font color="#0000BB">$width</font><font color="#007700">, </font><font color="#0000BB">$height</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Output<br /></font><font color="#0000BB">imagejpeg</font><font color="#007700">(</font><font color="#0000BB">$thumb</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;      The image will be output at half size, though better
+      quality could be obtained using <A
+HREF="function.imagecopyresampled.html"
+><B
+CLASS="function"
+>imagecopyresampled()</B
+></A
+>.
+     </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN59158"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;    <A
+HREF="function.imagecopyresampled.html"
+><B
+CLASS="function"
+>imagecopyresampled()</B
+></A
+>
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.imagecopyresampled.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.imagecreate.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>imagecopyresampled</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.image.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>imagecreate</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>htmlspecialchars_decode</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="htmlentities"
+HREF="function.htmlentities.html"><LINK
+REL="NEXT"
+TITLE="htmlspecialchars"
+HREF="function.htmlspecialchars.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.htmlentities.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.htmlspecialchars.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.htmlspecialchars-decode"
+></A
+>htmlspecialchars_decode</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN163352"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>htmlspecialchars_decode&nbsp;--&nbsp;
+   Convert special HTML entities back to characters
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN163355"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>htmlspecialchars_decode</B
+> ( string string [, int quote_style] )<BR
+></BR
+><P
+>&#13;   This function is the opposite of <A
+HREF="function.htmlspecialchars.html"
+><B
+CLASS="function"
+>htmlspecialchars()</B
+></A
+>. It
+   converts special HTML entities back to characters.
+  </P
+><P
+>&#13;   The converted entities are: <VAR
+CLASS="literal"
+>&#38;amp;</VAR
+>,
+   <VAR
+CLASS="literal"
+>&#38;quot;</VAR
+> (when ENT_NOQUOTES is not set),
+   <VAR
+CLASS="literal"
+>&#38;#039;</VAR
+> (when ENT_QUOTES is set),
+   <VAR
+CLASS="literal"
+>&#38;lt;</VAR
+> and <VAR
+CLASS="literal"
+>&#38;gt;</VAR
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN163374"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>string</VAR
+></DT
+><DD
+><P
+>&#13;       The string to decode
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>quote_style</VAR
+></DT
+><DD
+><P
+>&#13;       The quote style. One of the following constants:
+       <DIV
+CLASS="table"
+><A
+NAME="AEN163388"
+></A
+><P
+><B
+>Tabella 1. quote_style constants</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Constant Name</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>ENT_COMPAT</B
+></TT
+></TD
+><TD
+>Will convert double-quotes and leave single-quotes alone
+            (default)</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>ENT_QUOTES</B
+></TT
+></TD
+><TD
+>Will convert both double and single quotes</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>ENT_NOQUOTES</B
+></TT
+></TD
+><TD
+>Will leave both double and single quotes unconverted</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN163408"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns the decoded string.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN163411"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN163414"
+></A
+><P
+><B
+>Esempio 1. A <B
+CLASS="function"
+>htmlspecialchars_decode()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$str </font><font color="#007700">= </font><font color="#DD0000">'&lt;p&gt;this -&amp;gt; &amp;quot;&lt;/p&gt;'</font><font color="#007700">;<br /><br />echo </font><font color="#0000BB">htmlspecialchars_decode</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// note that here the quotes aren't converted<br /></font><font color="#007700">echo </font><font color="#0000BB">htmlspecialchars_decode</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">, </font><font color="#0000BB">ENT_NOQUOTES</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>&#60;p&#62;this -&#62; "&#60;/p&#62;
+&#60;p&#62;this -&#62; &#38;quot;&#60;/p&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN163420"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.htmlspecialchars.html"
+><B
+CLASS="function"
+>htmlspecialchars()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.html-entity-decode.html"
+><B
+CLASS="function"
+>html_entity_decode()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.get-html-translation-table.html"
+><B
+CLASS="function"
+>get_html_translation_table()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.htmlentities.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.htmlspecialchars.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>htmlentities</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>htmlspecialchars</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

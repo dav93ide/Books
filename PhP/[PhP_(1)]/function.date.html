@@ -1,0 +1,636 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>date</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Data e Ora"
+HREF="ref.datetime.html"><LINK
+REL="PREVIOUS"
+TITLE="date_sunset"
+HREF="function.date-sunset.html"><LINK
+REL="NEXT"
+TITLE="getdate"
+HREF="function.getdate.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.date-sunset.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.getdate.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.date"
+></A
+>date</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN23633"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>date&nbsp;--&nbsp;Formatta una data o orario locale</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN23636"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>date</B
+> ( string formato [, int timestamp] )<BR
+></BR
+><P
+>&#13;     Restituisce una stringa formattata in accordo con il formato della stringa usato nell'
+     intero <VAR
+CLASS="parameter"
+>timestamp</VAR
+> o nell'attuale orario locale
+     se timestamp non è assegnato.
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Il valido intervallo del timestamp è abitualmente da Fri, 13 Dec
+       1901 20:45:54 GMT a Tue, 19 Jan 2038 03:14:07 GMT. (Queste
+       date corrispondono al valore minimo e al massimo per
+       un intero segnato a 32-bit.)
+      </P
+><P
+>&#13;       Per generare un timestamp da una stringa rappresentante la data,
+       devi sapere usare <A
+HREF="function.strtotime.html"
+><B
+CLASS="function"
+>strtotime()</B
+></A
+>. In aggiunta, dei
+       databases hanno funzioni che convertono i loro formati di data in timestamps
+       (come la funzione di MySQL, UNIX_TIMESTAMP).
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><P
+>&#13;     I seguenti caratteri sono utilizzati nella stringa formato:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        a - "am" o "pm"
+       </P
+></LI
+><LI
+><P
+>&#13;        A - "AM" o "PM"
+       </P
+></LI
+><LI
+><P
+>&#13;        B - Swatch Internet time
+       </P
+></LI
+><LI
+><P
+>&#13;        d - giorno del mese, 2 cifre senza tralasciare gli zero; i.e. "01"
+        a "31"
+       </P
+></LI
+><LI
+><P
+>&#13;        D - giorno della settimana, testuale, 3 lettere; i.e. "Fri"
+       </P
+></LI
+><LI
+><P
+>&#13;        F - mese, testuale, long; i.e. "January"
+       </P
+></LI
+><LI
+><P
+>&#13;        g - ora, formato a 12-ore senza eventuali zero; i.e. "1" a
+        "12"
+       </P
+></LI
+><LI
+><P
+>&#13;        G - ora, formato a 24-ore senza eventuali zero; i.e. "0" a
+        "23"
+       </P
+></LI
+><LI
+><P
+>&#13;        h - ora, formato a 12-ore; i.e. "01" a "12"
+       </P
+></LI
+><LI
+><P
+>&#13;        H - ora, formato a 24-ore; i.e. "00" a "23"
+       </P
+></LI
+><LI
+><P
+>&#13;        i - minuti; i.e. "00" a "59"
+       </P
+></LI
+><LI
+><P
+>&#13;        I (i grande) - "1" se c'è l'ora legale, "0" altrimenti.
+       </P
+></LI
+><LI
+><P
+>&#13;        j - giorno del mese senza eventuali zero; i.e. "1" a "31"
+       </P
+></LI
+><LI
+><P
+>&#13;        l ('L' piccola) - giorno della settimana, testuale, long;
+        i.e. "Friday"
+       </P
+></LI
+><LI
+><P
+>&#13;        L - valore booleano per stabilire se è un anno bisestile; i.e. "0" o "1"
+       </P
+></LI
+><LI
+><P
+>&#13;        m - mese; i.e. "01" a "12"
+       </P
+></LI
+><LI
+><P
+>&#13;        M - mese, testuale, 3 lettere; i.e. "Jan"
+       </P
+></LI
+><LI
+><P
+>&#13;        n - mese senza eventuali zero; i.e. "1" a "12"
+       </P
+></LI
+><LI
+><P
+>&#13;        O - Differenza in ore dal fuso orario Greenwich; i.e. "+0200"
+       </P
+></LI
+><LI
+><P
+>&#13;        r - Data formattata RFC 822; i.e. "Thu, 21 Dec 2000 16:01:07 +0200"
+        (aggiunto nel PHP 4.0.4)
+       </P
+></LI
+><LI
+><P
+>&#13;        s - secondi; i.e. "00" a "59"
+       </P
+></LI
+><LI
+><P
+>&#13;        S - Suffisso ordinale Inglese per i giorni del mese, 2 caratteri;
+        i.e. "th", "nd"
+       </P
+></LI
+><LI
+><P
+>&#13;        t - numero di giorni del mese dato; i.e. "28" a "31"
+       </P
+></LI
+><LI
+><P
+>&#13;        T - Fuso orario di questo computer; i.e. "MDT"
+       </P
+></LI
+><LI
+><P
+>&#13;        U - secondi dall'epoca since the epoch
+       </P
+></LI
+><LI
+><P
+>&#13;        w - giorno della settimana, numerico, i.e. "0" (Domenica) a "6"
+        (Sabato)
+       </P
+></LI
+><LI
+><P
+>&#13;        W - ISO-8601 Numero della settimana dell'anno, le settimane iniziano il lunedì (aggiunto in PHP 4.1.0)
+        (Sabato)
+       </P
+></LI
+><LI
+><P
+>&#13;        Y - anno, 4 cifre; i.e. "1999"
+       </P
+></LI
+><LI
+><P
+>&#13;        y - anno, 2 cifre; i.e. "99"
+       </P
+></LI
+><LI
+><P
+>&#13;        z - giorno dell'anno; i.e. "0" a "365"
+       </P
+></LI
+><LI
+><P
+>&#13;        Z - Fuso orario in secondi (i.e. "-43200" a "43200"). Il fuso orario
+        ad ovest dell'UTC è sempre negativo, e per
+        quelli ad est è sempre positivo.
+       </P
+></LI
+></UL
+>
+     Caratteri non utilizzati nella stringa del formato saranno scritti
+     come sono.  Il formato "Z" restituirà sempre "0" quando si usa
+     <A
+HREF="function.gmdate.html"
+><B
+CLASS="function"
+>gmdate()</B
+></A
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN23719"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>date()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+echo date ("l dS of F Y h:i:s A");<br />echo "July 1, 2000 is on a " . date ("l", mktime(0,0,0,7,1,2000));</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Puoi utilizzare un carattere utilizzabile nella stringa del formato come carattere normale
+     facendolo semplicemente precedere dal carattere di escape, il backslash. Se il carattere con un
+     backslash è ancora una sequenza speciale, devi inserire di nuovo il carattere di escape per il
+     backslash.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN23724"
+></A
+><P
+><B
+>Esempio 2. Caratteri di escape in <B
+CLASS="function"
+>date()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+echo date("l \\t\h\e jS"); // scrive qualcosa tipo 'Saturday the 8th'</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     È possibile usare <B
+CLASS="function"
+>date()</B
+> e 
+     <A
+HREF="function.mktime.html"
+><B
+CLASS="function"
+>mktime()</B
+></A
+> assieme per cercare delle date nel futuro
+     o nel passato. 
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN23731"
+></A
+><P
+><B
+>Esempio 3. 
+       Esempio di <B
+CLASS="function"
+>date()</B
+> e 
+       <A
+HREF="function.mktime.html"
+><B
+CLASS="function"
+>mktime()</B
+></A
+>
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$tomorrow&nbsp;&nbsp;= mktime (0,0,0,date("m")&nbsp;&nbsp;,date("d")+1,date("Y"));<br />$lastmonth = mktime (0,0,0,date("m")-1,date("d"),&nbsp;&nbsp;date("Y"));<br />$nextyear&nbsp;&nbsp;= mktime (0,0,0,date("m"),&nbsp;&nbsp;date("d"),&nbsp;&nbsp;date("Y")+1);</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Questo può essere più affidabile della semplice addizione e sottrazione del numero 
+       di secondi in un giorno o mese a un timestamp a causa del daylight savings
+       time.
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><P
+>&#13;     Alcuni esempi della formattazione di <B
+CLASS="function"
+>date()</B
+>. Nota che
+     puoi scrivere qualsiasi altro carattere senza escape, il quale attualmente
+     non dovrebbe produrre risultati indesiderati, ma
+     altri caratteri potrebbero essere assegnati come caratteri della stringa di formattazione nelle prossime versioni del PHP.
+     Quando si utilizza il carattere di escape, assicurati di usare un singolo apice per prevenire che caratteri
+     come \n facciano iniziare una nuova linea.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN23740"
+></A
+><P
+><B
+>Esempio 4. 
+       Formattazione con <B
+CLASS="function"
+>date()</B
+>
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+/* Today is March 10th, 2001, 5:16:18 pm */<br />$today = date("F j, Y, g:i a");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// March 10, 2001, 5:16 pm<br />$today = date("m.d.y");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 03.10.01<br />$today = date("j, n, Y");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 10, 3, 2001<br />$today = date("Ymd");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 20010310<br />$today = date('h-i-s, j-m-y, it is w Day z ');&nbsp;&nbsp;// 05-16-17, 10-03-01, 1631 1618 6 Fripm01<br />$today = date('\i\t \i\s \t\h\e jS \d\a\y.');&nbsp;&nbsp;&nbsp;// It is the 10th day.<br />$today = date("D M j G:i:s T Y");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Sat Mar 10 15:16:08 MST 2001<br />$today = date('H:m:s \m \i\s\ \m\o\n\t\h');&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 17:03:17 m is month<br />$today = date("H:i:s");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 17:16:17</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Per formattare le date in lingue diverse dall'inglese, dovresti usare le funzioni
+     <A
+HREF="function.setlocale.html"
+><B
+CLASS="function"
+>setlocale()</B
+></A
+> e 
+     <A
+HREF="function.strftime.html"
+><B
+CLASS="function"
+>strftime()</B
+></A
+>.
+    </P
+><P
+>&#13;     Guarda anche <A
+HREF="function.getlastmod.html"
+><B
+CLASS="function"
+>getlastmod()</B
+></A
+>, <A
+HREF="function.gmdate.html"
+><B
+CLASS="function"
+>gmdate()</B
+></A
+>,
+     <A
+HREF="function.mktime.html"
+><B
+CLASS="function"
+>mktime()</B
+></A
+>, <A
+HREF="function.strftime.html"
+><B
+CLASS="function"
+>strftime()</B
+></A
+>
+     e <A
+HREF="function.time.html"
+><B
+CLASS="function"
+>time()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.date-sunset.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.getdate.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>date_sunset</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.datetime.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>getdate</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

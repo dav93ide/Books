@@ -1,0 +1,924 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Standard PHP Library (SPL) Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="socket_write"
+HREF="function.socket-write.html"><LINK
+REL="NEXT"
+TITLE="ArrayIterator::current"
+HREF="function.arrayiterator-current.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.socket-write.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.arrayiterator-current.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.spl"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXL. Standard PHP Library (SPL) Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN155123"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="spl.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     SPL is a collection of interfaces and classes that are meant to solve
+     standard problems. 
+    </P
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+      A more detailed documentation of SPL can be found
+      <A
+HREF="http://www.php.net/~helly/php/ext/spl/"
+TARGET="_top"
+>here</A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="spl.installation"
+>Installazione</A
+></H1
+><P
+>&#13;     This extension is available and compiled by default in PHP 5.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="spl.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>RIT_LEAVES_ONLY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RIT_SELF_FIRST</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RIT_CHILD_FIRST</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CIT_CALL_TOSTRING</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CIT_CATCH_GET_CHILD</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.arrayiterator-current.html"
+>ArrayIterator::current</A
+>&nbsp;--&nbsp;
+     Return current array entry
+    </DT
+><DT
+><A
+HREF="function.arrayiterator-key.html"
+>ArrayIterator::key</A
+>&nbsp;--&nbsp;
+     Return current array key
+    </DT
+><DT
+><A
+HREF="function.arrayiterator-next.html"
+>ArrayIterator::next</A
+>&nbsp;--&nbsp;
+     Move to next entry
+    </DT
+><DT
+><A
+HREF="function.arrayiterator-rewind.html"
+>ArrayIterator::rewind</A
+>&nbsp;--&nbsp;
+     Rewind array back to the start
+    </DT
+><DT
+><A
+HREF="function.arrayiterator-seek.html"
+>ArrayIterator::seek</A
+>&nbsp;--&nbsp;
+     Seek to position
+    </DT
+><DT
+><A
+HREF="function.arrayiterator-valid.html"
+>ArrayIterator::valid</A
+>&nbsp;--&nbsp;
+     Check whether array contains more entries
+    </DT
+><DT
+><A
+HREF="function.arrayobject-append.html"
+>ArrayObject::append</A
+>&nbsp;--&nbsp;
+     Appends the value
+    </DT
+><DT
+><A
+HREF="function.arrayobject-construct.html"
+>ArrayObject::__construct</A
+>&nbsp;--&nbsp;
+     Construct a new array object
+    </DT
+><DT
+><A
+HREF="function.arrayobject-count.html"
+>ArrayObject::count</A
+>&nbsp;--&nbsp;
+     Return the number of elements in the Iterator
+    </DT
+><DT
+><A
+HREF="function.arrayobject-getiterator.html"
+>ArrayObject::getIterator</A
+>&nbsp;--&nbsp;
+     Create a new iterator from an ArrayObject instance
+    </DT
+><DT
+><A
+HREF="function.arrayobject-offsetexists.html"
+>ArrayObject::offsetExists</A
+>&nbsp;--&nbsp;
+     Returns whether the requested $index exists
+    </DT
+><DT
+><A
+HREF="function.arrayobject-offsetget.html"
+>ArrayObject::offsetGet</A
+>&nbsp;--&nbsp;
+     Returns the value at the specified $index
+    </DT
+><DT
+><A
+HREF="function.arrayobject-offsetset.html"
+>ArrayObject::offsetSet</A
+>&nbsp;--&nbsp;
+     Sets the value at the specified $index to $newval
+    </DT
+><DT
+><A
+HREF="function.arrayobject-offsetunset.html"
+>ArrayObject::offsetUnset</A
+>&nbsp;--&nbsp;
+     Unsets the value at the specified $index
+    </DT
+><DT
+><A
+HREF="function.cachingiterator-hasnext.html"
+>CachingIterator::hasNext</A
+>&nbsp;--&nbsp;
+     Check whether the inner iterator has a valid next element
+    </DT
+><DT
+><A
+HREF="function.cachingiterator-next.html"
+>CachingIterator::next</A
+>&nbsp;--&nbsp;
+     Move the iterator forward
+    </DT
+><DT
+><A
+HREF="function.cachingiterator-rewind.html"
+>CachingIterator::rewind</A
+>&nbsp;--&nbsp;
+     Rewind the iterator
+    </DT
+><DT
+><A
+HREF="function.cachingiterator-tostring.html"
+>CachingIterator::__toString</A
+>&nbsp;--&nbsp;
+     Return the string representation of the current element
+    </DT
+><DT
+><A
+HREF="function.cachingiterator-valid.html"
+>CachingIterator::valid</A
+>&nbsp;--&nbsp;
+     Check whether the current element is valid
+    </DT
+><DT
+><A
+HREF="function.cachingrecursiveiterator-getchildren.html"
+>CachingRecursiveIterator::getChildren</A
+>&nbsp;--&nbsp;
+     Return the inner iterator's children as a CachingRecursiveIterator
+    </DT
+><DT
+><A
+HREF="function.cachingrecursiveiterator-haschildren.html"
+>CachingRecursiveIterator::hasChildren</A
+>&nbsp;--&nbsp;
+     Check whether the current element of the inner iterator has children
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-construct.html"
+>DirectoryIterator::__construct</A
+>&nbsp;--&nbsp;
+     Constructs a new dir iterator from a path
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-current.html"
+>DirectoryIterator::current</A
+>&nbsp;--&nbsp;
+     Return this (needed for Iterator interface)
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getatime.html"
+>DirectoryIterator::getATime</A
+>&nbsp;--&nbsp;
+     Get last access time of file
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getctime.html"
+>DirectoryIterator::getCTime</A
+>&nbsp;--&nbsp;
+     Get inode modification time of file
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getchildren.html"
+>DirectoryIterator::getChildren</A
+>&nbsp;--&nbsp;
+     Returns an iterator for the current entry if it is a directory
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getfilename.html"
+>DirectoryIterator::getFilename</A
+>&nbsp;--&nbsp;
+     Return filename of current dir entry
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getgroup.html"
+>DirectoryIterator::getGroup</A
+>&nbsp;--&nbsp;
+     Get file group
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getinode.html"
+>DirectoryIterator::getInode</A
+>&nbsp;--&nbsp;
+     Get file inode
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getmtime.html"
+>DirectoryIterator::getMTime</A
+>&nbsp;--&nbsp;
+     Get last modification time of file
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getowner.html"
+>DirectoryIterator::getOwner</A
+>&nbsp;--&nbsp;
+     Get file owner
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getpath.html"
+>DirectoryIterator::getPath</A
+>&nbsp;--&nbsp;
+     Return directory path
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getpathname.html"
+>DirectoryIterator::getPathname</A
+>&nbsp;--&nbsp;
+     Return path and filename of current dir entry
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getperms.html"
+>DirectoryIterator::getPerms</A
+>&nbsp;--&nbsp;
+     Get file permissions
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-getsize.html"
+>DirectoryIterator::getSize</A
+>&nbsp;--&nbsp;
+     Get file size
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-gettype.html"
+>DirectoryIterator::getType</A
+>&nbsp;--&nbsp;
+     Get file type
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-isdir.html"
+>DirectoryIterator::isDir</A
+>&nbsp;--&nbsp;
+     Returns true if file is directory
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-isdot.html"
+>DirectoryIterator::isDot</A
+>&nbsp;--&nbsp;
+     Returns true if current entry is '.' or '..'
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-isexecutable.html"
+>DirectoryIterator::isExecutable</A
+>&nbsp;--&nbsp;
+     Returns true if file is executable
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-isfile.html"
+>DirectoryIterator::isFile</A
+>&nbsp;--&nbsp;
+     Returns true if file is a regular file
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-islink.html"
+>DirectoryIterator::isLink</A
+>&nbsp;--&nbsp;
+     Returns true if file is symbolic link
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-isreadable.html"
+>DirectoryIterator::isReadable</A
+>&nbsp;--&nbsp;
+     Returns true if file can be read
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-iswritable.html"
+>DirectoryIterator::isWritable</A
+>&nbsp;--&nbsp;
+     Returns true if file can be written
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-key.html"
+>DirectoryIterator::key</A
+>&nbsp;--&nbsp;
+     Return current dir entry
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-next.html"
+>DirectoryIterator::next</A
+>&nbsp;--&nbsp;
+     Move to next entry
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-rewind.html"
+>DirectoryIterator::rewind</A
+>&nbsp;--&nbsp;
+     Rewind dir back to the start
+    </DT
+><DT
+><A
+HREF="function.directoryiterator-valid.html"
+>DirectoryIterator::valid</A
+>&nbsp;--&nbsp;
+     Check whether dir contains more entries
+    </DT
+><DT
+><A
+HREF="function.filteriterator-current.html"
+>FilterIterator::current</A
+>&nbsp;--&nbsp;
+     Get the current element value
+    </DT
+><DT
+><A
+HREF="function.filteriterator-getinneriterator.html"
+>FilterIterator::getInnerIterator</A
+>&nbsp;--&nbsp;
+     Get the inner iterator
+    </DT
+><DT
+><A
+HREF="function.filteriterator-key.html"
+>FilterIterator::key</A
+>&nbsp;--&nbsp;
+     Get the current key
+    </DT
+><DT
+><A
+HREF="function.filteriterator-next.html"
+>FilterIterator::next</A
+>&nbsp;--&nbsp;
+     Move the iterator forward
+    </DT
+><DT
+><A
+HREF="function.filteriterator-rewind.html"
+>FilterIterator::rewind</A
+>&nbsp;--&nbsp;
+     Rewind the iterator
+    </DT
+><DT
+><A
+HREF="function.filteriterator-valid.html"
+>FilterIterator::valid</A
+>&nbsp;--&nbsp;
+     Check whether the current element is valid
+    </DT
+><DT
+><A
+HREF="function.limititerator-getposition.html"
+>LimitIterator::getPosition</A
+>&nbsp;--&nbsp;
+     Return the current position
+    </DT
+><DT
+><A
+HREF="function.limititerator-next.html"
+>LimitIterator::next</A
+>&nbsp;--&nbsp;
+     Move the iterator forward
+    </DT
+><DT
+><A
+HREF="function.limititerator-rewind.html"
+>LimitIterator::rewind</A
+>&nbsp;--&nbsp;
+     Rewind the iterator to the specified starting offset
+    </DT
+><DT
+><A
+HREF="function.limititerator-seek.html"
+>LimitIterator::seek</A
+>&nbsp;--&nbsp;
+     Seek to the given position
+    </DT
+><DT
+><A
+HREF="function.limititerator-valid.html"
+>LimitIterator::valid</A
+>&nbsp;--&nbsp;
+     Check whether the current element is valid
+    </DT
+><DT
+><A
+HREF="function.parentiterator-getchildren.html"
+>ParentIterator::getChildren</A
+>&nbsp;--&nbsp;
+     Return the inner iterator's children contained in a ParentIterator
+    </DT
+><DT
+><A
+HREF="function.parentiterator-haschildren.html"
+>ParentIterator::hasChildren</A
+>&nbsp;--&nbsp;
+     Check whether the inner iterator's current element has children
+    </DT
+><DT
+><A
+HREF="function.parentiterator-next.html"
+>ParentIterator::next</A
+>&nbsp;--&nbsp;
+     Move the iterator forward
+    </DT
+><DT
+><A
+HREF="function.parentiterator-rewind.html"
+>ParentIterator::rewind</A
+>&nbsp;--&nbsp;
+     Rewind the iterator
+    </DT
+><DT
+><A
+HREF="function.recursivedirectoryiterator-getchildren.html"
+>RecursiveDirectoryIterator::getChildren</A
+>&nbsp;--&nbsp;
+     Returns an iterator for the current entry if it is a directory
+    </DT
+><DT
+><A
+HREF="function.recursivedirectoryiterator-haschildren.html"
+>RecursiveDirectoryIterator::hasChildren</A
+>&nbsp;--&nbsp;
+     Returns whether current entry is a directory and not '.' or '..'
+    </DT
+><DT
+><A
+HREF="function.recursivedirectoryiterator-key.html"
+>RecursiveDirectoryIterator::key</A
+>&nbsp;--&nbsp;
+     Return path and filename of current dir entry
+    </DT
+><DT
+><A
+HREF="function.recursivedirectoryiterator-next.html"
+>RecursiveDirectoryIterator::next</A
+>&nbsp;--&nbsp;
+     Move to next entry
+    </DT
+><DT
+><A
+HREF="function.recursivedirectoryiterator-rewind.html"
+>RecursiveDirectoryIterator::rewind</A
+>&nbsp;--&nbsp;
+     Rewind dir back to the start
+    </DT
+><DT
+><A
+HREF="function.recursiveiteratoriterator-current.html"
+>RecursiveIteratorIterator::current</A
+>&nbsp;--&nbsp;
+     Access the current element value
+    </DT
+><DT
+><A
+HREF="function.recursiveiteratoriterator-getdepth.html"
+>RecursiveIteratorIterator::getDepth</A
+>&nbsp;--&nbsp;
+     Get the current depth of the recursive iteration
+    </DT
+><DT
+><A
+HREF="function.recursiveiteratoriterator-getsubiterator.html"
+>RecursiveIteratorIterator::getSubIterator</A
+>&nbsp;--&nbsp;
+     The current active sub iterator
+    </DT
+><DT
+><A
+HREF="function.recursiveiteratoriterator-key.html"
+>RecursiveIteratorIterator::key</A
+>&nbsp;--&nbsp;
+     Access the current key
+    </DT
+><DT
+><A
+HREF="function.recursiveiteratoriterator-next.html"
+>RecursiveIteratorIterator::next</A
+>&nbsp;--&nbsp;
+     Move forward to the next element
+    </DT
+><DT
+><A
+HREF="function.recursiveiteratoriterator-rewind.html"
+>RecursiveIteratorIterator::rewind</A
+>&nbsp;--&nbsp;
+     Rewind the iterator to the first element of the top level inner iterator
+    </DT
+><DT
+><A
+HREF="function.recursiveiteratoriterator-valid.html"
+>RecursiveIteratorIterator::valid</A
+>&nbsp;--&nbsp;
+     Check whether the current position is valid
+    </DT
+><DT
+><A
+HREF="function.simplexmliterator-current.html"
+>SimpleXMLIterator::current</A
+>&nbsp;--&nbsp;
+     Return current SimpleXML entry
+    </DT
+><DT
+><A
+HREF="function.simplexmliterator-getchildren.html"
+>SimpleXMLIterator::getChildren</A
+>&nbsp;--&nbsp;
+     Returns an iterator for the current entry if it is a SimpleXML object
+    </DT
+><DT
+><A
+HREF="function.simplexmliterator-haschildren.html"
+>SimpleXMLIterator::hasChildren</A
+>&nbsp;--&nbsp;
+     Returns whether current entry is a SimpleXML object
+    </DT
+><DT
+><A
+HREF="function.simplexmliterator-key.html"
+>SimpleXMLIterator::key</A
+>&nbsp;--&nbsp;
+     Return current SimpleXML key
+    </DT
+><DT
+><A
+HREF="function.simplexmliterator-next.html"
+>SimpleXMLIterator::next</A
+>&nbsp;--&nbsp;
+     Move to next entry
+    </DT
+><DT
+><A
+HREF="function.simplexmliterator-rewind.html"
+>SimpleXMLIterator::rewind</A
+>&nbsp;--&nbsp;
+     Rewind SimpleXML back to the start
+    </DT
+><DT
+><A
+HREF="function.simplexmliterator-valid.html"
+>SimpleXMLIterator::valid</A
+>&nbsp;--&nbsp;
+     Check whether SimpleXML contains more entries
+    </DT
+><DT
+><A
+HREF="function.class-implements.html"
+>class_implements</A
+>&nbsp;--&nbsp;
+   Return the interfaces which are implemented by the given class
+  </DT
+><DT
+><A
+HREF="function.class-parents.html"
+>class_parents</A
+>&nbsp;--&nbsp;
+   Return the parent classes of the given class
+  </DT
+><DT
+><A
+HREF="function.iterator-count.html"
+>iterator_count</A
+>&nbsp;--&nbsp;
+     Count the elements in an iterator
+    </DT
+><DT
+><A
+HREF="function.iterator-to-array.html"
+>iterator_to_array</A
+>&nbsp;--&nbsp;
+     Copy the iterator into an array
+    </DT
+><DT
+><A
+HREF="function.spl-classes.html"
+>spl_classes</A
+>&nbsp;--&nbsp;
+     Return available SPL classes
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.socket-write.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.arrayiterator-current.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>socket_write</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ArrayIterator::current</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

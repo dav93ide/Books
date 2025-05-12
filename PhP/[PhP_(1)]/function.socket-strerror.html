@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>socket_strerror</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni relative ai Socket"
+HREF="ref.sockets.html"><LINK
+REL="PREVIOUS"
+TITLE="socket_shutdown"
+HREF="function.socket-shutdown.html"><LINK
+REL="NEXT"
+TITLE="socket_write"
+HREF="function.socket-write.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.socket-shutdown.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.socket-write.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.socket-strerror"
+></A
+>socket_strerror</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN155042"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PHP 5)</P
+>socket_strerror&nbsp;--&nbsp;Restituisce una stringa con la descrizione dell'errore.</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN155045"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>socket_strerror</B
+> ( int errno )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>socket_strerror()</B
+> utilizza come proprio
+     parametro <VAR
+CLASS="parameter"
+>errno</VAR
+> il codice di errore di un socket fornito da
+     <A
+HREF="function.socket-last-error.html"
+><B
+CLASS="function"
+>socket_last_error()</B
+></A
+> e restituisce il corrispondente testo
+     descrittivo. Questo rende più semplice piegare cosa è accaduto quando qualcosa
+     non funziona; ad esempio, invece di dovere cercare in tutto il
+     sistema un file che contenga la spiegazione di '-111', si può semplicemente
+     passare il valore a <B
+CLASS="function"
+>socket_strerror()</B
+>, e ottenere la
+     spiegazione di ciò che è accaduto.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN155062"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>socket_strerror()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">false </font><font color="#007700">== (</font><font color="#0000BB">$socket </font><font color="#007700">= @</font><font color="#0000BB">socket_create </font><font color="#007700">(</font><font color="#0000BB">AF_INET</font><font color="#007700">, </font><font color="#0000BB">SOCK_STREAM</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#0000BB">SOL_TCP</font><font color="#007700">))) {<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"socket_create() fallito: motivo: " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror </font><font color="#007700">(</font><font color="#0000BB">socket_last_error</font><font color="#007700">()) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />} <br /><br />if (</font><font color="#0000BB">false </font><font color="#007700">== (@</font><font color="#0000BB">socket_bind </font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">, </font><font color="#DD0000">'127.0.0.1'</font><font color="#007700">, </font><font color="#0000BB">80</font><font color="#007700">))) {<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"socket_bind() fallito: motivo: " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror </font><font color="#007700">(</font><font color="#0000BB">socket_last_error</font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">)) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Dall'esempio precedente (se non viene eseguito con i
+       privilegi di root) ci si aspetta il seguente messaggio:
+       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>socket_bind() fallito: motivo: Permission denied</PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche
+     <A
+HREF="function.socket-accept.html"
+><B
+CLASS="function"
+>socket_accept()</B
+></A
+>,
+     <A
+HREF="function.socket-bind.html"
+><B
+CLASS="function"
+>socket_bind()</B
+></A
+>,
+     <A
+HREF="function.socket-connect.html"
+><B
+CLASS="function"
+>socket_connect()</B
+></A
+>,
+     <A
+HREF="function.socket-listen.html"
+><B
+CLASS="function"
+>socket_listen()</B
+></A
+> e
+     <A
+HREF="function.socket-create.html"
+><B
+CLASS="function"
+>socket_create()</B
+></A
+>. 
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.socket-shutdown.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.socket-write.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>socket_shutdown</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sockets.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>socket_write</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

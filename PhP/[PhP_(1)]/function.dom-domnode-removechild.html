@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>DOMNode-&#62;removeChild()</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="DOM Functions"
+HREF="ref.dom.html"><LINK
+REL="PREVIOUS"
+TITLE="DOMNode->normalize()"
+HREF="function.dom-domnode-normalize.html"><LINK
+REL="NEXT"
+TITLE="DOMNode->replaceChild()"
+HREF="function.dom-domnode-replacechild.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dom-domnode-normalize.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dom-domnode-replacechild.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.dom-domnode-removechild"
+></A
+>DOMNode-&#62;removeChild()</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN33903"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>DOMNode-&#62;removeChild()&nbsp;--&nbsp;
+   Rimuove un nodo figlio dalla lista dei nodi figli
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33906"
+></A
+><H2
+>Descrizione</H2
+>class <B
+CLASS="classname"
+>DOMNode</B
+> { <BR
+></BR
+>DOMNode <B
+CLASS="methodname"
+>removeChild</B
+> ( DOMNode oldnode )<BR
+></BR
+>}<P
+>&#13;   Questa funzione rimuove un nodo figlio dalla lista dei nodi figli.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33918"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>oldnode</VAR
+></DT
+><DD
+><P
+>&#13;       Il nodo rimosso.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33927"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Se si riesce a rimuovere il nodo figlio, la funzione restituisce il vecchio nodo figlio.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33930"
+></A
+><H2
+>Eccezioni</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>DOM_NO_MODIFICATION_ALLOWED_ERR</B
+></TT
+></DT
+><DD
+><P
+>&#13;       Generato se il nodo è in sola lettura.
+      </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DOM_NOT_FOUND</B
+></TT
+></DT
+><DD
+><P
+>&#13;       Generato se <VAR
+CLASS="parameter"
+>oldnode</VAR
+> non è un figlio di questo nodo.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33945"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   Nel seguente esempio si rimuoverà il nodo 'chapter' dal nostro documento XML.
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN33948"
+></A
+><P
+><B
+>Esempio 1. Rimozione di un nodo figlio</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$doc </font><font color="#007700">= new </font><font color="#0000BB">DOMDocument</font><font color="#007700">;<br /></font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">load</font><font color="#007700">(</font><font color="#DD0000">'book.xml'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$book </font><font color="#007700">= </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">documentElement</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Cerchiamo il nodo e lo rimuoviamo<br /></font><font color="#0000BB">$chapter </font><font color="#007700">= </font><font color="#0000BB">$book</font><font color="#007700">-&gt;</font><font color="#0000BB">getElementsByTagName</font><font color="#007700">(</font><font color="#DD0000">'chapter'</font><font color="#007700">)-&gt;</font><font color="#0000BB">item</font><font color="#007700">(</font><font color="#0000BB">0</font><font color="#007700">);<br /></font><font color="#0000BB">$oldchapter </font><font color="#007700">= </font><font color="#0000BB">$book</font><font color="#007700">-&gt;</font><font color="#0000BB">removeChild</font><font color="#007700">(</font><font color="#0000BB">$chapter</font><font color="#007700">);<br /><br />echo </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">saveXML</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="xml"
+>&#60;?xml version="1.0" encoding="iso-8859-1"?&#62;
+&#60;!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+          "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd"&#62;
+&#60;book id="listing"&#62;
+ &#60;title&#62;My lists&#60;/title&#62;
+ 
+&#60;/book&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33953"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.dom-domnode-appendchild.html"
+>DOMNode-&#62;appendChild()</A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.dom-domnode-replacechild.html"
+>DOMNode-&#62;replaceChild()</A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dom-domnode-normalize.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dom-domnode-replacechild.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>DOMNode-&#62;normalize()</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dom.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DOMNode-&#62;replaceChild()</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

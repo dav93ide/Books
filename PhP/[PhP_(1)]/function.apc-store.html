@@ -1,0 +1,385 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>apc_store</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Alternative PHP Cache"
+HREF="ref.apc.html"><LINK
+REL="PREVIOUS"
+TITLE="apc_sma_info"
+HREF="function.apc-sma-info.html"><LINK
+REL="NEXT"
+TITLE="Advanced PHP debugger"
+HREF="ref.apd.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.apc-sma-info.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.apd.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.apc-store"
+></A
+>apc_store</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN9172"
+></A
+><P
+>    (PECL)</P
+>apc_store&nbsp;--&nbsp;
+   Cache a variable in the data store 
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN9175"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>apc_store</B
+> ( string key, mixed var [, int ttl] )<BR
+></BR
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Unlike many other mechanisms in PHP, variables stored using
+    <B
+CLASS="function"
+>apc_store()</B
+> will persist between requests (until the
+    value is removed from the cache).
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN9192"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>key</VAR
+></DT
+><DD
+><P
+>&#13;       Store the variable using this name. <VAR
+CLASS="parameter"
+>key</VAR
+>s are
+       cache-unique, so storing a second value with the same
+       <VAR
+CLASS="parameter"
+>key</VAR
+> will overwrite the original value.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>var</VAR
+></DT
+><DD
+><P
+>&#13;       The variable to store
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>ttl</VAR
+></DT
+><DD
+><P
+>&#13;       Time To Live; store <VAR
+CLASS="parameter"
+>var</VAR
+> in the cache for
+       <VAR
+CLASS="parameter"
+>ttl</VAR
+> seconds. After the
+       <VAR
+CLASS="parameter"
+>ttl</VAR
+> has passed, the stored variable will be
+       expunged from the cache (on the next request). If no <VAR
+CLASS="parameter"
+>ttl</VAR
+>
+       is supplied (or if the <VAR
+CLASS="parameter"
+>ttl</VAR
+> is
+       <VAR
+CLASS="literal"
+>0</VAR
+>), the value will persist until it is removed from
+       the cache manually, or otherwise fails to exist in the cache (clear,
+       restart, etc.).
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN9219"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN9224"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN9227"
+></A
+><P
+><B
+>Esempio 1. A <B
+CLASS="function"
+>apc_store()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$bar </font><font color="#007700">= </font><font color="#DD0000">'BAR'</font><font color="#007700">;<br /></font><font color="#0000BB">apc_store</font><font color="#007700">(</font><font color="#DD0000">'foo'</font><font color="#007700">, </font><font color="#0000BB">$bar</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">apc_fetch</font><font color="#007700">(</font><font color="#DD0000">'foo'</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>string(3) "BAR"</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN9233"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.apc-fetch.html"
+><B
+CLASS="function"
+>apc_fetch()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.apc-delete.html"
+><B
+CLASS="function"
+>apc_delete()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.apc-sma-info.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.apd.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>apc_sma_info</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.apc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Advanced PHP debugger</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

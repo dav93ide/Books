@@ -1,0 +1,421 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni FriBiDi</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="PDO_FIREBIRD DSN"
+HREF="ref.pdo-firebird.connection.html"><LINK
+REL="NEXT"
+TITLE="fribidi_log2vis"
+HREF="function.fribidi-log2vis.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.pdo-firebird.connection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fribidi-log2vis.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.fribidi"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XLI. Funzioni FriBiDi</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN44906"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fribidi.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    FriBiDi è un'implementazione free del <A
+HREF="http://www.unicode.org/unicode/reports/tr9/"
+TARGET="_top"
+>&#13;    Unicode Bidirectional Algorithm</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fribidi.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Occorre scaricare ed installare il
+     <A
+HREF="http://fribidi.org/"
+TARGET="_top"
+>pacchetto FriBiDi</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fribidi.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  This <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> extension
+is not bundled with PHP.
+  Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+  <A
+HREF="http://pecl.php.net/package/fribidi"
+TARGET="_top"
+>http://pecl.php.net/package/fribidi</A
+>.
+ </P
+><P
+>&#13;  Per abilitare il supporto FriBiDi in  <VAR
+CLASS="literal"
+>PHP</VAR
+> occorre compilare il PHP con l'opzione
+  <VAR
+CLASS="option"
+>--with-fribidi[=DIR]</VAR
+>, dove DIR indica la 
+  directory di installazione di FriBiDi.
+ </P
+><P
+>&#13;  Gli utenti di Windows, per potere utilizzare queste funzioni, 
+  devono abilitare <TT
+CLASS="filename"
+>php_fribidi.dll</TT
+> dal <TT
+CLASS="filename"
+>php.ini</TT
+>.
+  You may download this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+>
+extension <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> from the <A
+HREF="http://www.php.net/downloads.php"
+TARGET="_top"
+>&#13;PHP Downloads</A
+> page or at <A
+HREF="http://snaps.php.net/"
+TARGET="_top"
+>&#13;http://snaps.php.net/</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fribidi.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fribidi.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fribidi.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>FRIBIDI_CHARSET_UTF8</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FRIBIDI_CHARSET_8859_6</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FRIBIDI_CHARSET_8859_8</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FRIBIDI_CHARSET_CP1255</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FRIBIDI_CHARSET_CP1256</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FRIBIDI_CHARSET_ISIRI_3342</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.fribidi-log2vis.html"
+>fribidi_log2vis</A
+>&nbsp;--&nbsp;Converte una stringa logica in una visuale</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.pdo-firebird.connection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fribidi-log2vis.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDO_FIREBIRD DSN</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fribidi_log2vis</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_fetch_both</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_fetch_assoc"
+HREF="function.db2-fetch-assoc.html"><LINK
+REL="NEXT"
+TITLE="db2_fetch_object"
+HREF="function.db2-fetch-object.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-fetch-assoc.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-fetch-object.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-fetch-both"
+></A
+>db2_fetch_both</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN53561"
+></A
+><P
+>    (PECL)</P
+>db2_fetch_both&nbsp;--&nbsp;
+   Returns an array, indexed by both column name and position, representing a row in a result set
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53564"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>db2_fetch_both</B
+> ( resource stmt [, int row_number] )<BR
+></BR
+><P
+>&#13;   Returns an array, indexed by both column name and position, representing a
+   row in a result set. Note that the row returned by
+   <B
+CLASS="function"
+>db2_fetch_both()</B
+> requires more memory than the
+   single-indexed arrays returned by <A
+HREF="function.db2-fetch-assoc.html"
+><B
+CLASS="function"
+>db2_fetch_assoc()</B
+></A
+> or
+   <A
+HREF="function.db2-fetch-array.html"
+><B
+CLASS="function"
+>db2_fetch_array()</B
+></A
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53579"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>stmt</VAR
+></DT
+><DD
+><P
+>&#13;       A valid <VAR
+CLASS="literal"
+>stmt</VAR
+> resource containing a result set.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>row_number</VAR
+></DT
+><DD
+><P
+>&#13;       Requests a specific 1-indexed row from the result set. Passing this
+       parameter results in a PHP warning if the result set uses a
+       forward-only cursor.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53594"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns an associative array with column values indexed by both the column
+   name and 0-indexed column number. The array represents the next or
+   requested row in the result set. Returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if there are no rows left
+   in the result set, or if the row requested by
+   <VAR
+CLASS="parameter"
+>row_number</VAR
+> does not exist in the result set.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53599"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53602"
+></A
+><P
+><B
+>Esempio 1. Iterating through a forward-only cursor</B
+></P
+><P
+>&#13;     If you call <B
+CLASS="function"
+>db2_fetch_both()</B
+> without a specific row
+     number, it automatically retrieves the next row in the result set. The
+     following example accesses columns in the returned array by both column
+     name and by numeric index.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$sql </font><font color="#007700">= </font><font color="#DD0000">"SELECT id, name, breed, weight FROM animals ORDER BY breed"</font><font color="#007700">;<br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">db2_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#0000BB">$sql</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">db2_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">);<br /><br />while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">db2_fetch_both</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"%-5d %-16s %-32s %10s\n"</font><font color="#007700">, <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">'ID'</font><font color="#007700">], </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">], </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">'BREED'</font><font color="#007700">], </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">3</font><font color="#007700">]);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>0     Pook             cat                                    3.20
+5     Rickety Ride     goat                                   9.70
+2     Smarty           horse                                350.00</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53609"
+></A
+><P
+><B
+>Esempio 2. Retrieving specific rows with <B
+CLASS="function"
+>db2_fetch_both()</B
+>
+     from a scrollable cursor</B
+></P
+><P
+>&#13;     If your result set uses a scrollable cursor, you can call
+     <B
+CLASS="function"
+>db2_fetch_both()</B
+> with a specific row number. The
+     following example retrieves every other row in the result set, starting
+     with the second row.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$sql </font><font color="#007700">= </font><font color="#DD0000">"SELECT id, name, breed, weight FROM animals ORDER BY breed"</font><font color="#007700">;<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">db2_exec</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">$sql</font><font color="#007700">, array(</font><font color="#DD0000">'cursor' </font><font color="#007700">=&gt; </font><font color="#0000BB">DB2_SCROLLABLE</font><font color="#007700">));<br /><br /></font><font color="#0000BB">$i</font><font color="#007700">=</font><font color="#0000BB">2</font><font color="#007700">;<br />while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">db2_fetch_both</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"%-5d %-16s %-32s %10s\n"</font><font color="#007700">, <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">], </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">'NAME'</font><font color="#007700">], </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">2</font><font color="#007700">], </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">'WEIGHT'</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">$i </font><font color="#007700">+ </font><font color="#0000BB">2</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>0     Pook             cat                                    3.20
+5     Rickety Ride     goat                                   9.70
+2     Smarty           horse                                350.00</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53617"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-fetch-array.html"
+><B
+CLASS="function"
+>db2_fetch_array()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-fetch-assoc.html"
+><B
+CLASS="function"
+>db2_fetch_assoc()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-fetch-object.html"
+><B
+CLASS="function"
+>db2_fetch_object()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-fetch-row.html"
+><B
+CLASS="function"
+>db2_fetch_row()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-result.html"
+><B
+CLASS="function"
+>db2_result()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-fetch-assoc.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-fetch-object.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_fetch_assoc</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_fetch_object</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

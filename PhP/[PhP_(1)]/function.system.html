@@ -1,0 +1,394 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>system</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per l'esecuzione di programmi"
+HREF="ref.exec.html"><LINK
+REL="PREVIOUS"
+TITLE="shell_exec"
+HREF="function.shell-exec.html"><LINK
+REL="NEXT"
+TITLE="PostScript document creation"
+HREF="ref.ps.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.shell-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.ps.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.system"
+></A
+>system</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN136826"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>system&nbsp;--&nbsp;Esegue un programma esterno e mostra l'output</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN136829"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>system</B
+> ( string command [, int &#38;return_var] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>system()</B
+> è semplicemente come la versione C 
+     della funzione che esegue il 
+     <VAR
+CLASS="parameter"
+>command</VAR
+> dato e restituisce in uscita il risultato. Se 
+     viene fornita una variabile come secondo argomento, allora il codice di stato
+     ritornato dal comando eseguito verrà scritto in tale 
+     variabile.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Se si permette di passare a questa funzione i dati
+provenineti dagli input utente, si dovrebbe utilizzare la funzione
+<A
+HREF="function.escapeshellarg.html"
+><B
+CLASS="function"
+>escapeshellarg()</B
+></A
+> oppure <A
+HREF="function.escapeshellcmd.html"
+><B
+CLASS="function"
+>escapeshellcmd()</B
+></A
+>
+in modo da essere sicuri che gli utenti non possano compromettere il sistema eseguendo 
+comandi arbitrari.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Se si vuole avviare un programma tramite questa funzione
+e lasciarlo girare in background, occorre essere certi che l output
+del programma sia rediretto su un file o qualche altro flusso di output
+altrimenti il PHP sarà sospenderà fino a quando il programma non termina.</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     La chiamata a <B
+CLASS="function"
+>system()</B
+> tenta anche di ripulire automaticamente
+     il buffer di output del web server dopo ogni linea di output se PHP 
+     gira come un modulo server.
+    </P
+><P
+>&#13;     Restituisce l'ultima linea del output del comando se ha successo e <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+     se fallisce.
+    </P
+><P
+>&#13;     Se devi eseguire un comando ottenendo tutti i dati restituiti dal comando
+     direttamente senza alcuna interferenza, usa la funzione
+     <A
+HREF="function.passthru.html"
+><B
+CLASS="function"
+>passthru()</B
+></A
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN136856"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>system()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">'&lt;pre&gt;'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Mette in output tutti i risultati della shellcommand "ls", e restituisce<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// l'ultima&nbsp;&nbsp;linea di output nella $last_line. Memorizza il valore restituito<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// del comando da shell in $retval.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$last_line </font><font color="#007700">= </font><font color="#0000BB">system</font><font color="#007700">(</font><font color="#DD0000">'ls'</font><font color="#007700">, </font><font color="#0000BB">$retval</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Stampa informazioni aggiuntive<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/pre&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;hr /&gt;L'</font><font color="#0000BB">ultima linea dell</font><font color="#DD0000">'output: ' </font><font color="#007700">. </font><font color="#0000BB">$last_line </font><font color="#007700">. </font><font color="#DD0000">'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;hr /&gt;Restituisce il valore: ' </font><font color="#007700">. </font><font color="#0000BB">$retval</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  	    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Quando si abilita la 
+<A
+HREF="features.safe-mode.html"
+>modalità sicura</A
+>, si può eseguire
+soltanto gli eseguibili presenti nella directory <A
+HREF="features.safe-mode.html#ini.safe-mode-exec-dir"
+>safe_mode_exec_dir</A
+>.
+Per motivi pratici, attualmente, non ` permesso avere <VAR
+CLASS="literal"
+>..</VAR
+>
+come componente del percorso di un eseguibile. </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Con la <A
+HREF="features.safe-mode.html"
+>modalità sicura</A
+> attivata,
+tutte le parole che seguono il comando iniziale sono trattate come argomenti. Quindi,
+<VAR
+CLASS="literal"
+>echo y | echo x</VAR
+> diventa <VAR
+CLASS="literal"
+>echo "y | echo x"</VAR
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.exec.html"
+><B
+CLASS="function"
+>exec()</B
+></A
+>,
+     <A
+HREF="function.passthru.html"
+><B
+CLASS="function"
+>passthru()</B
+></A
+>, <A
+HREF="function.popen.html"
+><B
+CLASS="function"
+>popen()</B
+></A
+>,
+     <A
+HREF="function.escapeshellcmd.html"
+><B
+CLASS="function"
+>escapeshellcmd()</B
+></A
+>,
+     <A
+HREF="function.pcntl-exec.html"
+><B
+CLASS="function"
+>pcntl_exec()</B
+></A
+>, e <A
+HREF="language.operators.execution.html"
+>l'operatore backtick</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.shell-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.ps.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>shell_exec</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.exec.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PostScript document creation</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

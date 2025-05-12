@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Overloading</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><LINK
+REL="PREVIOUS"
+TITLE="Object Interfaces"
+HREF="language.oop5.interfaces.html"><LINK
+REL="NEXT"
+TITLE="Object Iteration"
+HREF="language.oop5.iterations.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop5.interfaces.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 19. Classes and Objects (PHP 5)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop5.iterations.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop5.overloading"
+>Overloading</A
+></H1
+><P
+>&#13;   Both method calls and member accesses can be overloaded via the
+   __call, __get and __set methods. These methods will only be
+   triggered when your object or inherited object doesn't contain the 
+   member or method you're trying to access.
+   All overloading methods must not be defined as
+   <A
+HREF="language.oop5.visibility.html"
+>static</A
+>.
+  </P
+><P
+>&#13;   Since PHP 5.1.0 it is also possible to overload the
+   <A
+HREF="function.isset.html"
+><B
+CLASS="function"
+>isset()</B
+></A
+> and <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+> functions via the
+   __isset and __unset methods respectively.
+  </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.overloading.members"
+>Member overloading</A
+></H2
+>void <B
+CLASS="methodname"
+>__set</B
+> ( string name, mixed value )<BR
+></BR
+>mixed <B
+CLASS="methodname"
+>__get</B
+> ( string name )<BR
+></BR
+>bool <B
+CLASS="methodname"
+>__isset</B
+> ( string name )<BR
+></BR
+>void <B
+CLASS="methodname"
+>__unset</B
+> ( string name )<BR
+></BR
+><P
+>&#13;    Class members can be overloaded to run custom code defined in your class
+    by defining these specially named methods. The <VAR
+CLASS="varname"
+>$name</VAR
+> 
+    parameter used is the name of the variable that should be set or retrieved.
+    The __set() method's <VAR
+CLASS="varname"
+>$value</VAR
+> parameter specifies the 
+    value that the object should set the <VAR
+CLASS="varname"
+>$name</VAR
+>.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5936"
+></A
+><P
+><B
+>Esempio 19-18. overloading with __get, __set, __isset and __unset example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Setter<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $n</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private $x </font><font color="#007700">= array(</font><font color="#DD0000">"a" </font><font color="#007700">=&gt; </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#DD0000">"b" </font><font color="#007700">=&gt; </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#DD0000">"c" </font><font color="#007700">=&gt; </font><font color="#0000BB">3</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private </font><font color="#007700">function </font><font color="#0000BB">__get</font><font color="#007700">(</font><font color="#0000BB">$nm</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Getting </font><font color="#007700">[</font><font color="#DD0000">$nm</font><font color="#007700">]\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (isset(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">x</font><font color="#007700">[</font><font color="#0000BB">$nm</font><font color="#007700">])) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$r </font><font color="#007700">= </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">x</font><font color="#007700">[</font><font color="#0000BB">$nm</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"Returning: $r</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$r</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Nothing!\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private </font><font color="#007700">function </font><font color="#0000BB">__set</font><font color="#007700">(</font><font color="#0000BB">$nm</font><font color="#007700">, </font><font color="#0000BB">$val</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Setting </font><font color="#007700">[</font><font color="#DD0000">$nm</font><font color="#007700">]</font><font color="#DD0000"> to $val</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (isset(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">x</font><font color="#007700">[</font><font color="#0000BB">$nm</font><font color="#007700">])) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">x</font><font color="#007700">[</font><font color="#0000BB">$nm</font><font color="#007700">] = </font><font color="#0000BB">$val</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"OK!\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Not OK!\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private </font><font color="#007700">function </font><font color="#0000BB">__isset</font><font color="#007700">(</font><font color="#0000BB">$nm</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Checking if $nm is set</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return isset(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">x</font><font color="#007700">[</font><font color="#0000BB">$nm</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private </font><font color="#007700">function </font><font color="#0000BB">__unset</font><font color="#007700">(</font><font color="#0000BB">$nm</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Unsetting $nm</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unset(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">x</font><font color="#007700">[</font><font color="#0000BB">$nm</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$foo </font><font color="#007700">= new </font><font color="#0000BB">Setter</font><font color="#007700">();<br /></font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">n </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">;<br /></font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">a </font><font color="#007700">= </font><font color="#0000BB">100</font><font color="#007700">;<br /></font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">a</font><font color="#007700">++;<br /></font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">z</font><font color="#007700">++;<br /><br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">a</font><font color="#007700">)); </font><font color="#FF8000">//true<br /></font><font color="#007700">unset(</font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">a</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">a</font><font color="#007700">)); </font><font color="#FF8000">//false<br /><br />// this doesn't pass through the __isset() method<br />// because 'n' is a public property<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">n</font><font color="#007700">));<br /><br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$foo</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+Setting [a] to 100<br />OK!<br />Getting [a]<br />Returning: 100<br />Setting [a] to 101<br />OK!<br />Getting [z]<br />Nothing!<br />Setting [z] to 1<br />Not OK!<br /><br />Checking if a is set<br />bool(true)<br />Unsetting a<br />Checking if a is set<br />bool(false)<br />bool(true)<br /><br />object(Setter)#1 (2) {<br />&nbsp;&nbsp;["n"]=&gt;<br />&nbsp;&nbsp;int(1)<br />&nbsp;&nbsp;["x:private"]=&gt;<br />&nbsp;&nbsp;array(2) {<br />&nbsp;&nbsp;&nbsp;&nbsp;["b"]=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;int(2)<br />&nbsp;&nbsp;&nbsp;&nbsp;["c"]=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;int(3)<br />&nbsp;&nbsp;}<br />}</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.overloading.methods"
+>Method overloading</A
+></H2
+>mixed <B
+CLASS="methodname"
+>__call</B
+> ( string name, array arguments )<BR
+></BR
+><P
+>&#13;    Class methods can be overloaded to run custom code defined in your class
+    by defining this specially named method. The <VAR
+CLASS="varname"
+>$name</VAR
+> 
+    parameter used is the name as the function name that was requested 
+    to be used. The arguments that were passed in the function will be 
+    defined as an array in the <VAR
+CLASS="varname"
+>$arguments</VAR
+> parameter.
+    The value returned from the __call() method will be returned to the
+    caller of the method.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5955"
+></A
+><P
+><B
+>Esempio 19-19. overloading with __call example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Caller<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private $x </font><font color="#007700">= array(</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">__call</font><font color="#007700">(</font><font color="#0000BB">$m</font><font color="#007700">, </font><font color="#0000BB">$a</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"Method $m called:</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">x</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$foo </font><font color="#007700">= new </font><font color="#0000BB">Caller</font><font color="#007700">();<br /></font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">test</font><font color="#007700">(</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#DD0000">"2"</font><font color="#007700">, </font><font color="#0000BB">3.4</font><font color="#007700">, </font><font color="#0000BB">true</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+Method test called:<br />array(4) {<br />&nbsp;&nbsp;&nbsp;&nbsp;[0]=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;int(1)<br />&nbsp;&nbsp;&nbsp;&nbsp;[1]=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;string(1) "2"<br />&nbsp;&nbsp;&nbsp;&nbsp;[2]=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;float(3.4)<br />&nbsp;&nbsp;&nbsp;&nbsp;[3]=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;bool(true)<br />}<br />array(3) {<br />&nbsp;&nbsp;&nbsp;&nbsp;[0]=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;int(1)<br />&nbsp;&nbsp;&nbsp;&nbsp;[1]=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;int(2)<br />&nbsp;&nbsp;&nbsp;&nbsp;[2]=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;int(3)<br />}</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop5.interfaces.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop5.iterations.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Object Interfaces</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Object Iteration</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

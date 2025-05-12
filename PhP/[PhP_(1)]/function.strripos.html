@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>strripos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="strrev"
+HREF="function.strrev.html"><LINK
+REL="NEXT"
+TITLE="strrpos"
+HREF="function.strrpos.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.strrev.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.strrpos.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.strripos"
+></A
+>strripos</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN165965"
+></A
+><P
+>    (PHP 5)</P
+>strripos&nbsp;--&nbsp;
+     Trova la posizione dell'ultima occorrenza di una stringa in un'altra indipendentemente dalle lettere minuscole/maiusole
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN165968"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>strripos</B
+> ( string haystack, string needle [, int offset] )<BR
+></BR
+><P
+>&#13;     Restituisce la posizione numerica dell'ultima occorrenza di
+     <VAR
+CLASS="parameter"
+>needle</VAR
+> nella stringa
+     <VAR
+CLASS="parameter"
+>haystack</VAR
+>.  Differentemente da
+     <A
+HREF="function.strrpos.html"
+><B
+CLASS="function"
+>strrpos()</B
+></A
+>, <B
+CLASS="function"
+>strripos()</B
+> non distingue tra lettere maiuscole 
+     minuscole. Attenzione che le posizioni della stringa partono da 0
+     e non da 1.
+    </P
+><P
+>&#13;     Notare anche che <VAR
+CLASS="parameter"
+>needle</VAR
+> può essere una stringa di uno o più
+     caratteri.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>needle</VAR
+> non è reperito, la funzione restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione può
+restituire il Booleano <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, ma può anche restituire un valore non-Booleano valutato
+come <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, come ad esempio <VAR
+CLASS="literal"
+>0</VAR
+> o
+"". Per favore fare riferimento alla sezione <A
+HREF="language.types.boolean.html"
+>Booleans</A
+> per maggiori 
+informazioni. Usare <A
+HREF="language.operators.comparison.html"
+>l'operatore 
+=== </A
+> per controllare il valore restituito da questa 
+funzione.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN166000"
+></A
+><P
+><B
+>Esempio 1. Un semplice esempio di <B
+CLASS="function"
+>strripos()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$haystack </font><font color="#007700">= </font><font color="#DD0000">'ababcd'</font><font color="#007700">;<br /></font><font color="#0000BB">$needle&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">'aB'</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$pos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">strripos</font><font color="#007700">(</font><font color="#0000BB">$haystack</font><font color="#007700">, </font><font color="#0000BB">$needle</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">$pos </font><font color="#007700">=== </font><font color="#0000BB">false</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Sorry, we did not find ($needle) in ($haystack)"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Congratulations!\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"We found the last ($needle) in ($haystack) at position ($pos)"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Output:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Congratulations!
+   We found the last (aB) in (ababcd) at position (2)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>offset</VAR
+> può indicare la posizione da cui cominciare
+     la ricerca nella stringa. 
+    </P
+><P
+>&#13;     Offset negativi inizieranno la ricerca alla posizione 
+     <VAR
+CLASS="parameter"
+>offset</VAR
+> dall'<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>inizio</I
+></SPAN
+>
+     della stringa.
+    </P
+><P
+>&#13;     Vedere anche: <A
+HREF="function.strrpos.html"
+><B
+CLASS="function"
+>strrpos()</B
+></A
+>,
+     <A
+HREF="function.strrchr.html"
+><B
+CLASS="function"
+>strrchr()</B
+></A
+>, 
+     <A
+HREF="function.substr.html"
+><B
+CLASS="function"
+>substr()</B
+></A
+>, <A
+HREF="function.stripos.html"
+><B
+CLASS="function"
+>stripos()</B
+></A
+> e 
+     <A
+HREF="function.stristr.html"
+><B
+CLASS="function"
+>stristr()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.strrev.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.strrpos.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>strrev</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>strrpos</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

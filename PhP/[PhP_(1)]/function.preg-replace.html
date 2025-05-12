@@ -1,0 +1,688 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>preg_replace</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le espressioni regolari (Perl compatibili)"
+HREF="ref.pcre.html"><LINK
+REL="PREVIOUS"
+TITLE="preg_replace_callback"
+HREF="function.preg-replace-callback.html"><LINK
+REL="NEXT"
+TITLE="preg_split"
+HREF="function.preg-split.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.preg-replace-callback.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.preg-split.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.preg-replace"
+></A
+>preg_replace</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN123824"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.9, PHP 4, PHP 5)</P
+>preg_replace&nbsp;--&nbsp;Esegue una ricerca ed una sostituzione con le espressioni regolari</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN123827"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>preg_replace</B
+> ( mixed espressione_regolare, mixed sostituto, mixed testo [, int limite] )<BR
+></BR
+><P
+>&#13;     La funzione ricerca in <VAR
+CLASS="parameter"
+>testo</VAR
+> i criteri
+     impostati in <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+>. Se 
+     riconosce dei testi, li sostituisce con <VAR
+CLASS="parameter"
+>sostituto</VAR
+>.
+     Se si specifica <VAR
+CLASS="parameter"
+>limite</VAR
+>, verranno sostituiti
+     solamente <VAR
+CLASS="parameter"
+>limite</VAR
+> testi riconosciuti;
+     se viene omesso, oppure impostato a -1, verranno sostituiti tutti
+     i testi riconosciuti.
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>sostituto</VAR
+> può contenere riferimenti
+     nella forma di <VAR
+CLASS="literal"
+>\\<VAR
+CLASS="replaceable"
+>n</VAR
+></VAR
+>, oppure,
+     a partire dalla versione 4.0.4 di PHP, <VAR
+CLASS="literal"
+><VAR
+CLASS="replaceable"
+>$n</VAR
+>
+     </VAR
+>, con la preferenza per la seconda sintassi. Questo tipo di 
+     riferimento verrà sostituito dal testo che soddisfa l'<VAR
+CLASS="replaceable"
+>n
+     </VAR
+>-esimo criterio presente in <VAR
+CLASS="parameter"
+>espressione_regolare
+     </VAR
+>. Sono ammessi numeri compresi tra 0 e 99 inclusi. Il valore 0
+     (<VAR
+CLASS="literal"
+>\\0</VAR
+> oppure <VAR
+CLASS="literal"
+>$0</VAR
+>) si riferisce al testo
+     riconosciuto tramite tutta l'espressione regolare passata. Nel conteggio
+     dei criteri di riconoscimento presenti, sono contate le parentesi 
+     aperte da sinistra verso destra partendo da 1.
+     </P
+><P
+>&#13;       Quando si lavora con un criterio di sostituzione in cui un riferimento all'indietro
+       è immediatamente seguito da un'altro numero (ad esempio un numero che segue immediatamente
+       il criterio riconosciuto), non si possono utilizzare le solite notazioni,  <VAR
+CLASS="literal"
+>\\1</VAR
+>,
+       per i riferimenti all'indietro. Ad esempio, il testo <VAR
+CLASS="literal"
+>\\11</VAR
+>
+       confonderebbe <B
+CLASS="function"
+>preg_replace()</B
+> poichè non saprebbe se si desidera il riferimento
+       all'indietro <VAR
+CLASS="literal"
+>\\1</VAR
+> seguito dal numero <VAR
+CLASS="literal"
+>1</VAR
+>, oppure
+       se è desiderato il riferimento <VAR
+CLASS="literal"
+>\\11</VAR
+> seguito da niente. In questi
+       casi la soluzione consiste nell'uso di <VAR
+CLASS="literal"
+>\${1}1</VAR
+>. In questo modo si
+       crea un riferimento all'indietro <VAR
+CLASS="literal"
+>$1</VAR
+> isolato dal numero <VAR
+CLASS="literal"
+>1</VAR
+>.
+      </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123871"
+></A
+><P
+><B
+>Esempio 1. Uso dei riferimenti all'indietro seguiti da numeri</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br />$string </font><font color="#007700">= </font><font color="#DD0000">"April 15, 2003"</font><font color="#007700">; <br /></font><font color="#0000BB">$pattern </font><font color="#007700">= </font><font color="#DD0000">"/(\w+) (\d+), (\d+)/i"</font><font color="#007700">;<br /></font><font color="#0000BB">$replacement </font><font color="#007700">= </font><font color="#DD0000">"\${1}1,\$3"</font><font color="#007700">;<br />echo </font><font color="#0000BB">preg_replace</font><font color="#007700">(</font><font color="#0000BB">$pattern</font><font color="#007700">, </font><font color="#0000BB">$replacement</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       This example will output :
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>April1,2003</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Se verranno riconosciuti dei testi, la funzione restituisce la nuova
+     versione di <VAR
+CLASS="parameter"
+>testo</VAR
+>, altrimenti il parametro 
+     sarà restituito inalterato.
+    </P
+><P
+>&#13;     Ogni parametro passato alla funzione <B
+CLASS="function"
+>preg_replace()</B
+>,
+     (eccetto <VAR
+CLASS="parameter"
+>limite</VAR
+>) può essere una matrice ad una dimensione. 
+     Quando si utilizzano matrici con <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+>
+     e <VAR
+CLASS="parameter"
+>sostituto</VAR
+>, le chiavi sono processate
+     nell'ordine con cui appaiono nella matrice. Questo 
+     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non è necessariamente</I
+></SPAN
+> l'ordine
+     numerico dell'indice. Se si utilizzano degli indici per 
+     identificare quale <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+> debba
+     essere sostituita da <VAR
+CLASS="parameter"
+>sostituto</VAR
+>, occorre eseguire
+     la funzione <A
+HREF="function.ksort.html"
+><B
+CLASS="function"
+>ksort()</B
+></A
+> su ciascuna matrice
+     prima di eseguire <B
+CLASS="function"
+>preg_replace()</B
+>.
+    </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123889"
+></A
+><P
+><B
+>Esempio 2. Uso di matrici indicizzate con <B
+CLASS="function"
+>preg_replace()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$string </font><font color="#007700">= </font><font color="#DD0000">"The quick brown fox jumped over the lazy dog."</font><font color="#007700">;<br /> <br /></font><font color="#0000BB">$patterns</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">] = </font><font color="#DD0000">"/quick/"</font><font color="#007700">;<br /></font><font color="#0000BB">$patterns</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">] = </font><font color="#DD0000">"/brown/"</font><font color="#007700">;<br /></font><font color="#0000BB">$patterns</font><font color="#007700">[</font><font color="#0000BB">2</font><font color="#007700">] = </font><font color="#DD0000">"/fox/"</font><font color="#007700">;<br /> <br /></font><font color="#0000BB">$replacements</font><font color="#007700">[</font><font color="#0000BB">2</font><font color="#007700">] = </font><font color="#DD0000">"bear"</font><font color="#007700">;<br /></font><font color="#0000BB">$replacements</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">] = </font><font color="#DD0000">"black"</font><font color="#007700">;<br /></font><font color="#0000BB">$replacements</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">] = </font><font color="#DD0000">"slow"</font><font color="#007700">;<br /> <br />echo </font><font color="#0000BB">preg_replace</font><font color="#007700">(</font><font color="#0000BB">$patterns</font><font color="#007700">, </font><font color="#0000BB">$replacements</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+> 
+       Output: 
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>The bear black slow jumped over the lazy dog.</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;       Utilizzando ksort su entrambe le matrici
+       otteniamo cio che vogliamo.
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br />ksort</font><font color="#007700">(</font><font color="#0000BB">$patterns</font><font color="#007700">);<br /></font><font color="#0000BB">ksort</font><font color="#007700">(</font><font color="#0000BB">$replacements</font><font color="#007700">);<br /> <br />echo </font><font color="#0000BB">preg_replace</font><font color="#007700">(</font><font color="#0000BB">$patterns</font><font color="#007700">, </font><font color="#0000BB">$replacements</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Output :
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>The slow black bear jumped over the lazy dog.</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Se il campo <VAR
+CLASS="parameter"
+>testo</VAR
+> è una matrice, la ricerca
+     e la sostituzione sarà eseguita su ogni elemento della matrice, 
+     e conseguentemente la funzione restituirà una matrice.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+> ed <VAR
+CLASS="parameter"
+>sostituto</VAR
+>
+     sono entrambi delle matrici, la funzione <B
+CLASS="function"
+>preg_replace()</B
+> 
+     utilizza gli elementi di ciascuna matrice per la ricerca e la sostituzione 
+     delle stringhe in <VAR
+CLASS="parameter"
+>testo</VAR
+>. Nel caso in cui la
+     matrice passata in <VAR
+CLASS="parameter"
+>sostituto</VAR
+> abbia 
+     meno elementi che <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+>,
+     la funzione utilizzerà una stringa vuota per compensare gli 
+     elementi mancanti nella fase di sostituzione. Se, invece,
+     <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+> è una matrice,
+     mentre il campo <VAR
+CLASS="parameter"
+>sostituto</VAR
+> è una stringa,
+     quest'ultima sarà usata come valore da sostituire ad ogni testo
+     riconosciuto. Un discorso contrario non ha senso.
+    </P
+><P
+>&#13;     Il modificatore <VAR
+CLASS="literal"
+>/e</VAR
+>, permette alla funzione
+     di considerare il testo posto in <VAR
+CLASS="parameter"
+>sostituto</VAR
+>
+     come codice PHP dopo aver valorizzato gli opportuni riferimenti.
+     Suggerimento: accertarsi che <VAR
+CLASS="parameter"
+>sostituto</VAR
+> 
+     sia del codice PHP valido, altrimenti si ottiene un errore di
+     parsing alla linea della funzione <B
+CLASS="function"
+>preg_replace()</B
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123916"
+></A
+><P
+><B
+>Esempio 3. Esempi di sostituzione di valori</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$patterns </font><font color="#007700">= array (</font><font color="#DD0000">"/(19|20)(\d{2})-(\d{1,2})-(\d{1,2})/"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"/^\s*{(\w+)}\s*=/"</font><font color="#007700">);<br /></font><font color="#0000BB">$replace </font><font color="#007700">= array (</font><font color="#DD0000">"\\3/\\4/\\1\\2"</font><font color="#007700">, </font><font color="#DD0000">"</font><font color="#007700">$\\</font><font color="#DD0000">1 ="</font><font color="#007700">);<br />echo </font><font color="#0000BB">preg_replace</font><font color="#007700">(</font><font color="#0000BB">$patterns</font><font color="#007700">, </font><font color="#0000BB">$replace</font><font color="#007700">, </font><font color="#DD0000">"{startDate} = 1999-5-27"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Questo esempio visualizzerà:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$startDate = 5/27/1999</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123922"
+></A
+><P
+><B
+>Esempio 4. Utilizzo del modificatore /e </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />preg_replace</font><font color="#007700">(</font><font color="#DD0000">"/(&lt;\/?)(\w+)([^&gt;]*&gt;)/e"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'\\1'.strtoupper('\\2').'\\3'"</font><font color="#007700">, <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$html_body</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Nell'esempio precedente tutti i tag HTML presenti nel testo di  
+       input saranno convertiti in maiuscolo.
+      </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123927"
+></A
+><P
+><B
+>Esempio 5. Esempio di conversione di codice HTML in testo</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// $document contiene un documento HTML.<br />// In questo esempio la funzione rimuove i tag HTML,<br />// le sezioni javascript e gli spazi bianchi.<br />// Inoltre si convertirà le entità HTML nella loro<br />// rappresentazione testuale.<br /></font><font color="#0000BB">$search </font><font color="#007700">= array (</font><font color="#DD0000">"'&lt;script[^&gt;]*?&gt;.*?&lt;/script&gt;'si"</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#FF8000">// Rimozione del javascript<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&lt;[\/\!]*?[^&lt;&gt;]*?&gt;'si"</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Rimozione dei tag HTML<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'([\r\n])[\s]+'"</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Rimozione degli spazi bianchi<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&amp;(quot|#34);'i"</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Sostituzione delle entità HTML<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&amp;(amp|#38);'i"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&amp;(lt|#60);'i"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&amp;(gt|#62);'i"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&amp;(nbsp|#160);'i"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&amp;(iexcl|#161);'i"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&amp;(cent|#162);'i"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&amp;(pound|#163);'i"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&amp;(copy|#169);'i"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"'&amp;#(\d+);'e"</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Valuta come codice PHP<br /><br /></font><font color="#0000BB">$replace </font><font color="#007700">= array (</font><font color="#DD0000">""</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">""</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"\\1"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"\""</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&amp;"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&lt;"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&gt;"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">" "</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">chr</font><font color="#007700">(</font><font color="#0000BB">161</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">chr</font><font color="#007700">(</font><font color="#0000BB">162</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">chr</font><font color="#007700">(</font><font color="#0000BB">163</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">chr</font><font color="#007700">(</font><font color="#0000BB">169</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"chr(\\1)"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$text </font><font color="#007700">= </font><font color="#0000BB">preg_replace</font><font color="#007700">(</font><font color="#0000BB">$search</font><font color="#007700">, </font><font color="#0000BB">$replace</font><font color="#007700">, </font><font color="#0000BB">$document</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il parametro <VAR
+CLASS="parameter"
+>limite</VAR
+> è stato aggiunto 
+      successivamente alla versione 4.0.1pl2 di PHP.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.preg-match.html"
+><B
+CLASS="function"
+>preg_match()</B
+></A
+>,
+     <A
+HREF="function.preg-match-all.html"
+><B
+CLASS="function"
+>preg_match_all()</B
+></A
+> e
+     <A
+HREF="function.preg-split.html"
+><B
+CLASS="function"
+>preg_split()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.preg-replace-callback.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.preg-split.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>preg_replace_callback</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pcre.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>preg_split</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

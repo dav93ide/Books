@@ -1,0 +1,483 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Memcache Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="mcve_void"
+HREF="function.mcve-void.html"><LINK
+REL="NEXT"
+TITLE="Memcache::add"
+HREF="function.memcache-add.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mcve-void.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.memcache-add.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.memcache"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LXXIV. Memcache Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN81244"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="memcache.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Memcache module provides handy procedural and object oriented interface
+     to memcached, highly effective caching daemon, which was especially
+     designed to decrease database load in dynamic web applications.
+    </P
+><P
+>&#13;     This module doesn't have native support of multiple servers, but you
+     still can implement it yourself in your application. Establish several
+     memcached connections, set priority level for each server etc.
+    </P
+><P
+>&#13;     More information about memcached can be found at <A
+HREF="http://www.danga.com/memcached/"
+TARGET="_top"
+>http://www.danga.com/memcached/</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="memcache.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     This module uses functions of <A
+HREF="http://www.gzip.org/zlib/"
+TARGET="_top"
+>zlib</A
+>
+     to support on-the-fly data compression. Zlib is required to install
+     this module.
+    </P
+><P
+>&#13;     PHP 4.3.3 or newer is required to use the memcache extension.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="memcache.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  This <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> extension
+is not bundled with PHP.
+  Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+  <A
+HREF="http://pecl.php.net/package/memcache"
+TARGET="_top"
+>http://pecl.php.net/package/memcache</A
+>.
+ </P
+><P
+>&#13;  In order to use these functions you must compile PHP with Memcache support
+  by using the <VAR
+CLASS="option"
+>--enable-memcache[=DIR]</VAR
+> option.
+ </P
+><P
+>&#13;  Windows users will enable <TT
+CLASS="filename"
+>php_memcache.dll</TT
+> inside
+  of <TT
+CLASS="filename"
+>php.ini</TT
+> in order to use these functions.
+  You may download this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+>
+extension <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> from the <A
+HREF="http://www.php.net/downloads.php"
+TARGET="_top"
+>&#13;PHP Downloads</A
+> page or at <A
+HREF="http://snaps.php.net/"
+TARGET="_top"
+>&#13;http://snaps.php.net/</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="memcache.constants"
+>Costanti predefinite</A
+></H1
+><DIV
+CLASS="table"
+><A
+NAME="AEN81272"
+></A
+><P
+><B
+>Tabella 1. MemCache Constants</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>MEMCACHE_COMPRESSED</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&#13;       Used to turn on-the-fly data compression on with
+       <B
+CLASS="function"
+>Memcache::set()</B
+>, 
+       <B
+CLASS="function"
+>Memcache::add()</B
+> e
+       <B
+CLASS="function"
+>Memcache::replace()</B
+>.
+      </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="memcache.ini"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="memcache.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;     There is only one resource type used in memcache module - it's
+     the link identifier for a cache server connection.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="memcache.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN81298"
+></A
+><P
+><B
+>Esempio 1. memcache extension overview example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$memcache </font><font color="#007700">= new </font><font color="#0000BB">Memcache</font><font color="#007700">;<br /></font><font color="#0000BB">$memcache</font><font color="#007700">-&gt;</font><font color="#0000BB">connect</font><font color="#007700">(</font><font color="#DD0000">'localhost'</font><font color="#007700">, </font><font color="#0000BB">11211</font><font color="#007700">) or die (</font><font color="#DD0000">"Could not connect"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$version </font><font color="#007700">= </font><font color="#0000BB">$memcache</font><font color="#007700">-&gt;</font><font color="#0000BB">getVersion</font><font color="#007700">();<br />echo </font><font color="#DD0000">"Server's version: "</font><font color="#007700">.</font><font color="#0000BB">$version</font><font color="#007700">.</font><font color="#DD0000">"&lt;br/&gt;\n"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$tmp_object </font><font color="#007700">= new </font><font color="#0000BB">stdClass</font><font color="#007700">;<br /></font><font color="#0000BB">$tmp_object</font><font color="#007700">-&gt;</font><font color="#0000BB">str_attr </font><font color="#007700">= </font><font color="#DD0000">'test'</font><font color="#007700">;<br /></font><font color="#0000BB">$tmp_object</font><font color="#007700">-&gt;</font><font color="#0000BB">int_attr </font><font color="#007700">= </font><font color="#0000BB">123</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$memcache</font><font color="#007700">-&gt;</font><font color="#0000BB">set</font><font color="#007700">(</font><font color="#DD0000">'key'</font><font color="#007700">, </font><font color="#0000BB">$tmp_object</font><font color="#007700">, </font><font color="#0000BB">false</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">) or die (</font><font color="#DD0000">"Failed to save data at the server"</font><font color="#007700">);<br />echo </font><font color="#DD0000">"Store data in the cache (data will expire in 10 seconds)&lt;br/&gt;\n"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$get_result </font><font color="#007700">= </font><font color="#0000BB">$memcache</font><font color="#007700">-&gt;</font><font color="#0000BB">get</font><font color="#007700">(</font><font color="#DD0000">'key'</font><font color="#007700">);<br />echo </font><font color="#DD0000">"Data from the cache:&lt;br/&gt;\n"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$get_result</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     In the above example, an object is being saved in the cache and then
+     retrieved back. Object and other non-scalar types are serialized before 
+     saving, so it's impossible to store resources (i.e. connection identifiers
+     and others) in the cache.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.memcache-add.html"
+>Memcache::add</A
+>&nbsp;--&nbsp;Add an item to the server</DT
+><DT
+><A
+HREF="function.memcache-close.html"
+>Memcache::close</A
+>&nbsp;--&nbsp;Close memcached server connection</DT
+><DT
+><A
+HREF="function.memcache-connect.html"
+>Memcache::connect</A
+>&nbsp;--&nbsp;Open memcached server connection</DT
+><DT
+><A
+HREF="function.memcache-debug.html"
+>memcache_debug</A
+>&nbsp;--&nbsp;Turn debug output on/off</DT
+><DT
+><A
+HREF="function.memcache-decrement.html"
+>Memcache::decrement</A
+>&nbsp;--&nbsp;Decrement item's value</DT
+><DT
+><A
+HREF="function.memcache-delete.html"
+>Memcache::delete</A
+>&nbsp;--&nbsp;Delete item from the server</DT
+><DT
+><A
+HREF="function.memcache-flush.html"
+>Memcache::flush</A
+>&nbsp;--&nbsp;Flush all existing items at the server</DT
+><DT
+><A
+HREF="function.memcache-get.html"
+>Memcache::get</A
+>&nbsp;--&nbsp;Retrieve item from the server</DT
+><DT
+><A
+HREF="function.memcache-getstats.html"
+>Memcache::getStats</A
+>&nbsp;--&nbsp;Get statistics of the server</DT
+><DT
+><A
+HREF="function.memcache-getversion.html"
+>Memcache::getVersion</A
+>&nbsp;--&nbsp;Return version of the server</DT
+><DT
+><A
+HREF="function.memcache-increment.html"
+>Memcache::increment</A
+>&nbsp;--&nbsp;Increment item's value</DT
+><DT
+><A
+HREF="function.memcache-pconnect.html"
+>Memcache::pconnect</A
+>&nbsp;--&nbsp;Open memcached server persistent connection</DT
+><DT
+><A
+HREF="function.memcache-replace.html"
+>Memcache::replace</A
+>&nbsp;--&nbsp;Replace value of the existing item</DT
+><DT
+><A
+HREF="function.memcache-set.html"
+>Memcache::set</A
+>&nbsp;--&nbsp;Store data at the server</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mcve-void.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.memcache-add.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mcve_void</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Memcache::add</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

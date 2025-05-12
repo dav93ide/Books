@@ -1,0 +1,355 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fgets</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="fgetcsv"
+HREF="function.fgetcsv.html"><LINK
+REL="NEXT"
+TITLE="fgetss"
+HREF="function.fgetss.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fgetcsv.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fgetss.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fgets"
+></A
+>fgets</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN40861"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>fgets&nbsp;--&nbsp;Prende una riga da un puntatore a file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN40864"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>fgets</B
+> ( resource handle, int length )<BR
+></BR
+><P
+>&#13;     Restituisce una stringa di <VAR
+CLASS="parameter"
+>length</VAR
+> - 1 byte letti dal file puntato da <VAR
+CLASS="parameter"
+>handle</VAR
+>.  
+     La lettura termina quando sono stati letti <VAR
+CLASS="parameter"
+>length</VAR
+> - 1 byte, oppure si incontra il carattere
+     di newline (che viene incluso nel valore restituito), oppure alla fine del file
+     (EOF) qualora giunga prima. Se non si specifica length, si assume
+     come default 1k, o 1024 byte.
+    </P
+><P
+>&#13;     Se si verifica un errore, la funzione restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+    </P
+><P
+>&#13;     Errori comuni:
+    </P
+><P
+>&#13;     Le persone abituate alla semantica 'C' di fgets notino la differenza
+     nel trattamento dell'EOF.
+    </P
+><P
+>The file pointer must be valid, and must point to
+a file successfully opened by <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+> or
+<A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+>.</P
+><P
+>&#13;     Segue un semplice esempio:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN40887"
+></A
+><P
+><B
+>Esempio 1. Legge un file riga per riga</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$handle </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"/tmp/inputfile.txt"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br />while (!</font><font color="#0000BB">feof</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$buffer </font><font color="#007700">= </font><font color="#0000BB">fgets</font><font color="#007700">(</font><font color="#0000BB">$fd</font><font color="#007700">, </font><font color="#0000BB">4096</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$buffer</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il parametro <VAR
+CLASS="parameter"
+>length</VAR
+> è diventato opzionale a partire da PHP
+      4.2.0, se omesso, si assume come lunghezza della linea 1024.
+      A partire dalla versione 4.3, l'omissione del parametro <VAR
+CLASS="parameter"
+>length</VAR
+> 
+      comporta la lettura del flusso d'ingresso sino al raggiungimento della fine della linea.
+      Se la maggior parte delle righe lette dal file hanno dimensione superiore a 8KB,
+      è più efficiente specificare la lunghezza massima 
+      della linea.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      A partire da PHP 4.3 questa funzione è 'binary safe'. Le versioni
+      precedenti non lo sono.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Se il <VAR
+CLASS="literal"
+>PHP</VAR
+> ha
+dei problemi a riconoscere la fine riga nella lettura di file su
+o creati da computer Macintosh, si può abilitare il parametro
+di configurazione <A
+HREF="ref.filesystem.html#ini.auto-detect-line-endings"
+>auto_detect_line_endings</A
+>.</P
+></BLOCKQUOTE
+></DIV
+><P
+> 
+     Vedere anche <A
+HREF="function.fread.html"
+><B
+CLASS="function"
+>fread()</B
+></A
+>, 
+     <A
+HREF="function.fgetc.html"
+><B
+CLASS="function"
+>fgetc()</B
+></A
+>,
+     <A
+HREF="function.stream-get-line.html"
+><B
+CLASS="function"
+>stream_get_line()</B
+></A
+>,
+     <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>,
+     <A
+HREF="function.popen.html"
+><B
+CLASS="function"
+>popen()</B
+></A
+>, 
+     <A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+> e
+     <A
+HREF="function.stream-set-timeout.html"
+><B
+CLASS="function"
+>stream_set_timeout()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fgetcsv.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fgetss.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fgetcsv</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fgetss</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

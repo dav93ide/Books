@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>serialize</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per la gestione delle variabili"
+HREF="ref.var.html"><LINK
+REL="PREVIOUS"
+TITLE="print_r"
+HREF="function.print-r.html"><LINK
+REL="NEXT"
+TITLE="settype"
+HREF="function.settype.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.print-r.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.settype.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.serialize"
+></A
+>serialize</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN173877"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.5, PHP 4, PHP 5)</P
+>serialize&nbsp;--&nbsp;
+     Genera una versione archiviabile del valore
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN173880"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>serialize</B
+> ( mixed value )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>serialize()</B
+> restituisce una stringa contenente
+     un flusso di bytes rappresentante <VAR
+CLASS="parameter"
+>value</VAR
+> che
+     possa essere archiviato ovunque.
+    </P
+><P
+>&#13;     Questo può essere utile per archiviare o passare valori senza
+     perdere il tipo e la struttura.
+    </P
+><P
+>&#13;    Per ottenere il valore dalla stringa serializzata, utilizzare
+    la funzione <A
+HREF="function.unserialize.html"
+><B
+CLASS="function"
+>unserialize()</B
+></A
+>. La funzione <B
+CLASS="function"
+>serialize()</B
+>
+    gestisce tutti i tipi di variabili tranne il tipo <A
+HREF="language.types.resource.html"
+><B
+CLASS="type"
+>resource</B
+></A
+>.
+    Possono essere elaborati da <B
+CLASS="function"
+>serialize()</B
+> array che
+    contengano riferimenti a se stessi. Saranno archiviati anche i riferimenti
+    interni agli array e ai tipi object passati a <B
+CLASS="function"
+>serialize()</B
+>
+   </P
+><P
+>&#13;    Quando si esegue la serializzazione di oggetti, il PHP cerca di eseguire la funzione
+    <B
+CLASS="function"
+>__sleep()</B
+> prima di cominciare la serializzazione. Questo permette all'oggetto di eseguire
+    le ultime operazioni di chiusura prima di essere serializzato. Analogamente
+    quando l'oggetto viene ripristinato la funzione <A
+HREF="function.unserialize.html"
+><B
+CLASS="function"
+>unserialize()</B
+></A
+>
+    richiama la funzione membro <B
+CLASS="function"
+>__wakeup()</B
+>.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Questa funzione non gira correttamente sino alla versione 4.0.7.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Nella versione 3 di PHP si serializzano le proprietà dell'oggetto,
+     ma non i metodi. Nella versione 4 questa limitazione è stata rimossa, pertanto possono
+     essere recuperati sia le proprietà sia i metodi. Per maggiori informazioni
+     vedere la sezione <A
+HREF="language.oop.serialization.html"
+>Serializzare oggetti</A
+> in 
+     <A
+HREF="language.oop.html"
+>Oggetti e Classi</A
+>.
+    </P
+><P
+>&#13;     Non è possibile serializzare gli oggetti predefiniti di PHP.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN173910"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>serialize()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// L'array multi-dimensionale $session_data contiene le informazioni della sessione<br />// per l'utente. Si userà serialize() per memorizzare le informazioni<br />// all'interno di un database alla fine della richiesta..<br /><br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">odbc_connect</font><font color="#007700">(</font><font color="#DD0000">"webdb"</font><font color="#007700">, </font><font color="#DD0000">"php"</font><font color="#007700">, </font><font color="#DD0000">"chicken"</font><font color="#007700">);<br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">odbc_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"UPDATE sessions SET data = ? WHERE id = ?"</font><font color="#007700">);<br /></font><font color="#0000BB">$sqldata </font><font color="#007700">= array (</font><font color="#0000BB">serialize</font><font color="#007700">(</font><font color="#0000BB">$session_data</font><font color="#007700">), </font><font color="#0000BB">$PHP_AUTH_USER</font><font color="#007700">);<br />if (!</font><font color="#0000BB">odbc_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, &amp;</font><font color="#0000BB">$sqldata</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">odbc_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"INSERT INTO sessions (id, data) VALUES(?, ?)"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">odbc_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, &amp;</font><font color="#0000BB">$sqldata</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Qualcosa è andato storto */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;    Vedere anche: <A
+HREF="function.unserialize.html"
+><B
+CLASS="function"
+>unserialize()</B
+></A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.print-r.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.settype.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>print_r</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.var.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>settype</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

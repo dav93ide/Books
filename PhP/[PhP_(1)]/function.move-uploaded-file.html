@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>move_uploaded_file</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="mkdir"
+HREF="function.mkdir.html"><LINK
+REL="NEXT"
+TITLE="parse_ini_file"
+HREF="function.parse-ini-file.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mkdir.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.parse-ini-file.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.move-uploaded-file"
+></A
+>move_uploaded_file</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN42563"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.3, PHP 5)</P
+>move_uploaded_file&nbsp;--&nbsp;Muove un file caricato in una nuova posizione</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN42566"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>move_uploaded_file</B
+> ( string filename, string destination )<BR
+></BR
+><P
+>&#13;     Questa funzione verifica che il file indicato da 
+     <VAR
+CLASS="parameter"
+>filename</VAR
+> è un file validamente caricato (nel senso
+     che è stato caricato attraverso il meccanismo di caricamento HTTP POST di PHP).
+     Se il file è valido, verrà spostato nel file dato da
+     <VAR
+CLASS="parameter"
+>destination</VAR
+>.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>filename</VAR
+> non è un file validamente caricato,
+     allora non verrà compiuta alcuna azione e 
+     <B
+CLASS="function"
+>move_uploaded_file()</B
+> restituirà
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. 
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>filename</VAR
+> è un file validamente caricato, ma
+     non può essere mossi per qualche ragione, non verrà compiuto alcunchè e
+     <B
+CLASS="function"
+>move_uploaded_file()</B
+> restituirà
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. In più verrà visualizzato un avviso di pericolo.
+    </P
+><P
+>&#13;     Questo tipo di verifica è particolarmente importante se sussiste la possibilità
+     che qualcosa fatto con i file caricati possa rivelare il loro contenuto agli utenti
+     o ad altri utenti dello stesso 
+     sistema.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Quando <A
+HREF="features.safe-mode.html"
+>safe-mode</A
+> è abilitato, PHP controlla che 
+i file o le directory sulle quali si sta andando a lavorare, abbiano lo stesso UID dello 
+script che è in esecuzione.</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <B
+CLASS="function"
+>move_uploaded_file()</B
+> non è limitato dalle normali restrizioni 
+      del <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+> UID. QCiò non è insicuro poichè
+      <B
+CLASS="function"
+>move_uploaded_file()</B
+> operara solo sui file uplodati
+      via PHP.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Se il file di destinazione esiste, sarà sovrascritto.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.is-uploaded-file.html"
+><B
+CLASS="function"
+>is_uploaded_file()</B
+></A
+> e la sessione
+     <A
+HREF="features.file-upload.html"
+>Handling file uploads</A
+>
+     per un semplice esempio.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mkdir.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.parse-ini-file.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mkdir</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>parse_ini_file</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

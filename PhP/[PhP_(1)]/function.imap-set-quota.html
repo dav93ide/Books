@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>imap_set_quota</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IMAP, POP3 and NNTP Functions"
+HREF="ref.imap.html"><LINK
+REL="PREVIOUS"
+TITLE="imap_search"
+HREF="function.imap-search.html"><LINK
+REL="NEXT"
+TITLE="imap_setacl"
+HREF="function.imap-setacl.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.imap-search.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.imap-setacl.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.imap-set-quota"
+></A
+>imap_set_quota</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN63636"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.5, PHP 5)</P
+>imap_set_quota&nbsp;--&nbsp;Sets a quota for a given mailbox</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN63639"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>imap_set_quota</B
+> ( resource imap_stream, string quota_root, int quota_limit )<BR
+></BR
+><P
+>  
+     Sets an upper limit quota on a per mailbox basis.  This function
+     requires the <VAR
+CLASS="parameter"
+>imap_stream</VAR
+> to have been opened
+     as the mail administrator account.  It will not work if opened as
+     any other user. 
+    </P
+><P
+>&#13;     This function is currently only available to users of the c-client2000
+     or greater library.
+    </P
+><P
+>&#13;    <VAR
+CLASS="parameter"
+>imap_stream</VAR
+> is the stream pointer returned from
+    a <A
+HREF="function.imap-open.html"
+><B
+CLASS="function"
+>imap_open()</B
+></A
+> call.  This stream must be opened as
+    the mail administrator, other wise this function will fail.
+    <VAR
+CLASS="parameter"
+>quota_root</VAR
+> is the mailbox to have a quota set.  This 
+    should follow the IMAP standard format for a mailbox, 'user.name'.
+    <VAR
+CLASS="parameter"
+>quota_limit</VAR
+> is the maximum size (in KB) for 
+    the <VAR
+CLASS="parameter"
+>quota_root</VAR
+>. 
+    </P
+><P
+>&#13;     Returns <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> on success and <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on error.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN63666"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>imap_set_quota()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$mbox </font><font color="#007700">= </font><font color="#0000BB">imap_open</font><font color="#007700">(</font><font color="#DD0000">"{your.imap.host:143}"</font><font color="#007700">, </font><font color="#DD0000">"mailadmin"</font><font color="#007700">, </font><font color="#DD0000">"password"</font><font color="#007700">);<br /><br />if (!</font><font color="#0000BB">imap_set_quota</font><font color="#007700">(</font><font color="#0000BB">$mbox</font><font color="#007700">, </font><font color="#DD0000">"user.kalowsky"</font><font color="#007700">, </font><font color="#0000BB">3000</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Error in setting quota\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return;<br />}<br /><br /></font><font color="#0000BB">imap_close</font><font color="#007700">(</font><font color="#0000BB">$mbox</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     See also <A
+HREF="function.imap-open.html"
+><B
+CLASS="function"
+>imap_open()</B
+></A
+> and
+     <A
+HREF="function.imap-get-quota.html"
+><B
+CLASS="function"
+>imap_get_quota()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.imap-search.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.imap-setacl.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>imap_search</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.imap.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>imap_setacl</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

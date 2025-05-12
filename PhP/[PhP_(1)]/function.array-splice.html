@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>array_splice</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Array"
+HREF="ref.array.html"><LINK
+REL="PREVIOUS"
+TITLE="array_slice"
+HREF="function.array-slice.html"><LINK
+REL="NEXT"
+TITLE="array_sum"
+HREF="function.array-sum.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.array-slice.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.array-sum.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.array-splice"
+></A
+>array_splice</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN11212"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>array_splice&nbsp;--&nbsp;
+     Rimuove una porzione dell'array e la sostituisce con
+     altro
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN11215"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>array_splice</B
+> ( array &#38;input, int offset [, int length [, array replacement]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>array_splice()</B
+> rimuove gli elementi specificati
+     da <VAR
+CLASS="parameter"
+>offset</VAR
+> e
+     <VAR
+CLASS="parameter"
+>length</VAR
+> 
+     dall'array <VAR
+CLASS="parameter"
+>input</VAR
+>, e li sostituisce con gli
+     elementi dell'array <VAR
+CLASS="parameter"
+>replacement</VAR
+>, se
+     fornito. Restituisce un array contenente gli elementi estratti.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>offset</VAR
+> è positivo l'inizio 
+     della porzione rimossa è a quella distanza dall'inizio
+     dell'array <VAR
+CLASS="parameter"
+>input</VAR
+>.  Se
+     <VAR
+CLASS="parameter"
+>offset</VAR
+> è negativo inizia a quella distanza
+     dalla fine dell'array <VAR
+CLASS="parameter"
+>input</VAR
+>.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>length</VAR
+> è omessa, rimuove tutti gli elementi
+     da <VAR
+CLASS="parameter"
+>offset</VAR
+> alla fine dell'array.  Se
+     <VAR
+CLASS="parameter"
+>length</VAR
+> è specificata a positiva,
+     quel numero di elementi vengono rimossi. Se
+     <VAR
+CLASS="parameter"
+>length</VAR
+> è specificata e negativa
+     la porzione da rimuovere terminerà a <VAR
+CLASS="parameter"
+>length</VAR
+> elementi dalla
+     fine dell'array.  Suggerimento: per rimuovere tutti gli elementi tra
+     <VAR
+CLASS="parameter"
+>offset</VAR
+> e la fine dell'array quando
+     è specificato pure <VAR
+CLASS="parameter"
+>replacement</VAR
+>, usare
+     <VAR
+CLASS="literal"
+>count($input)</VAR
+> nel parametro
+     <VAR
+CLASS="parameter"
+>length</VAR
+>.
+    </P
+><P
+>&#13;     Se l'array <VAR
+CLASS="parameter"
+>replacement</VAR
+> è specificato,
+     gli elementi rimossi sono sostituiti dagli elementi di questo array.
+     Se <VAR
+CLASS="parameter"
+>offset</VAR
+> e
+     <VAR
+CLASS="parameter"
+>length</VAR
+> sono tali per cui niente viene rimosso,
+     gli elementi dell'array <VAR
+CLASS="parameter"
+>replacement</VAR
+>
+     sono inseriti nella posizione specificata da
+     <VAR
+CLASS="parameter"
+>offset</VAR
+>. Si noti che le chiavi nell'array
+     replacement non sono conservate.
+     Se <VAR
+CLASS="parameter"
+>replacement</VAR
+> è composto solo da
+     un elemento non è necessario porlo nel costrutto <VAR
+CLASS="literal"
+>array()</VAR
+>,
+     a meno che l'elemento stesso non sia un array.
+    </P
+><P
+>&#13;     Le seguenti espressione cambiano i valori di <VAR
+CLASS="varname"
+>$input</VAR
+>
+     nello stesso modo:
+   <DIV
+CLASS="table"
+><A
+NAME="AEN11263"
+></A
+><P
+><B
+>Tabella 1. <B
+CLASS="function"
+>array_splice()</B
+> equivalents</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+>&#13;        array_push($input, $x, $y) 
+       </TD
+><TD
+>&#13;        array_splice($input, count($input), 0, array($x, $y))
+       </TD
+></TR
+><TR
+><TD
+>&#13;        array_pop($input) 
+       </TD
+><TD
+>&#13;        array_splice($input, -1)
+       </TD
+></TR
+><TR
+><TD
+>&#13;        array_shift($input)
+       </TD
+><TD
+>&#13;        array_splice($input, 0, 1)
+       </TD
+></TR
+><TR
+><TD
+>&#13;        array_unshift($input, $x, $y)
+       </TD
+><TD
+>&#13;        array_splice($input, 0, 0, array($x, $y))
+       </TD
+></TR
+><TR
+><TD
+>&#13;        $input[$x] = $y // negli array in cui la chiave è uguale alla posizione
+       </TD
+><TD
+>&#13;        array_splice($input, $x, 1, $y)
+       </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     Restituisce un array contenente gli elementi rimossi.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN11285"
+></A
+><P
+><B
+>Esempio 1. esempi di <B
+CLASS="function"
+>array_splice()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$input </font><font color="#007700">= array(</font><font color="#DD0000">"rosso"</font><font color="#007700">, </font><font color="#DD0000">"verde"</font><font color="#007700">, </font><font color="#DD0000">"blu"</font><font color="#007700">, </font><font color="#DD0000">"giallo"</font><font color="#007700">);<br /></font><font color="#0000BB">array_splice</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">);<br /></font><font color="#FF8000">// $input è ora array("rosso", "verde")<br /><br /></font><font color="#0000BB">$input </font><font color="#007700">= array(</font><font color="#DD0000">"rosso"</font><font color="#007700">, </font><font color="#DD0000">"verde"</font><font color="#007700">, </font><font color="#DD0000">"blu"</font><font color="#007700">, </font><font color="#DD0000">"giallo"</font><font color="#007700">);<br /></font><font color="#0000BB">array_splice</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">);<br /></font><font color="#FF8000">// $input è ora array("rosso", "giallo")<br /><br /></font><font color="#0000BB">$input </font><font color="#007700">= array(</font><font color="#DD0000">"rosso"</font><font color="#007700">, </font><font color="#DD0000">"verde"</font><font color="#007700">, </font><font color="#DD0000">"blu"</font><font color="#007700">, </font><font color="#DD0000">"giallo"</font><font color="#007700">);<br /></font><font color="#0000BB">array_splice</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">), </font><font color="#DD0000">"arancio"</font><font color="#007700">);<br /></font><font color="#FF8000">// $input è ora array("rosso", "arancio")<br /><br /></font><font color="#0000BB">$input </font><font color="#007700">= array(</font><font color="#DD0000">"rosso"</font><font color="#007700">, </font><font color="#DD0000">"verde"</font><font color="#007700">, </font><font color="#DD0000">"blu"</font><font color="#007700">, </font><font color="#DD0000">"giallo"</font><font color="#007700">);<br /></font><font color="#0000BB">array_splice</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, array(</font><font color="#DD0000">"nero"</font><font color="#007700">, </font><font color="#DD0000">"marrone"</font><font color="#007700">));<br /></font><font color="#FF8000">// $input è ora array("rosso", "verde",<br />//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"blu", "nero", "marrone")<br /><br /></font><font color="#0000BB">$input </font><font color="#007700">= array(</font><font color="#DD0000">"rosso"</font><font color="#007700">, </font><font color="#DD0000">"verde"</font><font color="#007700">, </font><font color="#DD0000">"blu"</font><font color="#007700">, </font><font color="#DD0000">"giallo"</font><font color="#007700">);<br /></font><font color="#0000BB">array_splice</font><font color="#007700">(</font><font color="#0000BB">$input</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#DD0000">"viola"</font><font color="#007700">);<br /></font><font color="#FF8000">// $input è ora array("rosso", "verde",<br />//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"blu", "viola", "giallo");<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.array-slice.html"
+><B
+CLASS="function"
+>array_slice()</B
+></A
+>i,
+     <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+> e
+     <A
+HREF="function.array-merge.html"
+><B
+CLASS="function"
+>array_merge()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.array-slice.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.array-sum.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>array_slice</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.array.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>array_sum</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,1152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>OpenAL Audio Bindings</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="Usage"
+HREF="r115843.html"><LINK
+REL="NEXT"
+TITLE="openal_buffer_create"
+HREF="function.openal-buffer-create.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="r115843.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.openal-buffer-create.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.openal"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XCIX. OpenAL Audio Bindings</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN115860"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="openal.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Platform independent audio bindings.
+     Requires the <A
+HREF="http://www.openal.org/"
+TARGET="_top"
+>OpenAL library</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="openal.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  This <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> extension
+is not bundled with PHP.
+ </P
+><P
+>&#13;  Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+  <A
+HREF="http://pecl.php.net/package/openal"
+TARGET="_top"
+>http://pecl.php.net/package/openal</A
+>.
+ </P
+><P
+>&#13;  You may download this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+>
+extension <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> from the <A
+HREF="http://www.php.net/downloads.php"
+TARGET="_top"
+>&#13;PHP Downloads</A
+> page or at <A
+HREF="http://snaps.php.net/"
+TARGET="_top"
+>&#13;http://snaps.php.net/</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="openal.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="openal.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;  This extension defines four resource types:
+  <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Open AL(Device)</I
+></SPAN
+> - Returned by <A
+HREF="function.openal-device-open.html"
+><B
+CLASS="function"
+>openal_device_open()</B
+></A
+>,
+  <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Open AL(Context)</I
+></SPAN
+> - Returned by <A
+HREF="function.openal-context-create.html"
+><B
+CLASS="function"
+>openal_context_create()</B
+></A
+>,
+  <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Open AL(Buffer)</I
+></SPAN
+> - Returned by <A
+HREF="function.openal-buffer-create.html"
+><B
+CLASS="function"
+>openal_buffer_create()</B
+></A
+>,
+  and <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Open AL(Source)</I
+></SPAN
+> - Returned by <A
+HREF="function.openal-source-create.html"
+><B
+CLASS="function"
+>openal_source_create()</B
+></A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="openal.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>ALC_FREQUENCY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Context Attribute
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ALC_REFRESH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Context Attribute
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ALC_SYNC</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Context Attribute
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_FREQUENCY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Buffer Setting
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_BITS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Buffer Setting
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_CHANNELS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Buffer Setting
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_SIZE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Buffer Setting
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_BUFFER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Integer)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_SOURCE_RELATIVE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Integer)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_SOURCE_STATE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Integer)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_PITCH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_GAIN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_MIN_GAIN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_MAX_GAIN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_MAX_DISTANCE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_ROLLOFF_FACTOR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_CONE_OUTER_GAIN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_CONE_INNER_ANGLE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_CONE_OUTER_ANGLE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_REFERENCE_DISTANCE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_POSITION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float Vector)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_VELOCITY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float Vector)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_DIRECTION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float Vector)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_ORIENTATION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source/Listener Setting (Float Vector)
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_FORMAT_MONO8</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PCM Format
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_FORMAT_MONO16</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PCM Format
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_FORMAT_STEREO8</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PCM Format
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_FORMAT_STEREO16</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PCM Format
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_INITIAL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source State
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_PLAYING</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source State
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_PAUSED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source State
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_STOPPED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source State
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_LOOPING</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Source State
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_TRUE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Boolean value recognized by OpenAL
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AL_FALSE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Boolean value recognized by OpenAL
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.openal-buffer-create.html"
+>openal_buffer_create</A
+>&nbsp;--&nbsp;
+     Generate OpenAL buffer
+    </DT
+><DT
+><A
+HREF="function.openal-buffer-data.html"
+>openal_buffer_data</A
+>&nbsp;--&nbsp;
+     Load a buffer with data
+    </DT
+><DT
+><A
+HREF="function.openal-buffer-destroy.html"
+>openal_buffer_destroy</A
+>&nbsp;--&nbsp;
+     Destroys an OpenAL buffer
+    </DT
+><DT
+><A
+HREF="function.openal-buffer-get.html"
+>openal_buffer_get</A
+>&nbsp;--&nbsp;
+     Retrieve an OpenAL buffer property
+    </DT
+><DT
+><A
+HREF="function.openal-buffer-loadwav.html"
+>openal_buffer_loadwav</A
+>&nbsp;--&nbsp;
+     Load a .wav file into a buffer
+    </DT
+><DT
+><A
+HREF="function.openal-context-create.html"
+>openal_context_create</A
+>&nbsp;--&nbsp;
+     Create an audio processing context 
+    </DT
+><DT
+><A
+HREF="function.openal-context-current.html"
+>openal_context_current</A
+>&nbsp;--&nbsp;
+     Make the specified context current
+    </DT
+><DT
+><A
+HREF="function.openal-context-destroy.html"
+>openal_context_destroy</A
+>&nbsp;--&nbsp;
+     Destroys a context
+    </DT
+><DT
+><A
+HREF="function.openal-context-process.html"
+>openal_context_process</A
+>&nbsp;--&nbsp;
+     Process the specified context
+    </DT
+><DT
+><A
+HREF="function.openal-context-suspend.html"
+>openal_context_suspend</A
+>&nbsp;--&nbsp;
+     Suspend the specified context
+    </DT
+><DT
+><A
+HREF="function.openal-device-close.html"
+>openal_device_close</A
+>&nbsp;--&nbsp;
+     Close an OpenAL device
+    </DT
+><DT
+><A
+HREF="function.openal-device-open.html"
+>openal_device_open</A
+>&nbsp;--&nbsp;
+     Initialize the OpenAL audio layer
+    </DT
+><DT
+><A
+HREF="function.openal-listener-get.html"
+>openal_listener_get</A
+>&nbsp;--&nbsp;
+     Retrieve a listener property
+    </DT
+><DT
+><A
+HREF="function.openal-listener-set.html"
+>openal_listener_set</A
+>&nbsp;--&nbsp;
+     Set a listener property
+    </DT
+><DT
+><A
+HREF="function.openal-source-create.html"
+>openal_source_create</A
+>&nbsp;--&nbsp;
+     Generate a source resource
+    </DT
+><DT
+><A
+HREF="function.openal-source-destroy.html"
+>openal_source_destroy</A
+>&nbsp;--&nbsp;
+     Destroy a source resource
+    </DT
+><DT
+><A
+HREF="function.openal-source-get.html"
+>openal_source_get</A
+>&nbsp;--&nbsp;
+     Retrieve an OpenAL source property
+    </DT
+><DT
+><A
+HREF="function.openal-source-pause.html"
+>openal_source_pause</A
+>&nbsp;--&nbsp;
+     Pause the source
+    </DT
+><DT
+><A
+HREF="function.openal-source-play.html"
+>openal_source_play</A
+>&nbsp;--&nbsp;
+     Start playing the source
+    </DT
+><DT
+><A
+HREF="function.openal-source-rewind.html"
+>openal_source_rewind</A
+>&nbsp;--&nbsp;
+     Rewind the source
+    </DT
+><DT
+><A
+HREF="function.openal-source-set.html"
+>openal_source_set</A
+>&nbsp;--&nbsp;
+     Set source property
+    </DT
+><DT
+><A
+HREF="function.openal-source-stop.html"
+>openal_source_stop</A
+>&nbsp;--&nbsp;
+     Stop playing the source
+    </DT
+><DT
+><A
+HREF="function.openal-stream.html"
+>openal_stream</A
+>&nbsp;--&nbsp;
+     Begin streaming on a source
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="r115843.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.openal-buffer-create.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Usage</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>openal_buffer_create</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

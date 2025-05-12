@@ -1,0 +1,2593 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Radius</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="qdom_tree"
+HREF="function.qdom-tree.html"><LINK
+REL="NEXT"
+TITLE="radius_acct_open"
+HREF="function.radius-acct-open.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.qdom-tree.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.radius-acct-open.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.radius"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXXI. Radius</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN140631"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="radius.partintro"
+>Introduzione</A
+></H1
+><P
+>&#13;    This package is based on the libradius of FreeBSD. This PECL adds full
+    support for Radius Authentication
+    (<A
+HREF="http://www.faqs.org/rfcs/rfc2865"
+TARGET="_top"
+>RFC 2865</A
+>) and Radius Accounting 
+    (<A
+HREF="http://www.faqs.org/rfcs/rfc2866"
+TARGET="_top"
+>RFC 2866</A
+>). This package is available
+    for Unix (tested on FreeBSD and Linux) and for Windows.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     An exact description for libradius can be found
+     <A
+HREF="http://www.freebsd.org/cgi/man.cgi?query=libradius"
+TARGET="_top"
+>here</A
+>. A detailed description of the
+     configuration file can be found <A
+HREF="url.libradius.conf"
+TARGET="_top"
+>here</A
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="radius.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Howto install the package?
+  <P
+></P
+><UL
+><LI
+><P
+>untar the package (usually into php4/ext)</P
+></LI
+><LI
+><P
+>rename radius-x.x to radius</P
+></LI
+><LI
+><P
+>run ./buildconf in php4</P
+></LI
+><LI
+><P
+>run ./configure --enable-radius</P
+></LI
+><LI
+><P
+>make; make install</P
+></LI
+></UL
+>
+  or if you would like to have it as .so:
+  <P
+></P
+><UL
+><LI
+><P
+>untar the package </P
+></LI
+><LI
+><P
+>run phpize in the radius-x.x directory</P
+></LI
+><LI
+><P
+>run ./configure in the radius-x.x directory</P
+></LI
+><LI
+><P
+>make; make install</P
+></LI
+></UL
+>
+ </P
+><P
+>&#13;  For windows I recommend to use the
+  <TT
+CLASS="filename"
+>php_radius.dll</TT
+> from
+  <A
+HREF="http://snaps.php.net/"
+TARGET="_top"
+>http://snaps.php.net/</A
+>.
+  You may obtain this
+unbundled <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> extension from the various
+<ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> snaps pages (select the appropriate repository for
+your version of PHP): <A
+HREF="http://snaps.php.net/win32/PECL_4_3/"
+TARGET="_top"
+>PECL for PHP
+4.3.x</A
+>, <A
+HREF="http://snaps.php.net/win32/PECL_5_0/"
+TARGET="_top"
+>PECL for PHP 5.0.x
+</A
+> or <A
+HREF="http://snaps.php.net/win32/PECL_UNSTABLE/"
+TARGET="_top"
+>PECL Unstable</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="radius.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCESS_REQUEST</B
+></TT
+> 
+     ()</DT
+><DD
+><P
+>&#13;      Authentication Request
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCESS_ACCEPT</B
+></TT
+> 
+     ()</DT
+><DD
+><P
+>&#13;      Access accepted
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCESS_REJECT</B
+></TT
+> 
+     ()</DT
+><DD
+><P
+>&#13;     Access rejected
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCOUNTING_REQUEST</B
+></TT
+> 
+     ()</DT
+><DD
+><P
+>&#13;      Accounting request
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCOUNTING_RESPONSE</B
+></TT
+> 
+     ()</DT
+><DD
+><P
+>&#13;      Accounting response
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCESS_CHALLENGE</B
+></TT
+> 
+     ()</DT
+><DD
+><P
+>&#13;      Accsess challenge
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_USER_NAME</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Username
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_USER_PASSWORD</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Password
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_CHAP_PASSWORD</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Chap Password: chappass = md5(ident + plaintextpass + challenge)
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_NAS_IP_ADDRESS</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      NAS IP-Adress
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_NAS_PORT</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      NAS Port
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_SERVICE_TYPE</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Type of Service, one of:
+      <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_LOGIN</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_CALLBACK_LOGIN</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_CALLBACK_FRAMED</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_OUTBOUND</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ADMINISTRATIVE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_NAS_PROMPT</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_AUTHENTICATE_ONLY</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_CALLBACK_NAS_PROMPT</B
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_PROTOCOL</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Framed Protocol, one of:
+      <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_PPP</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_SLIP</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ARAP</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_GANDALF</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_XYLOGICS</B
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_IP_ADDRESS</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      IP-Address
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_IP_NETMASK</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Netmask
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_ROUTING</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Routing
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FILTER_ID</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Filter ID
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_MTU</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      MTU
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_COMPRESSION</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Compression, one of:
+      <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_COMP_NONE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_COMP_VJ</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_COMP_IPXHDR</B
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_LOGIN_IP_HOST</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Login IP Host
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_LOGIN_SERVICE</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Login Service
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_LOGIN_TCP_PORT</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Login TCP Port
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_REPLY_MESSAGE</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Reply Message
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_CALLBACK_NUMBER</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Callback Number
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_CALLBACK_ID</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Callback ID
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_ROUTE</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Framed Route
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_IPX_NETWORK</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Framed IPX Network
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_STATE</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      State
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_CLASS</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Class
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_VENDOR_SPECIFIC</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Vendor specific attribute
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_SESSION_TIMEOUT</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Session timeout
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_IDLE_TIMEOUT</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Idle timeout
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERMINATION_ACTION</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Termination action
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_CALLED_STATION_ID</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Called Station Id
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_CALLING_STATION_ID</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Calling Station Id
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_NAS_IDENTIFIER</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      NAS ID
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_PROXY_STATE</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Proxy State
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_LOGIN_LAT_SERVICE</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Login LAT Service
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_LOGIN_LAT_NODE</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Login LAT Node
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_LOGIN_LAT_GROUP</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Login LAT Group
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_APPLETALK_LINK</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Framed Appletalk Link
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_APPLETALK_NETWORK</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Framed Appletalk Network
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_FRAMED_APPLETALK_ZONE</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Framed Appletalk Zone
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_CHAP_CHALLENGE</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Challenge
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_NAS_PORT_TYPE</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      NAS port type, one of:
+      <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ASYNC</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_SYNC</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ISDN_SYNC</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ISDN_ASYNC_V120</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ISDN_ASYNC_V110</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_VIRTUAL</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_PIAFS</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_HDLC_CLEAR_CHANNEL</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_X_25</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_X_75</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_G_3_FAX</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_SDSL</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ADSL_CAP</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ADSL_DMT</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_IDSL</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ETHERNET</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_XDSL</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_CABLE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_WIRELESS_OTHER</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_WIRELESS_IEEE_802_11</B
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_PORT_LIMIT</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Port Limit
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_LOGIN_LAT_PORT</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Login LAT Port
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_CONNECT_INFO</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Connect info
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_STATUS_TYPE</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting status type, one of:
+      <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_START</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_STOP</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCOUNTING_ON</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCOUNTING_OFF</B
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_DELAY_TIME</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting delay time
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_INPUT_OCTETS</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting input bytes
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_OUTPUT_OCTETS</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting output bytes
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_SESSION_ID</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting session ID
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_AUTHENTIC</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting authentic, one of:
+      <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_AUTH_RADIUS</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_AUTH_LOCAL</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_AUTH_REMOTE</B
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_SESSION_TIME</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting session time
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_INPUT_PACKETS</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting input packets
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_OUTPUT_PACKETS</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting output packets
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_TERMINATE_CAUSE</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting terminate cause, one of:
+      <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_USER_REQUEST</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_LOST_CARRIER</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_LOST_SERVICE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_IDLE_TIMEOUT</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_SESSION_TIMEOUT</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_ADMIN_RESET</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_ADMIN_REBOOT</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_PORT_ERROR</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_NAS_ERROR</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_NAS_REQUEST</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_NAS_REBOOT</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_PORT_UNNEEDED</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_PORT_PREEMPTED</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_PORT_SUSPENDED</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_SERVICE_UNAVAILABLE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_CALLBACK</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_USER_ERROR</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_TERM_HOST_REQUEST</B
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_MULTI_SESSION_ID</B
+></TT
+> 
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting multi session ID
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_ACCT_LINK_COUNT</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Accounting link count
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RADIUS_VENDOR_MICROSOFT</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Microsoft specific vendor attributes (<A
+HREF="http://www.faqs.org/rfcs/rfc2548"
+TARGET="_top"
+>RFC 2548</A
+>), one of:
+       <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP_RESPONSE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP_ERROR</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP_PW_1</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP_PW_2</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP_LM_ENC_PW</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP_NT_ENC_PW</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_MPPE_ENCRYPTION_POLICY</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_MPPE_ENCRYPTION_TYPES</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_RAS_VENDOR</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP_DOMAIN</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP_CHALLENGE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP_MPPE_KEYS</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_BAP_USAGE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_LINK_UTILIZATION_THRESHOLD</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_LINK_DROP_TIME_LIMIT</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_MPPE_SEND_KEY</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_MPPE_RECV_KEY</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_RAS_VERSION</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_OLD_ARAP_PASSWORD</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_NEW_ARAP_PASSWORD</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_ARAP_PASSWORD_CHANGE_REASON</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_FILTER</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_ACCT_AUTH_TYPE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_ACCT_EAP_TYPE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP2_RESPONSE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP2_SUCCESS</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_CHAP2_PW</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_PRIMARY_DNS_SERVER</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_SECONDARY_DNS_SERVER</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_PRIMARY_NBNS_SERVER</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_SECONDARY_NBNS_SERVER</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>RADIUS_MICROSOFT_MS_ARAP_CHALLENGE</B
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="radius.howtostart"
+>Quickstart</A
+></H1
+><P
+>&#13;    Howto start?
+    <P
+></P
+><UL
+><LI
+><P
+>get a radius resource</P
+></LI
+><LI
+><P
+>configure the library</P
+></LI
+><LI
+><P
+>create the request</P
+></LI
+><LI
+><P
+>put attributes</P
+></LI
+><LI
+><P
+>send the request</P
+></LI
+><LI
+><P
+>receive attributes</P
+></LI
+><LI
+><P
+>close the radius resource (optional)</P
+></LI
+></UL
+>
+    Take also a look at the examples in this package.
+   </P
+><P
+>&#13;    The package contains an example php script. This script demonstrates howto
+    authenticate with radius using PAP or CHAP (md5). If you authenticate with 
+    Microsoft Radius servers then its not possible to use CHAP (md5). If you
+    would like to authenticate with Microsoft Servers you have to use
+    MS-CHAPv1 or MS-CHAPv2, but its more complicated, because you need md4,
+    sha1 and des to generate the right data. The enclosed examples demonstrate
+    all authentication-methods, including MS-CHAPv1 and MS-CHAPv2. To get the
+    MS-CHAP to work you need the <A
+HREF="ref.mcrypt.html"
+>mcrypt</A
+> and
+    the <A
+HREF="ref.mhash.html"
+>mhash</A
+> extension, starting with
+    version 1.2 of the package, the mcrypt extension is no longer needed.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="radius.contact"
+>Contact Information</A
+></H1
+><P
+>&#13;     If you have comments, bugfixes, enhancements or want to help
+     to develop this you can send me a mail at  <A
+HREF="mailto:mbretter@php.net"
+TARGET="_top"
+>mbretter@php.net</A
+>. 
+     Binaries for Windows can be downloaded from <A
+HREF="http://www.bretterklieber.com/php"
+TARGET="_top"
+>here</A
+>.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.radius-acct-open.html"
+>radius_acct_open</A
+>&nbsp;--&nbsp;Creates a Radius handle for accounting</DT
+><DT
+><A
+HREF="function.radius-add-server.html"
+>radius_add_server</A
+>&nbsp;--&nbsp;Adds a server</DT
+><DT
+><A
+HREF="function.radius-auth-open.html"
+>radius_auth_open</A
+>&nbsp;--&nbsp;Creates a Radius handle for authentication</DT
+><DT
+><A
+HREF="function.radius-close.html"
+>radius_close</A
+>&nbsp;--&nbsp;Frees all ressources</DT
+><DT
+><A
+HREF="function.radius-config.html"
+>radius_config</A
+>&nbsp;--&nbsp;Causes the library to read the given configuration file</DT
+><DT
+><A
+HREF="function.radius-create-request.html"
+>radius_create_request</A
+>&nbsp;--&nbsp;Create accounting or authentication request</DT
+><DT
+><A
+HREF="function.radius-cvt-addr.html"
+>radius_cvt_addr</A
+>&nbsp;--&nbsp;Converts raw data to IP-Address</DT
+><DT
+><A
+HREF="function.radius-cvt-int.html"
+>radius_cvt_int</A
+>&nbsp;--&nbsp;Converts raw data to integer</DT
+><DT
+><A
+HREF="function.radius-cvt-string.html"
+>radius_cvt_string</A
+>&nbsp;--&nbsp;Converts raw data to string</DT
+><DT
+><A
+HREF="function.radius-demangle-mppe-key.html"
+>radius_demangle_mppe_key</A
+>&nbsp;--&nbsp;Derives mppe-keys from mangled data</DT
+><DT
+><A
+HREF="function.radius-demangle.html"
+>radius_demangle</A
+>&nbsp;--&nbsp;Demangles data</DT
+><DT
+><A
+HREF="function.radius-get-attr.html"
+>radius_get_attr</A
+>&nbsp;--&nbsp;Extracts an attribute</DT
+><DT
+><A
+HREF="function.radius-get-vendor-attr.html"
+>radius_get_vendor_attr</A
+>&nbsp;--&nbsp;Extracts a vendor specific attribute</DT
+><DT
+><A
+HREF="function.radius-put-addr.html"
+>radius_put_addr</A
+>&nbsp;--&nbsp;Attaches an IP-Address attribute</DT
+><DT
+><A
+HREF="function.radius-put-attr.html"
+>radius_put_attr</A
+>&nbsp;--&nbsp;Attaches a binary attribute</DT
+><DT
+><A
+HREF="function.radius-put-int.html"
+>radius_put_int</A
+>&nbsp;--&nbsp;Attaches an integer attribute</DT
+><DT
+><A
+HREF="function.radius-put-string.html"
+>radius_put_string</A
+>&nbsp;--&nbsp;Attaches a string attribute</DT
+><DT
+><A
+HREF="function.radius-put-vendor-addr.html"
+>radius_put_vendor_addr</A
+>&nbsp;--&nbsp;Attaches a vendor specific IP-Address attribute</DT
+><DT
+><A
+HREF="function.radius-put-vendor-attr.html"
+>radius_put_vendor_attr</A
+>&nbsp;--&nbsp;Attaches a vendor specific binary attribute</DT
+><DT
+><A
+HREF="function.radius-put-vendor-int.html"
+>radius_put_vendor_int</A
+>&nbsp;--&nbsp;Attaches a vendor specific integer attribute</DT
+><DT
+><A
+HREF="function.radius-put-vendor-string.html"
+>radius_put_vendor_string</A
+>&nbsp;--&nbsp;Attaches a vendor specific string attribute</DT
+><DT
+><A
+HREF="function.radius-request-authenticator.html"
+>radius_request_authenticator</A
+>&nbsp;--&nbsp;Returns the request authenticator</DT
+><DT
+><A
+HREF="function.radius-send-request.html"
+>radius_send_request</A
+>&nbsp;--&nbsp;Sends the request and waites for a reply</DT
+><DT
+><A
+HREF="function.radius-server-secret.html"
+>radius_server_secret</A
+>&nbsp;--&nbsp;Returns the shared secret</DT
+><DT
+><A
+HREF="function.radius-strerror.html"
+>radius_strerror</A
+>&nbsp;--&nbsp;Returns an error message</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.qdom-tree.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.radius-acct-open.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>qdom_tree</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>radius_acct_open</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

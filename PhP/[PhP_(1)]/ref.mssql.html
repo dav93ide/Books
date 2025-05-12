@@ -1,0 +1,873 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni per Microsoft SQL Server</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="udm_set_agent_param"
+HREF="function.udm-set-agent-param.html"><LINK
+REL="NEXT"
+TITLE="mssql_bind"
+HREF="function.mssql-bind.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.udm-set-agent-param.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mssql-bind.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.mssql"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LXXX. Funzioni per Microsoft SQL Server</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN87284"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mssql.intro"
+>Introduzione</A
+></H1
+><P
+>  
+      Queste funzioni permettono di accedere ad un database MS SQL Server.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mssql.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Requisiti per le piattaforme Win32
+    </P
+><P
+>          
+     Per potere funzionare è richiesto che sia installato il MS SQL Client Tools
+     sullo stesso sistema su cui è il installato il PHP. Il Client Tools può essere installato 
+     o dal cd di MS SQL Server, o copiando il file <TT
+CLASS="filename"
+>ntwdblib.dll</TT
+> 
+     dalla directory <TT
+CLASS="filename"
+>\winnt\system32</TT
+> del
+     server alla directory <TT
+CLASS="filename"
+>\winnt\system32</TT
+> della macchina su cui 
+     è installato il PHP. La copia del file <TT
+CLASS="filename"
+>ntwdblib.dll</TT
+>
+     permette solo l'accesso al database. La configurazione del client richiede comunque 
+     l'installazione di tutto il pacchetto MS SQL Client Tools.
+    </P
+><P
+>&#13;     Requisiti per le piattaforme Unix/Linux
+    </P
+><P
+>&#13;     Per potere utilizzare l'estensione MSSQl su piattaforme Unix/Linux, occorre compilare
+     ed installare la libreria FreeTDS. Il codice sorgente e le istruzioni per l'installazione
+     sono disponibili nel sito di FreeTDS: <A
+HREF="http://www.freetds.org/"
+TARGET="_top"
+>http://www.freetds.org/</A
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Nella piattaforma Windows si utilizzano le DBLIB di Microsoft.
+      Quindi le funzioni che restituiscono il nome della colonna si basano
+      sulla funzione <VAR
+CLASS="literal"
+>dbcolname()</VAR
+> della DBLIB.
+      La DBLIB è stata sviluppata per SQL Server 6.x che ammetteva nomi di colonna lunghi al massimo 30
+      caratteri. Per questo motivo il numero massimo di caratteri per il nome colonna ammessi sono 30.
+      Nelle piattaforme in cui si utilizza FreeTDS (Linux) non si ha questo problema.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mssql.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Il modulo MSSQL si abilita aggiungendo extension=php_mssql.dll al file di 
+  configurazione <TT
+CLASS="filename"
+>php.ini</TT
+>.
+ </P
+><P
+>&#13;  Per attivare queste funzionalità occorre compilare il PHP con
+  <VAR
+CLASS="option"
+>--with-mssql[=DIR]</VAR
+>, dove DIR è la directory
+  in cui è installato FreeTDS. Il pacchetto FreeTDS dovrebbe essere compilato 
+  utilizzando  <VAR
+CLASS="option"
+>--enable-msdblib</VAR
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mssql.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN87314"
+></A
+><P
+><B
+>Tabella 1. Parametri di configurazione per il modulo MS SQL Server</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+><TH
+>Log Variazioni</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>mssql.allow_persistent</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>mssql.max_persistent</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>mssql.max_links</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>mssql.min_error_severity</TD
+><TD
+>"10"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>mssql.min_message_severity</TD
+><TD
+>"10"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>mssql.compatability_mode</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>mssql.connect_timeout</TD
+><TD
+>"5"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>mssql.timeout</TD
+><TD
+>"60"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Disponibile da PHP 4.1.0</TD
+></TR
+><TR
+><TD
+>mssql.textsize</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>mssql.textlimit</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>mssql.batchsize</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Disponibile da PHP 4.0.4</TD
+></TR
+><TR
+><TD
+>mssql.datetimeconvert</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Disponibile da PHP 4.2.0</TD
+></TR
+><TR
+><TD
+>mssql.secure_connection</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Disponibile da PHP 4.3.0</TD
+></TR
+><TR
+><TD
+>mssql.max_procs</TD
+><TD
+>"25"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Disponibile da PHP 4.3.0</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mssql.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mssql.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>MSSQL_ASSOC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>MSSQL_NUM</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>MSSQL_BOTH</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQLTEXT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQLVARCHAR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQLCHAR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQLINT1</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQLINT2</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQLINT4</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQLBIT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQLFLT8</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.mssql-bind.html"
+>mssql_bind</A
+>&nbsp;--&nbsp; 
+     Aggiunge un parametro ad una procedura memorizzata (stored procedure) locale o remota
+    </DT
+><DT
+><A
+HREF="function.mssql-close.html"
+>mssql_close</A
+>&nbsp;--&nbsp;Chiude la connessione con MS SQL Server</DT
+><DT
+><A
+HREF="function.mssql-connect.html"
+>mssql_connect</A
+>&nbsp;--&nbsp;Apre una connessione con un server MS SQL</DT
+><DT
+><A
+HREF="function.mssql-data-seek.html"
+>mssql_data_seek</A
+>&nbsp;--&nbsp;Sposta il puntatore di riga interno</DT
+><DT
+><A
+HREF="function.mssql-execute.html"
+>mssql_execute</A
+>&nbsp;--&nbsp; 
+     Esegue una procedura memorizzata su un database MS SQL
+    </DT
+><DT
+><A
+HREF="function.mssql-fetch-array.html"
+>mssql_fetch_array</A
+>&nbsp;--&nbsp;
+      Restituisce una riga in un array associativo, numerico o entrambi
+    </DT
+><DT
+><A
+HREF="function.mssql-fetch-assoc.html"
+>mssql_fetch_assoc</A
+>&nbsp;--&nbsp; 
+     Restituisce un array associativo con i dati di una riga dal set di risultati indicato da
+     id_risultato
+    </DT
+><DT
+><A
+HREF="function.mssql-fetch-batch.html"
+>mssql_fetch_batch</A
+>&nbsp;--&nbsp; 
+     Restituisce il successivo gruppo di record
+    </DT
+><DT
+><A
+HREF="function.mssql-fetch-field.html"
+>mssql_fetch_field</A
+>&nbsp;--&nbsp;Restituisce le informazioni di un campo</DT
+><DT
+><A
+HREF="function.mssql-fetch-object.html"
+>mssql_fetch_object</A
+>&nbsp;--&nbsp;Restituisce una riga come oggetto</DT
+><DT
+><A
+HREF="function.mssql-fetch-row.html"
+>mssql_fetch_row</A
+>&nbsp;--&nbsp;Restituisce una riga come array numerato</DT
+><DT
+><A
+HREF="function.mssql-field-length.html"
+>mssql_field_length</A
+>&nbsp;--&nbsp;Restituisce la lunghezza di un campo</DT
+><DT
+><A
+HREF="function.mssql-field-name.html"
+>mssql_field_name</A
+>&nbsp;--&nbsp;Restituisce il nome di un campo</DT
+><DT
+><A
+HREF="function.mssql-field-seek.html"
+>mssql_field_seek</A
+>&nbsp;--&nbsp;Ricerca il campo con l'offset specificato</DT
+><DT
+><A
+HREF="function.mssql-field-type.html"
+>mssql_field_type</A
+>&nbsp;--&nbsp;Restituisce il tipo di un campo</DT
+><DT
+><A
+HREF="function.mssql-free-result.html"
+>mssql_free_result</A
+>&nbsp;--&nbsp;Libera la memoria di un risultato</DT
+><DT
+><A
+HREF="function.mssql-free-statement.html"
+>mssql_free_statement</A
+>&nbsp;--&nbsp;Free statement memory</DT
+><DT
+><A
+HREF="function.mssql-get-last-message.html"
+>mssql_get_last_message</A
+>&nbsp;--&nbsp;
+     Restituisce l'ultimo messaggio dal server
+    </DT
+><DT
+><A
+HREF="function.mssql-guid-string.html"
+>mssql_guid_string</A
+>&nbsp;--&nbsp; 
+     Converte il GUID dal formato binario a 16 bit al formato stringa
+    </DT
+><DT
+><A
+HREF="function.mssql-init.html"
+>mssql_init</A
+>&nbsp;--&nbsp; 
+     Inizializza una procedura memorizata locale o remota
+    </DT
+><DT
+><A
+HREF="function.mssql-min-error-severity.html"
+>mssql_min_error_severity</A
+>&nbsp;--&nbsp;Setta il livello minimo di errori critici.</DT
+><DT
+><A
+HREF="function.mssql-min-message-severity.html"
+>mssql_min_message_severity</A
+>&nbsp;--&nbsp;Setta li livello critico minimo di messaggi</DT
+><DT
+><A
+HREF="function.mssql-next-result.html"
+>mssql_next_result</A
+>&nbsp;--&nbsp;Muove il puntatore interno al risultato successivo</DT
+><DT
+><A
+HREF="function.mssql-num-fields.html"
+>mssql_num_fields</A
+>&nbsp;--&nbsp;Restituisce il numero di campi in un risultato</DT
+><DT
+><A
+HREF="function.mssql-num-rows.html"
+>mssql_num_rows</A
+>&nbsp;--&nbsp;Restituisce il numero di righe</DT
+><DT
+><A
+HREF="function.mssql-pconnect.html"
+>mssql_pconnect</A
+>&nbsp;--&nbsp;Apre una connessione persistente con MS SQL</DT
+><DT
+><A
+HREF="function.mssql-query.html"
+>mssql_query</A
+>&nbsp;--&nbsp;Invia una query a MS SQL</DT
+><DT
+><A
+HREF="function.mssql-result.html"
+>mssql_result</A
+>&nbsp;--&nbsp;Restituisce i dati di un risultato</DT
+><DT
+><A
+HREF="function.mssql-rows-affected.html"
+>mssql_rows_affected</A
+>&nbsp;--&nbsp; 
+     Restituisce il numero di record coinvolti dalla query
+     </DT
+><DT
+><A
+HREF="function.mssql-select-db.html"
+>mssql_select_db</A
+>&nbsp;--&nbsp;Seleziona un database MS SQL</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.udm-set-agent-param.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mssql-bind.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>udm_set_agent_param</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mssql_bind</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

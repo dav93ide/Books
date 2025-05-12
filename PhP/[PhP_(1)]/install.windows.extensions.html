@@ -1,0 +1,1292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Installation of extensions on Windows</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation on Windows systems"
+HREF="install.windows.html"><LINK
+REL="PREVIOUS"
+TITLE="Building from source"
+HREF="install.windows.building.html"><LINK
+REL="NEXT"
+TITLE="Installation of PECL extensions"
+HREF="install.pecl.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.windows.building.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 6. Installation on Windows systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.pecl.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.windows.extensions"
+>Installation of extensions on Windows</A
+></H1
+><P
+>&#13;     After installing PHP and a webserver on Windows, you will probably want to
+     install some extensions for added functionality. You can choose which
+     extensions you would like to load when PHP starts by modifying your
+     <TT
+CLASS="filename"
+>php.ini</TT
+>. You can also load a module dynamically in your script using
+     <A
+HREF="function.dl.html"
+><B
+CLASS="function"
+>dl()</B
+></A
+>.
+    </P
+><P
+>&#13;     The DLLs for PHP extensions are prefixed with <VAR
+CLASS="literal"
+>php_</VAR
+>.
+    </P
+><P
+>&#13;     Many extensions are <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>built into</I
+></SPAN
+> the Windows version
+     of PHP. This means additional DLL files, and the 
+     <A
+HREF="ini.core.html#ini.extension"
+>extension</A
+> directive, are  
+     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> used to load these extensions. The Windows 
+     <A
+HREF="install.windows.extensions.html#install.windows.extensions.overview"
+>PHP Extensions</A
+>
+     table lists extensions that require, or used to require, additional PHP 
+     DLL files. Here's a list of built in extensions:
+    </P
+><P
+>&#13;     In PHP 4 (updated PHP 4.3.11):
+     <A
+HREF="ref.bc.html"
+>BCMath</A
+>,
+     <A
+HREF="ref.calendar.html"
+>Caledar</A
+>,
+     <A
+HREF="ref.com.html"
+>COM</A
+>,
+     <A
+HREF="ref.ctype.html"
+>Ctype</A
+>,
+     <A
+HREF="ref.ftp.html"
+>FTP</A
+>,
+     <A
+HREF="ref.mysql.html"
+>MySQL</A
+>,
+     <A
+HREF="ref.uodbc.html"
+>ODBC</A
+>,
+     <A
+HREF="ref.overload.html"
+>Overload</A
+>,
+     <A
+HREF="ref.pcre.html"
+>PCRE</A
+>,
+     <A
+HREF="ref.session.html"
+>Session</A
+>,
+     <A
+HREF="ref.tokenizer.html"
+>Tokenizer</A
+>,
+     <A
+HREF="ref.wddx.html"
+>WDDX</A
+>,
+     <A
+HREF="ref.xml.html"
+>XML</A
+> e
+     <A
+HREF="ref.zlib.html"
+>Zlib</A
+>
+    </P
+><P
+>&#13;     In PHP 5 (updated PHP 5.0.4), the following changes exist. Built in:
+     <A
+HREF="ref.dom.html"
+>DOM</A
+>,
+     <A
+HREF="ref.libxml.html"
+>LibXML</A
+>,
+     <A
+HREF="ref.iconv.html"
+>Iconv</A
+>,
+     <A
+HREF="ref.simplexml.html"
+>SimpleXML</A
+>,
+     <A
+HREF="ref.spl.html"
+>SPL</A
+> e
+     <A
+HREF="ref.sqlite.html"
+>SQLite</A
+>.
+     And the following are no longer built in:
+     <A
+HREF="ref.mysql.html"
+>MySQL</A
+> and 
+     <A
+HREF="ref.overload.html"
+>Overload</A
+>.
+    </P
+><P
+>&#13;     The default location PHP searches for extensions is
+     <TT
+CLASS="filename"
+>C:\php4\extensions</TT
+> in PHP 4 and
+     <TT
+CLASS="filename"
+>C:\php5</TT
+> in PHP 5. To change this
+     setting to reflect your setup of PHP edit your <TT
+CLASS="filename"
+>php.ini</TT
+> file:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        You will need to change the
+        <A
+HREF="ini.core.html#ini.extension-dir"
+>extension_dir</A
+> setting to
+        point to the directory where your extensions lives, or where you have
+        placed your <TT
+CLASS="filename"
+>php_*.dll</TT
+> files. For example:
+        <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN2023"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="ini"
+>extension_dir = C:\php\extensions</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+       </P
+></LI
+><LI
+><P
+>&#13;       Enable the extension(s) in <TT
+CLASS="filename"
+>php.ini</TT
+> you want to use by uncommenting the
+       <VAR
+CLASS="literal"
+>extension=php_*.dll</VAR
+> lines in <TT
+CLASS="filename"
+>php.ini</TT
+>. This is done
+       by deleting the leading ; from the extension you want to load. 
+       <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN2030"
+></A
+><P
+><B
+>Esempio 6-8. Enable <A
+HREF="ref.bzip2.html"
+>Bzip2</A
+> extension for PHP-Windows</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="ini"
+>// change the following line from ...
+;extension=php_bz2.dll
+
+// ... to
+extension=php_bz2.dll</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>      
+       </P
+></LI
+><LI
+><P
+>&#13;        Some of the extensions need extra DLLs to work. Couple of them can be
+        found in the distribution package, in the
+        <TT
+CLASS="filename"
+>C:\php\dlls\</TT
+> folder in PHP 4 or
+        in the main folder in PHP 5, but some, for example Oracle
+        (<TT
+CLASS="filename"
+>php_oci8.dll</TT
+>) require DLLs which are not bundled
+        with the distribution package. If you are installing PHP 4, copy the
+        bundled DLLs from <TT
+CLASS="filename"
+>C:\php\dlls</TT
+>
+        folder to the main <TT
+CLASS="filename"
+>C:\php</TT
+>
+        folder. Don't forget to include <TT
+CLASS="filename"
+>C:\php</TT
+> in the system
+        <VAR
+CLASS="varname"
+>PATH</VAR
+> (this process is explained in a separate <A
+HREF="missing-stuff.html#faq.installation.addtopath"
+>FAQ entry</A
+>).
+       </P
+></LI
+><LI
+><P
+>&#13;       Some of these DLLs are not bundled with the PHP distribution. See each
+       extensions documentation page for details. Also, read the manual 
+       section titled <A
+HREF="install.pecl.html"
+>Installation of PECL 
+       extensions</A
+> for details on <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+>. An 
+       increasingly large number of PHP extensions are found in 
+       <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+>, and these extensions require a
+       <A
+HREF="install.pecl.downloads.html"
+>separate download</A
+>.
+      </P
+></LI
+></UL
+>
+   <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     If you are running a server module version of PHP
+     remember to restart your webserver to reflect your changes to <TT
+CLASS="filename"
+>php.ini</TT
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+><P
+>&#13;    The following table describes some of the extensions available and required
+    additional dlls.   
+    <DIV
+CLASS="table"
+><A
+NAME="install.windows.extensions.overview"
+></A
+><P
+><B
+>Tabella 6-1. PHP Extensions</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Extension</TH
+><TH
+>Description</TH
+><TH
+>Notes</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>php_bz2.dll</TD
+><TD
+><A
+HREF="ref.bzip2.html"
+>bzip2</A
+> compression functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_calendar.dll</TD
+><TD
+><A
+HREF="ref.calendar.html"
+>Calendar</A
+> conversion functions</TD
+><TD
+>Built in since PHP 4.0.3</TD
+></TR
+><TR
+><TD
+>php_cpdf.dll</TD
+><TD
+><A
+HREF="ref.cpdf.html"
+>ClibPDF</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_crack.dll</TD
+><TD
+><A
+HREF="ref.crack.html"
+>Crack</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_ctype.dll</TD
+><TD
+><A
+HREF="ref.ctype.html"
+>ctype</A
+> family functions</TD
+><TD
+>Built in since PHP 4.3.0</TD
+></TR
+><TR
+><TD
+>php_curl.dll</TD
+><TD
+><A
+HREF="ref.curl.html"
+>CURL</A
+>, Client URL library functions</TD
+><TD
+>Requires: <TT
+CLASS="filename"
+>libeay32.dll</TT
+>, 
+   <TT
+CLASS="filename"
+>ssleay32.dll</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_cybercash.dll</TD
+><TD
+><A
+HREF="ref.cybercash.html"
+>Cybercash</A
+> payment functions</TD
+><TD
+>PHP &#60;= 4.2.0</TD
+></TR
+><TR
+><TD
+>php_db.dll</TD
+><TD
+><A
+HREF="ref.dbm.html"
+>DBM</A
+> functions</TD
+><TD
+>Deprecated. Use DBA instead (<TT
+CLASS="filename"
+>php_dba.dll</TT
+>)</TD
+></TR
+><TR
+><TD
+>php_dba.dll</TD
+><TD
+><A
+HREF="ref.dba.html"
+>DBA</A
+>: DataBase (dbm-style) 
+   Abstraction layer functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_dbase.dll</TD
+><TD
+><A
+HREF="ref.dbase.html"
+>dBase</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_dbx.dll</TD
+><TD
+><A
+HREF="ref.dbx.html"
+>dbx</A
+> functions</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>php_domxml.dll</TD
+><TD
+><A
+HREF="ref.domxml.html"
+>DOM XML</A
+> functions</TD
+><TD
+>&#13;    PHP &#60;= 4.2.0 requires: <TT
+CLASS="filename"
+>libxml2.dll</TT
+> (bundled)
+    PHP &#62;= 4.3.0 requires: <TT
+CLASS="filename"
+>iconv.dll</TT
+> (bundled)
+   </TD
+></TR
+><TR
+><TD
+>php_dotnet.dll</TD
+><TD
+><A
+HREF="ref.dotnet.html"
+>.NET</A
+> functions</TD
+><TD
+>PHP &#60;= 4.1.1</TD
+></TR
+><TR
+><TD
+>php_exif.dll</TD
+><TD
+><A
+HREF="ref.exif.html"
+>EXIF</A
+> functions</TD
+><TD
+>&#13;    <A
+HREF="ref.mbstring.html"
+>php_mbstring.dll</A
+>. And, 
+    <TT
+CLASS="filename"
+>php_exif.dll</TT
+> must be loaded <VAR
+CLASS="literal"
+>after</VAR
+> 
+    <TT
+CLASS="filename"
+>php_mbstring.dll</TT
+> in <TT
+CLASS="filename"
+>php.ini</TT
+>.
+   </TD
+></TR
+><TR
+><TD
+>php_fbsql.dll</TD
+><TD
+><A
+HREF="ref.fbsql.html"
+>FrontBase</A
+> functions</TD
+><TD
+>PHP &#60;= 4.2.0</TD
+></TR
+><TR
+><TD
+>php_fdf.dll</TD
+><TD
+><A
+HREF="ref.fdf.html"
+>FDF</A
+>: Forms Data Format functions.</TD
+><TD
+>Requires: <TT
+CLASS="filename"
+>fdftk.dll</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_filepro.dll</TD
+><TD
+><A
+HREF="ref.filepro.html"
+>filePro</A
+> functions</TD
+><TD
+>Read-only access</TD
+></TR
+><TR
+><TD
+>php_ftp.dll</TD
+><TD
+><A
+HREF="ref.ftp.html"
+>FTP</A
+> functions</TD
+><TD
+>Built-in since PHP 4.0.3</TD
+></TR
+><TR
+><TD
+>php_gd.dll</TD
+><TD
+><A
+HREF="ref.image.html"
+>GD</A
+> library image functions</TD
+><TD
+>&#13;    Removed in PHP 4.3.2.  Also note that truecolor functions are not
+    available in GD1, instead, use <TT
+CLASS="filename"
+>php_gd2.dll</TT
+>.
+   </TD
+></TR
+><TR
+><TD
+>php_gd2.dll</TD
+><TD
+><A
+HREF="ref.image.html"
+>GD</A
+> library image functions</TD
+><TD
+>GD2</TD
+></TR
+><TR
+><TD
+>php_gettext.dll</TD
+><TD
+><A
+HREF="ref.gettext.html"
+>Gettext</A
+> functions</TD
+><TD
+>&#13;    PHP &#60;= 4.2.0 requires <TT
+CLASS="filename"
+>gnu_gettext.dll</TT
+> (bundled), 
+    PHP &#62;= 4.2.3 requires <TT
+CLASS="filename"
+>libintl-1.dll</TT
+>,
+    <TT
+CLASS="filename"
+>iconv.dll</TT
+> (bundled).
+   </TD
+></TR
+><TR
+><TD
+>php_hyperwave.dll</TD
+><TD
+><A
+HREF="ref.hw.html"
+>HyperWave</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_iconv.dll</TD
+><TD
+><A
+HREF="ref.iconv.html"
+>ICONV</A
+> characterset conversion</TD
+><TD
+>Requires: <TT
+CLASS="filename"
+>iconv-1.3.dll</TT
+> (bundled), 
+   PHP &#62;=4.2.1 <TT
+CLASS="filename"
+>iconv.dll</TT
+></TD
+></TR
+><TR
+><TD
+>php_ifx.dll</TD
+><TD
+><A
+HREF="ref.ifx.html"
+>Informix</A
+> functions</TD
+><TD
+>Requires: Informix libraries</TD
+></TR
+><TR
+><TD
+>php_iisfunc.dll</TD
+><TD
+>IIS management functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_imap.dll</TD
+><TD
+><A
+HREF="ref.imap.html"
+>IMAP</A
+> POP3 and NNTP functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_ingres.dll</TD
+><TD
+><A
+HREF="ref.ingres.html"
+>Ingres II</A
+> functions</TD
+><TD
+>Requires: Ingres II libraries</TD
+></TR
+><TR
+><TD
+>php_interbase.dll</TD
+><TD
+><A
+HREF="ref.ibase.html"
+>InterBase</A
+> functions</TD
+><TD
+>Requires: <TT
+CLASS="filename"
+>gds32.dll</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_java.dll</TD
+><TD
+><A
+HREF="ref.java.html"
+>Java</A
+> functions</TD
+><TD
+>PHP &#60;= 4.0.6 requires: <TT
+CLASS="filename"
+>jvm.dll</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_ldap.dll</TD
+><TD
+><A
+HREF="ref.ldap.html"
+>LDAP</A
+> functions</TD
+><TD
+>&#13;    PHP &#60;= 4.2.0 requires <TT
+CLASS="filename"
+>libsasl.dll</TT
+> (bundled), 
+    PHP &#62;= 4.3.0 requires <TT
+CLASS="filename"
+>libeay32.dll</TT
+>, 
+    <TT
+CLASS="filename"
+>ssleay32.dll</TT
+> (bundled)
+   </TD
+></TR
+><TR
+><TD
+>php_mbstring.dll</TD
+><TD
+><A
+HREF="ref.mbstring.html"
+>Multi-Byte String</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_mcrypt.dll</TD
+><TD
+><A
+HREF="ref.mcrypt.html"
+>Mcrypt Encryption</A
+> functions</TD
+><TD
+>Requires: <TT
+CLASS="filename"
+>libmcrypt.dll</TT
+></TD
+></TR
+><TR
+><TD
+>php_mhash.dll</TD
+><TD
+><A
+HREF="ref.mhash.html"
+>Mhash</A
+> functions</TD
+><TD
+>PHP &#62;= 4.3.0 requires: <TT
+CLASS="filename"
+>libmhash.dll</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_mime_magic.dll</TD
+><TD
+><A
+HREF="ref.mime-magic.html"
+>Mimetype</A
+> functions</TD
+><TD
+>Requires: <TT
+CLASS="filename"
+>magic.mime</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_ming.dll</TD
+><TD
+><A
+HREF="ref.ming.html"
+>Ming</A
+> functions for Flash</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_msql.dll</TD
+><TD
+><A
+HREF="ref.msql.html"
+>mSQL</A
+> functions</TD
+><TD
+>Requires: <TT
+CLASS="filename"
+>msql.dll</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_mssql.dll</TD
+><TD
+><A
+HREF="ref.mssql.html"
+>MSSQL</A
+> functions</TD
+><TD
+>Requires: <TT
+CLASS="filename"
+>ntwdblib.dll</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_mysql.dll</TD
+><TD
+><A
+HREF="ref.mysql.html"
+>MySQL</A
+> functions</TD
+><TD
+>PHP &#62;= 5.0.0, requires <TT
+CLASS="filename"
+>libmysql.dll</TT
+>
+    (bundled)</TD
+></TR
+><TR
+><TD
+>php_mysqli.dll</TD
+><TD
+><A
+HREF="ref.mysqli.html"
+>MySQLi</A
+> functions</TD
+><TD
+>PHP &#62;= 5.0.0, requires <TT
+CLASS="filename"
+>libmysql.dll</TT
+>
+    (<TT
+CLASS="filename"
+>libmysqli.dll</TT
+> in PHP &#60;= 5.0.2) (bundled)</TD
+></TR
+><TR
+><TD
+>php_oci8.dll</TD
+><TD
+><A
+HREF="ref.oci8.html"
+>Oracle 8</A
+> functions</TD
+><TD
+>Requires: Oracle 8.1+ client libraries</TD
+></TR
+><TR
+><TD
+>php_openssl.dll</TD
+><TD
+><A
+HREF="ref.openssl.html"
+>OpenSSL</A
+> functions</TD
+><TD
+>Requires: <TT
+CLASS="filename"
+>libeay32.dll</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_oracle.dll</TD
+><TD
+><A
+HREF="ref.oracle.html"
+>Oracle</A
+> functions</TD
+><TD
+>Requires: Oracle 7 client libraries</TD
+></TR
+><TR
+><TD
+>php_overload.dll</TD
+><TD
+><A
+HREF="ref.overload.html"
+>Object overloading</A
+> functions</TD
+><TD
+>Built in since PHP 4.3.0</TD
+></TR
+><TR
+><TD
+>php_pdf.dll</TD
+><TD
+><A
+HREF="ref.pdf.html"
+>PDF</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_pgsql.dll</TD
+><TD
+><A
+HREF="ref.pgsql.html"
+>PostgreSQL</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_printer.dll</TD
+><TD
+><A
+HREF="ref.printer.html"
+>Printer</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_shmop.dll</TD
+><TD
+><A
+HREF="ref.shmop.html"
+>Shared Memory</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_snmp.dll</TD
+><TD
+><A
+HREF="ref.snmp.html"
+>SNMP</A
+> get and walk functions</TD
+><TD
+>NT only!</TD
+></TR
+><TR
+><TD
+>php_soap.dll</TD
+><TD
+><A
+HREF="ref.soap.html"
+>SOAP</A
+> functions</TD
+><TD
+>PHP &#62;= 5.0.0</TD
+></TR
+><TR
+><TD
+>php_sockets.dll</TD
+><TD
+><A
+HREF="ref.sockets.html"
+>Socket</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_sybase_ct.dll</TD
+><TD
+><A
+HREF="ref.sybase.html"
+>Sybase</A
+> functions</TD
+><TD
+>Requires: Sybase client libraries</TD
+></TR
+><TR
+><TD
+>php_tidy.dll</TD
+><TD
+><A
+HREF="ref.tidy.html"
+>Tidy</A
+> functions</TD
+><TD
+>PHP &#62;= 5.0.0</TD
+></TR
+><TR
+><TD
+>php_tokenizer.dll</TD
+><TD
+><A
+HREF="ref.tokenizer.html"
+>Tokenizer</A
+> functions</TD
+><TD
+>Built in since PHP 4.3.0</TD
+></TR
+><TR
+><TD
+>php_w32api.dll</TD
+><TD
+><A
+HREF="ref.w32api.html"
+>W32api</A
+> functions</TD
+><TD
+>None</TD
+></TR
+><TR
+><TD
+>php_xmlrpc.dll</TD
+><TD
+><A
+HREF="ref.xmlrpc.html"
+>XML-RPC</A
+> functions</TD
+><TD
+>PHP &#62;= 4.2.1 requires: <TT
+CLASS="filename"
+>iconv.dll</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_xslt.dll</TD
+><TD
+><A
+HREF="ref.xslt.html"
+>XSLT</A
+> functions</TD
+><TD
+>&#13;    PHP &#60;= 4.2.0 requires <TT
+CLASS="filename"
+>sablot.dll</TT
+>,
+    <TT
+CLASS="filename"
+>expat.dll</TT
+> (bundled). PHP &#62;= 4.2.1 requires
+    <TT
+CLASS="filename"
+>sablot.dll</TT
+>, <TT
+CLASS="filename"
+>expat.dll</TT
+>,
+    <TT
+CLASS="filename"
+>iconv.dll</TT
+> (bundled).
+   </TD
+></TR
+><TR
+><TD
+>php_yaz.dll</TD
+><TD
+><A
+HREF="ref.yaz.html"
+>YAZ</A
+> functions</TD
+><TD
+>Requires: <TT
+CLASS="filename"
+>yaz.dll</TT
+> (bundled)</TD
+></TR
+><TR
+><TD
+>php_zip.dll</TD
+><TD
+><A
+HREF="ref.zip.html"
+>Zip File</A
+> functions</TD
+><TD
+>Read only access</TD
+></TR
+><TR
+><TD
+>php_zlib.dll</TD
+><TD
+><A
+HREF="ref.zlib.html"
+>ZLib</A
+> compression functions</TD
+><TD
+>Built in since PHP 4.3.0</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.windows.building.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.pecl.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Building from source</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.windows.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Installation of PECL extensions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

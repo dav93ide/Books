@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Case 3: setting doc_root or user_dir</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installed as CGI binary"
+HREF="security.cgi-bin.html"><LINK
+REL="PREVIOUS"
+TITLE="Case 2: using --enable-force-cgi-redirect"
+HREF="security.cgi-bin.force-redirect.html"><LINK
+REL="NEXT"
+TITLE="Case 4: PHP parser outside of web tree"
+HREF="security.cgi-bin.shell.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="security.cgi-bin.force-redirect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 24. Installed as CGI binary</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="security.cgi-bin.shell.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="security.cgi-bin.doc-root"
+>Case 3: setting doc_root or user_dir</A
+></H1
+><P
+>&#13;     To include active content, like scripts and executables, in the
+     web server document directories is sometimes considered an insecure
+     practice.  If, because of some configuration mistake, the scripts
+     are not executed but displayed as regular HTML documents, this
+     may result in leakage of intellectual property or security
+     information like passwords.  Therefore many sysadmins will prefer
+     setting up another directory structure for scripts that are
+     accessible only through the PHP CGI, and therefore always
+     interpreted and not displayed as such.
+    </P
+><P
+>&#13;     Also if the method for making sure the requests are not
+     redirected, as described in the previous section, is not
+     available, it is necessary to set up a script doc_root that is
+     different from web document root.
+    </P
+><P
+>&#13;     You can set the PHP script document root by the configuration
+     directive <A
+HREF="ini.core.html#ini.doc-root"
+>doc_root</A
+> in the
+     <A
+HREF="configuration.html#configuration.file"
+>configuration file</A
+>, or
+     you can set the environment variable
+     <VAR
+CLASS="envar"
+>PHP_DOCUMENT_ROOT</VAR
+>.  If it is set, the CGI version
+     of PHP will always construct the file name to open with this
+     <VAR
+CLASS="parameter"
+>doc_root</VAR
+> and the path information in the
+     request, so you can be sure no script is executed outside this
+     directory (except for <VAR
+CLASS="parameter"
+>user_dir</VAR
+>
+     below).
+    </P
+><P
+>&#13;     Another option usable here is <A
+HREF="ini.core.html#ini.user-dir"
+>user_dir</A
+>.  When user_dir is unset,
+     only thing controlling the opened file name is
+     <VAR
+CLASS="parameter"
+>doc_root</VAR
+>.  Opening a URL like <TT
+CLASS="filename"
+>http://my.host/~user/doc.php</TT
+> does not
+     result in opening a file under users home directory, but a file
+     called <TT
+CLASS="filename"
+>~user/doc.php</TT
+> under
+     doc_root (yes, a directory name starting with a tilde
+     [<VAR
+CLASS="literal"
+>~</VAR
+>]).
+    </P
+><P
+>&#13;     If user_dir is set to for example <TT
+CLASS="filename"
+>public_php</TT
+>, a request like <TT
+CLASS="filename"
+>http://my.host/~user/doc.php</TT
+> will open a
+     file called <TT
+CLASS="filename"
+>doc.php</TT
+> under the directory
+     named <TT
+CLASS="filename"
+>public_php</TT
+> under the home
+     directory of the user.  If the home of the user is <TT
+CLASS="filename"
+>/home/user</TT
+>, the file executed is
+     <TT
+CLASS="filename"
+>/home/user/public_php/doc.php</TT
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>user_dir</VAR
+> expansion happens regardless of
+     the <VAR
+CLASS="parameter"
+>doc_root</VAR
+> setting, so you can control
+     the document root and user directory access
+     separately.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="security.cgi-bin.force-redirect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="security.cgi-bin.shell.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Case 2: using --enable-force-cgi-redirect</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="security.cgi-bin.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Case 4: PHP parser outside of web tree</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

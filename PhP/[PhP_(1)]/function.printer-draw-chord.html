@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>printer_draw_chord</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le Stampanti"
+HREF="ref.printer.html"><LINK
+REL="PREVIOUS"
+TITLE="printer_draw_bmp"
+HREF="function.printer-draw-bmp.html"><LINK
+REL="NEXT"
+TITLE="printer_draw_elipse"
+HREF="function.printer-draw-elipse.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.printer-draw-bmp.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.printer-draw-elipse.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.printer-draw-chord"
+></A
+>printer_draw_chord</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN135559"
+></A
+><P
+>    (PECL)</P
+>printer_draw_chord&nbsp;--&nbsp;Traccia una corda</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN135562"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>printer_draw_chord</B
+> ( resource handle, int rec_x, int rec_y, int rec_x1, int rec_y1, int rad_x, int rad_y, int rad_x1, int rad_y1 )<BR
+></BR
+><P
+>&#13;     La funzione disegna una corda.
+     Il parametro <VAR
+CLASS="parameter"
+>handle</VAR
+> deve esesre un handle valido di stampante.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>rec_x</VAR
+> indica la coordinata x dell'angolo in alto
+     a sinistra del rettangolo perimetrale.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>rec_y</VAR
+> indica la coordinata y dell'angolo in alto
+     a sinistra del rettangolo perimetrale.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>rec_x1</VAR
+> indica la coordinata x dell'angolo in basso
+     a destra del rettangolo perimetrale.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>rec_y1</VAR
+>  indica la coordinata y dell'angolo in basso
+     a destra del rettangolo perimetrale.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>rad_x</VAR
+> indica la coordinata x del radiale indicante
+     l'inizio della corda.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>rad_y</VAR
+> indica la coordinata y del radiale indicante
+     l'inizio della corda.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>rad_x1</VAR
+> indica la coordinata x del radiale indicante
+     la fine della corda.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>rad_y1</VAR
+> indica la coordinata y del radiale indicante
+     la fine della corda.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN135612"
+></A
+><P
+><B
+>Esempio 1. Esempio di utilizzo di <B
+CLASS="function"
+>printer_draw_chord()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$handle </font><font color="#007700">= </font><font color="#0000BB">printer_open</font><font color="#007700">();<br /></font><font color="#0000BB">printer_start_doc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#DD0000">"My Document"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_start_page</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$pen </font><font color="#007700">= </font><font color="#0000BB">printer_create_pen</font><font color="#007700">(</font><font color="#0000BB">PRINTER_PEN_SOLID</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#DD0000">"000000"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_select_pen</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">$pen</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$brush </font><font color="#007700">= </font><font color="#0000BB">printer_create_brush</font><font color="#007700">(</font><font color="#0000BB">PRINTER_BRUSH_SOLID</font><font color="#007700">, </font><font color="#DD0000">"2222FF"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_select_brush</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">$brush</font><font color="#007700">);<br /><br /></font><font color="#0000BB">printer_draw_chord</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">500</font><font color="#007700">, </font><font color="#0000BB">500</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">500</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /><br /></font><font color="#0000BB">printer_delete_brush</font><font color="#007700">(</font><font color="#0000BB">$brush</font><font color="#007700">);<br /></font><font color="#0000BB">printer_delete_pen</font><font color="#007700">(</font><font color="#0000BB">$pen</font><font color="#007700">);<br /><br /></font><font color="#0000BB">printer_end_page</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">printer_end_doc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">printer_close</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);&nbsp;&nbsp;&nbsp;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.printer-draw-bmp.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.printer-draw-elipse.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>printer_draw_bmp</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.printer.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>printer_draw_elipse</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

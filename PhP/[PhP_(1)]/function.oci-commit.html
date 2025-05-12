@@ -1,0 +1,290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>oci_commit</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Oracle 8"
+HREF="ref.oci8.html"><LINK
+REL="PREVIOUS"
+TITLE="oci_close"
+HREF="function.oci-close.html"><LINK
+REL="NEXT"
+TITLE="oci_connect"
+HREF="function.oci-connect.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.oci-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.oci-connect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.oci-commit"
+></A
+>oci_commit</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN111243"
+></A
+><P
+>    (PHP 5)</P
+>oci_commit&nbsp;--&nbsp;Commits outstanding statements</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN111246"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>oci_commit</B
+> ( resource connection )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>oci_commit()</B
+> commits all outstanding statements
+     for the active transaction on the Oracle connection 
+     <VAR
+CLASS="parameter"
+>connection</VAR
+>. 
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN111258"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>oci_commit()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Login to Oracle server<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">oci_connect</font><font color="#007700">(</font><font color="#DD0000">'scott'</font><font color="#007700">, </font><font color="#DD0000">'tiger'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Parse SQL<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">oci_parse</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INSERT INTO <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;employees (name, surname) <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUES <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;('Maxim', 'Maletsky')<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Execute statement<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OCI_DEFAULT tells oci_execute() <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not to commit statement immediately */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">oci_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">OCI_DEFAULT</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/*<br />&nbsp;&nbsp;&nbsp;&nbsp;....<br />&nbsp;&nbsp;&nbsp;&nbsp;Parsing and executing other statements here ...<br />&nbsp;&nbsp;&nbsp;&nbsp;....<br />&nbsp;&nbsp;&nbsp;&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;// Commit transaction<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$committed </font><font color="#007700">= </font><font color="#0000BB">oci_commit</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Test whether commit was successful. If error occurred, return error message<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (!</font><font color="#0000BB">$committed</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$error </font><font color="#007700">= </font><font color="#0000BB">oci_error</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Commit failed. Oracle reports: ' </font><font color="#007700">. </font><font color="#0000BB">$error</font><font color="#007700">[</font><font color="#DD0000">'message'</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Transactions are automatically rolled back when you close 
+      the connection, or when the script ends, whichever is soonest. You
+      need to explicitly call <B
+CLASS="function"
+>oci_commit()</B
+> to commit 
+      the transaction, or <A
+HREF="function.oci-rollback.html"
+><B
+CLASS="function"
+>oci_rollback()</B
+></A
+> to abort it.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      In PHP versions before 5.0.0 you must use <A
+HREF="function.ocicommit.html"
+><B
+CLASS="function"
+>ocicommit()</B
+></A
+> instead. 
+      This name still can be used, it was left as alias of
+      <B
+CLASS="function"
+>oci_commit()</B
+> for downwards compatability. 
+      This, however, is deprecated and not recommended.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also <A
+HREF="function.oci-rollback.html"
+><B
+CLASS="function"
+>oci_rollback()</B
+></A
+> and
+     <A
+HREF="function.oci-execute.html"
+><B
+CLASS="function"
+>oci_execute()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.oci-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.oci-connect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>oci_close</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.oci8.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>oci_connect</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

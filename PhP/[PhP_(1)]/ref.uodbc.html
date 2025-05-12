@@ -1,0 +1,2210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni ODBC (Unificate)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="ociwritetemporarylob"
+HREF="function.ociwritetemporarylob.html"><LINK
+REL="NEXT"
+TITLE="odbc_autocommit"
+HREF="function.odbc-autocommit.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ociwritetemporarylob.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.odbc-autocommit.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.uodbc"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XCVI. Funzioni ODBC (Unificate)</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN113521"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="uodbc.intro"
+>Introduzione</A
+></H1
+><P
+>   
+     In aggiunta al normale supporto ODBC, le funzioni ODBC unificate del
+     PHP consentono l'accesso a diversi database che hanno preso in prestito
+     la semantica dell'API ODBC per implementare le loro API. Invece di 
+     mantenere più driver per database che sono tutti pressoché 
+     identici, questi driver sono stati riuniti in un singolo insieme di 
+     funzioni ODBC.
+    </P
+><P
+>&#13;     Le funzioni ODBC unificate supportano i seguenti database:
+     <A
+HREF="http://www.softwareag.com/adabasd/"
+TARGET="_top"
+>Adabas D</A
+>,
+     <A
+HREF="http://www-306.ibm.com/software/data/db2/"
+TARGET="_top"
+>IBM DB2</A
+>,
+     <A
+HREF="http://www.iodbc.org/"
+TARGET="_top"
+>iODBC</A
+>,
+     <A
+HREF="http://www.solidtech.com/"
+TARGET="_top"
+>Solid</A
+> ed
+     <A
+HREF="http://www.sybase.com/"
+TARGET="_top"
+>Sybase SQL Anywhere</A
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Nella connessione ai database sopra elencati non vengono coinvolte funzioni
+      ODBC. Le funzioni che vengono utilizzate per collegarsi nativamente con essi
+      condividono solamente lo stesso nome e sintassi delle funzioni ODBC. L'eccezione
+      a questo è iODBC. Compilando il PHP con il supporto di iODBC,
+      si può utilizzare qualsiasi driver compatibile ODBC nelle applicazioni PHP.
+      iODBC è gestito da <A
+HREF="http://www.openlinksw.com/"
+TARGET="_top"
+>&#13;      OpenLink Software</A
+>. Maggiori informazioni su iODBC, ed un 
+      HOWTO sono diponibili nel sito <A
+HREF="http://www.iodbc.org/"
+TARGET="_top"
+>www.iodbc.org</A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="uodbc.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Per potere accedere ai database supportati
+     occorre avere installato le librerie necessarie.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="odbc.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="install.configure.with-adabas"
+></A
+><VAR
+CLASS="option"
+>--with-adabas[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per Adabas D. DIR indica la directory di installazione di Adabas, 
+      il default è <TT
+CLASS="filename"
+>/usr/local</TT
+>.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-sapdb"
+></A
+><VAR
+CLASS="option"
+>--with-sapdb[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per SAP DB. DIR indica la directory di installazione di SAP DB,
+      il default è <TT
+CLASS="filename"
+>/usr/local</TT
+>.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-solid"
+></A
+><VAR
+CLASS="option"
+>--with-solid[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per Solid. DIR indica la directory di installazione di Solid,
+      il default è <TT
+CLASS="filename"
+>/usr/local/solid</TT
+>.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-ibm-db2"
+></A
+><VAR
+CLASS="option"
+>--with-ibm-db2[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per IBM DB2. DIR indica la directory di installazione di DB2,
+      il default è <TT
+CLASS="filename"
+>/home/db2inst1/sqllib</TT
+>.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-empress"
+></A
+><VAR
+CLASS="option"
+>--with-empress[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per Empress. DIR indica la directory di installazione di Empress,
+      il default è $EMPRESSPATH. A partire da PHP 4, questa opzione supporta solo 
+      Empress Versione 8.60 e successive.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-empress-bcs"
+></A
+><VAR
+CLASS="option"
+>--with-empress-bcs[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per Empress Local Access. DIR indica la directory di installazione di Empress,
+      il default è $EMPRESSPATH.  A partire da PHP 4, questa opzione supporta solo 
+      Empress Versione 8.60 e successive.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-birdstep"
+></A
+><VAR
+CLASS="option"
+>--with-birdstep[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per Birdstep. DIR indica la directory di installazione di Birdstep, 
+      il default è <TT
+CLASS="filename"
+>/usr/local/birdstep</TT
+>.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-custom-odbc"
+></A
+><VAR
+CLASS="option"
+>--with-custom-odbc[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto definito dall'utente per ODBC. DIR indica la directory di installazione di ODBC,
+      il default è <TT
+CLASS="filename"
+>/usr/local</TT
+>. Accertarsi di definire 
+      CUSTOM_ODBC_LIBS e di avere <TT
+CLASS="filename"
+>odbc.h</TT
+> nelle directory di include.
+      Ad esempio, si devorebbe definire i seguenti parametri per Sybase SQL Anywhere 5.5.00 su
+      QNX, prima di eseguire lo script di configurazione:
+
+   CPPFLAGS="-DODBC_QNX -DSQLANY_BUG"
+   LDFLAGS=-lunix
+   CUSTOM_ODBC_LIBS="-ldblib -lodbc".
+ 
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-iodbc"
+></A
+><VAR
+CLASS="option"
+>--with-iodbc[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per iODBC. DIR indica la directory di installazione di iODBC, 
+      il default è <TT
+CLASS="filename"
+>/usr/local</TT
+>.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-esoob"
+></A
+><VAR
+CLASS="option"
+>--with-esoob[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per Easysoft OOB. DIR indica la directory di installazione di OOB,
+      il default è <TT
+CLASS="filename"
+>/usr/local/easysoft/oob/client</TT
+>.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-unixODBC"
+></A
+><VAR
+CLASS="option"
+>--with-unixODBC[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per unixODBC. DIR indica la directory di installazione di unixODBC, 
+      il default è <TT
+CLASS="filename"
+>/usr/local</TT
+>.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-openlink"
+></A
+><VAR
+CLASS="option"
+>--with-openlink[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per OpenLink ODBC. DIR indica la directory di installazione di OpenLink, 
+      il default è <TT
+CLASS="filename"
+>/usr/local</TT
+>. This is the same as iODBC.
+     </P
+></DD
+><DT
+><A
+NAME="install.configure.with-dbmaker"
+></A
+><VAR
+CLASS="option"
+>--with-dbmaker[=DIR]</VAR
+></DT
+><DD
+><P
+>&#13;      Include il supporto per DBMaker. DIR indica la directory di installazione di DBMaker, 
+       per default si ha la directory in cui è installata l'ultima versione di DBMaker     
+      (tipo <TT
+CLASS="filename"
+>/home/dbmaker/3.6</TT
+>).
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+><P
+>&#13;  Per disabilitare il supporto alle funzioni ODBC unificate in <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>PHP 3</I
+></SPAN
+> aggiungere il parametro
+  <VAR
+CLASS="option"
+>--disable-unified-odbc</VAR
+> nella linea di configurazione.
+  Ciò è applicabile soltanto se è abilitata una delle seguenti interfaccie: iODBC, Adabas, Solid, Velocis 
+  oppure una versione personalizzata di ODBC.
+ </P
+><P
+> La versione per Windows di PHP
+ha già compilato il supporto per questo modulo. Non occorre caricare alcun modulo
+addizionale per potere utilizzare queste funzioni.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="odbc.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN113628"
+></A
+><P
+><B
+>Tabella 1. Parametrizzazione per il modulo Funzioni ODBC Unificate</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+><TH
+>Log delle modifiche</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>odbc.default_db *</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>odbc.default_user *</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>odbc.default_pw *</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>odbc.allow_persistent</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>odbc.check_persistent</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>odbc.max_persistent</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>odbc.max_links</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>odbc.defaultlrl</TD
+><TD
+>"4096"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>odbc.defaultbinmode</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    I parametri segnati con * non sono ancora implementati.
+   </P
+></BLOCKQUOTE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>  
+ <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.uodbc.default-db"
+></A
+><VAR
+CLASS="parameter"
+>odbc.default_db</VAR
+>
+    <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;     Sorgenti di dati ODBC da utilizzare se non viene fornita in 
+     <A
+HREF="function.odbc-connect.html"
+><B
+CLASS="function"
+>odbc_connect()</B
+></A
+> o
+     <A
+HREF="function.odbc-pconnect.html"
+><B
+CLASS="function"
+>odbc_pconnect()</B
+></A
+>.
+    </P
+></DD
+><DT
+><A
+NAME="ini.uodbc.default-user"
+></A
+><VAR
+CLASS="parameter"
+>odbc.default_user</VAR
+>
+    <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;     Nome utente da usare se non viene passato nelle funzioni
+     <A
+HREF="function.odbc-connect.html"
+><B
+CLASS="function"
+>odbc_connect()</B
+></A
+> o
+     <A
+HREF="function.odbc-pconnect.html"
+><B
+CLASS="function"
+>odbc_pconnect()</B
+></A
+>.
+    </P
+></DD
+><DT
+><A
+NAME="ini.uodbc.default-pw"
+></A
+><VAR
+CLASS="parameter"
+>odbc.default_pw</VAR
+>
+    <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;     Password da usare se non viene passato nelle funzioni
+     <A
+HREF="function.odbc-connect.html"
+><B
+CLASS="function"
+>odbc_connect()</B
+></A
+> o
+     <A
+HREF="function.odbc-pconnect.html"
+><B
+CLASS="function"
+>odbc_pconnect()</B
+></A
+>.
+    </P
+></DD
+><DT
+><A
+NAME="ini.uodbc.allow-persistent"
+></A
+><VAR
+CLASS="parameter"
+>odbc.allow_persistent</VAR
+>
+    <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;     Indica se permettere le connessioni ODBC persistenti.
+    </P
+></DD
+><DT
+><A
+NAME="ini.uodbc.check-persistent"
+></A
+><VAR
+CLASS="parameter"
+>odbc.check_persistent</VAR
+>
+    <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;     Verifica se una connessione è ancora valida prima di ri-utilizzarla.
+    </P
+></DD
+><DT
+><A
+NAME="ini.uodbc.max-persistent"
+></A
+><VAR
+CLASS="parameter"
+>odbc.max_persistent</VAR
+>
+    <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;     Imposta il numero massimo di connessioni persistenti permesse per processo.
+    </P
+></DD
+><DT
+><A
+NAME="ini.uodbc.max-links"
+></A
+><VAR
+CLASS="parameter"
+>odbc.max_links</VAR
+>
+    <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;     Imposta il numero massimo di connessioni permesse per processo, comprese
+     le connessioni persistenti.
+    </P
+></DD
+><DT
+><A
+NAME="ini.uodbc.defaultlrl"
+></A
+><VAR
+CLASS="parameter"
+>odbc.defaultlrl</VAR
+>
+    <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;     Gestisce i campi di tipo LONG. Specifica il numero di byte da 
+     ritornare alla variabile.
+    </P
+><P
+>When an <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+> is used, the
+value is measured in bytes.  You may also use shorthand notation as described
+in <A
+HREF="faq.using.html#faq.using.shorthandbytes"
+>this FAQ</A
+>.</P
+></DD
+><DT
+><A
+NAME="ini.uodbc.defaultbinmode"
+></A
+><VAR
+CLASS="parameter"
+>odbc.defaultbinmode</VAR
+>
+    <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;     Gestione dei dati binari.
+    </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="uodbc.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="uodbc.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>ODBC_TYPE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ODBC_BINMODE_PASSTHRU</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ODBC_BINMODE_RETURN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ODBC_BINMODE_CONVERT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_ODBC_CURSORS</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CUR_USE_DRIVER</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CUR_USE_IF_NEEDED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CUR_USE_ODBC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CONCURRENCY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CONCUR_READ_ONLY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CONCUR_LOCK</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CONCUR_ROWVER</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CONCUR_VALUES</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CURSOR_TYPE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CURSOR_FORWARD_ONLY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CURSOR_KEYSET_DRIVEN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CURSOR_DYNAMIC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CURSOR_STATIC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_KEYSET_SIZE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_CHAR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_VARCHAR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_LONGVARCHAR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_DECIMAL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_NUMERIC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_BIT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_TINYINT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_SMALLINT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_INTEGER</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_BIGINT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_REAL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_FLOAT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_DOUBLE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_BINARY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_VARBINARY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_LONGVARBINARY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_DATE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_TIME</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_TIMESTAMP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_TYPE_DATE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_TYPE_TIME</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_TYPE_TIMESTAMP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_BEST_ROWID</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_ROWVER</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_SCOPE_CURROW</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_SCOPE_TRANSACTION</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_SCOPE_SESSION</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_NO_NULLS</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_NULLABLE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_INDEX_UNIQUE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_INDEX_ALL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_ENSURE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SQL_QUICK</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.odbc-autocommit.html"
+>odbc_autocommit</A
+>&nbsp;--&nbsp;Valorizza il parametro autocommit</DT
+><DT
+><A
+HREF="function.odbc-binmode.html"
+>odbc_binmode</A
+>&nbsp;--&nbsp;Gestione delle colonne di dati binari</DT
+><DT
+><A
+HREF="function.odbc-close-all.html"
+>odbc_close_all</A
+>&nbsp;--&nbsp;Chiude tutte le connessioni ODBC</DT
+><DT
+><A
+HREF="function.odbc-close.html"
+>odbc_close</A
+>&nbsp;--&nbsp;Chiude una connessione ODBC</DT
+><DT
+><A
+HREF="function.odbc-columnprivileges.html"
+>odbc_columnprivileges</A
+>&nbsp;--&nbsp;
+     Restituisce un identificatore di risultato che permette di ricavare l'elenco
+     delle colonne e dei privilegi ad esse associati.
+    </DT
+><DT
+><A
+HREF="function.odbc-columns.html"
+>odbc_columns</A
+>&nbsp;--&nbsp;
+     Elenca i nomi delle colonne nella tabella specificata.
+    </DT
+><DT
+><A
+HREF="function.odbc-commit.html"
+>odbc_commit</A
+>&nbsp;--&nbsp;Esegue una transazione ODBC</DT
+><DT
+><A
+HREF="function.odbc-connect.html"
+>odbc_connect</A
+>&nbsp;--&nbsp;Apre una connessione con una fonte di dati</DT
+><DT
+><A
+HREF="function.odbc-cursor.html"
+>odbc_cursor</A
+>&nbsp;--&nbsp;Restituisce il nome del cursore</DT
+><DT
+><A
+HREF="function.odbc-data-source.html"
+>odbc_data_source</A
+>&nbsp;--&nbsp;Restituisce informazionisulla connessione corrente</DT
+><DT
+><A
+HREF="function.odbc-do.html"
+>odbc_do</A
+>&nbsp;--&nbsp;Sinonimo di <A
+HREF="function.odbc-exec.html"
+><B
+CLASS="function"
+>odbc_exec()</B
+></A
+></DT
+><DT
+><A
+HREF="function.odbc-error.html"
+>odbc_error</A
+>&nbsp;--&nbsp;Restituisce l'ultimo codice di errore</DT
+><DT
+><A
+HREF="function.odbc-errormsg.html"
+>odbc_errormsg</A
+>&nbsp;--&nbsp;Restituisce l'ultimo messaggio d'errore</DT
+><DT
+><A
+HREF="function.odbc-exec.html"
+>odbc_exec</A
+>&nbsp;--&nbsp;Prepara ed esegue una espressione SQL</DT
+><DT
+><A
+HREF="function.odbc-execute.html"
+>odbc_execute</A
+>&nbsp;--&nbsp;Esecuzione di un'espressione memorizzata</DT
+><DT
+><A
+HREF="function.odbc-fetch-array.html"
+>odbc_fetch_array</A
+>&nbsp;--&nbsp;Scarica una riga da un risultato in una matrice</DT
+><DT
+><A
+HREF="function.odbc-fetch-into.html"
+>odbc_fetch_into</A
+>&nbsp;--&nbsp;Scarica una riga del risultato della query in un array</DT
+><DT
+><A
+HREF="function.odbc-fetch-object.html"
+>odbc_fetch_object</A
+>&nbsp;--&nbsp;Scarica una riga da un risultato come oggetto</DT
+><DT
+><A
+HREF="function.odbc-fetch-row.html"
+>odbc_fetch_row</A
+>&nbsp;--&nbsp;Estrae una riga</DT
+><DT
+><A
+HREF="function.odbc-field-len.html"
+>odbc_field_len</A
+>&nbsp;--&nbsp;Restituisce la dimensione (precisione) di un campo</DT
+><DT
+><A
+HREF="function.odbc-field-name.html"
+>odbc_field_name</A
+>&nbsp;--&nbsp;Restituisce il nome della colonna</DT
+><DT
+><A
+HREF="function.odbc-field-num.html"
+>odbc_field_num</A
+>&nbsp;--&nbsp;Restituisce il numero di colonna</DT
+><DT
+><A
+HREF="function.odbc-field-precision.html"
+>odbc_field_precision</A
+>&nbsp;--&nbsp;Sinonimo di <A
+HREF="function.odbc-field-len.html"
+><B
+CLASS="function"
+>odbc_field_len()</B
+></A
+></DT
+><DT
+><A
+HREF="function.odbc-field-scale.html"
+>odbc_field_scale</A
+>&nbsp;--&nbsp;Restituisce la scala di un campo</DT
+><DT
+><A
+HREF="function.odbc-field-type.html"
+>odbc_field_type</A
+>&nbsp;--&nbsp;Tipo di dato di campo</DT
+><DT
+><A
+HREF="function.odbc-foreignkeys.html"
+>odbc_foreignkeys</A
+>&nbsp;--&nbsp;
+     Restituisce l'elenco delle chiavi esterne per la tabella indicata, 
+     oppure la lista delle chiavi esterne in altre tabelle che fanno
+     riferimento alla chiave primaria della tabella indicata.
+    </DT
+><DT
+><A
+HREF="function.odbc-free-result.html"
+>odbc_free_result</A
+>&nbsp;--&nbsp;Libera le risorse associate ad un risultato</DT
+><DT
+><A
+HREF="function.odbc-gettypeinfo.html"
+>odbc_gettypeinfo</A
+>&nbsp;--&nbsp;
+     Restituisce un identificatore di risultato contenente informazioni
+     sui tipi di dati supportati dalla sorgente di dati
+    </DT
+><DT
+><A
+HREF="function.odbc-longreadlen.html"
+>odbc_longreadlen</A
+>&nbsp;--&nbsp;Gestione di colonne LONG</DT
+><DT
+><A
+HREF="function.odbc-next-result.html"
+>odbc_next_result</A
+>&nbsp;--&nbsp; 
+       Verifica se sono disponibili più risultati
+      </DT
+><DT
+><A
+HREF="function.odbc-num-fields.html"
+>odbc_num_fields</A
+>&nbsp;--&nbsp;Numero di colonne in un esito</DT
+><DT
+><A
+HREF="function.odbc-num-rows.html"
+>odbc_num_rows</A
+>&nbsp;--&nbsp;Numero di righe in un risultato</DT
+><DT
+><A
+HREF="function.odbc-pconnect.html"
+>odbc_pconnect</A
+>&nbsp;--&nbsp;Apre una connessione persistente verso un database</DT
+><DT
+><A
+HREF="function.odbc-prepare.html"
+>odbc_prepare</A
+>&nbsp;--&nbsp;Predispone un'espressione all'esecuzione</DT
+><DT
+><A
+HREF="function.odbc-primarykeys.html"
+>odbc_primarykeys</A
+>&nbsp;--&nbsp;
+     Restituisce un identificatore di risultato che può essere utilizzato 
+     per ricavare il nome della colonna che contiene la chiave primaria della tabella.
+    </DT
+><DT
+><A
+HREF="function.odbc-procedurecolumns.html"
+>odbc_procedurecolumns</A
+>&nbsp;--&nbsp;
+     Recupera informazioni sui parametri delle procedure.       
+    </DT
+><DT
+><A
+HREF="function.odbc-procedures.html"
+>odbc_procedures</A
+>&nbsp;--&nbsp;
+     Restituisce l'elenco delle procedure memorizzate in una specifica sorgente di dati.      
+    </DT
+><DT
+><A
+HREF="function.odbc-result-all.html"
+>odbc_result_all</A
+>&nbsp;--&nbsp;Visualizza il risultato in una tabella HTML</DT
+><DT
+><A
+HREF="function.odbc-result.html"
+>odbc_result</A
+>&nbsp;--&nbsp;Restituisce il contenuto dei campi</DT
+><DT
+><A
+HREF="function.odbc-rollback.html"
+>odbc_rollback</A
+>&nbsp;--&nbsp;Annulla una transazione</DT
+><DT
+><A
+HREF="function.odbc-setoption.html"
+>odbc_setoption</A
+>&nbsp;--&nbsp;
+     Impostazione dei parametri ODBC
+    </DT
+><DT
+><A
+HREF="function.odbc-specialcolumns.html"
+>odbc_specialcolumns</A
+>&nbsp;--&nbsp;
+     Restituisce sia il set di colonne che identificano in modo univoco
+     una riga nella tabella, sia colonne che sono automaticamente
+     aggiornate quando un qualsiasi campo della riga viene aggiornato da una transazione.
+    </DT
+><DT
+><A
+HREF="function.odbc-statistics.html"
+>odbc_statistics</A
+>&nbsp;--&nbsp;Recupera informazioni statistiche sulla tabella</DT
+><DT
+><A
+HREF="function.odbc-tableprivileges.html"
+>odbc_tableprivileges</A
+>&nbsp;--&nbsp;
+     Elenca le tabelle ed i privilegi ad esse associati.
+    </DT
+><DT
+><A
+HREF="function.odbc-tables.html"
+>odbc_tables</A
+>&nbsp;--&nbsp;
+     Restituisce l'elenco delle tabelle presenti in una specifica
+     sorgente di dati
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ociwritetemporarylob.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.odbc-autocommit.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ociwritetemporarylob</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>odbc_autocommit</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

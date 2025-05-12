@@ -1,0 +1,429 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>foreach</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Strutture di controllo"
+HREF="language.control-structures.html"><LINK
+REL="PREVIOUS"
+TITLE="for"
+HREF="control-structures.for.html"><LINK
+REL="NEXT"
+TITLE="break"
+HREF="control-structures.break.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="control-structures.for.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 16. Strutture di controllo</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="control-structures.break.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="control-structures.foreach"
+><VAR
+CLASS="literal"
+>foreach</VAR
+></A
+></H1
+><P
+>&#13;    PHP 4 (non PHP 3) permette l'uso della struttura di controllo <VAR
+CLASS="literal"
+>foreach</VAR
+>,
+    alla stessa maniera del linguaggio Perl e altri. Ciò semplicemente fornisce
+    una facile metodo per attraversare un array. <VAR
+CLASS="literal"
+>foreach</VAR
+> funziona solo con le matrici
+    e genera un errore se si tenta di utilizzarlo con variabili di tipo diffente
+    oppure non inizializzate. Esistono due possibili notazioni sintattiche; la seconda è
+    un'utile estensione della prima:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4879"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>foreach(array_expression as $value) 
+      istruzione
+foreach(array_expression as $key =&#62; $value) i
+      struzione</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    La prima attraversa l'array dato da
+    <VAR
+CLASS="literal"
+>array_expression</VAR
+>. Ad ogni ciclo, si assegna il valore
+    dell'elemento corrente a <VAR
+CLASS="literal"
+>$value</VAR
+> e
+    il puntatore interno avanza di una posizione (in modo tale che al ciclo successivo
+    l'elemento corrente sarà il successivo elemento dell'array).
+   </P
+><P
+>&#13;    La seconda esegue lo stesso ciclo con la differenza che il
+    valore dell'indice corrente viene assegnato ad ogni ciclo,
+    alla variabile <VAR
+CLASS="literal"
+>$key</VAR
+>.
+   </P
+><P
+>&#13;    Dal PHP sono anche possibili
+    <A
+HREF="language.oop5.iterations.html"
+>cicli sugli oggetti</A
+>.
+   </P
+><P
+>&#13;    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      All'inizio dell'esecuzione di un ciclo <VAR
+CLASS="literal"
+>foreach</VAR
+>
+      il puntatore interno viene automaticamente posizionato nella prima
+      posizione. Questo significa che non è necessario utilizzare la
+      funzione <A
+HREF="function.reset.html"
+><B
+CLASS="function"
+>reset()</B
+></A
+> prima di un ciclo 
+      <VAR
+CLASS="literal"
+>foreach</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+><P
+>&#13;    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      A meno che la matrice non sia <A
+HREF="language.references.html"
+>per riferimento</A
+>,
+      <VAR
+CLASS="literal"
+>foreach</VAR
+> agisce su una copia e non
+      sulla matrice stessa. Pertanto il puntatore dell'array originale
+      non viene modificato come accade utilizzando la funzione <A
+HREF="function.each.html"
+><B
+CLASS="function"
+>each()</B
+></A
+>
+      e le modifiche agli elementi dell'array non
+      appaiono nell'array originale.
+      Tuttavia il puntatore interno della matrice originale 
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>viene</I
+></SPAN
+> avanzato durante l'elaborazione della
+      matrice. Se si assume che il ciclo foreach giunga al termine, allorasi avrà che
+      il puntatore interno della matrcie sarà al termine della matrice stessa.
+     </P
+><P
+>&#13;      Dal PHP 5 si può modificare facilmente gli elementi di una matrice anteponendo
+      &#38; a <VAR
+CLASS="literal"
+>$value</VAR
+> with &#38;. Questo assegna un
+      <A
+HREF="language.references.html"
+>riferimento</A
+> anzichè copiare
+      il valore.
+      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4904"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$arr </font><font color="#007700">= array(</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#0000BB">4</font><font color="#007700">);<br />foreach (</font><font color="#0000BB">$arr </font><font color="#007700">as &amp;</font><font color="#0000BB">$value</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$value </font><font color="#007700">= </font><font color="#0000BB">$value </font><font color="#007700">* </font><font color="#0000BB">2</font><font color="#007700">;<br />}<br /></font><font color="#FF8000">// $arr vale ora array(2, 4, 6, 8)<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+      Questo è possibile soltanto se l'array indicato può essere referenziato
+      (ad esempio è una variabile).
+     </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+><P
+>&#13;    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <VAR
+CLASS="literal"
+>foreach</VAR
+> non offre la possibilità di annullare la generazione
+     di messaggi d'errore utilizzando il carattere '@'.
+     </P
+></BLOCKQUOTE
+></DIV
+>
+   </P
+><P
+>&#13;    Avete probabilmente notato che i due cicli seguenti sono identici da un
+    punto di vista funzionale:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4911"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$arr </font><font color="#007700">= array(</font><font color="#DD0000">"one"</font><font color="#007700">, </font><font color="#DD0000">"two"</font><font color="#007700">, </font><font color="#DD0000">"three"</font><font color="#007700">);<br /></font><font color="#0000BB">reset </font><font color="#007700">(</font><font color="#0000BB">$arr</font><font color="#007700">);<br />while (list(, </font><font color="#0000BB">$value</font><font color="#007700">) = </font><font color="#0000BB">each </font><font color="#007700">(</font><font color="#0000BB">$arr</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Valore: $value&lt;br /&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br />foreach (</font><font color="#0000BB">$arr </font><font color="#007700">as </font><font color="#0000BB">$value</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Valore: $value&lt;br /&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    Allo stesso modo i due cicli seguenti sono identici:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4913"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$arr </font><font color="#007700">= array(</font><font color="#DD0000">"one"</font><font color="#007700">, </font><font color="#DD0000">"two"</font><font color="#007700">, </font><font color="#DD0000">"three"</font><font color="#007700">);<br /></font><font color="#0000BB">reset </font><font color="#007700">(</font><font color="#0000BB">$arr</font><font color="#007700">);<br />while (list(</font><font color="#0000BB">$key</font><font color="#007700">, </font><font color="#0000BB">$value</font><font color="#007700">) = </font><font color="#0000BB">each </font><font color="#007700">(</font><font color="#0000BB">$arr</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Chiave: $key; Valore: $value&lt;br /&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br />foreach (</font><font color="#0000BB">$arr </font><font color="#007700">as </font><font color="#0000BB">$key </font><font color="#007700">=&gt; </font><font color="#0000BB">$value</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Chiave: $key; Valore: $value&lt;br&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Di seguito, altri esempi per mostrare possibili utilizzi:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4916"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* esempio 1 foreach: solo il valore */<br /></font><font color="#0000BB">$a </font><font color="#007700">= array(</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#0000BB">17</font><font color="#007700">);<br /><br />foreach (</font><font color="#0000BB">$a </font><font color="#007700">as </font><font color="#0000BB">$v</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Valore corrente di </font><font color="#007700">\$</font><font color="#DD0000">a: $v.</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">/* esempio 2 foreach: valore (con la chiave stampata) */<br /><br /></font><font color="#0000BB">$a </font><font color="#007700">= array(</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#0000BB">17</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#FF8000">/* solo per un proposito illustrativo */<br /><br /></font><font color="#007700">foreach (</font><font color="#0000BB">$a </font><font color="#007700">as </font><font color="#0000BB">$v</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"</font><font color="#007700">\$</font><font color="#DD0000">a</font><font color="#007700">[</font><font color="#DD0000">$i</font><font color="#007700">]</font><font color="#DD0000"> =&gt; $v.</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i</font><font color="#007700">++;<br />}<br /><br /></font><font color="#FF8000">/* esempio 3 foreach: chiave e valore */<br /><br /></font><font color="#0000BB">$a </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"uno" </font><font color="#007700">=&gt; </font><font color="#0000BB">1</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"due" </font><font color="#007700">=&gt; </font><font color="#0000BB">2</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"tre" </font><font color="#007700">=&gt; </font><font color="#0000BB">3</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"diciassette" </font><font color="#007700">=&gt; </font><font color="#0000BB">17<br /></font><font color="#007700">);<br /><br />foreach (</font><font color="#0000BB">$a </font><font color="#007700">as </font><font color="#0000BB">$k </font><font color="#007700">=&gt; </font><font color="#0000BB">$v</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"</font><font color="#007700">\$</font><font color="#DD0000">a</font><font color="#007700">[</font><font color="#DD0000">$k</font><font color="#007700">]</font><font color="#DD0000"> =&gt; $v.</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">/* esempio 4 foreach: array multidimensionali */<br /></font><font color="#0000BB">$a </font><font color="#007700">= array();<br /></font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">][</font><font color="#0000BB">0</font><font color="#007700">] = </font><font color="#DD0000">"a"</font><font color="#007700">;<br /></font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">][</font><font color="#0000BB">1</font><font color="#007700">] = </font><font color="#DD0000">"b"</font><font color="#007700">;<br /></font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">][</font><font color="#0000BB">0</font><font color="#007700">] = </font><font color="#DD0000">"y"</font><font color="#007700">;<br /></font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">][</font><font color="#0000BB">1</font><font color="#007700">] = </font><font color="#DD0000">"z"</font><font color="#007700">;<br /><br />foreach (</font><font color="#0000BB">$a </font><font color="#007700">as </font><font color="#0000BB">$v1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach (</font><font color="#0000BB">$v1 </font><font color="#007700">as </font><font color="#0000BB">$v2</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$v2</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#FF8000">/* esempio 5 foreach: array dinamici */<br /><br /></font><font color="#007700">foreach (array(</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#0000BB">4</font><font color="#007700">, </font><font color="#0000BB">5</font><font color="#007700">) as </font><font color="#0000BB">$v</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$v</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="control-structures.for.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="control-structures.break.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>for</VAR
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.control-structures.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>break</VAR
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

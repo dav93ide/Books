@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>struct php_stream_wrapper_ops</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Streams Structures"
+HREF="streams.structs.html"><LINK
+REL="PREVIOUS"
+TITLE="struct php_stream_wrapper"
+HREF="streams.struct-php-stream-wrapper.html"><LINK
+REL="NEXT"
+TITLE="struct php_stream_filter"
+HREF="streams.struct-php-stream-filter.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="streams.struct-php-stream-wrapper.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="streams.struct-php-stream-filter.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="streams.struct-php-stream-wrapper-ops"
+></A
+>struct php_stream_wrapper_ops</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN185067"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>struct php_stream_wrapper_ops&nbsp;--&nbsp;Holds member functions for a stream wrapper implementation</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN185070"
+></A
+><H2
+>Description</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="c"
+>typedef struct _php_stream_wrapper_ops {
+            /* open/create a wrapped stream */
+            php_stream *(*stream_opener)(php_stream_wrapper *wrapper, char *filename, char *mode,
+                    int options, char **opened_path, php_stream_context *context STREAMS_DC TSRMLS_DC);
+            /* close/destroy a wrapped stream */
+            int (*stream_closer)(php_stream_wrapper *wrapper, php_stream *stream TSRMLS_DC);
+            /* stat a wrapped stream */
+            int (*stream_stat)(php_stream_wrapper *wrapper, php_stream *stream, php_stream_statbuf *ssb TSR$
+            /* stat a URL */
+            int (*url_stat)(php_stream_wrapper *wrapper, char *url, php_stream_statbuf *ssb TSRMLS_DC);
+            /* open a "directory" stream */
+            php_stream *(*dir_opener)(php_stream_wrapper *wrapper, char *filename, char *mode,
+                    int options, char **opened_path, php_stream_context *context STREAMS_DC TSRMLS_DC);
+
+            const char *label;
+
+            /* Delete/Unlink a file */
+            int (*unlink)(php_stream_wrapper *wrapper, char *url, int options, php_stream_context *context TSRMLS_DC);
+        } php_stream_wrapper_ops;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="streams.struct-php-stream-wrapper.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="streams.struct-php-stream-filter.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>struct php_stream_wrapper</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="streams.structs.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>struct php_stream_filter</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

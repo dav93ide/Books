@@ -1,0 +1,417 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni XML-RPC</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="xml_set_unparsed_entity_decl_handler"
+HREF="function.xml-set-unparsed-entity-decl-handler.html"><LINK
+REL="NEXT"
+TITLE="xmlrpc_decode_request"
+HREF="function.xmlrpc-decode-request.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xml-set-unparsed-entity-decl-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.xmlrpc-decode-request.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.xmlrpc"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CLXII. Funzioni XML-RPC</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN178108"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xmlrpc.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Queste funzioni possono essere utilizzate per scrivere client e server XML-RPC.
+     Si possono trovare maggiori informazioni sul XML-RPC in
+     <A
+HREF="http://www.xmlrpc.com/"
+TARGET="_top"
+>http://www.xmlrpc.com/</A
+>, e maggiore 
+     documentazione su questo modulo e le sue funzioni in
+     <A
+HREF="http://xmlrpc-epi.sourceforge.net/"
+TARGET="_top"
+>http://xmlrpc-epi.sourceforge.net/</A
+>.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questo modulo è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di queste
+funzioni, i nomi di queste funzioni, in definitiva tutto ciò 
+che è documentato qui può cambiare nei futuri rilasci 
+del PHP senza preavviso. Siete avvisati, l'uso di questo modulo 
+è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xmlrpc.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xmlrpc.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Per default il modulo XML-RPC non è abilitato in PHP. Per abilitarlo occorre utilizzare
+  il perametro di configurazione <VAR
+CLASS="option"
+>--with-xmlrpc[=DIR]</VAR
+> 
+  in fase di compila del PHP. Questo modulo è rilasciato con il PHP
+  dalla versione 4.1.0.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xmlrpc.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN178129"
+></A
+><P
+><B
+>Tabella 1. Parametri di configurazione XML-RPC</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+><TH
+>Variazioni</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>xmlrpc_errors</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Disponibile dal PHP 4.1.0.</TD
+></TR
+><TR
+><TD
+>xmlrpc_error_number</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Disponibile dal PHP 4.1.0.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xmlrpc.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xmlrpc.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.xmlrpc-decode-request.html"
+>xmlrpc_decode_request</A
+>&nbsp;--&nbsp;Decodifica XML nei nativi tipi di PHP</DT
+><DT
+><A
+HREF="function.xmlrpc-decode.html"
+>xmlrpc_decode</A
+>&nbsp;--&nbsp;Decodifica XML nei nativi tipi di PHP</DT
+><DT
+><A
+HREF="function.xmlrpc-encode-request.html"
+>xmlrpc_encode_request</A
+>&nbsp;--&nbsp;Genera XML per un metodo di richiesta</DT
+><DT
+><A
+HREF="function.xmlrpc-encode.html"
+>xmlrpc_encode</A
+>&nbsp;--&nbsp;Genera XML per un valore PHP</DT
+><DT
+><A
+HREF="function.xmlrpc-get-type.html"
+>xmlrpc_get_type</A
+>&nbsp;--&nbsp;Riceve il tipo di xmlrpc per un valore PHP. Maggiormente ì usato per le stringhe base64 e datetime</DT
+><DT
+><A
+HREF="function.xmlrpc-is-fault.html"
+>xmlrpc_is_fault</A
+>&nbsp;--&nbsp;
+     Determines if an array value represents an XMLRPC fault
+    </DT
+><DT
+><A
+HREF="function.xmlrpc-parse-method-descriptions.html"
+>xmlrpc_parse_method_descriptions</A
+>&nbsp;--&nbsp;Decodifica XML in una lista di method descriptions</DT
+><DT
+><A
+HREF="function.xmlrpc-server-add-introspection-data.html"
+>xmlrpc_server_add_introspection_data</A
+>&nbsp;--&nbsp;Aggiunge documentazione introspettiva</DT
+><DT
+><A
+HREF="function.xmlrpc-server-call-method.html"
+>xmlrpc_server_call_method</A
+>&nbsp;--&nbsp;Struttura le richieste XML e i metodi di chiamata</DT
+><DT
+><A
+HREF="function.xmlrpc-server-create.html"
+>xmlrpc_server_create</A
+>&nbsp;--&nbsp;Crea un server xmlrpc </DT
+><DT
+><A
+HREF="function.xmlrpc-server-destroy.html"
+>xmlrpc_server_destroy</A
+>&nbsp;--&nbsp;Distrugge le risorse del server</DT
+><DT
+><A
+HREF="function.xmlrpc-server-register-introspection-callback.html"
+>xmlrpc_server_register_introspection_callback</A
+>&nbsp;--&nbsp;Registra una funzione PHP per generare la documentazione</DT
+><DT
+><A
+HREF="function.xmlrpc-server-register-method.html"
+>xmlrpc_server_register_method</A
+>&nbsp;--&nbsp;Registra una funzione PHP nel metodo di risorsa abbinato method_name</DT
+><DT
+><A
+HREF="function.xmlrpc-set-type.html"
+>xmlrpc_set_type</A
+>&nbsp;--&nbsp;Imposta il tipo di xmlrpc, base64 o datetime, per un valore di stringa PHP</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xml-set-unparsed-entity-decl-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.xmlrpc-decode-request.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>xml_set_unparsed_entity_decl_handler</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>xmlrpc_decode_request</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,431 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fbsql_query</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FrontBase Functions"
+HREF="ref.fbsql.html"><LINK
+REL="PREVIOUS"
+TITLE="fbsql_pconnect"
+HREF="function.fbsql-pconnect.html"><LINK
+REL="NEXT"
+TITLE="fbsql_read_blob"
+HREF="function.fbsql-read-blob.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-pconnect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-read-blob.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fbsql-query"
+></A
+>fbsql_query</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN46252"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PHP 5)</P
+>fbsql_query&nbsp;--&nbsp;Invia una query a FrontBase</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN46255"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>fbsql_query</B
+> ( string query [, resource link_identifier] )<BR
+></BR
+><P
+> 
+     La funzione <B
+CLASS="function"
+>fbsql_query()</B
+> invia una query al database 
+     al database attivo sul collegamento identificato da <VAR
+CLASS="parameter"
+>link_identifier</VAR
+>.
+     Se non si specifica <VAR
+CLASS="parameter"
+>link_identifier</VAR
+>, si utilizzerà
+     l'ultimo collegamento aperto. Se non vi sono collegamenti attivi
+     la funzione tenta di stabilirne uno come se si chiamasse <A
+HREF="function.fbsql-connect.html"
+><B
+CLASS="function"
+>fbsql_connect()</B
+></A
+>
+     senza parametri.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il testo della query deve terminare sempre con punto e virgola.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>fbsql_query()</B
+> restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> (non-zero) oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+     per indicare se la query ha avuto successo o meno. Un valore di ritorno pari a
+     <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> indica che la query è valida e può essere eseguita dal
+     server. Il valore di ritorno non indica nulla su quante sono le
+     righe coinvolte. Pertanto è possibile che una query abbia
+     successo, ma non coinvolga alcuna riga.
+    </P
+><P
+>&#13;     La seguente query è errata, pertanto
+     <B
+CLASS="function"
+>fbsql_query()</B
+> fallirà e restituirà <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN46281"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>fbsql_query()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$result </font><font color="#007700">= </font><font color="#0000BB">fbsql_query</font><font color="#007700">(</font><font color="#DD0000">"SELECT * WHERE 1=1"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or die (</font><font color="#DD0000">"Invalid query"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     La seguente query è semanticamente errata se
+     <VAR
+CLASS="literal"
+>my_col</VAR
+> non è una colonna della tabella
+     <VAR
+CLASS="literal"
+>my_tbl</VAR
+>, pertanto <B
+CLASS="function"
+>fbsql_query()</B
+>
+     fallirà e restituirà <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN46290"
+></A
+><P
+><B
+>Esempio 2. Esempio di uso di <B
+CLASS="function"
+>fbsql_query()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$result </font><font color="#007700">= </font><font color="#0000BB">fbsql_query </font><font color="#007700">(</font><font color="#DD0000">"SELECT my_col FROM my_tbl"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or die (</font><font color="#DD0000">"Invalid query"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Inoltre <B
+CLASS="function"
+>fbsql_query()</B
+> fallirà e restituirà
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se non si hanno i permessi per accedere alle tabelle 
+     referenziate dalla query.
+    </P
+><P
+>&#13;     Quando la query ha successo, si può utilizzare 
+     <A
+HREF="function.fbsql-num-rows.html"
+><B
+CLASS="function"
+>fbsql_num_rows()</B
+></A
+> per sapere quante righe saranno
+     restituite da un'istruzione SELECT, oppure si può utilizzare
+     <A
+HREF="function.fbsql-affected-rows.html"
+><B
+CLASS="function"
+>fbsql_affected_rows()</B
+></A
+> per sapere quante righe
+     sono state toccate da un DELETE, INSERT, REPLACE o UPDATE.
+    </P
+><P
+>&#13;     Per i comandi SELECT, la funzione <B
+CLASS="function"
+>fbsql_query()</B
+> restituisce
+     l'identificatore ad un nuovo set dirsultati, che può essere passato a 
+     <A
+HREF="function.fbsql-result.html"
+><B
+CLASS="function"
+>fbsql_result()</B
+></A
+>. Quando si è completato il lavoro
+     con un set di risultati, si può liberare le risorse occupate da questo
+     chiamando <A
+HREF="function.fbsql-free-result.html"
+><B
+CLASS="function"
+>fbsql_free_result()</B
+></A
+>. Si ricorda, comunque,
+     che la memoria verrà liberata automaticamente al termine dell'esecuzione
+     dello script.
+    </P
+><P
+>&#13;     Vedere anche: <A
+HREF="function.fbsql-affected-rows.html"
+><B
+CLASS="function"
+>fbsql_affected_rows()</B
+></A
+>,
+     <A
+HREF="function.fbsql-db-query.html"
+><B
+CLASS="function"
+>fbsql_db_query()</B
+></A
+>,
+     <A
+HREF="function.fbsql-free-result.html"
+><B
+CLASS="function"
+>fbsql_free_result()</B
+></A
+>,
+     <A
+HREF="function.fbsql-result.html"
+><B
+CLASS="function"
+>fbsql_result()</B
+></A
+>,
+     <A
+HREF="function.fbsql-select-db.html"
+><B
+CLASS="function"
+>fbsql_select_db()</B
+></A
+> e
+     <A
+HREF="function.fbsql-connect.html"
+><B
+CLASS="function"
+>fbsql_connect()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fbsql-pconnect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fbsql-read-blob.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fbsql_pconnect</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.fbsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fbsql_read_blob</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

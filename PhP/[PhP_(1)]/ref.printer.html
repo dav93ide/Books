@@ -1,0 +1,444 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni per le Stampanti</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="PDO_PGSQL DSN"
+HREF="ref.pdo-pgsql.connection.html"><LINK
+REL="NEXT"
+TITLE="printer_abort"
+HREF="function.printer-abort.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.pdo-pgsql.connection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.printer-abort.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.printer"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXVI. Funzioni per le Stampanti</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN135192"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="printer.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Queste funzioni sono disponibili solo nei sistemi Windows 9.x, ME, NT4
+     e 2000. Sono state aggiunte in PHP 4.0.4.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="printer.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Questo modulo <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> non viene incluso nel rilascio di PHP.
+ </P
+><P
+>&#13;  Per potere utilizzare queste funzioni, gli utenti Windows
+  dovranno abilitare <TT
+CLASS="filename"
+>php_printer.dll</TT
+> nel <TT
+CLASS="filename"
+>php.ini</TT
+>.
+  You may obtain this
+unbundled <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> extension from the various
+<ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> snaps pages (select the appropriate repository for
+your version of PHP): <A
+HREF="http://snaps.php.net/win32/PECL_4_3/"
+TARGET="_top"
+>PECL for PHP
+4.3.x</A
+>, <A
+HREF="http://snaps.php.net/win32/PECL_5_0/"
+TARGET="_top"
+>PECL for PHP 5.0.x
+</A
+> or <A
+HREF="http://snaps.php.net/win32/PECL_UNSTABLE/"
+TARGET="_top"
+>PECL Unstable</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="printer.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN135213"
+></A
+><P
+><B
+>Tabella 1. Parametri di configurazione per il modulo stampante</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+><TH
+>Variazioni</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>printer.default_printer</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.printer-abort.html"
+>printer_abort</A
+>&nbsp;--&nbsp;Cancella il file di spool dalla stampante</DT
+><DT
+><A
+HREF="function.printer-close.html"
+>printer_close</A
+>&nbsp;--&nbsp;Chiude una connessione aperta verso una stampante</DT
+><DT
+><A
+HREF="function.printer-create-brush.html"
+>printer_create_brush</A
+>&nbsp;--&nbsp;Crea un nuovo pennello</DT
+><DT
+><A
+HREF="function.printer-create-dc.html"
+>printer_create_dc</A
+>&nbsp;--&nbsp;Crea un nuovo device context</DT
+><DT
+><A
+HREF="function.printer-create-font.html"
+>printer_create_font</A
+>&nbsp;--&nbsp;Crea un nuovo font</DT
+><DT
+><A
+HREF="function.printer-create-pen.html"
+>printer_create_pen</A
+>&nbsp;--&nbsp;Crea una nuova penna</DT
+><DT
+><A
+HREF="function.printer-delete-brush.html"
+>printer_delete_brush</A
+>&nbsp;--&nbsp;Cancella un pennello</DT
+><DT
+><A
+HREF="function.printer-delete-dc.html"
+>printer_delete_dc</A
+>&nbsp;--&nbsp;Cancella un device context</DT
+><DT
+><A
+HREF="function.printer-delete-font.html"
+>printer_delete_font</A
+>&nbsp;--&nbsp;Cancella un font</DT
+><DT
+><A
+HREF="function.printer-delete-pen.html"
+>printer_delete_pen</A
+>&nbsp;--&nbsp;Cancella una penna</DT
+><DT
+><A
+HREF="function.printer-draw-bmp.html"
+>printer_draw_bmp</A
+>&nbsp;--&nbsp;Disegna una bitmap</DT
+><DT
+><A
+HREF="function.printer-draw-chord.html"
+>printer_draw_chord</A
+>&nbsp;--&nbsp;Traccia una corda</DT
+><DT
+><A
+HREF="function.printer-draw-elipse.html"
+>printer_draw_elipse</A
+>&nbsp;--&nbsp;Traccia una ellisse</DT
+><DT
+><A
+HREF="function.printer-draw-line.html"
+>printer_draw_line</A
+>&nbsp;--&nbsp;Traccia una linea</DT
+><DT
+><A
+HREF="function.printer-draw-pie.html"
+>printer_draw_pie</A
+>&nbsp;--&nbsp;Traccia una grafico a torta</DT
+><DT
+><A
+HREF="function.printer-draw-rectangle.html"
+>printer_draw_rectangle</A
+>&nbsp;--&nbsp;Traccia un rettangolo</DT
+><DT
+><A
+HREF="function.printer-draw-roundrect.html"
+>printer_draw_roundrect</A
+>&nbsp;--&nbsp;Traccia un rettangolo con gli angoli arrotondati</DT
+><DT
+><A
+HREF="function.printer-draw-text.html"
+>printer_draw_text</A
+>&nbsp;--&nbsp;Scrive un testo</DT
+><DT
+><A
+HREF="function.printer-end-doc.html"
+>printer_end_doc</A
+>&nbsp;--&nbsp;Chiude il documento</DT
+><DT
+><A
+HREF="function.printer-end-page.html"
+>printer_end_page</A
+>&nbsp;--&nbsp;Chiude la pagina attiva</DT
+><DT
+><A
+HREF="function.printer-get-option.html"
+>printer_get_option</A
+>&nbsp;--&nbsp;Recupera la configurazione della stampante</DT
+><DT
+><A
+HREF="function.printer-list.html"
+>printer_list</A
+>&nbsp;--&nbsp;Restituisce un elenco delle stampanti collegate al server
+    </DT
+><DT
+><A
+HREF="function.printer-logical-fontheight.html"
+>printer_logical_fontheight</A
+>&nbsp;--&nbsp;Restituisce l'altezza logica del font</DT
+><DT
+><A
+HREF="function.printer-open.html"
+>printer_open</A
+>&nbsp;--&nbsp;Apre la connessione ad una stampante</DT
+><DT
+><A
+HREF="function.printer-select-brush.html"
+>printer_select_brush</A
+>&nbsp;--&nbsp;Seleziona un pennello</DT
+><DT
+><A
+HREF="function.printer-select-font.html"
+>printer_select_font</A
+>&nbsp;--&nbsp;Seleziona un font</DT
+><DT
+><A
+HREF="function.printer-select-pen.html"
+>printer_select_pen</A
+>&nbsp;--&nbsp;Seleziona una penna</DT
+><DT
+><A
+HREF="function.printer-set-option.html"
+>printer_set_option</A
+>&nbsp;--&nbsp;Configura la connessione con la stampante</DT
+><DT
+><A
+HREF="function.printer-start-doc.html"
+>printer_start_doc</A
+>&nbsp;--&nbsp;Inizia un nuovo documento</DT
+><DT
+><A
+HREF="function.printer-start-page.html"
+>printer_start_page</A
+>&nbsp;--&nbsp;Inizia una nuova pagina</DT
+><DT
+><A
+HREF="function.printer-write.html"
+>printer_write</A
+>&nbsp;--&nbsp;Scrive dei dati sulla stampante</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.pdo-pgsql.connection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.printer-abort.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDO_PGSQL DSN</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>printer_abort</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>win32_query_service_status</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="win32service Functions"
+HREF="ref.win32service.html"><LINK
+REL="PREVIOUS"
+TITLE="win32_get_last_control_message"
+HREF="function.win32-get-last-control-message.html"><LINK
+REL="NEXT"
+TITLE="win32_set_service_status"
+HREF="function.win32-set-service-status.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.win32-get-last-control-message.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.win32-set-service-status.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.win32-query-service-status"
+></A
+>win32_query_service_status</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN175674"
+></A
+><P
+>    (PECL)</P
+>win32_query_service_status&nbsp;--&nbsp;Queries the status of a service</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN175677"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>win32_query_service_status</B
+> ( string servicename [, string machine] )<BR
+></BR
+><P
+>&#13;   Queries the current status for a service, returning an array of
+   information.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN175689"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>servicename</VAR
+></DT
+><DD
+><P
+>&#13;       The short name of the service.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>machine</VAR
+></DT
+><DD
+><P
+>&#13;       The optional machine name.  If omitted, the local machine will be used.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN175703"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on failure, otherwise returns an array consisting of the
+   following information:
+  </P
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>ServiceType</VAR
+></DT
+><DD
+><P
+>&#13;       The dwServiceType.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>CurrentState</VAR
+></DT
+><DD
+><P
+>&#13;       The dwCurrentState.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>ControlsAccepted</VAR
+></DT
+><DD
+><P
+>&#13;       Which service controls are accepted by the service.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>Win32ExitCode</VAR
+></DT
+><DD
+><P
+>&#13;       If the service exited, the return code from the process.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>ServiceSpecificExitCode</VAR
+></DT
+><DD
+><P
+>&#13;       If the service exited with an error condition, the service specific
+       code that is logged in the event log is visible here.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>CheckPoint</VAR
+></DT
+><DD
+><P
+>&#13;       If the service is shutting down, holds the current check point number.
+       This is used by the SCM as a kind of heart-beat to detect a wedged service
+       process.  The value of the check point is best interpreted in
+       conjunction with the WaitHint value.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>WaitHint</VAR
+></DT
+><DD
+><P
+>&#13;       If the service is shutting down it will set WaitHint to a checkpoint
+       value that will indicate 100% completion.  This can be used to
+       implement a progress indicator.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>ProcessId</VAR
+></DT
+><DD
+><P
+>&#13;       The windows process identifier.  If 0, the process is not running.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>ServiceFlags</VAR
+></DT
+><DD
+><P
+>&#13;       The dwServiceFlags.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.win32-get-last-control-message.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.win32-set-service-status.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>win32_get_last_control_message</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.win32service.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>win32_set_service_status</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

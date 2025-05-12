@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>set_exception_handler</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di gestione degli errori e di logging"
+HREF="ref.errorfunc.html"><LINK
+REL="PREVIOUS"
+TITLE="set_error_handler"
+HREF="function.set-error-handler.html"><LINK
+REL="NEXT"
+TITLE="trigger_error"
+HREF="function.trigger-error.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.set-error-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.trigger-error.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.set-exception-handler"
+></A
+>set_exception_handler</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN37684"
+></A
+><P
+>    (PHP 5)</P
+>set_exception_handler&nbsp;--&nbsp;
+   Imposta una funzione di gestione delle eccezioni definita dall'utente 
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN37687"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>set_exception_handler</B
+> ( callback exception_handler )<BR
+></BR
+><P
+>&#13;   Imposta la funzione predefinita per la gestione delle eccezioni se un'eccezione non viene individuata
+   all'interno di un blocco try/catch. L'esecuzione sara' terminata dopo
+   la chiamata della funzione <VAR
+CLASS="parameter"
+>exception_handler</VAR
+>.
+  </P
+><P
+>&#13;   La funzione <VAR
+CLASS="parameter"
+>exception_handler</VAR
+> deve essere definita prima di invocare
+   la funzione <B
+CLASS="function"
+>set_exception_handler()</B
+>. A quest'ultima funzione deve essere passato
+   un solo parametro, che consiste nell'eccezione individuata.
+   <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>exception_handler</VAR
+></B
+> ( object exception )<BR
+></BR
+>
+   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>exception</VAR
+></DT
+><DD
+><P
+>&#13;       Nome della funzione da invocare in caso di eccezione non individuata. 
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN37712"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>exception_handler</VAR
+></DT
+><DD
+><P
+>&#13;       Nome della funzione da invocare in caso di eccezione non individuata. 
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN37721"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce la funzione di gestione delle eccezioni definita in precedenza, oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di errore. Se
+   non era stata definita in precedenza nessuna funzione di gestione delle eccezioni, viene restituita una stringa vuota.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN37725"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN37728"
+></A
+><P
+><B
+>Esempio 1. Esempio di funzione <B
+CLASS="function"
+>set_exception_handler()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">exception_handler</font><font color="#007700">(</font><font color="#0000BB">$exception</font><font color="#007700">) {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"Eccezione non individuata: " </font><font color="#007700">, </font><font color="#0000BB">$exception</font><font color="#007700">-&gt;</font><font color="#0000BB">getMessage</font><font color="#007700">(), </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">set_exception_handler</font><font color="#007700">(</font><font color="#DD0000">'exception_handler'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">throw </font><font color="#007700">new </font><font color="#0000BB">Exception</font><font color="#007700">(</font><font color="#DD0000">'Uncaught Exception'</font><font color="#007700">);<br />echo </font><font color="#DD0000">"Non eseguita\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN37732"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <A
+HREF="function.restore-exception-handler.html"
+><B
+CLASS="function"
+>restore_exception_handler()</B
+></A
+>,
+   <A
+HREF="function.restore-error-handler.html"
+><B
+CLASS="function"
+>restore_error_handler()</B
+></A
+>,
+   <A
+HREF="function.error-reporting.html"
+><B
+CLASS="function"
+>error_reporting()</B
+></A
+>,
+   information about the <A
+HREF="language.pseudo-types.html#language.types.callback"
+>callback</A
+> type,  e
+   <A
+HREF="language.exceptions.html"
+>PHP 5 Exceptions</A
+>.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.set-error-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.trigger-error.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>set_error_handler</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.errorfunc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>trigger_error</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

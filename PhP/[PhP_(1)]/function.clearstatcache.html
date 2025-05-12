@@ -1,0 +1,355 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>clearstatcache</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="chown"
+HREF="function.chown.html"><LINK
+REL="NEXT"
+TITLE="copy"
+HREF="function.copy.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.chown.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.copy.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.clearstatcache"
+></A
+>clearstatcache</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN40475"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>clearstatcache&nbsp;--&nbsp;Libera la cache dello stato di un file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN40478"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>clearstatcache</B
+> ( void  )<BR
+></BR
+><P
+>&#13;     Quando si eseguono le funzioni di sistema <SPAN
+CLASS="systemitem"
+>stat</SPAN
+> o
+     <SPAN
+CLASS="systemitem"
+>lstat</SPAN
+> o una delle funzioni elencate nella
+     lista delle funzioni coinvolte (vedi sotto), il PHP memorizza le informazioni restituite
+     da queste funzioni in modo da fornire migliori performance. Esistono, tuttavia,
+     casi in cui si desidera rimuovere le informazioni memorizzate. Ad esempio, 
+     nel caso in cui un file venga controllato più volte nel medesimo script ed il file si trova in situazioni
+     in cui possa venire rimosso o possa essere variato durante l'esecuzione dello script; in questi casi
+     si può volere cancellare le informazioni memorizzate. Per queste situazioni si può utilizzare la funzione
+     <B
+CLASS="function"
+>clearstatcache()</B
+> che cancella le informazioni memorizzate dal PHP sullo
+     stato di un file.
+    </P
+><P
+>&#13;     Occorre notare che il PHP non memorizza informazioni su file inesistenti.
+     Pertanto se si esegue la funzione <A
+HREF="function.file-exists.html"
+><B
+CLASS="function"
+>file_exists()</B
+></A
+> su un file 
+     che non esiste, questa restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> fino a quando il file non viene creato.
+     Un volta ccreato il file, la funzione restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> anche se il file viene cancellato.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Queste funzioni memorizzano informazioni su specifici file, pertanto basta 
+      eseguire <B
+CLASS="function"
+>clearstatcache()</B
+> nel caso di molteplici operazioni
+      sul medesimo file oppure nel caso sia necessario non memorizzare informazioni
+      su un dato file.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Tale valore viene memorizzato solo per la durata di una singola richiesta.
+    </P
+><P
+>&#13;     Le funzioni coinvolte sono <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+>,
+     <A
+HREF="function.lstat.html"
+><B
+CLASS="function"
+>lstat()</B
+></A
+>,
+     <A
+HREF="function.file-exists.html"
+><B
+CLASS="function"
+>file_exists()</B
+></A
+>,
+     <A
+HREF="function.is-writable.html"
+><B
+CLASS="function"
+>is_writable()</B
+></A
+>,
+     <A
+HREF="function.is-readable.html"
+><B
+CLASS="function"
+>is_readable()</B
+></A
+>,
+     <A
+HREF="function.is-executable.html"
+><B
+CLASS="function"
+>is_executable()</B
+></A
+>,
+     <A
+HREF="function.is-file.html"
+><B
+CLASS="function"
+>is_file()</B
+></A
+>,
+     <A
+HREF="function.is-dir.html"
+><B
+CLASS="function"
+>is_dir()</B
+></A
+>,
+     <A
+HREF="function.is-link.html"
+><B
+CLASS="function"
+>is_link()</B
+></A
+>,
+     <A
+HREF="function.filectime.html"
+><B
+CLASS="function"
+>filectime()</B
+></A
+>,
+     <A
+HREF="function.fileatime.html"
+><B
+CLASS="function"
+>fileatime()</B
+></A
+>,
+     <A
+HREF="function.filemtime.html"
+><B
+CLASS="function"
+>filemtime()</B
+></A
+>,
+     <A
+HREF="function.fileinode.html"
+><B
+CLASS="function"
+>fileinode()</B
+></A
+>,
+     <A
+HREF="function.filegroup.html"
+><B
+CLASS="function"
+>filegroup()</B
+></A
+>,
+     <A
+HREF="function.fileowner.html"
+><B
+CLASS="function"
+>fileowner()</B
+></A
+>,
+     <A
+HREF="function.filesize.html"
+><B
+CLASS="function"
+>filesize()</B
+></A
+>,
+     <A
+HREF="function.filetype.html"
+><B
+CLASS="function"
+>filetype()</B
+></A
+> e
+     <A
+HREF="function.fileperms.html"
+><B
+CLASS="function"
+>fileperms()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.chown.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.copy.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>chown</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>copy</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

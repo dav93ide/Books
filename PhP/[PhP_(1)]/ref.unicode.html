@@ -1,0 +1,526 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Unicode Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="token_name"
+HREF="function.token-name.html"><LINK
+REL="NEXT"
+TITLE="i18n_loc_get_default"
+HREF="function.i18n-loc-get-default.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.token-name.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.i18n-loc-get-default.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.unicode"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CLI. Unicode Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN172012"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="unicode.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    Unicode Support. 
+   </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     This extension is still in development and it isn't available to public yet.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="unicode.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    <A
+HREF="http://icu.sourceforge.net/"
+TARGET="_top"
+>ICU</A
+> 3.4 or later is required.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="unicode.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  First you should download and install ICU:
+  <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN172025"
+></A
+><P
+><B
+>Esempio 1. install ICU on Unix</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>./configure --disable-threads --enable-extras --enable-icuio --enable-layout
+make &#38;&#38; make install</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+ </P
+><P
+>&#13;  Then checkout latest PHP and configure it <VAR
+CLASS="option"
+>--with-icu-dir=&#60;dir&#62;</VAR
+> option, where
+  &#60;dir&#62; was the dir to where you installed ICU. You don't need to
+  explicitly use this option if you install ICU to a standard location.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="unicode.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN172035"
+></A
+><P
+><B
+>Tabella 1. Unicode Configuration Options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>unicode.fallback_encoding</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 6.0.0.</TD
+></TR
+><TR
+><TD
+>unicode.from_error_mode</TD
+><TD
+>2</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 6.0.0.</TD
+></TR
+><TR
+><TD
+>unicode.from_error_subst_char</TD
+><TD
+>"3f"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 6.0.0.</TD
+></TR
+><TR
+><TD
+>unicode.http_input_encoding</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 6.0.0.</TD
+></TR
+><TR
+><TD
+>unicode.output_encoding</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 6.0.0.</TD
+></TR
+><TR
+><TD
+>unicode.runtime_encoding</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 6.0.0.</TD
+></TR
+><TR
+><TD
+>unicode.script_encoding</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 6.0.0.</TD
+></TR
+><TR
+><TD
+>unicode.semantics</TD
+><TD
+>off</TD
+><TD
+>PHP_INI_PERDIR</TD
+><TD
+>Available since PHP 6.0.0.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.unicode.output-encoding"
+></A
+><VAR
+CLASS="parameter"
+>unicode.output_encoding</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Default encoding for output.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="unicode.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN172099"
+></A
+><P
+><B
+>Tabella 2. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>constant</TH
+><TH
+>value</TH
+><TH
+>description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>U_INVALID_STOP</TD
+><TD
+>0</TD
+><TD
+>stop at first invalid character</TD
+></TR
+><TR
+><TD
+>U_INVALID_SKIP</TD
+><TD
+>1</TD
+><TD
+>skip invalid characters</TD
+></TR
+><TR
+><TD
+>U_INVALID_SUBSTITUTE</TD
+><TD
+>2</TD
+><TD
+>replace invalid characters</TD
+></TR
+><TR
+><TD
+>U_INVALID_ESCAPE</TD
+><TD
+>3</TD
+><TD
+>escape invalid characters</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.i18n-loc-get-default.html"
+>i18n_loc_get_default</A
+>&nbsp;--&nbsp;Get the default Locale</DT
+><DT
+><A
+HREF="function.i18n-loc-set-default.html"
+>i18n_loc_set_default</A
+>&nbsp;--&nbsp;Set the default Locale</DT
+><DT
+><A
+HREF="function.unicode-encode.html"
+>unicode_encode</A
+>&nbsp;--&nbsp;Takes a unicode string and converts it to a string in the specified encoding</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.token-name.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.i18n-loc-get-default.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>token_name</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>i18n_loc_get_default</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

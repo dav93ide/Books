@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>wddx_serialize_vars</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="WDDX Functions"
+HREF="ref.wddx.html"><LINK
+REL="PREVIOUS"
+TITLE="wddx_serialize_value"
+HREF="function.wddx-serialize-value.html"><LINK
+REL="NEXT"
+TITLE="wddx_unserialize"
+HREF="function.wddx-unserialize.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.wddx-serialize-value.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.wddx-unserialize.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.wddx-serialize-vars"
+></A
+>wddx_serialize_vars</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN175221"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.7, PHP 4, PHP 5)</P
+>wddx_serialize_vars&nbsp;--&nbsp;Serialize variables into a WDDX packet</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN175224"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>wddx_serialize_vars</B
+> ( mixed var_name [, mixed ...] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>wddx_serialize_vars()</B
+> is used to create a WDDX
+     packet with a structure that contains the serialized
+     representation of the passed variables.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>wddx_serialize_vars()</B
+> takes a variable number
+     of arguments, each of which can be either a string naming a
+     variable or an array containing strings naming the variables or
+     another array, etc.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN175240"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>wddx_serialize_vars()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$a </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">;<br /></font><font color="#0000BB">$b </font><font color="#007700">= </font><font color="#0000BB">5.5</font><font color="#007700">;<br /></font><font color="#0000BB">$c </font><font color="#007700">= array(</font><font color="#DD0000">"blue"</font><font color="#007700">, </font><font color="#DD0000">"orange"</font><font color="#007700">, </font><font color="#DD0000">"violet"</font><font color="#007700">);<br /></font><font color="#0000BB">$d </font><font color="#007700">= </font><font color="#DD0000">"colors"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$clvars </font><font color="#007700">= array(</font><font color="#DD0000">"c"</font><font color="#007700">, </font><font color="#DD0000">"d"</font><font color="#007700">);<br />echo </font><font color="#0000BB">wddx_serialize_vars</font><font color="#007700">(</font><font color="#DD0000">"a"</font><font color="#007700">, </font><font color="#DD0000">"b"</font><font color="#007700">, </font><font color="#0000BB">$clvars</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     The above example will produce:
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>&#60;wddxPacket version='1.0'&#62;&#60;header/&#62;&#60;data&#62;&#60;struct&#62;&#60;var name='a'&#62;&#60;number&#62;1&#60;/number&#62;&#60;/var&#62;
+&#60;var name='b'&#62;&#60;number&#62;5.5&#60;/number&#62;&#60;/var&#62;&#60;var name='c'&#62;&#60;array length='3'&#62;
+&#60;string&#62;blue&#60;/string&#62;&#60;string&#62;orange&#60;/string&#62;&#60;string&#62;violet&#60;/string&#62;&#60;/array&#62;&#60;/var&#62;
+&#60;var name='d'&#62;&#60;string&#62;colors&#60;/string&#62;&#60;/var&#62;&#60;/struct&#62;&#60;/data&#62;&#60;/wddxPacket&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.wddx-serialize-value.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.wddx-unserialize.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>wddx_serialize_value</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.wddx.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>wddx_unserialize</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

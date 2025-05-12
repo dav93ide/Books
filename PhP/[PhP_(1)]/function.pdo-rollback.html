@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDO::rollBack</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Functions"
+HREF="ref.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="PDO::quote"
+HREF="function.pdo-quote.html"><LINK
+REL="NEXT"
+TITLE="PDO::setAttribute"
+HREF="function.pdo-setattribute.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdo-quote.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pdo-setattribute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDO-rollBack"
+></A
+>PDO::rollBack</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN128111"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDO::rollBack&nbsp;--&nbsp;
+     Rolls back a transaction
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128114"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>PDO::rollBack</B
+> ( void  )<BR
+></BR
+><P
+>&#13;     Rolls back the current transaction, as initiated by
+     <B
+CLASS="function"
+>PDO::beginTransaction()</B
+>.  It is an error to call this
+     method if no transaction is active.
+    </P
+><P
+>&#13;     If the database was set to autocommit mode, this function will restore
+     autocommit mode after it has rolled back the transaction.
+    </P
+><P
+>&#13;     Some databases, including MySQL, automatically issue an implicit
+     COMMIT when a database definition language (DDL) statement such as
+     DROP TABLE or CREATE TABLE is issued within a transaction. The implicit
+     COMMIT will prevent you from rolling back any other changes within the
+     transaction boundary.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128124"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128127"
+></A
+><P
+><B
+>Esempio 1. Roll back a transaction</B
+></P
+><P
+>&#13;       The following example begins a transaction and issues two statements
+       that modify the database before rolling back the changes. On MySQL,
+       however, the DROP TABLE statement automatically commits the
+       transaction so that none of the changes in the transaction are rolled
+       back.
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Begin a transaction, turning off autocommit */<br /></font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">beginTransaction</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* Change the database schema and data */<br /></font><font color="#0000BB">$sth </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">exec</font><font color="#007700">(</font><font color="#DD0000">"DROP TABLE fruit"</font><font color="#007700">);<br /></font><font color="#0000BB">$sth </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">exec</font><font color="#007700">(</font><font color="#DD0000">"UPDATE dessert<br />&nbsp;&nbsp;&nbsp;&nbsp;SET name = 'hamburger'"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Recognize mistake and roll back changes */<br /></font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">rollBack</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* Database connection is now back in autocommit mode */<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128131"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;     <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::beginTransaction()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::commit()</B
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdo-quote.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pdo-setattribute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDO::quote</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDO::setAttribute</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,560 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>stream_select</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stream Functions"
+HREF="ref.stream.html"><LINK
+REL="PREVIOUS"
+TITLE="stream_register_wrapper"
+HREF="function.stream-register-wrapper.html"><LINK
+REL="NEXT"
+TITLE="stream_set_blocking"
+HREF="function.stream-set-blocking.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.stream-register-wrapper.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.stream-set-blocking.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.stream-select"
+></A
+>stream_select</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN161365"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PHP 5)</P
+>stream_select&nbsp;--&nbsp;Runs the equivalent of the select() system call on the given 
+     arrays of streams with a timeout specified by tv_sec and tv_usec </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN161368"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>stream_select</B
+> ( array &#38;read, array &#38;write, array &#38;except, int tv_sec [, int tv_usec] )<BR
+></BR
+><P
+>&#13;     The <B
+CLASS="function"
+>stream_select()</B
+> function accepts arrays of streams and
+     waits for them to change status. Its operation is equivalent to that of
+     the <A
+HREF="function.socket-select.html"
+><B
+CLASS="function"
+>socket_select()</B
+></A
+> function except in that it acts on streams.
+    </P
+><P
+>&#13;     The streams listed in the <VAR
+CLASS="parameter"
+>read</VAR
+> array will be watched to
+     see if characters become available for reading (more precisely, to see if
+     a read will not block - in particular, a stream resource is also ready on
+     end-of-file, in which case an <A
+HREF="function.fread.html"
+><B
+CLASS="function"
+>fread()</B
+></A
+> will return
+     a zero length string).
+    </P
+><P
+>&#13;     The streams listed in the <VAR
+CLASS="parameter"
+>write</VAR
+> array will be
+     watched to see if a write will not block.
+    </P
+><P
+>&#13;     The streams listed in the <VAR
+CLASS="parameter"
+>except</VAR
+> array will be
+     watched for high priority exceptional ("out-of-band") data arriving.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      When <B
+CLASS="function"
+>stream_select()</B
+> returns, the arrays
+      <VAR
+CLASS="parameter"
+>read</VAR
+>, <VAR
+CLASS="parameter"
+>write</VAR
+> and
+      <VAR
+CLASS="parameter"
+>except</VAR
+> are modified to indicate which stream
+      resource(s) actually changed status.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     The <VAR
+CLASS="parameter"
+>tv_sec</VAR
+> and <VAR
+CLASS="parameter"
+>tv_usec</VAR
+>
+     together form the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>timeout</I
+></SPAN
+> parameter,
+     <VAR
+CLASS="parameter"
+>tv_sec</VAR
+> specifies the number of seconds while
+     <VAR
+CLASS="parameter"
+>tv_usec</VAR
+> the number of microseconds.
+     The <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>timeout</I
+></SPAN
+> is an upper bound on the amount of time
+     that <B
+CLASS="function"
+>stream_select()</B
+> will wait before it returns.
+     If <VAR
+CLASS="parameter"
+>tv_sec</VAR
+> and <VAR
+CLASS="parameter"
+>tv_usec</VAR
+> are
+     both set to <VAR
+CLASS="literal"
+>0</VAR
+>, <B
+CLASS="function"
+>stream_select()</B
+> will
+     not wait for data - instead it will return immediately, indicating the
+     current status of the streams.
+     If <VAR
+CLASS="parameter"
+>tv_sec</VAR
+> is <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> <B
+CLASS="function"
+>stream_select()</B
+>
+     can block indefinitely, returning only when an event on one of the
+     watched streams occurs (or if a signal interrupts the system call).
+    </P
+><P
+>&#13;     On success <B
+CLASS="function"
+>stream_select()</B
+> returns the number of
+     stream resources contained in the modified arrays, which may be zero if
+     the timeout expires before anything interesting happens. On error <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+     is returned and a warning raised (this can happen if the system call is
+     interrupted by an incoming signal).
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Using a timeout value of <VAR
+CLASS="literal"
+>0</VAR
+> allows you to
+      instantaneously poll the status of the streams, however, it is NOT a
+      good idea to use a <VAR
+CLASS="literal"
+>0</VAR
+> timeout value in a loop as it
+      will cause your script to consume too much CPU time.
+     </P
+><P
+>&#13;      It is much better to specify a timeout value of a few seconds, although
+      if you need to be checking and running other code concurrently, using a
+      timeout value of at least <VAR
+CLASS="literal"
+>200000</VAR
+> microseconds will
+      help reduce the CPU usage of your script.
+     </P
+><P
+>&#13;      Remember that the timeout value is the
+      maximum time that will elapse; <B
+CLASS="function"
+>stream_select()</B
+> will
+      return as soon as the requested streams are ready for use.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     You do not need to pass every array to
+     <B
+CLASS="function"
+>stream_select()</B
+>. You can leave it out and use an
+     empty array or <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> instead. Also do not forget that those arrays are
+     passed <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>by reference</I
+></SPAN
+> and will be modified after
+     <B
+CLASS="function"
+>stream_select()</B
+> returns.
+    </P
+><P
+>&#13;     This example checks to see if data has arrived for reading on either
+     <VAR
+CLASS="parameter"
+>$stream1</VAR
+> or <VAR
+CLASS="parameter"
+>$stream2</VAR
+>.
+     Since the timeout value is <VAR
+CLASS="literal"
+>0</VAR
+> it will return
+     immediately:
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Prepare the read array */<br /></font><font color="#0000BB">$read </font><font color="#007700">= array(</font><font color="#0000BB">$stream1</font><font color="#007700">, </font><font color="#0000BB">$stream2</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">false </font><font color="#007700">=== (</font><font color="#0000BB">$num_changed_streams </font><font color="#007700">= </font><font color="#0000BB">stream_select</font><font color="#007700">(</font><font color="#0000BB">$read</font><font color="#007700">, </font><font color="#0000BB">$write </font><font color="#007700">= </font><font color="#0000BB">NULL</font><font color="#007700">, </font><font color="#0000BB">$except </font><font color="#007700">= </font><font color="#0000BB">NULL</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">))) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Error handling */<br /></font><font color="#007700">} elseif (</font><font color="#0000BB">$num_changed_streams </font><font color="#007700">&gt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* At least on one of the streams something interesting happened */<br /></font><font color="#007700">}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Due to a limitation in the current Zend Engine it is not possible to pass a
+      constant modifier like <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> directly as a parameter to a function
+      which expects this parameter to be passed by reference. Instead use a
+      temporary variable or an expression with the leftmost member being a
+      temporary variable:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />stream_select</font><font color="#007700">(</font><font color="#0000BB">$r</font><font color="#007700">, </font><font color="#0000BB">$w</font><font color="#007700">, </font><font color="#0000BB">$e </font><font color="#007700">= </font><font color="#0000BB">NULL</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+>
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Be sure to use the <VAR
+CLASS="literal"
+>===</VAR
+> operator when checking for an
+     error. Since the <B
+CLASS="function"
+>stream_select()</B
+> may return 0 the
+     comparison with <VAR
+CLASS="literal"
+>==</VAR
+> would evaluate to <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>:
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">false </font><font color="#007700">=== </font><font color="#0000BB">stream_select</font><font color="#007700">(</font><font color="#0000BB">$r</font><font color="#007700">, </font><font color="#0000BB">$w</font><font color="#007700">, </font><font color="#0000BB">$e </font><font color="#007700">= </font><font color="#0000BB">NULL</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"stream_select() failed\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+>
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      If you read/write to a stream returned in the arrays be aware that
+      they do not necessarily read/write the full amount of data you have
+      requested. Be prepared to even only be able to read/write a single
+      byte.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Windows compatibility: <B
+CLASS="function"
+>stream_select()</B
+> used on a 
+      pipe returned from <A
+HREF="function.proc-open.html"
+><B
+CLASS="function"
+>proc_open()</B
+></A
+> may cause data loss 
+      under Windows 98.
+     </P
+><P
+>&#13;      Use of <B
+CLASS="function"
+>stream_select()</B
+> on
+      file descriptors returned by <A
+HREF="function.proc-open.html"
+><B
+CLASS="function"
+>proc_open()</B
+></A
+> will fail
+      and return <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> under Windows.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also
+     <A
+HREF="function.stream-set-blocking.html"
+><B
+CLASS="function"
+>stream_set_blocking()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.stream-register-wrapper.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.stream-set-blocking.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>stream_register_wrapper</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.stream.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>stream_set_blocking</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

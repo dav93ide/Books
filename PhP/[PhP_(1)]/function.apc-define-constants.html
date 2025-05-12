@@ -1,0 +1,424 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>apc_define_constants</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Alternative PHP Cache"
+HREF="ref.apc.html"><LINK
+REL="PREVIOUS"
+TITLE="apc_clear_cache"
+HREF="function.apc-clear-cache.html"><LINK
+REL="NEXT"
+TITLE="apc_delete"
+HREF="function.apc-delete.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.apc-clear-cache.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.apc-delete.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.apc-define-constants"
+></A
+>apc_define_constants</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN8919"
+></A
+><P
+>    (PECL)</P
+>apc_define_constants&nbsp;--&nbsp;
+   Defines a set of constants for later retrieval and mass-definition 
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN8922"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>apc_define_constants</B
+> ( string key, array constants [, bool case_sensitive] )<BR
+></BR
+><P
+>&#13;   <A
+HREF="function.define.html"
+><B
+CLASS="function"
+>define()</B
+></A
+> is notoriously slow. Since the main benefit of
+   APC is to increase the performance of scripts/applications, this mechanism
+   is provided to streamline the process of mass constant definition.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    To remove a set of stored constants (without clearing the entire cache), an
+    empty array may be passed as the <VAR
+CLASS="parameter"
+>constants</VAR
+>
+    parameter, effectively clearing the stored value(s).
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN8941"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>key</VAR
+></DT
+><DD
+><P
+>&#13;       The <VAR
+CLASS="parameter"
+>key</VAR
+> serves as the name of the constant set
+       being stored. This <VAR
+CLASS="parameter"
+>key</VAR
+> is used to retrieve the
+       stored constants in <A
+HREF="function.apc-load-constants.html"
+><B
+CLASS="function"
+>apc_load_constants()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>constants</VAR
+></DT
+><DD
+><P
+>&#13;       An associative array of <VAR
+CLASS="literal"
+>constant_name =&#62; value</VAR
+>
+       pairs. The <VAR
+CLASS="literal"
+>constant_name</VAR
+> must follow the normal
+       <A
+HREF="language.constants.html"
+>constant</A
+> naming rules.
+       <VAR
+CLASS="literal"
+>value</VAR
+> must evaluate to a scalar value.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>case_sensitive</VAR
+></DT
+><DD
+><P
+>&#13;       The default behaviour for constants is to be declared case-sensitive;
+       i.e. <VAR
+CLASS="literal"
+>CONSTANT</VAR
+> and <VAR
+CLASS="literal"
+>Constant</VAR
+>
+       represent different values. If this parameter evaluates to <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> the
+       constants will be declared as case-insensitive symbols.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN8970"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN8975"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN8978"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>apc_define_constants()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$constants </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'ONE'&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#0000BB">1</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'TWO'&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#0000BB">2</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'THREE' </font><font color="#007700">=&gt; </font><font color="#0000BB">3</font><font color="#007700">,<br />);<br /></font><font color="#0000BB">apc_define_constants</font><font color="#007700">(</font><font color="#DD0000">'numbers'</font><font color="#007700">, </font><font color="#0000BB">$constants</font><font color="#007700">);<br /></font><font color="#0000BB">apc_load_constants</font><font color="#007700">(</font><font color="#DD0000">'numbers'</font><font color="#007700">);<br />echo </font><font color="#0000BB">ONE</font><font color="#007700">, </font><font color="#0000BB">TWO</font><font color="#007700">, </font><font color="#0000BB">THREE</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>123</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN8984"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.apc-load-constants.html"
+><B
+CLASS="function"
+>apc_load_constants()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.define.html"
+><B
+CLASS="function"
+>define()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.constant.html"
+><B
+CLASS="function"
+>constant()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>&#13;     Or <A
+HREF="language.constants.html"
+>the PHP constants reference</A
+>
+    </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.apc-clear-cache.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.apc-delete.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>apc_clear_cache</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.apc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>apc_delete</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

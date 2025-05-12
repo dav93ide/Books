@@ -1,0 +1,449 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sqlite_fetch_array</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SQLite"
+HREF="ref.sqlite.html"><LINK
+REL="PREVIOUS"
+TITLE="sqlite_fetch_all"
+HREF="function.sqlite-fetch-all.html"><LINK
+REL="NEXT"
+TITLE="sqlite_fetch_column_types"
+HREF="function.sqlite-fetch-column-types.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-fetch-all.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-fetch-column-types.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sqlite-fetch-array"
+></A
+>sqlite_fetch_array</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN157450"
+></A
+><P
+>    (PHP 5)</P
+>sqlite_fetch_array<P
+>    (no version information, might be only in CVS)</P
+>SQLiteResult-&#62;fetch<P
+>    (no version information, might be only in CVS)</P
+>SQLiteUnbuffered-&#62;fetch&nbsp;--&nbsp;Scarica in una matrice la riga successiva da un set di risultati</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157455"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>sqlite_fetch_array</B
+> ( resource result [, int result_type [, bool decode_binary]] )<BR
+></BR
+><P
+>Versione ad oggetti (metodo):</P
+>class <B
+CLASS="classname"
+>SQLiteResult</B
+> { <BR
+></BR
+>array <B
+CLASS="methodname"
+>fetch</B
+> ( [int result_type [, bool decode_binary]] )<BR
+></BR
+>}class <B
+CLASS="classname"
+>SQLiteUnbuffered</B
+> { <BR
+></BR
+>array <B
+CLASS="methodname"
+>fetch</B
+> ( [int result_type [, bool decode_binary]] )<BR
+></BR
+>}<P
+>&#13;  Scarica la riga successiva dal set di risultati indicato da <VAR
+CLASS="parameter"
+>result</VAR
+>.
+   Se non vi sono righe successive, restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, altrimenti restituisce
+   una matrice associativa rappresentante i dati della riga.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157497"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>result</VAR
+></DT
+><DD
+><P
+>&#13;       Risorsa SQLite. Questo parametro non è richiesto nella
+       versione ad oggetti.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>result_type</VAR
+></DT
+><DD
+><P
+>The optional <VAR
+CLASS="parameter"
+>result_type</VAR
+>
+parameter accepts a constant and determines how the returned array will be
+indexed. Using <TT
+CLASS="constant"
+><B
+>SQLITE_ASSOC</B
+></TT
+> will return only associative
+indices (named fields) while <TT
+CLASS="constant"
+><B
+>SQLITE_NUM</B
+></TT
+> will return
+only numerical indices (ordinal field numbers). <TT
+CLASS="constant"
+><B
+>SQLITE_BOTH</B
+></TT
+>
+will return both associative and numerical indices.
+<TT
+CLASS="constant"
+><B
+>SQLITE_BOTH</B
+></TT
+> is the default for this function.</P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>decode_binary</VAR
+></DT
+><DD
+><P
+>Quando <VAR
+CLASS="parameter"
+>decode_binary</VAR
+> è impostato a <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> (per default),
+il PHP decodificherà i dati binari se questi furono codificati
+con la funzione <A
+HREF="function.sqlite-escape-string.html"
+><B
+CLASS="function"
+>sqlite_escape_string()</B
+></A
+>. Normalmente
+si dovrebbe lasciare inalterato il comportamento di default, a meno che 
+non si debba intervenire su database creati da altre applicazioni 
+SQLite.</P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157524"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce una matrice della riga successiva dal set di risultati, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se 
+   la posizine successive è oltre l'ultima riga.
+  </P
+><P
+>I nomi delle colonne restituiti da 
+<VAR
+CLASS="literal"
+>SQLITE_ASSOC</VAR
+> e da
+<VAR
+CLASS="literal"
+>SQLITE_BOTH</VAR
+> saranno maiuscoli o minuscoli in base al valore
+del parametro di configurazione
+<A
+HREF="ref.sqlite.html#ini.sqlite.assoc-case"
+>sqlite.assoc_case</A
+>.</P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157532"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN157535"
+></A
+><P
+><B
+>Esempio 1. Esempio procedurale</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$dbhandle </font><font color="#007700">= </font><font color="#0000BB">sqlite_open</font><font color="#007700">(</font><font color="#DD0000">'sqlitedb'</font><font color="#007700">);<br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#0000BB">sqlite_query</font><font color="#007700">(</font><font color="#0000BB">$dbhandle</font><font color="#007700">, </font><font color="#DD0000">'SELECT name, email FROM users LIMIT 25'</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">sqlite_fetch_all</font><font color="#007700">(</font><font color="#0000BB">$query</font><font color="#007700">, </font><font color="#0000BB">SQLITE_ASSOC</font><font color="#007700">);<br />foreach (</font><font color="#0000BB">$result </font><font color="#007700">as </font><font color="#0000BB">$entry</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Name: ' </font><font color="#007700">. </font><font color="#0000BB">$entry</font><font color="#007700">[</font><font color="#DD0000">'name'</font><font color="#007700">] . </font><font color="#DD0000">'&nbsp;&nbsp;E-mail: ' </font><font color="#007700">. </font><font color="#0000BB">$entry</font><font color="#007700">[</font><font color="#DD0000">'email'</font><font color="#007700">];<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN157539"
+></A
+><P
+><B
+>Esempio 2. Esempio ad oggetti</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$dbhandle </font><font color="#007700">= new </font><font color="#0000BB">SQLiteDatabase</font><font color="#007700">(</font><font color="#DD0000">'sqlitedb'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#0000BB">$dbhandle</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">'SELECT name, email FROM users LIMIT 25'</font><font color="#007700">); </font><font color="#FF8000">// buffered result set<br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#0000BB">$dbhandle</font><font color="#007700">-&gt;</font><font color="#0000BB">unbufferedQuery</font><font color="#007700">(</font><font color="#DD0000">'SELECT name, email FROM users LIMIT 25'</font><font color="#007700">); </font><font color="#FF8000">// unbuffered result set<br /><br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$query</font><font color="#007700">-&gt;</font><font color="#0000BB">fetchAll</font><font color="#007700">(</font><font color="#0000BB">SQLITE_ASSOC</font><font color="#007700">);<br />foreach (</font><font color="#0000BB">$result </font><font color="#007700">as </font><font color="#0000BB">$entry</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Name: ' </font><font color="#007700">. </font><font color="#0000BB">$entry</font><font color="#007700">[</font><font color="#DD0000">'name'</font><font color="#007700">] . </font><font color="#DD0000">'&nbsp;&nbsp;E-mail: ' </font><font color="#007700">. </font><font color="#0000BB">$entry</font><font color="#007700">[</font><font color="#DD0000">'email'</font><font color="#007700">];<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157542"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.sqlite-array-query.html"
+><B
+CLASS="function"
+>sqlite_array_query()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sqlite-fetch-string.html"
+><B
+CLASS="function"
+>sqlite_fetch_string()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sqlite-fetch-all.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sqlite-fetch-column-types.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sqlite_fetch_all</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sqlite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sqlite_fetch_column_types</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

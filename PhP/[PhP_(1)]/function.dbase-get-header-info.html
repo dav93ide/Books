@@ -1,0 +1,275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>dbase_get_header_info</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni dBase"
+HREF="ref.dbase.html"><LINK
+REL="PREVIOUS"
+TITLE="dbase_delete_record"
+HREF="function.dbase-delete-record.html"><LINK
+REL="NEXT"
+TITLE="dbase_get_record_with_names"
+HREF="function.dbase-get-record-with-names.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dbase-delete-record.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dbase-get-record-with-names.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.dbase-get-header-info"
+></A
+>dbase_get_header_info</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN26927"
+></A
+><P
+>    (PHP 5)</P
+>dbase_get_header_info&nbsp;--&nbsp;Ottenere le informazioni di intestazione di un database dBase</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN26930"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>dbase_get_header_info</B
+> ( int dbase_identifier )<BR
+></BR
+><P
+>&#13;     Restituisce informazioni sulla struttura delle colonne del database referenziato da
+	 <VAR
+CLASS="parameter"
+>dbase_identifier</VAR
+>. Per ogni colonna del database,
+	 esiste un valore specificato in un array ad indice numerico. L'indice dell'array inizia
+	 da 0. Ogni elemento dell'array contiene un array associativo di informazioni sulle colonne. 
+	 Se l'informazione dell'header dell'array non può esssere letta, viene
+	 restituito, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> .
+	</P
+><P
+>&#13;     Gli elementi dell'array sono:
+     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>nome</DT
+><DD
+><P
+>&#13;         Il nome della colonna
+        </P
+></DD
+><DT
+>tipo</DT
+><DD
+><P
+>&#13;         Il nome del tipo di colonna del dBase riconoscibile dall'utente (es. data,
+         boolean, etc)
+        </P
+></DD
+><DT
+>lunghezza</DT
+><DD
+><P
+>&#13;         Il numero di bytes che la colonna può contenere
+        </P
+></DD
+><DT
+>precisione</DT
+><DD
+><P
+>&#13;         Il numero di cifre della precisione decimale della colonna
+        </P
+></DD
+><DT
+>formato</DT
+><DD
+><P
+>&#13;         Un formato di <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+> suggerito, specifico per la colonna
+        </P
+></DD
+><DT
+>offset (scostamento)</DT
+><DD
+><P
+>&#13;         L'offest, in byte, della colonna dall'inizio riga
+        </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN26969"
+></A
+><P
+><B
+>Esempio 1. Mostra le informazioni dell'header di un file di database in formato dBase</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Path to dbase file<br /></font><font color="#0000BB">$db_path </font><font color="#007700">= </font><font color="#DD0000">"/tmp/test.dbf"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Open dbase file<br /></font><font color="#0000BB">$dbh </font><font color="#007700">= </font><font color="#0000BB">dbase_open</font><font color="#007700">(</font><font color="#0000BB">$db_path</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Errore! Il file di database dBase non può essere aperto '$db_path'."</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Get column information<br /></font><font color="#0000BB">$column_info </font><font color="#007700">= </font><font color="#0000BB">dbase_get_header_info</font><font color="#007700">(</font><font color="#0000BB">$dbh</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Display information<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$column_info</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dbase-delete-record.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dbase-get-record-with-names.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>dbase_delete_record</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dbase.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>dbase_get_record_with_names</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,470 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>preg_split</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le espressioni regolari (Perl compatibili)"
+HREF="ref.pcre.html"><LINK
+REL="PREVIOUS"
+TITLE="preg_replace"
+HREF="function.preg-replace.html"><LINK
+REL="NEXT"
+TITLE="PDF functions "
+HREF="ref.pdf.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.preg-replace.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.pdf.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.preg-split"
+></A
+>preg_split</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN123938"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.9, PHP 4, PHP 5)</P
+>preg_split&nbsp;--&nbsp;Suddivisione di una stringa tramite le espressioni regolari</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN123941"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>preg_split</B
+> ( string espressione_regolare, string testo [, int limite [, int flags]] )<BR
+></BR
+><P
+>&#13;     La funzione restituisce una matrice di parti di
+     <VAR
+CLASS="parameter"
+>testo</VAR
+> suddivisi tramite i criteri 
+     indicati da <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+>.
+    </P
+><P
+>&#13;      Se viene specificato il parametro <VAR
+CLASS="parameter"
+>limite</VAR
+>, la 
+      funzione restituisce tante parti del testo iniziale quante sono indicate
+      da <VAR
+CLASS="parameter"
+>limite</VAR
+>. Può essere usato il valore -1 per
+      indicare "nessun limite". Ciò torna utile in abbinamento all'uso 
+      del parametro <VAR
+CLASS="parameter"
+>flags</VAR
+>.
+    </P
+><P
+>&#13;      Il parametro <VAR
+CLASS="parameter"
+>flags</VAR
+> può essere la combinazione dei 
+      seguenti flag (la combinazione di più flag avviene con l'operatore |):
+      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>PREG_SPLIT_NO_EMPTY</B
+></TT
+></DT
+><DD
+><P
+>&#13;          Specificando questo flag, la funzione <B
+CLASS="function"
+>preg_split()</B
+>
+          restituisce spezzoni di testo non vuoti.
+	 </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PREG_SPLIT_DELIM_CAPTURE</B
+></TT
+></DT
+><DD
+><P
+>&#13;          Con l'uso di questo flag, la funzione cattura e restituisce eventuali
+          espressioni poste tra parentesi nel parametro <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+>.
+          Questo flag è stato aggiunto nella versione 4.0.5.
+         </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PREG_SPLIT_OFFSET_CAPTURE</B
+></TT
+></DT
+><DD
+><P
+> 
+          Se viene impostato questo flag, per ogni testo riconosciuto viene restituito
+          l'offset della stringa. Occorre notare che questo cambia il tipo di valore
+          restituito nell'array; infatti ogni elemento è, a sua volta, un'array composto dalla
+          stringa riconosciuta, all'indice <VAR
+CLASS="literal"
+>0</VAR
+>, e dall'offset della stringa nell'indice
+          <VAR
+CLASS="literal"
+>1</VAR
+>. Questa costante è disponibile a partire dalla
+          versione 4.3.0 di PHP. 
+         </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123988"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>preg_split()</B
+>: Come ottenere le parti di un testo.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Suddivide la seguente frase in base alla presenza di virgole, spazi bianchi,<br />// e altri caratteri speciali quali \r, \t, \n ed \f<br /></font><font color="#0000BB">$keywords </font><font color="#007700">= </font><font color="#0000BB">preg_split</font><font color="#007700">(</font><font color="#DD0000">"/[\s,]+/"</font><font color="#007700">, </font><font color="#DD0000">"hypertext language, programming"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123993"
+></A
+><P
+><B
+>Esempio 2. Esempio di suddivisione di un testo in caratteri.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$str </font><font color="#007700">= </font><font color="#DD0000">'string'</font><font color="#007700">;<br /></font><font color="#0000BB">$chars </font><font color="#007700">= </font><font color="#0000BB">preg_split</font><font color="#007700">(</font><font color="#DD0000">'//'</font><font color="#007700">, </font><font color="#0000BB">$str</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">PREG_SPLIT_NO_EMPTY</font><font color="#007700">);<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$chars</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+> 
+    </P
+><P
+> 
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123997"
+></A
+><P
+><B
+>Esempio 3. Suddivisione di una stringa in testi riconosciuti con i relativi offset.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$str </font><font color="#007700">= </font><font color="#DD0000">'hypertext language programming'</font><font color="#007700">; <br /></font><font color="#0000BB">$chars </font><font color="#007700">= </font><font color="#0000BB">preg_split</font><font color="#007700">(</font><font color="#DD0000">'/ /'</font><font color="#007700">, </font><font color="#0000BB">$str</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">PREG_SPLIT_OFFSET_CAPTURE</font><font color="#007700">); <br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$chars</font><font color="#007700">); <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+> 
+     visualizzerà
+     </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array 
+( 
+    [0] =&#62; Array 
+        ( 
+            [0] =&#62; hypertext 
+            [1] =&#62; 0 
+        ) 
+  
+    [1] =&#62; Array 
+        ( 
+            [0] =&#62; language 
+            [1] =&#62; 10 
+        ) 
+  
+    [2] =&#62; Array 
+        ( 
+            [0] =&#62; programming 
+            [1] =&#62; 19 
+        ) 
+  
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il parametro <VAR
+CLASS="parameter"
+>flags</VAR
+> è stato aggiunto nella versione 4 Beta 3 di PHP.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche
+     <A
+HREF="function.spliti.html"
+><B
+CLASS="function"
+>spliti()</B
+></A
+>,
+     <A
+HREF="function.split.html"
+><B
+CLASS="function"
+>split()</B
+></A
+>,
+     <A
+HREF="function.implode.html"
+><B
+CLASS="function"
+>implode()</B
+></A
+>,
+      <A
+HREF="function.preg-match.html"
+><B
+CLASS="function"
+>preg_match()</B
+></A
+>,
+     <A
+HREF="function.preg-match-all.html"
+><B
+CLASS="function"
+>preg_match_all()</B
+></A
+> e
+     <A
+HREF="function.preg-replace.html"
+><B
+CLASS="function"
+>preg_replace()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.preg-replace.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.pdf.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>preg_replace</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pcre.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDF functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,618 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni per le espressioni regolari (Perl compatibili)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="pcntl_wtermsig"
+HREF="function.pcntl-wtermsig.html"><LINK
+REL="NEXT"
+TITLE="Modificatori di criterio (Pattern Modifiers)"
+HREF="reference.pcre.pattern.modifiers.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pcntl-wtermsig.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="reference.pcre.pattern.modifiers.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.pcre"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CVIII. Funzioni per le espressioni regolari (Perl compatibili)</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN122767"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pcre.intro"
+>Introduzione</A
+></H1
+><P
+> 
+    La sintassi utilizzata dalle espressioni regolari di queste funzioni
+    ricorda da vicino Perl. Le espressioni regolari devono essere racchiuse 
+    tra delimitatori, ad esempio /. Ogni carattere che non sia alfanumerico 
+    od il backslash (\) può essere usato come delimitatore. Se il carattere 
+    usato come delimitatore deve essere utilizzato all'interno 
+    dell'espressione, questo deve essere preceduto dal carattere di escape (\). Infine, a partire dalla versione 4.0.4 di PHP, si possono anche usare
+    i delimitatori stile Perl come (), {}, [], ed &#60;&#62;.
+    Per maggiori dettagli vedere <A
+HREF="reference.pcre.pattern.syntax.html"
+>Sintassi dei criteri di riconoscimento</A
+>.
+   </P
+><P
+>&#13;    Il delimitatore finale può essere seguito da vari modificatori
+    che agiscono sul criterio di riconoscimento. Per maggiori informazioni si rimanda al
+    capitolo <A
+HREF="reference.pcre.pattern.modifiers.html"
+>Modificatori di criterio (Pattern Modifiers)</A
+>.
+   </P
+><P
+>&#13;    Utilizzando le <A
+HREF="ref.regex.html"
+>funzioni POSIX-esteso</A
+>
+    il PHP è in grado di supportare le espressioni regolari scritte con la sintassi POSIX-esteso.
+   </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Occorre prestare attenzione ad alcune limitazioni di PCRE. 
+      Maggiori informazioni in merito possono essere reperite alla pagina
+      <A
+HREF="http://www.pcre.org/pcre.txt"
+TARGET="_top"
+>http://www.pcre.org/pcre.txt</A
+> for more info.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pcre.requirements"
+>Requisiti</A
+></H1
+><P
+> 
+    Il supporto delle espressioni regolari è ottenuto mediante la
+    libreria PCRE, che è un software open source, scritto da Philip Hazel,
+    ed il cui copyright è detenuto dalla Università di Cambridge, 
+    Inghilterra. La libreria è disponibile all'indirizzo 
+    <A
+HREF="ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/"
+TARGET="_top"
+>ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/</A
+>.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pcre.installation"
+>Installazione</A
+></H1
+><P
+>  
+  A partire dalla versione 4.2.0 di PHP queste funzioni sono abilitate
+  per default. Queste funzioni possono essere disattivate usando
+  <VAR
+CLASS="option"
+>--without-pcre-regex</VAR
+>. Utilizzare
+  <VAR
+CLASS="option"
+>--with-pcre-regex=DIR</VAR
+> per specificare 
+  la directory DIR in cui sono posizionati i file di include e le librerie di PCRE,
+  nel caso non si desideri utilizzare le librerie incluse.
+  Nelle vecchie versioni di PHP, occorre configurare e
+  compilare il PHP con <VAR
+CLASS="option"
+>--with-pcre-regex[=DIR]</VAR
+>
+  per attivare queste funzioni. 
+ </P
+><P
+> La versione per Windows di PHP
+ha già compilato il supporto per questo modulo. Non occorre caricare alcun modulo
+addizionale per potere utilizzare queste funzioni.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pcre.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pcre.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pcre.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><DIV
+CLASS="table"
+><A
+NAME="AEN122800"
+></A
+><P
+><B
+>Tabella 1. Costanti di PREG</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>costante</TH
+><TH
+>descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>PREG_PATTERN_ORDER</TD
+><TD
+>  
+       Ordina i risultati in modo tale che $matches[0] sia l'array di tutti i testi
+       riconosciuti, $matches[1] sia l'array delle stringhe identificate dal primo
+       criterio posto tra parentesi, e così via. Questa costante si usa solo con
+       <A
+HREF="function.preg-match-all.html"
+><B
+CLASS="function"
+>preg_match_all()</B
+></A
+>.  
+      </TD
+></TR
+><TR
+><TD
+>PREG_SET_ORDER</TD
+><TD
+>  
+       Ordina i risultati in modo tale che $matches[0] sia l'array del primo set di testi
+       riconosciuti, $matches[1] sia l'array del secondo set, e così via.
+       Questa costante si usa solo con <A
+HREF="function.preg-match-all.html"
+><B
+CLASS="function"
+>preg_match_all()</B
+></A
+>.   
+      </TD
+></TR
+><TR
+><TD
+>PREG_OFFSET_CAPTURE</TD
+><TD
+>  
+       Vedere la descrizione di 
+       <TT
+CLASS="constant"
+><B
+>PREG_SPLIT_OFFSET_CAPTURE</B
+></TT
+>. Questa costante è disponibile
+       a partire dalla versione 4.3.0 di PHP.  
+      </TD
+></TR
+><TR
+><TD
+>PREG_SPLIT_NO_EMPTY</TD
+><TD
+>  
+       Questa costante indica a <A
+HREF="function.preg-split.html"
+><B
+CLASS="function"
+>preg_split()</B
+></A
+> di restituire
+       solo segmenti non vuoti.
+      </TD
+></TR
+><TR
+><TD
+>PREG_SPLIT_DELIM_CAPTURE</TD
+><TD
+>  
+       Questa costante indica a <A
+HREF="function.preg-split.html"
+><B
+CLASS="function"
+>preg_split()</B
+></A
+> di catturare
+       le espressioni tra parentesi nel criterio di delimitazione. Questa costante
+       è disponibile a partire dalla versione 4.0.5 di PHP. 
+      </TD
+></TR
+><TR
+><TD
+>PREG_SPLIT_OFFSET_CAPTURE</TD
+><TD
+>  
+       Se viene impostato questo flag, per ogni testo riconosciuto viene restituito
+       l'offset nella stringa di ricerca. Occorre notare che questo cambia il tipo di valore
+       restituito nell'array, ogni elemento è, a sua volta, un'array composto dalla
+       stringa riconosciuta, all'indice 0, e dall'offset della stringa nell'indice
+       1. Questa costante è disponibile a partire dalla versione 4.3.0 di PHP
+       e si utilizza solo nella funzione <A
+HREF="function.preg-split.html"
+><B
+CLASS="function"
+>preg_split()</B
+></A
+>.
+      </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pcre.examples"
+>Esempi</A
+></H1
+><P
+>  
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN122835"
+></A
+><P
+><B
+>Esempio 1. Esempi di espressioni di riconoscimento valide</B
+></P
+><P
+></P
+><UL
+><LI
+><P
+><VAR
+CLASS="literal"
+>/&#60;\/\w+&#62;/</VAR
+></P
+></LI
+><LI
+><P
+><VAR
+CLASS="literal"
+>|(\d{3})-\d+|Sm</VAR
+></P
+></LI
+><LI
+><P
+><VAR
+CLASS="literal"
+>/^(?i)php[34]/</VAR
+></P
+></LI
+><LI
+><P
+><VAR
+CLASS="literal"
+>{^\s+(\s+)?$}</VAR
+></P
+></LI
+></UL
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN122851"
+></A
+><P
+><B
+>Esempio 2. Esempi di espressioni errate</B
+></P
+><P
+></P
+><UL
+><LI
+><P
+>&#13; 	  <VAR
+CLASS="literal"
+>/href='(.*)'</VAR
+> - manca il delimitatore finale
+        </P
+></LI
+><LI
+><P
+>&#13;	  <VAR
+CLASS="literal"
+>/\w+\s*\w+/J</VAR
+> - il modificatore 'J' è sconosciuto
+        </P
+></LI
+><LI
+><P
+>&#13;	  <VAR
+CLASS="literal"
+>1-\d3-\d3-\d4|</VAR
+> - manca il delimitatore iniziale
+        </P
+></LI
+></UL
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="reference.pcre.pattern.modifiers.html"
+>Modificatori di criterio (Pattern Modifiers)</A
+>&nbsp;--&nbsp;Questo capitolo descrive i possibili modificatori
+     applicabili ad una espressione regolare</DT
+><DT
+><A
+HREF="reference.pcre.pattern.syntax.html"
+>Sintassi delle espressioni regolari</A
+>&nbsp;--&nbsp;Descrizione della sintassi utilizzata da PCRE 
+    per la definizione delle espressioni regolari</DT
+><DT
+><A
+HREF="function.preg-grep.html"
+>preg_grep</A
+>&nbsp;--&nbsp;
+     Restituisce una matrice degli elementi riconosciuti tramite le espressioni regolari
+    </DT
+><DT
+><A
+HREF="function.preg-match-all.html"
+>preg_match_all</A
+>&nbsp;--&nbsp;Esegue un riconoscimento globale con le espressioni regolari</DT
+><DT
+><A
+HREF="function.preg-match.html"
+>preg_match</A
+>&nbsp;--&nbsp;Riconoscimento con espressioni regolari</DT
+><DT
+><A
+HREF="function.preg-quote.html"
+>preg_quote</A
+>&nbsp;--&nbsp;Inserisce il carattere di escape nei caratteri delle espressioni regolari</DT
+><DT
+><A
+HREF="function.preg-replace-callback.html"
+>preg_replace_callback</A
+>&nbsp;--&nbsp;Esegue ricerche e sostituzioni con espressioni regolari 
+    usando il callback</DT
+><DT
+><A
+HREF="function.preg-replace.html"
+>preg_replace</A
+>&nbsp;--&nbsp;Esegue una ricerca ed una sostituzione con le espressioni regolari</DT
+><DT
+><A
+HREF="function.preg-split.html"
+>preg_split</A
+>&nbsp;--&nbsp;Suddivisione di una stringa tramite le espressioni regolari</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pcntl-wtermsig.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="reference.pcre.pattern.modifiers.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pcntl_wtermsig</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Modificatori di criterio (Pattern Modifiers)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

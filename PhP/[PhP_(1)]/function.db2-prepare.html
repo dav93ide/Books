@@ -1,0 +1,501 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_prepare</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_pconnect"
+HREF="function.db2-pconnect.html"><LINK
+REL="NEXT"
+TITLE="db2_primary_keys"
+HREF="function.db2-primary-keys.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-pconnect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-primary-keys.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-prepare"
+></A
+>db2_prepare</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN54534"
+></A
+><P
+>    (PECL)</P
+>db2_prepare&nbsp;--&nbsp;
+   Prepares an SQL statement to be executed
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54537"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>db2_prepare</B
+> ( resource connection, string statement [, array options] )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>db2_prepare()</B
+> creates a prepared SQL statement which can
+   include 0 or more parameter markers (<VAR
+CLASS="literal"
+>?</VAR
+> characters)
+   representing parameters for input, output, or input/output. You can pass
+   parameters to the prepared statement using
+   <A
+HREF="function.db2-bind-param.html"
+><B
+CLASS="function"
+>db2_bind_param()</B
+></A
+>, or for input values only, as an array
+   passed to <A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+>.
+  </P
+><P
+>&#13;   There are three main advantages to using prepared statements in your
+   application:
+   <P
+></P
+><UL
+><LI
+><P
+>&#13;      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Performance</I
+></SPAN
+>: when you prepare a statement, the
+      database server creates an optimized access plan for retrieving data with
+      that statement. Subsequently issuing the prepared statement with
+      <A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+> enables the statements to reuse that
+      access plan and avoids the overhead of dynamically creating a new access
+      plan for every statement you issue.
+     </P
+></LI
+><LI
+><P
+>&#13;      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Security</I
+></SPAN
+>: when you prepare a statement, you can
+      include parameter markers for input values. When you execute a prepared
+      statement with input values for placeholders, the database server checks
+      each input value to ensure that the type matches the column definition or
+      parameter definition.
+     </P
+></LI
+><LI
+><P
+>&#13;      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Advanced functionality</I
+></SPAN
+>: Parameter markers not only
+      enable you to pass input values to prepared SQL statements, they also
+      enable you to retrieve OUT and INOUT parameters from stored procedures
+      using <A
+HREF="function.db2-bind-param.html"
+><B
+CLASS="function"
+>db2_bind_param()</B
+></A
+>.
+     </P
+></LI
+></UL
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54569"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       A valid database connection resource variable as returned from
+       <A
+HREF="function.db2-connect.html"
+><B
+CLASS="function"
+>db2_connect()</B
+></A
+> or <A
+HREF="function.db2-pconnect.html"
+><B
+CLASS="function"
+>db2_pconnect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>statement</VAR
+></DT
+><DD
+><P
+>&#13;       An SQL statement, optionally containing one or more parameter markers..
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>options</VAR
+></DT
+><DD
+><P
+>&#13;       An associative array containing statement options. You can use this
+       parameter to request a scrollable cursor on database servers that
+       support this functionality.
+       <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>cursor</VAR
+></DT
+><DD
+><P
+>&#13;           Passing the <VAR
+CLASS="literal"
+>DB2_FORWARD_ONLY</VAR
+> value requests a
+           forward-only cursor for this SQL statement. This is the default
+           type of cursor, and it is supported by all database servers. It is
+           also much faster than a scrollable cursor.
+          </P
+><P
+>&#13;           Passing the <VAR
+CLASS="literal"
+>DB2_SCROLLABLE</VAR
+> value requests a
+           scrollable cursor for this SQL statement. This type of cursor
+           enables you to fetch rows non-sequentially from the database
+           server. However, it is only supported by DB2 servers, and is much
+           slower than forward-only cursors.
+          </P
+></DD
+></DL
+></DIV
+>
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54599"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a statement resource if the SQL statement was successfully parsed and
+   prepared by the database server. Returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if the database server
+   returned an error. You can determine which error was returned by calling
+   <A
+HREF="function.db2-stmt-error.html"
+><B
+CLASS="function"
+>db2_stmt_error()</B
+></A
+> or <A
+HREF="function.db2-stmt-errormsg.html"
+><B
+CLASS="function"
+>db2_stmt_errormsg()</B
+></A
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54605"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN54608"
+></A
+><P
+><B
+>Esempio 1. Preparing and executing an SQL statement with parameter markers</B
+></P
+><P
+>&#13;     The following example prepares an INSERT statement that accepts four
+     parameter markers, then iterates over an array of arrays containing the
+     input values to be passed to <A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+>.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$animals </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#DD0000">'cat'</font><font color="#007700">, </font><font color="#DD0000">'Pook'</font><font color="#007700">, </font><font color="#0000BB">3.2</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#DD0000">'dog'</font><font color="#007700">, </font><font color="#DD0000">'Peaches'</font><font color="#007700">, </font><font color="#0000BB">12.3</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#DD0000">'horse'</font><font color="#007700">, </font><font color="#DD0000">'Smarty'</font><font color="#007700">, </font><font color="#0000BB">350.0</font><font color="#007700">),<br />);<br /><br /></font><font color="#0000BB">$insert </font><font color="#007700">= </font><font color="#DD0000">'INSERT INTO animals (id, breed, name, weight)<br />&nbsp;&nbsp;&nbsp;&nbsp;VALUES (?, ?, ?, ?)'</font><font color="#007700">;<br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">db2_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#0000BB">$insert</font><font color="#007700">);<br />if (</font><font color="#0000BB">$stmt</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach (</font><font color="#0000BB">$animals </font><font color="#007700">as </font><font color="#0000BB">$animal</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">db2_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">$animal</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54613"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-bind-param.html"
+><B
+CLASS="function"
+>db2_bind_param()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-stmt-error.html"
+><B
+CLASS="function"
+>db2_stmt_error()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-stmt-errormsg.html"
+><B
+CLASS="function"
+>db2_stmt_errormsg()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-pconnect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-primary-keys.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_pconnect</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_primary_keys</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_insert_id</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_info"
+HREF="function.mysql-info.html"><LINK
+REL="NEXT"
+TITLE="mysql_list_dbs"
+HREF="function.mysql-list-dbs.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-info.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-list-dbs.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-insert-id"
+></A
+>mysql_insert_id</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN93730"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mysql_insert_id&nbsp;--&nbsp;
+     Ottiene l'identificativo generato dalla precedente operazione INSERT
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN93733"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>mysql_insert_id</B
+> ( [resource identificativo_connessione] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_insert_id()</B
+> restituisce l'identificativo generato
+     per una colonna AUTO_INCREMENT dal precedente query INSERT usando
+     lo specifico <VAR
+CLASS="parameter"
+>identificativo_connessione</VAR
+>. Se
+     <VAR
+CLASS="parameter"
+>identificativo_connessione</VAR
+> non è specificato, viene considerata
+     l'ultima connessione aperta.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_insert_id()</B
+> restituisce 0 se la precedente
+     query non ha generato un valore AUTO_INCREMENT. Se è necessario
+     salvare il valore per usarlo in seguito, assicurarsi di richiamare
+     <B
+CLASS="function"
+>mysql_insert_id()</B
+> immediatamente dopo la
+     query che ha generato il valore.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il valore della funzione SQL
+      <VAR
+CLASS="literal"
+>LAST_INSERT_ID()</VAR
+> di MySQL contiene sempre il più
+      recente valore AUTO_INCREMENT generato e non è azzerato
+      dalle query.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      <B
+CLASS="function"
+>mysql_insert_id()</B
+> converte il tipo restituito dalla
+      funzione nativa dell'API C di MySQL
+      <VAR
+CLASS="literal"
+>mysql_insert_id()</VAR
+> al tipo
+      <VAR
+CLASS="literal"
+>long</VAR
+> (chiamata <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+> nel PHP).
+      Se la colonna AUTO_INCREMENT è del tipo BIGINT,
+      il valore restituito da <B
+CLASS="function"
+>mysql_insert_id()</B
+>
+      sarà inesatto. In questo caso si usi la funzione SQL di MySQL
+      <VAR
+CLASS="literal"
+>LAST_INSERT_ID()</VAR
+> in una query SQL.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN93759"
+></A
+><P
+><B
+>Esempio 1. Esempio di mysql_insert_id</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;mysql_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"utente_mysql"</font><font color="#007700">, </font><font color="#DD0000">"password_mysql"</font><font color="#007700">) or<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">"Connessione non riuscita: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_select_db</font><font color="#007700">(</font><font color="#DD0000">"mio_db"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"INSERT INTO mia_tabella (prodotto) VALUES ('kossu')"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"L'ultimo recod inserito ha l'identificativo %d\n"</font><font color="#007700">, </font><font color="#0000BB">mysql_insert_id</font><font color="#007700">());<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Vedere anche: <A
+HREF="function.mysql-query.html"
+><B
+CLASS="function"
+>mysql_query()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-info.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-list-dbs.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_info</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_list_dbs</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

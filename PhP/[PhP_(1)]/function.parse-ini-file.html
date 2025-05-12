@@ -1,0 +1,412 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>parse_ini_file</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="move_uploaded_file"
+HREF="function.move-uploaded-file.html"><LINK
+REL="NEXT"
+TITLE="pathinfo"
+HREF="function.pathinfo.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.move-uploaded-file.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pathinfo.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.parse-ini-file"
+></A
+>parse_ini_file</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN42603"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>parse_ini_file&nbsp;--&nbsp;Legge il file di configurazione</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN42606"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>parse_ini_file</B
+> ( string filename [, bool process_sections] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>parse_ini_file()</B
+> carica il file ini
+     specificato da <VAR
+CLASS="parameter"
+>filename</VAR
+>,
+     e restituisce le impostazioni in un array associativo.
+     Impostando <VAR
+CLASS="parameter"
+>process_sections</VAR
+> a <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>
+     si ottiene una matrice multi-dimensionale con in nomi 
+     delle sezioni e le impostazioni ivi incluse. Per default
+     <VAR
+CLASS="parameter"
+>process_sections</VAR
+> è impostato a falso <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questa funzione non è collegata con il file
+      <TT
+CLASS="filename"
+>php.ini</TT
+>. Questo è già elaborato
+      al momento in cui gira lo script. Questa funzione può essere utilizzata
+      per leggere i file ini propri dell'applicazione.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Se in un valore il file ini contiene caratteri non alfanumerici
+      questi debbono essere delitimitati dai doppi apici (").
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Dalla versione 4.2.1 di PHP questa funzione è limitata da by <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+>
+      e da <A
+HREF="features.safe-mode.html#ini.open-basedir"
+>open_basedir</A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Esistono parole riservate che non possono essere utilizzare come chiavi
+      nei file ini. Queste includono: null, yes, no, true, and false.
+
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     La struttura del file ini è simile a quella del
+     <TT
+CLASS="filename"
+>php.ini</TT
+>.
+    </P
+><P
+>&#13;     Le <A
+HREF="language.constants.html"
+>Costanti</A
+> possono essere definite
+     in un file ini,  quindi se si definisce la costante come un valore da file ini
+     prima di eseguire <B
+CLASS="function"
+>parse_ini_file()</B
+>, la funzione integrerà nella costante
+     il valore letto. Saranno considerati solo i valori ini. Ad esempio:
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN42641"
+></A
+><P
+><B
+>Esempio 1. Contenuto di <TT
+CLASS="filename"
+>sample.ini</TT
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>; Questo è un esempio di file di configurazione
+; I commenti cominciano con ';', come in php.ini
+
+[first_section]
+one = 1
+five = 5
+animal = BIRD
+
+[second_section]
+path = /usr/local/bin
+URL = "http://www.example.com/~username"</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN42646"
+></A
+><P
+><B
+>Esempio 2. Esempio di uso di <B
+CLASS="function"
+>parse_ini_file()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />define</font><font color="#007700">(</font><font color="#DD0000">'BIRD'</font><font color="#007700">, </font><font color="#DD0000">'Dodo bird'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Lettura senza sezioni<br /></font><font color="#0000BB">$ini_array </font><font color="#007700">= </font><font color="#0000BB">parse_ini_file</font><font color="#007700">(</font><font color="#DD0000">"sample.ini"</font><font color="#007700">);<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$ini_array</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Lettura con sezioni<br /></font><font color="#0000BB">$ini_array </font><font color="#007700">= </font><font color="#0000BB">parse_ini_file</font><font color="#007700">(</font><font color="#DD0000">"sample.ini"</font><font color="#007700">, </font><font color="#0000BB">true</font><font color="#007700">);<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$ini_array</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       L'esempio produrrà:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array
+(
+    [one] =&#62; 1
+    [five] =&#62; 5
+    [animal] =&#62; Dodo bird
+    [path] =&#62; /usr/local/bin
+    [URL] =&#62; http://www.example.com/~username
+)
+Array
+(
+    [first_section] =&#62; Array
+        (
+            [one] =&#62; 1
+            [five] =&#62; 5
+            [animal] = Dodo bird
+        )
+
+    [second_section] =&#62; Array
+        (
+            [path] =&#62; /usr/local/bin
+            [URL] =&#62; http://www.example.com/~username
+        )
+
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     La chiavi e le sezioni composte da numeri come considerate dal PHP come
+     <A
+HREF="language.types.integer.html"
+>interi</A
+> quindi i numeri
+     che iniziano con 0 sono trattati come numeri ottali, e inumeri che iniziano con 0x
+     sono considerati esadecimali.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.move-uploaded-file.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pathinfo.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>move_uploaded_file</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pathinfo</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,657 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>dba_open</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Database (dbm-style) Abstraction Layer Functions"
+HREF="ref.dba.html"><LINK
+REL="PREVIOUS"
+TITLE="dba_nextkey"
+HREF="function.dba-nextkey.html"><LINK
+REL="NEXT"
+TITLE="dba_optimize"
+HREF="function.dba-optimize.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dba-nextkey.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dba-optimize.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.dba-open"
+></A
+>dba_open</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN26426"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.8, PHP 4, PHP 5)</P
+>dba_open&nbsp;--&nbsp;Open database</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN26429"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>dba_open</B
+> ( string path, string mode [, string handler [, mixed ...]] )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>dba_open()</B
+> establishes a database instance for
+   <VAR
+CLASS="parameter"
+>path</VAR
+> with <VAR
+CLASS="parameter"
+>mode</VAR
+> using
+   <VAR
+CLASS="parameter"
+>handler</VAR
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN26451"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>path</VAR
+></DT
+><DD
+><P
+>&#13;       Commonly a regular path in your filesystem.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>mode</VAR
+></DT
+><DD
+><P
+>&#13;       It is <VAR
+CLASS="literal"
+>r</VAR
+> for read access, <VAR
+CLASS="literal"
+>w</VAR
+> for
+       read/write access to an already existing database, <VAR
+CLASS="literal"
+>c</VAR
+>
+       for read/write access and database creation if it doesn't currently exist,
+       and <VAR
+CLASS="literal"
+>n</VAR
+> for create, truncate and read/write access.
+      </P
+><P
+>&#13;       Additionally you can set the database lock method with the next char. 
+       Use <VAR
+CLASS="literal"
+>l</VAR
+> to lock the database with a <TT
+CLASS="filename"
+>.lck</TT
+>
+       file or <VAR
+CLASS="literal"
+>d</VAR
+> to lock the databasefile itself. It is 
+       important that all of your applications do this consistently.
+      </P
+><P
+>&#13;       If you want to test the access and do not want to wait for the lock 
+       you can add <VAR
+CLASS="literal"
+>t</VAR
+> as third character. When you are 
+       absolutely sure that you do not require database locking you can do 
+       so by using <VAR
+CLASS="literal"
+>-</VAR
+> instead of <VAR
+CLASS="literal"
+>l</VAR
+> or
+       <VAR
+CLASS="literal"
+>d</VAR
+>. When none of <VAR
+CLASS="literal"
+>d</VAR
+>, 
+       <VAR
+CLASS="literal"
+>l</VAR
+> or <VAR
+CLASS="literal"
+>-</VAR
+> is used, dba will lock
+       on the database file as it would with <VAR
+CLASS="literal"
+>d</VAR
+>.
+      </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        There can only be one writer for one database file. When you use dba on 
+        a webserver and more than one request requires write operations they can
+        only be done one after another. Also read during write is not allowed.
+        The dba extension uses locks to prevent this. See the following table:
+        <DIV
+CLASS="table"
+><A
+NAME="AEN26484"
+></A
+><P
+><B
+>Tabella 1. DBA locking</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><COL><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>already open</TH
+><TH
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "rl"</TH
+><TH
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "rlt"</TH
+><TH
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "wl"</TH
+><TH
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "wlt"</TH
+><TH
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "rd"</TH
+><TH
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "rdt"</TH
+><TH
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "wd"</TH
+><TH
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "wdt"</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>not open</TD
+><TD
+>ok</TD
+><TD
+>ok</TD
+><TD
+>ok</TD
+><TD
+>ok</TD
+><TD
+>ok</TD
+><TD
+>ok</TD
+><TD
+>ok</TD
+><TD
+>ok</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "rl"</TD
+><TD
+>ok</TD
+><TD
+>ok</TD
+><TD
+>wait</TD
+><TD
+>false</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "wl"</TD
+><TD
+>wait</TD
+><TD
+>false</TD
+><TD
+>wait</TD
+><TD
+>false</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "rd"</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+><TD
+>ok</TD
+><TD
+>ok</TD
+><TD
+>wait</TD
+><TD
+>false</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="parameter"
+>mode</VAR
+> = "wd"</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+><TD
+>illegal</TD
+><TD
+>wait</TD
+><TD
+>false</TD
+><TD
+>wait</TD
+><TD
+>false</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+        <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>ok: the second call will be successfull.</TD
+></TR
+><TR
+><TD
+>wait: the second call waits until <A
+HREF="function.dba-close.html"
+><B
+CLASS="function"
+>dba_close()</B
+></A
+> is called for the first.</TD
+></TR
+><TR
+><TD
+>false: the second call returns false.</TD
+></TR
+><TR
+><TD
+>illegal: you must not mix "l" and "d" modifiers for <VAR
+CLASS="parameter"
+>mode</VAR
+> parameter.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+       </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>handler</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the <A
+HREF="ref.dba.html#dba.requirements"
+>handler</A
+> which
+       shall be used for accessing <VAR
+CLASS="parameter"
+>path</VAR
+>. It is passed 
+       all optional parameters given to <B
+CLASS="function"
+>dba_open()</B
+> and 
+       can act on behalf of them.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN26576"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a positive handle on success, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on failure.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN26580"
+></A
+><H2
+>Log delle modifiche</H2
+><P
+>&#13;   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN26583"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Versione</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>4.3.0</TD
+><TD
+>&#13;        It's possible to open database files over network connection. However
+        in cases a socket connection will be used (as with http or ftp) the
+        connection will be locked instead of the resource itself. This is important 
+        to know since in such cases locking is simply ignored on the resource 
+        and other solutions have to be found.
+       </TD
+></TR
+><TR
+><TD
+>4.3.0</TD
+><TD
+>&#13;        Locking and the <VAR
+CLASS="parameter"
+>mode</VAR
+> modifiers "l", "d", "-"
+        and "t" were added.
+        In previous PHP versions, you must use semaphores to guard against
+        simultaneous database access for any database handler with the exception 
+        of GDBM. See <A
+HREF="ref.sem.html"
+>System V semaphore support</A
+>.
+       </TD
+></TR
+><TR
+><TD
+>before 4.3.5</TD
+><TD
+>&#13;        open mode 'c' is broken for several internal handlers and truncates
+        the database instead of appending data to an existent database. 
+        Also dbm and ndbm fail on mode 'c' in typical configurations (this 
+        cannot be fixed).
+       </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN26601"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.dba-popen.html"
+><B
+CLASS="function"
+>dba_popen()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.dba-close.html"
+><B
+CLASS="function"
+>dba_close()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dba-nextkey.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dba-optimize.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>dba_nextkey</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dba.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>dba_optimize</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

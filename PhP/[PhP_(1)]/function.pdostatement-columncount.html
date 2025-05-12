@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDOStatement::columnCount</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Functions"
+HREF="ref.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="PDOStatement::closeCursor"
+HREF="function.pdostatement-closecursor.html"><LINK
+REL="NEXT"
+TITLE="PDOStatement::errorCode"
+HREF="function.pdostatement-errorcode.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-closecursor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-errorcode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDOStatement-columnCount"
+></A
+>PDOStatement::columnCount</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN128407"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDOStatement::columnCount&nbsp;--&nbsp;
+   Returns the number of columns in the result set
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128410"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>PDOStatement::columnCount</B
+> ( void  )<BR
+></BR
+><P
+>&#13;   Use <B
+CLASS="function"
+>PDOStatement::columnCount()</B
+> to return the number
+   of columns in the result set represented by the PDOStatement object.
+  </P
+><P
+>&#13;   If the PDOStatement object was returned from <B
+CLASS="function"
+>PDO::query()</B
+>,
+   the column count is immediately available.
+  </P
+><P
+>&#13;   If the PDOStatement object was returned from
+   <B
+CLASS="function"
+>PDO::prepare()</B
+>, an accurate column count will not be
+   available until you invoke <B
+CLASS="function"
+>PDOStatement::execute()</B
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128423"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns the number of columns in the result set represented by the
+   PDOStatement object. If there is no result set,
+   <B
+CLASS="function"
+>PDOStatement::columnCount()</B
+> returns <VAR
+CLASS="literal"
+>0</VAR
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128428"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128431"
+></A
+><P
+><B
+>Esempio 1. Counting columns</B
+></P
+><P
+>&#13;     This example demonstrates how <B
+CLASS="function"
+>PDOStatement::columnCount()</B
+>
+     operates with and without a result set.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$dbh </font><font color="#007700">= new </font><font color="#0000BB">PDO</font><font color="#007700">(</font><font color="#DD0000">'odbc:sample'</font><font color="#007700">, </font><font color="#DD0000">'db2inst1'</font><font color="#007700">, </font><font color="#DD0000">'ibmdb2'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$sth </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">"SELECT name, colour FROM fruit"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Count the number of columns in the (non-existent) result set */<br /></font><font color="#0000BB">$colcount </font><font color="#007700">= </font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">columnCount</font><font color="#007700">();<br />print(</font><font color="#DD0000">"Before execute(), result set has $colcount columns (should be 0)</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* Count the number of columns in the result set */<br /></font><font color="#0000BB">$colcount </font><font color="#007700">= </font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">columnCount</font><font color="#007700">();<br />print(</font><font color="#DD0000">"After execute(), result set has $colcount columns (should be 2)</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Before execute(), result set has 0 columns (should be 0)
+After execute(), result set has 2 columns (should be 2)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128438"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::prepare()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::execute()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::rowCount()</B
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdostatement-closecursor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pdostatement-errorcode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDOStatement::closeCursor</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDOStatement::errorCode</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

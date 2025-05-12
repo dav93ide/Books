@@ -1,0 +1,458 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sqlite_exec</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SQLite"
+HREF="ref.sqlite.html"><LINK
+REL="PREVIOUS"
+TITLE="sqlite_escape_string"
+HREF="function.sqlite-escape-string.html"><LINK
+REL="NEXT"
+TITLE="sqlite_factory"
+HREF="function.sqlite-factory.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-escape-string.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-factory.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sqlite-exec"
+></A
+>sqlite_exec</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN157197"
+></A
+><P
+>    (PHP 5)</P
+>sqlite_exec<P
+>    (no version information, might be only in CVS)</P
+>SQLiteDatabase-&#62;exec&nbsp;--&nbsp;ESegue una query priva di risultato in un dato database</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157201"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>sqlite_exec</B
+> ( resource dbhandle, string query )<BR
+></BR
+>bool <B
+CLASS="methodname"
+>sqlite_exec</B
+> ( string query, resource dbhandle )<BR
+></BR
+><P
+>Versione ad oggetti (metodo):</P
+>class <B
+CLASS="classname"
+>SQLiteDatabase</B
+> { <BR
+></BR
+>bool <B
+CLASS="methodname"
+>exec</B
+> ( string query )<BR
+></BR
+>}<P
+>&#13;   Esegue un'espressione SQL, indicata da <VAR
+CLASS="parameter"
+>query</VAR
+> sul database
+   (specificato dal parametro
+   <VAR
+CLASS="parameter"
+>dbhandle</VAR
+>).
+  </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;    SQLite <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>esegue</I
+></SPAN
+> molteplici query separate da punto e virgola,
+    in questo modo si può eseguire un batch di istruzioni SQL caricate da un
+    file o racchiuse in uno script.
+   </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157237"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>query</VAR
+></DT
+><DD
+><P
+>&#13;       Query da eseguire.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>dbhandle</VAR
+></DT
+><DD
+><P
+>&#13;       Risorsa SQLite Database restituita da <B
+CLASS="function"
+>sqlite_open
+       ()</B
+> quando usato in modo procedurale. Questo parametro non è
+       richiesto nel metodo ad oggetti.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Two alternative syntaxes are
+supported for compatibility with other database extensions (such as MySQL).
+The preferred form is the first, where the <VAR
+CLASS="parameter"
+>dbhandle</VAR
+>
+parameter is the first parameter to the function.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157255"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Questa funzione restituisce il valore <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se ha successo, oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> per insuccesso.
+   Se si deve eseguire una query che restituisca un risultato eseguire <A
+HREF="function.sqlite-query.html"
+><B
+CLASS="function"
+>sqlite_query()</B
+></A
+>.
+  </P
+><P
+>I nomi delle colonne restituiti da 
+<VAR
+CLASS="literal"
+>SQLITE_ASSOC</VAR
+> e da
+<VAR
+CLASS="literal"
+>SQLITE_BOTH</VAR
+> saranno maiuscoli o minuscoli in base al valore
+del parametro di configurazione
+<A
+HREF="ref.sqlite.html#ini.sqlite.assoc-case"
+>sqlite.assoc_case</A
+>.</P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157265"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN157268"
+></A
+><P
+><B
+>Esempio 1. Esempio procedurale</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$dbhandle </font><font color="#007700">= </font><font color="#0000BB">sqlite_open</font><font color="#007700">(</font><font color="#DD0000">'mysqlitedb'</font><font color="#007700">);<br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#0000BB">sqlite_exec</font><font color="#007700">(</font><font color="#0000BB">$dbhandle</font><font color="#007700">, </font><font color="#DD0000">"UPDATE users SET email='jDoe@example.com' WHERE username='jDoe'"</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$query</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;exit(</font><font color="#DD0000">'Error in query.'</font><font color="#007700">);<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Number of rows modified: '</font><font color="#007700">, </font><font color="#0000BB">sqlite_changes</font><font color="#007700">(</font><font color="#0000BB">$dbhandle</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN157272"
+></A
+><P
+><B
+>Esempio 2. Esempio ad oggetti</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$dbhandle </font><font color="#007700">= new </font><font color="#0000BB">SQLiteDatabase</font><font color="#007700">(</font><font color="#DD0000">'mysqlitedb'</font><font color="#007700">);<br /></font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#0000BB">$dbhandle</font><font color="#007700">-&gt;</font><font color="#0000BB">exec</font><font color="#007700">(</font><font color="#DD0000">"UPDATE users SET email='jDoe@example.com' WHERE username='jDoe'"</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$query</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;exit(</font><font color="#DD0000">'Error in query.'</font><font color="#007700">);<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Number of rows modified: '</font><font color="#007700">, </font><font color="#0000BB">$dbhandle</font><font color="#007700">-&gt;</font><font color="#0000BB">changes</font><font color="#007700">();<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157275"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.sqlite-query.html"
+><B
+CLASS="function"
+>sqlite_query()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sqlite-unbuffered-query.html"
+><B
+CLASS="function"
+>sqlite_unbuffered_query()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sqlite-array-query.html"
+><B
+CLASS="function"
+>sqlite_array_query()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sqlite-escape-string.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sqlite-factory.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sqlite_escape_string</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sqlite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sqlite_factory</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

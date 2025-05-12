@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>shmop_open</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni relative alla memoria condivisa"
+HREF="ref.shmop.html"><LINK
+REL="PREVIOUS"
+TITLE="shmop_delete"
+HREF="function.shmop-delete.html"><LINK
+REL="NEXT"
+TITLE="shmop_read"
+HREF="function.shmop-read.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.shmop-delete.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.shmop-read.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.shmop-open"
+></A
+>shmop_open</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN150970"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.4, PHP 5)</P
+>shmop_open&nbsp;--&nbsp;Crea oppure apre un segmento di memoria condivisa</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN150973"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>shmop_open</B
+> ( int key, string flags, int mode, int size )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>shmop_open()</B
+> può creare oppure aprire un segmento di memoria condivisa.
+    </P
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>shmop_open()</B
+> utilizza 4 parametri: key, indica l'identificativo
+     di sistema per il segmento di memoria condivisa, questo parametro può essere passato
+     come numero decimale o esadecimale. Il secondo parametro è un flag che può assumere i seguenti valori:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        "a" per accesso (SHM_RDONLY per shmat),
+        usare questo flag quando occorre aprire un segmento di memoria
+        condivisa esistente in sola lettura
+       </P
+></LI
+><LI
+><P
+>&#13;        "c" per creazione (IPC_CREATE),
+        usare questo flag quando si ha la necessità di creare un nuovo segmento di memoria condivisa oppure,
+        se esiste già un segmento con la medesima chiave, tentare di aprirlo in lettura
+        e scrittura
+       </P
+></LI
+><LI
+><P
+>&#13;        "w" per accesso in lettura &#38; scrittura,
+        usare questo flag quando si deve accedere al segmento di memoria condivisa in lettura e scrittura,
+        nella maggior parte dei casi si usa questo flag.
+       </P
+></LI
+><LI
+><P
+>&#13;        "n" per creare un nuovo segmento (IPC_CREATE|IPC_EXCL),
+        usare questo flag quando si vuole creare un nuovo segmento di memoria condivisa, ma,
+        se già ne esiste uno con il medesimo flag, la funzione fallisce. Ciò è utile per motivi di sicurezza,
+        infatti questo permette di evitare problemi di concorrenza.
+       </P
+></LI
+></UL
+>
+      Il terzo parametro, mode, indica i permessi che si desidera assegnare
+      al segmento di memoria, questi sono i medesimi permessi utilizzati per
+      un file. Occorre passare i permessi in forma ottale, ad esempio 0644.
+      L'ultimo parametro è la dimensione in bytes del blocco di memoria condivisa che si
+      desidera creare.
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il terzo ed il quarto parametro dovrebbero essere a 0 se si sta aprendo
+      un segmento di memoria esistene. Se la funzione <B
+CLASS="function"
+>shmop_open()</B
+> ha 
+      successo, sarà restituito un id da usarsi per accedere al segmento di memoria
+      condivisa appena creato.
+     </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN151007"
+></A
+><P
+><B
+>Esempio 1. Creazione di un nuovo blocco di memoria condivisa</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$shm_key </font><font color="#007700">= </font><font color="#0000BB">ftok</font><font color="#007700">(</font><font color="#0000BB">__FILE__</font><font color="#007700">, </font><font color="#DD0000">'t'</font><font color="#007700">);<br /></font><font color="#0000BB">$shm_id </font><font color="#007700">= </font><font color="#0000BB">shmop_open</font><font color="#007700">(</font><font color="#0000BB">$shm_key</font><font color="#007700">, </font><font color="#DD0000">"c"</font><font color="#007700">, </font><font color="#0000BB">0644</font><font color="#007700">, </font><font color="#0000BB">100</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Questo esempio apre un blocco di memoria condivisa con id di sistema
+     restituito da <A
+HREF="function.ftok.html"
+><B
+CLASS="function"
+>ftok()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.shmop-delete.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.shmop-read.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>shmop_delete</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.shmop.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>shmop_read</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,746 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Variable scope</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Variables"
+HREF="language.variables.html"><LINK
+REL="PREVIOUS"
+TITLE="Predefined variables"
+HREF="language.variables.predefined.html"><LINK
+REL="NEXT"
+TITLE="Variable variables"
+HREF="language.variables.variable.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.variables.predefined.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 12. Variables</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.variables.variable.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.variables.scope"
+>Variable scope</A
+></H1
+><P
+>&#13;    The scope of a variable is the context within which it is defined.
+    For the most part all PHP variables only have a single scope.
+    This single scope spans included and required files as well.  For
+    example:
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3740"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$a </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">;<br />include </font><font color="#DD0000">'b.inc'</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    Here the <VAR
+CLASS="varname"
+>$a</VAR
+> variable will be available within
+    the included <TT
+CLASS="filename"
+>b.inc</TT
+> script.  However, within
+    user-defined functions a local function scope is introduced.  Any
+    variable used inside a function is by default limited to the local
+    function scope.  For example:
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3745"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$a </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">; </font><font color="#FF8000">/* global scope */ <br /><br /></font><font color="#007700">function </font><font color="#0000BB">Test</font><font color="#007700">()<br />{ <br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$a</font><font color="#007700">; </font><font color="#FF8000">/* reference to local scope variable */ <br /></font><font color="#007700">} <br /><br /></font><font color="#0000BB">Test</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    This script will not produce any output because the echo statement
+    refers to a local version of the <VAR
+CLASS="varname"
+>$a</VAR
+> variable,
+    and it has not been assigned a value within this scope.  You may
+    notice that this is a little bit different from the C language in
+    that global variables in C are automatically available to
+    functions unless specifically overridden by a local definition.
+    This can cause some problems in that people may inadvertently
+    change a global variable.  In PHP global variables must be
+    declared global inside a function if they are going to be used in
+    that function.
+   </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.variables.scope.global"
+>The global keyword</A
+></H2
+><P
+>&#13;     First, an example use of <VAR
+CLASS="literal"
+>global</VAR
+>:
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3754"
+></A
+><P
+><B
+>Esempio 12-1. Using global</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$a </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">;<br /></font><font color="#0000BB">$b </font><font color="#007700">= </font><font color="#0000BB">2</font><font color="#007700">;<br /><br />function </font><font color="#0000BB">Sum</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;global </font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$b </font><font color="#007700">= </font><font color="#0000BB">$a </font><font color="#007700">+ </font><font color="#0000BB">$b</font><font color="#007700">;<br />} <br /><br /></font><font color="#0000BB">Sum</font><font color="#007700">();<br />echo </font><font color="#0000BB">$b</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;    The above script will output "3".  By declaring
+    <VAR
+CLASS="varname"
+>$a</VAR
+> and <VAR
+CLASS="varname"
+>$b</VAR
+> global within the
+    function, all references to either variable will refer to the
+    global version.  There is no limit to the number of global
+    variables that can be manipulated by a function.
+   </P
+><P
+>&#13;    A second way to access variables from the global scope is to use
+    the special PHP-defined <VAR
+CLASS="varname"
+>$GLOBALS</VAR
+> array.  The
+    previous example can be rewritten as:
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3763"
+></A
+><P
+><B
+>Esempio 12-2. Using <VAR
+CLASS="varname"
+>$GLOBALS</VAR
+> instead of global</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$a </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">;<br /></font><font color="#0000BB">$b </font><font color="#007700">= </font><font color="#0000BB">2</font><font color="#007700">;<br /><br />function </font><font color="#0000BB">Sum</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$GLOBALS</font><font color="#007700">[</font><font color="#DD0000">'b'</font><font color="#007700">] = </font><font color="#0000BB">$GLOBALS</font><font color="#007700">[</font><font color="#DD0000">'a'</font><font color="#007700">] + </font><font color="#0000BB">$GLOBALS</font><font color="#007700">[</font><font color="#DD0000">'b'</font><font color="#007700">];<br />} <br /><br /></font><font color="#0000BB">Sum</font><font color="#007700">();<br />echo </font><font color="#0000BB">$b</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    The <VAR
+CLASS="varname"
+>$GLOBALS</VAR
+> array is an associative array with
+    the name of the global variable being the key and the contents of
+    that variable being the value of the array element.
+    Notice how <VAR
+CLASS="varname"
+>$GLOBALS</VAR
+> exists in any scope, this 
+    is because $GLOBALS is a <A
+HREF="language.variables.predefined.html#language.variables.superglobals"
+>superglobal</A
+>.
+    Here's an example demonstrating the power of superglobals: 
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3772"
+></A
+><P
+><B
+>Esempio 12-3. Example demonstrating superglobals and scope</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">test_global</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Most predefined variables aren't "super" and require <br />&nbsp;&nbsp;&nbsp;&nbsp;// 'global' to be available to the functions local scope.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">global </font><font color="#0000BB">$HTTP_POST_VARS</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$HTTP_POST_VARS</font><font color="#007700">[</font><font color="#DD0000">'name'</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Superglobals are available in any scope and do <br />&nbsp;&nbsp;&nbsp;&nbsp;// not require 'global'. Superglobals are available <br />&nbsp;&nbsp;&nbsp;&nbsp;// as of PHP 4.1.0, and HTTP_POST_VARS is now<br />&nbsp;&nbsp;&nbsp;&nbsp;// deemed deprecated.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#0000BB">$_POST</font><font color="#007700">[</font><font color="#DD0000">'name'</font><font color="#007700">];<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.variables.scope.static"
+>Using static variables</A
+></H2
+><P
+>&#13;    Another important feature of variable scoping is the
+    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>static</I
+></SPAN
+> variable.  A static variable exists
+    only in a local function scope, but it does not lose its value
+    when program execution leaves this scope.  Consider the following
+    example:
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3780"
+></A
+><P
+><B
+>Esempio 12-4. Example demonstrating need for static variables</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">Test</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$a</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$a</font><font color="#007700">++;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    This function is quite useless since every time it is called it
+    sets <VAR
+CLASS="varname"
+>$a</VAR
+> to <VAR
+CLASS="literal"
+>0</VAR
+> and prints
+    "0".  The <VAR
+CLASS="varname"
+>$a</VAR
+>++ which increments the
+    variable serves no purpose since as soon as the function exits the
+    <VAR
+CLASS="varname"
+>$a</VAR
+> variable disappears.  To make a useful
+    counting function which will not lose track of the current count,
+    the <VAR
+CLASS="varname"
+>$a</VAR
+> variable is declared static:
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3790"
+></A
+><P
+><B
+>Esempio 12-5. Example use of static variables</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">Test</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;static </font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$a</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$a</font><font color="#007700">++;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Now, every time the Test() function is called it will print the
+    value of <VAR
+CLASS="varname"
+>$a</VAR
+> and increment it.
+   </P
+><P
+>&#13;    Static variables also provide one way to deal with recursive
+    functions. A recursive function is one which calls itself.  Care
+    must be taken when writing a recursive function because it is
+    possible to make it recurse indefinitely.  You must make sure you
+    have an adequate way of terminating the recursion.  The following
+    simple function recursively counts to 10, using the static
+    variable <VAR
+CLASS="varname"
+>$count</VAR
+> to know when to stop:
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3798"
+></A
+><P
+><B
+>Esempio 12-6. Static variables with recursive functions</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">Test</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;static </font><font color="#0000BB">$count </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$count</font><font color="#007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$count</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$count </font><font color="#007700">&lt; </font><font color="#0000BB">10</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">Test</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$count</font><font color="#007700">--;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>  
+      Static variables may be declared as seen in the examples above. 
+      Trying to assign values to these variables which are the 
+      result of expressions will cause a parse error.
+     </P
+><P
+>  
+      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3804"
+></A
+><P
+><B
+>Esempio 12-7. Declaring static variables</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">foo</font><font color="#007700">(){<br />&nbsp;&nbsp;&nbsp;&nbsp;static </font><font color="#0000BB">$int </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// correct <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">static </font><font color="#0000BB">$int </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">+</font><font color="#0000BB">2</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// wrong&nbsp;&nbsp;(as it is an expression)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">static </font><font color="#0000BB">$int </font><font color="#007700">= </font><font color="#0000BB">sqrt</font><font color="#007700">(</font><font color="#0000BB">121</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// wrong&nbsp;&nbsp;(as it is an expression too)<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$int</font><font color="#007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$int</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.variables.scope.references"
+>References with global and static variables</A
+></H2
+><P
+>&#13;    The Zend Engine 1, driving PHP 4, implements the
+    <A
+HREF="language.variables.scope.html#language.variables.scope.static"
+>static</A
+> and 
+    <A
+HREF="language.variables.scope.html#language.variables.scope.global"
+>global</A
+> modifier 
+    for variables in terms of <A
+HREF="language.references.html"
+>&#13;    references</A
+>. For example, a true global variable
+    imported inside a function scope with the <VAR
+CLASS="literal"
+>global</VAR
+>
+    statement actually creates a reference to the global variable. This can
+    lead to unexpected behaviour which the following example addresses:
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3814"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">test_global_ref</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;global </font><font color="#0000BB">$obj</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$obj </font><font color="#007700">= &amp;new </font><font color="#0000BB">stdclass</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">test_global_noref</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;global </font><font color="#0000BB">$obj</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$obj </font><font color="#007700">= new </font><font color="#0000BB">stdclass</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">test_global_ref</font><font color="#007700">();<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$obj</font><font color="#007700">);<br /></font><font color="#0000BB">test_global_noref</font><font color="#007700">();<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$obj</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    Executing this example will result in the following output:
+   </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>NULL
+object(stdClass)(0) {
+}</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;    A similar behaviour applies to the <VAR
+CLASS="literal"
+>static</VAR
+> statement.
+    References are not stored statically:
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3820"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function &amp;</font><font color="#0000BB">get_instance_ref</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;static </font><font color="#0000BB">$obj</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Static object: '</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$obj</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if (!isset(</font><font color="#0000BB">$obj</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Assign a reference to the static variable<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$obj </font><font color="#007700">= &amp;new </font><font color="#0000BB">stdclass</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$obj</font><font color="#007700">-&gt;</font><font color="#0000BB">property</font><font color="#007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$obj</font><font color="#007700">;<br />}<br /><br />function &amp;</font><font color="#0000BB">get_instance_noref</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;static </font><font color="#0000BB">$obj</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Static object: '</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$obj</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if (!isset(</font><font color="#0000BB">$obj</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Assign the object to the static variable<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$obj </font><font color="#007700">= new </font><font color="#0000BB">stdclass</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$obj</font><font color="#007700">-&gt;</font><font color="#0000BB">property</font><font color="#007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$obj</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">$obj1 </font><font color="#007700">= </font><font color="#0000BB">get_instance_ref</font><font color="#007700">();<br /></font><font color="#0000BB">$still_obj1 </font><font color="#007700">= </font><font color="#0000BB">get_instance_ref</font><font color="#007700">();<br />echo </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#0000BB">$obj2 </font><font color="#007700">= </font><font color="#0000BB">get_instance_noref</font><font color="#007700">();<br /></font><font color="#0000BB">$still_obj2 </font><font color="#007700">= </font><font color="#0000BB">get_instance_noref</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    Executing this example will result in the following output:
+   </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Static object: NULL
+Static object: NULL
+
+Static object: NULL
+Static object: object(stdClass)(1) {
+  ["property"]=&#62;
+  int(1)
+}</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;    This example demonstrates that when assigning a reference to a static
+    variable, it's not <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>remembered</I
+></SPAN
+> when you call the
+    <VAR
+CLASS="literal"
+>&#38;get_instance_ref()</VAR
+> function a second time.
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.variables.predefined.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.variables.variable.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Predefined variables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.variables.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Variable variables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

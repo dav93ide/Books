@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mb_encode_mimeheader</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Multibyte String Functions"
+HREF="ref.mbstring.html"><LINK
+REL="PREVIOUS"
+TITLE="mb_detect_order"
+HREF="function.mb-detect-order.html"><LINK
+REL="NEXT"
+TITLE="mb_encode_numericentity"
+HREF="function.mb-encode-numericentity.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mb-detect-order.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mb-encode-numericentity.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mb-encode-mimeheader"
+></A
+>mb_encode_mimeheader</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN91263"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PHP 5)</P
+>mb_encode_mimeheader&nbsp;--&nbsp;Encode string for MIME header</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN91266"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>mb_encode_mimeheader</B
+> ( string str [, string charset [, string transfer_encoding [, string linefeed]]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mb_encode_mimeheader()</B
+> encodes a given string
+     <VAR
+CLASS="parameter"
+>str</VAR
+> by the MIME header encoding scheme.
+     Returns a converted version of the string represented in ASCII.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>charset</VAR
+> specifies the name of the character set
+     in which <VAR
+CLASS="parameter"
+>str</VAR
+> is represented in. The default value
+     is determined by the current NLS setting (<VAR
+CLASS="literal"
+>mbstring.language</VAR
+>).
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>transfer_encoding</VAR
+> specifies the scheme of MIME
+     encoding. It should be either <VAR
+CLASS="literal"
+>"B"</VAR
+> (Base64) or
+     <VAR
+CLASS="literal"
+>"Q"</VAR
+> (Quoted-Printable). Falls back to
+     <VAR
+CLASS="literal"
+>"B"</VAR
+> if not given.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>linefeed</VAR
+> specifies the EOL (end-of-line) marker
+     with which <B
+CLASS="function"
+>mb_encode_mime_header()</B
+> performs
+     line-folding (a <A
+HREF="http://www.faqs.org/rfcs/rfc2822"
+TARGET="_top"
+>RFC</A
+> term,
+     the act of breaking a line longer than a certain length into multiple
+     lines. The length is currently hard-coded to 74 characters).
+     Falls back to <VAR
+CLASS="literal"
+>"\r\n"</VAR
+> (CRLF) if not given.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN91301"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>mb_encode_mimeheader()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$name </font><font color="#007700">= </font><font color="#DD0000">""</font><font color="#007700">; </font><font color="#FF8000">// kanji<br /></font><font color="#0000BB">$mbox </font><font color="#007700">= </font><font color="#DD0000">"kru"</font><font color="#007700">;<br /></font><font color="#0000BB">$doma </font><font color="#007700">= </font><font color="#DD0000">"gtinn.mon"</font><font color="#007700">;<br /></font><font color="#0000BB">$addr </font><font color="#007700">= </font><font color="#0000BB">mb_encode_mimeheader</font><font color="#007700">(</font><font color="#0000BB">$name</font><font color="#007700">, </font><font color="#DD0000">"UTF-7"</font><font color="#007700">, </font><font color="#DD0000">"Q"</font><font color="#007700">) . </font><font color="#DD0000">" &lt;" </font><font color="#007700">. </font><font color="#0000BB">$mbox </font><font color="#007700">. </font><font color="#DD0000">"@" </font><font color="#007700">. </font><font color="#0000BB">$doma </font><font color="#007700">. </font><font color="#DD0000">"&gt;"</font><font color="#007700">;<br />echo </font><font color="#0000BB">$addr</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      This function isn't designed to break lines at higher-level
+      contextual break points (word boundaries, etc.).
+      This behaviour may clutter up the original string with unexpected spaces.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also <A
+HREF="function.mb-decode-mimeheader.html"
+><B
+CLASS="function"
+>mb_decode_mimeheader()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mb-detect-order.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mb-encode-numericentity.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mb_detect_order</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mbstring.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mb_encode_numericentity</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

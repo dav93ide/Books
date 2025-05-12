@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>is_uploaded_file</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="is_readable"
+HREF="function.is-readable.html"><LINK
+REL="NEXT"
+TITLE="is_writable"
+HREF="function.is-writable.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.is-readable.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.is-writable.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.is-uploaded-file"
+></A
+>is_uploaded_file</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN42360"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.17, PHP 4 &#62;= 4.0.3, PHP 5)</P
+>is_uploaded_file&nbsp;--&nbsp;Dice se un file fù caricato via HTTP POST.</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN42363"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>is_uploaded_file</B
+> ( string filename )<BR
+></BR
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se il file chiamato per <VAR
+CLASS="parameter"
+>filename</VAR
+> è stato spedito in upload col metodo HTTP POST. Ciò è utile per rendere sicuro il fatto da un utente malizioso non abbia cercato di forzare uno script ad agire sul file sul quale non dovrebbe essere svolto alcun lavoro--ad esempio,
+     <TT
+CLASS="filename"
+>/etc/passwd</TT
+>.
+    </P
+><P
+>&#13;     Questo controllo è particolarmente importante in caso esista una qualunque possibilità che una qualunque cosa che viaggia durante l'upload del file, possa rivelarne il contenuto all'utente, o anche ad altri utenti che operano sullo stesso sistema.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>is_uploaded_file()</B
+> è disponibile solo nella versione PHP 3, dopo la 3.0.16, e nella versione 4
+     dopo la 4.0.2. Se hai delle perplessità nell'usare una versione più recente, puoi utilizzare una delle seguenti funzioni per proteggere te stesso:
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       L'esempio seguente <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> lavorerà con
+       le versioni PHP 4 dopo la 4.0.2. Ciò dipende da funzionalità interne        a PHP che sono variate dopo tale versione.
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN42381"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>is_uploaded_file()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Userland test for uploaded file. */<br /></font><font color="#007700">function </font><font color="#0000BB">is_uploaded_file</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">$tmp_file </font><font color="#007700">= </font><font color="#0000BB">get_cfg_var</font><font color="#007700">(</font><font color="#DD0000">'upload_tmp_dir'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$tmp_file </font><font color="#007700">= </font><font color="#0000BB">dirname</font><font color="#007700">(</font><font color="#0000BB">tempnam</font><font color="#007700">(</font><font color="#DD0000">''</font><font color="#007700">, </font><font color="#DD0000">''</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$tmp_file </font><font color="#007700">.= </font><font color="#DD0000">'/' </font><font color="#007700">. </font><font color="#0000BB">basename</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* User might have trailing slash in php.ini... */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">return (</font><font color="#0000BB">ereg_replace</font><font color="#007700">(</font><font color="#DD0000">'/+'</font><font color="#007700">, </font><font color="#DD0000">'/'</font><font color="#007700">, </font><font color="#0000BB">$tmp_file</font><font color="#007700">) == </font><font color="#0000BB">$filename</font><font color="#007700">);<br />}<br /><br /></font><font color="#FF8000">/* This is how to use it, since you also don't have<br /> * move_uploaded_file() in these older versions: */<br /></font><font color="#007700">if (</font><font color="#0000BB">is_uploaded_file</font><font color="#007700">(</font><font color="#0000BB">$HTTP_POST_FILES</font><font color="#007700">[</font><font color="#DD0000">'userfile'</font><font color="#007700">])) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">copy</font><font color="#007700">(</font><font color="#0000BB">$HTTP_POST_FILES</font><font color="#007700">[</font><font color="#DD0000">'userfile'</font><font color="#007700">], </font><font color="#DD0000">"/place/to/put/uploaded/file"</font><font color="#007700">);<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Possibile attacco su file in uploading: filename '$HTTP_POST_FILES</font><font color="#007700">[</font><font color="#DD0000">userfile</font><font color="#007700">]</font><font color="#DD0000">'."</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Vedi anche <A
+HREF="function.move-uploaded-file.html"
+><B
+CLASS="function"
+>move_uploaded_file()</B
+></A
+>, e la sezione
+     <A
+HREF="features.file-upload.html"
+>Handling file uploads</A
+>
+     per un semplice esempio di utilizzo.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.is-readable.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.is-writable.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>is_readable</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>is_writable</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

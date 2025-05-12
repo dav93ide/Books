@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Scope Resolution Operator (::)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><LINK
+REL="PREVIOUS"
+TITLE="Visibility"
+HREF="language.oop5.visibility.html"><LINK
+REL="NEXT"
+TITLE="Static Keyword"
+HREF="language.oop5.static.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop5.visibility.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 19. Classes and Objects (PHP 5)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop5.static.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop5.paamayim-nekudotayim"
+>Scope Resolution Operator (::)</A
+></H1
+><P
+>&#13;   The Scope Resolution Operator (also called Paamayim Nekudotayim) or in
+   simpler terms, the double colon, is a token that allows access to 
+   <A
+HREF="language.oop5.static.html"
+>static</A
+>,
+   <A
+HREF="language.oop5.constants.html"
+>constant</A
+>, and overridden 
+   members or methods of a class. 
+  </P
+><P
+>&#13;   When referencing these items from outside the class definition, use
+   the name of the class.
+  </P
+><P
+>&#13;   Paamayim Nekudotayim would, at first, seem like a strange choice for
+   naming a double-colon. However, while writing the Zend Engine 0.5
+   (which powers PHP 3), that's what the Zend team decided to call it.
+   It actually does mean double-colon - in Hebrew!
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5822"
+></A
+><P
+><B
+>Esempio 19-10. :: from outside the class definition</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">MyClass </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;const </font><font color="#0000BB">CONST_VALUE </font><font color="#007700">= </font><font color="#DD0000">'A constant value'</font><font color="#007700">;<br />}<br /><br />echo </font><font color="#0000BB">MyClass</font><font color="#007700">::</font><font color="#0000BB">CONST_VALUE</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   Two special keywords <VAR
+CLASS="varname"
+>self</VAR
+> and <VAR
+CLASS="varname"
+>parent</VAR
+>
+   are used to access members or methods from inside the class definition.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5828"
+></A
+><P
+><B
+>Esempio 19-11. :: from inside the class definition</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">OtherClass </font><font color="#007700">extends </font><font color="#0000BB">MyClass<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">static </font><font color="#0000BB">$my_static </font><font color="#007700">= </font><font color="#DD0000">'static var'</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">static function </font><font color="#0000BB">doubleColon</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">parent</font><font color="#007700">::</font><font color="#0000BB">CONST_VALUE </font><font color="#007700">. </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">self</font><font color="#007700">::</font><font color="#0000BB">$my_static </font><font color="#007700">. </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">OtherClass</font><font color="#007700">::</font><font color="#0000BB">doubleColon</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   When an extending class overrides the parents definition of a method,
+   PHP will not call the parent's method. It's up to the extended class
+   on whether or not the parent's method is called. This also applies to <A
+HREF="language.oop5.decon.html"
+>Constructors and Destructors</A
+>, <A
+HREF="language.oop5.overloading.html"
+>Overloading</A
+>, and <A
+HREF="language.oop5.magic.html"
+>Magic</A
+> method definitions.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5835"
+></A
+><P
+><B
+>Esempio 19-12. Calling a parent's method</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">MyClass<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">protected </font><font color="#007700">function </font><font color="#0000BB">myFunc</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"MyClass::myFunc()\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class </font><font color="#0000BB">OtherClass </font><font color="#007700">extends </font><font color="#0000BB">MyClass<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Override parent's definition<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">myFunc</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// But still call the parent function<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">parent</font><font color="#007700">::</font><font color="#0000BB">myFunc</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"OtherClass::myFunc()\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$class </font><font color="#007700">= new </font><font color="#0000BB">OtherClass</font><font color="#007700">();<br /></font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">myFunc</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop5.visibility.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop5.static.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Visibility</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Static Keyword</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

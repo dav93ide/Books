@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>date_sunset</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Data e Ora"
+HREF="ref.datetime.html"><LINK
+REL="PREVIOUS"
+TITLE="date_sunrise"
+HREF="function.date-sunrise.html"><LINK
+REL="NEXT"
+TITLE="date"
+HREF="function.date.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.date-sunrise.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.date.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.date-sunset"
+></A
+>date_sunset</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN23558"
+></A
+><P
+>    (PHP 5)</P
+>date_sunset&nbsp;--&nbsp;
+   Returns time of sunset for a given day and location
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN23561"
+></A
+><H2
+>Description</H2
+>mixed <B
+CLASS="methodname"
+>date_sunset</B
+> ( int timestamp [, int format [, float latitude [, float longitude [, float zenith [, float gmt_offset]]]]] )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>date_sunset()</B
+> returns the sunset time for a given day
+   (specified as a <VAR
+CLASS="parameter"
+>timestamp</VAR
+>) and location. The
+   <VAR
+CLASS="parameter"
+>latitude</VAR
+>, <VAR
+CLASS="parameter"
+>longitude</VAR
+> and
+   <VAR
+CLASS="parameter"
+>zenith</VAR
+> parameters default to the
+   <VAR
+CLASS="literal"
+>date.default_latitude</VAR
+>,
+   <VAR
+CLASS="literal"
+>date.default_longitude</VAR
+> and
+   <VAR
+CLASS="literal"
+>date.sunset_zenith</VAR
+> configuration options,
+   respectively.
+  </P
+><P
+>&#13;   The <VAR
+CLASS="parameter"
+>latitude</VAR
+> defaults to North. So, if you want to
+   specify a South value, you must pass a negative value. The same note
+   applies to <VAR
+CLASS="parameter"
+>longitude</VAR
+>, which defaults to East.
+  </P
+><P
+>&#13;   The <VAR
+CLASS="parameter"
+>gmt_offset</VAR
+> parameter is specified in hours.
+  </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN23598"
+></A
+><P
+><B
+>Tabella 1. <VAR
+CLASS="parameter"
+>format</VAR
+> constants</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>constant</TH
+><TH
+>description</TH
+><TH
+>example</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>SUNFUNCS_RET_STRING</TD
+><TD
+>returns the result as <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+><TD
+>16:46</TD
+></TR
+><TR
+><TD
+>SUNFUNCS_RET_DOUBLE</TD
+><TD
+>returns the result as <A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+></TD
+><TD
+>16.78243132</TD
+></TR
+><TR
+><TD
+>SUNFUNCS_RET_TIMESTAMP</TD
+><TD
+>returns the result as <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+> (timestamp)</TD
+><TD
+>1095034606</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN23624"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>date_sunset()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">/* calculate the sunset time for Lisbon, Portugal<br />Latitude: 38.4 North<br />Longitude: 9 West<br />Zenith ~= 90<br />offset: +1 GMT<br />*/<br /><br /></font><font color="#007700">echo </font><font color="#0000BB">date</font><font color="#007700">(</font><font color="#DD0000">"D M d Y"</font><font color="#007700">). </font><font color="#DD0000">', sunset time : ' </font><font color="#007700">.</font><font color="#0000BB">date_sunset</font><font color="#007700">(</font><font color="#0000BB">time</font><font color="#007700">(), </font><font color="#0000BB">SUNFUNCS_RET_STRING</font><font color="#007700">, </font><font color="#0000BB">38.4</font><font color="#007700">, -</font><font color="#0000BB">9</font><font color="#007700">, </font><font color="#0000BB">90</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà
+qualcosa simile a:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Mon Dec 20 2004, sunset time : 18:13</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   See also <A
+HREF="function.date-sunrise.html"
+><B
+CLASS="function"
+>date_sunrise()</B
+></A
+>.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.date-sunrise.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.date.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>date_sunrise</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.datetime.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>date</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

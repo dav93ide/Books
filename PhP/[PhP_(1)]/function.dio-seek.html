@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>dio_seek</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per l'IO diretto"
+HREF="ref.dio.html"><LINK
+REL="PREVIOUS"
+TITLE="dio_read"
+HREF="function.dio-read.html"><LINK
+REL="NEXT"
+TITLE="dio_stat"
+HREF="function.dio-stat.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dio-read.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dio-stat.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.dio-seek"
+></A
+>dio_seek</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN28510"
+></A
+><P
+>    (PHP 4 &#62;= 4.2.0, PHP 5 &#60;= 5.0.4)</P
+>dio_seek&nbsp;--&nbsp;Si posiziona al byte pos del file indicato da fd</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN28513"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>dio_seek</B
+> ( resource fd, int pos [, int whence] )<BR
+></BR
+><P
+>&#13;   La funzione <B
+CLASS="function"
+>dio_seek()</B
+> viene utilizzata per modificare la 
+   posizione nel file indicato dal descrittore <VAR
+CLASS="parameter"
+>fd</VAR
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN28530"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>fd</VAR
+></DT
+><DD
+><P
+>&#13;       Descrittore di file restituito da <A
+HREF="function.dio-open.html"
+><B
+CLASS="function"
+>dio_open()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>pos</VAR
+></DT
+><DD
+><P
+>&#13;       La nuova posizione.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>whence</VAR
+></DT
+><DD
+><P
+>&#13;       specifica come debba essere interpretata la
+       posizione indicata da <VAR
+CLASS="parameter"
+>pos</VAR
+>:
+       <P
+></P
+><UL
+><LI
+><P
+>&#13;          <TT
+CLASS="constant"
+><B
+>SEEK_SET</B
+></TT
+> (default) - Indica
+          che <VAR
+CLASS="parameter"
+>pos</VAR
+> è
+          determinato dall'inizio del file.
+         </P
+></LI
+><LI
+><P
+>&#13;          <TT
+CLASS="constant"
+><B
+>SEEK_CUR</B
+></TT
+> - Indica che <VAR
+CLASS="parameter"
+>pos</VAR
+> è il numero
+          di caratteri dalla posizione attuale. Questo valore può essere
+          positivo o negativo.
+         </P
+></LI
+><LI
+><P
+>&#13;          <TT
+CLASS="constant"
+><B
+>SEEK_END</B
+></TT
+> - Indica che <VAR
+CLASS="parameter"
+>pos</VAR
+> è il numero
+          di caratteri dalla fine del file. Un valore negativo
+          specifica una posizione all'interno dell'estensione del file;
+          un valore positivo specifica una posizione oltre la fine corrente del file.
+          Se si specifica una posizione oltre la fine del file, e vi si scrive
+          dei dati, il file sarà allungato e riempito di zero fino a quella
+          posizione.
+         </P
+></LI
+></UL
+>
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN28564"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN28567"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN28570"
+></A
+><P
+><B
+>Esempio 1. Posizionamento in un file</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$fd </font><font color="#007700">= </font><font color="#0000BB">dio_open</font><font color="#007700">(</font><font color="#DD0000">'/dev/ttyS0'</font><font color="#007700">, </font><font color="#0000BB">O_RDWR</font><font color="#007700">);<br /><br /></font><font color="#0000BB">dio_seek</font><font color="#007700">(</font><font color="#0000BB">$fd</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">, </font><font color="#0000BB">SEEK_SET</font><font color="#007700">);<br /></font><font color="#FF8000">// Si posiziona a 10 caratteri dall'inizio del file<br /><br /></font><font color="#0000BB">dio_seek</font><font color="#007700">(</font><font color="#0000BB">$fd</font><font color="#007700">, -</font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">SEEK_CUR</font><font color="#007700">);<br /></font><font color="#FF8000">// Si posiziona a 8 caratteri dall'inizio del file<br /><br /></font><font color="#0000BB">dio_seek</font><font color="#007700">(</font><font color="#0000BB">$fd</font><font color="#007700">, -</font><font color="#0000BB">5</font><font color="#007700">, </font><font color="#0000BB">SEEK_END</font><font color="#007700">);<br /></font><font color="#FF8000">// Si posiziona a 5 caratteri dalla fine del file<br /><br /></font><font color="#0000BB">dio_seek</font><font color="#007700">(</font><font color="#0000BB">$fd</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">, </font><font color="#0000BB">SEEK_END</font><font color="#007700">);<br /></font><font color="#FF8000">// Si posiziona a 10 caratteri dopo la fine del file<br />// i 10 caratteri tra la fine del file e la posizione corrente<br />// sono riempiti con zero.<br /><br /></font><font color="#0000BB">dio_close</font><font color="#007700">(</font><font color="#0000BB">$fd</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>     
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dio-read.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dio-stat.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>dio_read</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dio.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>dio_stat</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

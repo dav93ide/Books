@@ -1,0 +1,865 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Sun, iPlanet and Netscape servers on Sun Solaris</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation on Unix systems"
+HREF="install.unix.html"><LINK
+REL="PREVIOUS"
+TITLE="fhttpd related notes"
+HREF="install.unix.fhttpd.html"><LINK
+REL="NEXT"
+TITLE="CGI and commandline setups"
+HREF="install.unix.commandline.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.unix.fhttpd.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 4. Installation on Unix systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.unix.commandline.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.unix.sun"
+>Sun, iPlanet and Netscape servers on Sun Solaris</A
+></H1
+><P
+>&#13;     This section contains notes and hints specific to Sun Java System Web Server,
+     Sun ONE Web Server, iPlanet and Netscape server installs of PHP on Sun Solaris.
+    </P
+><P
+>&#13;     From PHP 4.3.3 on you can use PHP scripts with the
+     <A
+HREF="ref.nsapi.html"
+>NSAPI module</A
+> to 
+     <A
+HREF="install.unix.sun.html#install.unix.sun.specialpages"
+>generate custom directory
+     listings and error pages</A
+>. Additional functions for Apache
+     compatibility are also available. For support in current webservers read
+     the <A
+HREF="install.unix.sun.html#install.unix.sun.notes"
+>note about subrequests</A
+>.
+    </P
+><P
+>&#13;     You can find more information about setting up PHP for the Netscape
+     Enterprise Server (NES) here:
+     <A
+HREF="http://benoit.noss.free.fr/php/install-php4.html"
+TARGET="_top"
+>http://benoit.noss.free.fr/php/install-php4.html</A
+>
+    </P
+><P
+>&#13;     To build PHP with Sun JSWS/Sun ONE WS/iPlanet/Netscape webservers,
+     enter the proper install directory for the
+     <A
+HREF="configure.html#configure.with-nsapi"
+>--with-nsapi=[DIR]</A
+>
+     option. The default directory is usually
+     <TT
+CLASS="filename"
+>/opt/netscape/suitespot/</TT
+>.
+     Please also read <TT
+CLASS="filename"
+>/php-xxx-version/sapi/nsapi/nsapi-readme.txt</TT
+>.
+    </P
+><P
+>&#13;     <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;        Install the following packages from <A
+HREF="http://www.sunfreeware.com/"
+TARGET="_top"
+>&#13;        http://www.sunfreeware.com/</A
+> or another download site:
+        <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><TT
+CLASS="filename"
+>autoconf-2.13</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>automake-1.4</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>bison-1_25-sol26-sparc-local</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>flex-2_5_4a-sol26-sparc-local</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>gcc-2_95_2-sol26-sparc-local</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>gzip-1.2.4-sol26-sparc-local</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>m4-1_4-sol26-sparc-local</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>make-3_76_1-sol26-sparc-local</TT
+></TD
+></TR
+><TR
+><TD
+>&#13;          <TT
+CLASS="filename"
+>mysql-3.23.24-beta</TT
+> (if you want mysql support)
+         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>perl-5_005_03-sol26-sparc-local</TT
+></TD
+></TR
+><TR
+><TD
+><TT
+CLASS="filename"
+>tar-1.13</TT
+> (GNU tar)</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        Make sure your path includes the proper directories
+        <VAR
+CLASS="literal"
+>PATH=.:/usr/local/bin:/usr/sbin:/usr/bin:/usr/ccs/bin</VAR
+>
+        and make it available to your system <KBD
+CLASS="userinput"
+>export PATH</KBD
+>.
+       </P
+></LI
+><LI
+><P
+>&#13;        <KBD
+CLASS="userinput"
+>gunzip php-x.x.x.tar.gz</KBD
+> (if you have a .gz dist,
+        otherwise go to 4).
+       </P
+></LI
+><LI
+><P
+>&#13;        <KBD
+CLASS="userinput"
+>tar xvf php-x.x.x.tar</KBD
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        Change to your extracted PHP directory:
+        <KBD
+CLASS="userinput"
+>cd ../php-x.x.x </KBD
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        For the following step, make sure
+        <TT
+CLASS="filename"
+>/opt/netscape/suitespot/</TT
+> is
+        where your netscape server is installed. Otherwise, change to the
+        correct path and run:
+        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>./configure --with-mysql=/usr/local/mysql \
+--with-nsapi=/opt/netscape/suitespot/ \
+--enable-libgcc</PRE
+></TD
+></TR
+></TABLE
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        Run <B
+CLASS="command"
+>make</B
+> followed by <B
+CLASS="command"
+>make install</B
+>.
+       </P
+></LI
+></OL
+>
+    </P
+><P
+>&#13;     After performing the base install and reading the appropriate readme file,
+     you may need to perform some additional configuration steps.
+    </P
+><DIV
+CLASS="formalpara"
+><P
+><B
+>Configuration Instructions for Sun/iPlanet/Netscape. </B
+>
+      Firstly you may need to add some paths to the <VAR
+CLASS="varname"
+>LD_LIBRARY_PATH</VAR
+>
+      environment for the server to find all the shared libs. This can best done
+      in the start script for your webserver. The start script is often located
+      in: <TT
+CLASS="filename"
+>/path/to/server/https-servername/start</TT
+>.
+      You may also need to edit the configuration files that are
+      located in: <TT
+CLASS="filename"
+>/path/to/server/https-servername/config/</TT
+>.
+      <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;         Add the following line to <TT
+CLASS="filename"
+>mime.types</TT
+> (you can do
+         that by the administration server):
+         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>type=magnus-internal/x-httpd-php exts=php</PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+></LI
+><LI
+><P
+>&#13;         Edit <TT
+CLASS="filename"
+>magnus.conf</TT
+> (for servers &#62;= 6) or
+         <TT
+CLASS="filename"
+>obj.conf</TT
+> (for servers &#60; 6) and add the following,
+         shlib will vary depending on your system, it will be something like
+         <TT
+CLASS="filename"
+>/opt/netscape/suitespot/bin/libphp4.so</TT
+>. You should
+         place the following lines after <VAR
+CLASS="literal"
+>mime types init</VAR
+>.
+         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>Init fn="load-modules" funcs="php4_init,php4_execute,php4_auth_trans" shlib="/opt/netscape/suitespot/bin/libphp4.so"
+Init fn="php4_init" LateInit="yes" errorString="Failed to initialize PHP!" [php_ini="/path/to/php.ini"]</PRE
+></TD
+></TR
+></TABLE
+>
+         (PHP &#62;= 4.3.3) The <VAR
+CLASS="literal"
+>php_ini</VAR
+> parameter is
+         optional but with it you can place your <TT
+CLASS="filename"
+>php.ini</TT
+> in your
+         webserver config directory.
+        </P
+></LI
+><LI
+><P
+>&#13;         Configure the default object in <TT
+CLASS="filename"
+>obj.conf</TT
+>
+         (for virtual server classes [version 6.0+] in
+         their <TT
+CLASS="filename"
+>vserver.obj.conf</TT
+>):
+         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;Object name="default"&#62;
+.
+.
+.
+.#NOTE this next line should happen after all 'ObjectType' and before all 'AddLog' lines
+Service fn="php4_execute" type="magnus-internal/x-httpd-php" [inikey=value inikey=value ...]
+.
+.
+&#60;/Object&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+         (PHP &#62;= 4.3.3) As additional parameters you can add some special
+         <TT
+CLASS="filename"
+>php.ini</TT
+>-values, for example you can set a
+         <VAR
+CLASS="literal"
+>docroot="/path/to/docroot"</VAR
+> specific
+         to the context <VAR
+CLASS="literal"
+>php4_execute</VAR
+> is called. For boolean
+         ini-keys please use 0/1 as value, not
+         <VAR
+CLASS="literal"
+>"On","Off",...</VAR
+>
+         (this will not work correctly), e.g.
+         <VAR
+CLASS="literal"
+>zlib.output_compression=1</VAR
+> instead of
+         <VAR
+CLASS="literal"
+>zlib.output_compression="On"</VAR
+>
+        </P
+></LI
+><LI
+><P
+>&#13;         This is only needed if you want to configure a directory that only consists of
+         PHP scripts (same like a <TT
+CLASS="filename"
+>cgi-bin</TT
+> directory):
+         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;Object name="x-httpd-php"&#62;
+ObjectType fn="force-type" type="magnus-internal/x-httpd-php"
+Service fn=php4_execute [inikey=value inikey=value ...]
+&#60;/Object&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+         After that you can configure a directory in the Administration server and assign it
+         the style <VAR
+CLASS="literal"
+>x-httpd-php</VAR
+>. All files in it will get executed as PHP.
+         This is nice to hide PHP usage by renaming files to <TT
+CLASS="filename"
+>.html</TT
+>.
+        </P
+></LI
+><LI
+><P
+>&#13;         Setup of authentication: PHP authentication cannot be used with any
+         other authentication. ALL AUTHENTICATION IS PASSED TO YOUR PHP SCRIPT.
+         To configure PHP Authentication for the entire server, add the
+         following line to your default object:
+         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;Object name="default"&#62;
+AuthTrans fn=php4_auth_trans
+.
+.
+.
+&#60;/Object&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+></LI
+><LI
+><P
+>&#13;         To use PHP Authentication on a single directory, add the following:
+         <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;Object ppath="d:\path\to\authenticated\dir\*"&#62;
+AuthTrans fn=php4_auth_trans
+&#60;/Object&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+        </P
+></LI
+></OL
+>
+     </P
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      The stacksize that PHP uses depends on the configuration of the webserver. If you get
+      crashes with very large PHP scripts, it is recommended to raise it with the Admin Server
+      (in the section "MAGNUS EDITOR").
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.sun.phpini"
+>CGI environment and recommended modifications in php.ini</A
+></H2
+><P
+>&#13;     Important when writing PHP scripts is the fact that Sun JSWS/Sun ONE
+     WS/iPlanet/Netscape is a multithreaded web server. Because of that all
+     requests are running in the same process space (the space of the webserver
+     itself) and this space has only one environment. If you want to get CGI
+     variables like <VAR
+CLASS="literal"
+>PATH_INFO</VAR
+>, <VAR
+CLASS="literal"
+>HTTP_HOST</VAR
+>
+     etc. it is not the correct way to try this in the old PHP 3.x way with
+     <A
+HREF="function.getenv.html"
+><B
+CLASS="function"
+>getenv()</B
+></A
+> or a similar way (register globals to
+     environment, <VAR
+CLASS="literal"
+>$_ENV</VAR
+>). You would only get the environment
+     of the running webserver without any valid CGI variables!
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Why are there (invalid) CGI variables in the environment?
+     </P
+><P
+>&#13;      Answer: This is because you started the webserver process from the admin server
+      which runs the startup script of the webserver, you wanted to start, as a CGI script
+      (a CGI script inside of the admin server!). This is why the environment of
+      the started webserver has some CGI environment variables in it. You can test
+      this by starting the webserver not from the administration server. Use
+      the command line as root user and start it manually - you will see
+      there are no CGI-like environment variables.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Simply change your scripts to get CGI variables in the correct way for
+     PHP 4.x by using the superglobal <VAR
+CLASS="literal"
+>$_SERVER</VAR
+>. If you have
+     older scripts which use <VAR
+CLASS="literal"
+>$HTTP_HOST</VAR
+>, etc., you should turn
+     on <VAR
+CLASS="literal"
+>register_globals</VAR
+> in <TT
+CLASS="filename"
+>php.ini</TT
+> and change the variable
+     order too (important: remove <VAR
+CLASS="literal"
+>"E"</VAR
+> from it,
+     because you do not need the environment here):
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>variables_order = "GPCS"
+register_globals = On</PRE
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.sun.specialpages"
+>Special use for error pages or self-made directory listings (PHP &#62;= 4.3.3)</A
+></H2
+><P
+>&#13;     You can use PHP to generate the error pages for <VAR
+CLASS="literal"
+>"404 Not Found"</VAR
+>
+     or similar. Add the following line to the object in <TT
+CLASS="filename"
+>obj.conf</TT
+> for
+     every error page you want to overwrite:
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>Error fn="php4_execute" code=XXX script="/path/to/script.php" [inikey=value inikey=value...]</PRE
+></TD
+></TR
+></TABLE
+>
+     where <VAR
+CLASS="literal"
+>XXX</VAR
+> is the HTTP error code. Please delete
+     any other <VAR
+CLASS="literal"
+>Error</VAR
+> directives which could interfere with yours.
+     If you want to place a page for all errors that could exist, leave
+     the <VAR
+CLASS="literal"
+>code</VAR
+> parameter out. Your script can get the HTTP status code
+     with <VAR
+CLASS="literal"
+>$_SERVER['ERROR_TYPE']</VAR
+>.
+    </P
+><P
+>&#13;     Another possibility is to generate self-made directory listings.
+     Just create a PHP script which displays a directory listing and
+     replace the corresponding default Service line for
+     <VAR
+CLASS="literal"
+>type="magnus-internal/directory"</VAR
+>
+     in <TT
+CLASS="filename"
+>obj.conf</TT
+> with the following:
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>Service fn="php4_execute" type="magnus-internal/directory" script="/path/to/script.php" [inikey=value inikey=value...]</PRE
+></TD
+></TR
+></TABLE
+>
+     For both error and directory listing pages the original URI and
+     translated URI are in the variables <VAR
+CLASS="literal"
+>$_SERVER['PATH_INFO']</VAR
+> and
+     <VAR
+CLASS="literal"
+>$_SERVER['PATH_TRANSLATED']</VAR
+>.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.sun.notes"
+>Note about <A
+HREF="function.nsapi-virtual.html"
+><B
+CLASS="function"
+>nsapi_virtual()</B
+></A
+> and subrequests (PHP &#62;= 4.3.3)</A
+></H2
+><P
+>&#13;     The NSAPI module now supports the <A
+HREF="function.nsapi-virtual.html"
+><B
+CLASS="function"
+>nsapi_virtual()</B
+></A
+> function
+     (alias: <A
+HREF="function.virtual.html"
+><B
+CLASS="function"
+>virtual()</B
+></A
+>)
+     to make subrequests on the webserver and insert the result in the webpage.
+     This function uses some undocumented features from the NSAPI library.
+     On Unix the module automatically looks for the needed functions and uses
+     them if available. If not, <A
+HREF="function.nsapi-virtual.html"
+><B
+CLASS="function"
+>nsapi_virtual()</B
+></A
+> is disabled.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      But be warned: Support for <A
+HREF="function.nsapi-virtual.html"
+><B
+CLASS="function"
+>nsapi_virtual()</B
+></A
+> is EXPERIMENTAL!!!
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.unix.fhttpd.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.unix.commandline.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fhttpd related notes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.unix.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>CGI and commandline setups</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

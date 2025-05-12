@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Compiling PECL extensions statically into PHP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation of PECL extensions"
+HREF="install.pecl.html"><LINK
+REL="PREVIOUS"
+TITLE="Compiling shared PECL extensions with phpize"
+HREF="install.pecl.phpize.html"><LINK
+REL="NEXT"
+TITLE="Problems?"
+HREF="install.problems.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.pecl.phpize.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 7. Installation of PECL extensions</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.problems.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.pecl.static"
+>Compiling PECL extensions statically into PHP</A
+></H1
+><P
+>&#13;   You might find that you need to build a PECL extension statically into your
+   PHP binary.  To do this, you'll need to place the extension source under
+   the <TT
+CLASS="filename"
+>php-src/ext/</TT
+> directory and tell the PHP build
+   system to regenerate its configure script.
+  </P
+><P
+>&#13;   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$ cd /your/phpsrcdir/ext
+$ pear download extname
+$ gzip -d &#60; extname.tgz | tar -xvf -
+$ mv extname-x.x.x extname</PRE
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   This will result in the following directory:
+  </P
+><P
+>&#13;   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>/your/phpsrcdir/ext/extname</PRE
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   From here, force PHP to rebuild the configure script, and then build PHP as normal:
+  </P
+><P
+>&#13;   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$ cd /your/phpsrcdir 
+$ rm configure
+$ ./buildconf --force
+$ ./configure --help
+$ ./configure --with-extname --enable-someotherext --with-foobar
+$ make
+$ make install</PRE
+></TD
+></TR
+></TABLE
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    To run the 'buildconf' script you need autoconf 2.13 and automake 1.4+
+    (newer versions of autoconf may work, but are not supported).
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   Whether <VAR
+CLASS="literal"
+>--enable-extname</VAR
+> or <VAR
+CLASS="literal"
+>--with-extname
+   </VAR
+> is used depends on the extension.  Typically an extension that 
+   does not require external libraries uses <VAR
+CLASS="literal"
+>--enable</VAR
+>.  To be
+   sure, run the following after buildconf:
+  </P
+><P
+>&#13;   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$ ./configure --help | grep extname</PRE
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.pecl.phpize.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.problems.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Compiling shared PECL extensions with phpize</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.pecl.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Problems?</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

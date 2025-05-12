@@ -1,0 +1,644 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>KADM5</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="java_last_exception_get"
+HREF="function.java-last-exception-get.html"><LINK
+REL="NEXT"
+TITLE="kadm5_chpass_principal"
+HREF="function.kadm5-chpass-principal.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.java-last-exception-get.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.kadm5-chpass-principal.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.kadm5"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LXII. KADM5</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN66890"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="kadm5.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     These package allows you to access Kerberos V administration servers.
+     You can create, modify, and delete Kerberos V principals and policies.
+    </P
+><P
+>&#13;     More information about Kerberos can be found at <A
+HREF="http://web.mit.edu/kerberos/www/"
+TARGET="_top"
+>http://web.mit.edu/kerberos/www/</A
+>.
+    </P
+><P
+>&#13;     Documentation for Kerberos and KADM5 can be found at <A
+HREF="http://web.mit.edu/kerberos/www/krb5-1.2/krb5-1.2.8/doc/admin_toc.html"
+TARGET="_top"
+>http://web.mit.edu/kerberos/www/krb5-1.2/krb5-1.2.8/doc/admin_toc.html</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="kadm5.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="kadm5.constantsAF"
+>Constants for Attribute Flags</A
+></H2
+><P
+>&#13;   The functions <A
+HREF="function.kadm5-create-principal.html"
+><B
+CLASS="function"
+>kadm5_create_principal()</B
+></A
+>,
+   <A
+HREF="function.kadm5-modify-principal.html"
+><B
+CLASS="function"
+>kadm5_modify_principal()</B
+></A
+>, and
+   <A
+HREF="function.kadm5-modify-principal.html"
+><B
+CLASS="function"
+>kadm5_modify_principal()</B
+></A
+> allow to specify
+   special attributes using a bitfield. The symbols are defined below:
+   <DIV
+CLASS="table"
+><A
+NAME="AEN66907"
+></A
+><P
+><B
+>Tabella 1. Attributes for use by the KDC</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><THEAD
+><TR
+><TH
+>constant</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>KRB5_KDB_DISALLOW_POSTDATED</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_DISALLOW_FORWARDABLE</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_DISALLOW_TGT_BASED</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_DISALLOW_RENEWABLE</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_DISALLOW_PROXIABLE</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_DISALLOW_DUP_SKEY</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_DISALLOW_ALL_TIX</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_REQUIRES_PRE_AUTH</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_REQUIRES_HW_AUTH</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_REQUIRES_PWCHANGE</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_DISALLOW_SVR</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_PWCHANGE_SERVER</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_SUPPORT_DESMD5</TD
+></TR
+><TR
+><TD
+>KRB5_KDB_NEW_PRINC</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="pecl.kadm5.constantsOP"
+>Constants for Options</A
+></H2
+><P
+>&#13;   The functions <A
+HREF="function.kadm5-create-principal.html"
+><B
+CLASS="function"
+>kadm5_create_principal()</B
+></A
+>,
+   <A
+HREF="function.kadm5-modify-principal.html"
+><B
+CLASS="function"
+>kadm5_modify_principal()</B
+></A
+>, and
+   <A
+HREF="function.kadm5-get-principal.html"
+><B
+CLASS="function"
+>kadm5_get_principal()</B
+></A
+> allow to specify or return
+   principal's options as an associative array. The keys for the associative
+   array are defined as string constants below:
+   <DIV
+CLASS="table"
+><A
+NAME="AEN66948"
+></A
+><P
+><B
+>Tabella 2. Options for creating/modifying/retrieving principals</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>constant</TH
+><TH
+>funcdef</TH
+><TH
+>description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>KADM5_PRINCIPAL</TD
+><TD
+>long</TD
+><TD
+>The expire time of the princial as a Kerberos timestamp.</TD
+></TR
+><TR
+><TD
+>KADM5_PRINC_EXPIRE_TIME</TD
+><TD
+>long</TD
+><TD
+>The expire time of the princial as a Kerberos timestamp.</TD
+></TR
+><TR
+><TD
+>KADM5_LAST_PW_CHANGE</TD
+><TD
+>long</TD
+><TD
+>The time this principal's password was last changed.</TD
+></TR
+><TR
+><TD
+>KADM5_PW_EXPIRATION</TD
+><TD
+>long</TD
+><TD
+>&#13;        The expire time of the principal's current password, as a Kerberos
+        timestamp.
+       </TD
+></TR
+><TR
+><TD
+>KADM5_MAX_LIFE</TD
+><TD
+>long</TD
+><TD
+>&#13;        The maximum lifetime of any Kerberos ticket issued to this principal.
+       </TD
+></TR
+><TR
+><TD
+>KADM5_MAX_RLIFE</TD
+><TD
+>long</TD
+><TD
+>&#13;        The maximum renewable lifetime of any Kerberos ticket issued to or
+        for this principal.
+       </TD
+></TR
+><TR
+><TD
+>KADM5_MOD_NAME</TD
+><TD
+>string</TD
+><TD
+>&#13;        The name of the Kerberos principal that most recently modified this
+        principal.
+       </TD
+></TR
+><TR
+><TD
+>KADM5_MOD_TIME</TD
+><TD
+>long</TD
+><TD
+>&#13;        The time this principal was last modified, as a Kerberos timestamp.
+       </TD
+></TR
+><TR
+><TD
+>KADM5_KVNO</TD
+><TD
+>long</TD
+><TD
+>The version of the principal's current key.</TD
+></TR
+><TR
+><TD
+>KADM5_POLICY</TD
+><TD
+>string</TD
+><TD
+>The name of the policy controlling this principal.</TD
+></TR
+><TR
+><TD
+>KADM5_CLEARPOLICY</TD
+><TD
+>long</TD
+><TD
+>&#13;        Standard procedure is to assign the 'default' policy to new
+        principals. KADM5_CLEARPOLICY suppresses this behaviour.
+       </TD
+></TR
+><TR
+><TD
+>KADM5_LAST_SUCCESS</TD
+><TD
+>long</TD
+><TD
+>The KDC time of the last successfull AS_REQ.</TD
+></TR
+><TR
+><TD
+>KADM5_LAST_FAILED</TD
+><TD
+>long</TD
+><TD
+>The KDC time of the last failed AS_REQ.</TD
+></TR
+><TR
+><TD
+>KADM5_FAIL_AUTH_COUNT</TD
+><TD
+>long</TD
+><TD
+>The number of consecutive failed AS_REQs.</TD
+></TR
+><TR
+><TD
+>KADM5_RANDKEY</TD
+><TD
+>long</TD
+><TD
+>&#13;        Generates a random password for the principal. The parameter
+        <VAR
+CLASS="parameter"
+>password</VAR
+> will be ignored.
+       </TD
+></TR
+><TR
+><TD
+>KADM5_ATTRIBUTES</TD
+><TD
+>long</TD
+><TD
+>A bitfield of attributes for use by the KDC.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="kadm5.examples"
+>Esempi</A
+></H1
+><P
+>&#13;    This simple example shows how to connect, query, print
+    resulting principals and disconnect from a KADM5 database.
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN67025"
+></A
+><P
+><B
+>Esempio 1. KADM5 extension overview example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />&nbsp;&nbsp;$handle </font><font color="#007700">= </font><font color="#0000BB">kadm5_init_with_password</font><font color="#007700">(</font><font color="#DD0000">"afs-1"</font><font color="#007700">, </font><font color="#DD0000">"GONICUS.LOCAL"</font><font color="#007700">, </font><font color="#DD0000">"admin/admin"</font><font color="#007700">, </font><font color="#DD0000">"password"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;print </font><font color="#DD0000">"&lt;h1&gt;get_principals&lt;/h1&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;</font><font color="#0000BB">$principals </font><font color="#007700">= </font><font color="#0000BB">kadm5_get_principals</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br />&nbsp;&nbsp;for( </font><font color="#0000BB">$i</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">&lt;</font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$principals</font><font color="#007700">); </font><font color="#0000BB">$i</font><font color="#007700">++)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"$principals</font><font color="#007700">[</font><font color="#DD0000">$i</font><font color="#007700">]</font><font color="#DD0000">&lt;br&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;print </font><font color="#DD0000">"&lt;h1&gt;get_policies&lt;/h1&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;</font><font color="#0000BB">$policies </font><font color="#007700">= </font><font color="#0000BB">kadm5_get_policies</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br />&nbsp;&nbsp;for( </font><font color="#0000BB">$i</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">&lt;</font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$policies</font><font color="#007700">); </font><font color="#0000BB">$i</font><font color="#007700">++)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"$policies</font><font color="#007700">[</font><font color="#DD0000">$i</font><font color="#007700">]</font><font color="#DD0000">&lt;br&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;print </font><font color="#DD0000">"&lt;h1&gt;get_principal burbach@GONICUS.LOCAL&lt;/h1&gt;\n"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">$options </font><font color="#007700">= </font><font color="#0000BB">kadm5_get_principal</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#DD0000">"burbach@GONICUS.LOCAL" </font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$keys </font><font color="#007700">= </font><font color="#0000BB">array_keys</font><font color="#007700">(</font><font color="#0000BB">$options</font><font color="#007700">);<br />&nbsp;&nbsp;for( </font><font color="#0000BB">$i</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">&lt;</font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$keys</font><font color="#007700">); </font><font color="#0000BB">$i</font><font color="#007700">++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$value </font><font color="#007700">= </font><font color="#0000BB">$options</font><font color="#007700">[</font><font color="#0000BB">$keys</font><font color="#007700">[</font><font color="#0000BB">$i</font><font color="#007700">]];<br />&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"$keys</font><font color="#007700">[</font><font color="#DD0000">$i</font><font color="#007700">]</font><font color="#DD0000">: $value&lt;br&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">$options </font><font color="#007700">= array(</font><font color="#0000BB">KADM5_PRINC_EXPIRE_TIME </font><font color="#007700">=&gt; </font><font color="#0000BB">0</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">kadm5_modify_principal</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#DD0000">"burbach@GONICUS.LOCAL"</font><font color="#007700">, </font><font color="#0000BB">$options</font><font color="#007700">);<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">kadm5_destroy</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="kadm5.contact"
+>Contact Information</A
+></H1
+><P
+>&#13;     If you have comments, bugfixes, enhancements or want to help
+     in developing this you can send me a mail at 
+     <A
+HREF="mailto:holger.burbach@gonicus.de"
+TARGET="_top"
+>holger.burbach@gonicus.de</A
+>.
+     The project homepage can be found at
+     <A
+HREF="http://oss.gonicus.de/project/?group_id=7"
+TARGET="_top"
+>http://oss.gonicus.de/project/?group_id=7</A
+>.
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.kadm5-chpass-principal.html"
+>kadm5_chpass_principal</A
+>&nbsp;--&nbsp;Changes the principal's password</DT
+><DT
+><A
+HREF="function.kadm5-create-principal.html"
+>kadm5_create_principal</A
+>&nbsp;--&nbsp;Creates a kerberos principal with the given parameters</DT
+><DT
+><A
+HREF="function.kadm5-delete-principal.html"
+>kadm5_delete_principal</A
+>&nbsp;--&nbsp;Deletes a kerberos principal</DT
+><DT
+><A
+HREF="function.kadm5-destroy.html"
+>kadm5_destroy</A
+>&nbsp;--&nbsp;Closes the connection to the admin server and releases all related resources</DT
+><DT
+><A
+HREF="function.kadm5-flush.html"
+>kadm5_flush</A
+>&nbsp;--&nbsp;Flush all changes to the Kerberos database, leaving the connection
+        to the Kerberos admin server open</DT
+><DT
+><A
+HREF="function.kadm5-get-policies.html"
+>kadm5_get_policies</A
+>&nbsp;--&nbsp;Gets all policies from the Kerberos database</DT
+><DT
+><A
+HREF="function.kadm5-get-principal.html"
+>kadm5_get_principal</A
+>&nbsp;--&nbsp;Gets the principal's entries from the Kerberos database</DT
+><DT
+><A
+HREF="function.kadm5-get-principals.html"
+>kadm5_get_principals</A
+>&nbsp;--&nbsp;Gets all principals from the Kerberos database</DT
+><DT
+><A
+HREF="function.kadm5-init-with-password.html"
+>kadm5_init_with_password</A
+>&nbsp;--&nbsp;Opens a connection to the KADM5 library and initializes any
+   neccessary state information</DT
+><DT
+><A
+HREF="function.kadm5-modify-principal.html"
+>kadm5_modify_principal</A
+>&nbsp;--&nbsp;Modifies a kerberos principal with the given parameters</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.java-last-exception-get.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.kadm5-chpass-principal.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>java_last_exception_get</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>kadm5_chpass_principal</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

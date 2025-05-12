@@ -1,0 +1,349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Pseudo-types used in this documentation</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Types"
+HREF="language.types.html"><LINK
+REL="PREVIOUS"
+TITLE="NULL"
+HREF="language.types.null.html"><LINK
+REL="NEXT"
+TITLE="Type Juggling"
+HREF="language.types.type-juggling.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.types.null.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 11. Types</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.types.type-juggling.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.pseudo-types"
+>Pseudo-types used in this documentation</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.mixed"
+>mixed</A
+></H2
+><P
+>&#13;     <VAR
+CLASS="literal"
+>mixed</VAR
+> indicates that a parameter may accept multiple (but not
+     necessarily all) types.
+    </P
+><P
+>&#13;     <A
+HREF="function.gettype.html"
+><B
+CLASS="function"
+>gettype()</B
+></A
+> for example will accept all PHP types,
+     while <A
+HREF="function.str-replace.html"
+><B
+CLASS="function"
+>str_replace()</B
+></A
+> will accept strings and arrays.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.number"
+>number</A
+></H2
+><P
+>&#13;     <VAR
+CLASS="literal"
+>number</VAR
+> indicates that a parameter can be either
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+> or <A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.callback"
+>callback</A
+></H2
+><P
+>&#13;     Some functions like <A
+HREF="function.call-user-func.html"
+><B
+CLASS="function"
+>call_user_func()</B
+></A
+> 
+     or <A
+HREF="function.usort.html"
+><B
+CLASS="function"
+>usort()</B
+></A
+> accept user defined 
+     callback functions as a parameter. Callback functions can not only
+     be simple functions but also object methods including static class
+     methods. 
+    </P
+><P
+>&#13;     A PHP function is simply passed by its name as a string. You can
+     pass any builtin or user defined function with the exception of 
+     <A
+HREF="function.array.html"
+><B
+CLASS="function"
+>array()</B
+></A
+>, 
+     <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+>, 
+     <A
+HREF="function.empty.html"
+><B
+CLASS="function"
+>empty()</B
+></A
+>, 
+     <A
+HREF="function.eval.html"
+><B
+CLASS="function"
+>eval()</B
+></A
+>, 
+     <A
+HREF="function.exit.html"
+><B
+CLASS="function"
+>exit()</B
+></A
+>, 
+     <A
+HREF="function.isset.html"
+><B
+CLASS="function"
+>isset()</B
+></A
+>, 
+     <A
+HREF="function.list.html"
+><B
+CLASS="function"
+>list()</B
+></A
+>, 
+     <A
+HREF="function.print.html"
+><B
+CLASS="function"
+>print()</B
+></A
+> and 
+     <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+>.
+    </P
+><P
+>&#13;     A method of an instantiated object is passed as an array containing
+     an object as the element with index 0 and a method name as the 
+     element with index 1.
+    </P
+><P
+>&#13;     Static class methods can also be passed without instantiating an
+     object of that class by passing the class name instead of an 
+     object as the element with index 0.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3523"
+></A
+><P
+><B
+>Esempio 11-13. 
+       Callback function examples
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br /></font><font color="#FF8000">// An example callback function<br /></font><font color="#007700">function </font><font color="#0000BB">my_callback_function</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'hello world!'</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// An example callback method<br /></font><font color="#007700">class </font><font color="#0000BB">MyClass </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">myCallbackMethod</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Hello World!'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#FF8000">// Type 1: Simple callback<br /></font><font color="#0000BB">call_user_func</font><font color="#007700">(</font><font color="#DD0000">'my_callback_function'</font><font color="#007700">); <br /><br /></font><font color="#FF8000">// Type 2: Static class method call<br /></font><font color="#0000BB">call_user_func</font><font color="#007700">(array(</font><font color="#DD0000">'MyClass'</font><font color="#007700">, </font><font color="#DD0000">'myCallbackMethod'</font><font color="#007700">)); <br /><br /></font><font color="#FF8000">// Type 3: Object method call<br /></font><font color="#0000BB">$obj </font><font color="#007700">= new </font><font color="#0000BB">MyClass</font><font color="#007700">();<br /></font><font color="#0000BB">call_user_func</font><font color="#007700">(array(&amp;</font><font color="#0000BB">$obj</font><font color="#007700">, </font><font color="#DD0000">'myCallbackMethod'</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.types.null.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.types.type-juggling.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>NULL</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.types.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Type Juggling</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

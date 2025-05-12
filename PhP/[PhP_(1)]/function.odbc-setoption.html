@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>odbc_setoption</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni ODBC (Unificate)"
+HREF="ref.uodbc.html"><LINK
+REL="PREVIOUS"
+TITLE="odbc_rollback"
+HREF="function.odbc-rollback.html"><LINK
+REL="NEXT"
+TITLE="odbc_specialcolumns"
+HREF="function.odbc-specialcolumns.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.odbc-rollback.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.odbc-specialcolumns.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.odbc-setoption"
+></A
+>odbc_setoption</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN115327"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.6, PHP 4, PHP 5)</P
+>odbc_setoption&nbsp;--&nbsp;
+     Impostazione dei parametri ODBC
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN115330"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>odbc_setoption</B
+> ( resource identificativo, int funzione, int opzione, int parametro )<BR
+></BR
+><P
+>&#13;     Questa funzione permette di manipolare i parametri ODBC per
+     la connessione o il risultato di una query indicati. La funzione è stata sviluppata per permettere 
+     di aggirare dei problemi emersi in alcuni driver ODBC. Pertanto si dovrebbe 
+     utilizzare questa funzione soltanto se si è dei programmatori e 
+     si conoscono gli effetti generati dalle varie opzioni. Dato che 
+     ogni singola versione di driver ODBC supporta differenti parametri, occorre avere a disposizione un buon manuale del 
+     driver per avere esposti tutti i differenti settaggi che possono
+     essere utilizzati.
+    </P
+><P
+>&#13;     Poiché i parametri possono variare in base al driver ODBC, è fortemente sconsigliato
+     l'uso di questa funzione in script resi pubblici. Inoltre,
+     alcune opzioni di ODBC non sono gestibili da questa funzione, 
+     dato che devono essere specificate prima di stabilire la 
+     connessione o prima della preparazione della query. Tuttavia,
+     se per un particolare lavoro permette al PHP di funzionare, può evitare
+     il ricorso a prodotti commerciali.
+    </P
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><P
+>&#13;     Il campo <VAR
+CLASS="parameter"
+>identificativo</VAR
+> indica la connessione
+     o l'esito su cui si varia il settaggio. Per la funzione SQLSetConnectOption(),
+     questo indica l'identificativo di connessione, per SQLSetStmtOption(), 
+     indica l'identificativo del risultato.
+    </P
+><P
+>&#13;     Il campo <VAR
+CLASS="parameter"
+>funzione</VAR
+> indica quale funzione ODBC 
+     utilizzare. Dovrebbe essere valorizzato a 1 per SQLSetConnectOption() 
+     e a 2 per SQLSetStmtOption().
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>opzione</VAR
+> indica l'opzione da settare.</P
+><P
+>&#13;     Il campo <VAR
+CLASS="parameter"
+>parametro</VAR
+> indica il valore per
+     l'<VAR
+CLASS="parameter"
+>opzione</VAR
+> richiesta.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN115361"
+></A
+><P
+><B
+>Esempio 1. Esempi di utilizzo</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// 1. Il valore 102 per il campo opzione in SQLSetConnectOption() indica SQL_AUTOCOMMIT.<br />//&nbsp;&nbsp;&nbsp;&nbsp;Il valore 1 per SQL_AUTOCOMMIT è SQL_AUTOCOMMIT_ON.<br />//&nbsp;&nbsp;&nbsp;&nbsp;Pertanto questo esempio ha il medesimo effetto di:<br />//&nbsp;&nbsp;&nbsp;&nbsp;odbc_autocommit($conn, true);<br /><br /></font><font color="#0000BB">odbc_setoption</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">102</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// 2. Il valore 0 per il campo opzione in SQLSetStmtOption() indica SQL_QUERY_TIMEOUT.<br />//&nbsp;&nbsp;&nbsp;&nbsp;In questo esempio si setta il timeout di una query a 30 secondi.<br /><br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">odbc_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#0000BB">$sql</font><font color="#007700">);<br /></font><font color="#0000BB">odbc_setoption</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">30</font><font color="#007700">);<br /></font><font color="#0000BB">odbc_execute</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.odbc-rollback.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.odbc-specialcolumns.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>odbc_rollback</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.uodbc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>odbc_specialcolumns</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

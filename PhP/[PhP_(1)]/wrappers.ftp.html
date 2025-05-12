@@ -1,0 +1,546 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>FTP and FTPS</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="List of Supported Protocols/Wrappers"
+HREF="wrappers.html"><LINK
+REL="PREVIOUS"
+TITLE="HTTP and HTTPS"
+HREF="wrappers.http.html"><LINK
+REL="NEXT"
+TITLE="PHP input/output streams"
+HREF="wrappers.php.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="wrappers.http.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice M. List of Supported Protocols/Wrappers</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="wrappers.php.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="wrappers.ftp"
+>FTP and FTPS</A
+></H1
+><P
+>PHP 3, PHP 4, PHP 5.  <TT
+CLASS="filename"
+>ftps://</TT
+> since PHP 4.3.0</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>ftp://example.com/pub/file.txt</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>ftp://user:password@example.com/pub/file.txt</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>ftps://example.com/pub/file.txt</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>ftps://user:password@example.com/pub/file.txt</TT
+></P
+></LI
+></UL
+><P
+>&#13;   Allows read access to existing files and creation of new files
+   via FTP.  If the server does not support passive mode ftp, the
+   connection will fail.
+  </P
+><P
+>&#13;   You can open files for either reading or writing, but not both
+   simultaneously.  If the remote file already exists on the ftp
+   server and you attempt to open it for writing but have not specified
+   the context option <VAR
+CLASS="literal"
+>overwrite</VAR
+>, the connection
+   will fail.  If you need to overwrite existing files over ftp,
+   specify the <VAR
+CLASS="literal"
+>overwrite</VAR
+> option in the context 
+   and open the file for writing.  Alternatively, you can
+   use the <A
+HREF="ref.ftp.html"
+>FTP extension</A
+>.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Appending: </B
+>
+    As of PHP 5.0.0 files may be appended via the
+    <VAR
+CLASS="literal"
+>ftp://</VAR
+> URL wrapper.  In prior versions, attempting
+    to append to a file via <VAR
+CLASS="literal"
+>ftp://</VAR
+> will result in failure.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   <TT
+CLASS="filename"
+>ftps://</TT
+> was introduced in PHP 4.3.0.  
+   It is the same as <TT
+CLASS="filename"
+>ftp://</TT
+>,
+   but attempts to negotiate a secure connection with the ftp server.
+   If the server does not support SSL, then the connection falls back
+   to regular unencrypted ftp.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>FTPS is supported starting from PHP 4.3.0, if you
+    have compiled in support for OpenSSL.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN211388"
+></A
+><P
+><B
+>Tabella M-4. Wrapper Summary</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Attribute</TH
+><TH
+>PHP 4</TH
+><TH
+>PHP 5</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>Restricted by <A
+HREF="ref.filesystem.html#ini.allow-url-fopen"
+>allow_url_fopen</A
+>.</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Reading</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Writing</TD
+><TD
+>Yes (new files only)</TD
+><TD
+>Yes (new files/existing files with <VAR
+CLASS="parameter"
+>overwrite</VAR
+>)</TD
+></TR
+><TR
+><TD
+>Allows Appending</TD
+><TD
+>No</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Simultaneous Reading and Writing</TD
+><TD
+>No</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+></TD
+><TD
+>No</TD
+><TD
+>&#13;        As of PHP 5.0.0: <A
+HREF="function.filesize.html"
+><B
+CLASS="function"
+>filesize()</B
+></A
+>, 
+        <A
+HREF="function.filetype.html"
+><B
+CLASS="function"
+>filetype()</B
+></A
+>, <A
+HREF="function.file-exists.html"
+><B
+CLASS="function"
+>file_exists()</B
+></A
+>,
+        <A
+HREF="function.is-file.html"
+><B
+CLASS="function"
+>is_file()</B
+></A
+>, and <A
+HREF="function.is-dir.html"
+><B
+CLASS="function"
+>is_dir()</B
+></A
+> elements only.
+        As of PHP 5.1.0: <A
+HREF="function.filemtime.html"
+><B
+CLASS="function"
+>filemtime()</B
+></A
+>.
+       </TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.unlink.html"
+><B
+CLASS="function"
+>unlink()</B
+></A
+></TD
+><TD
+>No</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rename.html"
+><B
+CLASS="function"
+>rename()</B
+></A
+></TD
+><TD
+>No</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.mkdir.html"
+><B
+CLASS="function"
+>mkdir()</B
+></A
+></TD
+><TD
+>No</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rmdir.html"
+><B
+CLASS="function"
+>rmdir()</B
+></A
+></TD
+><TD
+>No</TD
+><TD
+>Yes</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN211451"
+></A
+><P
+><B
+>Tabella M-5. Context options (as of PHP 5.0.0)</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Usage</TH
+><TH
+>Default</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>overwrite</VAR
+></TD
+><TD
+>&#13;        Allow overwriting of already existing files on remote server.
+        Applies to write mode (uploading) only.
+       </TD
+><TD
+><TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> (Disabled)</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>resume_pos</VAR
+></TD
+><TD
+>&#13;        File offset at which to begin transfer.  
+        Applies to read mode (downloading) only.
+       </TD
+><TD
+>0 (Beginning of File)</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>proxy</VAR
+> (PHP 5.1.0 or greater)</TD
+><TD
+>&#13;        Proxy FTP request via http proxy server.
+        Applies to file read operations only.
+        Ex: <VAR
+CLASS="literal"
+>tcp://squid.example.com:8000</VAR
+>
+       </TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Underlying socket stream context options: </B
+>
+    Additional context options may be supported by the 
+    <A
+HREF="transports.html#transports.inet"
+>underlying transport</A
+>
+    For <VAR
+CLASS="literal"
+>ftp://</VAR
+> streams, refer to context
+    options for the <VAR
+CLASS="literal"
+>tcp://</VAR
+> transport.  For
+    <VAR
+CLASS="literal"
+>ftps://</VAR
+> streams, refer to context options
+    for the <VAR
+CLASS="literal"
+>ssl://</VAR
+> transport.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wrappers.http.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="wrappers.php.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>HTTP and HTTPS</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="wrappers.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PHP input/output streams</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

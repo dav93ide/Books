@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Streams API for PHP Extension Authors</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PHP and Zend Engine Internals"
+HREF="internals.html"><LINK
+REL="PREVIOUS"
+TITLE="PHP and Zend Engine Internals"
+HREF="internals.html"><LINK
+REL="NEXT"
+TITLE="Streams Basics"
+HREF="streams.basics.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="internals.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="streams.basics.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="streams"
+>Capitolo 44. Streams API for PHP Extension Authors</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="streams.html#streams.overview"
+>Overview</A
+></DT
+><DT
+><A
+HREF="streams.basics.html"
+>Streams Basics</A
+></DT
+><DT
+><A
+HREF="streams.resources.html"
+>Streams as Resources</A
+></DT
+><DT
+><A
+HREF="streams.common-api.html"
+>Streams Common API Reference</A
+></DT
+><DT
+><A
+HREF="streams.dir-api.html"
+>Streams Dir API Reference</A
+></DT
+><DT
+><A
+HREF="streams.file-api.html"
+>Streams File API Reference</A
+></DT
+><DT
+><A
+HREF="streams.socket-api.html"
+>Streams Socket API Reference</A
+></DT
+><DT
+><A
+HREF="streams.structs.html"
+>Streams Structures</A
+></DT
+><DT
+><A
+HREF="streams.constants.html"
+>Streams Constants</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="streams.overview"
+>Overview</A
+></H1
+><P
+>&#13;   The PHP Streams API introduces a unified approach to the handling of
+   files and sockets in PHP extension.  Using a single API with standard
+   functions for common operations, the streams API allows your extension
+   to access files, sockets, URLs, memory and script-defined objects.
+   Streams is a run-time extensible API that allows dynamically loaded
+   modules (and scripts!) to register new streams.
+  </P
+><P
+>&#13;   The aim of the Streams API is to make it comfortable for developers to
+   open files, URLs and other streamable data sources with a unified API
+   that is easy to understand.  The API is more or less based on the ANSI
+   C stdio family of functions (with identical semantics for most of the main
+   functions), so C programmers will have a feeling of familiarity with streams.
+  </P
+><P
+>&#13;    The streams API operates on a couple of different levels: at the base level,
+    the API defines php_stream objects to represent streamable data sources.
+    On a slightly higher level, the API defines php_stream_wrapper objects
+    which "wrap" around the lower level API to provide support for retrieving
+    data and meta-data from URLs.  An additional <VAR
+CLASS="literal"
+>context</VAR
+>
+    parameter, accepted by most stream creation functions, is passed to the
+    wrapper's <VAR
+CLASS="literal"
+>stream_opener</VAR
+> method to fine-tune the behavior
+    of the wrapper.
+  </P
+><P
+>&#13;   Any stream, once opened, can also have any number of <VAR
+CLASS="literal"
+>filters</VAR
+>
+   applied to it, which process data as it is read from/written to the stream.
+  </P
+><P
+>&#13;   Streams can be cast (converted) into other types of file-handles, so that they
+   can be used with third-party libraries without a great deal of trouble.  This
+   allows those libraries to access data directly from URL sources.  If your
+   system has the <B
+CLASS="function"
+>fopencookie()</B
+> or
+   <B
+CLASS="function"
+>funopen()</B
+> function, you can even
+   pass any PHP stream to any library that uses ANSI stdio!
+  </P
+><P
+>&#13;   <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     The functions in this chapter are for use in the PHP source code and
+     are not PHP functions.  Userland stream functions can be found in the 
+     <A
+HREF="ref.stream.html"
+>Stream Reference</A
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+>
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="internals.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="streams.basics.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PHP and Zend Engine Internals</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="internals.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Streams Basics</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,1065 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni ClibPDF</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="classkit_method_rename"
+HREF="function.classkit-method-rename.html"><LINK
+REL="NEXT"
+TITLE="cpdf_add_annotation"
+HREF="function.cpdf-add-annotation.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.classkit-method-rename.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.cpdf-add-annotation.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.cpdf"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XIV. Funzioni ClibPDF</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN16007"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="cpdf.intro"
+>Introduzione</A
+></H1
+><P
+>   
+    ClibPDF permette di creare documenti PDF utilizzando PHP.  La funzionalità
+    e l' API di ClibPDF sono simili a quelle di <A
+HREF="ref.pdf.html"
+>PDFlib</A
+>.
+    Questa documentazione dovrebbe essere letta insieme al manuale di ClibPDF poichè
+    entra maggiormente nel dettaglio della libreria.
+   </P
+><P
+>&#13;    Molte funzioni nella ClibPDF nativa e nel modulo PHP , così come
+    nella <A
+HREF="ref.pdf.html"
+>PDFlib</A
+> hanno lo stesso nome.
+    Tutte le funzioni ad eccezione di <A
+HREF="function.cpdf-open.html"
+><B
+CLASS="function"
+>cpdf_open()</B
+></A
+> hanno
+    l'identificatore del documento come loro primo parametro.
+   </P
+><P
+>&#13;    Attualmente questo identificatore non è usato internamente dato che ClibPDF
+    non supporta la creazione di svariati documenti PDF contemporaneamente.
+    Attualmente non bisognerebbe provare a farlo, dato che i risultati sono imprevedibili.
+    Non è possibile controllare quali siano le conseguenze in un ambiente multi
+    processo. Secondo l'autore di ClibPDF questo cambierà in una delle
+    prossime release (la versione corrente quando questo è stato scritto è la 1.10).
+    Se si ha bisogno di questa funzionalità utilizzare il modulo pdflib.
+   </P
+><P
+>&#13;    Un'interessante caratteristica di ClibPDF (e <A
+HREF="ref.pdf.html"
+>PDFlib</A
+>) è l'abilità di creare il
+    documento PDF completamente in memoria senza utilizzare file temporanei.
+    Inoltre fornisce l'abilità di passare le coordinare in un'unità
+    di lunghezza predefinita. (Questa caratteristica puo'essere simulata da
+    <A
+HREF="function.pdf-translate.html"
+><B
+CLASS="function"
+>pdf_translate()</B
+></A
+> quando si utilizzano le funzioni <A
+HREF="ref.pdf.html"
+>PDFlib</A
+>.)
+   </P
+><P
+>&#13;    Un'altra interessante caratteristica di ClibPDF è il fatto che ogni pagina può essere
+    modificata in qualsiasi momento anche se è già stata aperta una nuova pagina. La funzione
+    <A
+HREF="function.cpdf-set-current-page.html"
+><B
+CLASS="function"
+>cpdf_set_current_page()</B
+></A
+> permette di lasciare la pagina
+    corrente e modificare un'altra pagina.
+   </P
+><P
+>&#13;    La maggioranza delle funzioni sono abbastanza facili da usare. La parte più difficile
+    è probabilmente creare un simplice documento PDF. L'esempio
+    seguente dovrebbe essere utile per cominciare. Crea un documento
+    con una pagina. La pagina contiene il testo "Times-Roman" con un
+    font di 30pt. Il testo è sottolineato.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Se si è interessati ad alternativi generatori PDF free non utilizzare le librerie
+     PDF esterne, vedere <A
+HREF="faq.using.html#faq.using.freepdf"
+>questa FAQ</A
+> per dettagli.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="cpdf.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    Per potere utilizzare le funzioni ClibPDF occorre installare il modulo ClibPDF.
+    Questo è disponibile in <A
+HREF="http://www.fastio.com/"
+TARGET="_top"
+>&#13;    FastIO</A
+>, ma richiede l'acquisto di una licenza per uso commerciale.
+    Il PHP richiede la libreria cpdflib &#62;= 2.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="cpdf.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Per avere disponibili queste funzionalità occorre compilare il PHP
+  con <VAR
+CLASS="option"
+>--with-cpdflib[=DIR]</VAR
+>. Dove DIR indica la
+  directory in cui è installato cpdflib, per default <TT
+CLASS="filename"
+>/usr</TT
+>. In aggiunta si
+  può specificare le librerie jpeg e tiff da utilizzare. Per fare ciò
+  aggiungere alla linea di configurazione le opzioni
+  <VAR
+CLASS="option"
+>--with-jpeg-dir[=DIR]</VAR
+> e
+  <VAR
+CLASS="option"
+>--with-tiff-dir[=DIR]</VAR
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="cpdf.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="cpdf.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>CPDF_PM_NONE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CPDF_PM_OUTLINES</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CPDF_PM_THUMBS</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CPDF_PM_FULLSCREEN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CPDF_PL_SINGLE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CPDF_PL_1COLUMN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CPDF_PL_2LCOLUMN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CPDF_PL_2RCOLUMN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="cpdf.examples"
+>Esempi</A
+></H1
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN16095"
+></A
+><P
+><B
+>Esempio 1. Semplice esempio ClibPDF</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php
+$cpdf = cpdf_open(0);
+cpdf_page_init($cpdf, 1, 0, 595, 842, 1.0);
+cpdf_add_outline($cpdf, 0, 0, 0, 1, "Page 1");
+cpdf_begin_text($cpdf);
+cpdf_set_font($cpdf, "Times-Roman", 30, "WinAnsiEncoding");
+cpdf_set_text_rendering($cpdf, 1);
+cpdf_text($cpdf, "Times Roman outlined", 50, 50);
+cpdf_end_text($cpdf);
+cpdf_moveto($cpdf, 50, 50);
+cpdf_lineto($cpdf, 740, 330);
+cpdf_stroke($cpdf);
+cpdf_finalize_page($cpdf, 1);
+cpdf_finalize($cpdf);
+Header("Content-type: application/pdf");
+cpdf_output_buffer($cpdf);
+cpdf_close($cpdf);
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     La distribuzione pdflib contiene un esempio più complicato che crea una
+     serie di pagine con un orologio analogico. Di seguito si trova questo esempio convertito
+     in PHP utilizzando l'estensione ClibPDF:
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN16099"
+></A
+><P
+><B
+>Esempio 2. esempio pdfclock dalla distribuzione pdflib 2.0</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php
+$radius = 200;
+$margin = 20;
+$pagecount = 40;
+
+$pdf = cpdf_open(0);
+cpdf_set_creator($pdf, "pdf_clock.php");
+cpdf_set_title($pdf, "Analog Clock");
+
+while ($pagecount-- &#62; 0) {
+  cpdf_page_init($pdf, $pagecount+1, 0, 2 * ($radius + $margin), 2 * ($radius + $margin), 1.0);
+
+  cpdf_set_page_animation($pdf, 4, 0.5, 0, 0, 0);  /* wipe */
+
+  cpdf_translate($pdf, $radius + $margin, $radius + $margin);
+  cpdf_save($pdf);
+  cpdf_setrgbcolor($pdf, 0.0, 0.0, 1.0);
+
+  /* linee dei minuti */
+  cpdf_setlinewidth($pdf, 2.0);
+  for ($alpha = 0; $alpha &#60; 360; $alpha += 6) {
+    cpdf_rotate($pdf, 6.0);
+    cpdf_moveto($pdf, $radius, 0.0);
+    cpdf_lineto($pdf, $radius-$margin/3, 0.0);
+    cpdf_stroke($pdf);
+  }
+
+  cpdf_restore($pdf);
+  cpdf_save($pdf);
+
+  /* linee dei 5 minuti */
+  cpdf_setlinewidth($pdf, 3.0);
+  for ($alpha = 0; $alpha &#60; 360; $alpha += 30) {
+    cpdf_rotate($pdf, 30.0);
+    cpdf_moveto($pdf, $radius, 0.0);
+    cpdf_lineto($pdf, $radius-$margin, 0.0);
+    cpdf_stroke($pdf);
+  }
+
+  $ltime = getdate();
+
+  /* disegna la lancetta delle ore */
+  cpdf_save($pdf);
+  cpdf_rotate($pdf, -(($ltime['minutes']/60.0) + $ltime['hours'] - 3.0) * 30.0);
+  cpdf_moveto($pdf, -$radius/10, -$radius/20);
+  cpdf_lineto($pdf, $radius/2, 0.0);
+  cpdf_lineto($pdf, -$radius/10, $radius/20);
+  cpdf_closepath($pdf);
+  cpdf_fill($pdf);
+  cpdf_restore($pdf);
+
+  /* disegna la lancetta dei minuti */
+  cpdf_save($pdf);
+  cpdf_rotate($pdf, -(($ltime['seconds']/60.0) + $ltime['minutes'] - 15.0) * 6.0);
+  cpdf_moveto($pdf, -$radius/10, -$radius/20);
+  cpdf_lineto($pdf, $radius * 0.8, 0.0);
+  cpdf_lineto($pdf, -$radius/10, $radius/20);
+  cpdf_closepath($pdf);
+  cpdf_fill($pdf);
+  cpdf_restore($pdf);
+
+  /* disegna la lancetta dei secondi */
+  cpdf_setrgbcolor($pdf, 1.0, 0.0, 0.0);
+  cpdf_setlinewidth($pdf, 2);
+  cpdf_save($pdf);
+  cpdf_rotate($pdf, -(($ltime['seconds'] - 15.0) * 6.0));
+  cpdf_moveto($pdf, -$radius/5, 0.0);
+  cpdf_lineto($pdf, $radius, 0.0);
+  cpdf_stroke($pdf);
+  cpdf_restore($pdf);
+
+  /* disegna un piccolo cerchio al centro */
+  cpdf_circle($pdf, 0, 0, $radius/30);
+  cpdf_fill($pdf);
+
+  cpdf_restore($pdf);
+
+  cpdf_finalize_page($pdf, $pagecount+1);
+}
+
+cpdf_finalize($pdf);
+Header("Content-type: application/pdf");
+cpdf_output_buffer($pdf);
+cpdf_close($pdf);
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="cpdf.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     Vedere anche la documentazione del modulo
+     <A
+HREF="ref.pdf.html"
+>PDFlib</A
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.cpdf-add-annotation.html"
+>cpdf_add_annotation</A
+>&nbsp;--&nbsp;Aggiunge un'annotazione</DT
+><DT
+><A
+HREF="function.cpdf-add-outline.html"
+>cpdf_add_outline</A
+>&nbsp;--&nbsp;Aggiunge un segnalibro per la pagina corrente</DT
+><DT
+><A
+HREF="function.cpdf-arc.html"
+>cpdf_arc</A
+>&nbsp;--&nbsp;Disegna un arco</DT
+><DT
+><A
+HREF="function.cpdf-begin-text.html"
+>cpdf_begin_text</A
+>&nbsp;--&nbsp;Avvia una sezione di testo</DT
+><DT
+><A
+HREF="function.cpdf-circle.html"
+>cpdf_circle</A
+>&nbsp;--&nbsp;Disegna un cerchio</DT
+><DT
+><A
+HREF="function.cpdf-clip.html"
+>cpdf_clip</A
+>&nbsp;--&nbsp;Taglia dal path corrente</DT
+><DT
+><A
+HREF="function.cpdf-close.html"
+>cpdf_close</A
+>&nbsp;--&nbsp;Chiude il documento PDF</DT
+><DT
+><A
+HREF="function.cpdf-closepath-fill-stroke.html"
+>cpdf_closepath_fill_stroke</A
+>&nbsp;--&nbsp;Close, fill and stroke current path</DT
+><DT
+><A
+HREF="function.cpdf-closepath-stroke.html"
+>cpdf_closepath_stroke</A
+>&nbsp;--&nbsp;Chiude il path e disegna una linea lungo il path</DT
+><DT
+><A
+HREF="function.cpdf-closepath.html"
+>cpdf_closepath</A
+>&nbsp;--&nbsp;Chiude la path corrente</DT
+><DT
+><A
+HREF="function.cpdf-continue-text.html"
+>cpdf_continue_text</A
+>&nbsp;--&nbsp;Scrive del testo nella riga seguente</DT
+><DT
+><A
+HREF="function.cpdf-curveto.html"
+>cpdf_curveto</A
+>&nbsp;--&nbsp;Disegna una curva</DT
+><DT
+><A
+HREF="function.cpdf-end-text.html"
+>cpdf_end_text</A
+>&nbsp;--&nbsp;Termina la sezione di testo</DT
+><DT
+><A
+HREF="function.cpdf-fill-stroke.html"
+>cpdf_fill_stroke</A
+>&nbsp;--&nbsp;Fill and stroke current path</DT
+><DT
+><A
+HREF="function.cpdf-fill.html"
+>cpdf_fill</A
+>&nbsp;--&nbsp;Riempie il path corrente</DT
+><DT
+><A
+HREF="function.cpdf-finalize-page.html"
+>cpdf_finalize_page</A
+>&nbsp;--&nbsp;Chiude la pagina</DT
+><DT
+><A
+HREF="function.cpdf-finalize.html"
+>cpdf_finalize</A
+>&nbsp;--&nbsp;Chiude il documento</DT
+><DT
+><A
+HREF="function.cpdf-global-set-document-limits.html"
+>cpdf_global_set_document_limits</A
+>&nbsp;--&nbsp;Sets document limits for any pdf document</DT
+><DT
+><A
+HREF="function.cpdf-import-jpeg.html"
+>cpdf_import_jpeg</A
+>&nbsp;--&nbsp;Apre un'immagine JPEG</DT
+><DT
+><A
+HREF="function.cpdf-lineto.html"
+>cpdf_lineto</A
+>&nbsp;--&nbsp;Disegna una linea</DT
+><DT
+><A
+HREF="function.cpdf-moveto.html"
+>cpdf_moveto</A
+>&nbsp;--&nbsp;Setta il punto corrente</DT
+><DT
+><A
+HREF="function.cpdf-newpath.html"
+>cpdf_newpath</A
+>&nbsp;--&nbsp;Inizia un nuovo path</DT
+><DT
+><A
+HREF="function.cpdf-open.html"
+>cpdf_open</A
+>&nbsp;--&nbsp;Apre un nuovo documento pdf</DT
+><DT
+><A
+HREF="function.cpdf-output-buffer.html"
+>cpdf_output_buffer</A
+>&nbsp;--&nbsp;Scrive il documento pdf nel buffer di memoria</DT
+><DT
+><A
+HREF="function.cpdf-page-init.html"
+>cpdf_page_init</A
+>&nbsp;--&nbsp;Inizia una nuova pagina</DT
+><DT
+><A
+HREF="function.cpdf-place-inline-image.html"
+>cpdf_place_inline_image</A
+>&nbsp;--&nbsp;Inserisce un'immagine nella pagina</DT
+><DT
+><A
+HREF="function.cpdf-rect.html"
+>cpdf_rect</A
+>&nbsp;--&nbsp;Disegna un rettangolo</DT
+><DT
+><A
+HREF="function.cpdf-restore.html"
+>cpdf_restore</A
+>&nbsp;--&nbsp;Ristabilisce le impostazioni salvate in precedenza</DT
+><DT
+><A
+HREF="function.cpdf-rlineto.html"
+>cpdf_rlineto</A
+>&nbsp;--&nbsp;Disegna una linea</DT
+><DT
+><A
+HREF="function.cpdf-rmoveto.html"
+>cpdf_rmoveto</A
+>&nbsp;--&nbsp;Setta il punto corrente</DT
+><DT
+><A
+HREF="function.cpdf-rotate-text.html"
+>cpdf_rotate_text</A
+>&nbsp;--&nbsp;
+     Setta l'angolo di rotazione del testo
+    </DT
+><DT
+><A
+HREF="function.cpdf-rotate.html"
+>cpdf_rotate</A
+>&nbsp;--&nbsp;Effettua una rotazione</DT
+><DT
+><A
+HREF="function.cpdf-save-to-file.html"
+>cpdf_save_to_file</A
+>&nbsp;--&nbsp;Salva il documento pdf in un file</DT
+><DT
+><A
+HREF="function.cpdf-save.html"
+>cpdf_save</A
+>&nbsp;--&nbsp;Salva le impostazioni correnti</DT
+><DT
+><A
+HREF="function.cpdf-scale.html"
+>cpdf_scale</A
+>&nbsp;--&nbsp;Applica il coefficiente di scala</DT
+><DT
+><A
+HREF="function.cpdf-set-action-url.html"
+>cpdf_set_action_url</A
+>&nbsp;--&nbsp;
+     Imposta un link
+    </DT
+><DT
+><A
+HREF="function.cpdf-set-char-spacing.html"
+>cpdf_set_char_spacing</A
+>&nbsp;--&nbsp;Imposta la spaziatura fra caratteri</DT
+><DT
+><A
+HREF="function.cpdf-set-creator.html"
+>cpdf_set_creator</A
+>&nbsp;--&nbsp;Imposta il campo creatore nel documento pdf</DT
+><DT
+><A
+HREF="function.cpdf-set-current-page.html"
+>cpdf_set_current_page</A
+>&nbsp;--&nbsp;Imposta la pagina corrente</DT
+><DT
+><A
+HREF="function.cpdf-set-font-directories.html"
+>cpdf_set_font_directories</A
+>&nbsp;--&nbsp;
+     Imposta le directory in cui cercare quando si utilizzano font esterni
+    </DT
+><DT
+><A
+HREF="function.cpdf-set-font-map-file.html"
+>cpdf_set_font_map_file</A
+>&nbsp;--&nbsp;
+     Imposta la tabella di associazione tra nome di file e nome di font, quando si 
+     usano font esterni
+    </DT
+><DT
+><A
+HREF="function.cpdf-set-font.html"
+>cpdf_set_font</A
+>&nbsp;--&nbsp;Seleziona l'aspetto e la dimensione del font corrente</DT
+><DT
+><A
+HREF="function.cpdf-set-horiz-scaling.html"
+>cpdf_set_horiz_scaling</A
+>&nbsp;--&nbsp;Imposta il fattore di scala orizzontale del testo</DT
+><DT
+><A
+HREF="function.cpdf-set-keywords.html"
+>cpdf_set_keywords</A
+>&nbsp;--&nbsp;Imposta i campi chiave del documento pdf</DT
+><DT
+><A
+HREF="function.cpdf-set-leading.html"
+>cpdf_set_leading</A
+>&nbsp;--&nbsp;Imposta la distanza fra righe di testo</DT
+><DT
+><A
+HREF="function.cpdf-set-page-animation.html"
+>cpdf_set_page_animation</A
+>&nbsp;--&nbsp;Sets duration between pages</DT
+><DT
+><A
+HREF="function.cpdf-set-subject.html"
+>cpdf_set_subject</A
+>&nbsp;--&nbsp;Imposta il campo soggetto del documento pdf</DT
+><DT
+><A
+HREF="function.cpdf-set-text-matrix.html"
+>cpdf_set_text_matrix</A
+>&nbsp;--&nbsp;Imposta la matrice di testo</DT
+><DT
+><A
+HREF="function.cpdf-set-text-pos.html"
+>cpdf_set_text_pos</A
+>&nbsp;--&nbsp;Imposta la posizione del testo</DT
+><DT
+><A
+HREF="function.cpdf-set-text-rendering.html"
+>cpdf_set_text_rendering</A
+>&nbsp;--&nbsp;Determines how text is rendered</DT
+><DT
+><A
+HREF="function.cpdf-set-text-rise.html"
+>cpdf_set_text_rise</A
+>&nbsp;--&nbsp;Sets the text rise</DT
+><DT
+><A
+HREF="function.cpdf-set-title.html"
+>cpdf_set_title</A
+>&nbsp;--&nbsp;Imposta il campo titolo del documento pdf</DT
+><DT
+><A
+HREF="function.cpdf-set-viewer-preferences.html"
+>cpdf_set_viewer_preferences</A
+>&nbsp;--&nbsp;
+     How to show the document in the viewer
+    </DT
+><DT
+><A
+HREF="function.cpdf-set-word-spacing.html"
+>cpdf_set_word_spacing</A
+>&nbsp;--&nbsp;Imposta la spaziatura fra parole</DT
+><DT
+><A
+HREF="function.cpdf-setdash.html"
+>cpdf_setdash</A
+>&nbsp;--&nbsp;Sets dash pattern</DT
+><DT
+><A
+HREF="function.cpdf-setflat.html"
+>cpdf_setflat</A
+>&nbsp;--&nbsp;Sets flatness</DT
+><DT
+><A
+HREF="function.cpdf-setgray-fill.html"
+>cpdf_setgray_fill</A
+>&nbsp;--&nbsp;Imposta il grigio come colore per il riempimento</DT
+><DT
+><A
+HREF="function.cpdf-setgray-stroke.html"
+>cpdf_setgray_stroke</A
+>&nbsp;--&nbsp;Sets drawing color to gray value</DT
+><DT
+><A
+HREF="function.cpdf-setgray.html"
+>cpdf_setgray</A
+>&nbsp;--&nbsp;Imposta il grigio come colore per il disegno e il riempimento</DT
+><DT
+><A
+HREF="function.cpdf-setlinecap.html"
+>cpdf_setlinecap</A
+>&nbsp;--&nbsp;Sets linecap parameter</DT
+><DT
+><A
+HREF="function.cpdf-setlinejoin.html"
+>cpdf_setlinejoin</A
+>&nbsp;--&nbsp;Sets linejoin parameter</DT
+><DT
+><A
+HREF="function.cpdf-setlinewidth.html"
+>cpdf_setlinewidth</A
+>&nbsp;--&nbsp;Imposta la larghezza delle linee</DT
+><DT
+><A
+HREF="function.cpdf-setmiterlimit.html"
+>cpdf_setmiterlimit</A
+>&nbsp;--&nbsp;Sets miter limit</DT
+><DT
+><A
+HREF="function.cpdf-setrgbcolor-fill.html"
+>cpdf_setrgbcolor_fill</A
+>&nbsp;--&nbsp;Sets filling color to rgb color value</DT
+><DT
+><A
+HREF="function.cpdf-setrgbcolor-stroke.html"
+>cpdf_setrgbcolor_stroke</A
+>&nbsp;--&nbsp;Sets drawing color to rgb color value</DT
+><DT
+><A
+HREF="function.cpdf-setrgbcolor.html"
+>cpdf_setrgbcolor</A
+>&nbsp;--&nbsp;Imposta il valore del colore rgb come colore per il disegno e il riempimento</DT
+><DT
+><A
+HREF="function.cpdf-show-xy.html"
+>cpdf_show_xy</A
+>&nbsp;--&nbsp;Output text at position</DT
+><DT
+><A
+HREF="function.cpdf-show.html"
+>cpdf_show</A
+>&nbsp;--&nbsp;Scrive il testo alla posizione corrente</DT
+><DT
+><A
+HREF="function.cpdf-stringwidth.html"
+>cpdf_stringwidth</A
+>&nbsp;--&nbsp;Restituisce la larghezza del testo nel font corrente</DT
+><DT
+><A
+HREF="function.cpdf-stroke.html"
+>cpdf_stroke</A
+>&nbsp;--&nbsp;Disegna una linea lungo il path</DT
+><DT
+><A
+HREF="function.cpdf-text.html"
+>cpdf_text</A
+>&nbsp;--&nbsp;Scrive il testo con i parametri</DT
+><DT
+><A
+HREF="function.cpdf-translate.html"
+>cpdf_translate</A
+>&nbsp;--&nbsp;Sets origin of coordinate system</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.classkit-method-rename.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.cpdf-add-annotation.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>classkit_method_rename</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>cpdf_add_annotation</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

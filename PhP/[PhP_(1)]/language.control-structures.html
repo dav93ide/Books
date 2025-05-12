@@ -1,0 +1,495 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Strutture di controllo</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Struttura del Linguaggio"
+HREF="langref.html"><LINK
+REL="PREVIOUS"
+TITLE="Operatori di tipi"
+HREF="language.operators.type.html"><LINK
+REL="NEXT"
+TITLE="else"
+HREF="control-structures.else.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.operators.type.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="control-structures.else.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="language.control-structures"
+>Capitolo 16. Strutture di controllo</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="language.control-structures.html#control-structures.if"
+><VAR
+CLASS="literal"
+>if</VAR
+></A
+></DT
+><DT
+><A
+HREF="control-structures.else.html"
+><VAR
+CLASS="literal"
+>else</VAR
+></A
+></DT
+><DT
+><A
+HREF="control-structures.elseif.html"
+><VAR
+CLASS="literal"
+>elseif</VAR
+></A
+></DT
+><DT
+><A
+HREF="control-structures.alternative-syntax.html"
+>Sintassi alternativa per le strutture di controllo</A
+></DT
+><DT
+><A
+HREF="control-structures.while.html"
+><VAR
+CLASS="literal"
+>while</VAR
+></A
+></DT
+><DT
+><A
+HREF="control-structures.do.while.html"
+><VAR
+CLASS="literal"
+>do-while</VAR
+></A
+></DT
+><DT
+><A
+HREF="control-structures.for.html"
+><VAR
+CLASS="literal"
+>for</VAR
+></A
+></DT
+><DT
+><A
+HREF="control-structures.foreach.html"
+><VAR
+CLASS="literal"
+>foreach</VAR
+></A
+></DT
+><DT
+><A
+HREF="control-structures.break.html"
+><VAR
+CLASS="literal"
+>break</VAR
+></A
+></DT
+><DT
+><A
+HREF="control-structures.continue.html"
+><VAR
+CLASS="literal"
+>continue</VAR
+></A
+></DT
+><DT
+><A
+HREF="control-structures.switch.html"
+><VAR
+CLASS="literal"
+>switch</VAR
+></A
+></DT
+><DT
+><A
+HREF="control-structures.declare.html"
+><VAR
+CLASS="literal"
+>declare</VAR
+></A
+></DT
+><DT
+><A
+HREF="function.return.html"
+>return</A
+></DT
+><DT
+><A
+HREF="function.require.html"
+><A
+HREF="function.require.html"
+><B
+CLASS="function"
+>require()</B
+></A
+></A
+></DT
+><DT
+><A
+HREF="function.include.html"
+><A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+></A
+></DT
+><DT
+><A
+HREF="function.require-once.html"
+><A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+></A
+></DT
+><DT
+><A
+HREF="function.include-once.html"
+><A
+HREF="function.include-once.html"
+><B
+CLASS="function"
+>include_once()</B
+></A
+></A
+></DT
+></DL
+></DIV
+><P
+>&#13;   Qualsiasi script PHP è costituito da una serie di istruzioni. Una istruzione
+   può essere un'assegnazione, una chiamata di funzione, un loop, una istruzione condizionale
+   che non fa nulla (istruzione vuota).
+   Le istruzioni terminano con un punto e virgola. Inoltre, le istruzioni
+   si possono raggruppare in blocchi di istruzioni racchiudendole tra
+   parentesi graffa.
+   Un gruppo di istruzioni è, a sua volta, un'istruzione. Il presente capitolo
+   descrive i differenti tipi di istruzioni.
+  </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="control-structures.if"
+><VAR
+CLASS="literal"
+>if</VAR
+></A
+></H1
+><P
+>&#13;    Il costrutto <VAR
+CLASS="literal"
+>if</VAR
+> è una delle più importanti
+    caratteristiche di qualsiasi linguaggio, incluso PHP.
+    Permette l'esecuzione condizionata di frammenti di codice.
+    La struttura di controllo <VAR
+CLASS="literal"
+>if</VAR
+> di PHP è simile a quella del linguaggio C:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4686"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php
+if (expression)
+    istruzione
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Come descritto nella <A
+HREF="language.expressions.html"
+>sezione sulle
+    espressioni</A
+>, <VAR
+CLASS="replaceable"
+>espressione</VAR
+> restiruirà il suo
+    valore booleano. Se <VAR
+CLASS="replaceable"
+>espressione</VAR
+> vale <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>,
+    PHP eseguirà <VAR
+CLASS="replaceable"
+>istruzione</VAR
+>, e se essa vale
+    <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> - la ignorerà. Più informazioni riguardo i valori valutati
+    <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> possono essere trovati nella sezione <A
+HREF="language.types.boolean.html#language.types.boolean.casting"
+>'Conversione in booleano'</A
+>
+    .
+   </P
+><P
+>&#13;    L'esempio che segue visualizzerà <SAMP
+CLASS="computeroutput"
+>a è maggiore
+    di b</SAMP
+> se <VAR
+CLASS="varname"
+>$a</VAR
+> sarà maggiore
+    di <VAR
+CLASS="varname"
+>$b</VAR
+>:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4701"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">$a </font><font color="#007700">&gt; </font><font color="#0000BB">$b</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"a è maggiore di b"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Spesso sarà necessario eseguire più di una istruzione
+    condizionale.  Naturalmente non è necessario, utilizzare una singola clausola
+    <VAR
+CLASS="literal"
+>if</VAR
+> per ciascuna istruzione. Si possono raggruppare diverse istruzioni
+    in un singolo gruppo di istruzioni. Per esempio, il codice che segue
+    visualizzerà <SAMP
+CLASS="computeroutput"
+>a è maggiore di b</SAMP
+>
+    se <VAR
+CLASS="varname"
+>$a</VAR
+> è maggiore di <VAR
+CLASS="varname"
+>$b</VAR
+>,
+    e successivamente assegnerà il valore della variabile <VAR
+CLASS="varname"
+>$a</VAR
+>
+    alla variabile <VAR
+CLASS="varname"
+>$b</VAR
+>:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4710"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">$a </font><font color="#007700">&gt; </font><font color="#0000BB">$b</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"a è maggiore di b"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$b </font><font color="#007700">= </font><font color="#0000BB">$a</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Si possono annidare indefinitamente istruzioni
+    <VAR
+CLASS="literal"
+>if</VAR
+>, la qual cosa fornisce piena
+    flessibilità per l'esecuzione di istruzioni condizionali in diversi punti del
+    programma.
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.operators.type.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="control-structures.else.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Operatori di tipi</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="langref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>else</VAR
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

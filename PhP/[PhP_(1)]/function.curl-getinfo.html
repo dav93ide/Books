@@ -1,0 +1,383 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>curl_getinfo</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni CURL, Client URL Library"
+HREF="ref.curl.html"><LINK
+REL="PREVIOUS"
+TITLE="curl_exec"
+HREF="function.curl-exec.html"><LINK
+REL="NEXT"
+TITLE="curl_init"
+HREF="function.curl-init.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.curl-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.curl-init.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.curl-getinfo"
+></A
+>curl_getinfo</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN21981"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.4, PHP 5)</P
+>curl_getinfo&nbsp;--&nbsp;
+     Ottiene informazioni relative a un determinato trasferimento
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN21984"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>curl_getinfo</B
+> ( resource ch [, int opt] )<BR
+></BR
+><P
+>&#13;     La funzione restituisce informazioni sull'ultimo trasferimento, il parametro <VAR
+CLASS="parameter"
+>opt</VAR
+>
+     può assumere uno dei seguenti valori:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        "CURLINFO_EFFECTIVE_URL" - L'ultimo URL reale
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_HTTP_CODE" - L'ultimo codice HTTP ricevuto
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_FILETIME" - Data del documento remoto ricevuto, -1 indica che la data del documento è sconosciuta
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_TOTAL_TIME" - Tempo totale in secondi per l'ultimo trasferimento
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_NAMELOOKUP_TIME" - Tempo in secondi impiegato per risolvere il nome
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_CONNECT_TIME" - Tempo in secondi necessario per stabilire la connessione
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_PRETRANSFER_TIME" - Tempo in secondi dall'inizio fino a prima di cominciare il trasferimento
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_STARTTRANSFER_TIME" - Tempo in secondi fino a quando comincia il trasferimento del primo byte
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_REDIRECT_TIME" - Tempo in secondi richiesto dai passi di redirezione prima che sia cominciata la transazione finale
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_SIZE_UPLOAD" - Numero totale dei byte inviati
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_SIZE_DOWNLOAD" - Numero totale dei byte scaricati
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_SPEED_DOWNLOAD" - Velocità media di download
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_SPEED_UPLOAD" - Velocità media di upload
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_HEADER_SIZE" - Dimensione totale di tutte le header ricevute
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_REQUEST_SIZE" - Dimensione totale delle richieste, attualmente solo per le richieste HTTP
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_SSL_VERIFYRESULT" - Risultato delle verifiche del certificato richieste da CURLOPT_SSL_VERIFYPEER
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_CONTENT_LENGTH_DOWNLOAD" - Lunghezza del download ottenuta dal campo Content-Length:
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_CONTENT_LENGTH_UPLOAD" - Dimensione specificata dell'upload
+       </P
+></LI
+><LI
+><P
+>&#13;        "CURLINFO_CONTENT_TYPE" - Content-type dell'oggetto scaricato, il valore NULL indica che il server non ha inviato un Content-Type: valido
+       </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     Se la funzione viene eseguita senza il parametro opzionale opt, sarà restituito un array contenente i seguenti elementi corrispondenti alle opzioni di <VAR
+CLASS="parameter"
+>opt</VAR
+>:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        "url"
+       </P
+></LI
+><LI
+><P
+>&#13;        "content_type"
+       </P
+></LI
+><LI
+><P
+>&#13;        "http_code"
+       </P
+></LI
+><LI
+><P
+>&#13;        "header_size"
+       </P
+></LI
+><LI
+><P
+>&#13;        "request_size"
+       </P
+></LI
+><LI
+><P
+>&#13;        "filetime"
+       </P
+></LI
+><LI
+><P
+>&#13;        "ssl_verify_result"
+       </P
+></LI
+><LI
+><P
+>&#13;        "redirect_count"
+       </P
+></LI
+><LI
+><P
+>&#13;        "total_time"
+       </P
+></LI
+><LI
+><P
+>&#13;        "namelookup_time"
+       </P
+></LI
+><LI
+><P
+>&#13;        "connect_time"
+       </P
+></LI
+><LI
+><P
+>&#13;        "pretransfer_time"
+       </P
+></LI
+><LI
+><P
+>&#13;        "size_upload"
+       </P
+></LI
+><LI
+><P
+>&#13;        "size_download"
+       </P
+></LI
+><LI
+><P
+>&#13;        "speed_download"
+       </P
+></LI
+><LI
+><P
+>&#13;        "speed_upload"
+       </P
+></LI
+><LI
+><P
+>&#13;        "download_content_length"
+       </P
+></LI
+><LI
+><P
+>&#13;        "upload_content_length"
+       </P
+></LI
+><LI
+><P
+>&#13;        "starttransfer_time"
+       </P
+></LI
+><LI
+><P
+>&#13;        "redirect_time"
+       </P
+></LI
+></UL
+>                    
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.curl-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.curl-init.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>curl_exec</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.curl.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>curl_init</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

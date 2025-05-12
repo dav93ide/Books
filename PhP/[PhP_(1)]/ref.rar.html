@@ -1,0 +1,537 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Rar Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="radius_strerror"
+HREF="function.radius-strerror.html"><LINK
+REL="NEXT"
+TITLE="rar_close"
+HREF="function.rar-close.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.radius-strerror.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.rar-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.rar"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXXII. Rar Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN142075"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rar.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Rar is a powerful and effective archiver created by Eugene Roshal. 
+     This extension gives you possibility to read Rar archives but
+     doesn't support writing Rar archives, because this is not supported 
+     by UnRar library and is directly prohibited by it's license.
+    </P
+><P
+>&#13;     More information about Rar and UnRar can be found at <A
+HREF="http://www.rarlabs.com/"
+TARGET="_top"
+>http://www.rarlabs.com/</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rar.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rar.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rar.install"
+>Installazione</A
+></H1
+><P
+>&#13;     Rar is currently available through PECL
+     <A
+HREF="http://pecl.php.net/package/rar"
+TARGET="_top"
+>http://pecl.php.net/package/rar</A
+>.
+    </P
+><P
+>&#13;     Also you can use the pear installer to install the Rar extension, 
+     using the following command: <B
+CLASS="command"
+>pear -v install rar</B
+>.
+    </P
+><P
+>&#13;     You can always download the tar.gz package and install Rar by hand:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN142095"
+></A
+><P
+><B
+>Esempio 1. Rar installation</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>gunzip rar-xxx.tgz
+tar -xvf rar-xxx.tar
+cd rar-xxx
+phpize
+./configure &#38;&#38; make &#38;&#38; make install</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Windows users can download the extension dll <TT
+CLASS="filename"
+>php_rar.dll</TT
+>
+     here: <A
+HREF="http://snaps.php.net/win32/PECL_STABLE/"
+TARGET="_top"
+>http://snaps.php.net/win32/PECL_STABLE/</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rar.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;     There is one resource used in Rar extension: a file descriptor returned
+     by <A
+HREF="function.rar-open.html"
+><B
+CLASS="function"
+>rar_open()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rar.constants"
+>Costanti predefinite</A
+></H1
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>RAR_HOST_MSDOS</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;        
+       </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RAR_HOST_OS2</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;        
+       </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RAR_HOST_WIN32</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;        
+       </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RAR_HOST_UNIX</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;        
+       </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RAR_HOST_BEOS</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;        
+       </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rar.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN142141"
+></A
+><P
+><B
+>Esempio 2. Rar extension overview example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$rar_file </font><font color="#007700">= </font><font color="#0000BB">rar_open</font><font color="#007700">(</font><font color="#DD0000">'example.rar'</font><font color="#007700">) or die(</font><font color="#DD0000">"Can't open Rar archive"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$entries </font><font color="#007700">= </font><font color="#0000BB">rar_list</font><font color="#007700">(</font><font color="#0000BB">$rar_file</font><font color="#007700">);<br /><br />foreach (</font><font color="#0000BB">$entries </font><font color="#007700">as </font><font color="#0000BB">$entry</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Filename: ' </font><font color="#007700">. </font><font color="#0000BB">$entry</font><font color="#007700">-&gt;</font><font color="#0000BB">getName</font><font color="#007700">() . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Packed size: ' </font><font color="#007700">. </font><font color="#0000BB">$entry</font><font color="#007700">-&gt;</font><font color="#0000BB">getPackedSize</font><font color="#007700">() . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Unpacked size: ' </font><font color="#007700">. </font><font color="#0000BB">$entry</font><font color="#007700">-&gt;</font><font color="#0000BB">getUnpackedSize</font><font color="#007700">() . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$entry</font><font color="#007700">-&gt;</font><font color="#0000BB">extract</font><font color="#007700">(</font><font color="#DD0000">'/dir/extract/to/'</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">rar_close</font><font color="#007700">(</font><font color="#0000BB">$rar_file</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     This example opens a Rar file archive and extracts each entry to the
+     specified directory.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.rar-close.html"
+>rar_close</A
+>&nbsp;--&nbsp;Close Rar archive and free all resources</DT
+><DT
+><A
+HREF="function.rar-entry-get.html"
+>rar_entry_get</A
+>&nbsp;--&nbsp;Get entry object from the Rar archive</DT
+><DT
+><A
+HREF="function.rar-extract.html"
+>Rar::extract</A
+>&nbsp;--&nbsp;Extract entry from the archive</DT
+><DT
+><A
+HREF="function.rar-getattr.html"
+>Rar::getAttr</A
+>&nbsp;--&nbsp;Get attributes of the entry</DT
+><DT
+><A
+HREF="function.rar-getcrc.html"
+>Rar::getCrc</A
+>&nbsp;--&nbsp;Get CRC of the entry</DT
+><DT
+><A
+HREF="function.rar-getfiletime.html"
+>Rar::getFileTime</A
+>&nbsp;--&nbsp;Get entry last modification time</DT
+><DT
+><A
+HREF="function.rar-gethostos.html"
+>Rar::getHostOs</A
+>&nbsp;--&nbsp;Get entry host OS</DT
+><DT
+><A
+HREF="function.rar-getmethod.html"
+>Rar::getMethod</A
+>&nbsp;--&nbsp;Get pack method of the entry</DT
+><DT
+><A
+HREF="function.rar-getname.html"
+>Rar::getName</A
+>&nbsp;--&nbsp;Get name of the entry</DT
+><DT
+><A
+HREF="function.rar-getpackedsize.html"
+>Rar::getPackedSize</A
+>&nbsp;--&nbsp;Get packed size of the entry</DT
+><DT
+><A
+HREF="function.rar-getunpackedsize.html"
+>Rar::getUnpackedSize</A
+>&nbsp;--&nbsp;Get unpacked size of the entry</DT
+><DT
+><A
+HREF="function.rar-getversion.html"
+>Rar::getVersion</A
+>&nbsp;--&nbsp;Get version of the archiver used to add the entry</DT
+><DT
+><A
+HREF="function.rar-list.html"
+>rar_list</A
+>&nbsp;--&nbsp;Get entries list from the Rar archive</DT
+><DT
+><A
+HREF="function.rar-open.html"
+>rar_open</A
+>&nbsp;--&nbsp;Open Rar archive</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.radius-strerror.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.rar-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>radius_strerror</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>rar_close</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

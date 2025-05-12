@@ -1,0 +1,300 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fbsql_fetch_array</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FrontBase Functions"
+HREF="ref.fbsql.html"><LINK
+REL="PREVIOUS"
+TITLE="fbsql_error"
+HREF="function.fbsql-error.html"><LINK
+REL="NEXT"
+TITLE="fbsql_fetch_assoc"
+HREF="function.fbsql-fetch-assoc.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-error.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-fetch-assoc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fbsql-fetch-array"
+></A
+>fbsql_fetch_array</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN45681"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PHP 5)</P
+>fbsql_fetch_array&nbsp;--&nbsp;
+     Restituisce una riga (tupla) di risultato in forma di Array associativo, Array enumerato o 
+     entrambi
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN45684"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>fbsql_fetch_array</B
+> ( resource result [, int result_type] )<BR
+></BR
+><P
+> 
+     Restituisce un array che corrisponde alla riga di risultato, o <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+     se non ci sono righe successive.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>fbsql_fetch_array()</B
+> è una versione estesa di 
+     <A
+HREF="function.fbsql-fetch-row.html"
+><B
+CLASS="function"
+>fbsql_fetch_row()</B
+></A
+>.  In aggiunta all'inserimento dei 
+     dati negli elementi dell'array con indice numerico, li inserisce anche in 
+     indici associativi, usando il nome dei campi come chiavi.
+    </P
+><P
+>&#13;     Se due o più colonne di risultato hanno lo stesso nome di campo , 
+     l'ultima colonna sovrascriverà la precedente con lo stesso nome. Per 
+     accedere alle altre colonne con lo stesso nome si deve usare l'indice 
+     numerico oppure fare un alias della colonna. 
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN45701"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>select t1.f1 as foo t2.f1 as bar from t1, t2</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Una cosa importante da notare è che 
+     <B
+CLASS="function"
+>fbsql_fetch_array()</B
+> NON è singnificativamente 
+     più lenta di <A
+HREF="function.fbsql-fetch-row.html"
+><B
+CLASS="function"
+>fbsql_fetch_row()</B
+></A
+>, mentre fornisce un significativo 
+     valore aggiunto.
+    </P
+><P
+>&#13;     Il secondo parametro opzionale, <VAR
+CLASS="parameter"
+>result_type</VAR
+>
+     in <B
+CLASS="function"
+>fbsql_fetch_array()</B
+> è una costante che può 
+     assumere i seguenti valori: FBSQL_ASSOC, FBSQL_NUM, 
+     and FBSQL_BOTH. 
+    </P
+><P
+>&#13;     Per ulteriori dettagli vedere anche
+     <A
+HREF="function.fbsql-fetch-row.html"
+><B
+CLASS="function"
+>fbsql_fetch_row()</B
+></A
+> e
+     <A
+HREF="function.fbsql-fetch-assoc.html"
+><B
+CLASS="function"
+>fbsql_fetch_assoc()</B
+></A
+>.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN45712"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>fbsql_fetch_array()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br />fbsql_connect </font><font color="#007700">(</font><font color="#0000BB">$host</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">fbsql_db_query </font><font color="#007700">(</font><font color="#DD0000">"database"</font><font color="#007700">,</font><font color="#DD0000">"select user_id, fullname from table"</font><font color="#007700">);<br />while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">fbsql_fetch_array </font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"user_id: "</font><font color="#007700">.</font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">"user_id"</font><font color="#007700">].</font><font color="#DD0000">"&lt;br&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"user_id: "</font><font color="#007700">.</font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">].</font><font color="#DD0000">"&lt;br&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"fullname: "</font><font color="#007700">.</font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">"fullname"</font><font color="#007700">].</font><font color="#DD0000">"&lt;br&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"fullname: "</font><font color="#007700">.</font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">].</font><font color="#DD0000">"&lt;br&gt;\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">fbsql_free_result </font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fbsql-error.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fbsql-fetch-assoc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fbsql_error</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.fbsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fbsql_fetch_assoc</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

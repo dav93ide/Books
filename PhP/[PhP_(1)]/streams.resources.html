@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Streams as Resources</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Streams API for PHP Extension Authors"
+HREF="streams.html"><LINK
+REL="PREVIOUS"
+TITLE="Streams Basics"
+HREF="streams.basics.html"><LINK
+REL="NEXT"
+TITLE="Streams Common API Reference"
+HREF="streams.common-api.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="streams.basics.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 44. Streams API for PHP Extension Authors</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="streams.common-api.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="streams.resources"
+>Streams as Resources</A
+></H1
+><P
+>&#13;   All streams are registered as resources when they are created.  This ensures
+   that they will be properly cleaned up even if there is some fatal error.
+   All of the filesystem functions in PHP operate on streams resources - that
+   means that your extensions can accept regular PHP file pointers as
+   parameters to, and return streams from their functions.
+   The streams API makes this process as painless as possible:
+  </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN183991"
+></A
+><P
+><B
+>Esempio 44-2. How to accept a stream as a parameter</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="c"
+>PHP_FUNCTION(example_write_hello)
+{
+    zval *zstream;
+    php_stream *stream;
+    
+    if (FAILURE == zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "r", &#38;zstream))
+        return;
+    
+    php_stream_from_zval(stream, &#38;zstream);
+
+    /* you can now use the stream.  However, you do not "own" the
+        stream, the script does.  That means you MUST NOT close the
+        stream, because it will cause PHP to crash! */
+
+    php_stream_write(stream, "hello\n");
+        
+    RETURN_TRUE();
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN183995"
+></A
+><P
+><B
+>Esempio 44-3. How to return a stream from a function</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="c"
+>PHP_FUNCTION(example_open_php_home_page)
+{
+    php_stream *stream;
+    
+    stream = php_stream_open_wrapper("http://www.php.net", "rb", REPORT_ERRORS, NULL);
+    
+    php_stream_to_zval(stream, return_value);
+
+    /* after this point, the stream is "owned" by the script.
+        If you close it now, you will crash PHP! */
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   Since streams are automatically cleaned up, it's tempting to think that we can get
+   away with being sloppy programmers and not bother to close the streams when we
+   are done with them.  Although such an approach might work, it is not a good idea
+   for a number of reasons: streams hold locks on system resources while they are
+   open, so leaving a file open after you have finished with it could prevent other
+   processes from accessing it.  If a script deals with a large number of files,
+   the accumulation of the resources used, both in terms of memory and the
+   sheer number of open files, can cause web server requests to fail.  Sounds
+   bad, doesn't it?  The streams API includes some magic that helps you to
+   keep your code clean - if a stream is not closed by your code when it should
+   be, you will find some helpful debugging information in you web server error
+   log.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Always use a debug build of PHP when developing an extension
+    (<VAR
+CLASS="option"
+>--enable-debug</VAR
+> when running configure), as a lot of
+    effort has been made to warn you about memory and stream leaks.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   In some cases, it is useful to keep a stream open for the duration of a request,
+   to act as a log or trace file for example.  Writing the code to safely clean up
+   such a stream is not difficult, but it's several lines of code that are not
+   strictly needed.  To save yourself the trouble of writing the code, you
+   can mark a stream as being OK for auto cleanup.  What this means is
+   that the streams API will not emit a warning when it is time to auto-cleanup
+   a stream.  To do this, you can use <B
+CLASS="function"
+>php_stream_auto_cleanup()</B
+>.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="streams.basics.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="streams.common-api.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Streams Basics</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="streams.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Streams Common API Reference</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

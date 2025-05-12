@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ircg_pconnect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IRC Gateway Functions"
+HREF="ref.ircg.html"><LINK
+REL="PREVIOUS"
+TITLE="ircg_part"
+HREF="function.ircg-part.html"><LINK
+REL="NEXT"
+TITLE="ircg_register_format_messages"
+HREF="function.ircg-register-format-messages.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ircg-part.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ircg-register-format-messages.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ircg-pconnect"
+></A
+>ircg_pconnect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN66453"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.4, PHP 5 &#60;= 5.0.4)</P
+>ircg_pconnect&nbsp;--&nbsp;
+     Connect to an IRC server
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN66456"
+></A
+><H2
+>Description</H2
+>resource <B
+CLASS="methodname"
+>ircg_pconnect</B
+> ( string username [, string server_ip [, int server_port [, string msg_format [, array ctcp_messages [, array user_settings [, bool bailout_on_trivial]]]]]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>ircg_pconnect()</B
+> will try to establish a
+     connection to an IRC server and return a connection resource
+     handle for further use.
+    </P
+><P
+>&#13;     The only mandatory parameter is <VAR
+CLASS="parameter"
+>username</VAR
+>,
+     this will set your initial nickname on the
+     server. <VAR
+CLASS="parameter"
+>server_ip</VAR
+> and
+     <VAR
+CLASS="parameter"
+>server_port</VAR
+> are optional and default to
+     <VAR
+CLASS="literal"
+>127.0.0.1</VAR
+> and <VAR
+CLASS="literal"
+>6667</VAR
+>.
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       For now parameter <VAR
+CLASS="parameter"
+>server_ip</VAR
+> will not do
+       any hostname lookups and will only accept IP addresses in
+       numerical form. DNS lookups are expensive and should be done in the
+       context of IRCG.
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><P
+>&#13;     You can customize the output of IRC messages and events by
+     selecting a format message set previously created with
+     <A
+HREF="function.ircg-register-format-messages.html"
+><B
+CLASS="function"
+>ircg_register_format_messages()</B
+></A
+> by specifying
+     the set's name in <VAR
+CLASS="parameter"
+>msg_format</VAR
+>.
+    </P
+><P
+>&#13;     If you want to handle CTCP messages such as ACTION (/me), you need to
+     define a mapping from CTCP type (e.g. ACTION) to a custom format
+     string. Do this by passing an associative array as
+     <VAR
+CLASS="parameter"
+>ctcp_messages</VAR
+>. The keys of the array 
+     are the CTCP type and the respective value is the format message.
+    </P
+><P
+>&#13;     You can define "ident", "password", and "realname" tokens which
+     are sent to the IRC server by setting these in an associative
+     array. Pass that array as <VAR
+CLASS="parameter"
+>user_settings</VAR
+>.
+    </P
+><P
+>&#13;     See also: <A
+HREF="function.ircg-disconnect.html"
+><B
+CLASS="function"
+>ircg_disconnect()</B
+></A
+>,
+     <A
+HREF="function.ircg-is-conn-alive.html"
+><B
+CLASS="function"
+>ircg_is_conn_alive()</B
+></A
+>,
+     <A
+HREF="function.ircg-register-format-messages.html"
+><B
+CLASS="function"
+>ircg_register_format_messages()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ircg-part.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ircg-register-format-messages.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ircg_part</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ircg.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ircg_register_format_messages</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

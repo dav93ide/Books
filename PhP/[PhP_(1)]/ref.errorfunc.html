@@ -1,0 +1,1642 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni di gestione degli errori e di logging</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="xptr_new_context"
+HREF="function.xptr-new-context.html"><LINK
+REL="NEXT"
+TITLE="debug_backtrace"
+HREF="function.debug-backtrace.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xptr-new-context.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.debug-backtrace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.errorfunc"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XXXII. Funzioni di gestione degli errori e di logging</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN36997"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="errorfunc.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    Le seguenti sono le funzioni per la gestione degli errori ed il logging. Esse 
+    permettono di definire regole personalizzate per la gestione degli errori, e anche di modificarne 
+    la modalità della gestione stessa. Ciò permette di cambiare ed integrare i
+    messaggi di errore adattandoli alle vostre esigenze.
+   </P
+><P
+> 
+    Grazie alle funzioni di logging, è possibile inviare messaggi direttamente
+    ad altre macchine, alla posta elettronica (o ad un gateway pager o di
+    posta elettronica!), ai log di sistema, ecc., in modo da effettuare il log e
+    controllare selettivamente le parti più importanti delle vostre applicazioni e siti web.
+   </P
+><P
+> 
+    Le funzioni di restituzione dell'errore consentono la personalizzazione del
+    livello e del tipo di errore, dal semplice avviso sino a funzioni
+    personalizzate restituite durante gli errori.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="errorfunc.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="errorfunc.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="errorfunc.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN37014"
+></A
+><P
+><B
+>Tabella 1. Parametri di configurazione per la gestione degli errori e dei log</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>error_reporting</TD
+><TD
+>E_ALL &#38; ~E_NOTICE</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>display_errors</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>display_startup_errors</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>log_errors</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>log_errors_max_len</TD
+><TD
+>"1024"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>ignore_repeated_errors</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>ignore_repeated_source</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>report_memleaks</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>track_errors</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>html_errors</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>docref_root</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>docref_ext</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>error_prepend_string</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>error_append_string</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>error_log</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>warn_plus_overloading</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI??</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettaglii e per le definizioni delle costanti PHP_INI_* vedere
+  <A
+HREF="function.ini-set.html"
+><B
+CLASS="function"
+>ini_set()</B
+></A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.error-reporting"
+></A
+><VAR
+CLASS="parameter"
+>error_reporting</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      Imposta il livello di errore da visualizzare. Il parametro è sia un intero
+      rappresentante un campo di bit, o una costante nominale. I livelli
+      ri report degli errori e le costanti previste sono descritte in
+      <A
+HREF="ref.errorfunc.html#errorfunc.constants"
+>Costanti Predefinite</A
+>,
+      e in <TT
+CLASS="filename"
+>php.ini</TT
+>. Per impostare il livello in fase di esecuzione utilizzare la funzione
+      <A
+HREF="function.error-reporting.html"
+><B
+CLASS="function"
+>error_reporting()</B
+></A
+>. Vedere anche il parametro
+      <A
+HREF="ref.errorfunc.html#ini.display-errors"
+>display_errors</A
+>.
+     </P
+><P
+>&#13;      In PHP 4 e PHP 5 il valore di default è E_ALL &#38; ~E_NOTICE. Questa impostazione
+      non visualizza gli errori di livello <TT
+CLASS="constant"
+><B
+>E_NOTICE</B
+></TT
+>. Tuttavia può essere
+      comodo visualizzare questi messaggi in fase di sviluppo.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Abilitare <TT
+CLASS="constant"
+><B
+>E_NOTICE</B
+></TT
+> durante la fase di sviluppo ha
+      dei benefici. Ad esempio per scopi di debug: i messaggi di tipo NOTICE avvisano su
+      possibili bug nel codice. L'uso di variabili non assegnate, ad esempio, 
+      viene rilevato con questo livello di errore. Particolare che è molto utile per trovare 
+      errori di battitura e risparmiare tempo in fase di debug. I messaggi di tipo NOTICE segnalano il codice scritto con un cattivo stile.
+      Ad esempio, $arr[item] è meglio che sia scritto come $arr['item'] poichè
+      il PHP tenta di trattare "item" come costante. Se non esiste una simile costante, il PHP presume
+      che si tratti dell'indice di una matrice.
+      </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Nel PHP 5 è stato introdotto un nuovo livello di errore <TT
+CLASS="constant"
+><B
+>E_STRICT</B
+></TT
+>.
+       Come <TT
+CLASS="constant"
+><B
+>E_STRICT</B
+></TT
+> non viene incluso nel
+       <TT
+CLASS="constant"
+><B
+>E_ALL</B
+></TT
+> e, pertanto, occorre abilitarlo in modo esplicito.
+       Abilitare <TT
+CLASS="constant"
+><B
+>E_STRICT</B
+></TT
+> durante la fase di sviluppo porta
+       alcuni benefici. Questa casistica di messaggi servono ad aiutare le più recenti, e consigliate,
+       metodologie di programamzione, avvisando, ad esempio, sull'uso di
+       funzioni deprecate.
+      </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;      In PHP 3 l'impostazione di default è
+      <VAR
+CLASS="literal"
+>(E_ERROR | E_WARNING | E_PARSE)</VAR
+>,
+      che significa la medesima cosa. Occorre rilevare, tuttavia, che le 
+      costanti non sono supportate nel <TT
+CLASS="filename"
+>php3.ini</TT
+> del PHP 3, 
+      e pertanto occorre utilizzare la codifica numerica, che corrisponde a <VAR
+CLASS="literal"
+>7</VAR
+>.
+     </P
+></DD
+><DT
+><A
+NAME="ini.display-errors"
+></A
+><VAR
+CLASS="parameter"
+>display_errors</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Questo parametro determina se gli errori devono essere visualizzati sullo schermo
+      come parte dell'output o se devono essere nascosti all'utente.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questa opzione è di supporto allo sviluppo, e non deve mai essere utilizzata
+      nei sistemi di produzione (ad esempio collegati ad Internet).
+      </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="ini.display-startup-errors"
+></A
+><VAR
+CLASS="parameter"
+>display_startup_errors</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Anche quando è abilitata la visualizzazione degli errori, gli errori che avvengono durante l'avvio del PHP
+      non sono visualizzati. Si raccomanda di mantenere
+      display_startup_errors impostato a off, tranne che nelle fasi di sviluppo.
+     </P
+></DD
+><DT
+><A
+NAME="ini.log-errors"
+></A
+><VAR
+CLASS="parameter"
+>log_errors</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Indica se i messaggi di errore debbano essere registrati nell'errorlog
+      del server o in <A
+HREF="ref.errorfunc.html#ini.error-log"
+>error_log</A
+>.
+      Questo opzione dipende dal server.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Sui siti di produzione si raccomanda di utilizzare la registrazione degli errori 
+       piuttosto che visualizzarli.
+      </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="ini.log-errors-max-len"
+></A
+><VAR
+CLASS="parameter"
+>log_errors_max_len</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      Imposta la massima lunghezza del log degli errori in byte. Nell'errorlog
+      <A
+HREF="ref.errorfunc.html#ini.error-log"
+>error_log</A
+> viene indicata anche la fonte
+      del messaggio. Il valore di default è 1024 e 0 indica di non applicare
+      alcuna limitazione.
+      Questa dimensione viene applicata agli errori registrati, agli errori visualizzati e anche a 
+      <A
+HREF="reserved.variables.html#reserved.variables.phperrormsg"
+>$php_errormsg</A
+>.
+     </P
+><P
+>When an <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+> is used, the
+value is measured in bytes.  You may also use shorthand notation as described
+in <A
+HREF="faq.using.html#faq.using.shorthandbytes"
+>this FAQ</A
+>.</P
+></DD
+><DT
+><A
+NAME="ini.ignore-repeated-errors"
+></A
+><VAR
+CLASS="parameter"
+>ignore_repeated_errors</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Non registra i messaggi ripetuti. Gli errori ripetutti sono gli errori che si verificano
+      nel medesimo file nella linea, e vengono riportati sino a quando
+      <A
+HREF="ref.errorfunc.html#ini.ignore-repeated-source"
+>ignore_repeated_source</A
+>
+      non viene impostato a true.
+     </P
+></DD
+><DT
+><A
+NAME="ini.ignore-repeated-source"
+></A
+><VAR
+CLASS="parameter"
+>ignore_repeated_source</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Ignora la fonte del messaggio quando si ignora i messaggi ripetuti. Quando questa impostazione è
+      a On non saranno registrati messaggi ripetutida differenti linee
+      del codice.
+     </P
+></DD
+><DT
+><A
+NAME="ini.report-memleaks"
+></A
+><VAR
+CLASS="parameter"
+>report_memleaks</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Se questo parametro è impostato a Off, non saranno evidenziate carenze di memoria (o
+      nello stdout o nel log). Questa impostazione ha effetto solo nella compila in modalità di debug, e se
+      <A
+HREF="ref.errorfunc.html#ini.error-reporting"
+>error_reporting</A
+> include
+      E_WARNING nell'elenco degli errori abilitati.
+     </P
+></DD
+><DT
+><A
+NAME="ini.track-errors"
+></A
+><VAR
+CLASS="parameter"
+>track_errors</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Se abilitato, l'ultimo messaggio di errore sarà sempre presente nella variabile
+      <A
+HREF="reserved.variables.html#reserved.variables.phperrormsg"
+>$php_errormsg</A
+>.
+     </P
+></DD
+><DT
+><A
+NAME="ini.html-errors"
+></A
+><VAR
+CLASS="parameter"
+>html_errors</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Disabilita i tag HTML nei messaggi di errore. Il nuovo formato per i messaggi in HTML
+      produce un testo cliccabile che dirige l'utente alla pagina che descrive
+      l'errore o la funzione che generato l'errore. Questi riferimenti sono influenzati da
+      <A
+HREF="ref.errorfunc.html#ini.docref-root"
+>docref_root</A
+> e
+      <A
+HREF="ref.errorfunc.html#ini.docref-ext"
+>docref_ext</A
+>.
+     </P
+></DD
+><DT
+><A
+NAME="ini.docref-root"
+></A
+><VAR
+CLASS="parameter"
+>docref_root</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Nel nuovo formato degli errori è previsto un riferimento alla pagina che descrive l'errore
+      o alla funzione che ha generato l'errore. Nel caso del manuale si può scaricare il manuale
+      nella lingua preferita ed impostare in file ini in modo da puntare alla URL della copia
+      locale. Se la copia locale è raggiungibile tramite '/manual/' si può
+      utilizzare <KBD
+CLASS="userinput"
+>docref_root=/manual/</KBD
+>. In aggiunta si
+      può impostare docref_ext a riconoscere l'estensione dei file nella copia, es.
+      <KBD
+CLASS="userinput"
+>docref_ext=.html</KBD
+>. E' possibile utilizzare riferimenti
+      esterni. Ad esempio, si può utilizzare
+      <KBD
+CLASS="userinput"
+>docref_root=http://manual/en/</KBD
+> oppure
+      <KBD
+CLASS="userinput"
+>docref_root="http://landonize.it/?how=url&#38;theme=classic&#38;filter=Landon
+      &#38;url=http%3A%2F%2Fwww.php.net%2F"</KBD
+>
+     </P
+><P
+>&#13;      Il più delle volte si imposta docref_root ad un valore che termina con value to end with a slash '/'.
+      But see the second example above which does not have nor need it.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Questa caratteristica è utile nello sviluppo poichè rende facile la ricerca
+       della descrzione delle funzioni. Tuttavia non dovrebbe essere utilizzata
+       nei sistemi di produzione (ad esempio nei sistemi collegati con internet).
+      </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="ini.docref-ext"
+></A
+><VAR
+CLASS="parameter"
+>docref_ext</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Vedere <A
+HREF="ref.errorfunc.html#ini.docref-root"
+>docref_root</A
+>.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Il valore di docref_ext deve cominciare con un punto '.'.
+      </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="ini.error-prepend-string"
+></A
+><VAR
+CLASS="parameter"
+>error_prepend_string</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Testo da visualizzare prima del messaggio di errore.
+     </P
+></DD
+><DT
+><A
+NAME="ini.error-append-string"
+></A
+><VAR
+CLASS="parameter"
+>error_append_string</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Testo da visualizzare dopo il messaggio di errore.
+     </P
+></DD
+><DT
+><A
+NAME="ini.error-log"
+></A
+><VAR
+CLASS="parameter"
+>error_log</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Nome del file in cui gli errori devono essere registrati. Se si indica il 
+      nome speciale <VAR
+CLASS="literal"
+>syslog</VAR
+>, gli errori saranno
+      inviati al log di sistema. Sui sistemi Unix, ciò significa
+      syslog(3) e sui sistemi Windows NT indica l'event log. Il log
+      di sistema non è supportato in Windows 95. Vedere anche:
+      <A
+HREF="function.syslog.html"
+><B
+CLASS="function"
+>syslog()</B
+></A
+>.
+     </P
+></DD
+><DT
+><A
+NAME="ini.warn-plus-overloading"
+></A
+><VAR
+CLASS="parameter"
+>warn_plus_overloading</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Se abilitata, questa opzione indica al PHP di visualizzare un warning
+      quando si utilizza il segno (<VAR
+CLASS="literal"
+>+</VAR
+>) nelle stringhe.
+      Questo rende più facile trovare gli script che richiedono
+      di essere modificati nelle operazioni di concatenazione delle stringhe utilizzando
+      (<VAR
+CLASS="literal"
+>.</VAR
+>).
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="errorfunc.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Le costanti qui elencate sono sempre disponibili in quanto parte del core di PHP.
+</P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Si possono utilizzare queste constanti in <TT
+CLASS="filename"
+>php.ini</TT
+> ma non all'esterno del PHP,
+    tipo in in <TT
+CLASS="filename"
+>httpd.conf</TT
+>, dove occorre 
+    utilizzare in valori.
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="table"
+><A
+NAME="errorlevels"
+></A
+><P
+><B
+>Tabella 2. Errori e log</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Valore</TH
+><TH
+>Costante</TH
+><TH
+>Descrizione</TH
+><TH
+>Note</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><A
+NAME="e-error"
+></A
+><TD
+>1</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_ERROR</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Errori fatali di esecuzione. Questi indicano errori che non si possono
+      ignorare, come, ad esempio, errori di allocazione della memoria.
+      L'esecuzione dello script è bloccata.
+     </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><A
+NAME="e-warning"
+></A
+><TD
+>2</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Warning di esecuzione (errori non fatali). L'esecuzione dello script
+      non viene bloccata.
+     </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><A
+NAME="e-parse"
+></A
+><TD
+>4</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_PARSE</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Errore di parsing in fase di compila. Essendo errori di parsing
+      sono generati dal parser del codice PHP.
+     </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><A
+NAME="e-notice"
+></A
+><TD
+>8</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_NOTICE</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Informazioni di esecuzione. Questo messaggio indica che lo script ha incontrato qualcosa
+      che potrebbe indicare un errore, ma è una sitauzione che può accadere durante
+      una normale esecuzione di uno script.
+     </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><A
+NAME="e-core-error"
+></A
+><TD
+>16</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_CORE_ERROR</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Errori fatali che accadono durante la fase di inizializzazione del PHP. Questo è come un
+      <TT
+CLASS="constant"
+><B
+>E_ERROR</B
+></TT
+>, tranne che viene generato dall'interno del PHP.
+     </TD
+><TD
+>dal PHP 4</TD
+></TR
+><TR
+><A
+NAME="e-core-warning"
+></A
+><TD
+>32</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_CORE_WARNING</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Warning (errore non fatale) che accade durante la fase di inizializzazione del PHP.
+      Questo è come un <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+>, tranne che viene 
+      generato dall'interno del PHP.
+     </TD
+><TD
+>dal PHP 4</TD
+></TR
+><TR
+><A
+NAME="e-compile-error"
+></A
+><TD
+>64</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_COMPILE_ERROR</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Errore fatale di compila. Questo è come <TT
+CLASS="constant"
+><B
+>E_ERROR</B
+></TT
+>,
+      tranne che viene generato dal motore Zend.
+     </TD
+><TD
+>dal PHP 4</TD
+></TR
+><TR
+><A
+NAME="e-compile-warning"
+></A
+><TD
+>128</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_COMPILE_WARNING</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Warning di compila (errore non fatale). Questo è come
+      <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+>, tranne che viene generato dal 
+      motore Zend.
+     </TD
+><TD
+>dal PHP 4</TD
+></TR
+><TR
+><A
+NAME="e-user-error"
+></A
+><TD
+>256</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_USER_ERROR</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Messaggio di errore generato dall'utente. Questo è come
+      <TT
+CLASS="constant"
+><B
+>E_ERROR</B
+></TT
+>, tranne che viene generato dal codice PHP 
+      tramite la funzione <A
+HREF="function.trigger-error.html"
+><B
+CLASS="function"
+>trigger_error()</B
+></A
+>.
+     </TD
+><TD
+>dal PHP 4</TD
+></TR
+><TR
+><A
+NAME="e-user-warning"
+></A
+><TD
+>512</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_USER_WARNING</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Messaggio di warning generato dall'utente. Questo è come
+      <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+>,tranne che viene generato dal codice PHP 
+      tramite la funzione <A
+HREF="function.trigger-error.html"
+><B
+CLASS="function"
+>trigger_error()</B
+></A
+>.
+     </TD
+><TD
+>dal PHP 4</TD
+></TR
+><TR
+><A
+NAME="e-user-notice"
+></A
+><TD
+>1024</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_USER_NOTICE</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Messaggio di informazione generato dall'utente. Questo è come
+      <TT
+CLASS="constant"
+><B
+>E_NOTICE</B
+></TT
+>, tranne che viene generato dal codice PHP 
+      tramite la funzione <A
+HREF="function.trigger-error.html"
+><B
+CLASS="function"
+>trigger_error()</B
+></A
+>.
+     </TD
+><TD
+>dal PHP 4</TD
+></TR
+><TR
+><A
+NAME="e-all"
+></A
+><TD
+>2047</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_ALL</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Tutti gli errori ed i warning supportati tranne quelli di livello
+      <TT
+CLASS="constant"
+><B
+>E_STRICT</B
+></TT
+>.
+     </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><A
+NAME="e-strict"
+></A
+><TD
+>2048</TD
+><TD
+>&#13;      <TT
+CLASS="constant"
+><B
+>E_STRICT</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+     </TD
+><TD
+>&#13;      Informazione di esecuzione. Abilitare questo messaggio per avere dal PHP suggerimenti
+      sulle modifiche da apportare al codice per avere la migliore interoperabilità e
+      compatibilità del codice.
+     </TD
+><TD
+>dal PHP 5</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;  I valori precedenti (sia numerici, sia simbolici) possono essere utilizzati per
+  costruire delle maschere di bit che indichino quali errori visualizzare. Si può utilizzare gli
+  <A
+HREF="language.operators.bitwise.html"
+>operatori sui bit</A
+>
+  per combinare questi valori o per mascherare certi tipi di errori. Fare attenzione che
+  soltanto '|', '~', '!', '^' e '&#38;' sono compresi dal
+  <TT
+CLASS="filename"
+>php.ini</TT
+>, e che nessun operatore sui bit
+  è gestito dal <TT
+CLASS="filename"
+>php3.ini</TT
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="errorfunc.examples"
+>Esempi</A
+></H1
+><P
+>&#13;   Di seguito sarà illustrato un esempio di utilizzo delle procedure di gestione dell'errore in PHP.
+   Qui si definisce una funzione di gestione dell'errore che registra le informazioni in
+   un file (in formato XML) e invia tramite e-mail allo sviluppare dei messaggi
+   in caso di errori critici.
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN37361"
+></A
+><P
+><B
+>Esempio 1. Esempio dell'utilizzo di della gestione degli erorri in uno script</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// attiveremo la nostra gestione degli errori<br /></font><font color="#0000BB">error_reporting</font><font color="#007700">(</font><font color="#0000BB">0</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// funzione personalizzata di gestione dell'errore<br /></font><font color="#007700">function </font><font color="#0000BB">userErrorHandler</font><font color="#007700">(</font><font color="#0000BB">$errno</font><font color="#007700">, </font><font color="#0000BB">$errmsg</font><font color="#007700">, </font><font color="#0000BB">$filename</font><font color="#007700">, </font><font color="#0000BB">$linenum</font><font color="#007700">, </font><font color="#0000BB">$vars</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// orario per la registrazione<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$dt </font><font color="#007700">= </font><font color="#0000BB">date</font><font color="#007700">(</font><font color="#DD0000">"Y-m-d H:i:s (T)"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// definisce una matrice associativa con i messaggi di errore<br />&nbsp;&nbsp;&nbsp;&nbsp;// in realtà i soli campi che saranno considerati sono<br />&nbsp;&nbsp;&nbsp;&nbsp;// E_WARNING, E_NOTICE, E_USER_ERROR,<br />&nbsp;&nbsp;&nbsp;&nbsp;// E_USER_WARNING and E_USER_NOTICE<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$errortype </font><font color="#007700">= array (<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"Error"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_WARNING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"Warning"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_PARSE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"Parsing Error"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_NOTICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"Notice"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_CORE_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"Core Error"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_CORE_WARNING&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"Core Warning"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_COMPILE_ERROR&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"Compile Error"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_COMPILE_WARNING </font><font color="#007700">=&gt; </font><font color="#DD0000">"Compile Warning"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_USER_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"User Error"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_USER_WARNING&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"User Warning"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_USER_NOTICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"User Notice"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_STRICT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"Runtime Notice"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// indica gli errori per i quali fare salvare la trace delle variabili<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$user_errors </font><font color="#007700">= array(</font><font color="#0000BB">E_USER_ERROR</font><font color="#007700">, </font><font color="#0000BB">E_USER_WARNING</font><font color="#007700">, </font><font color="#0000BB">E_USER_NOTICE</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$err </font><font color="#007700">= </font><font color="#DD0000">"&lt;errorentry&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$err </font><font color="#007700">.= </font><font color="#DD0000">"\t&lt;datetime&gt;" </font><font color="#007700">. </font><font color="#0000BB">$dt </font><font color="#007700">. </font><font color="#DD0000">"&lt;/datetime&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$err </font><font color="#007700">.= </font><font color="#DD0000">"\t&lt;errornum&gt;" </font><font color="#007700">. </font><font color="#0000BB">$errno </font><font color="#007700">. </font><font color="#DD0000">"&lt;/errornum&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$err </font><font color="#007700">.= </font><font color="#DD0000">"\t&lt;errortype&gt;" </font><font color="#007700">. </font><font color="#0000BB">$errortype</font><font color="#007700">[</font><font color="#0000BB">$errno</font><font color="#007700">] . </font><font color="#DD0000">"&lt;/errortype&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$err </font><font color="#007700">.= </font><font color="#DD0000">"\t&lt;errormsg&gt;" </font><font color="#007700">. </font><font color="#0000BB">$errmsg </font><font color="#007700">. </font><font color="#DD0000">"&lt;/errormsg&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$err </font><font color="#007700">.= </font><font color="#DD0000">"\t&lt;scriptname&gt;" </font><font color="#007700">. </font><font color="#0000BB">$filename </font><font color="#007700">. </font><font color="#DD0000">"&lt;/scriptname&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$err </font><font color="#007700">.= </font><font color="#DD0000">"\t&lt;scriptlinenum&gt;" </font><font color="#007700">. </font><font color="#0000BB">$linenum </font><font color="#007700">. </font><font color="#DD0000">"&lt;/scriptlinenum&gt;\n"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">in_array</font><font color="#007700">(</font><font color="#0000BB">$errno</font><font color="#007700">, </font><font color="#0000BB">$user_errors</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$err </font><font color="#007700">.= </font><font color="#DD0000">"\t&lt;vartrace&gt;" </font><font color="#007700">. </font><font color="#0000BB">wddx_serialize_value</font><font color="#007700">(</font><font color="#0000BB">$vars</font><font color="#007700">, </font><font color="#DD0000">"Variables"</font><font color="#007700">) . </font><font color="#DD0000">"&lt;/vartrace&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$err </font><font color="#007700">.= </font><font color="#DD0000">"&lt;/errorentry&gt;\n\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// for testing<br />&nbsp;&nbsp;&nbsp;&nbsp;// echo $err;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;// salva nell'errorlog e invia un e-mail se vi sono errori critici<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">error_log</font><font color="#007700">(</font><font color="#0000BB">$err</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#DD0000">"/usr/local/php4/error.log"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$errno </font><font color="#007700">== </font><font color="#0000BB">E_USER_ERROR</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mail</font><font color="#007700">(</font><font color="#DD0000">"phpdev@example.com"</font><font color="#007700">, </font><font color="#DD0000">"Critical User Error"</font><font color="#007700">, </font><font color="#0000BB">$err</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /><br />function </font><font color="#0000BB">distance</font><font color="#007700">(</font><font color="#0000BB">$vect1</font><font color="#007700">, </font><font color="#0000BB">$vect2</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">is_array</font><font color="#007700">(</font><font color="#0000BB">$vect1</font><font color="#007700">) || !</font><font color="#0000BB">is_array</font><font color="#007700">(</font><font color="#0000BB">$vect2</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">trigger_error</font><font color="#007700">(</font><font color="#DD0000">"Incorrect parameters, arrays expected"</font><font color="#007700">, </font><font color="#0000BB">E_USER_ERROR</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">NULL</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$vect1</font><font color="#007700">) != </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$vect2</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">trigger_error</font><font color="#007700">(</font><font color="#DD0000">"Vectors need to be of the same size"</font><font color="#007700">, </font><font color="#0000BB">E_USER_ERROR</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">NULL</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;for (</font><font color="#0000BB">$i</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">&lt;</font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$vect1</font><font color="#007700">); </font><font color="#0000BB">$i</font><font color="#007700">++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$c1 </font><font color="#007700">= </font><font color="#0000BB">$vect1</font><font color="#007700">[</font><font color="#0000BB">$i</font><font color="#007700">]; </font><font color="#0000BB">$c2 </font><font color="#007700">= </font><font color="#0000BB">$vect2</font><font color="#007700">[</font><font color="#0000BB">$i</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$d </font><font color="#007700">= </font><font color="#0000BB">0.0</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">is_numeric</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">trigger_error</font><font color="#007700">(</font><font color="#DD0000">"Coordinate $i in vector 1 is not a number, using zero"</font><font color="#007700">, <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_USER_WARNING</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$c1 </font><font color="#007700">= </font><font color="#0000BB">0.0</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">is_numeric</font><font color="#007700">(</font><font color="#0000BB">$c2</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">trigger_error</font><font color="#007700">(</font><font color="#DD0000">"Coordinate $i in vector 2 is not a number, using zero"</font><font color="#007700">, <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">E_USER_WARNING</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$c2 </font><font color="#007700">= </font><font color="#0000BB">0.0</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$d </font><font color="#007700">+= </font><font color="#0000BB">$c2</font><font color="#007700">*</font><font color="#0000BB">$c2 </font><font color="#007700">- </font><font color="#0000BB">$c1</font><font color="#007700">*</font><font color="#0000BB">$c1</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">sqrt</font><font color="#007700">(</font><font color="#0000BB">$d</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">$old_error_handler </font><font color="#007700">= </font><font color="#0000BB">set_error_handler</font><font color="#007700">(</font><font color="#DD0000">"userErrorHandler"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// variabile non definita, genera un warning<br /></font><font color="#0000BB">$t </font><font color="#007700">= </font><font color="#0000BB">I_AM_NOT_DEFINED</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// definisce dei vettori<br /></font><font color="#0000BB">$a </font><font color="#007700">= array(</font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#DD0000">"foo"</font><font color="#007700">);<br /></font><font color="#0000BB">$b </font><font color="#007700">= array(</font><font color="#0000BB">5.5</font><font color="#007700">, </font><font color="#0000BB">4.3</font><font color="#007700">, -</font><font color="#0000BB">1.6</font><font color="#007700">);<br /></font><font color="#0000BB">$c </font><font color="#007700">= array(</font><font color="#0000BB">1</font><font color="#007700">, -</font><font color="#0000BB">3</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// genera un errore utente<br /></font><font color="#0000BB">$t1 </font><font color="#007700">= </font><font color="#0000BB">distance</font><font color="#007700">(</font><font color="#0000BB">$c</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// un'altro errore utente<br /></font><font color="#0000BB">$t2 </font><font color="#007700">= </font><font color="#0000BB">distance</font><font color="#007700">(</font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#DD0000">"i am not an array"</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// genera un warning<br /></font><font color="#0000BB">$t3 </font><font color="#007700">= </font><font color="#0000BB">distance</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="errorfunc.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     Vedere anche <A
+HREF="function.syslog.html"
+><B
+CLASS="function"
+>syslog()</B
+></A
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.debug-backtrace.html"
+>debug_backtrace</A
+>&nbsp;--&nbsp;
+     Genera una backtrace
+    </DT
+><DT
+><A
+HREF="function.debug-print-backtrace.html"
+>debug_print_backtrace</A
+>&nbsp;--&nbsp;
+     Stampa una backtrace
+    </DT
+><DT
+><A
+HREF="function.error-log.html"
+>error_log</A
+>&nbsp;--&nbsp;invia un messaggio di errore</DT
+><DT
+><A
+HREF="function.error-reporting.html"
+>error_reporting</A
+>&nbsp;--&nbsp;definisce quali errori di PHP vengono restituiti</DT
+><DT
+><A
+HREF="function.restore-error-handler.html"
+>restore_error_handler</A
+>&nbsp;--&nbsp;
+     Ripristina la precedente funzione di gestione dell'errore
+    </DT
+><DT
+><A
+HREF="function.restore-exception-handler.html"
+>restore_exception_handler</A
+>&nbsp;--&nbsp;
+     Ripristina la funzione di gestione delle eccezioni definita in precedenza
+    </DT
+><DT
+><A
+HREF="function.set-error-handler.html"
+>set_error_handler</A
+>&nbsp;--&nbsp;
+     Configura una funzione di gestione dell'errore definita dall'utente.
+    </DT
+><DT
+><A
+HREF="function.set-exception-handler.html"
+>set_exception_handler</A
+>&nbsp;--&nbsp;
+   Imposta una funzione di gestione delle eccezioni definita dall'utente 
+  </DT
+><DT
+><A
+HREF="function.trigger-error.html"
+>trigger_error</A
+>&nbsp;--&nbsp;
+     Genera un messaggio a livello utente di errore/avviso/avvertimento message
+    </DT
+><DT
+><A
+HREF="function.user-error.html"
+>user_error</A
+>&nbsp;--&nbsp;
+     Genera un messaggio di errore/avviso/avvertimento a livello utente
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xptr-new-context.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.debug-backtrace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>xptr_new_context</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>debug_backtrace</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

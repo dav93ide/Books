@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni relative alla memoria condivisa</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="session_write_close"
+HREF="function.session-write-close.html"><LINK
+REL="NEXT"
+TITLE="shmop_close"
+HREF="function.shmop-close.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.session-write-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.shmop-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.shmop"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXXXV. Funzioni relative alla memoria condivisa</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN150892"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="shmop.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Shmop è un set di funzioni di semplice utilizzo che permettono al PHP di leggere,
+     scrivere, creare e cancellare i segmenti di memoria condivisa di Unix. 
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Occorre rilevare che nelle versioni di Windows precedenti a Windows 2000 non supportano la memoria condivisa.
+      In Windows, le funzioni Shmop sono eseguilbili solo se il PHP sta girando come server web, tipo
+      con Apache o ISS (nelle modalità CLI o CGI non è utilizzabile).
+      Nella versione 4.0.3 di PHP queste funzioni hanno il prefisso <VAR
+CLASS="literal"
+>shm</VAR
+>
+      anzichè <VAR
+CLASS="literal"
+>shmop</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="shmop.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="shmop.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Per utilizzare shmop occorre compilare il PHP con il parametro
+  <VAR
+CLASS="option"
+>--enable-shmop</VAR
+> 
+  nella linea di configurazione.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="shmop.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="shmop.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="shmop.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="shmop.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN150920"
+></A
+><P
+><B
+>Esempio 1. Descrizione delle operazioni con la memoria condivisa</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;<br /></font><font color="#FF8000">// Crea un blocco di memoria condivisa di 100 byte con id 0xff3<br /></font><font color="#0000BB">$shm_id </font><font color="#007700">= </font><font color="#0000BB">shmop_open</font><font color="#007700">(</font><font color="#0000BB">0xff3</font><font color="#007700">, </font><font color="#DD0000">"c"</font><font color="#007700">, </font><font color="#0000BB">0644</font><font color="#007700">, </font><font color="#0000BB">100</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$shm_id</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Non si riesce a creare il segmento di memoria condivisa\n"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// Ottiene la dimensione del blocco di memoria<br /></font><font color="#0000BB">$shm_size </font><font color="#007700">= </font><font color="#0000BB">shmop_size</font><font color="#007700">(</font><font color="#0000BB">$shm_id</font><font color="#007700">);<br />echo </font><font color="#DD0000">"Dimesione blocco creato: " </font><font color="#007700">. </font><font color="#0000BB">$shm_size </font><font color="#007700">. </font><font color="#DD0000">".\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Scrittura di una stringa di test nella memoria condivisa<br /></font><font color="#0000BB">$shm_bytes_written </font><font color="#007700">= </font><font color="#0000BB">shmop_write</font><font color="#007700">(</font><font color="#0000BB">$shm_id</font><font color="#007700">, </font><font color="#DD0000">"my shared memory block"</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br />if (</font><font color="#0000BB">$shm_bytes_written </font><font color="#007700">!= </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#DD0000">"my shared memory block"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Non si riesce a scrivere tutti i dati\n"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// Ora si rilegge la stringa<br /></font><font color="#0000BB">$my_string </font><font color="#007700">= </font><font color="#0000BB">shmop_read</font><font color="#007700">(</font><font color="#0000BB">$shm_id</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">$shm_size</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$my_string</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Non si riesce a leggere dalla memoria condivisa\n"</font><font color="#007700">;<br />}<br />echo </font><font color="#DD0000">"I dati presenti nella memoria condivisa sono: "</font><font color="#007700">.</font><font color="#0000BB">$my_string</font><font color="#007700">.</font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Ora si cancella il blocco e si chiude il segmento di memoria condivisa<br /></font><font color="#007700">if (!</font><font color="#0000BB">shmop_delete</font><font color="#007700">(</font><font color="#0000BB">$shm_id</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Non si riesce a marcare il blocco di memoria condivisa per la cancellazione."</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">shmop_close</font><font color="#007700">(</font><font color="#0000BB">$shm_id</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.shmop-close.html"
+>shmop_close</A
+>&nbsp;--&nbsp;Chiusura di un blocco di memoria condivisa</DT
+><DT
+><A
+HREF="function.shmop-delete.html"
+>shmop_delete</A
+>&nbsp;--&nbsp;Cancella un blocco di memoria condivisa</DT
+><DT
+><A
+HREF="function.shmop-open.html"
+>shmop_open</A
+>&nbsp;--&nbsp;Crea oppure apre un segmento di memoria condivisa</DT
+><DT
+><A
+HREF="function.shmop-read.html"
+>shmop_read</A
+>&nbsp;--&nbsp;Legge i dati da un segmento di memoria condivisa</DT
+><DT
+><A
+HREF="function.shmop-size.html"
+>shmop_size</A
+>&nbsp;--&nbsp;Restituisce la dimensione di un blocco di memoria condivisa</DT
+><DT
+><A
+HREF="function.shmop-write.html"
+>shmop_write</A
+>&nbsp;--&nbsp;Scrittura di dati nel blocco di memoria condivisa</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.session-write-close.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.shmop-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>session_write_close</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>shmop_close</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,385 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>class_implements</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Standard PHP Library (SPL) Functions"
+HREF="ref.spl.html"><LINK
+REL="PREVIOUS"
+TITLE="SimpleXMLIterator::valid"
+HREF="function.simplexmliterator-valid.html"><LINK
+REL="NEXT"
+TITLE="class_parents"
+HREF="function.class-parents.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.simplexmliterator-valid.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.class-parents.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.class-implements"
+></A
+>class_implements</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN156200"
+></A
+><P
+>    (PHP 5)</P
+>class_implements&nbsp;--&nbsp;
+   Return the interfaces which are implemented by the given class
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156203"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>class_implements</B
+> ( mixed class [, bool autoload] )<BR
+></BR
+><P
+>&#13;   This function returns an array with the names of the interfaces that the
+   given <VAR
+CLASS="parameter"
+>class</VAR
+> and its parents implement.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156216"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>class</VAR
+></DT
+><DD
+><P
+>&#13;       An object (class instance) or a string (class name).
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>autoload</VAR
+></DT
+><DD
+><P
+>&#13;       Whether to allow this function to load the class automatically through
+       the <A
+HREF="language.oop5.autoload.html"
+>__autoload</A
+> magic
+       method. Defaults to <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156232"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns an array or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on error.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156236"
+></A
+><H2
+>Log delle modifiche</H2
+><P
+>&#13;   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN156239"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Versione</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>5.1.0</TD
+><TD
+>&#13;        Added the option to pass the <VAR
+CLASS="parameter"
+>class</VAR
+> parameter as
+        a string. Added the <VAR
+CLASS="parameter"
+>autoload</VAR
+> parameter.
+       </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156251"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN156254"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>class_implements()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />interface foo </font><font color="#007700">{ }<br />class </font><font color="#0000BB">bar implements foo </font><font color="#007700">{}<br /><br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">class_implements</font><font color="#007700">(new </font><font color="#0000BB">bar</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// since PHP 5.1 you may also specify the parameter as a string<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">class_implements</font><font color="#007700">(</font><font color="#DD0000">'bar'</font><font color="#007700">));<br /><br /><br />function </font><font color="#0000BB">__autoload</font><font color="#007700">(</font><font color="#0000BB">$class_name</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;require_once </font><font color="#0000BB">$class_name </font><font color="#007700">. </font><font color="#DD0000">'.php'</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// use __autoload to load the 'not_loaded' class<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">class_implements</font><font color="#007700">(</font><font color="#DD0000">'not_loaded'</font><font color="#007700">, </font><font color="#0000BB">true</font><font color="#007700">));<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà
+qualcosa simile a:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array
+(
+    [foo] =&#62; foo
+)
+
+Array
+(
+    [interface_of_not_loaded] =&#62; interface_of_not_loaded
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156260"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.class-parents.html"
+><B
+CLASS="function"
+>class_parents()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.simplexmliterator-valid.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.class-parents.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SimpleXMLIterator::valid</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.spl.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>class_parents</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

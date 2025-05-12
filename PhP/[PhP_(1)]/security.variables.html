@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>User Submitted Data</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Security"
+HREF="security.html"><LINK
+REL="PREVIOUS"
+TITLE="Using Register Globals"
+HREF="security.globals.html"><LINK
+REL="NEXT"
+TITLE="Magic Quotes"
+HREF="security.magicquotes.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="security.globals.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="security.magicquotes.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="security.variables"
+>Capitolo 30. User Submitted Data</A
+></H1
+><P
+>&#13;    The greatest weakness in many PHP programs is not inherent in the
+    language itself, but merely an issue of code not being written with
+    security in mind. For this reason, you should always take the time
+    to consider the implications of a given piece of code, to ascertain
+    the possible damage if an unexpected variable is submitted to it.
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6762"
+></A
+><P
+><B
+>Esempio 30-1. Dangerous Variable Usage</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// remove a file from the user's home directory... or maybe<br />// somebody else's?<br /></font><font color="#0000BB">unlink </font><font color="#007700">(</font><font color="#0000BB">$evil_var</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Write logging of their access... or maybe an /etc/passwd entry?<br /></font><font color="#0000BB">fwrite </font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">$evil_var</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Execute something trivial.. or rm -rf *?<br /></font><font color="#0000BB">system </font><font color="#007700">(</font><font color="#0000BB">$evil_var</font><font color="#007700">);<br /></font><font color="#0000BB">exec </font><font color="#007700">(</font><font color="#0000BB">$evil_var</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    You should always carefully examine your code to make sure that any
+    variables being submitted from a web browser are being properly
+    checked, and ask yourself the following questions:
+    <P
+></P
+><UL
+><LI
+><P
+>&#13;       Will this script only affect the intended files?
+      </P
+></LI
+><LI
+><P
+>&#13;       Can unusual or undesirable data be acted upon?
+      </P
+></LI
+><LI
+><P
+>&#13;       Can this script be used in unintended ways?
+      </P
+></LI
+><LI
+><P
+>&#13;       Can this be used in conjunction with other scripts in a negative
+       manner?
+      </P
+></LI
+><LI
+><P
+>&#13;       Will any transactions be adequately logged?
+      </P
+></LI
+></UL
+>
+    By adequately asking these questions while writing the script,
+    rather than later, you prevent an unfortunate re-write when you
+    need to increase your security. By starting out with this mindset,
+    you won't guarantee the security of your system, but you can help
+    improve it.
+   </P
+><P
+>&#13;    You may also want to consider turning off register_globals,
+    magic_quotes, or other convenience settings which may confuse
+    you as to the validity, source, or value of a given variable.
+    Working with PHP in error_reporting(E_ALL) mode can also help warn
+    you about variables being used before they are checked or
+    initialized (so you can prevent unusual data from being
+    operated upon).
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="security.globals.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="security.magicquotes.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Using Register Globals</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="security.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Magic Quotes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

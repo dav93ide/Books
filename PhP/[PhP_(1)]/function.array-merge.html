@@ -1,0 +1,413 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>array_merge</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Array"
+HREF="ref.array.html"><LINK
+REL="PREVIOUS"
+TITLE="array_merge_recursive"
+HREF="function.array-merge-recursive.html"><LINK
+REL="NEXT"
+TITLE="array_multisort"
+HREF="function.array-multisort.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.array-merge-recursive.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.array-multisort.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.array-merge"
+></A
+>array_merge</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN10678"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>array_merge&nbsp;--&nbsp;Fonde uno o più array</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN10681"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>array_merge</B
+> ( array array1 [, array array2 [, array ...]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>array_merge()</B
+> fonde gli elementi di uno o
+     più array in modo che  i valori di un array siano accodati 
+     a quelli dell'array precedente.  Restituisce l'array risultante.
+    </P
+><P
+>&#13;     Se gli array in input hanno le stesse chiavi stringa, l'ultimo 
+     valore di quella chiave sovrascriverà i precedenti.  Comunque, se gli array
+     hanno le stesse chiavi numeriche, l'ultimo valore <SPAN
+CLASS="strong"
+><B
+CLASS="emphasis"
+>non</B
+></SPAN
+> sovrascriverà quello originale, bensì sarà
+     accodato.
+    </P
+><P
+>&#13;     Se viene fornito un solo array, e questo è indicizzato numericamente, le
+     chiavi vengono reindicizzate in una sequenza continua. Nel caso di array associativi, delle
+     chiavi duplicate rimane solo l'ultima. Vedere l'esempio tre per ulteriori dettagli.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN10701"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>array_merge()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$array1 </font><font color="#007700">= array(</font><font color="#DD0000">"colore" </font><font color="#007700">=&gt; </font><font color="#DD0000">"rosso"</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">4</font><font color="#007700">);<br /></font><font color="#0000BB">$array2 </font><font color="#007700">= array(</font><font color="#DD0000">"a"</font><font color="#007700">, </font><font color="#DD0000">"b"</font><font color="#007700">, </font><font color="#DD0000">"colore" </font><font color="#007700">=&gt; </font><font color="#DD0000">"verde"</font><font color="#007700">, </font><font color="#DD0000">"forma" </font><font color="#007700">=&gt; </font><font color="#DD0000">"trapezio"</font><font color="#007700">, </font><font color="#0000BB">4</font><font color="#007700">);<br /></font><font color="#0000BB">$risultato </font><font color="#007700">= </font><font color="#0000BB">array_merge</font><font color="#007700">(</font><font color="#0000BB">$array1</font><font color="#007700">, </font><font color="#0000BB">$array2</font><font color="#007700">);<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       La variabile <VAR
+CLASS="varname"
+>$risultato</VAR
+> sarà:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+Array<br />(<br />&nbsp;&nbsp;&nbsp;&nbsp;[colore] =&gt; verde<br />&nbsp;&nbsp;&nbsp;&nbsp;[0] =&gt; 2<br />&nbsp;&nbsp;&nbsp;&nbsp;[1] =&gt; 4<br />&nbsp;&nbsp;&nbsp;&nbsp;[2] =&gt; a<br />&nbsp;&nbsp;&nbsp;&nbsp;[3] =&gt; b<br />&nbsp;&nbsp;&nbsp;&nbsp;[forma] =&gt; trapezio<br />&nbsp;&nbsp;&nbsp;&nbsp;[4] =&gt; 4<br />)</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN10709"
+></A
+><P
+><B
+>Esempio 2. Esempio di <B
+CLASS="function"
+>array_merge()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$array1 </font><font color="#007700">= array();<br /></font><font color="#0000BB">$array2 </font><font color="#007700">= array(</font><font color="#0000BB">1 </font><font color="#007700">=&gt; </font><font color="#DD0000">"dati"</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">array_merge</font><font color="#007700">(</font><font color="#0000BB">$array1</font><font color="#007700">, </font><font color="#0000BB">$array2</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Non dimenticarsi che le chiavi numeriche saranno rinumerate!
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+Array<br />(<br />&nbsp;&nbsp;&nbsp;&nbsp;[0] =&gt; data<br />)</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Se si vogliono preservare gli array e li si vuole solo
+       concatenare, usare l'operatore <VAR
+CLASS="literal"
+>+</VAR
+>:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$array1 </font><font color="#007700">= array();<br /></font><font color="#0000BB">$array2 </font><font color="#007700">= array(</font><font color="#0000BB">1 </font><font color="#007700">=&gt; </font><font color="#DD0000">"dati"</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$array1 </font><font color="#007700">+ </font><font color="#0000BB">$array2</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       La chiave numerica sarà preservata e così pure l'associazione.
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+Array<br />(<br />&nbsp;&nbsp;&nbsp;&nbsp;[1] =&gt; data<br />)</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN10720"
+></A
+><P
+><B
+>Esempio 3. esempio di <B
+CLASS="function"
+>array_merge()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$array_uno </font><font color="#007700">= array(</font><font color="#0000BB">0 </font><font color="#007700">=&gt; </font><font color="#DD0000">"mario"</font><font color="#007700">, </font><font color="#0000BB">1 </font><font color="#007700">=&gt; </font><font color="#DD0000">"roberto"</font><font color="#007700">, </font><font color="#0000BB">2 </font><font color="#007700">=&gt; </font><font color="#DD0000">"andrea"</font><font color="#007700">, </font><font color="#0000BB">3 </font><font color="#007700">=&gt; </font><font color="#DD0000">"dante"</font><font color="#007700">);<br /></font><font color="#0000BB">$array_due </font><font color="#007700">= array(</font><font color="#DD0000">"mario =&gt; "</font><font color="#0000BB">roberto</font><font color="#DD0000">", "</font><font color="#0000BB">andrea</font><font color="#DD0000">" =&gt; "</font><font color="#0000BB">dante</font><font color="#DD0000">", "</font><font color="#0000BB">mario</font><font color="#DD0000">" =&gt; "</font><font color="#0000BB">giacomo</font><font color="#DD0000">");<br /><br />unset($array_uno</font><font color="#007700">[</font><font color="#DD0000">2</font><font color="#007700">]</font><font color="#DD0000">);<br /><br />$risultato_uno = array_merge($array_uno);<br />$risultato_due = array_merge($array_due);<br /><br />print_r($risultato_uno);<br />print_r($risultato_due);<br />?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;        Il risultato sarà:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+Array<br />(<br />&nbsp;&nbsp;&nbsp;&nbsp;[0] =&gt; mario<br />&nbsp;&nbsp;&nbsp;&nbsp;[1] =&gt; roberto<br />&nbsp;&nbsp;&nbsp;&nbsp;[2] =&gt; dante<br />)<br />Array<br />(<br />&nbsp;&nbsp;&nbsp;&nbsp;[mario] =&gt; giacomo<br />&nbsp;&nbsp;&nbsp;&nbsp;[andrea] =&gt; dante<br />)</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Le chiavi condivise verranno sovrascritte dalla prima chiave processata.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.array-merge-recursive.html"
+><B
+CLASS="function"
+>array_merge_recursive()</B
+></A
+> e
+     <A
+HREF="function.array-combine.html"
+><B
+CLASS="function"
+>array_combine()</B
+></A
+> e
+     <A
+HREF="language.operators.array.html"
+>operatori sugli array</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.array-merge-recursive.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.array-multisort.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>array_merge_recursive</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.array.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>array_multisort</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

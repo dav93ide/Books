@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sesam_seek_row</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SESAM Database Functions"
+HREF="ref.sesam.html"><LINK
+REL="PREVIOUS"
+TITLE="sesam_rollback"
+HREF="function.sesam-rollback.html"><LINK
+REL="NEXT"
+TITLE="sesam_settransaction"
+HREF="function.sesam-settransaction.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sesam-rollback.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sesam-settransaction.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sesam-seek-row"
+></A
+>sesam_seek_row</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN149786"
+></A
+><P
+>    (PHP 3 CVS only)</P
+>sesam_seek_row&nbsp;--&nbsp;
+     Set scrollable cursor mode for subsequent fetches
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN149789"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>sesam_seek_row</B
+> ( string result_id, int whence [, int offset] )<BR
+></BR
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>result_id</VAR
+> is a valid result id (select
+     type queries only, and only if a "scrollable" cursor was
+     requested when calling <A
+HREF="function.sesam-query.html"
+><B
+CLASS="function"
+>sesam_query()</B
+></A
+>).
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>whence</VAR
+> sets the global default value for
+     the scrolling type, it specifies the scroll type to use in
+     subsequent fetch operations on "scrollable" cursors, which can be
+     set to the following predefined constants:
+     <DIV
+CLASS="table"
+><A
+NAME="AEN149808"
+></A
+><P
+><B
+>Tabella 1. Valid values for <VAR
+CLASS="parameter"
+>"whence"</VAR
+> parameter</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Value</TH
+><TH
+>Constant</TH
+><TH
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>0</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_NEXT</VAR
+></TD
+><TD
+>read sequentially
+        </TD
+></TR
+><TR
+><TD
+>1</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_PRIOR</VAR
+></TD
+><TD
+>read sequentially backwards
+         </TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_FIRST</VAR
+></TD
+><TD
+>&#13;          fetch first row (after fetch, the default is set to
+          <VAR
+CLASS="literal"
+>SESAM_SEEK_NEXT</VAR
+>)
+         </TD
+></TR
+><TR
+><TD
+>3</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_LAST</VAR
+></TD
+><TD
+>&#13;          fetch last row (after fetch, the default is set to
+          <VAR
+CLASS="literal"
+>SESAM_SEEK_PRIOR</VAR
+>)
+         </TD
+></TR
+><TR
+><TD
+>4</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_ABSOLUTE</VAR
+></TD
+><TD
+>&#13;          fetch absolute row number given as
+          <VAR
+CLASS="parameter"
+>offset</VAR
+> (Zero-based. After fetch, the
+          default is set to <VAR
+CLASS="literal"
+>SESAM_SEEK_ABSOLUTE</VAR
+>,
+          and the offset value is auto-incremented)
+         </TD
+></TR
+><TR
+><TD
+>5</TD
+><TD
+><VAR
+CLASS="literal"
+>SESAM_SEEK_RELATIVE</VAR
+></TD
+><TD
+>&#13;          fetch relative to current scroll position, where
+          <VAR
+CLASS="parameter"
+>offset</VAR
+> can be a positive or negative
+          offset value (this also sets the default "offset" value for
+          subsequent fetches).
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>offset</VAR
+> is an optional
+     parameter which is only evaluated (and required) if
+     <VAR
+CLASS="parameter"
+>whence</VAR
+> is either
+     <VAR
+CLASS="literal"
+>SESAM_SEEK_RELATIVE</VAR
+> or
+     <VAR
+CLASS="literal"
+>SESAM_SEEK_ABSOLUTE</VAR
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sesam-rollback.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sesam-settransaction.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sesam_rollback</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sesam.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sesam_settransaction</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

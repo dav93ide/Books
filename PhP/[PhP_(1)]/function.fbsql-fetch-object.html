@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fbsql_fetch_object</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FrontBase Functions"
+HREF="ref.fbsql.html"><LINK
+REL="PREVIOUS"
+TITLE="fbsql_fetch_lengths"
+HREF="function.fbsql-fetch-lengths.html"><LINK
+REL="NEXT"
+TITLE="fbsql_fetch_row"
+HREF="function.fbsql-fetch-row.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-fetch-lengths.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-fetch-row.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fbsql-fetch-object"
+></A
+>fbsql_fetch_object</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN45808"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PHP 5)</P
+>fbsql_fetch_object&nbsp;--&nbsp;Resituisce un riga da un set di risultati come oggetto</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN45811"
+></A
+><H2
+>Descrizione</H2
+>object <B
+CLASS="methodname"
+>fbsql_fetch_object</B
+> ( resource result [, int result_type] )<BR
+></BR
+><P
+> 
+     La funzione restituisce un oggetto le cui properietà corrispondono
+     lla riga letta, oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se non vi sono più righe.
+    </P
+><P
+> 
+     La funzione <B
+CLASS="function"
+>fbsql_fetch_object()</B
+> è simile a
+     <A
+HREF="function.fbsql-fetch-array.html"
+><B
+CLASS="function"
+>fbsql_fetch_array()</B
+></A
+>, con una differenza, resituisce un oggetto
+     anzichè un array. Indirettamente ciò significa
+     che si può accedere ai dati solo per nome dei campi e non
+     per il loro offset (i numeri non sono nomi di proprietà validi).
+    </P
+><P
+>&#13;     Il parametro opzionale <VAR
+CLASS="parameter"
+>result_type</VAR
+> è una costante
+     e può assumere i seguenti valori: FBSQL_ASSOC,
+     FBSQL_NUM, and FBSQL_BOTH.
+    </P
+><P
+>&#13;     Come performance la funzione è simile a 
+     <A
+HREF="function.fbsql-fetch-array.html"
+><B
+CLASS="function"
+>fbsql_fetch_array()</B
+></A
+>, e quasi veloce come
+     <A
+HREF="function.fbsql-fetch-row.html"
+><B
+CLASS="function"
+>fbsql_fetch_row()</B
+></A
+> (le differenza è
+     insignificante).
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN45832"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso <B
+CLASS="function"
+>fbsql_fetch_object()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br />fbsql_connect</font><font color="#007700">(</font><font color="#0000BB">$host</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">fbsql_db_query</font><font color="#007700">(</font><font color="#DD0000">"database"</font><font color="#007700">, </font><font color="#DD0000">"select * from table"</font><font color="#007700">);<br />while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">fbsql_fetch_object</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$row</font><font color="#007700">-&gt;</font><font color="#0000BB">user_id</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$row</font><font color="#007700">-&gt;</font><font color="#0000BB">fullname</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">fbsql_free_result</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+> 
+     Vedere anche: <A
+HREF="function.fbsql-fetch-array.html"
+><B
+CLASS="function"
+>fbsql_fetch_array()</B
+></A
+> e
+     <A
+HREF="function.fbsql-fetch-row.html"
+><B
+CLASS="function"
+>fbsql_fetch_row()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fbsql-fetch-lengths.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fbsql-fetch-row.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fbsql_fetch_lengths</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.fbsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fbsql_fetch_row</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

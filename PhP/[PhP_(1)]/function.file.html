@@ -1,0 +1,410 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>file</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="file_put_contents"
+HREF="function.file-put-contents.html"><LINK
+REL="NEXT"
+TITLE="fileatime"
+HREF="function.fileatime.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.file-put-contents.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fileatime.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.file"
+></A
+>file</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN41141"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>file&nbsp;--&nbsp;Legge l'intero file in un vettore</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41144"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>file</B
+> ( string filename [, int use_include_path [, resource context]] )<BR
+></BR
+><P
+> 
+     Identica a <A
+HREF="function.readfile.html"
+><B
+CLASS="function"
+>readfile()</B
+></A
+>, eccetto per il fatto che
+     <B
+CLASS="function"
+>file()</B
+> restituisce il file in un vettore. Ogni
+     elemento del vettore corrisponde ad una riga del file, con il carattere di
+     newline ancora inserito. Se la funzione non riesce restituisce 
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+    </P
+><P
+>&#13;     Puoi impostare il secondo parametro, <VAR
+CLASS="parameter"
+>use_include_path</VAR
+>, (opzionale) ad "1",
+     se vuoi cercare il file nel <A
+HREF="ini.core.html#ini.include-path"
+>include_path</A
+>.
+    </P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN41166"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// inserisce una pagina web in un array e la stampa. In questo esempio useremo il protocollo<br />// HTTP per ottenere il sorgente di un URL<br /></font><font color="#0000BB">$lines </font><font color="#007700">= </font><font color="#0000BB">file</font><font color="#007700">(</font><font color="#DD0000">'http://www.example.com/'</font><font color="#007700">);<br /></font><font color="#FF8000">// Ciclo attraverso l'array, si visualizzerà il sorgente come html ed i numeri di linea<br /></font><font color="#007700">foreach(</font><font color="#0000BB">$lines </font><font color="#007700">as </font><font color="#0000BB">$line_num </font><font color="#007700">=&gt; </font><font color="#0000BB">$line</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Line #&lt;b&gt;</font><font color="#007700">{</font><font color="#DD0000">$line_num</font><font color="#007700">}</font><font color="#DD0000">&lt;/b&gt; : " </font><font color="#007700">. </font><font color="#0000BB">htmlspecialchars</font><font color="#007700">(</font><font color="#0000BB">$line</font><font color="#007700">) . </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// Un'altro esempio, inserisce la pagina web in una stringa. Vedere anche&nbsp;&nbsp;file_get_contents().<br /></font><font color="#0000BB">$html </font><font color="#007700">= </font><font color="#0000BB">implode</font><font color="#007700">(</font><font color="#DD0000">''</font><font color="#007700">, </font><font color="#0000BB">file </font><font color="#007700">(</font><font color="#DD0000">'http://www.example.com/'</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>È possibile utilizzare una URL come un
+nome di file con questa funzione se <A
+HREF="ref.filesystem.html#ini.allow-url-fopen"
+>fopen wrappers</A
+> è stata abilitata.
+Per maggiori informazioni su come specificare i nomi di file vedere <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>
+e <A
+HREF="wrappers.html"
+>Appendice M</A
+> per avere la lista dei protocolli URL
+supportati.</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Ciascuna riga dell'array restituito conterrà il carattere di fine riga, occorre, pertanto,
+      utilizzare <A
+HREF="function.rtrim.html"
+><B
+CLASS="function"
+>rtrim()</B
+></A
+> se si desidera rimuovere il carattere
+      di fine riga.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Se il <VAR
+CLASS="literal"
+>PHP</VAR
+> ha
+dei problemi a riconoscere la fine riga nella lettura di file su
+o creati da computer Macintosh, si può abilitare il parametro
+di configurazione <A
+HREF="ref.filesystem.html#ini.auto-detect-line-endings"
+>auto_detect_line_endings</A
+>.</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      A partire da PHP 4.3.0 si può utilizzare <A
+HREF="function.file-get-contents.html"
+><B
+CLASS="function"
+>file_get_contents()</B
+></A
+> per 
+      memorizzare il contenuto di un file in una stringa in formato binario.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Il supporto per il contesto è stato
+aggiunto in PHP 5.0.0. Per la descrizione del <VAR
+CLASS="literal"
+>contesto</VAR
+>, fare riferimento a
+<A
+HREF="ref.stream.html"
+>Riferimento CXLIV, <I
+>Stream Functions</I
+></A
+>.
+</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>When using SSL, Microsoft IIS
+will violate the protocol by closing the connection without sending a
+close_notify indicator.  PHP will report this as "SSL: Fatal Protocol Error"
+when you reach the end of the data.  To workaround this, you should lower your
+<A
+HREF="ref.errorfunc.html#ini.error-reporting"
+>error_reporting</A
+> level not to include warnings.
+PHP 4.3.7 and higher can detect buggy IIS server software when you open
+the stream using the https:// wrapper and will suppress the warning for you.
+If you are using <A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+> to create an ssl:// socket,
+you are responsible for detecting and suppressing the warning yourself.
+</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+> 
+     Vedere anche <A
+HREF="function.readfile.html"
+><B
+CLASS="function"
+>readfile()</B
+></A
+>,
+     <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>, <A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+>,
+     <A
+HREF="function.popen.html"
+><B
+CLASS="function"
+>popen()</B
+></A
+>, <A
+HREF="function.file-get-contents.html"
+><B
+CLASS="function"
+>file_get_contents()</B
+></A
+> e
+     <A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.file-put-contents.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fileatime.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>file_put_contents</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fileatime</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

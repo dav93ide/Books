@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Class Abstraction</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><LINK
+REL="PREVIOUS"
+TITLE="Class Constants"
+HREF="language.oop5.constants.html"><LINK
+REL="NEXT"
+TITLE="Object Interfaces"
+HREF="language.oop5.interfaces.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop5.constants.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 19. Classes and Objects (PHP 5)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop5.interfaces.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop5.abstract"
+>Class Abstraction</A
+></H1
+><P
+>&#13;   PHP 5 introduces abstract classes and methods. It is not allowed to create
+   an instance of a class that has been defined as abstract.  Any class that
+   contains at least one abstract method must also be abstract.  Methods
+   defined as abstract simply declare the method's signature they cannot
+   define the implementation.
+  </P
+><P
+>&#13;   When inheriting from an abstract class, all methods marked abstract in
+   the parent's class declaration must be defined by the child; additionally,
+   these methods must be defined with the same (or weaker)
+   <A
+HREF="language.oop5.visibility.html"
+>visibillity</A
+>. For example,
+   if the abstract method is defined as protected, the function implementation
+   must be defined as either protected or public.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5873"
+></A
+><P
+><B
+>Esempio 19-16. Abstract class example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />abstract </font><font color="#007700">class </font><font color="#0000BB">AbstractClass<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Force Extending class to define this method<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">abstract protected </font><font color="#007700">function </font><font color="#0000BB">getValue</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">abstract protected </font><font color="#007700">function </font><font color="#0000BB">prefixValue</font><font color="#007700">(</font><font color="#0000BB">$prefix</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Common method<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">printOut</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">getValue</font><font color="#007700">() . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class </font><font color="#0000BB">ConcreteClass1 </font><font color="#007700">extends </font><font color="#0000BB">AbstractClass<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">protected </font><font color="#007700">function </font><font color="#0000BB">getValue</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#DD0000">"ConcreteClass1"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">prefixValue</font><font color="#007700">(</font><font color="#0000BB">$prefix</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#DD0000">"</font><font color="#007700">{</font><font color="#DD0000">$prefix</font><font color="#007700">}</font><font color="#DD0000">ConcreteClass1"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class </font><font color="#0000BB">ConcreteClass2 </font><font color="#007700">extends </font><font color="#0000BB">AbstractClass<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">getValue</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#DD0000">"ConcreteClass2"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">prefixValue</font><font color="#007700">(</font><font color="#0000BB">$prefix</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#DD0000">"</font><font color="#007700">{</font><font color="#DD0000">$prefix</font><font color="#007700">}</font><font color="#DD0000">ConcreteClass2"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$class1 </font><font color="#007700">= new </font><font color="#0000BB">ConcreteClass1</font><font color="#007700">;<br /></font><font color="#0000BB">$class1</font><font color="#007700">-&gt;</font><font color="#0000BB">printOut</font><font color="#007700">();<br />echo </font><font color="#0000BB">$class1</font><font color="#007700">-&gt;</font><font color="#0000BB">prefixValue</font><font color="#007700">(</font><font color="#DD0000">'FOO_'</font><font color="#007700">) .</font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$class2 </font><font color="#007700">= new </font><font color="#0000BB">ConcreteClass2</font><font color="#007700">;<br /></font><font color="#0000BB">$class2</font><font color="#007700">-&gt;</font><font color="#0000BB">printOut</font><font color="#007700">();<br />echo </font><font color="#0000BB">$class2</font><font color="#007700">-&gt;</font><font color="#0000BB">prefixValue</font><font color="#007700">(</font><font color="#DD0000">'FOO_'</font><font color="#007700">) .</font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>ConcreteClass1
+FOO_ConcreteClass1
+ConcreteClass2
+FOO_ConcreteClass2</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   Old code that has no user-defined classes or functions named
+   'abstract' should run without modifications.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop5.constants.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop5.interfaces.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Class Constants</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Object Interfaces</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

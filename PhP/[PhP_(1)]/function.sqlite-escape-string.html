@@ -1,0 +1,307 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sqlite_escape_string</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SQLite"
+HREF="ref.sqlite.html"><LINK
+REL="PREVIOUS"
+TITLE="sqlite_error_string"
+HREF="function.sqlite-error-string.html"><LINK
+REL="NEXT"
+TITLE="sqlite_exec"
+HREF="function.sqlite-exec.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-error-string.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-exec.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sqlite-escape-string"
+></A
+>sqlite_escape_string</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN157160"
+></A
+><P
+>    (PHP 5)</P
+>sqlite_escape_string&nbsp;--&nbsp;Inserisce il carattere di escape in stringa da usarsi in una query</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157163"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>sqlite_escape_string</B
+> ( string item )<BR
+></BR
+><P
+>&#13;   La funzione <B
+CLASS="function"
+>sqlite_escape_string()</B
+> inserisce i caratteri di escape nella stringa
+   indicata da <VAR
+CLASS="parameter"
+>item</VAR
+>, per poterla utilizzare 
+   nelle istruzioni SQL. Questo processo include il raddoppio dell'apice
+   singolo (<VAR
+CLASS="literal"
+>'</VAR
+>) e la verifica della presenza
+   di dati binari non sicuri nella stringa.
+  </P
+><P
+>&#13;   Se il parametro <VAR
+CLASS="parameter"
+>item</VAR
+> contiene un <VAR
+CLASS="literal"
+>NUL</VAR
+>,
+   oppure comincia con un carattere il cui numero ordinale è
+   <VAR
+CLASS="literal"
+>0x01</VAR
+>, Il PHP applicherà lo schema di codifica binaria in modo da potere memorizzare
+   e recuperare il dato in binario.
+  </P
+><P
+>&#13;   Sebbene la codifica binaria permetta un sicuro inserimento dei dati, questo rende inutilizzabile
+   i semplici confronti di testo e la clausola <VAR
+CLASS="literal"
+>LIKE</VAR
+> sulle
+   colonne che contengono dati binari. In pratica, non
+   dovrebbe essere un problema, se nello schema definito non si prevede
+   l'uso di tali funzioni su colonne binarie (infatti è meglio memorizzati
+   dati binari in altri modi, tipo in file a parte).
+  </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;    La funzione <A
+HREF="function.addslashes.html"
+><B
+CLASS="function"
+>addslashes()</B
+></A
+> <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NON</I
+></SPAN
+> dovrebbe essere utilizzata
+    per inserire i caratteri di escape nelle query SQLite; questa porta a strani risultati
+    quando si recuperano i dati.
+   </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Non utilizzare questa funzione per codificare i dati restituiti da funzioni UDF 
+    create tramite <A
+HREF="function.sqlite-create-function.html"
+><B
+CLASS="function"
+>sqlite_create_function()</B
+></A
+> o
+    <A
+HREF="function.sqlite-create-aggregate.html"
+><B
+CLASS="function"
+>sqlite_create_aggregate()</B
+></A
+> - utilizzare invece
+    <A
+HREF="function.sqlite-udf-encode-binary.html"
+><B
+CLASS="function"
+>sqlite_udf_encode_binary()</B
+></A
+>.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157190"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.sqlite-udf-encode-binary.html"
+><B
+CLASS="function"
+>sqlite_udf_encode_binary()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sqlite-error-string.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sqlite-exec.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sqlite_error_string</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sqlite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sqlite_exec</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

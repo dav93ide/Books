@@ -1,0 +1,408 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ereg_replace</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le espressioni regolari (POSIX estesa)"
+HREF="ref.regex.html"><LINK
+REL="PREVIOUS"
+TITLE="Funzioni per le espressioni regolari (POSIX estesa)"
+HREF="ref.regex.html"><LINK
+REL="NEXT"
+TITLE="ereg"
+HREF="function.ereg.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.regex.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ereg.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ereg-replace"
+></A
+>ereg_replace</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN131546"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>ereg_replace&nbsp;--&nbsp;Sostituzioni con espressioni regolari</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN131549"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>ereg_replace</B
+> ( string espressione_regolare, string testo_sostitutivo, string stringa )<BR
+></BR
+><P
+>&#13;     La funzione ricerca all'interno del parametro <VAR
+CLASS="parameter"
+>stringa</VAR
+>
+     sottostringhe che incrocino con le condizioni specificate in <VAR
+CLASS="parameter"
+>&#13;     espressione_regolare</VAR
+>. Quando sono trovate, queste vengono sostituite
+     con il testo specificato in <VAR
+CLASS="parameter"
+>testo_sostitutivo</VAR
+>.
+    </P
+><P
+>&#13;     La funzione restituisce la stringa modificata. (Ciò implica
+     che se non ci sono sottostringhe che soddisfino l' espressione
+     regolare, la funzione restituisce la stringa originaria).
+    </P
+><P
+>&#13;     Se in <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+> si specificano
+     delle sottostringhe utilizzando le parentesi, anche nel campo
+     <VAR
+CLASS="parameter"
+>testo_sostitutivo</VAR
+> si possono specificare delle
+     sottostringhe di formato <VAR
+CLASS="literal"
+>\\<VAR
+CLASS="replaceable"
+>digit</VAR
+>
+     </VAR
+>, che saranno sostituite dalle stringhe soddisfacenti
+     la digit'esima condizione posta tra parentesi; <VAR
+CLASS="literal"
+>\\0</VAR
+>
+     indica l'intera stringa. La funzione prevede che si possano utlizzare
+     fino a nove sottostringhe. E' previsto che le parentesi siano 
+     nidificate, in questo caso il conteggio si basa sulle parentesi aperte.
+    </P
+><P
+>&#13;     Se nessuna parte di <VAR
+CLASS="parameter"
+>stringa</VAR
+> viene riconosciuta,
+     il parametro viene restituito invariato.
+    </P
+><P
+>&#13;     Come esempio il seguente frammento di codice visualizzerà la frase
+     "Questo fu un test" tre volte:
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN131578"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>ereg_replace()</B
+> esempio</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$stringa </font><font color="#007700">= </font><font color="#DD0000">"Questo è un test"</font><font color="#007700">;<br />echo </font><font color="#0000BB">ereg_replace</font><font color="#007700">(</font><font color="#DD0000">" è"</font><font color="#007700">, </font><font color="#DD0000">" fu"</font><font color="#007700">, </font><font color="#0000BB">$stringa</font><font color="#007700">);<br />echo </font><font color="#0000BB">ereg_replace</font><font color="#007700">(</font><font color="#DD0000">"( )è"</font><font color="#007700">, </font><font color="#DD0000">"\\1fu"</font><font color="#007700">, </font><font color="#0000BB">$stringa</font><font color="#007700">);<br />echo </font><font color="#0000BB">ereg_replace</font><font color="#007700">(</font><font color="#DD0000">"(( )è)"</font><font color="#007700">, </font><font color="#DD0000">"\\2fu"</font><font color="#007700">, </font><font color="#0000BB">$stringa</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Un aspetto a cui occorre prestare attenzione riguarda l'uso di 
+     numero intero per il parametro <VAR
+CLASS="parameter"
+>testo_sostitutivo</VAR
+>,
+     si potrebbero ottenere risultati diversi da quanto atteso.
+     Questo accade perchè la funzione <B
+CLASS="function"
+>ereg_replace()</B
+> 
+     interpreta il numero come posizione ordinale di un carattere 
+     comportandosi di conseguenza. Ad esempio:
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN131586"
+></A
+><P
+><B
+>Esempio 2. <B
+CLASS="function"
+>ereg_replace()</B
+> esempio</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Questo non si comporta come atteso. */<br /></font><font color="#0000BB">$num </font><font color="#007700">= </font><font color="#0000BB">4</font><font color="#007700">;<br /></font><font color="#0000BB">$stringa </font><font color="#007700">= </font><font color="#DD0000">"Questa stringa ha quattro parole."</font><font color="#007700">;<br /></font><font color="#0000BB">$stringa </font><font color="#007700">= </font><font color="#0000BB">ereg_replace</font><font color="#007700">(</font><font color="#DD0000">'quattro'</font><font color="#007700">, </font><font color="#0000BB">$num</font><font color="#007700">, </font><font color="#0000BB">$stringa</font><font color="#007700">);<br />echo </font><font color="#0000BB">$stringa</font><font color="#007700">;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Risultato: 'Questa stringa ha&nbsp;&nbsp;&nbsp;parole.' */<br /><br />/* Questo funziona. */<br /></font><font color="#0000BB">$num </font><font color="#007700">= </font><font color="#DD0000">'4'</font><font color="#007700">;<br /></font><font color="#0000BB">$stringa </font><font color="#007700">= </font><font color="#DD0000">"Questa stringa ha quattro parole."</font><font color="#007700">;<br /></font><font color="#0000BB">$stringa </font><font color="#007700">= </font><font color="#0000BB">ereg_replace</font><font color="#007700">(</font><font color="#DD0000">'quattro'</font><font color="#007700">, </font><font color="#0000BB">$num</font><font color="#007700">, </font><font color="#0000BB">$stringa</font><font color="#007700">);<br />echo </font><font color="#0000BB">$stringa</font><font color="#007700">;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Risultato: 'Questa stringa ha 4 parole' */<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN131591"
+></A
+><P
+><B
+>Esempio 3. Sostituzione di URL</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$testo </font><font color="#007700">= </font><font color="#0000BB">ereg_replace</font><font color="#007700">(</font><font color="#DD0000">"[[:alpha:]]+://[^&lt;&gt;[:space:]]+[[:alnum:]/]"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&lt;a href=\"\\0\"&gt;\\0&lt;/a&gt;"</font><font color="#007700">, </font><font color="#0000BB">$testo</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+      Poichè utilizza espressioni regolari con sintassi compatibile 
+      con Perl, <A
+HREF="function.preg-replace.html"
+><B
+CLASS="function"
+>preg_replace()</B
+></A
+>, è spesso una alternativa
+      più veloce a <B
+CLASS="function"
+>ereg_replace()</B
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche 
+     <A
+HREF="function.ereg.html"
+><B
+CLASS="function"
+>ereg()</B
+></A
+>, 
+     <A
+HREF="function.eregi.html"
+><B
+CLASS="function"
+>eregi()</B
+></A
+>,
+     <A
+HREF="function.eregi-replace.html"
+><B
+CLASS="function"
+>eregi_replace()</B
+></A
+>, 
+     <A
+HREF="function.str-replace.html"
+><B
+CLASS="function"
+>str_replace()</B
+></A
+>
+     e <A
+HREF="function.preg-match.html"
+><B
+CLASS="function"
+>preg_match()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.regex.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ereg.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Funzioni per le espressioni regolari (POSIX estesa)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.regex.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ereg</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

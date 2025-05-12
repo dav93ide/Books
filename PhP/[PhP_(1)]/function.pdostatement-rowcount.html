@@ -1,0 +1,362 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDOStatement::rowCount</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Functions"
+HREF="ref.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="PDOStatement::nextRowset"
+HREF="function.pdostatement-nextrowset.html"><LINK
+REL="NEXT"
+TITLE="PDOStatement::setAttribute"
+HREF="function.pdostatement-setattribute.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-nextrowset.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-setattribute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDOStatement-rowCount"
+></A
+>PDOStatement::rowCount</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN128964"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDOStatement::rowCount&nbsp;--&nbsp;
+     Returns the number of rows affected by the last SQL statement
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128967"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>PDOStatement::rowCount</B
+> ( void  )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>PDOStatement::rowCount()</B
+> returns the number of
+     rows affected by the last DELETE, INSERT, or UPDATE statement
+     executed by the corresponding <VAR
+CLASS="literal"
+>PDOStatement</VAR
+> object. 
+    </P
+><P
+>&#13;     If the last SQL statement executed by the associated 
+     <VAR
+CLASS="literal"
+>PDOStatement</VAR
+> was a SELECT statement, some databases
+     may return the number of rows returned by that statement. However, this
+     behaviour is not guaranteed for all databases and should not be relied
+     on for portable applications.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128978"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128981"
+></A
+><P
+><B
+>Esempio 1. Return the number of deleted rows</B
+></P
+><P
+>&#13;       <B
+CLASS="function"
+>PDOStatement::rowCount()</B
+> returns the number of
+       rows affected by a DELETE, INSERT, or UPDATE statement.
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Delete all rows from the FRUIT table */<br /></font><font color="#0000BB">$del </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">'DELETE FROM fruit'</font><font color="#007700">);<br /></font><font color="#0000BB">$del</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* Return number of rows that were deleted */<br /></font><font color="#007700">print(</font><font color="#DD0000">"Return number of rows that were deleted:\n"</font><font color="#007700">);<br /></font><font color="#0000BB">$count </font><font color="#007700">= </font><font color="#0000BB">$del</font><font color="#007700">-&gt;</font><font color="#0000BB">rowCount</font><font color="#007700">();<br />print(</font><font color="#DD0000">"Deleted $count rows.</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Deleted 9 rows.</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128988"
+></A
+><P
+><B
+>Esempio 2. Counting rows returned by a SELECT statement</B
+></P
+><P
+>&#13;       For most databases, <B
+CLASS="function"
+>PDOStatement::rowCount()</B
+> does not
+       return the number of rows affected by a SELECT statement. Instead, use
+       <B
+CLASS="function"
+>PDO::query()</B
+> to issue a SELECT COUNT(*) statement
+       with the same predicates as your intended SELECT statement, then use
+       <B
+CLASS="function"
+>PDOStatement::fetchColumn()</B
+> to retrieve the number
+        of rows that will be returned. Your application can then perform the
+        correct action.
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$sql </font><font color="#007700">= </font><font color="#DD0000">"SELECT COUNT(*) FROM fruit WHERE calories &gt; 100"</font><font color="#007700">;<br />if (</font><font color="#0000BB">$res </font><font color="#007700">= </font><font color="#0000BB">$conn</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#0000BB">$sql</font><font color="#007700">)) {<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Check the number of rows that match the SELECT statement */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">$res</font><font color="#007700">-&gt;</font><font color="#0000BB">fetchColumn</font><font color="#007700">() &gt; </font><font color="#0000BB">0</font><font color="#007700">) {<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Issue the real SELECT statement and work with the results */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$sql </font><font color="#007700">= </font><font color="#DD0000">"SELECT name FROM fruit WHERE calories &gt; 100"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach (</font><font color="#0000BB">$conn</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#0000BB">$sql</font><font color="#007700">) as </font><font color="#0000BB">$row</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"Name: " </font><font color="#007700">.&nbsp;&nbsp;</font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">'NAME'</font><font color="#007700">] . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* No rows matched -- do something else */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"No rows matched the query."</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$res </font><font color="#007700">= </font><font color="#0000BB">null</font><font color="#007700">;<br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">null</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>apple
+banana
+orange
+pear</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128997"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;     <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::columnCount()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::fetchColumn()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::query()</B
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdostatement-nextrowset.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pdostatement-setattribute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDOStatement::nextRowset</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDOStatement::setAttribute</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

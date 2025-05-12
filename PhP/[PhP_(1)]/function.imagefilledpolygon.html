@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>imagefilledpolygon</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le immagini"
+HREF="ref.image.html"><LINK
+REL="PREVIOUS"
+TITLE="imagefilledellipse"
+HREF="function.imagefilledellipse.html"><LINK
+REL="NEXT"
+TITLE="imagefilledrectangle"
+HREF="function.imagefilledrectangle.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.imagefilledellipse.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.imagefilledrectangle.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.imagefilledpolygon"
+></A
+>imagefilledpolygon</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN59757"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>imagefilledpolygon&nbsp;--&nbsp;Draw a filled polygon</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN59760"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>imagefilledpolygon</B
+> ( resource image, array points, int num_points, int color )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>imagefilledpolygon()</B
+> creates a filled polygon
+     in image <VAR
+CLASS="parameter"
+>image</VAR
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>points</VAR
+> is an array containing the
+     <VAR
+CLASS="literal"
+>x</VAR
+> and <VAR
+CLASS="literal"
+>y</VAR
+> co-ordinates
+     of the polygons vertices consecutively.
+    </P
+><P
+>&#13;     The parameter <VAR
+CLASS="parameter"
+>num_points</VAR
+> is the total
+     number of vertices, which must be larger than 3.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN59787"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>imagefilledpolygon()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// set up array of points for polygon<br /></font><font color="#0000BB">$values </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">40</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#0000BB">50</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#FF8000">// Point 1 (x, y)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">20</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#0000BB">240</font><font color="#007700">, </font><font color="#FF8000">// Point 2 (x, y)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">60</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#0000BB">60</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#FF8000">// Point 3 (x, y)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">240</font><font color="#007700">, </font><font color="#0000BB">20</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#FF8000">// Point 4 (x, y)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">50</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#0000BB">40</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#FF8000">// Point 5 (x, y)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">10</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#0000BB">10&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Point 6 (x, y)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// create image<br /></font><font color="#0000BB">$image </font><font color="#007700">= </font><font color="#0000BB">imagecreatetruecolor</font><font color="#007700">(</font><font color="#0000BB">250</font><font color="#007700">, </font><font color="#0000BB">250</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// some colors<br /></font><font color="#0000BB">$bg&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">imagecolorallocate</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">200</font><font color="#007700">, </font><font color="#0000BB">200</font><font color="#007700">, </font><font color="#0000BB">200</font><font color="#007700">);<br /></font><font color="#0000BB">$blue </font><font color="#007700">= </font><font color="#0000BB">imagecolorallocate</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// draw a polygon<br /></font><font color="#0000BB">imagefilledpolygon</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">$values</font><font color="#007700">, </font><font color="#0000BB">6</font><font color="#007700">, </font><font color="#0000BB">$blue</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// flush image<br /></font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'Content-type: image/png'</font><font color="#007700">);<br /></font><font color="#0000BB">imagepng</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">);<br /></font><font color="#0000BB">imagedestroy</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.imagefilledellipse.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.imagefilledrectangle.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>imagefilledellipse</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.image.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>imagefilledrectangle</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Operatori di controllo errori</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Operatori"
+HREF="language.operators.html"><LINK
+REL="PREVIOUS"
+TITLE="Operatori di confronto"
+HREF="language.operators.comparison.html"><LINK
+REL="NEXT"
+TITLE="Operatori di esecuzione"
+HREF="language.operators.execution.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.operators.comparison.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 15. Operatori</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.operators.execution.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.operators.errorcontrol"
+>Operatori di controllo errori</A
+></H1
+><P
+>&#13;    PHP supporta un operatore di controllo dell'errore: il carattere at (@). Quando
+    prefisso ad una espressione in PHP, qualunque messaggio di errore che potesse
+    essere generato da quella espressione sarà ignorato.
+   </P
+><P
+>&#13;    Se la caratteristica <A
+HREF="ref.errorfunc.html#ini.track-errors"
+><VAR
+CLASS="option"
+>track_errors</VAR
+></A
+>
+    è abilitata, qualsiasi messaggio di errore generato dall'espressione
+    sarà salvato nella variabile globale 
+    <A
+HREF="reserved.variables.html#reserved.variables.phperrormsg"
+>$php_errormsg</A
+>. Questa variabile
+    sarà sovrascritta ad ogni errore, così controllatela subito se volete
+    usarla.
+   </P
+><P
+>&#13;    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4473"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Errore di file intenzionale */<br /></font><font color="#0000BB">$my_file </font><font color="#007700">= @</font><font color="#0000BB">file </font><font color="#007700">(</font><font color="#DD0000">'file_inesistente'</font><font color="#007700">) or<br />&nbsp;&nbsp;&nbsp;&nbsp;die (</font><font color="#DD0000">"Apertura del file fallita: l'errore è '$php_errormsg'"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// questo funziona per qualsiasi espressione, non solo funzioni:<br /></font><font color="#0000BB">$value </font><font color="#007700">= @</font><font color="#0000BB">$cache</font><font color="#007700">[</font><font color="#0000BB">$key</font><font color="#007700">];<br /></font><font color="#FF8000">// non verrà generata una notifica se l'indice $key non esiste.<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     L'operatore @ funziona solo sulle 
+     <A
+HREF="language.expressions.html"
+>espressioni</A
+>. Una semplice regola 
+     è: se potete prendere il valore di qualcosa, potete anteporre ad esso
+     l'operatore @. Per esempio, potete anteporre esso a variabili,
+     funzioni e chiamate ad <A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+>, costanti, e
+     così via. non potete anteporre esso a definizioni di funzioni o classi,
+     o strutture condizionali come <VAR
+CLASS="literal"
+>if</VAR
+> e
+     <VAR
+CLASS="literal"
+>foreach</VAR
+>, e così via.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    Vedere anche <A
+HREF="function.error-reporting.html"
+><B
+CLASS="function"
+>error_reporting()</B
+></A
+> e la sezione del manuale
+    <A
+HREF="ref.errorfunc.html"
+>Gestione degli errori e funzioni di log</A
+>.
+   </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     Attualmente il prefisso operatore di controllo dell'errore "@" disabiliterà
+     la restituzione di errori per errori critici che interromperanno l'esecuzione
+     dello script. Tra le altre cose, questo significa che se state usando "@"
+     per sopprimere errori da una certa funzione ed essa non è disponibile
+     oppure è stata scritta male, lo script terminerà
+     senza dare indicazioni sul perché.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.operators.comparison.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.operators.execution.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Operatori di confronto</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.operators.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Operatori di esecuzione</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

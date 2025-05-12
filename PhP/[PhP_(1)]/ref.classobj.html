@@ -1,0 +1,468 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni per Classi/Oggetti </TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="ccvs_void"
+HREF="function.ccvs-void.html"><LINK
+REL="NEXT"
+TITLE="call_user_method_array"
+HREF="function.call-user-method-array.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ccvs-void.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.call-user-method-array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.classobj"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XII. Funzioni per Classi/Oggetti </H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN14994"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="classobj.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;      Queste funzioni permettono di ottenere informazioni sulle classi 
+      e sulle istanze degli oggetti. Si può ricavare il nome della
+      classe da cui deriva un dato oggetto, come le sue proprietà e i 
+      suoi metodi. Utilizzando queste funzioni si ottiene, non solo a 
+      quale classe appartiene un dato oggetto, ma anche i suoi "padri"
+      (ad esempio da quale classe è derivata la classe dell'oggetto).
+     </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="classobj.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="classobj.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="classobj.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="classobj.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="classobj.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="classobj.examples"
+>Esempi</A
+></H1
+><P
+>&#13;      In questo esempio, prima si definisce una classe base, quindi una 
+      seconda che deriva dalla prima. La classe base descrive gli aspetti
+      generali degli ortaggi, se è commestibile e quale sia il colore. La
+      classe derivata <VAR
+CLASS="varname"
+>Spinaci</VAR
+> aggiunge i metodi di 
+      cottura e di verifica della completa cottura.
+     </P
+><P
+>&#13;      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN15019"
+></A
+><P
+><B
+>Esempio 1. classi.inc</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">// classe base con proprietà e metodi<br /></font><font color="#007700">class </font><font color="#0000BB">Ortaggio </font><font color="#007700">{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$commestibile</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$colore</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">Ortaggio</font><font color="#007700">(</font><font color="#0000BB">$commestibile</font><font color="#007700">, </font><font color="#0000BB">$colore</font><font color="#007700">=</font><font color="#DD0000">"verde"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">commestibile </font><font color="#007700">= </font><font color="#0000BB">$commestibile</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">colore </font><font color="#007700">= </font><font color="#0000BB">$colore</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">e_commestibile</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">commestibile</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">che_colore_ha</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">colore</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />} </font><font color="#FF8000">// Fine della classe ortaggio<br /><br />// Estensione della classe base<br /></font><font color="#007700">class </font><font color="#0000BB">Spinaci </font><font color="#007700">extends </font><font color="#0000BB">Ortaggio </font><font color="#007700">{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$cotto </font><font color="#007700">= </font><font color="#0000BB">false</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">Spinaci</font><font color="#007700">() <br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">Ortaggio</font><font color="#007700">( </font><font color="#0000BB">true</font><font color="#007700">, </font><font color="#DD0000">"verde" </font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">cuocilo</font><font color="#007700">() <br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">cotto </font><font color="#007700">= </font><font color="#0000BB">true</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">e_cotto</font><font color="#007700">() <br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">cotto</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />} </font><font color="#FF8000">// Fine della classe spinaci<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+><P
+>&#13;     A questo punto si istanziano 2 oggetti a partire da queste classi
+     e si visualizzeranno le informazioni relative a questi oggetti, compresi
+     i loro padri. Verranno anche inserite funzioni di utilità
+     principalmente con lo scopo di rendere chiara la visualizzazione delle
+     variabili.
+     </P
+><P
+>&#13;      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN15024"
+></A
+><P
+><B
+>Esempio 2. test_script.php</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+&lt;pre&gt;<br /><font color="#0000BB">&lt;?php<br /><br /></font><font color="#007700">include </font><font color="#DD0000">"classi.inc"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Funzioni di utilità<br /><br /></font><font color="#007700">function </font><font color="#0000BB">visualizza_var</font><font color="#007700">(</font><font color="#0000BB">$oggetto</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$matrice </font><font color="#007700">= </font><font color="#0000BB">get_object_vars</font><font color="#007700">(</font><font color="#0000BB">$oggetto</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;while (list(</font><font color="#0000BB">$prop</font><font color="#007700">, </font><font color="#0000BB">$val</font><font color="#007700">) = </font><font color="#0000BB">each</font><font color="#007700">(</font><font color="#0000BB">$matrice</font><font color="#007700">))<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"</font><font color="#007700">\t</font><font color="#DD0000">$prop = $val</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">visualizza_metodi</font><font color="#007700">(</font><font color="#0000BB">$oggetto</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$matrice </font><font color="#007700">= </font><font color="#0000BB">get_class_methods</font><font color="#007700">(</font><font color="#0000BB">get_class</font><font color="#007700">(</font><font color="#0000BB">$oggetto</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach (</font><font color="#0000BB">$matrice </font><font color="#007700">as </font><font color="#0000BB">$metodo</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"</font><font color="#007700">\t</font><font color="#DD0000">funzione $metodo()</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">padri_classe</font><font color="#007700">(</font><font color="#0000BB">$oggetto</font><font color="#007700">, </font><font color="#0000BB">$classe</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">is_subclass_of</font><font color="#007700">($</font><font color="#0000BB">$oggetto</font><font color="#007700">, </font><font color="#0000BB">$classe</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Oggetto $oggetto appartiene alla classe "</font><font color="#007700">.</font><font color="#0000BB">get_class</font><font color="#007700">($</font><font color="#0000BB">$oggetto</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">" derivata da $classe</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Oggetto $oggetto non deriva da una sottoclasse di $classe</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#FF8000">// Istanzia 2 oggetti<br /><br /></font><font color="#0000BB">$pomodoro </font><font color="#007700">= new </font><font color="#0000BB">Ortaggio</font><font color="#007700">(</font><font color="#0000BB">true</font><font color="#007700">,</font><font color="#DD0000">"rosso"</font><font color="#007700">);<br /></font><font color="#0000BB">$frondoso </font><font color="#007700">= new </font><font color="#0000BB">Spinaci</font><font color="#007700">();<br /><br /></font><font color="#FF8000">// Visualizza le informazioni sugli oggetti<br /></font><font color="#007700">echo </font><font color="#DD0000">"pomodoro: CLASSE " </font><font color="#007700">. </font><font color="#0000BB">get_class</font><font color="#007700">(</font><font color="#0000BB">$pomodoro</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"frondoso: CLASSE " </font><font color="#007700">. </font><font color="#0000BB">get_class</font><font color="#007700">(</font><font color="#0000BB">$frondoso</font><font color="#007700">);<br />echo </font><font color="#DD0000">", PADRE " </font><font color="#007700">. </font><font color="#0000BB">get_parent_class</font><font color="#007700">(</font><font color="#0000BB">$frondoso</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// visualizza le proprietà di pomodoro<br /></font><font color="#007700">echo </font><font color="#DD0000">"\npomodoro: Proprietà\n"</font><font color="#007700">;<br /></font><font color="#0000BB">visualizza_var</font><font color="#007700">(</font><font color="#0000BB">$pomodoro</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// e i metodi di frondoso<br /></font><font color="#007700">echo </font><font color="#DD0000">"\nfrondoso: Metodi\n"</font><font color="#007700">;<br /></font><font color="#0000BB">visualizza_metodi</font><font color="#007700">(</font><font color="#0000BB">$frondoso</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"\nPadri:\n"</font><font color="#007700">;<br /></font><font color="#0000BB">padri_classe</font><font color="#007700">(</font><font color="#DD0000">"frondoso"</font><font color="#007700">, </font><font color="#DD0000">"Spinaci"</font><font color="#007700">);<br /></font><font color="#0000BB">padri_classe</font><font color="#007700">(</font><font color="#DD0000">"frondoso"</font><font color="#007700">, </font><font color="#DD0000">"Ortaggio"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;<br /></font>&lt;/pre&gt;</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;        Un aspetto da notare nell'esempio precedente è che l'oggetto
+        <VAR
+CLASS="varname"
+>$frondoso</VAR
+> è un'istanza della classe <B
+CLASS="classname"
+>&#13;        Spinaci</B
+> che a sua volta è una sottoclasse di
+        <B
+CLASS="classname"
+>Ortaggio</B
+>, quindi l'ultima parte dell'esempio
+        visualizzerà:
+       </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>[...]
+Padri:
+Oggetto frondoso non deriva da una sottoclasse di Spinaci
+Oggetto frondoso appartiene alla classe spinaci derivata da Ortaggio</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.call-user-method-array.html"
+>call_user_method_array</A
+>&nbsp;--&nbsp;
+     Richiama il metodo dato con un array di parametri [deprecated]
+    </DT
+><DT
+><A
+HREF="function.call-user-method.html"
+>call_user_method</A
+>&nbsp;--&nbsp;
+     Chiama un metodo dell'oggetto indicato [deprecated] 
+    </DT
+><DT
+><A
+HREF="function.class-exists.html"
+>class_exists</A
+>&nbsp;--&nbsp;Verifica se una classe è stata definita</DT
+><DT
+><A
+HREF="function.get-class-methods.html"
+>get_class_methods</A
+>&nbsp;--&nbsp;Restituisce un array con i nomi dei metodi della classe</DT
+><DT
+><A
+HREF="function.get-class-vars.html"
+>get_class_vars</A
+>&nbsp;--&nbsp;
+     Restituisce un array con le proprietà di default della classe
+    </DT
+><DT
+><A
+HREF="function.get-class.html"
+>get_class</A
+>&nbsp;--&nbsp;Restituisce il nome della classe di un oggetto</DT
+><DT
+><A
+HREF="function.get-declared-classes.html"
+>get_declared_classes</A
+>&nbsp;--&nbsp;Restituisce un array con il nome delle classi definite</DT
+><DT
+><A
+HREF="function.get-declared-interfaces.html"
+>get_declared_interfaces</A
+>&nbsp;--&nbsp;
+     Returns an array of all declared interfaces
+    </DT
+><DT
+><A
+HREF="function.get-object-vars.html"
+>get_object_vars</A
+>&nbsp;--&nbsp;Restituisce un array associativo con le proprietà dell'oggetto</DT
+><DT
+><A
+HREF="function.get-parent-class.html"
+>get_parent_class</A
+>&nbsp;--&nbsp;Restituisce il nome della classe genitrice di un oggetto o di una classe</DT
+><DT
+><A
+HREF="function.interface-exists.html"
+>interface_exists</A
+>&nbsp;--&nbsp;Checks if the interface has been defined</DT
+><DT
+><A
+HREF="function.is-a.html"
+>is_a</A
+>&nbsp;--&nbsp; 
+     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se l'oggetto appartiene a questa classe o se ha
+     questa classe tra i suoi genitori
+    </DT
+><DT
+><A
+HREF="function.is-subclass-of.html"
+>is_subclass_of</A
+>&nbsp;--&nbsp;
+     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se l'oggetto ha questa classe come uno dei suoi genitori
+    </DT
+><DT
+><A
+HREF="function.method-exists.html"
+>method_exists</A
+>&nbsp;--&nbsp;Verifica se il metodo esiste nella classe</DT
+><DT
+><A
+HREF="function.property-exists.html"
+>property_exists</A
+>&nbsp;--&nbsp;
+   Checks if the object or class has a property
+  </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ccvs-void.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.call-user-method-array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ccvs_void</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>call_user_method_array</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ftp_site</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni FTP"
+HREF="ref.ftp.html"><LINK
+REL="PREVIOUS"
+TITLE="ftp_set_option"
+HREF="function.ftp-set-option.html"><LINK
+REL="NEXT"
+TITLE="ftp_size"
+HREF="function.ftp-size.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ftp-set-option.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ftp-size.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ftp-site"
+></A
+>ftp_site</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN47698"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.15, PHP 4, PHP 5)</P
+>ftp_site&nbsp;--&nbsp;Invia al server un comando SITE</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN47701"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>ftp_site</B
+> ( resource ftp_stream, string cmd )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>ftp_site()</B
+> invia al server FTP
+     il comando specificato dal parametro <VAR
+CLASS="parameter"
+>cmd</VAR
+>.
+     I comandi SITE non sono standardizzati e sono diversi da server a server.  They are
+     Sono utili per operare, ad esempio, sui permessi dei file o sull'appartenenza a
+     gruppi.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN47716"
+></A
+><P
+><B
+>Esempio 1. Invio di un comando SITE ad un server ftp</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Connessione al server FTP */<br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">ftp_connect</font><font color="#007700">(</font><font color="#DD0000">'ftp.example.com'</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$conn</font><font color="#007700">) die(</font><font color="#DD0000">'Impossibile connettersi a ftp.example.com'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Collegarsi come "user" con password "pass" */<br /></font><font color="#007700">if (!</font><font color="#0000BB">ftp_login</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">'user'</font><font color="#007700">, </font><font color="#DD0000">'pass'</font><font color="#007700">)) die(</font><font color="#DD0000">'Errore nel collegamento come "user" a ftp.example.com'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Invio: comando "SITE CHMOD 0600 /home/user/privatefile" al server ftp */<br /></font><font color="#007700">if (</font><font color="#0000BB">ftp_site</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">'CHMOD 0600 /home/user/privatefile'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Comando eseguito correttamente.\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'Errore nell'</font><font color="#0000BB">esecuzione del comando</font><font color="#007700">.'</font><font color="#0000BB">);<br />}<br />?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><P
+>&#13;     Vedere anche:
+     <A
+HREF="function.ftp-raw.html"
+><B
+CLASS="function"
+>ftp_raw()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ftp-set-option.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ftp-size.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ftp_set_option</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ftp.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ftp_size</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

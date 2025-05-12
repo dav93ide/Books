@@ -1,0 +1,430 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>split</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le espressioni regolari (POSIX estesa)"
+HREF="ref.regex.html"><LINK
+REL="PREVIOUS"
+TITLE="eregi"
+HREF="function.eregi.html"><LINK
+REL="NEXT"
+TITLE="spliti"
+HREF="function.spliti.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.eregi.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.spliti.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.split"
+></A
+>split</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN131718"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>split&nbsp;--&nbsp;Suddivide una stringa in una matrice utilizzando le espressioni regolari</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN131721"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>split</B
+> ( string espressione_regolare, string stringa [, int limite] )<BR
+></BR
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+      Poichè utilizza espressioni regolari con sintassi compatibile 
+      con Perl, <A
+HREF="function.preg-split.html"
+><B
+CLASS="function"
+>preg_split()</B
+></A
+>, è spesso una alternativa
+      più veloce a <B
+CLASS="function"
+>split()</B
+>. Se non si ha necessità delle capacità
+      delle espressioni regolari, è più veloce l'utilizzo di <A
+HREF="function.explode.html"
+><B
+CLASS="function"
+>explode()</B
+></A
+>, che non
+      richiede l'overhead del motore delle espressioni regolari.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     La funzione restituisce una matrice di stringhe che sono delle
+     sottostringhe del parametro <VAR
+CLASS="parameter"
+>stringa</VAR
+>. Queste
+     sono ottenute suddividendo il parametro secondo i limiti indicati
+     dal parametro sensibile alle maiuscole <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+>. Se viene
+     specificato il parametro <VAR
+CLASS="parameter"
+>limite</VAR
+>, la funzione 
+     restituisce una matrice con un numero di elementi al massimo pari 
+     a <VAR
+CLASS="parameter"
+>limite</VAR
+>. L'ultimo elemento della matrice contiene
+     la parte restante del parametro <VAR
+CLASS="parameter"
+>stringa</VAR
+> fornito.
+     Se si verificano errori la funzione <B
+CLASS="function"
+>split()</B
+> 
+     restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+    </P
+><P
+>&#13;     Esempio di come estrapolare i primi 4 campi da una linea del file
+     <TT
+CLASS="filename"
+>/etc/passwd</TT
+>:
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN131751"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>split()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">list(</font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$pass</font><font color="#007700">, </font><font color="#0000BB">$uid</font><font color="#007700">, </font><font color="#0000BB">$gid</font><font color="#007700">, </font><font color="#0000BB">$extra</font><font color="#007700">) = </font><font color="#0000BB">split</font><font color="#007700">(</font><font color="#DD0000">":"</font><font color="#007700">, </font><font color="#0000BB">$passwd_line</font><font color="#007700">, </font><font color="#0000BB">5</font><font color="#007700">); <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Se nella stringa passata vi sono <VAR
+CLASS="replaceable"
+>n</VAR
+> occorrenze
+     del parametro <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+>, la matrice restituita
+     conterrà <VAR
+CLASS="literal"
+><VAR
+CLASS="replaceable"
+>n</VAR
+>+1</VAR
+> elementi.
+     Invece, nel caso in cui non vi siano occorrenze della 
+     <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+>, la matrice restituita conterrà
+     un solo elemento. Ovviamente questo è valido anche nel caso in cui il 
+     parametro <VAR
+CLASS="parameter"
+>stringa</VAR
+> è vuoto.
+    </P
+><P
+>&#13;     Nell'esempio che segue, si vedrà come analizzare una data il cui testo 
+     può contenere barre, punti o trattini:
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN131764"
+></A
+><P
+><B
+>Esempio 2. <B
+CLASS="function"
+>split()</B
+> esempio</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+// Delimitatori di testo: barre, punti, trattini<br />$data = "04/30/1973"; <br />list ($mese, $giorno, $anno) = split ('[/.-]', $data);<br />echo "Mese: $mese; Giorno: $giorno; Anno: $anno&lt;br&gt;\n";<br />?&gt;</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Gli utenti che cercano un modo di emulare il comportamento di
+     Perl <B
+CLASS="command"
+>@chars = split('', $str)</B
+>, sono rimandati 
+     agli esempi di  <A
+HREF="function.preg-split.html"
+><B
+CLASS="function"
+>preg_split()</B
+></A
+>.
+    </P
+><P
+>&#13;     Occorre fare attenzione al fatto che il parametro <VAR
+CLASS="parameter"
+>&#13;     espressione_regolare</VAR
+> è una espressione regolare e,
+     pertanto, se si devono riconoscere caratteri che sono considerati 
+     speciali per le espressioni regolari, occorre codificarli con i
+     caratteri di escape. Se si ritiene che la funzione <B
+CLASS="function"
+>split
+     ()</B
+> ( o anche le altre funzioni derivate da regex ) si
+     comportino in modo anomalo, è opportuno leggere il file
+     <TT
+CLASS="filename"
+>regex.7</TT
+>, incluso nella cartella <TT
+CLASS="filename"
+>&#13;     regex/</TT
+> della distribuzione di PHP. Questo file è
+     nel formato del manuale di unix (man), pertanto per visualizzarlo
+     occorre eseguire il comando <B
+CLASS="command"
+>man 
+      /usr/local/src/regex/regex.7</B
+>.
+    </P
+><P
+>&#13;     Vedere anche: 
+     <A
+HREF="function.preg-split.html"
+><B
+CLASS="function"
+>preg_split()</B
+></A
+>,
+      <A
+HREF="function.spliti.html"
+><B
+CLASS="function"
+>spliti()</B
+></A
+>,
+     <A
+HREF="function.explode.html"
+><B
+CLASS="function"
+>explode()</B
+></A
+>, 
+     <A
+HREF="function.implode.html"
+><B
+CLASS="function"
+>implode()</B
+></A
+>,
+     <A
+HREF="function.chunk-split.html"
+><B
+CLASS="function"
+>chunk_split()</B
+></A
+> e 
+     <A
+HREF="function.wordwrap.html"
+><B
+CLASS="function"
+>wordwrap()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.eregi.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.spliti.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>eregi</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.regex.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>spliti</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

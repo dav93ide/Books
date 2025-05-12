@@ -1,0 +1,417 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>explode</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="echo"
+HREF="function.echo.html"><LINK
+REL="NEXT"
+TITLE="fprintf"
+HREF="function.fprintf.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.echo.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fprintf.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.explode"
+></A
+>explode</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN162915"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>explode&nbsp;--&nbsp;Suddivide una stringa</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN162918"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>explode</B
+> ( string separator, string string [, int limit] )<BR
+></BR
+><P
+>&#13;     Questa funzione restituisce una matrice di stringhe, ciascuna delle quali è una parte
+     di <VAR
+CLASS="parameter"
+>string</VAR
+> ottenuta dividendo la stringa originale
+     utilizzando <VAR
+CLASS="parameter"
+>separator</VAR
+> come separatore di stringa.
+     Se si imposta <VAR
+CLASS="parameter"
+>limit</VAR
+> la matrice restituita conterrà
+     al massimo <VAR
+CLASS="parameter"
+>limit</VAR
+> elementi di cui l'ultimo
+     conterrà la parte restante di
+     <VAR
+CLASS="parameter"
+>string</VAR
+>.
+    </P
+><P
+>&#13;     Se il parametro <VAR
+CLASS="parameter"
+>separator</VAR
+> è impostato ad una stringa vuota (""),
+     la funzione <B
+CLASS="function"
+>explode()</B
+> restituirà <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. Se
+     <VAR
+CLASS="parameter"
+>separator</VAR
+> contiene caratteri non presenti
+     in <VAR
+CLASS="parameter"
+>string</VAR
+>, allora <B
+CLASS="function"
+>explode()</B
+> restituirà
+     una matrice contenente <VAR
+CLASS="parameter"
+>string</VAR
+>.
+    </P
+><P
+>&#13;     Se il parametro <VAR
+CLASS="parameter"
+>limit</VAR
+> è negativo, sono restituiti tutti i componenti
+     tranne gli ultimi <VAR
+CLASS="parameter"
+>limit</VAR
+> elementi. Questa caratteristica è stata 
+     inserita in PHP 5.1.0.
+    </P
+><P
+>&#13;     Sebbene <A
+HREF="function.implode.html"
+><B
+CLASS="function"
+>implode()</B
+></A
+> può, per ragioni storiche,
+     accettare i parametri in entrambi gli ordini,
+     <B
+CLASS="function"
+>explode()</B
+> non può. Occorre accertarsi che il parametro
+     <VAR
+CLASS="parameter"
+>separator</VAR
+> sia antecedente al parametro
+     <VAR
+CLASS="parameter"
+>string</VAR
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il parametro <VAR
+CLASS="parameter"
+>limit</VAR
+> è stato aggiunto dalla versione 
+      4.0.1 
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN162958"
+></A
+><P
+><B
+>Esempio 1. Esempi di uso di <B
+CLASS="function"
+>explode()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Esempio 1<br /></font><font color="#0000BB">$pizza&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">"piece1 piece2 piece3 piece4 piece5 piece6"</font><font color="#007700">;<br /></font><font color="#0000BB">$pieces </font><font color="#007700">= </font><font color="#0000BB">explode</font><font color="#007700">(</font><font color="#DD0000">" "</font><font color="#007700">, </font><font color="#0000BB">$pizza</font><font color="#007700">);<br />echo </font><font color="#0000BB">$pieces</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]; </font><font color="#FF8000">// piece1<br /></font><font color="#007700">echo </font><font color="#0000BB">$pieces</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">]; </font><font color="#FF8000">// piece2<br /><br />// Esempio 2<br /></font><font color="#0000BB">$data </font><font color="#007700">= </font><font color="#DD0000">"foo:*:1023:1000::/home/foo:/bin/sh"</font><font color="#007700">;<br />list(</font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$pass</font><font color="#007700">, </font><font color="#0000BB">$uid</font><font color="#007700">, </font><font color="#0000BB">$gid</font><font color="#007700">, </font><font color="#0000BB">$gecos</font><font color="#007700">, </font><font color="#0000BB">$home</font><font color="#007700">, </font><font color="#0000BB">$shell</font><font color="#007700">) = </font><font color="#0000BB">explode</font><font color="#007700">(</font><font color="#DD0000">":"</font><font color="#007700">, </font><font color="#0000BB">$data</font><font color="#007700">);<br />echo </font><font color="#0000BB">$user</font><font color="#007700">; </font><font color="#FF8000">// foo<br /></font><font color="#007700">echo </font><font color="#0000BB">$pass</font><font color="#007700">; </font><font color="#FF8000">// *<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN162963"
+></A
+><P
+><B
+>Esempio 2. Esempi del parametro <VAR
+CLASS="parameter"
+>limit</VAR
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$str </font><font color="#007700">= </font><font color="#DD0000">'one|two|three|four'</font><font color="#007700">;<br /> <br /></font><font color="#FF8000">// limite positivo<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">explode</font><font color="#007700">(</font><font color="#DD0000">'|'</font><font color="#007700">, </font><font color="#0000BB">$str</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp; <br /></font><font color="#FF8000">// negativo (dal PHP 5.1)<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">explode</font><font color="#007700">(</font><font color="#DD0000">'|'</font><font color="#007700">, </font><font color="#0000BB">$str</font><font color="#007700">, -</font><font color="#0000BB">1</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array
+(
+    [0] =&#62; one
+    [1] =&#62; two|three|four
+)
+Array
+(
+    [0] =&#62; one
+    [1] =&#62; two
+    [2] =&#62; three
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione è
+ binary-safe (gestisce correttamente i file binari)</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche
+     <A
+HREF="function.preg-split.html"
+><B
+CLASS="function"
+>preg_split()</B
+></A
+>,
+     <A
+HREF="function.spliti.html"
+><B
+CLASS="function"
+>spliti()</B
+></A
+>,
+     <A
+HREF="function.split.html"
+><B
+CLASS="function"
+>split()</B
+></A
+>,
+     <A
+HREF="function.strtok.html"
+><B
+CLASS="function"
+>strtok()</B
+></A
+> e
+     <A
+HREF="function.implode.html"
+><B
+CLASS="function"
+>implode()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.echo.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fprintf.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>echo</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fprintf</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

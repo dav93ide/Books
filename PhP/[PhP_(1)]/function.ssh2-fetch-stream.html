@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ssh2_fetch_stream</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Secure Shell2 Functions"
+HREF="ref.ssh2.html"><LINK
+REL="PREVIOUS"
+TITLE="ssh2_exec"
+HREF="function.ssh2-exec.html"><LINK
+REL="NEXT"
+TITLE="ssh2_fingerprint"
+HREF="function.ssh2-fingerprint.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-fingerprint.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ssh2-fetch-stream"
+></A
+>ssh2_fetch_stream</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN159550"
+></A
+><P
+>    (PECL)</P
+>ssh2_fetch_stream&nbsp;--&nbsp;
+     Fetch an extended data stream
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159553"
+></A
+><H2
+>Description</H2
+>resource <B
+CLASS="methodname"
+>ssh2_fetch_stream</B
+> ( resource channel, int streamid )<BR
+></BR
+><P
+>&#13;     Fetches an alternate substream associated with an SSH2 channel stream
+     identified by <VAR
+CLASS="parameter"
+>streamid</VAR
+>.  The SSH2 protocol
+     currently defines only one substream, STDERR, which has a substream ID
+     of <TT
+CLASS="constant"
+><B
+>SSH2_STREAM_STDERR</B
+></TT
+> (defined as 1).
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN159567"
+></A
+><P
+><B
+>Esempio 1. Opening a shell and retrieving the stderr stream associated with it.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$connection </font><font color="#007700">= </font><font color="#0000BB">ssh2_connect</font><font color="#007700">(</font><font color="#DD0000">'shell.example.com'</font><font color="#007700">, </font><font color="#0000BB">22</font><font color="#007700">);<br /></font><font color="#0000BB">ssh2_auth_password</font><font color="#007700">(</font><font color="#0000BB">$connection</font><font color="#007700">, </font><font color="#DD0000">'username'</font><font color="#007700">, </font><font color="#DD0000">'password'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$stdio_stream </font><font color="#007700">= </font><font color="#0000BB">ssh2_shell</font><font color="#007700">(</font><font color="#0000BB">$connection</font><font color="#007700">);<br /></font><font color="#0000BB">$stderr_stream </font><font color="#007700">= </font><font color="#0000BB">ssh2_fetch_stream</font><font color="#007700">(</font><font color="#0000BB">$stdio_stream</font><font color="#007700">, </font><font color="#0000BB">SSH2_STREAM_STDERR</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     See Also:
+     <A
+HREF="function.ssh2-shell.html"
+><B
+CLASS="function"
+>ssh2_shell()</B
+></A
+>,
+     <A
+HREF="function.ssh2-exec.html"
+><B
+CLASS="function"
+>ssh2_exec()</B
+></A
+>, and
+     <A
+HREF="function.ssh2-connect.html"
+><B
+CLASS="function"
+>ssh2_connect()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ssh2-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ssh2-fingerprint.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ssh2_exec</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ssh2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ssh2_fingerprint</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

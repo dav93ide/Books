@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>OrbitStruct</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Satellite CORBA client extension [deprecated]"
+HREF="ref.satellite.html"><LINK
+REL="PREVIOUS"
+TITLE="OrbitObject"
+HREF="function.orbitobject.html"><LINK
+REL="NEXT"
+TITLE="satellite_caught_exception"
+HREF="function.satellite-caught-exception.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.orbitobject.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.satellite-caught-exception.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.orbitstruct"
+></A
+>OrbitStruct</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN145290"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>OrbitStruct&nbsp;--&nbsp;Use CORBA structs</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN145293"
+></A
+><H2
+>Descrizione</H2
+>new <B
+CLASS="methodname"
+>OrbitStruct</B
+> ( string id )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   This class represents the structure identified with the
+   <VAR
+CLASS="parameter"
+>id</VAR
+> parameter. 
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN145306"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>id</VAR
+></DT
+><DD
+><P
+>&#13;       Can be either the name of the struct (e.g "MyStruct"), or the full
+       repository id (e.g. "IDL:MyStruct:1.0").
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN145315"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN145318"
+></A
+><P
+><B
+>Esempio 1. Sample IDL file</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="txt"
+>struct MyStruct {
+    short shortvalue;
+    string stringvalue;
+};
+
+interface SomeInterface {
+  void SetValues (MyStruct values);
+  MyStruct GetValues();
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN145322"
+></A
+><P
+><B
+>Esempio 2. PHP code for accessing MyStruct</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$obj </font><font color="#007700">= new </font><font color="#0000BB">OrbitObject </font><font color="#007700">(</font><font color="#0000BB">$ior</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$initial_values </font><font color="#007700">= new </font><font color="#0000BB">OrbitStruct </font><font color="#007700">(</font><font color="#DD0000">"IDL:MyStruct:1.0"</font><font color="#007700">);<br /></font><font color="#0000BB">$initial_values</font><font color="#007700">-&gt;</font><font color="#0000BB">shortvalue </font><font color="#007700">= </font><font color="#0000BB">42</font><font color="#007700">;<br /></font><font color="#0000BB">$initial_values</font><font color="#007700">-&gt;</font><font color="#0000BB">stringvalue </font><font color="#007700">= </font><font color="#DD0000">"HGTTG"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$obj</font><font color="#007700">-&gt;</font><font color="#0000BB">SetValues </font><font color="#007700">(</font><font color="#0000BB">$initial_values</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$values </font><font color="#007700">= </font><font color="#0000BB">$obj</font><font color="#007700">-&gt;</font><font color="#0000BB">GetValues</font><font color="#007700">();<br /><br />echo </font><font color="#0000BB">$values</font><font color="#007700">-&gt;</font><font color="#0000BB">shortvalue</font><font color="#007700">;<br />echo </font><font color="#0000BB">$values</font><font color="#007700">-&gt;</font><font color="#0000BB">stringvalue</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.orbitobject.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.satellite-caught-exception.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>OrbitObject</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.satellite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>satellite_caught_exception</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

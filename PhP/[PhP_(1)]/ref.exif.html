@@ -1,0 +1,658 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Exif Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="user_error"
+HREF="function.user-error.html"><LINK
+REL="NEXT"
+TITLE="exif_imagetype"
+HREF="function.exif-imagetype.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.user-error.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.exif-imagetype.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.exif"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XXXIII. Exif Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN37794"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="exif.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     With the exif extension you are able to work with image meta data.  For
+     example, you may use exif functions to read meta data of pictures taken 
+     from digital cameras by working with information stored in the headers of 
+     the <ACRONYM
+CLASS="acronym"
+>JPEG</ACRONYM
+> and <ACRONYM
+CLASS="acronym"
+>TIFF</ACRONYM
+> images.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="exif.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Your PHP must be compiled in with <VAR
+CLASS="literal"
+>--enable-exif</VAR
+>.  
+     PHP does not require any additional library for the exif module. Windows
+     users must also have the <A
+HREF="ref.mbstring.html"
+> mbstring</A
+>
+     extension enabled.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="exif.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  To enable exif-support configure PHP with 
+  <VAR
+CLASS="option"
+>--enable-exif</VAR
+>
+ </P
+><P
+>&#13;  Windows users must enable both the <TT
+CLASS="filename"
+>php_mbstring.dll</TT
+>
+  and <TT
+CLASS="filename"
+>php_exif.dll</TT
+> DLL's in <TT
+CLASS="filename"
+>php.ini</TT
+>. The 
+  <TT
+CLASS="filename"
+>php_mbstring.dll</TT
+> DLL must be loaded 
+  <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>before</I
+></SPAN
+> the <TT
+CLASS="filename"
+>php_exif.dll</TT
+> DLL so
+  adjust your <TT
+CLASS="filename"
+>php.ini</TT
+> accordingly.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="exif.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  Exif supports automatically conversion for Unicode and JIS 
+  character encodings of user comments when module
+  <A
+HREF="ref.mbstring.html"
+>mbstring</A
+>
+  is available. This is done by first decoding the comment
+  using the specified characterset. The result is then encoded
+  with another characterset which should match your
+  <VAR
+CLASS="literal"
+>HTTP</VAR
+> output.
+ <DIV
+CLASS="table"
+><A
+NAME="AEN37824"
+></A
+><P
+><B
+>Tabella 1. Exif configuration options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>exif.encode_unicode</TD
+><TD
+>"ISO-8859-15"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.3.0.</TD
+></TR
+><TR
+><TD
+>exif.decode_unicode_motorola</TD
+><TD
+>"UCS-2BE"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.3.0.</TD
+></TR
+><TR
+><TD
+>exif.decode_unicode_intel</TD
+><TD
+>"UCS-2LE"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.3.0.</TD
+></TR
+><TR
+><TD
+>exif.encode_jis</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.3.0.</TD
+></TR
+><TR
+><TD
+>exif.decode_jis_motorola</TD
+><TD
+>"JIS"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.3.0.</TD
+></TR
+><TR
+><TD
+>exif.decode_jis_intel</TD
+><TD
+>"JIS"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.3.0.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.exif.encode-unicode"
+></A
+><VAR
+CLASS="parameter"
+>exif.encode_unicode</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;     <VAR
+CLASS="literal"
+>exif.encode_unicode</VAR
+> defines the 
+     characterset UNICODE user comments are handled.
+     This defaults to ISO-8859-15 which should work for
+     most non Asian countries. The setting can be empty
+     or must be an encoding supported by mbstring. If it
+     is empty the current internal encoding of mbstring is
+     used.
+    </P
+></DD
+><DT
+><A
+NAME="ini.exif.decode-unicode-motorola"
+></A
+><VAR
+CLASS="parameter"
+>exif.decode_unicode_motorola</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      <VAR
+CLASS="literal"
+>exif.decode_unicode_motorola</VAR
+> defines 
+      the image internal characterset for Unicode encoded user 
+      comments if image is in motorola byte order (big-endian).
+      This setting cannot be empty but you can specify a list
+      of encodings supported by mbstring. The default is UCS-2BE.
+     </P
+></DD
+><DT
+><A
+NAME="ini.exif.decode-unicode-intel"
+></A
+><VAR
+CLASS="parameter"
+>exif.decode_unicode_intel</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      <VAR
+CLASS="literal"
+>exif.decode_unicode_intel</VAR
+> defines 
+      the image internal characterset for Unicode encoded user 
+      comments if image is in intel byte order (little-endian).
+      This setting cannot be empty but you can specify a list
+      of encodings supported by mbstring. The default is UCS-2LE.
+     </P
+></DD
+><DT
+><A
+NAME="ini.exif.encode-jis"
+></A
+><VAR
+CLASS="parameter"
+>exif.encode_jis</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      <VAR
+CLASS="literal"
+>exif.encode_jis</VAR
+> defines the 
+      characterset JIS user comments are handled.
+      This defaults to an empty value which forces 
+      the functions to use the current internal encoding
+      of mbstring.
+     </P
+></DD
+><DT
+><A
+NAME="ini.exif.decode-jis-motorola"
+></A
+><VAR
+CLASS="parameter"
+>exif.decode_jis_motorola</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      <VAR
+CLASS="literal"
+>exif.decode_jis_motorola</VAR
+> defines 
+      the image internal characterset for JIS encoded user 
+      comments if image is in motorola byte order (big-endian).
+      This setting cannot be empty but you can specify a list
+      of encodings supported by mbstring. The default is JIS.
+     </P
+></DD
+><DT
+><A
+NAME="ini.exif.decode-jis-intel"
+></A
+><VAR
+CLASS="parameter"
+>exif.decode_jis_intel</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      <VAR
+CLASS="literal"
+>exif.decode_jis_intel</VAR
+> defines 
+      the image internal characterset for JIS encoded user 
+      comments if image is in intel byte order (little-endian).
+      This setting cannot be empty but you can specify a list
+      of encodings supported by mbstring. The default is JIS.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="exif.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="exif.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>EXIF_USE_MBSTRING</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+><P
+>&#13;  The <A
+HREF="function.exif-imagetype.html"
+><B
+CLASS="function"
+>exif_imagetype()</B
+></A
+> lists several related built-in
+  constants.
+ </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.exif-imagetype.html"
+>exif_imagetype</A
+>&nbsp;--&nbsp;Determine the type of an image</DT
+><DT
+><A
+HREF="function.exif-read-data.html"
+>exif_read_data</A
+>&nbsp;--&nbsp;Reads the <ACRONYM
+CLASS="acronym"
+>EXIF</ACRONYM
+> headers from <ACRONYM
+CLASS="acronym"
+>JPEG</ACRONYM
+> or <ACRONYM
+CLASS="acronym"
+>TIFF</ACRONYM
+></DT
+><DT
+><A
+HREF="function.exif-tagname.html"
+>exif_tagname</A
+>&nbsp;--&nbsp;Get the header name for an index</DT
+><DT
+><A
+HREF="function.exif-thumbnail.html"
+>exif_thumbnail</A
+>&nbsp;--&nbsp;Retrieve the embedded thumbnail of a TIFF or JPEG image</DT
+><DT
+><A
+HREF="function.read-exif-data.html"
+>read_exif_data</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.exif-read-data.html"
+><B
+CLASS="function"
+>exif_read_data()</B
+></A
+></DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.user-error.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.exif-imagetype.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>user_error</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>exif_imagetype</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Installed as CGI binary</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Security"
+HREF="security.html"><LINK
+REL="PREVIOUS"
+TITLE="General considerations"
+HREF="security.general.html"><LINK
+REL="NEXT"
+TITLE="Case 1: only public files served"
+HREF="security.cgi-bin.default.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="security.general.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="security.cgi-bin.default.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="security.cgi-bin"
+>Capitolo 24. Installed as CGI binary</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="security.cgi-bin.html#security.cgi-bin.attacks"
+>Possible attacks</A
+></DT
+><DT
+><A
+HREF="security.cgi-bin.default.html"
+>Case 1: only public files served</A
+></DT
+><DT
+><A
+HREF="security.cgi-bin.force-redirect.html"
+>Case 2: using --enable-force-cgi-redirect</A
+></DT
+><DT
+><A
+HREF="security.cgi-bin.doc-root.html"
+>Case 3: setting doc_root or user_dir</A
+></DT
+><DT
+><A
+HREF="security.cgi-bin.shell.html"
+>Case 4: PHP parser outside of web tree</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="security.cgi-bin.attacks"
+>Possible attacks</A
+></H1
+><P
+>&#13;     Using PHP as a <ACRONYM
+CLASS="acronym"
+>CGI</ACRONYM
+> binary is an option for
+     setups that for some reason do not wish to integrate PHP as a
+     module into server software (like Apache), or will use PHP with
+     different kinds of CGI wrappers to create safe chroot and setuid
+     environments for scripts.  This setup usually involves installing
+     executable PHP binary to the web server cgi-bin directory.  CERT
+     advisory <A
+HREF="http://www.cert.org/advisories/CA-1996-11.html"
+TARGET="_top"
+>CA-96.11</A
+> recommends
+     against placing any interpreters into cgi-bin.  Even if the PHP
+     binary can be used as a standalone interpreter, PHP is designed
+     to prevent the attacks this setup makes possible:
+    </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;       Accessing system files: <TT
+CLASS="filename"
+>http://my.host/cgi-bin/php?/etc/passwd</TT
+>
+      </P
+><P
+>&#13;       The query information in a URL after the question mark (?)  is
+       passed as command line arguments to the interpreter by the CGI
+       interface.  Usually interpreters open and execute the file
+       specified as the first argument on the command line.
+      </P
+><P
+>&#13;       When invoked as a CGI binary, PHP refuses to interpret the
+       command line arguments.
+      </P
+></LI
+><LI
+><P
+>&#13;       Accessing any web document on server: <TT
+CLASS="filename"
+>http://my.host/cgi-bin/php/secret/doc.html</TT
+>
+      </P
+><P
+>&#13;       The path information part of the URL after the PHP binary name,
+       <TT
+CLASS="filename"
+>/secret/doc.html</TT
+> is
+       conventionally used to specify the name of the file to be
+       opened and interpreted by the <ACRONYM
+CLASS="acronym"
+>CGI</ACRONYM
+> program.
+       Usually some web server configuration directives (Apache:
+       Action) are used to redirect requests to documents like
+       <TT
+CLASS="filename"
+>http://my.host/secret/script.php</TT
+> to the
+       PHP interpreter.  With this setup, the web server first checks
+       the access permissions to the directory <TT
+CLASS="filename"
+>/secret</TT
+>, and after that creates the
+       redirected request <TT
+CLASS="filename"
+>http://my.host/cgi-bin/php/secret/script.php</TT
+>.
+       Unfortunately, if the request is originally given in this form,
+       no access checks are made by web server for file <TT
+CLASS="filename"
+>/secret/script.php</TT
+>, but only for the
+       <TT
+CLASS="filename"
+>/cgi-bin/php</TT
+> file.  This way
+       any user able to access <TT
+CLASS="filename"
+>/cgi-bin/php</TT
+> is able to access any
+       protected document on the web server.
+      </P
+><P
+>&#13;       In PHP, compile-time configuration option <A
+HREF="configure.html#configure.enable-force-cgi-redirect"
+>--enable-force-cgi-redirect</A
+>
+       and runtime configuration directives <A
+HREF="ini.core.html#ini.doc-root"
+>doc_root</A
+> and <A
+HREF="ini.core.html#ini.user-dir"
+>user_dir</A
+> can be used to prevent
+       this attack, if the server document tree has any directories
+       with access restrictions.  See below for full the explanation
+       of the different combinations.
+      </P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="security.general.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="security.cgi-bin.default.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>General considerations</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="security.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Case 1: only public files served</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

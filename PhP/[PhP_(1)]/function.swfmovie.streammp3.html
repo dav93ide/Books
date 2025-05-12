@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>SWFMovie-&#62;streammp3</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Ming functions for Flash"
+HREF="ref.ming.html"><LINK
+REL="PREVIOUS"
+TITLE="SWFMovie->setrate"
+HREF="function.swfmovie.setrate.html"><LINK
+REL="NEXT"
+TITLE="SWFMovie"
+HREF="function.swfmovie.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.swfmovie.setrate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.swfmovie.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.swfmovie.streammp3"
+></A
+>SWFMovie-&#62;streammp3</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN83890"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>SWFMovie-&#62;streammp3&nbsp;--&nbsp;Streams a MP3 file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN83893"
+></A
+><H2
+>Description</H2
+>void <B
+CLASS="methodname"
+>swfmovie-&#62;streammp3</B
+> ( mixed mp3File )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     <B
+CLASS="function"
+>swfmovie-&#62;streammp3()</B
+> streams the mp3 file 
+     <VAR
+CLASS="parameter"
+>mp3File</VAR
+>. Not very robust in dealing with 
+     oddities (can skip over an initial ID3 tag, but that's about it). 
+     Like <B
+CLASS="function"
+>swfshape-&#62;addjpegfill()</B
+>, this isn't a stable function- we'll 
+     probably need to make a separate SWFSound object to contain sound types. 
+     Parameter <VAR
+CLASS="parameter"
+>mp3File</VAR
+> can be a
+     <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+> resource or a binary string.
+    </P
+><P
+>&#13;     Note that the movie isn't smart enough to put enough frames in to contain 
+     the entire mp3 stream- you'll have to add (length of song * frames per second)
+     frames to get the entire stream in. 
+    </P
+><P
+>&#13;     Yes, now you can use ming to put that rock and roll devil worship music
+     into your SWF files. Just don't tell the RIAA. 
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN83912"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>swfmovie-&#62;streammp3()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;$m </font><font color="#007700">= new </font><font color="#0000BB">SWFMovie</font><font color="#007700">();<br />&nbsp;&nbsp;</font><font color="#0000BB">$m</font><font color="#007700">-&gt;</font><font color="#0000BB">setRate</font><font color="#007700">(</font><font color="#0000BB">12.0</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$m</font><font color="#007700">-&gt;</font><font color="#0000BB">streamMp3</font><font color="#007700">(</font><font color="#0000BB">file_get_contents</font><font color="#007700">(</font><font color="#DD0000">"distortobass.mp3"</font><font color="#007700">));<br />&nbsp;&nbsp;</font><font color="#FF8000">// use your own MP3<br /><br />&nbsp;&nbsp;// 11.85 seconds at 12.0 fps = 142 frames<br />&nbsp;&nbsp;</font><font color="#0000BB">$m</font><font color="#007700">-&gt;</font><font color="#0000BB">setFrames</font><font color="#007700">(</font><font color="#0000BB">142</font><font color="#007700">);<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'Content-type: application/x-shockwave-flash'</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">$m</font><font color="#007700">-&gt;</font><font color="#0000BB">output</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.swfmovie.setrate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.swfmovie.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SWFMovie-&#62;setrate</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ming.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>SWFMovie</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

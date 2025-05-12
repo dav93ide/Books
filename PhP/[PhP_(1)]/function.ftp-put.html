@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ftp_put</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni FTP"
+HREF="ref.ftp.html"><LINK
+REL="PREVIOUS"
+TITLE="ftp_pasv"
+HREF="function.ftp-pasv.html"><LINK
+REL="NEXT"
+TITLE="ftp_pwd"
+HREF="function.ftp-pwd.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ftp-pasv.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ftp-pwd.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ftp-put"
+></A
+>ftp_put</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN47466"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.13, PHP 4, PHP 5)</P
+>ftp_put&nbsp;--&nbsp;Trasferisce un file al server FTP</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN47469"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>ftp_put</B
+> ( resource ftp_stream, string remote_file, string local_file, int mode [, int startpos] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>ftp_put()</B
+> salva <VAR
+CLASS="parameter"
+>local_file</VAR
+>
+     sul server FTP come <VAR
+CLASS="parameter"
+>remote_file</VAR
+>. Il modo di trasferimento
+     <VAR
+CLASS="parameter"
+>mode</VAR
+> specificato deve essere
+     <TT
+CLASS="constant"
+><B
+>FTP_ASCII</B
+></TT
+> oppure <TT
+CLASS="constant"
+><B
+>FTP_BINARY</B
+></TT
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il parametro <VAR
+CLASS="parameter"
+>startpos</VAR
+> e' stato aggiunto nella release PHP 4.3.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN47503"
+></A
+><P
+><B
+>Esempio 1. Esempio di funzione <B
+CLASS="function"
+>ftp_put()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$file </font><font color="#007700">= </font><font color="#DD0000">'somefile.txt'</font><font color="#007700">;<br /></font><font color="#0000BB">$remote_file </font><font color="#007700">= </font><font color="#DD0000">'readme.txt'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// stabilisce la connessione<br /></font><font color="#0000BB">$conn_id </font><font color="#007700">= </font><font color="#0000BB">ftp_connect</font><font color="#007700">(</font><font color="#0000BB">$ftp_server</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// si collega con username and password<br /></font><font color="#0000BB">$login_result </font><font color="#007700">= </font><font color="#0000BB">ftp_login</font><font color="#007700">(</font><font color="#0000BB">$conn_id</font><font color="#007700">, </font><font color="#0000BB">$ftp_user_name</font><font color="#007700">, </font><font color="#0000BB">$ftp_user_pass</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// trasferisce un file al server<br /></font><font color="#007700">if (</font><font color="#0000BB">ftp_put</font><font color="#007700">(</font><font color="#0000BB">$conn_id</font><font color="#007700">, </font><font color="#0000BB">$remote_file</font><font color="#007700">, </font><font color="#0000BB">$file</font><font color="#007700">, </font><font color="#0000BB">FTP_ASCII</font><font color="#007700">)) {<br /> echo </font><font color="#DD0000">"$file trasferito correttamente</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />} else {<br /> echo </font><font color="#DD0000">"Si e' verificato un problema durante il trasferimento di $file</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// chiude la connessione<br /></font><font color="#0000BB">ftp_close</font><font color="#007700">(</font><font color="#0000BB">$conn_id</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.ftp-fput.html"
+><B
+CLASS="function"
+>ftp_fput()</B
+></A
+>, <A
+HREF="function.ftp-nb-fput.html"
+><B
+CLASS="function"
+>ftp_nb_fput()</B
+></A
+>,
+     e <A
+HREF="function.ftp-nb-put.html"
+><B
+CLASS="function"
+>ftp_nb_put()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ftp-pasv.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ftp-pwd.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ftp_pasv</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ftp.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ftp_pwd</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

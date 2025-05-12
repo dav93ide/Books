@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>SDO_DAS_Relational::__construct</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SDO Relational Data Access Service Functions"
+HREF="ref.sdo.das.rel.html"><LINK
+REL="PREVIOUS"
+TITLE="SDO_DAS_Relational::applyChanges"
+HREF="function.sdo-das-relational-applychanges.html"><LINK
+REL="NEXT"
+TITLE="SDO_DAS_Relational::createRootDataObject"
+HREF="function.sdo-das-relational-createrootdataobject.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sdo-das-relational-applychanges.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sdo-das-relational-createrootdataobject.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.SDO-DAS-Relational-construct"
+></A
+>SDO_DAS_Relational::__construct</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN148023"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>SDO_DAS_Relational::__construct&nbsp;--&nbsp;
+	    Creates an instance of a Relational Data Access Service
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148026"
+></A
+><H2
+>Descrizione</H2
+>SDO_DAS_Relational <B
+CLASS="methodname"
+>SDO_DAS_Relational::__construct</B
+> ( array database_metadata [, string application_root_type [, array SDO_containment_references_metadata]] )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   Constructs an instance of a Relational Data Access Service 
+   from the passed metadata.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148044"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>database_metadata</DT
+><DD
+><P
+>&#13;       An array containing one or more table definitions, 
+       each of which is an associative array containing the keys
+       <VAR
+CLASS="varname"
+>name</VAR
+>,
+       <VAR
+CLASS="varname"
+>columns</VAR
+>,
+       <VAR
+CLASS="varname"
+>PK</VAR
+>, and optionally,
+       <VAR
+CLASS="varname"
+>FK</VAR
+>.
+       For a full discussion of the metadata, see the
+       <A
+HREF="ref.sdo.das.rel.html#sdo.das.rel.metadata"
+>metadata</A
+>
+       section in the general information about the Relational DAS.
+      </P
+></DD
+><DT
+>application_root_type</DT
+><DD
+><P
+>&#13;       The root of each data graph is an object of a special root type and 
+       the application data objects come below that.
+       Of the various application types in the SDO model, 
+       one has to be the the application type immediately 
+       below the root of the data graph.
+       If there is only one table in the database metadata, 
+       so the application root type can be inferred, this argument can be omitted.
+      </P
+></DD
+><DT
+>SDO_containment_references_metadata</DT
+><DD
+><P
+>&#13;       An array containing one or more definitions of a containment relation, 
+       each of which is an associative array containing the keys
+       <VAR
+CLASS="varname"
+>parent</VAR
+>
+       and
+       <VAR
+CLASS="varname"
+>child</VAR
+>.
+       The containment relations describe how the types in the model 
+       are connected to form a tree.
+       The type specified as the application root type must be present 
+       as one of the parent types in the containment references.
+       If the application only needs to work with one table at a time, 
+       and there are no containment relations in the model, 
+       this argument can be omitted.
+       For a full discussion of the metadata, see the
+       <A
+HREF="ref.sdo.das.rel.html#sdo.das.rel.metadata"
+>metadata</A
+>
+       section in the general information about the Relational DAS.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148068"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns an SDO_DAS_Relational object on success.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148071"
+></A
+><H2
+>Eccezioni</H2
+><P
+>&#13;   <B
+CLASS="function"
+>SDO_DAS_Relational::__construct()</B
+>
+   throws a SDO_DAS_Relational_Exception if 
+   any problems are found in the metadata.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148075"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   For a full discussion of the metadata, see the
+   <A
+HREF="ref.sdo.das.rel.html#sdo.das.rel.metadata"
+>metadata</A
+>
+   section in the general information about the Relational DAS.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sdo-das-relational-applychanges.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sdo-das-relational-createrootdataobject.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SDO_DAS_Relational::applyChanges</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sdo.das.rel.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>SDO_DAS_Relational::createRootDataObject</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

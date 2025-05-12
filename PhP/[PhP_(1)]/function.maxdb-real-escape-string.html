@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>maxdb_real_escape_string</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MaxDB PHP Extension"
+HREF="ref.maxdb.html"><LINK
+REL="PREVIOUS"
+TITLE="maxdb_real_connect"
+HREF="function.maxdb-real-connect.html"><LINK
+REL="NEXT"
+TITLE="maxdb_real_query"
+HREF="function.maxdb-real-query.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.maxdb-real-connect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.maxdb-real-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.maxdb-real-escape-string"
+></A
+>maxdb_real_escape_string</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN74174"
+></A
+><P
+>    (PECL)</P
+>maxdb_real_escape_string<P
+>    (no version information, might be only in CVS)</P
+>maxdb-&#62;real_escape_string&nbsp;--&nbsp;
+     Escapes special characters in a string for use in a SQL statement,
+     taking into account the current charset of the connection
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN74178"
+></A
+><H2
+>Description</H2
+><P
+>Procedural style:</P
+>string <B
+CLASS="methodname"
+>maxdb_real_escape_string</B
+> ( resource link, string escapestr )<BR
+></BR
+><P
+>Object oriented style (method):</P
+>class <B
+CLASS="classname"
+>maxdb</B
+> { <BR
+></BR
+>string <B
+CLASS="methodname"
+>real_escape_sring</B
+> ( string escapestr )<BR
+></BR
+>}<P
+>&#13;      This function is used to create a legal SQL string that you can use in a SQL statement. 
+      The string <VAR
+CLASS="literal"
+>escapestr</VAR
+> is encoded to an escaped SQL string, taking into 
+      account the current character set of the connection. 
+     </P
+><P
+>&#13;      Characters encoded are <VAR
+CLASS="literal"
+>', "</VAR
+>. 
+     </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN74204"
+></A
+><H2
+>Return values</H2
+><P
+>&#13;     Returns an escaped string.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN74207"
+></A
+><H2
+>See also</H2
+><P
+>&#13;     <A
+HREF="function.maxdb-character-set-name.html"
+><B
+CLASS="function"
+>maxdb_character_set_name()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN74211"
+></A
+><H2
+>Example</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN74213"
+></A
+><P
+><B
+>Esempio 1. Object oriented style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$maxdb </font><font color="#007700">= new </font><font color="#0000BB">maxdb</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"MONA"</font><font color="#007700">, </font><font color="#DD0000">"RED"</font><font color="#007700">, </font><font color="#DD0000">"DEMODB"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">maxdb_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"CREATE TABLE temp.mycity LIKE hotel.city"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$city </font><font color="#007700">= </font><font color="#DD0000">"'s Hertogenbosch"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* this query will fail, cause we didn't escape $city */<br /></font><font color="#007700">if (!</font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"INSERT into temp.mycity VALUES ('11111','$city','NY')"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Error: %s\n"</font><font color="#007700">, </font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">sqlstate</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">$city </font><font color="#007700">= </font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">real_escape_string</font><font color="#007700">(</font><font color="#0000BB">$city</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* this query with escaped $city will work */<br /></font><font color="#007700">if (</font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">"INSERT into temp.mycity VALUES ('22222','$city','NY')"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%d Row inserted.\n"</font><font color="#007700">, </font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">affected_rows</font><font color="#007700">);<br />} <br /><br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN74216"
+></A
+><P
+><B
+>Esempio 2. Procedural style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$link </font><font color="#007700">= </font><font color="#0000BB">maxdb_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"MONA"</font><font color="#007700">, </font><font color="#DD0000">"RED"</font><font color="#007700">, </font><font color="#DD0000">"DEMODB"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">maxdb_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#0000BB">maxdb_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"CREATE TABLE temp.mycity LIKE hotel.city"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$city </font><font color="#007700">= </font><font color="#DD0000">"'s Hertogenbosch"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* this query will fail, cause we didn't escape $city */<br /></font><font color="#007700">if (!</font><font color="#0000BB">maxdb_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"INSERT into temp.mycity VALUES ('11111','$city','NY')"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Error: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_sqlstate</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">));<br />}<br /><br /></font><font color="#0000BB">$city </font><font color="#007700">= </font><font color="#0000BB">maxdb_real_escape_string</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#0000BB">$city</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* this query with escaped $city will work */<br /></font><font color="#007700">if (</font><font color="#0000BB">maxdb_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"INSERT into temp.mycity VALUES ('22222','$city','NY')"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%d Row inserted.\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_affected_rows</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">));<br />} <br /><br /></font><font color="#0000BB">maxdb_close</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     The above examples would produce the following output:
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Warning: maxdb_query(): -5016 POS(43) Missing delimiter: ) &#60;...&#62;
+Error: 42000
+1 Row inserted.</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.maxdb-real-connect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.maxdb-real-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>maxdb_real_connect</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.maxdb.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>maxdb_real_query</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

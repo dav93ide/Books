@@ -1,0 +1,525 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Autenticazione HTTP usando PHP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caratteristiche"
+HREF="features.html"><LINK
+REL="PREVIOUS"
+TITLE="Caratteristiche"
+HREF="features.html"><LINK
+REL="NEXT"
+TITLE="Cookies"
+HREF="features.cookies.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="features.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="features.cookies.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="features.http-auth"
+>Capitolo 34. Autenticazione HTTP usando PHP</A
+></H1
+><P
+>&#13;   I meccanismi di Autenticazione <ACRONYM
+CLASS="acronym"
+>HTTP</ACRONYM
+> sono disponibili in PHP solo quando questo
+   viene usato come un modulo di Apache ed esso non è quindi disponibile nella versione CGI.
+   In uno script PHP modulo di Apache, è possibile usare la 
+   funzione <A
+HREF="function.header.html"
+><B
+CLASS="function"
+>header()</B
+></A
+> per inviare un messaggio di "Authentication Required" 
+   al browser dell'utente, provocando quindi l'apertura di una finestra contenente una richiesta di
+   Nome utente/Password. Una volta che l'utente ha compilato i campi nome utente e password, 
+   l'URL contenente lo script PHP verrà richiamato nuovamente usando le 
+   <A
+HREF="reserved.variables.html"
+>variabili predefinite</A
+>, <VAR
+CLASS="varname"
+>PHP_AUTH_USER</VAR
+>, 
+   <VAR
+CLASS="varname"
+>PHP_AUTH_PW</VAR
+> e 
+   <VAR
+CLASS="varname"
+>AUTH_TYPE</VAR
+> impostate con, rispettivamente:
+   nome, password e tipo di autenticazione. Queste variabili predefinite possono essere trovate
+   negli array <A
+HREF="reserved.variables.html#reserved.variables.server"
+>$_SERVER</A
+> e 
+   <VAR
+CLASS="varname"
+>$HTTP_SERVER_VARS</VAR
+>. Saranno supportati entrambi i 
+   metodi di autenticazione, "Basic" e "Digest" (a partire dal PHP 5.1.0).
+   Fare riferimento alla funzione <A
+HREF="function.header.html"
+><B
+CLASS="function"
+>header()</B
+></A
+>
+   per ulteriori informazioni.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota sulla versione di PHP: </B
+>
+    Le <A
+HREF="language.variables.predefined.html#language.variables.superglobals"
+>variabili autoglobali</A
+>, 
+    come <A
+HREF="reserved.variables.html#reserved.variables.server"
+>$_SERVER</A
+>, esistono 
+    a partire da PHP <A
+HREF="http://www.php.net/release_4_1_0.php"
+TARGET="_top"
+>4.1.0</A
+>. 
+    <VAR
+CLASS="varname"
+>$HTTP_SERVER_VARS</VAR
+> è disponibile a partire da PHP 3.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   Un frammento di script di esempio che richiede l'autenticazione da parte del browser
+   su una pagina, potrebbe essere il seguente:
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6907"
+></A
+><P
+><B
+>Esempio 34-1. Esempio di Autenticazione HTTP "Basic"</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;</font><font color="#007700">if (!isset(</font><font color="#0000BB">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'PHP_AUTH_USER'</font><font color="#007700">])) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'WWW-Authenticate: Basic realm="Il mio realm"'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'HTTP/1.0 401 Unauthorized'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Messaggio da inviare se si preme il tasto Cancel'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;p&gt;Ciao </font><font color="#007700">{</font><font color="#DD0000">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'PHP_AUTH_USER'</font><font color="#007700">]}</font><font color="#DD0000">.&lt;/p&gt;"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;p&gt;Hai inserito </font><font color="#007700">{</font><font color="#DD0000">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'PHP_AUTH_PW'</font><font color="#007700">]}</font><font color="#DD0000"> come tua password.&lt;/p&gt;"</font><font color="#007700">;<br />&nbsp;&nbsp;}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6911"
+></A
+><P
+><B
+>Esempio 34-2. Esempio di autenticazione HTTP "Digest"</B
+></P
+><P
+>&#13;     Questo esempio illustra come implementare una autenticazione
+     Digest. Per maggiori dettagli vedere <A
+HREF="http://www.faqs.org/rfcs/rfc2617"
+TARGET="_top"
+>RFC 2617</A
+>.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$realm </font><font color="#007700">= </font><font color="#DD0000">'Restricted area'</font><font color="#007700">;<br /> <br /></font><font color="#FF8000">//user =&gt; password<br /></font><font color="#0000BB">$users </font><font color="#007700">= array(</font><font color="#DD0000">'admin' </font><font color="#007700">=&gt; </font><font color="#DD0000">'mypass'</font><font color="#007700">, </font><font color="#DD0000">'guest' </font><font color="#007700">=&gt; </font><font color="#DD0000">'guest'</font><font color="#007700">);<br /> <br /> <br />if (!isset(</font><font color="#0000BB">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'PHP_AUTH_DIGEST'</font><font color="#007700">])) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'HTTP/1.1 401 Unauthorized'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'WWW-Authenticate: Digest realm="'</font><font color="#007700">.</font><font color="#0000BB">$realm</font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'" qop="auth" nonce="'</font><font color="#007700">.</font><font color="#0000BB">uniqid</font><font color="#007700">().</font><font color="#DD0000">'" opaque="'</font><font color="#007700">.</font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">$realm</font><font color="#007700">).</font><font color="#DD0000">'"'</font><font color="#007700">);<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'Text to send if user hits Cancel button'</font><font color="#007700">);<br />}<br /> <br /></font><font color="#FF8000">// analisi della variabile PHP_AUTH_DIGEST<br /></font><font color="#0000BB">preg_match</font><font color="#007700">(</font><font color="#DD0000">'/username="(?P&lt;username&gt;.*)",\s*realm="(?P&lt;realm&gt;.*)",\s*nonce="(?P&lt;nonce&gt;.*)",\s*uri="(?P&lt;uri&gt;.*)",\s*response="(?P&lt;response&gt;.*)",\s*opaque="(?P&lt;opaque&gt;.*)",\s*qop=(?P&lt;qop&gt;.*),\s*nc=(?P&lt;nc&gt;.*),\s*cnonce="(?P&lt;cnonce&gt;.*)"/'</font><font color="#007700">, </font><font color="#0000BB">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'PHP_AUTH_DIGEST'</font><font color="#007700">], </font><font color="#0000BB">$digest</font><font color="#007700">);<br /> <br />if (!isset(</font><font color="#0000BB">$users</font><font color="#007700">[</font><font color="#0000BB">$digest</font><font color="#007700">[</font><font color="#DD0000">'username'</font><font color="#007700">]]))<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'Username not valid!'</font><font color="#007700">);<br /> <br /> <br /></font><font color="#FF8000">// generazione di una risposta valida<br /></font><font color="#0000BB">$A1 </font><font color="#007700">= </font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">$digest</font><font color="#007700">[</font><font color="#DD0000">'username'</font><font color="#007700">] . </font><font color="#DD0000">':' </font><font color="#007700">. </font><font color="#0000BB">$realm </font><font color="#007700">. </font><font color="#DD0000">':' </font><font color="#007700">. </font><font color="#0000BB">$users</font><font color="#007700">[</font><font color="#0000BB">$digest</font><font color="#007700">[</font><font color="#DD0000">'username'</font><font color="#007700">]]);<br /></font><font color="#0000BB">$A2 </font><font color="#007700">= </font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'REQUEST_METHOD'</font><font color="#007700">].</font><font color="#DD0000">':'</font><font color="#007700">.</font><font color="#0000BB">$digest</font><font color="#007700">[</font><font color="#DD0000">'uri'</font><font color="#007700">]);<br /></font><font color="#0000BB">$valid_response </font><font color="#007700">= </font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">$A1</font><font color="#007700">.</font><font color="#DD0000">':'</font><font color="#007700">.</font><font color="#0000BB">$digest</font><font color="#007700">[</font><font color="#DD0000">'nonce'</font><font color="#007700">].</font><font color="#DD0000">':'</font><font color="#007700">.</font><font color="#0000BB">$digest</font><font color="#007700">[</font><font color="#DD0000">'nc'</font><font color="#007700">].</font><font color="#DD0000">':'</font><font color="#007700">.</font><font color="#0000BB">$digest</font><font color="#007700">[</font><font color="#DD0000">'cnonce'</font><font color="#007700">].</font><font color="#DD0000">':'</font><font color="#007700">.</font><font color="#0000BB">$digest</font><font color="#007700">[</font><font color="#DD0000">'qop'</font><font color="#007700">].</font><font color="#DD0000">':'</font><font color="#007700">.</font><font color="#0000BB">$A2</font><font color="#007700">);<br /> <br />if (</font><font color="#0000BB">$digest</font><font color="#007700">[</font><font color="#DD0000">'response'</font><font color="#007700">] != </font><font color="#0000BB">$valid_response</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'Wrong Credentials!'</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// Ok, utente/passworrd validi<br /></font><font color="#007700">echo </font><font color="#DD0000">'Your are logged in as: ' </font><font color="#007700">. </font><font color="#0000BB">$digest</font><font color="#007700">[</font><font color="#DD0000">'username'</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Note sulla compatibilità: </B
+>
+    Fare molta attenzione quando si scrive codice per le intestazioni HTTP. Per ottenere la  massima
+    compatibilità con tutti i client, la paorla-chiave "Basic" deve essere scritta con una
+    "B" maiuscola, la stringa realm deve essere racchiusa in virgolette doppie (non singole),
+    ed esattamente uno spazio deve precedere il codice <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>401</I
+></SPAN
+> nella linea 
+    di intestazione <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>HTTP/1.0 401</I
+></SPAN
+>.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   Invece di stampare semplicemente <VAR
+CLASS="varname"
+>PHP_AUTH_USER</VAR
+> e
+   <VAR
+CLASS="varname"
+>PHP_AUTH_PW</VAR
+>, probabilmente si vorrà controllare 
+   la validità dello username e della password. 
+   Probabilmente inviando una chiamata al database,
+   o cercando un utente in un file dbm.
+   </P
+><P
+>&#13;   Si faccia attenzione ad alcune versioni di Internet Explorer. Sembra
+   che siano molto schizzinosi riguardo all'ordine delle intestazioni. Inviare l'intestazione
+   <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>WWW-Authenticate</I
+></SPAN
+> prima dell'intestazione
+   <VAR
+CLASS="literal"
+>HTTP/1.0 401</VAR
+> sembra sistemare le cose per
+   il momento.
+  </P
+><P
+>&#13;   A partire da PHP 4.3.0, al fine di prevenire che qualcuno scriva uno script che rivela
+   la password di una pagina che era stata autenticata tramite un tradizionale
+   meccanismo esterno, le variabili PHP_AUTH non verranno
+   impostate se è abilitata l'autenticazione esterna per quella determinata
+   pagina e <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+> è abilitato. Ciò nonostante, la variabile <VAR
+CLASS="varname"
+>REMOTE_USER</VAR
+> può essere 
+   usata per identificare un utente autenticato esternamente.  Quindi, potete usare 
+   <VAR
+CLASS="varname"
+>$_SERVER['REMOTE_USER']</VAR
+>.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota sulla Configurazione: </B
+>
+    PHP usa la presenza di una direttiva <VAR
+CLASS="literal"
+>AuthType</VAR
+>
+    per determinare se viene utilizzata l'autenticazione esterna.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   Si fa notare, però, che quanto scritto sopra non impedisce a qualcuno che
+   controlla un URL non autenticato di sottrarre password da
+   URL autenticati presenti sullo stesso server.
+  </P
+><P
+>&#13;   Sia Netscape Navigator che Internet Explorer cancellano la cache locale
+   della finestra del browser, per quanto riguarda il realm, al ricevimento
+   di una risposta 401 da parte del server. Questo è effettivamente un meccanismo di "log out" per l'utente,
+   che lo forza a reinserire lo username e la password. Alcune persone
+   usano questo per fare il "time out" dei login, o per rendere disponibili bottoni di "log-out".
+  </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6938"
+></A
+><P
+><B
+>Esempio 34-3. Esempio di Autenticazione HTTP che impone l'inserimento di nuovo username/password</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;</font><font color="#007700">function </font><font color="#0000BB">authenticate</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'WWW-Authenticate: Basic realm="Prova del Sistema di Autenticazione"'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'HTTP/1.0 401 Unauthorized'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Per poter accedere a questa risorsa occorre inserire una coppia login e password valide\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;if (!isset(</font><font color="#0000BB">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'PHP_AUTH_USER'</font><font color="#007700">]) ||<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(</font><font color="#0000BB">$_POST</font><font color="#007700">[</font><font color="#DD0000">'SeenBefore'</font><font color="#007700">] == </font><font color="#0000BB">1 </font><font color="#007700">&amp;&amp; </font><font color="#0000BB">$_POST</font><font color="#007700">[</font><font color="#DD0000">'OldAuth'</font><font color="#007700">] == </font><font color="#0000BB">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'PHP_AUTH_USER'</font><font color="#007700">])) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">authenticate</font><font color="#007700">();<br />&nbsp;&nbsp;} <br />&nbsp;&nbsp;else {<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;p&gt;Benvenuto: </font><font color="#007700">{</font><font color="#DD0000">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'PHP_AUTH_USER'</font><font color="#007700">]}</font><font color="#DD0000">&lt;br&gt;"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Vecchio: </font><font color="#007700">{</font><font color="#DD0000">$_REQUEST</font><font color="#007700">[</font><font color="#DD0000">'OldAuth'</font><font color="#007700">]}</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;form action='</font><font color="#007700">{</font><font color="#DD0000">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'PHP_SELF'</font><font color="#007700">]}</font><font color="#DD0000">' METHOD='POST'&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;input type='hidden' name='SeenBefore' value='1'&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;input type='hidden' name='OldAuth' value='</font><font color="#007700">{</font><font color="#DD0000">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'PHP_AUTH_USER'</font><font color="#007700">]}</font><font color="#DD0000">'&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;input type='submit' value='Ri autentifica'&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;/form&gt;&lt;/p&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   Questo comportamento non è richiesto dallo standard di autenticazione HTTP 
+   Basic, quindi non si dovrebbe mai fare affidamento su di esso. Test effettuati con Lynx
+   mostrano che Lynx non cancella le credenziali di autenticazione
+   al ricevimento del codice di risposta 401 da parte del server, quindi, premendo indietro e avanti
+   nuovamente, darà nuovamente accesso alla risorsa, ammesso che le rispettive richieste di credenziali
+   non siano cambiate. L'utente può però premere il
+   tasto '_' al fine di cancellare le sue informazioni di autenticazione.
+  </P
+><P
+>&#13;   Si noti anche che questo non funziona con il server IIS di Microsoft e
+   con la versione CGI di PHP a causa di una limitazione di IIS.
+   Si noti anche che, prima di PHP 4.3.3, l'Autenticazione HTTP non funzionava 
+   usando il server IIS di Microsoft e con la versione CGI di PHP a causa di una
+   limitazione di IIS. Al fine di farla funzionare in PHP 4.3.3+, 
+   si deve modificare la vostra configurazione di IIS "Directory Security". Cliccare 
+   su "Edit" e selezionare solo "Anonymous Access", tutti gli altri campi 
+   dovrebbero essere lasciati deselezionati.
+  </P
+><P
+>&#13;   Un'altra limitazione è che se si usa il modulo IIS (ISAPI) e PHP 4, non si possono
+   usare le variabili <VAR
+CLASS="literal"
+>PHP_AUTH_*</VAR
+> ma, al contrario, la variabile
+   <VAR
+CLASS="literal"
+>HTTP_AUTHORIZATION</VAR
+> è disponibile. Per esempio, si consideri
+   il seguente codice: <VAR
+CLASS="literal"
+>list($user, $pw) = explode(':',
+   base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));</VAR
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota su IIS:: </B
+>
+    Al fine di fare funzionare la Autenticazione HTTP con IIS, la direttiva PHP
+    <A
+HREF="ini.core.html#ini.cgi.rfc2616-headers"
+>cgi.rfc2616_headers</A
+> deve
+    essere impostata al valore <VAR
+CLASS="literal"
+>0</VAR
+> (il valore predefinito).
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Se è abilitato <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>safe mode</A
+> viene 
+    aggiunto lo uid dello script al <VAR
+CLASS="literal"
+>realm</VAR
+>
+    dell'header <VAR
+CLASS="literal"
+>WWW-Authenticate</VAR
+>.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="features.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="features.cookies.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Caratteristiche</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="features.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Cookies</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

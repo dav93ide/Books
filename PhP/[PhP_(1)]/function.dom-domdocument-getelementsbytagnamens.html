@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>DOMDocument-&#62;getElementsByTagNameNS()</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="DOM Functions"
+HREF="ref.dom.html"><LINK
+REL="PREVIOUS"
+TITLE="DOMDocument->getElementsByTagName()"
+HREF="function.dom-domdocument-getelementsbytagname.html"><LINK
+REL="NEXT"
+TITLE="DOMDocument->importNode()"
+HREF="function.dom-domdocument-importnode.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dom-domdocument-getelementsbytagname.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dom-domdocument-importnode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.dom-domdocument-getelementsbytagnamens"
+></A
+>DOMDocument-&#62;getElementsByTagNameNS()</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN31570"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>DOMDocument-&#62;getElementsByTagNameNS()&nbsp;--&nbsp;
+   Ricerca tutti gli elementi per un dato nome tag nello spazio dei nomi indicato.
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN31573"
+></A
+><H2
+>Descrizione</H2
+>class <B
+CLASS="classname"
+>DOMDocument</B
+> { <BR
+></BR
+>DOMNodeList <B
+CLASS="methodname"
+>getElementsByTagNameNS</B
+> ( string namespaceURI, string localName )<BR
+></BR
+>}<P
+>&#13;   Restituicse un <B
+CLASS="classname"
+>DOMNodeList</B
+> contenente tutti gli elementi
+   con il nome e lo spazio dei nomi indicati.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN31589"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>namespaceURI</VAR
+></DT
+><DD
+><P
+>&#13;       L' URI dello spazio dei nomi degli elementi da cercare.
+       Il valore speciale <VAR
+CLASS="literal"
+>*</VAR
+> indica tutti.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>localName</VAR
+></DT
+><DD
+><P
+>&#13;       Il nome locale degli elementi da cercare. 
+       Il valore speciale <VAR
+CLASS="literal"
+>*</VAR
+> indica tutti.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN31605"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Un nuovo oggetto <B
+CLASS="classname"
+>DOMNodeList</B
+> contenente tutti gli
+   elementi trovati.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN31609"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN31612"
+></A
+><P
+><B
+>Esempio 1. Ottienet tutti gli elementi XInclude</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$xml </font><font color="#007700">= &lt;&lt;&lt;EOD<br /></font><font color="#0000BB">&lt;?xml version="1.0" ?&gt;<br />&lt;chapter xmlns:xi="http://www.w3.org/2001/XInclude"&gt;<br />&lt;title&gt;Books of the other guy..&lt;/title&gt;<br />&lt;para&gt;<br /> &lt;xi:include href="book.xml"&gt;<br />&nbsp;&nbsp;&lt;xi:fallback&gt;<br />&nbsp;&nbsp;&nbsp;&lt;error&gt;xinclude: book.xml not found&lt;/error&gt;<br />&nbsp;&nbsp;&lt;/xi:fallback&gt;<br /> &lt;/xi:include&gt;<br /> &lt;include&gt;<br />&nbsp;&nbsp;This is another namespace<br /> &lt;/include&gt;<br />&lt;/para&gt;<br />&lt;/chapter&gt;<br /></font><font color="#007700">EOD;<br /></font><font color="#0000BB">$dom </font><font color="#007700">= new </font><font color="#0000BB">DOMDocument</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Carica la stringa definita in precedenza<br /></font><font color="#0000BB">$dom</font><font color="#007700">-&gt;</font><font color="#0000BB">loadXML</font><font color="#007700">(</font><font color="#0000BB">$xml</font><font color="#007700">);<br /><br />foreach (</font><font color="#0000BB">$dom</font><font color="#007700">-&gt;</font><font color="#0000BB">getElementsByTagNameNS</font><font color="#007700">(</font><font color="#DD0000">'http://www.w3.org/2001/XInclude'</font><font color="#007700">, </font><font color="#DD0000">'*'</font><font color="#007700">) as </font><font color="#0000BB">$element</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'local name: '</font><font color="#007700">, </font><font color="#0000BB">$element</font><font color="#007700">-&gt;</font><font color="#0000BB">localName</font><font color="#007700">, </font><font color="#DD0000">', prefix: '</font><font color="#007700">, </font><font color="#0000BB">$element</font><font color="#007700">-&gt;</font><font color="#0000BB">prefix</font><font color="#007700">, </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>local name: include, prefix: xi
+local name: fallback, prefix: xi</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN31617"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.dom-domdocument-getelementsbytagname.html"
+>DOMDocument-&#62;getElementsByTagName()</A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dom-domdocument-getelementsbytagname.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dom-domdocument-importnode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>DOMDocument-&#62;getElementsByTagName()</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dom.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DOMDocument-&#62;importNode()</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

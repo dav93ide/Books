@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>iconv_mime_decode</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Iconv"
+HREF="ref.iconv.html"><LINK
+REL="PREVIOUS"
+TITLE="iconv_mime_decode_headers"
+HREF="function.iconv-mime-decode-headers.html"><LINK
+REL="NEXT"
+TITLE="iconv_mime_encode"
+HREF="function.iconv-mime-encode.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.iconv-mime-decode-headers.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.iconv-mime-encode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.iconv-mime-decode"
+></A
+>iconv_mime_decode</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN56511"
+></A
+><P
+>    (PHP 5)</P
+>iconv_mime_decode&nbsp;--&nbsp;
+     Decodes a <VAR
+CLASS="literal"
+>MIME</VAR
+> header field
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN56515"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>iconv_mime_decode</B
+> ( string encoded_header [, int mode [, string charset]] )<BR
+></BR
+><P
+>&#13;     Returns a decoded <VAR
+CLASS="literal"
+>MIME</VAR
+> field on success,
+     or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if an error occurs during the decoding.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>mode</VAR
+> determines the behaviour in the event 
+     <B
+CLASS="function"
+>iconv_mime_decode()</B
+> encounters a malformed
+     <VAR
+CLASS="literal"
+>MIME</VAR
+> header field. You can specify any combination
+     of the following bitmasks.
+     <DIV
+CLASS="table"
+><A
+NAME="AEN56536"
+></A
+><P
+><B
+>Tabella 1. Bitmasks acceptable to <B
+CLASS="function"
+>iconv_mime_decode()</B
+></B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Value</TH
+><TH
+>Constant</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>1</TD
+><TD
+>ICONV_MIME_DECODE_STRICT</TD
+><TD
+>&#13;          If set, the given header is decoded in full conformance with the
+          standards defined in <A
+HREF="http://www.faqs.org/rfcs/rfc2047"
+TARGET="_top"
+>RFC2047</A
+>.
+          This option is disabled by default because there are a lot of
+          broken mail user agents that don't follow the specification and don't
+          produce correct <VAR
+CLASS="literal"
+>MIME</VAR
+> headers.
+         </TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+>ICONV_MIME_DECODE_CONTINUE_ON_ERROR</TD
+><TD
+>&#13;          If set, <B
+CLASS="function"
+>iconv_mime_decode()</B
+> attempts to continue
+          to process the given header even though an error occurs.
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     The optional <VAR
+CLASS="parameter"
+>charset</VAR
+> parameter specifies the
+     character set to represent the result by. If omitted, 
+     <A
+HREF="ref.iconv.html#iconv.configuration"
+>iconv.internal_charset</A
+>
+     will be used.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN56560"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>iconv_mime_decode()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// This yields "Subject: Prüfung Prüfung"<br /></font><font color="#007700">echo </font><font color="#0000BB">iconv_mime_decode</font><font color="#007700">(</font><font color="#DD0000">"Subject: =?UTF-8?B?UHLDvGZ1bmcgUHLDvGZ1bmc=?="</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#DD0000">"ISO-8859-1"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     See also <A
+HREF="function.iconv-mime-decode-headers.html"
+><B
+CLASS="function"
+>iconv_mime_decode_headers()</B
+></A
+>,
+     <A
+HREF="function.mb-decode-mimeheader.html"
+><B
+CLASS="function"
+>mb_decode_mimeheader()</B
+></A
+>,
+     <A
+HREF="function.imap-mime-header-decode.html"
+><B
+CLASS="function"
+>imap_mime_header_decode()</B
+></A
+>,
+     <A
+HREF="function.imap-base64.html"
+><B
+CLASS="function"
+>imap_base64()</B
+></A
+>
+     and <A
+HREF="function.imap-qprint.html"
+><B
+CLASS="function"
+>imap_qprint()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.iconv-mime-decode-headers.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.iconv-mime-encode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>iconv_mime_decode_headers</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.iconv.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>iconv_mime_encode</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

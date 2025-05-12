@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>XSLTProcessor-&#62;setParameter()</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="XSL functions"
+HREF="ref.xsl.html"><LINK
+REL="PREVIOUS"
+TITLE="XSLTProcessor->removeParameter()"
+HREF="function.xsl-xsltprocessor-remove-parameter.html"><LINK
+REL="NEXT"
+TITLE="XSLTProcessor->transformToDoc()"
+HREF="function.xsl-xsltprocessor-transform-to-doc.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xsl-xsltprocessor-remove-parameter.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.xsl-xsltprocessor-transform-to-doc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.xsl-xsltprocessor-set-parameter"
+></A
+>XSLTProcessor-&#62;setParameter()</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN179826"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>XSLTProcessor-&#62;setParameter()&nbsp;--&nbsp;Set value for a parameter</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN179829"
+></A
+><H2
+>Descrizione</H2
+>class <B
+CLASS="classname"
+>XSLTProcessor</B
+> { <BR
+></BR
+>bool <B
+CLASS="methodname"
+>setParameter</B
+> ( string namespace, string name, string value )<BR
+></BR
+>}class <B
+CLASS="classname"
+>XSLTProcessor</B
+> { <BR
+></BR
+>bool <B
+CLASS="methodname"
+>setParameter</B
+> ( string namespace, array options )<BR
+></BR
+>}<P
+>&#13;   Sets the value of one or more parameters to be used in subsequent 
+   transformations with <B
+CLASS="classname"
+>XSLTProcessor</B
+>. If the 
+   parameter doesn't exist in the stylesheet it will be ignored.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN179860"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>namespace</VAR
+></DT
+><DD
+><P
+>&#13;       The namespace URI of the XSLT parameter.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>name</VAR
+></DT
+><DD
+><P
+>&#13;       The local name of the XSLT parameter.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>value</VAR
+></DT
+><DD
+><P
+>&#13;       The new value of the XSLT parameter.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>options</VAR
+></DT
+><DD
+><P
+>&#13;       An array of  <VAR
+CLASS="literal"
+>name =&#62; value</VAR
+> pairs. This syntax is
+       available since PHP 5.1.0.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN179885"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN179890"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN179893"
+></A
+><P
+><B
+>Esempio 1. Changing the owner before the transformation</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$collections </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'Marc Rutkowski' </font><font color="#007700">=&gt; </font><font color="#DD0000">'marc'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'Olivier Parmentier' </font><font color="#007700">=&gt; </font><font color="#DD0000">'olivier'<br /></font><font color="#007700">);<br /><br /></font><font color="#0000BB">$xsl </font><font color="#007700">= new </font><font color="#0000BB">DOMDocument</font><font color="#007700">;<br /></font><font color="#0000BB">$xsl</font><font color="#007700">-&gt;</font><font color="#0000BB">load</font><font color="#007700">(</font><font color="#DD0000">'collection.xsl'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Configure the transformer<br /></font><font color="#0000BB">$proc </font><font color="#007700">= new </font><font color="#0000BB">XSLTProcessor</font><font color="#007700">;<br /></font><font color="#0000BB">$proc</font><font color="#007700">-&gt;</font><font color="#0000BB">importStyleSheet</font><font color="#007700">(</font><font color="#0000BB">$xsl</font><font color="#007700">); </font><font color="#FF8000">// attach the xsl rules<br /><br /></font><font color="#007700">foreach (</font><font color="#0000BB">$collections </font><font color="#007700">as </font><font color="#0000BB">$name </font><font color="#007700">=&gt; </font><font color="#0000BB">$file</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Load the XML source<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$xml </font><font color="#007700">= new </font><font color="#0000BB">DOMDocument</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$xml</font><font color="#007700">-&gt;</font><font color="#0000BB">load</font><font color="#007700">(</font><font color="#DD0000">'collection_' </font><font color="#007700">. </font><font color="#0000BB">$file </font><font color="#007700">. </font><font color="#DD0000">'.xml'</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$proc</font><font color="#007700">-&gt;</font><font color="#0000BB">setParameter</font><font color="#007700">(</font><font color="#DD0000">''</font><font color="#007700">, </font><font color="#DD0000">'owner'</font><font color="#007700">, </font><font color="#0000BB">$name</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$proc</font><font color="#007700">-&gt;</font><font color="#0000BB">transformToURI</font><font color="#007700">(</font><font color="#0000BB">$xml</font><font color="#007700">, </font><font color="#DD0000">'file:///tmp/' </font><font color="#007700">. </font><font color="#0000BB">$file </font><font color="#007700">. </font><font color="#DD0000">'.html'</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN179896"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.xsl-xsltprocessor-get-parameter.html"
+>XSLTProcessor-&#62;getParameter()</A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.xsl-xsltprocessor-remove-parameter.html"
+>XSLTProcessor-&#62;removeParameter()</A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xsl-xsltprocessor-remove-parameter.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.xsl-xsltprocessor-transform-to-doc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>XSLTProcessor-&#62;removeParameter()</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.xsl.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>XSLTProcessor-&#62;transformToDoc()</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

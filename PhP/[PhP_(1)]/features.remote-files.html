@@ -1,0 +1,389 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Utilizzo di file remoti</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caratteristiche"
+HREF="features.html"><LINK
+REL="PREVIOUS"
+TITLE="Supporto per metodo PUT"
+HREF="features.file-upload.put-method.html"><LINK
+REL="NEXT"
+TITLE="Gestione della connessione"
+HREF="features.connection-handling.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="features.file-upload.put-method.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="features.connection-handling.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="features.remote-files"
+>Capitolo 39. Utilizzo di file remoti</A
+></H1
+><P
+>&#13;   Se <VAR
+CLASS="parameter"
+>allow_url_fopen</VAR
+> è abilitato in 
+   <TT
+CLASS="filename"
+>php.ini</TT
+>, si possono usare gli URL <ACRONYM
+CLASS="acronym"
+>HTTP</ACRONYM
+> e <ACRONYM
+CLASS="acronym"
+>FTP</ACRONYM
+> 
+   con la maggior parte delle funzioni che 
+   richiedono nomi di file come parametri, incluse le funzioni 
+   <A
+HREF="function.require.html"
+><B
+CLASS="function"
+>require()</B
+></A
+>, <A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+>, <A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+>
+   e <A
+HREF="function.include-once.html"
+><B
+CLASS="function"
+>include_once()</B
+></A
+>.
+   Vedere <A
+HREF="wrappers.html"
+>Appendice M</A
+> per maggiori dettagli sui protocolli supportati dal
+   PHP.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>   
+   In PHP 4.0.3 e precedenti, al fine di poter utilizzare gli URL wrapper, occorreva 
+   specificare l'opzione di configurazione 
+   <VAR
+CLASS="option"
+>--enable-url-fopen-wrapper</VAR
+>.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Al momento, le versioni Windows di PHP precedenti la 4.3, non supportano
+     l'accesso remoto ai file con le seguenti funzioni:
+     <A
+HREF="function.include.html"
+><B
+CLASS="function"
+>include()</B
+></A
+>, <A
+HREF="function.include-once.html"
+><B
+CLASS="function"
+>include_once()</B
+></A
+>,
+     <A
+HREF="function.require.html"
+><B
+CLASS="function"
+>require()</B
+></A
+> e <A
+HREF="function.require-once.html"
+><B
+CLASS="function"
+>require_once()</B
+></A
+>
+     e le funzioni imagecreatefromXXX del modulo
+     <A
+HREF="ref.image.html"
+>Riferimento LVI, <I
+>Funzioni per le immagini</I
+></A
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+>
+  </P
+><P
+>&#13;   Per esempio, si può usare per aprire un file da un web server remoto,
+   elaborare i dati presi da remoto, e usarli per effetuare delle query,
+   o semplicemente visualizzarli con lo stile 
+   del proprio sito web.
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN7261"
+></A
+><P
+><B
+>Esempio 39-1. Leggere il titolo di una pagina web remota</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$file </font><font color="#007700">= </font><font color="#0000BB">fopen </font><font color="#007700">(</font><font color="#DD0000">"http://www.example.com/"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$file</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;p&gt;Impossibile aprire il file remoto.\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />}<br />while (!</font><font color="#0000BB">feof </font><font color="#007700">(</font><font color="#0000BB">$file</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$linea </font><font color="#007700">= </font><font color="#0000BB">fgets </font><font color="#007700">(</font><font color="#0000BB">$file</font><font color="#007700">, </font><font color="#0000BB">1024</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Funziona solo se title e i relativi tag sono sulla medesima riga */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">eregi </font><font color="#007700">(</font><font color="#DD0000">"&lt;title&gt;(.*)&lt;/title&gt;"</font><font color="#007700">, </font><font color="#0000BB">$linea</font><font color="#007700">, </font><font color="#0000BB">$out</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$title </font><font color="#007700">= </font><font color="#0000BB">$out</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$file</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   Si può anche scrivere in un file remoto via FTP (se l'utente con cui ci
+   si connette ha le autorizzazioni necessarie). Si possono solamente 
+   creare nuovi file usando questo metodo, se si prova a 
+   sovrascrivere un file che già esiste, <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+> non avrà 
+   successo.
+  </P
+><P
+>&#13;   Per connettersi con un utenti diversi da 'anonymous' si ha bisogno di specificare lo username
+   (e la relativa password) assieme all'URL, in questo modo:
+   'ftp://user:password@ftp.example.com/directory/del/file'. (Si può usare lo stesso 
+   tipo di sintassi per accedere a file via HTTP quando 
+   richiedono autenticazione Basic).
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN7268"
+></A
+><P
+><B
+>Esempio 39-2. Salvataggio di dati su server remoto</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$file </font><font color="#007700">= </font><font color="#0000BB">fopen </font><font color="#007700">(</font><font color="#DD0000">"ftp://ftp.example.com/incoming/outputfile"</font><font color="#007700">, </font><font color="#DD0000">"w"</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$file</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;p&gt;Impossibile aprire il file remoto in scrittura.\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />}<br /></font><font color="#FF8000">/* Scrive i dati qui. */<br /></font><font color="#0000BB">fwrite </font><font color="#007700">(</font><font color="#0000BB">$file</font><font color="#007700">, </font><font color="#0000BB">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'HTTP_USER_AGENT'</font><font color="#007700">] . </font><font color="#DD0000">"\n"</font><font color="#007700">);<br /></font><font color="#0000BB">fclose </font><font color="#007700">(</font><font color="#0000BB">$file</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Dall'esempio precedente ci si può fare un'idea di come usare questa
+    tecnica per effettuare dei log in remoto, ma come già accennato, con 
+    questo sitema non è possibile scrivere con <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+> 
+    su file già esistenti. Per fare una procedura di log distribuito è 
+    più indicata la funzione <A
+HREF="function.syslog.html"
+><B
+CLASS="function"
+>syslog()</B
+></A
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="features.file-upload.put-method.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="features.connection-handling.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Supporto per metodo PUT</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="features.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Gestione della connessione</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,630 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Database issues</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FAQ: Frequently Asked Questions (domande e risposte ricorrenti)"
+HREF="faq.html"><LINK
+REL="PREVIOUS"
+TITLE="Ottenere PHP"
+HREF="faq.obtaining.html"><LINK
+REL="NEXT"
+TITLE="Installazione"
+HREF="faq.installation.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="faq.obtaining.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="faq.installation.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="faq.databases"
+>Capitolo 51. Database issues</A
+></H1
+><P
+>&#13;   This section holds common questions about relation between
+   PHP and databases. Yes, PHP can access virtually any
+   database available today.
+  </P
+><DIV
+CLASS="qandaset"
+><DL
+><DT
+>1. <A
+HREF="faq.databases.html#faq.databases.mssql"
+>&#13;      I heard it's possible to access Microsoft SQL Server from PHP. How?
+     </A
+></DT
+><DT
+>2. <A
+HREF="faq.databases.html#faq.databases.access"
+>Can I access Microsoft Access databases?</A
+></DT
+><DT
+>3. <A
+HREF="faq.databases.html#faq.databases.upgraded"
+>&#13;      I upgraded to PHP 4, and now mysql keeps telling me
+      "Warning: MySQL: Unable to save result set in ...". What's up?
+     </A
+></DT
+><DT
+>4. <A
+HREF="faq.databases.html#faq.databases.mysql.php5"
+>&#13;      PHP 5 no longer bundles MySQL client libraries, what does this mean to
+      me?  Can I still use MySQL with PHP?  I try to use MySQL and get
+      "function undefined" errors, what gives?
+     </A
+></DT
+><DT
+>5. <A
+HREF="faq.databases.html#faq.databases.shared-mysql"
+>&#13;      After installing shared MySQL support, Apache dumps core as soon
+      as libphp4.so is loaded. Can this be fixed?
+     </A
+></DT
+><DT
+>6. <A
+HREF="faq.databases.html#faq.databases.mysqlresource"
+>&#13;      Why do I get an error that looks something like this:
+      "Warning: 0 is not a MySQL result index in &#60;file&#62;
+      on line &#60;x&#62;" or "Warning: Supplied argument is not
+      a valid MySQL result resource in &#60;file&#62; on line &#60;x&#62;?
+     </A
+></DT
+></DL
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.databases.mssql"
+></A
+><B
+>1. </B
+>
+      I heard it's possible to access Microsoft SQL Server from PHP. How?
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      On Windows machines, you can simply use the included ODBC support
+      and the correct ODBC driver.
+     </P
+><P
+>&#13;      On Unix machines, you can use the Sybase-CT driver
+      to access Microsoft SQL Servers because they are (at
+      least mostly) protocol-compatible. Sybase has made a
+      <A
+HREF="http://www.php.net/extra/ctlib-linux-elf.tar.gz"
+TARGET="_top"
+>free version of the necessary
+      libraries for Linux systems</A
+>. For other Unix operating
+      systems, you need to contact Sybase for the correct libraries.
+      Also see the answer to the next question.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.databases.access"
+></A
+><B
+>2. </B
+>Can I access Microsoft Access databases?</P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      Yes. You already have all the tools you need if you are running
+      entirely under Windows 9x/Me, or NT/2000, where you can use
+      ODBC and Microsoft's ODBC drivers for Microsoft Access databases.
+     </P
+><P
+>&#13;      If you are running PHP on a Unix box and want to talk to MS Access
+      on a Windows box you will need Unix ODBC drivers.
+      <A
+HREF="http://www.openlinksw.com/"
+TARGET="_top"
+>OpenLink Software</A
+> has Unix-based
+      ODBC drivers that can do this. There is a free pilot program where you
+      can download an evaluation copy that doesn't expire and prices start at
+      $675 for the commercial supported version.
+     </P
+><P
+>&#13;      Another alternative is to use an SQL server that has
+      Windows ODBC drivers and use that to store the data, which you can
+      then access from Microsoft Access (using ODBC) and PHP (using the
+      built in drivers), or to use an intermediary file format that Access
+      and PHP both understand, such as flat files or dBase databases.
+      On this point Tim Hayes from OpenLink software writes:
+      <A
+NAME="AEN198136"
+></A
+><BLOCKQUOTE
+CLASS="BLOCKQUOTE"
+><P
+>&#13;        Using another database as an intermediary is not a good idea, when you can
+        use ODBC from PHP straight to your database - i.e. with OpenLink's drivers. If
+        you do need to use an intermediary file format, OpenLink have now released
+        Virtuoso (a virtual database engine) for NT, Linux and other Unix platforms.
+        Please visit our <A
+HREF="http://www.openlinksw.com/"
+TARGET="_top"
+>website</A
+> for a free download.
+       </P
+></BLOCKQUOTE
+>
+     </P
+><P
+>&#13;      One option that has proved successful is to use MySQL and its
+      MyODBC drivers on Windows and synchronizing the databases. Steve Lawrence
+      writes:
+     </P
+><P
+>&#13;      <P
+></P
+><UL
+><LI
+><P
+>&#13;         Install MySQL on your platform according to instructions with MySQL.
+         Latest available from <A
+HREF="http://www.mysql.com/"
+TARGET="_top"
+>www.mysql.com</A
+>
+         (get it from your mirror!). No special
+         configuration required except when you set up a database, and configure the
+         user account, you should put % in the host field, or the host name of the
+         Windows computer you wish to access MySQL with. Make a note of your server
+         name, username, and password.
+        </P
+></LI
+><LI
+><P
+>&#13;         Download the MyODBC for Windows driver from the MySQL site. Latest
+         release is myodbc-2_50_19-win95.zip (NT available too, as well as source
+         code). Install it on your Windows machine. You can test the operation with
+         the utilities included with this program.
+        </P
+></LI
+><LI
+><P
+>&#13;         Create a user or system dsn in your ODBC administrator, located in the
+         control panel. Make up a dsn name, enter your hostname, user name, password,
+         port, etc for you MySQL database configured in step 1.
+        </P
+></LI
+><LI
+><P
+>&#13;         Install Access with a full install, this makes sure you get the proper
+         add-ins.. at the least you will need ODBC support and the linked table
+         manager.
+        </P
+></LI
+><LI
+><P
+>&#13;         Now the fun part! Create a new access database. In the table
+         window right click and select Link Tables, or under the file
+         menu option, select Get External Data and then Link Tables.
+         When the file browser box comes up, select files of type: ODBC.
+         Select System dsn and the name of your dsn created in step 3.
+         Select the table to link, press OK, and presto! You can now
+         open the table and add/delete/edit data on your MySQL server!
+         You can also build queries, import/export tables to MySQL,
+         build forms and reports, etc.
+        </P
+></LI
+></UL
+>
+     </P
+><P
+>&#13;      Tips and Tricks:
+      <P
+></P
+><UL
+><LI
+><P
+>&#13;         You can construct your tables in Access and export them
+         to MySQL, then link them back in. That makes table
+         creation quick.
+        </P
+></LI
+><LI
+><P
+>&#13;         When creating tables in Access, you must have a primary
+         key defined in order to have write access to the table in
+         access. Make sure you create a primary key in MySQL before
+         linking in access
+        </P
+></LI
+><LI
+><P
+>&#13;         If you change a table in MySQL, you have to re-link it
+         in Access. Go to tools&#62;add-ins&#62;linked table manager,
+         cruise to your ODBC DSN, and select the table to re-link
+         from there. you can also move your dsn source around there,
+         just hit the always prompt for new location checkbox before
+         pressing OK.
+        </P
+></LI
+></UL
+>
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.databases.upgraded"
+></A
+><B
+>3. </B
+>
+      I upgraded to PHP 4, and now mysql keeps telling me
+      "Warning: MySQL: Unable to save result set in ...". What's up?
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      Most likely what has happened is, PHP 4 was compiled with the <VAR
+CLASS="option"
+>--with-mysql</VAR
+> option, without specifying the
+      path to MySQL. This means PHP is using its built-in MySQL client
+      library. If your system is running applications, such as PHP 3 as a
+      concurrent Apache module, or auth-mysql, that use other
+      versions of MySQL clients, then there is a conflict between the two
+      differing versions of those clients.
+     </P
+><P
+>&#13;      Recompiling PHP 4, and adding the path to MySQL to the flag,
+      '<A
+HREF="ref.mysql.html#mysql.configure"
+>--with-mysql=/your/path/to/mysql</A
+>'
+      usually solves the problem.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.databases.mysql.php5"
+></A
+><B
+>4. </B
+>
+      PHP 5 no longer bundles MySQL client libraries, what does this mean to
+      me?  Can I still use MySQL with PHP?  I try to use MySQL and get
+      "function undefined" errors, what gives?
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      Yes.  There will always be MySQL support in PHP of one kind or
+      another.  The only change in PHP 5 is that we are no longer bundling
+      the client library itself.  Some reasons in no particular order:
+     </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;        Most systems these days already have the client library installed.
+       </P
+></LI
+><LI
+><P
+>&#13;        Given the above, having multiple versions of the library can get
+        messy.  For example, if you link mod_auth_mysql against one version
+        and PHP against another, and then enable both in Apache, you get a
+        nice fat crash.  Also, the bundled library didn't always play well
+        with the installed server version.  The most obvious symptom of this
+        being disagreement over where to find the mysql.socket Unix domain
+        socket file.
+       </P
+></LI
+><LI
+><P
+>&#13;        Maintenance was somewhat lax and it was falling further and further
+        behind the released version.
+       </P
+></LI
+><LI
+><P
+>&#13;        Future versions of the library are under the GPL and thus we don't
+        have an upgrade path since we cannot bundle a GPL'ed library in a
+        BSD/Apache-style licensed project.  A clean break in PHP 5 seemed
+        like the best option.
+       </P
+></LI
+></UL
+><P
+>&#13;      This won't actually affect that many people.  Unix users, at least the
+      ones who know what they are doing, tend to always build PHP against
+      their system's libmyqlclient library simply by adding the <VAR
+CLASS="option"
+>--with-mysql=/usr</VAR
+> option
+      when building PHP.  Windows users may enable the extension
+      <TT
+CLASS="filename"
+>php_mysql.dll</TT
+> inside <TT
+CLASS="filename"
+>php.ini</TT
+>.
+      For more details, see the <A
+HREF="ref.mysql.html"
+>MySQL Reference</A
+>
+      for installation instructions. Also, be sure
+      <TT
+CLASS="filename"
+>libmysql.dll</TT
+> is available to the systems PATH.
+      For more details on how, read the FAQ on
+      <A
+HREF="missing-stuff.html#faq.installation.addtopath"
+>setting up the Windows
+      systems PATH</A
+>.  Because <TT
+CLASS="filename"
+>libmysql.dll</TT
+> (and
+      many other PHP related files) exist in the PHP folder, you'll want to
+      add the PHP folder to your systems PATH.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.databases.shared-mysql"
+></A
+><B
+>5. </B
+>
+      After installing shared MySQL support, Apache dumps core as soon
+      as libphp4.so is loaded. Can this be fixed?
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      If your MySQL libs are linked against pthreads this will happen. Check
+      using ldd. If they are, grab the MySQL tarball and compile from source,
+      or recompile from the source rpm and remove the switch in the spec file
+      that turns on the threaded client code. Either of these suggestions will
+      fix this. Then recompile PHP with the new MySQL libs.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.databases.mysqlresource"
+></A
+><B
+>6. </B
+>
+      Why do I get an error that looks something like this:
+      "Warning: 0 is not a MySQL result index in &#60;file&#62;
+      on line &#60;x&#62;" or "Warning: Supplied argument is not
+      a valid MySQL result resource in &#60;file&#62; on line &#60;x&#62;?
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      You are trying to use a result identifier that is 0. The 0 indicates
+      that your query failed for some reason. You need to check for errors
+      after submitting a query and before you attempt to use the returned
+      result identifier.  The proper way to do this is with code similar
+      to the following:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$result </font><font color="#007700">= </font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"SELECT * FROM tables_priv"</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$result</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">mysql_error</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+>
+      or
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$result </font><font color="#007700">= </font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"SELECT * FROM tables_priv"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Bad query: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">());<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+>
+     </P
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="faq.obtaining.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="faq.installation.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Ottenere PHP</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="faq.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Installazione</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

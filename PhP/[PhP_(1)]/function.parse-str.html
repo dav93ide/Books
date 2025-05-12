@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>parse_str</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="ord"
+HREF="function.ord.html"><LINK
+REL="NEXT"
+TITLE="print"
+HREF="function.print.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ord.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.print.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.parse-str"
+></A
+>parse_str</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN164339"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>parse_str&nbsp;--&nbsp;Suddivide una stringa in variabili</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN164342"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>parse_str</B
+> ( string str [, array arr] )<BR
+></BR
+><P
+>&#13;     Suddivide la stringa <VAR
+CLASS="parameter"
+>str</VAR
+> come se fosse una stringa di query
+     passata via URL ed imposta le variabili con visibilità locale. Se si indica
+     il secondo parametro <VAR
+CLASS="parameter"
+>arr</VAR
+>, 
+     la variabili sono memorizzate come elementi della matrice <VAR
+CLASS="parameter"
+>arr</VAR
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il supporto per il secondo parametro, opzionale, è stato aggiunto in PHP 4.0.3.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Per avere la <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>QUERY_STRING</I
+></SPAN
+> corrente occorre utilizzare la variabile
+      <A
+HREF="reserved.variables.html#reserved.variables.server"
+>$_SERVER['QUERY_STRING']</A
+>.
+      Inoltre è opportuno leggere la sezione sulle 
+      <A
+HREF="language.variables.external.html"
+>variabili esterne al PHP</A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      L'impostazione <A
+HREF="ref.info.html#ini.magic-quotes-gpc"
+>magic_quotes_gpc</A
+>
+      influisce sull'output di questa funzione, poichè <B
+CLASS="function"
+>parse_str()</B
+> utilizza
+      lo stesso meccanismo che usa il PHP per compilare le variabili
+      <VAR
+CLASS="literal"
+>$_GET</VAR
+>, <VAR
+CLASS="literal"
+>$_POST</VAR
+>, ecc.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164371"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di  <B
+CLASS="function"
+>parse_str()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$str </font><font color="#007700">= </font><font color="#DD0000">"first=value&amp;arr[]=foo+bar&amp;arr[]=baz"</font><font color="#007700">;<br /></font><font color="#0000BB">parse_str</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">);<br />echo </font><font color="#0000BB">$first</font><font color="#007700">;&nbsp;&nbsp;</font><font color="#FF8000">// value<br /></font><font color="#007700">echo </font><font color="#0000BB">$arr</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]; </font><font color="#FF8000">// foo bar<br /></font><font color="#007700">echo </font><font color="#0000BB">$arr</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">]; </font><font color="#FF8000">// baz<br /><br /></font><font color="#0000BB">parse_str</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">, </font><font color="#0000BB">$output</font><font color="#007700">);<br />echo </font><font color="#0000BB">$output</font><font color="#007700">[</font><font color="#DD0000">'first'</font><font color="#007700">];&nbsp;&nbsp;</font><font color="#FF8000">// value<br /></font><font color="#007700">echo </font><font color="#0000BB">$output</font><font color="#007700">[</font><font color="#DD0000">'arr'</font><font color="#007700">][</font><font color="#0000BB">0</font><font color="#007700">]; </font><font color="#FF8000">// foo bar<br /></font><font color="#007700">echo </font><font color="#0000BB">$output</font><font color="#007700">[</font><font color="#DD0000">'arr'</font><font color="#007700">][</font><font color="#0000BB">1</font><font color="#007700">]; </font><font color="#FF8000">// baz<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.parse-url.html"
+><B
+CLASS="function"
+>parse_url()</B
+></A
+>, <A
+HREF="function.pathinfo.html"
+><B
+CLASS="function"
+>pathinfo()</B
+></A
+>,
+     <A
+HREF="function.get-magic-quotes-gpc.html"
+><B
+CLASS="function"
+>get_magic_quotes_gpc()</B
+></A
+> e <A
+HREF="function.urldecode.html"
+><B
+CLASS="function"
+>urldecode()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ord.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.print.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ord</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>print</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

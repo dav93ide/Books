@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fbsql_read_clob</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FrontBase Functions"
+HREF="ref.fbsql.html"><LINK
+REL="PREVIOUS"
+TITLE="fbsql_read_blob"
+HREF="function.fbsql-read-blob.html"><LINK
+REL="NEXT"
+TITLE="fbsql_result"
+HREF="function.fbsql-result.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-read-blob.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fbsql-read-clob"
+></A
+>fbsql_read_clob</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN46341"
+></A
+><P
+>    (PHP 4 &#62;= 4.2.0, PHP 5)</P
+>fbsql_read_clob&nbsp;--&nbsp;Legge un CLOB dal database</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN46344"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>fbsql_read_clob</B
+> ( string clob_handle [, resource link_identifier] )<BR
+></BR
+><P
+> 
+     Restituisce: una stringa contenente il CLOB indicato da clob_handle.
+    </P
+><P
+> 
+     La funzione <B
+CLASS="function"
+>fbsql_read_clob()</B
+> legge un campo CLOB dal database.
+     Se una istruzione select contiene colonne BLOB e/o CLOB
+     FrontBase restituisce direttamente i dati quando è richiesta la riga.
+     Questo è il comportamento di default, esso può essere variato tramite
+     <A
+HREF="function.fbsql-set-lob-mode.html"
+><B
+CLASS="function"
+>fbsql_set_lob_mode()</B
+></A
+> in modo che le funzioni di lettura dei dati
+     restituiscano un puntatore ai dati BLOB e CLOB. Se si ottiene il puntatore
+     occorre eseguire  <B
+CLASS="function"
+>fbsql_read_clob()</B
+> per
+     ottenere i dati CLOB dal database.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN46360"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>fbsql_read_clob()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$link </font><font color="#007700">= </font><font color="#0000BB">fbsql_pconnect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"_SYSTEM"</font><font color="#007700">, </font><font color="#DD0000">"secret"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Connessione non riuscita"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$sql </font><font color="#007700">= </font><font color="#DD0000">"SELECT CLOB_COLUMN FROM CLOB_TABLE;"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$rs </font><font color="#007700">= </font><font color="#0000BB">fbsql_query</font><font color="#007700">(</font><font color="#0000BB">$sql</font><font color="#007700">, </font><font color="#0000BB">$link</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$row_data </font><font color="#007700">= </font><font color="#0000BB">fbsql_fetch_row</font><font color="#007700">(</font><font color="#0000BB">$rs</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $row_data[0] contiene i dati CLOB per la prima riga<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fbsql_free_result</font><font color="#007700">(</font><font color="#0000BB">$rs</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$rs </font><font color="#007700">= </font><font color="#0000BB">fbsql_query</font><font color="#007700">(</font><font color="#0000BB">$sql</font><font color="#007700">, </font><font color="#0000BB">$link</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fbsql_set_lob_mode</font><font color="#007700">(</font><font color="#0000BB">$rs</font><font color="#007700">, </font><font color="#0000BB">FBSQL_LOB_HANDLE</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$row_data </font><font color="#007700">= </font><font color="#0000BB">fbsql_fetch_row</font><font color="#007700">(</font><font color="#0000BB">$rs</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $row_data[0] ora contiene il puntatore ai dati CLOB per la prima riga<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$clob_data </font><font color="#007700">= </font><font color="#0000BB">fbsql_read_clob</font><font color="#007700">(</font><font color="#0000BB">$row_data</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">fbsql_free_result</font><font color="#007700">(</font><font color="#0000BB">$rs</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Vedere anche: <A
+HREF="function.fbsql-create-blob.html"
+><B
+CLASS="function"
+>fbsql_create_blob()</B
+></A
+>,
+     <A
+HREF="function.fbsql-read-blob.html"
+><B
+CLASS="function"
+>fbsql_read_blob()</B
+></A
+>,
+     <B
+CLASS="function"
+>fbsql_read_clob()</B
+> e
+     <A
+HREF="function.fbsql-set-lob-mode.html"
+><B
+CLASS="function"
+>fbsql_set_lob_mode()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fbsql-read-blob.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fbsql-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fbsql_read_blob</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.fbsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fbsql_result</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

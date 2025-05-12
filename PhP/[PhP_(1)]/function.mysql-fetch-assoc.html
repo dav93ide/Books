@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_fetch_assoc</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_fetch_array"
+HREF="function.mysql-fetch-array.html"><LINK
+REL="NEXT"
+TITLE="mysql_fetch_field"
+HREF="function.mysql-fetch-field.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-fetch-array.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-fetch-field.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-fetch-assoc"
+></A
+>mysql_fetch_assoc</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN93285"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.3, PHP 5)</P
+>mysql_fetch_assoc&nbsp;--&nbsp;
+     Carica una riga del risultato come array associativo
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN93288"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>mysql_fetch_assoc</B
+> ( resource risultato )<BR
+></BR
+><P
+>&#13;     Restituisce un array associativo che corrisponde alla riga caricata
+     o <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se non ci sono più righe.</P
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_fetch_assoc()</B
+> è equivalente alla chiamata di
+     <A
+HREF="function.mysql-fetch-array.html"
+><B
+CLASS="function"
+>mysql_fetch_array()</B
+></A
+> con MYSQL_ASSOC come
+     secondo parametro opzionale. Questa restituisce solo un array associativo.
+     Questo è il modo incui <A
+HREF="function.mysql-fetch-array.html"
+><B
+CLASS="function"
+>mysql_fetch_array()</B
+></A
+> funzionava originalmente.
+     Se è necessario l'indice numerico al posto di quello
+     associativo, usare <A
+HREF="function.mysql-fetch-array.html"
+><B
+CLASS="function"
+>mysql_fetch_array()</B
+></A
+>.
+    </P
+><P
+>&#13;     Se due o più colonne del risultato hanno gli stessi nomi di campo,
+     l'ultima colonna avrà la precedenza. Per accedere alle altre
+     colonne con lo stesso nome, si deve accedere al
+     risultato con l'indice numerico usando
+     <A
+HREF="function.mysql-fetch-row.html"
+><B
+CLASS="function"
+>mysql_fetch_row()</B
+></A
+> oppure aggiunger degli alias.
+     Vedere l'esempio nella descrizione di <A
+HREF="function.mysql-fetch-array.html"
+><B
+CLASS="function"
+>mysql_fetch_array()</B
+></A
+>
+     per quanto concerne gli alias.
+    </P
+><P
+>&#13;     Una cosa importante da notare è che l'uso di
+     <B
+CLASS="function"
+>mysql_fetch_assoc()</B
+> <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non è
+     significativamente</I
+></SPAN
+> più lento dell'uso di
+     <A
+HREF="function.mysql-fetch-row.html"
+><B
+CLASS="function"
+>mysql_fetch_row()</B
+></A
+>; questo fornisce
+     un significativo valore aggiunto.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN93310"
+></A
+><P
+><B
+>Esempio 1. Un esteso esempio di <B
+CLASS="function"
+>mysql_fetch_assoc()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;$conn </font><font color="#007700">= </font><font color="#0000BB">mysql_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"utente_mysql"</font><font color="#007700">, </font><font color="#DD0000">"password_mysql"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">$conn</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Impossibile connettersi al DB: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">mysql_select_db</font><font color="#007700">(</font><font color="#DD0000">"mio_nome_db"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Impossibile selezioanre mio_nome_db: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$sql </font><font color="#007700">= </font><font color="#DD0000">"SELECT id as id_utente, nome_intero, stato_utente<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;&nbsp;&nbsp;una_tabella<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;&nbsp;stato_utente = 1"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$risultato </font><font color="#007700">= </font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#0000BB">$sql</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">$risultato</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Fallimento nell'esecuzione della query ($sql) dal DB: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">mysql_num_rows</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">) == </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Nessuna riga trovata, niente da stampare quindi si esce"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Finché esiste una riga di dati, si pone questa riga in $riga come un array associativo<br />&nbsp;&nbsp;&nbsp;&nbsp;// Nota: Se ci si aspetta solo una riga, non è necessario usare un ciclo<br />&nbsp;&nbsp;&nbsp;&nbsp;// Nota: Se si mette extract($riga); all'interno del seguente ciclo,<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;si creeranno $id_utente, $nome_intero, and $stato_utente<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">while (</font><font color="#0000BB">$riga </font><font color="#007700">= </font><font color="#0000BB">mysql_fetch_assoc</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$riga</font><font color="#007700">[</font><font color="#DD0000">"id_utente"</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$riga</font><font color="#007700">[</font><font color="#DD0000">"nome_intero"</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$riga</font><font color="#007700">[</font><font color="#DD0000">"stato_utente"</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_free_result</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Vedere anche
+     <A
+HREF="function.mysql-fetch-row.html"
+><B
+CLASS="function"
+>mysql_fetch_row()</B
+></A
+>,
+     <A
+HREF="function.mysql-fetch-array.html"
+><B
+CLASS="function"
+>mysql_fetch_array()</B
+></A
+>,
+     <A
+HREF="function.mysql-query.html"
+><B
+CLASS="function"
+>mysql_query()</B
+></A
+> e
+     <A
+HREF="function.mysql-error.html"
+><B
+CLASS="function"
+>mysql_error()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-fetch-array.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-fetch-field.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_fetch_array</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_fetch_field</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

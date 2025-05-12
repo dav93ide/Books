@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fileperms</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="fileowner"
+HREF="function.fileowner.html"><LINK
+REL="NEXT"
+TITLE="filesize"
+HREF="function.filesize.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fileowner.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.filesize.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fileperms"
+></A
+>fileperms</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN41380"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>fileperms&nbsp;--&nbsp;Restituisce i permessi sui file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41383"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>fileperms</B
+> ( string filename )<BR
+></BR
+><P
+>    
+     Restituisce i permessi sui file, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di errore.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>I risultati di questa funzione 
+saranno memorizzati. Vedere <A
+HREF="function.clearstatcache.html"
+><B
+CLASS="function"
+>clearstatcache()</B
+></A
+> per  
+maggiori dettagli.</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>A partire da 
+<VAR
+CLASS="literal"
+>PHP 5.0.0</VAR
+>, questa funzione può essere utilizzata con
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>alcuni</I
+></SPAN
+> URL wrappers.  Fare riferimento a 
+<A
+HREF="wrappers.html"
+>Appendice M</A
+> per la lista di quali wrappers supportano le funzioni della famiglia
+<A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+>.</P
+></BLOCKQUOTE
+></DIV
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN41402"
+></A
+><P
+><B
+>Esempio 1. Mostra i permessi in valore ottale</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">sprintf</font><font color="#007700">(</font><font color="#DD0000">'%o'</font><font color="#007700">, </font><font color="#0000BB">fileperms</font><font color="#007700">(</font><font color="#DD0000">'/tmp'</font><font color="#007700">)), -</font><font color="#0000BB">4</font><font color="#007700">);<br />echo </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">sprintf</font><font color="#007700">(</font><font color="#DD0000">'%o'</font><font color="#007700">, </font><font color="#0000BB">fileperms</font><font color="#007700">(</font><font color="#DD0000">'/etc/passwd'</font><font color="#007700">)), -</font><font color="#0000BB">4</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Ciò produrrà il seguente output:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>1777
+0644</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN41407"
+></A
+><P
+><B
+>Esempio 2. Mostra gli interi permessi</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$perms </font><font color="#007700">= </font><font color="#0000BB">fileperms</font><font color="#007700">(</font><font color="#DD0000">'/etc/passwd'</font><font color="#007700">);<br /><br />if ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0xC000</font><font color="#007700">) == </font><font color="#0000BB">0xC000</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Socket<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$info </font><font color="#007700">= </font><font color="#DD0000">'s'</font><font color="#007700">;<br />} elseif ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0xA000</font><font color="#007700">) == </font><font color="#0000BB">0xA000</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Symbolic Link<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$info </font><font color="#007700">= </font><font color="#DD0000">'l'</font><font color="#007700">;<br />} elseif ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x8000</font><font color="#007700">) == </font><font color="#0000BB">0x8000</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Regular<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$info </font><font color="#007700">= </font><font color="#DD0000">'-'</font><font color="#007700">;<br />} elseif ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x6000</font><font color="#007700">) == </font><font color="#0000BB">0x6000</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Block special<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$info </font><font color="#007700">= </font><font color="#DD0000">'b'</font><font color="#007700">;<br />} elseif ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x4000</font><font color="#007700">) == </font><font color="#0000BB">0x4000</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Directory<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$info </font><font color="#007700">= </font><font color="#DD0000">'d'</font><font color="#007700">;<br />} elseif ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x2000</font><font color="#007700">) == </font><font color="#0000BB">0x2000</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Character special<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$info </font><font color="#007700">= </font><font color="#DD0000">'c'</font><font color="#007700">;<br />} elseif ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x1000</font><font color="#007700">) == </font><font color="#0000BB">0x1000</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// FIFO pipe<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$info </font><font color="#007700">= </font><font color="#DD0000">'p'</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Unknown<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$info </font><font color="#007700">= </font><font color="#DD0000">'u'</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// Owner<br /></font><font color="#0000BB">$info </font><font color="#007700">.= ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0100</font><font color="#007700">) ? </font><font color="#DD0000">'r' </font><font color="#007700">: </font><font color="#DD0000">'-'</font><font color="#007700">);<br /></font><font color="#0000BB">$info </font><font color="#007700">.= ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0080</font><font color="#007700">) ? </font><font color="#DD0000">'w' </font><font color="#007700">: </font><font color="#DD0000">'-'</font><font color="#007700">);<br /></font><font color="#0000BB">$info </font><font color="#007700">.= ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0040</font><font color="#007700">) ?<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0800</font><font color="#007700">) ? </font><font color="#DD0000">'s' </font><font color="#007700">: </font><font color="#DD0000">'x' </font><font color="#007700">) :<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0800</font><font color="#007700">) ? </font><font color="#DD0000">'S' </font><font color="#007700">: </font><font color="#DD0000">'-'</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Group<br /></font><font color="#0000BB">$info </font><font color="#007700">.= ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0020</font><font color="#007700">) ? </font><font color="#DD0000">'r' </font><font color="#007700">: </font><font color="#DD0000">'-'</font><font color="#007700">);<br /></font><font color="#0000BB">$info </font><font color="#007700">.= ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0010</font><font color="#007700">) ? </font><font color="#DD0000">'w' </font><font color="#007700">: </font><font color="#DD0000">'-'</font><font color="#007700">);<br /></font><font color="#0000BB">$info </font><font color="#007700">.= ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0008</font><font color="#007700">) ?<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0400</font><font color="#007700">) ? </font><font color="#DD0000">'s' </font><font color="#007700">: </font><font color="#DD0000">'x' </font><font color="#007700">) :<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0400</font><font color="#007700">) ? </font><font color="#DD0000">'S' </font><font color="#007700">: </font><font color="#DD0000">'-'</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// World<br /></font><font color="#0000BB">$info </font><font color="#007700">.= ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0004</font><font color="#007700">) ? </font><font color="#DD0000">'r' </font><font color="#007700">: </font><font color="#DD0000">'-'</font><font color="#007700">);<br /></font><font color="#0000BB">$info </font><font color="#007700">.= ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0002</font><font color="#007700">) ? </font><font color="#DD0000">'w' </font><font color="#007700">: </font><font color="#DD0000">'-'</font><font color="#007700">);<br /></font><font color="#0000BB">$info </font><font color="#007700">.= ((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0001</font><font color="#007700">) ?<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0200</font><font color="#007700">) ? </font><font color="#DD0000">'t' </font><font color="#007700">: </font><font color="#DD0000">'x' </font><font color="#007700">) :<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</font><font color="#0000BB">$perms </font><font color="#007700">&amp; </font><font color="#0000BB">0x0200</font><font color="#007700">) ? </font><font color="#DD0000">'T' </font><font color="#007700">: </font><font color="#DD0000">'-'</font><font color="#007700">));<br /><br />echo </font><font color="#0000BB">$info</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Ciò produrrà il seguente output:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>-r--r--r--</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Vedi anche <A
+HREF="function.is-readable.html"
+><B
+CLASS="function"
+>is_readable()</B
+></A
+>,
+     e <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fileowner.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.filesize.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fileowner</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>filesize</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

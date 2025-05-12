@@ -1,0 +1,655 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>HTTP and HTTPS</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="List of Supported Protocols/Wrappers"
+HREF="wrappers.html"><LINK
+REL="PREVIOUS"
+TITLE="Socket"
+HREF="wrappers.socket.html"><LINK
+REL="NEXT"
+TITLE="FTP and FTPS"
+HREF="wrappers.ftp.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="wrappers.socket.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice M. List of Supported Protocols/Wrappers</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="wrappers.ftp.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="wrappers.http"
+>HTTP and HTTPS</A
+></H1
+><P
+>PHP 3, PHP 4, PHP 5. <TT
+CLASS="filename"
+>https://</TT
+> since PHP 4.3.0</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>http://example.com</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>http://example.com/file.php?var1=val1&#38;var2=val2</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>http://user:password@example.com</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>https://example.com</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>https://example.com/file.php?var1=val1&#38;var2=val2</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>https://user:password@example.com</TT
+></P
+></LI
+></UL
+><P
+>Allows read-only access to files/resources via HTTP 1.0,
+   using the HTTP GET method. A <VAR
+CLASS="literal"
+>Host:</VAR
+> header is sent with the request
+   to handle name-based virtual hosts.  If you have configured
+   a <A
+HREF="ref.filesystem.html#ini.user-agent"
+>user_agent</A
+> string using
+   your ini file or the stream context, it will also be included
+   in the request.
+  </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>When using SSL, Microsoft IIS
+will violate the protocol by closing the connection without sending a
+close_notify indicator.  PHP will report this as "SSL: Fatal Protocol Error"
+when you reach the end of the data.  To workaround this, you should lower your
+<A
+HREF="ref.errorfunc.html#ini.error-reporting"
+>error_reporting</A
+> level not to include warnings.
+PHP 4.3.7 and higher can detect buggy IIS server software when you open
+the stream using the https:// wrapper and will suppress the warning for you.
+If you are using <A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+> to create an ssl:// socket,
+you are responsible for detecting and suppressing the warning yourself.
+</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   Redirects have been supported since PHP 4.0.5; if you are using
+   an earlier version you will need to include trailing slashes in
+   your URLs.  If it's important to know the URL of the resource where
+   your document came from (after all redirects have been processed),
+   you'll need to process the series of response headers returned by the
+   stream.
+  </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN211234"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$url </font><font color="#007700">= </font><font color="#DD0000">'http://www.example.com/redirecting_page.php'</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#0000BB">$url</font><font color="#007700">, </font><font color="#DD0000">'r'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Prior to PHP 4.3.0 use $http_response_header <br />&nbsp;&nbsp;&nbsp;instead of stream_get_meta_data() */<br /></font><font color="#0000BB">$meta_data </font><font color="#007700">= </font><font color="#0000BB">stream_get_meta_data</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br />foreach(</font><font color="#0000BB">$meta_data</font><font color="#007700">[</font><font color="#DD0000">'wrapper_data'</font><font color="#007700">] as </font><font color="#0000BB">$response</font><font color="#007700">) {<br /><br />&nbsp;&nbsp;</font><font color="#FF8000">/* Were we redirected? */<br />&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">strtolower</font><font color="#007700">(</font><font color="#0000BB">$response</font><font color="#007700">), </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">18</font><font color="#007700">) == </font><font color="#DD0000">'content-location: '</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* update $url with where we were redirected to */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$url </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">$response</font><font color="#007700">, </font><font color="#0000BB">18</font><font color="#007700">);<br />&nbsp;&nbsp;}<br /><br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;   The stream allows access to the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>body</I
+></SPAN
+> of
+   the resource; the headers are stored in the
+   <VAR
+CLASS="varname"
+>$http_response_header</VAR
+> variable.
+   Since PHP 4.3.0, the headers are available using
+   <A
+HREF="function.stream-get-meta-data.html"
+><B
+CLASS="function"
+>stream_get_meta_data()</B
+></A
+>.
+  </P
+><P
+>&#13;   HTTP connections are read-only; you cannot write data or copy
+   files to an HTTP resource.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>HTTPS is supported starting from PHP 4.3.0, if you
+    have compiled in support for OpenSSL.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN211244"
+></A
+><P
+><B
+>Tabella M-2. Wrapper Summary</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Attribute</TH
+><TH
+>Supported</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>Restricted by <A
+HREF="ref.filesystem.html#ini.allow-url-fopen"
+>allow_url_fopen</A
+>.</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Reading</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Writing</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Allows Appending</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Allows Simultaneous Reading and Writing</TD
+><TD
+>N/A</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.unlink.html"
+><B
+CLASS="function"
+>unlink()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rename.html"
+><B
+CLASS="function"
+>rename()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.mkdir.html"
+><B
+CLASS="function"
+>mkdir()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rmdir.html"
+><B
+CLASS="function"
+>rmdir()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN211289"
+></A
+><P
+><B
+>Tabella M-3. Context options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Usage</TH
+><TH
+>Default</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>method</VAR
+></TD
+><TD
+>&#13;        <TT
+CLASS="constant"
+><B
+>GET</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>POST</B
+></TT
+>, or
+        any other HTTP method supported by the remote server.
+       </TD
+><TD
+><TT
+CLASS="constant"
+><B
+>GET</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>header</VAR
+></TD
+><TD
+>Additional headers to be sent during request.  Values
+        in this option will override other values (such as
+        <VAR
+CLASS="literal"
+>User-agent:</VAR
+>, <VAR
+CLASS="literal"
+>Host:</VAR
+>,
+        and <VAR
+CLASS="literal"
+>Authentication:</VAR
+>).
+       </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>user_agent</VAR
+></TD
+><TD
+>Value to send with User-Agent: header.  This value will
+        only be used if user-agent is <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> specified
+        in the <VAR
+CLASS="literal"
+>header</VAR
+> context option above.  
+       </TD
+><TD
+>&#13;        <TT
+CLASS="filename"
+>php.ini</TT
+> setting: <VAR
+CLASS="literal"
+>user_agent</VAR
+>
+       </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>content</VAR
+></TD
+><TD
+>&#13;        Additional data to be sent after the headers.  Typically used
+        with POST or PUT requests.
+       </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>proxy</VAR
+></TD
+><TD
+>&#13;        URI specifying address of proxy server. (e.g. 
+        <VAR
+CLASS="literal"
+>tcp://proxy.example.com:5100</VAR
+>). HTTPS proxying
+        (through HTTP proxies) only works in PHP 5.1.0 or greater.
+       </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>request_fulluri</VAR
+></TD
+><TD
+>&#13;        When set to <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>, the entire URI will be used when
+        constructing the request.  (i.e. 
+        <VAR
+CLASS="literal"
+>GET http://www.example.com/path/to/file.html HTTP/1.0</VAR
+>).
+        While this is a non-standard request format, some
+        proxy servers require it.
+       </TD
+><TD
+><TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>max_redirects</VAR
+></TD
+><TD
+>&#13;        The max number of redirects to follow. Added in PHP 5.1.0.
+       </TD
+><TD
+>20</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Underlying socket stream context options: </B
+>
+    Additional context options may be supported by the 
+    <A
+HREF="transports.html#transports.inet"
+>underlying transport</A
+>
+    For <VAR
+CLASS="literal"
+>http://</VAR
+> streams, refer to context
+    options for the <VAR
+CLASS="literal"
+>tcp://</VAR
+> transport.  For
+    <VAR
+CLASS="literal"
+>https://</VAR
+> streams, refer to context options
+    for the <VAR
+CLASS="literal"
+>ssl://</VAR
+> transport.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wrappers.socket.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="wrappers.ftp.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Socket</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="wrappers.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>FTP and FTPS</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

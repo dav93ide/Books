@@ -1,0 +1,2826 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Newt Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="syslog"
+HREF="function.syslog.html"><LINK
+REL="NEXT"
+TITLE="newt_bell"
+HREF="function.newt-bell.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.syslog.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.newt-bell.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.newt"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XCI. Newt Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN104188"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="newt.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    This is a PHP language extension for RedHat Newt library, a terminal-based
+    window and widget library for writing applications with user friendly interface.
+    Once this extension is enabled in PHP it will provide the use of Newt
+    widgets, such as windows, buttons, checkboxes, radiobuttons, labels,
+    editboxes, scrolls, textareas, scales, etc. Use of this extension if very
+    similar to the original Newt API of C programming language.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="newt.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     This module uses the functions of the RedHat Newt library.
+     You need libnewt version &#62;= 0.51.0. 
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="newt.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  This <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> extension
+is not bundled with PHP.
+  Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+  <A
+HREF="http://pecl.php.net/package/newt"
+TARGET="_top"
+>http://pecl.php.net/package/newt</A
+>.
+ </P
+><P
+>&#13;  In PHP 4 this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> extensions
+source can be found in the <TT
+CLASS="filename"
+>ext/</TT
+> directory within the
+PHP source or at the <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> link above.
+  In order to use these functions you must compile CGI or CLI PHP with 
+  newt support by using the <VAR
+CLASS="option"
+>--with-newt[=DIR]</VAR
+> 
+  configure option.
+ </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+   This extension is not available for Windows platform.
+  </P
+><P
+>&#13;    You may need also <VAR
+CLASS="literal"
+>curses</VAR
+> and <VAR
+CLASS="literal"
+>slang</VAR
+>
+    libraries, in order to compile this extension. To specify locations
+    of these libraries, use the followin configuration options:
+
+    <VAR
+CLASS="literal"
+>--with-curses-dir=/path/to/libcurses</VAR
+>
+    <VAR
+CLASS="literal"
+>--with-slang-dir=/path/to/libslang</VAR
+>
+  </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="newt.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;    This extension uses two resource types: "newt component" and "newt grid".
+
+    Resource type "newt component" is returned by functions, which create
+    common newt widgets (for example: <A
+HREF="function.newt-button.html"
+><B
+CLASS="function"
+>newt_button()</B
+></A
+>)
+    
+    Resource type "newt grid" is a special link identifier for components,
+    returned by newt grid factory functions (for example: <A
+HREF="function.newt-create-grid.html"
+><B
+CLASS="function"
+>newt_create_grid()</B
+></A
+>)
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="newt.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_ROOT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_BORDER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_WINDOW</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_SHADOW</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_TITLE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_BUTTON</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_ACTBUTTON</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_CHECKBOX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_ACTCHECKBOX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_ENTRY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_LABEL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_LISTBOX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_ACTLISTBOX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_TEXTBOX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_ACTTEXTBOX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_HELPLINE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_ROOTTEXT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_EMPTYSCALE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_FULLSCALE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_DISENTRY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_COMPACTBUTTON</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_ACTSELLISTBOX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_COLORSET_SELLISTBOX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_ARG_LAST</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_ARG_APPEND</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAGS_SET</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAGS_RESET</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAGS_TOGGLE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_RETURNEXIT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_HIDDEN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_SCROLL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_DISABLED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_BORDER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_WRAP</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_NOF12</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_MULTIPLE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_SELECTED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_CHECKBOX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_PASSWORD</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FLAG_SHOWCURSOR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FD_READ</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FD_WRITE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FD_EXCEPT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_CHECKBOXTREE_UNSELECTABLE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_CHECKBOXTREE_HIDE_BOX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_CHECKBOXTREE_COLLAPSED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_CHECKBOXTREE_EXPANDED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_CHECKBOXTREE_UNSELECTED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_CHECKBOXTREE_SELECTED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_LISTBOX_RETURNEXIT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_ENTRY_SCROLL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_ENTRY_HIDDEN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_ENTRY_RETURNEXIT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_ENTRY_DISABLED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_TEXTBOX_WRAP</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_TEXTBOX_SCROLL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_FORM_NOF12</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_EXIT_HOTKEY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_EXIT_COMPONENT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_EXIT_FDREADY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_EXIT_TIMER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_TAB</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_ENTER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_SUSPEND</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_ESCAPE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_RETURN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_EXTRA_BASE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_UP</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_DOWN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_LEFT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_RIGHT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_BKSPC</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_DELETE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_HOME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_END</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_UNTAB</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_PGUP</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_PGDN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_INSERT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F1</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F2</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F3</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F4</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F5</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F6</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F7</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F8</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F9</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F10</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F11</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_F12</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_KEY_RESIZE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_ANCHOR_LEFT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_ANCHOR_RIGHT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_ANCHOR_TOP</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_ANCHOR_BOTTOM</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_GRID_FLAG_GROWX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_GRID_FLAG_GROWY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_GRID_EMPTY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_GRID_COMPONENT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>NEWT_GRID_SUBGRID</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.newt-bell.html"
+>newt_bell</A
+>&nbsp;--&nbsp;Send a beep to the terminal</DT
+><DT
+><A
+HREF="function.newt-button-bar.html"
+>newt_button_bar</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-button.html"
+>newt_button</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-centered-window.html"
+>newt_centered_window</A
+>&nbsp;--&nbsp;Open a centered window of the specified size</DT
+><DT
+><A
+HREF="function.newt-checkbox-get-value.html"
+>newt_checkbox_get_value</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-set-flags.html"
+>newt_checkbox_set_flags</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-set-value.html"
+>newt_checkbox_set_value</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-add-item.html"
+>newt_checkbox_tree_add_item</A
+>&nbsp;--&nbsp;*</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-find-item.html"
+>newt_checkbox_tree_find_item</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-get-current.html"
+>newt_checkbox_tree_get_current</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-get-entry-value.html"
+>newt_checkbox_tree_get_entry_value</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-get-multi-selection.html"
+>newt_checkbox_tree_get_multi_selection</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-get-selection.html"
+>newt_checkbox_tree_get_selection</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-multi.html"
+>newt_checkbox_tree_multi</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-set-current.html"
+>newt_checkbox_tree_set_current</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-set-entry-value.html"
+>newt_checkbox_tree_set_entry_value</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-set-entry.html"
+>newt_checkbox_tree_set_entry</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree-set-width.html"
+>newt_checkbox_tree_set_width</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox-tree.html"
+>newt_checkbox_tree</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-checkbox.html"
+>newt_checkbox</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-clear-key-buffer.html"
+>newt_clear_key_buffer</A
+>&nbsp;--&nbsp;Discards the contents of the terminal's input buffer without
+  waiting for additional input</DT
+><DT
+><A
+HREF="function.newt-cls.html"
+>newt_cls</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-compact-button.html"
+>newt_compact_button</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-component-add-callback.html"
+>newt_component_add_callback</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-component-takes-focus.html"
+>newt_component_takes_focus</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-create-grid.html"
+>newt_create_grid</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-cursor-off.html"
+>newt_cursor_off</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-cursor-on.html"
+>newt_cursor_on</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-delay.html"
+>newt_delay</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-draw-form.html"
+>newt_draw_form</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-draw-root-text.html"
+>newt_draw_root_text</A
+>&nbsp;--&nbsp;Displays the string text at the position indicated</DT
+><DT
+><A
+HREF="function.newt-entry-get-value.html"
+>newt_entry_get_value</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-entry-set-filter.html"
+>newt_entry_set_filter</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-entry-set-flags.html"
+>newt_entry_set_flags</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-entry-set.html"
+>newt_entry_set</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-entry.html"
+>newt_entry</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-finished.html"
+>newt_finished</A
+>&nbsp;--&nbsp;Uninitializes newt interface.</DT
+><DT
+><A
+HREF="function.newt-form-add-component.html"
+>newt_form_add_component</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form-add-components.html"
+>newt_form_add_components</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form-add-host-key.html"
+>newt_form_add_host_key</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form-get-current.html"
+>newt_form_get_current</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form-run.html"
+>newt_form_run</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form-set-background.html"
+>newt_form_set_background</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form-set-height.html"
+>newt_form_set_height</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form-set-size.html"
+>newt_form_set_size</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form-set-timer.html"
+>newt_form_set_timer</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form-set-width.html"
+>newt_form_set_width</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form-watch-fd.html"
+>newt_form_watch_fd</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-form.html"
+>newt_form</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-get-screen-size.html"
+>newt_get_screen_size</A
+>&nbsp;--&nbsp;Fills in the passed references with the current size of the
+  terminal</DT
+><DT
+><A
+HREF="function.newt-grid-add-components-to-form.html"
+>newt_grid_add_components_to_form</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-basic-window.html"
+>newt_grid_basic_window</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-free.html"
+>newt_grid_free</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-get-size.html"
+>newt_grid_get_size</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-h-close-stacked.html"
+>newt_grid_h_close_stacked</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-h-stacked.html"
+>newt_grid_h_stacked</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-place.html"
+>newt_grid_place</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-set-field.html"
+>newt_grid_set_field</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-simple-window.html"
+>newt_grid_simple_window</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-v-close-stacked.html"
+>newt_grid_v_close_stacked</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-v-stacked.html"
+>newt_grid_v_stacked</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-wrapped-window-at.html"
+>newt_grid_wrapped_window_at</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-grid-wrapped-window.html"
+>newt_grid_wrapped_window</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-init.html"
+>newt_init</A
+>&nbsp;--&nbsp;Initialize newt</DT
+><DT
+><A
+HREF="function.newt-label-set-text.html"
+>newt_label_set_text</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-label.html"
+>newt_label</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-append-entry.html"
+>newt_listbox_append_entry</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-clear-selection.html"
+>newt_listbox_clear_selection</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-clear.html"
+>newt_listbox_clear</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-delete-entry.html"
+>newt_listbox_delete_entry</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-get-current.html"
+>newt_listbox_get_current</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-get-selection.html"
+>newt_listbox_get_selection</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-insert-entry.html"
+>newt_listbox_insert_entry</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-item-count.html"
+>newt_listbox_item_count</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-select-item.html"
+>newt_listbox_select_item</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-set-current-by-key.html"
+>newt_listbox_set_current_by_key</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-set-current.html"
+>newt_listbox_set_current</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-set-data.html"
+>newt_listbox_set_data</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-set-entry.html"
+>newt_listbox_set_entry</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox-set-width.html"
+>newt_listbox_set_width</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listbox.html"
+>newt_listbox</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listitem-get-data.html"
+>newt_listitem_get_data</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listitem-set.html"
+>newt_listitem_set</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-listitem.html"
+>newt_listitem</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-open-window.html"
+>newt_open_window</A
+>&nbsp;--&nbsp;Open a window of the specified size and position</DT
+><DT
+><A
+HREF="function.newt-pop-help-line.html"
+>newt_pop_help_line</A
+>&nbsp;--&nbsp;Replaces the current help line with the one from the stack</DT
+><DT
+><A
+HREF="function.newt-pop-window.html"
+>newt_pop_window</A
+>&nbsp;--&nbsp;Removes the top window from the display</DT
+><DT
+><A
+HREF="function.newt-push-help-line.html"
+>newt_push_help_line</A
+>&nbsp;--&nbsp;Saves the current help line on a stack, and displays the new line</DT
+><DT
+><A
+HREF="function.newt-radio-get-current.html"
+>newt_radio_get_current</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-radiobutton.html"
+>newt_radiobutton</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-redraw-help-line.html"
+>newt_redraw_help_line</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-reflow-text.html"
+>newt_reflow_text</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-refresh.html"
+>newt_refresh</A
+>&nbsp;--&nbsp;Updates modified portions of the screen</DT
+><DT
+><A
+HREF="function.newt-resize-screen.html"
+>newt_resize_screen</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-resume.html"
+>newt_resume</A
+>&nbsp;--&nbsp;Resume using the newt interface after calling
+  <A
+HREF="function.newt-suspend.html"
+><B
+CLASS="function"
+>newt_suspend()</B
+></A
+></DT
+><DT
+><A
+HREF="function.newt-run-form.html"
+>newt_run_form</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-scale-set.html"
+>newt_scale_set</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-scale.html"
+>newt_scale</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-scrollbar-set.html"
+>newt_scrollbar_set</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-set-help-callback.html"
+>newt_set_help_callback</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-set-suspend-callback.html"
+>newt_set_suspend_callback</A
+>&nbsp;--&nbsp;Set a callback function which gets invoked when user
+  presses the suspend key</DT
+><DT
+><A
+HREF="function.newt-suspend.html"
+>newt_suspend</A
+>&nbsp;--&nbsp;Tells newt to return the terminal to its initial state</DT
+><DT
+><A
+HREF="function.newt-texbox-set-text.html"
+>newt_texbox_set_text</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-textbox-get-num-lines.html"
+>newt_textbox_get_num_lines</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-textbox-reflowed.html"
+>newt_textbox_reflowed</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-textbox-set-height.html"
+>newt_textbox_set_height</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-textbox.html"
+>newt_textbox</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-vertical-scrollbar.html"
+>newt_vertical_scrollbar</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-wait-for-key.html"
+>newt_wait_for_key</A
+>&nbsp;--&nbsp;Doesn't return until a key has been pressed</DT
+><DT
+><A
+HREF="function.newt-win-choice.html"
+>newt_win_choice</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-win-entries.html"
+>newt_win_entries</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-win-menu.html"
+>newt_win_menu</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-win-message.html"
+>newt_win_message</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-win-messagev.html"
+>newt_win_messagev</A
+>&nbsp;--&nbsp;</DT
+><DT
+><A
+HREF="function.newt-win-ternary.html"
+>newt_win_ternary</A
+>&nbsp;--&nbsp;</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.syslog.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.newt-bell.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>syslog</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>newt_bell</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

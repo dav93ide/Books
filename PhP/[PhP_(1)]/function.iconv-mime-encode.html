@@ -1,0 +1,460 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>iconv_mime_encode</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Iconv"
+HREF="ref.iconv.html"><LINK
+REL="PREVIOUS"
+TITLE="iconv_mime_decode"
+HREF="function.iconv-mime-decode.html"><LINK
+REL="NEXT"
+TITLE="iconv_set_encoding"
+HREF="function.iconv-set-encoding.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.iconv-mime-decode.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.iconv-set-encoding.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.iconv-mime-encode"
+></A
+>iconv_mime_encode</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN56571"
+></A
+><P
+>    (PHP 5)</P
+>iconv_mime_encode&nbsp;--&nbsp;
+     Composes a <VAR
+CLASS="literal"
+>MIME</VAR
+> header field
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN56575"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>iconv_mime_encode</B
+> ( string field_name, string field_value [, array preferences] )<BR
+></BR
+><P
+>&#13;     Composes and returns a string that represents a valid <VAR
+CLASS="literal"
+>MIME</VAR
+>
+     header field, which looks like the following:
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Subject: =?ISO-8859-1?Q?Pr=FCfung_f=FCr?= Entwerfen von einer MIME kopfzeile</PRE
+></TD
+></TR
+></TABLE
+>
+     In the above example, "Subject" is the field name and the portion that
+     begins with "=?ISO-8859-1?..." is the field value.
+    </P
+><P
+>&#13;     You can control the behaviour of <B
+CLASS="function"
+>iconv_mime_encode()</B
+>
+     by specifying an associative array that contains configuration items
+     to the optional third parameter <VAR
+CLASS="parameter"
+>preferences</VAR
+>.
+     The items supported by <B
+CLASS="function"
+>iconv_mime_encode()</B
+> are
+     listed below. Note that item names are treated case-sensitive.
+     <DIV
+CLASS="table"
+><A
+NAME="AEN56596"
+></A
+><P
+><B
+>Tabella 1. Configuration items supported by <B
+CLASS="function"
+>iconv_mime_encode()</B
+></B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Item</TH
+><TH
+>Type</TH
+><TH
+>Description</TH
+><TH
+>Default value</TH
+><TH
+>Example</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>scheme</TD
+><TD
+><A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></TD
+><TD
+>&#13;          Specifies the method to encode a field value by. The value of
+          this item may be either "B" or "Q", where "B" stands for
+          <VAR
+CLASS="literal"
+>base64</VAR
+> encoding scheme and "Q" stands for
+          <VAR
+CLASS="literal"
+>quoted-printable</VAR
+> encoding scheme.
+         </TD
+><TD
+>B</TD
+><TD
+>B</TD
+></TR
+><TR
+><TD
+>input-charset</TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+><TD
+>&#13;          Specifies the character set in which the first parameter
+          <VAR
+CLASS="parameter"
+>field_name</VAR
+> and the second parameter
+          <VAR
+CLASS="parameter"
+>field_value</VAR
+> are presented. If not given,
+          <B
+CLASS="function"
+>iconv_mime_encode()</B
+> assumes those parameters
+          are presented to it in the
+          <A
+HREF="ref.iconv.html#iconv.configuration"
+>iconv.internal_charset</A
+>
+          ini setting.
+         </TD
+><TD
+>&#13;          <A
+HREF="ref.iconv.html#iconv.configuration"
+>iconv.internal_charset</A
+>
+         </TD
+><TD
+>ISO-8859-1</TD
+></TR
+><TR
+><TD
+>output-charset</TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+><TD
+>&#13;          Specifies the character set to use to compose the
+          <VAR
+CLASS="literal"
+>MIME</VAR
+> header. If not given, the same value as
+          <VAR
+CLASS="literal"
+>input-charset</VAR
+> will be used.
+         </TD
+><TD
+>&#13;          the same value as <VAR
+CLASS="literal"
+>input-charset</VAR
+>
+         </TD
+><TD
+>UTF-8</TD
+></TR
+><TR
+><TD
+>line-length</TD
+><TD
+><A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></TD
+><TD
+>&#13;          Specifies the maximum length of the header lines. The resulting
+          header is "folded" to a set of multiple lines in case
+          the resulting header field would be longer than the value of this
+          parameter, according to
+          <A
+HREF="http://www.faqs.org/rfcs/rfc2822"
+TARGET="_top"
+>RFC2822 - Internet Message Format</A
+>.
+          If not given, the length will be limited to 76 characters.
+         </TD
+><TD
+>76</TD
+><TD
+>996</TD
+></TR
+><TR
+><TD
+>line-break-chars</TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+><TD
+>&#13;          Specifies the sequence of characters to append to each line
+          as an end-of-line sign when "folding" is performed on a long header
+          field. If not given, this defaults to "\r\n"
+          (<VAR
+CLASS="literal"
+>CR</VAR
+> <VAR
+CLASS="literal"
+>LF</VAR
+>). Note that
+          this parameter is always treated as an ASCII string regardless
+          of the value of <VAR
+CLASS="literal"
+>input-charset</VAR
+>.
+         </TD
+><TD
+>\r\n</TD
+><TD
+>\n</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN56657"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>iconv_mime_encode()</B
+> example:</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$preferences </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"input-charset" </font><font color="#007700">=&gt; </font><font color="#DD0000">"ISO-8859-1"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"output-charset" </font><font color="#007700">=&gt; </font><font color="#DD0000">"UTF-8"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"line-length" </font><font color="#007700">=&gt; </font><font color="#0000BB">76</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"line-break-chars" </font><font color="#007700">=&gt; </font><font color="#DD0000">"\n"<br /></font><font color="#007700">);<br /></font><font color="#0000BB">$preferences</font><font color="#007700">[</font><font color="#DD0000">"scheme"</font><font color="#007700">] = </font><font color="#DD0000">"Q"</font><font color="#007700">;<br /></font><font color="#FF8000">// This yields "Subject: =?UTF-8?Q?Pr=C3=BCfung_Pr=C3=BCfung?="<br /></font><font color="#007700">echo </font><font color="#0000BB">iconv_mime_encode</font><font color="#007700">(</font><font color="#DD0000">"Subject"</font><font color="#007700">, </font><font color="#DD0000">"Prüfung Prüfung"</font><font color="#007700">, </font><font color="#0000BB">$preferences</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$preferences</font><font color="#007700">[</font><font color="#DD0000">"scheme"</font><font color="#007700">] = </font><font color="#DD0000">"B"</font><font color="#007700">;<br /></font><font color="#FF8000">// This yields "Subject: =?UTF-8?B?UHLDvGZ1bmcgUHLDvGZ1bmc=?="<br /></font><font color="#007700">echo </font><font color="#0000BB">iconv_mime_encode</font><font color="#007700">(</font><font color="#DD0000">"Subject"</font><font color="#007700">, </font><font color="#DD0000">"Prüfung Prüfung"</font><font color="#007700">, </font><font color="#0000BB">$preferences</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     See also <A
+HREF="function.imap-binary.html"
+><B
+CLASS="function"
+>imap_binary()</B
+></A
+>,
+     <A
+HREF="function.mb-encode-mimeheader.html"
+><B
+CLASS="function"
+>mb_encode_mimeheader()</B
+></A
+>
+     and <A
+HREF="function.imap-8bit.html"
+><B
+CLASS="function"
+>imap_8bit()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.iconv-mime-decode.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.iconv-set-encoding.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>iconv_mime_decode</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.iconv.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>iconv_set_encoding</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

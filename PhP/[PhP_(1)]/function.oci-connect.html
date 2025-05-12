@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>oci_connect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Oracle 8"
+HREF="ref.oci8.html"><LINK
+REL="PREVIOUS"
+TITLE="oci_commit"
+HREF="function.oci-commit.html"><LINK
+REL="NEXT"
+TITLE="oci_define_by_name"
+HREF="function.oci-define-by-name.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.oci-commit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.oci-define-by-name.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.oci-connect"
+></A
+>oci_connect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN111277"
+></A
+><P
+>    (PHP 5)</P
+>oci_connect&nbsp;--&nbsp;Establishes a connection to the Oracle server</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN111280"
+></A
+><H2
+>Description</H2
+>resource <B
+CLASS="methodname"
+>oci_connect</B
+> ( string username, string password [, string db [, string charset [, int session_mode]]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>oci_connect()</B
+> returns a connection identifier
+     needed for most other OCI calls.  The optional third parameter
+     can either contain the name of the local Oracle instance or the
+     name of the entry in <TT
+CLASS="filename"
+>tnsnames.ora</TT
+> to which 
+     you want to connect.
+     If the optional third parameter is not specified, PHP uses the
+     environment variables <TT
+CLASS="constant"
+><B
+>ORACLE_SID</B
+></TT
+> (Oracle 
+     instance) or <TT
+CLASS="constant"
+><B
+>TWO_TASK</B
+></TT
+>
+     (<TT
+CLASS="filename"
+>tnsnames.ora</TT
+>) to determine which database 
+     to connect to.
+    </P
+><P
+>&#13;     Parameter <VAR
+CLASS="parameter"
+>session_mode</VAR
+> is available since version
+     1.1 and accepts the following values: <TT
+CLASS="constant"
+><B
+>OCI_DEFAULT</B
+></TT
+>,
+     <TT
+CLASS="constant"
+><B
+>OCI_SYSOPER</B
+></TT
+> and <TT
+CLASS="constant"
+><B
+>OCI_SYSDBA</B
+></TT
+>.
+     If either <TT
+CLASS="constant"
+><B
+>OCI_SYSOPER</B
+></TT
+> or
+     <TT
+CLASS="constant"
+><B
+>OCI_SYSDBA</B
+></TT
+> were specified,
+     <B
+CLASS="function"
+>oci_connect()</B
+> will try to establish privileged
+     connection using external credentials. Privileged connections are
+     disabled by default. To enable them you need to set <A
+HREF="missing-stuff.html#ini.oci8.privileged_connect"
+>oci8.privileged_connect</A
+> 
+     to On.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      If you're using PHP with Oracle Instant Client, you can use easy connect
+      naming method described here:
+      <A
+HREF="http://download-west.oracle.com/docs/cd/B12037_01/network.101/b10775/naming.htm#i498306"
+TARGET="_top"
+>http://download-west.oracle.com/docs/cd/B12037_01/network.101/b10775/naming.htm#i498306</A
+>.
+      Basically this means you can specify "//db_host[:port]/database_name" 
+      as database name. But if you want to use the old way of naming you
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>must</I
+></SPAN
+> set either <TT
+CLASS="constant"
+><B
+>ORACLE_HOME</B
+></TT
+> or
+      <TT
+CLASS="constant"
+><B
+>TNS_ADMIN</B
+></TT
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      The second and subsequent calls to <B
+CLASS="function"
+>oci_connect()</B
+> 
+      with the same parameters will return the connection handle returned 
+      from the first call. This means that queries issued against one 
+      handle are also applied to the other handles, because they are the 
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>same</I
+></SPAN
+> handle. This behaviour is demonstrated in 
+      Example 1 below. If you require two handles to be transactionally 
+      isolated from each other, you should use
+      <A
+HREF="function.oci-new-connect.html"
+><B
+CLASS="function"
+>oci_new_connect()</B
+></A
+> instead.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>Using Oracle server version 9.2 and greater, you can
+indicate <VAR
+CLASS="parameter"
+>charset</VAR
+> parameter, which will be used in the new
+connection. If you're using Oracle server &#60; 9.2, this parameter will be ignored
+and NLS_LANG environment variable will be used instead.</P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN111329"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>oci_connect()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo </font><font color="#DD0000">"&lt;pre&gt;"</font><font color="#007700">;<br /></font><font color="#0000BB">$db </font><font color="#007700">= </font><font color="#DD0000">""</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$c1 </font><font color="#007700">= </font><font color="#0000BB">oci_connect</font><font color="#007700">(</font><font color="#DD0000">"scott"</font><font color="#007700">, </font><font color="#DD0000">"tiger"</font><font color="#007700">, </font><font color="#0000BB">$db</font><font color="#007700">);<br /></font><font color="#0000BB">$c2 </font><font color="#007700">= </font><font color="#0000BB">oci_connect</font><font color="#007700">(</font><font color="#DD0000">"scott"</font><font color="#007700">, </font><font color="#DD0000">"tiger"</font><font color="#007700">, </font><font color="#0000BB">$db</font><font color="#007700">);<br /><br />function </font><font color="#0000BB">create_table</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">oci_parse</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"create table scott.hallo (test varchar2(64))"</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">oci_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">);<br />&nbsp;&nbsp;echo </font><font color="#0000BB">$conn </font><font color="#007700">. </font><font color="#DD0000">" created table\n\n"</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">drop_table</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">oci_parse</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"drop table scott.hallo"</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">oci_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">);<br />&nbsp;&nbsp;echo </font><font color="#0000BB">$conn </font><font color="#007700">. </font><font color="#DD0000">" dropped table\n\n"</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">insert_data</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">oci_parse</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"insert into scott.hallo <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;values('$conn' || ' ' || to_char(sysdate,'DD-MON-YY HH24:MI:SS'))"</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">oci_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">OCI_DEFAULT</font><font color="#007700">);<br />&nbsp;&nbsp;echo </font><font color="#0000BB">$conn </font><font color="#007700">. </font><font color="#DD0000">" inserted hallo\n\n"</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">delete_data</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">oci_parse</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"delete from scott.hallo"</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">oci_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">OCI_DEFAULT</font><font color="#007700">);<br />&nbsp;&nbsp;echo </font><font color="#0000BB">$conn </font><font color="#007700">. </font><font color="#DD0000">" deleted hallo\n\n"</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">commit</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;</font><font color="#0000BB">oci_commit</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br />&nbsp;&nbsp;echo </font><font color="#0000BB">$conn </font><font color="#007700">. </font><font color="#DD0000">" committed\n\n"</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">rollback</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;</font><font color="#0000BB">oci_rollback</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br />&nbsp;&nbsp;echo </font><font color="#0000BB">$conn </font><font color="#007700">. </font><font color="#DD0000">" rollback\n\n"</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">select_data</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">oci_parse</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"select * from scott.hallo"</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">oci_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">OCI_DEFAULT</font><font color="#007700">);<br />&nbsp;&nbsp;echo </font><font color="#0000BB">$conn</font><font color="#007700">.</font><font color="#DD0000">"----selecting\n\n"</font><font color="#007700">;<br />&nbsp;&nbsp;while (</font><font color="#0000BB">oci_fetch</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$conn </font><font color="#007700">. </font><font color="#DD0000">" [" </font><font color="#007700">. </font><font color="#0000BB">oci_result</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#DD0000">"TEST"</font><font color="#007700">) . </font><font color="#DD0000">"]\n\n"</font><font color="#007700">;<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;echo </font><font color="#0000BB">$conn </font><font color="#007700">. </font><font color="#DD0000">"----done\n\n"</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">create_table</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);<br /></font><font color="#0000BB">insert_data</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Insert a row using c1<br /></font><font color="#0000BB">insert_data</font><font color="#007700">(</font><font color="#0000BB">$c2</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Insert a row using c2<br /><br /></font><font color="#0000BB">select_data</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Results of both inserts are returned<br /></font><font color="#0000BB">select_data</font><font color="#007700">(</font><font color="#0000BB">$c2</font><font color="#007700">);&nbsp;&nbsp;&nbsp;<br /><br /></font><font color="#0000BB">rollback</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Rollback using c1<br /><br /></font><font color="#0000BB">select_data</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Both inserts have been rolled back<br /></font><font color="#0000BB">select_data</font><font color="#007700">(</font><font color="#0000BB">$c2</font><font color="#007700">);&nbsp;&nbsp;&nbsp;<br /><br /></font><font color="#0000BB">insert_data</font><font color="#007700">(</font><font color="#0000BB">$c2</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Insert a row using c2<br /></font><font color="#0000BB">commit</font><font color="#007700">(</font><font color="#0000BB">$c2</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Commit using c2<br /><br /></font><font color="#0000BB">select_data</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Result of c2 insert is returned<br /><br /></font><font color="#0000BB">delete_data</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Delete all rows in table using c1<br /></font><font color="#0000BB">select_data</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// No rows returned<br /></font><font color="#0000BB">select_data</font><font color="#007700">(</font><font color="#0000BB">$c2</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// No rows returned<br /></font><font color="#0000BB">commit</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Commit using c1<br /><br /></font><font color="#0000BB">select_data</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// No rows returned<br /></font><font color="#0000BB">select_data</font><font color="#007700">(</font><font color="#0000BB">$c2</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// No rows returned<br /><br /></font><font color="#0000BB">drop_table</font><font color="#007700">(</font><font color="#0000BB">$c1</font><font color="#007700">);<br />echo </font><font color="#DD0000">"&lt;/pre&gt;"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>oci_connect()</B
+> returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if an error occured.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      In PHP versions before 5.0.0 you must use <A
+HREF="function.ocilogon.html"
+><B
+CLASS="function"
+>ocilogon()</B
+></A
+> instead. 
+      This name still can be used, it was left as the alias of
+      <B
+CLASS="function"
+>oci_connect()</B
+> for downwards compatability. 
+      This, however, is deprecated and not recommended.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also <A
+HREF="function.oci-pconnect.html"
+><B
+CLASS="function"
+>oci_pconnect()</B
+></A
+>,
+     <A
+HREF="function.oci-new-connect.html"
+><B
+CLASS="function"
+>oci_new_connect()</B
+></A
+> and 
+     <A
+HREF="function.oci-close.html"
+><B
+CLASS="function"
+>oci_close()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.oci-commit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.oci-define-by-name.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>oci_commit</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.oci8.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>oci_define_by_name</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

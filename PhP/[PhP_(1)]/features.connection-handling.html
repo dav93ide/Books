@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Gestione della connessione</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caratteristiche"
+HREF="features.html"><LINK
+REL="PREVIOUS"
+TITLE="Utilizzo di file remoti"
+HREF="features.remote-files.html"><LINK
+REL="NEXT"
+TITLE="Connessioni Persistenti ai Database"
+HREF="features.persistent-connections.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="features.remote-files.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="features.persistent-connections.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="features.connection-handling"
+>Capitolo 40. Gestione della connessione</A
+></H1
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Le seguenti note si applicano a partire dalla versione 3.0.7.</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   Internamente il PHP mantiene lo stato della connessione. Si hanno
+   3 possibili stati:
+   <P
+></P
+><UL
+><LI
+><P
+>0 - NORMAL</P
+></LI
+><LI
+><P
+>1 - ABORTED</P
+></LI
+><LI
+><P
+>2 - TIMEOUT</P
+></LI
+></UL
+>
+  </P
+><P
+>&#13;   Quendo uno script PHP viene eseguito normalmente si trova nello stato NORMAL.
+   Se il client remoto si disconnette viene attivato il flag ABORTED.
+   La disconnessione di un client remoro è generalmente causata dalla pressione
+   del tasto STOP da parte dell'utente. Se invece si raggiunge il limite di tempo
+   imposto dal PHP (vedere <A
+HREF="function.set-time-limit.html"
+><B
+CLASS="function"
+>set_time_limit()</B
+></A
+>) si attiva lo stato
+   TIMEOUT.</P
+><P
+>&#13;   Si può decidere se la disconnessione del client debba fare abortire lo script
+   o meno. In certi casi è più pratico lasciare finire lo script anche se
+   non c'è più il browser remoto a ricevere i dati.
+   Tuttavia il comportamento di default è di fare abortire lo script
+   quando il client remoto si disconnette. Questo comportamento può essere impostato
+   tramite la direttiva di <TT
+CLASS="filename"
+>php.ini</TT
+> ignore_user_abort oppure tramite
+   la corrispondente direttiva "php_value ignore_user_abort" del file .conf di Apache
+   oppure con la funzione <A
+HREF="function.ignore-user-abort.html"
+><B
+CLASS="function"
+>ignore_user_abort()</B
+></A
+>.
+   Se non si segnala al PHP di ignorare la disconssessione dell'utente lo
+   script sarà interrotto. Unica eccezione si ha con la registrazione di una funzione
+   di chiusura utilizzando <A
+HREF="function.register-shutdown-function.html"
+><B
+CLASS="function"
+>register_shutdown_function()</B
+></A
+>.
+   Con una funzione di shutdown, quando l'utente remoto preme il bottone di STOP,
+   alla prima occasione in cui lo script tenterà di produrre un output, il PHP intercetterà
+   che la connessione è interrotta e richiamerà la funzione di shutdown.
+   Questa funzione sarà richiamata anche al normale termine dello
+   script, pertanto per eseguire passi differenti in caso di disconnessione
+   del client occorre utilizzare la funzione <A
+HREF="function.connection-aborted.html"
+><B
+CLASS="function"
+>connection_aborted()</B
+></A
+>.
+   Questa funzione restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se la connessione è stata interrotta.</P
+><P
+>&#13;   Uno script può essere fermato dal timer incorporato nel PHP.
+   Per default il timeout è impostato a 30 secondi. Tale limite può essere variato
+   agendo sulla direttiva <VAR
+CLASS="option"
+>max_execution_time</VAR
+> nel <TT
+CLASS="filename"
+>php.ini</TT
+> o nel corrispondente
+   parametro  <VAR
+CLASS="literal"
+>php_value max_execution_time</VAR
+> nella configurazione di Apache, oppure con la 
+   funzione <A
+HREF="function.set-time-limit.html"
+><B
+CLASS="function"
+>set_time_limit()</B
+></A
+>. Quando termina il tempo impostato
+   lo script viene interrotto, se è stata prevista una funzione di shutdown, questa
+   verrà eseguita. All'interno di questa funzione si può discriminare se è
+   stata attivata per lo scadere del timeout utilizzando la
+   funzione <A
+HREF="function.connection-timeout.html"
+><B
+CLASS="function"
+>connection_timeout()</B
+></A
+>. Questa restituisce 2
+   se la funzione di shutdown è stata chiamata per lo scadere del tempo a disposizione.
+  </P
+><P
+>&#13;   Un aspetto che occorre notare sui stati ABORTED e TIMEOUT è
+   che possono essere attivi contemporaneamente. Questo può accadere
+   se si è impostato il PHP affinchè ignori le interruzioni da parte dell'utente. Infatti il PHP
+   continua a tenere traccia della disconnessione dell'utente, ma, semplicemente, non viene
+   interrotto lo script. Quindi, quando termina il tempo, lo script sarà interrotto e verrà
+   richiamata la funzione di shutdown, se presente. In questa situazione
+   si avrà che <A
+HREF="function.connection-status.html"
+><B
+CLASS="function"
+>connection_status()</B
+></A
+>
+   restituirà 3.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="features.remote-files.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="features.persistent-connections.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Utilizzo di file remoti</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="features.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Connessioni Persistenti ai Database</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

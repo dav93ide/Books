@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>number_format</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="nl2br"
+HREF="function.nl2br.html"><LINK
+REL="NEXT"
+TITLE="ord"
+HREF="function.ord.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.nl2br.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ord.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.number-format"
+></A
+>number_format</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN164265"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>number_format&nbsp;--&nbsp;Formatta un numero con i grupppi delle migliaia</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN164268"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>number_format</B
+> ( float number [, int decimals [, string dec_point, string thousands_sep]] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>number_format()</B
+> restituisce una versione formattata
+     di <VAR
+CLASS="parameter"
+>number</VAR
+>.  Questa funzione accetta uno,
+     due, o quattro parametri (non tre).
+    </P
+><P
+>Se si specifica soltanto un parametro, il
+     <VAR
+CLASS="parameter"
+>number</VAR
+> sarà formattato senza decimali,
+     ma con la virgola (",") per suddividere le migliaia.
+    </P
+><P
+>&#13;     Se sono specdificati due parametri, il <VAR
+CLASS="parameter"
+>number</VAR
+> sarà
+     formattato con tante cifre decimali quanto indicato in <VAR
+CLASS="parameter"
+>decimals</VAR
+>,
+     precedute dal punto ("."), e con la virgola (",") come separatore delle
+     migliaia.
+    </P
+><P
+>&#13;     Se sono indicati tutti i quattro parametri, il <VAR
+CLASS="parameter"
+>number</VAR
+>
+     sarà formattato con <VAR
+CLASS="parameter"
+>decimals</VAR
+> cifre decimali,
+     identificate dal carattere <VAR
+CLASS="parameter"
+>dec_point</VAR
+> anziché dal punto (".")
+     e con <VAR
+CLASS="parameter"
+>thousands_sep</VAR
+>, invece della virgola (",")
+     come separatore delle migliaia.
+    </P
+><P
+>&#13;     Sarà utilizzato solo il primo carattere di <VAR
+CLASS="parameter"
+>thousands_sep</VAR
+>.
+     Ad esempio, se si indica <VAR
+CLASS="literal"
+>foo</VAR
+> come
+     <VAR
+CLASS="parameter"
+>thousands_sep</VAR
+> per il numero
+     <VAR
+CLASS="literal"
+>1000</VAR
+>, la funzione <B
+CLASS="function"
+>number_format()</B
+> restituirà
+     <VAR
+CLASS="literal"
+>1f000</VAR
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164306"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>number_format()</B
+></B
+></P
+><P
+>&#13;       Ad esempio, la notazione francese solitamente utilizza due decimali,
+       la virgola (',') come separatore decimale, e lo spazio (' ')
+       come separatore delle migliaia. Questo può essere ottenuto con:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$number </font><font color="#007700">= </font><font color="#0000BB">1234.56</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Notazione inglese (default)<br /></font><font color="#0000BB">$english_format_number </font><font color="#007700">= </font><font color="#0000BB">number_format</font><font color="#007700">(</font><font color="#0000BB">$number</font><font color="#007700">);<br /></font><font color="#FF8000">// 1,235<br /><br />// Notazione francese<br /></font><font color="#0000BB">$nombre_format_francais </font><font color="#007700">= </font><font color="#0000BB">number_format</font><font color="#007700">(</font><font color="#0000BB">$number</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#DD0000">','</font><font color="#007700">, </font><font color="#DD0000">' '</font><font color="#007700">);<br /></font><font color="#FF8000">// 1 234,56<br /><br /></font><font color="#0000BB">$number </font><font color="#007700">= </font><font color="#0000BB">1234.5678</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// notazione inglese senza separatore delle migliaia<br /></font><font color="#0000BB">$english_format_number </font><font color="#007700">= </font><font color="#0000BB">number_format</font><font color="#007700">(</font><font color="#0000BB">$number</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#DD0000">'.'</font><font color="#007700">, </font><font color="#DD0000">''</font><font color="#007700">);<br /></font><font color="#FF8000">// 1234.57<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.sprintf.html"
+><B
+CLASS="function"
+>sprintf()</B
+></A
+>,
+     <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+> e <A
+HREF="function.sscanf.html"
+><B
+CLASS="function"
+>sscanf()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.nl2br.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ord.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>nl2br</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ord</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

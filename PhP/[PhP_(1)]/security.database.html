@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Database Security</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Security"
+HREF="security.html"><LINK
+REL="PREVIOUS"
+TITLE="Filesystem Security"
+HREF="security.filesystem.html"><LINK
+REL="NEXT"
+TITLE="Connecting to Database"
+HREF="security.database.connection.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="security.filesystem.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="security.database.connection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="security.database"
+>Capitolo 27. Database Security</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="security.database.html#security.database.design"
+>Designing Databases</A
+></DT
+><DT
+><A
+HREF="security.database.connection.html"
+>Connecting to Database</A
+></DT
+><DT
+><A
+HREF="security.database.storage.html"
+>Encrypted Storage Model</A
+></DT
+><DT
+><A
+HREF="security.database.sql-injection.html"
+>SQL Injection</A
+></DT
+></DL
+></DIV
+><P
+>&#13;    Nowadays, databases are cardinal components of any web based application by
+    enabling websites to provide varying dynamic content. Since very sensitive
+    or secret information can be stored in a database, you should strongly
+    consider protecting your databases.
+   </P
+><P
+>&#13;    To retrieve or to store any information you need to connect to the database,
+    send a legitimate query, fetch the result, and close the connection.
+    Nowadays, the commonly used query language in this interaction is the
+    Structured Query Language (SQL). See how an attacker can <A
+HREF="security.database.sql-injection.html"
+>tamper with an SQL query</A
+>.
+   </P
+><P
+>&#13;    As you can surmise, PHP cannot protect your database by itself. The
+    following sections aim to be an introduction into the very basics of how to
+    access and manipulate databases within PHP scripts.
+   </P
+><P
+>&#13;    Keep in mind this simple rule: defense in depth. The more places you
+    take action to increase the protection of your database, the less
+    probability of an attacker succeeding in exposing or abusing any stored
+    information. Good design of the database schema and the application
+    deals with your greatest fears.
+   </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="security.database.design"
+>Designing Databases</A
+></H1
+><P
+>&#13;      The first step is always to create the database, unless you want to use
+      one from a third party. When a database is created, it is
+      assigned to an owner, who executed the creation statement. Usually, only
+      the owner (or a superuser) can do anything with the objects in that
+      database, and in order to allow other users to use it, privileges must be
+      granted.
+     </P
+><P
+>&#13;      Applications should never connect to the database as its owner or a
+      superuser, because these users can execute any query at will, for
+      example, modifying the schema (e.g. dropping tables) or deleting its
+      entire content.
+     </P
+><P
+>&#13;      You may create different database users for every aspect of your
+      application with very limited rights to database objects. The most
+      required privileges should be granted only, and avoid that the same user
+      can interact with the database in different use cases. This means that if
+      intruders gain access to your database using your applications credentials,
+      they can only effect as many changes as your application can.
+     </P
+><P
+>&#13;      You are encouraged not to implement all the business logic in the web
+      application (i.e. your script), instead do it in the database schema
+      using views, triggers or rules. If the system evolves, new ports will be
+      intended to open to the database, and you have to re-implement the logic
+      in each separate database client. Over and above, triggers can be used
+      to transparently and automatically handle fields, which often provides
+      insight when debugging problems with your application or tracing back
+      transactions.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="security.filesystem.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="security.database.connection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Filesystem Security</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="security.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Connecting to Database</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

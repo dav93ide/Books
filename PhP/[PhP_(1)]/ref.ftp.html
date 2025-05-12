@@ -1,0 +1,445 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni FTP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="fbsql_warnings"
+HREF="function.fbsql-warnings.html"><LINK
+REL="NEXT"
+TITLE="ftp_alloc"
+HREF="function.ftp-alloc.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-warnings.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ftp-alloc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.ftp"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XLIII. Funzioni FTP</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN46633"
+></A
+><P
+>   
+    Le funzioni in questa estensione implementano l'accesso client ad un file server
+    utilizzando il File Transfer Protocol (FTP) come definito in 
+    <A
+HREF="http://www.faqs.org/rfcs/rfc959.html"
+TARGET="_top"
+>http://www.faqs.org/rfcs/rfc959.html</A
+>.
+   </P
+><P
+>&#13;    Usando il modulo FTP vengono definite le seguenti costanti:
+    <TT
+CLASS="constant"
+><B
+>FTP_ASCII</B
+></TT
+> e <TT
+CLASS="constant"
+><B
+>FTP_BINARY</B
+></TT
+>.
+   </P
+><P
+>&#13;   Per l'utilizzo delle funzioni FTP con la vostra configurazione PHP,
+   dovrete aggiungere l'opzione <A
+HREF="missing-stuff.html#install.configure.enable-ftp"
+>&#13;   <VAR
+CLASS="option"
+>--enable-ftp</VAR
+></A
+> durante l'installazione PHP 4, 
+   e <A
+HREF="missing-stuff.html#install.configure.with-ftp"
+>&#13;   <VAR
+CLASS="option"
+>--with-ftp</VAR
+></A
+> nell'installazione di PHP 3.
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN46645"
+></A
+><P
+><B
+>Esempio 1. FTP</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php
+// stabilire una connessione
+$conn_id = ftp_connect($ftp_server); 
+
+// login con user name e password
+$login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass); 
+
+// controllo della connessione
+if ((!$conn_id) || (!$login_result)) { 
+        echo "La connessione FTP è fallita!";
+        echo "Tentativo di connessione a $ftp_server per l'utente $ftp_user_name"; 
+        die; 
+    } else {
+        echo "Connesso a $ftp_server, utente $ftp_user_name";
+    }
+
+// upload del file
+$upload = ftp_put($conn_id, $destination_file, $source_file, FTP_BINARY); 
+
+// controllo dello stato di upload
+if (!$upload) { 
+        echo "Il caricamento FTP non è andato a buon fine!";
+    } else {
+        echo "Caricato il file $source_file su $ftp_server come $destination_file";
+    }
+
+// chiudere il flusso FTP 
+ftp_quit($conn_id); 
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.ftp-alloc.html"
+>ftp_alloc</A
+>&nbsp;--&nbsp;Allocates space for a file to be uploaded</DT
+><DT
+><A
+HREF="function.ftp-cdup.html"
+>ftp_cdup</A
+>&nbsp;--&nbsp;Passa alla directory superiore</DT
+><DT
+><A
+HREF="function.ftp-chdir.html"
+>ftp_chdir</A
+>&nbsp;--&nbsp;Cambia le directory su un server FTP</DT
+><DT
+><A
+HREF="function.ftp-chmod.html"
+>ftp_chmod</A
+>&nbsp;--&nbsp;Set permissions on a file via FTP</DT
+><DT
+><A
+HREF="function.ftp-close.html"
+>ftp_close</A
+>&nbsp;--&nbsp;Chiude una connessione FTP</DT
+><DT
+><A
+HREF="function.ftp-connect.html"
+>ftp_connect</A
+>&nbsp;--&nbsp;Apre una connessione FTP</DT
+><DT
+><A
+HREF="function.ftp-delete.html"
+>ftp_delete</A
+>&nbsp;--&nbsp;Cancella un file sul server FTP</DT
+><DT
+><A
+HREF="function.ftp-exec.html"
+>ftp_exec</A
+>&nbsp;--&nbsp;Richiede l'esecuzione di un programma sul server FTP</DT
+><DT
+><A
+HREF="function.ftp-fget.html"
+>ftp_fget</A
+>&nbsp;--&nbsp;Scarica un file dal server FTP e lo salva su un file aperto</DT
+><DT
+><A
+HREF="function.ftp-fput.html"
+>ftp_fput</A
+>&nbsp;--&nbsp;Carica un file aperto sul server FTP</DT
+><DT
+><A
+HREF="function.ftp-get-option.html"
+>ftp_get_option</A
+>&nbsp;--&nbsp;Recupera diversi comportamenti dello stream FTP durante l'esecuzione</DT
+><DT
+><A
+HREF="function.ftp-get.html"
+>ftp_get</A
+>&nbsp;--&nbsp;Scarica un file dal server FTP</DT
+><DT
+><A
+HREF="function.ftp-login.html"
+>ftp_login</A
+>&nbsp;--&nbsp;Esegue il log ad una connessione FTP</DT
+><DT
+><A
+HREF="function.ftp-mdtm.html"
+>ftp_mdtm</A
+>&nbsp;--&nbsp;Restituisce l'orario dell'ultima modifica al file corrente</DT
+><DT
+><A
+HREF="function.ftp-mkdir.html"
+>ftp_mkdir</A
+>&nbsp;--&nbsp;Crea una directory</DT
+><DT
+><A
+HREF="function.ftp-nb-continue.html"
+>ftp_nb_continue</A
+>&nbsp;--&nbsp;Continua a ricevere/trasmettere un file in modalita' non bloccante</DT
+><DT
+><A
+HREF="function.ftp-nb-fget.html"
+>ftp_nb_fget</A
+>&nbsp;--&nbsp;Recupera un file dal server FTP e lo scrive su un file aperto, in modalita' non bloccante</DT
+><DT
+><A
+HREF="function.ftp-nb-fput.html"
+>ftp_nb_fput</A
+>&nbsp;--&nbsp;Salva il contenuto di un file aperto sul server FTP in modalita' non bloccante</DT
+><DT
+><A
+HREF="function.ftp-nb-get.html"
+>ftp_nb_get</A
+>&nbsp;--&nbsp;Recupera un file dal server FTP e lo scrive su un file locale in modalita' non bloccante</DT
+><DT
+><A
+HREF="function.ftp-nb-put.html"
+>ftp_nb_put</A
+>&nbsp;--&nbsp;Salva un file sul server FTP in modalita' non bloccante</DT
+><DT
+><A
+HREF="function.ftp-nlist.html"
+>ftp_nlist</A
+>&nbsp;--&nbsp;Restituisce la lista dei file nella directory prescelta</DT
+><DT
+><A
+HREF="function.ftp-pasv.html"
+>ftp_pasv</A
+>&nbsp;--&nbsp;Attivaa o disattiva il modo passivo</DT
+><DT
+><A
+HREF="function.ftp-put.html"
+>ftp_put</A
+>&nbsp;--&nbsp;Trasferisce un file al server FTP</DT
+><DT
+><A
+HREF="function.ftp-pwd.html"
+>ftp_pwd</A
+>&nbsp;--&nbsp;Restituisce il nome della directory corrente</DT
+><DT
+><A
+HREF="function.ftp-quit.html"
+>ftp_quit</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.ftp-close.html"
+><B
+CLASS="function"
+>ftp_close()</B
+></A
+></DT
+><DT
+><A
+HREF="function.ftp-raw.html"
+>ftp_raw</A
+>&nbsp;--&nbsp;Invia un comando di qualsiasi tipo ad un server FTP</DT
+><DT
+><A
+HREF="function.ftp-rawlist.html"
+>ftp_rawlist</A
+>&nbsp;--&nbsp;Restituisce un elenco dettagliato dei files nella directory in esame</DT
+><DT
+><A
+HREF="function.ftp-rename.html"
+>ftp_rename</A
+>&nbsp;--&nbsp;Rinomina un file sul server FTP</DT
+><DT
+><A
+HREF="function.ftp-rmdir.html"
+>ftp_rmdir</A
+>&nbsp;--&nbsp;Elimina una directory</DT
+><DT
+><A
+HREF="function.ftp-set-option.html"
+>ftp_set_option</A
+>&nbsp;--&nbsp;Imposta varie opzioni per l'esecuzione di FTP</DT
+><DT
+><A
+HREF="function.ftp-site.html"
+>ftp_site</A
+>&nbsp;--&nbsp;Invia al server un comando SITE</DT
+><DT
+><A
+HREF="function.ftp-size.html"
+>ftp_size</A
+>&nbsp;--&nbsp;Restituisce le dimensioni del file specificato</DT
+><DT
+><A
+HREF="function.ftp-ssl-connect.html"
+>ftp_ssl_connect</A
+>&nbsp;--&nbsp;Apre una connessione SSL-FTP connessione</DT
+><DT
+><A
+HREF="function.ftp-systype.html"
+>ftp_systype</A
+>&nbsp;--&nbsp;Restituisce l'identificatore di tipo del server FTP remoto</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fbsql-warnings.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ftp-alloc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fbsql_warnings</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ftp_alloc</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ini_get</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PHP Opzioni&Informazioni"
+HREF="ref.info.html"><LINK
+REL="PREVIOUS"
+TITLE="ini_get_all"
+HREF="function.ini-get-all.html"><LINK
+REL="NEXT"
+TITLE="ini_restore"
+HREF="function.ini-restore.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ini-get-all.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ini-restore.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ini-get"
+></A
+>ini_get</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN130034"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>ini_get&nbsp;--&nbsp;Restituisce il valore delle opzioni di configurazione</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN130037"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>ini_get</B
+> ( string varname )<BR
+></BR
+><P
+>&#13;     Restituisce il valore delle opzioni di configurazione.  In caso di errore, tipo 
+     la richiesta per un valore inesistente, sarà restituita una stringa vuota.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Richieste per valori booleani: </B
+>
+      Nel file ini, il valore booleano <VAR
+CLASS="literal"
+>off</VAR
+> sarà restituito come 
+      stringa vuota o "0", mentre il valore <VAR
+CLASS="literal"
+>on</VAR
+> sarà restituito come
+      "1".
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Richieste per le dimensioni della memoria: </B
+>
+      Diversi parametri attinenti alle dimensioni di memoria, tipo 
+      <A
+HREF="ini.core.html#ini.upload-max-filesize"
+>upload_max_filesize</A
+>
+      sono registrati nel <TT
+CLASS="filename"
+>php.ini</TT
+> in notazione abbreviata. La funzione <B
+CLASS="function"
+>ini_get()</B
+>
+      restituirà l'esatto valore presente nel <TT
+CLASS="filename"
+>php.ini</TT
+>, e <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NON</I
+></SPAN
+>
+      l'intero equivalente. L'esecuzione delle normali funzioni aritmetiche su questi valori
+      potrà dare risultati inattesi. L'esempio seguente illustra come
+      si possa convertire la notazione breve in byte in modo molto simile a come
+      fa il PHP.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN130061"
+></A
+><P
+><B
+>Esempio 1. Qualche esempio di <B
+CLASS="function"
+>ini_get()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/*<br />Il nostro php.ini contiene i seguenti parametri:<br /><br />display_errors = On<br />register_globals = Off<br />post_max_size = 8M<br />*/<br /><br /></font><font color="#007700">echo </font><font color="#DD0000">'display_errors = ' </font><font color="#007700">. </font><font color="#0000BB">ini_get</font><font color="#007700">(</font><font color="#DD0000">'display_errors'</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />echo </font><font color="#DD0000">'register_globals = ' </font><font color="#007700">. </font><font color="#0000BB">ini_get</font><font color="#007700">(</font><font color="#DD0000">'register_globals'</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />echo </font><font color="#DD0000">'post_max_size = ' </font><font color="#007700">. </font><font color="#0000BB">ini_get</font><font color="#007700">(</font><font color="#DD0000">'post_max_size'</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />echo </font><font color="#DD0000">'post_max_size+1 = ' </font><font color="#007700">. (</font><font color="#0000BB">ini_get</font><font color="#007700">(</font><font color="#DD0000">'post_max_size'</font><font color="#007700">)+</font><font color="#0000BB">1</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">; <br />echo </font><font color="#DD0000">'post_max_size in bytes = ' </font><font color="#007700">. </font><font color="#0000BB">return_bytes</font><font color="#007700">(</font><font color="#0000BB">ini_get</font><font color="#007700">(</font><font color="#DD0000">'post_max_size'</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />function </font><font color="#0000BB">return_bytes</font><font color="#007700">(</font><font color="#0000BB">$val</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$val </font><font color="#007700">= </font><font color="#0000BB">trim</font><font color="#007700">(</font><font color="#0000BB">$val</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$last </font><font color="#007700">= </font><font color="#0000BB">$val</font><font color="#007700">{</font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$val</font><font color="#007700">)-</font><font color="#0000BB">1</font><font color="#007700">};<br />&nbsp;&nbsp;&nbsp;&nbsp;switch(</font><font color="#0000BB">$last</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case </font><font color="#DD0000">'k'</font><font color="#007700">:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case </font><font color="#DD0000">'K'</font><font color="#007700">:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return (int) </font><font color="#0000BB">$val </font><font color="#007700">* </font><font color="#0000BB">1024</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case </font><font color="#DD0000">'m'</font><font color="#007700">:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case </font><font color="#DD0000">'M'</font><font color="#007700">:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return (int) </font><font color="#0000BB">$val </font><font color="#007700">* </font><font color="#0000BB">1048576</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$val</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;        Lo script produrrà:
+       </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>display_errors = 1
+register_globals = 0
+post_max_size = 8M
+post_max_size+1 = 9
+post_max_size in bytes = 8388608</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+><P
+>&#13;     Vedere anche:
+     <A
+HREF="function.get-cfg-var.html"
+><B
+CLASS="function"
+>get_cfg_var()</B
+></A
+>,
+     <A
+HREF="function.ini-get-all.html"
+><B
+CLASS="function"
+>ini_get_all()</B
+></A
+>,
+     <A
+HREF="function.ini-restore.html"
+><B
+CLASS="function"
+>ini_restore()</B
+></A
+> e
+     <A
+HREF="function.ini-set.html"
+><B
+CLASS="function"
+>ini_set()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ini-get-all.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ini-restore.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ini_get_all</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.info.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ini_restore</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

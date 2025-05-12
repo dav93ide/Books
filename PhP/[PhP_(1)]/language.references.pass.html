@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Passaggio per riferimento</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Spiegazioni sui riferimenti"
+HREF="language.references.html"><LINK
+REL="PREVIOUS"
+TITLE="Cosa i riferimenti non sono"
+HREF="language.references.arent.html"><LINK
+REL="NEXT"
+TITLE="Restituzione per riferimento"
+HREF="language.references.return.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.references.arent.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 21. Spiegazioni sui riferimenti</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.references.return.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.references.pass"
+>Passaggio per riferimento</A
+></H1
+><P
+>&#13;   Si può passare una variabile ad una funzione per riferimento, modificandone gli argomenti.
+   La sintassi è la seguente:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6380"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">foo</font><font color="#007700">(&amp;</font><font color="#0000BB">$var</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$var</font><font color="#007700">++;<br />}<br /><br /></font><font color="#0000BB">$a</font><font color="#007700">=</font><font color="#0000BB">5</font><font color="#007700">;<br /></font><font color="#0000BB">foo</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">);<br /></font><font color="#FF8000">// $a adesso è 6<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+  Nota che non si usa il segno di riferimento nella chiamata della funzione, ma solo
+  nella definizione. La definizione della funzione basta da sola
+  per passare correttamente un argomento per riferimento. Nelle versioni recenti di PHP
+  si avrà un warning indicante che "Call-time pass-by-reference" è
+  deprecato quando si usa &#38; <VAR
+CLASS="literal"
+>foo(&#38;$a);</VAR
+> .
+  </P
+><P
+>&#13;  Le seguenti cose possono essere passate per riferimento:
+   <P
+></P
+><UL
+><LI
+><P
+>&#13;      Variabili, es. <VAR
+CLASS="literal"
+>foo($a)</VAR
+>
+     </P
+></LI
+><LI
+><P
+>&#13;      Operatore New, es. <VAR
+CLASS="literal"
+>foo(new foobar())</VAR
+>
+     </P
+></LI
+><LI
+><P
+>&#13;      Riferimento restituito da una funazione, es.
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6393"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function &amp;</font><font color="#0000BB">bar</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#0000BB">5</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$a</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">foo</font><font color="#007700">(</font><font color="#0000BB">bar</font><font color="#007700">());<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    Vedi anche le spiegazioni sulla <A
+HREF="language.references.return.html"
+>restituzione per riferimento</A
+>. 
+     </P
+></LI
+></UL
+>
+  </P
+><P
+>&#13;  Qualunque altra cosa non dovrebbe essere passata per riferimento, poichè
+  il risultato sarebbe indefinito. Per esempio, il seguente passaggio
+  per riferimento non è valido:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6397"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">bar</font><font color="#007700">() </font><font color="#FF8000">// Nota l'assenza di &amp;<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#0000BB">5</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$a</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">foo</font><font color="#007700">(</font><font color="#0000BB">bar</font><font color="#007700">()); </font><font color="#FF8000">// produce un errore fatale da PHP 5.1.0<br /></font><font color="#0000BB">foo</font><font color="#007700">(</font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#0000BB">5</font><font color="#007700">); </font><font color="#FF8000">// Expressione: non una variabile<br /></font><font color="#0000BB">foo</font><font color="#007700">(</font><font color="#0000BB">5</font><font color="#007700">); </font><font color="#FF8000">// Genera un errore fatale<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    Questi requisiti sono validi per PHP 4.0.4 e seguenti.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.references.arent.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.references.return.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Cosa i riferimenti non sono</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.references.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Restituzione per riferimento</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

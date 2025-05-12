@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>SoapClient-&#62;__soapCall()</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SOAP Functions"
+HREF="ref.soap.html"><LINK
+REL="PREVIOUS"
+TITLE="SoapClient->__setCookie()"
+HREF="function.soap-soapclient-setcookie.html"><LINK
+REL="NEXT"
+TITLE="SoapFault->__construct()"
+HREF="function.soap-soapfault-construct.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.soap-soapclient-setcookie.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.soap-soapfault-construct.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.soap-soapclient-soapcall"
+></A
+>SoapClient-&#62;__soapCall()</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN152871"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>SoapClient-&#62;__soapCall()&nbsp;--&nbsp;
+   Calls a SOAP function
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN152874"
+></A
+><H2
+>Descrizione</H2
+>class <B
+CLASS="classname"
+>SoapClient</B
+> { <BR
+></BR
+>mixed <B
+CLASS="methodname"
+>__soapCall</B
+> ( string function_name [, array arguments [, array options [, mixed input_headers [, array &#38;output_headers]]]] )<BR
+></BR
+>}<P
+>&#13;   This is a low level API function that is used to make a SOAP call. Usually,
+   in WSDL mode,
+   you can simply call SOAP functions as <B
+CLASS="classname"
+>SoapClient</B
+> 
+   methods. This method useful in non-WSDL mode when <VAR
+CLASS="literal"
+>soapaction</VAR
+> 
+   is unknown, <VAR
+CLASS="literal"
+>uri</VAR
+> differs from the default or when sending
+   and/or receiving SOAP Headers.
+  </P
+><P
+>&#13;   On error, a call to a SOAP function can cause PHP to throw exceptions or return a
+   <B
+CLASS="classname"
+>SoapFault</B
+> object if exceptions are disabled.
+   To check if the function call failed to catch the SoapFault exceptions,
+   check the result with <A
+HREF="function.is-soap-fault.html"
+><B
+CLASS="function"
+>is_soap_fault()</B
+></A
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN152904"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   SOAP functions may return one, or multiple values. If only one value is returned
+   by the SOAP function, the return value of <VAR
+CLASS="literal"
+>__soapCall</VAR
+> will be
+   a simple value (e.g. an integer, a string, etc). If multiple values are
+   returned, <VAR
+CLASS="literal"
+>__soapCall</VAR
+> will return
+   an associative array of named output parameters.  
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN152909"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN152912"
+></A
+><P
+><B
+>Esempio 1. SoapClient-&#62;__soapCall() Examples</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$client </font><font color="#007700">= new </font><font color="#0000BB">SoapClient</font><font color="#007700">(</font><font color="#DD0000">"some.wsdl"</font><font color="#007700">);<br /></font><font color="#0000BB">$client</font><font color="#007700">-&gt;</font><font color="#0000BB">SomeFunction</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#0000BB">$c</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$client</font><font color="#007700">-&gt;</font><font color="#0000BB">__soapCall</font><font color="#007700">(</font><font color="#DD0000">"SomeFunction"</font><font color="#007700">, array(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#0000BB">$c</font><font color="#007700">));<br /></font><font color="#0000BB">$client</font><font color="#007700">-&gt;</font><font color="#0000BB">__soapCall</font><font color="#007700">(</font><font color="#DD0000">"SomeFunction"</font><font color="#007700">, array(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#0000BB">$c</font><font color="#007700">), </font><font color="#0000BB">NULL</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new </font><font color="#0000BB">SoapHeader</font><font color="#007700">(), </font><font color="#0000BB">$output_headers</font><font color="#007700">);<br /><br /><br /></font><font color="#0000BB">$client </font><font color="#007700">= new </font><font color="#0000BB">SoapClient</font><font color="#007700">(</font><font color="#0000BB">null</font><font color="#007700">, array(</font><font color="#DD0000">'location' </font><font color="#007700">=&gt; </font><font color="#DD0000">"http://localhost/soap.php"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'uri'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"http://test-uri/"</font><font color="#007700">));<br /></font><font color="#0000BB">$client</font><font color="#007700">-&gt;</font><font color="#0000BB">SomeFunction</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#0000BB">$c</font><font color="#007700">);<br /></font><font color="#0000BB">$client</font><font color="#007700">-&gt;</font><font color="#0000BB">__soapCall</font><font color="#007700">(</font><font color="#DD0000">"SomeFunction"</font><font color="#007700">, array(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#0000BB">$c</font><font color="#007700">));<br /></font><font color="#0000BB">$client</font><font color="#007700">-&gt;</font><font color="#0000BB">__soapCall</font><font color="#007700">(</font><font color="#DD0000">"SomeFunction"</font><font color="#007700">, array(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#0000BB">$c</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#DD0000">'soapaction' </font><font color="#007700">=&gt; </font><font color="#DD0000">'some_action'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'uri'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">'some_uri'</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN152915"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.soap-soapclient-construct.html"
+>SoapClient-&#62;__construct()</A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.soap-soapparam-construct.html"
+>SoapParam-&#62;__construct()</A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.soap-soapvar-construct.html"
+>SoapVar-&#62;__construct()</A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.soap-soapheader-construct.html"
+>SoapHeader-&#62;__construct()</A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.soap-soapfault-construct.html"
+>SoapFault-&#62;__construct()</A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.is-soap-fault.html"
+><B
+CLASS="function"
+>is_soap_fault()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.soap-soapclient-setcookie.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.soap-soapfault-construct.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SoapClient-&#62;__setCookie()</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.soap.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>SoapFault-&#62;__construct()</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

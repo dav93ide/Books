@@ -1,0 +1,1117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>FrontBase Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="fribidi_log2vis"
+HREF="function.fribidi-log2vis.html"><LINK
+REL="NEXT"
+TITLE="fbsql_affected_rows"
+HREF="function.fbsql-affected-rows.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fribidi-log2vis.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-affected-rows.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.fbsql"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XLII. FrontBase Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN45003"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fbsql.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Queste funzioni permettono di accedere ai servers del database FrontBase. 
+     Maggiori informazioni su FrontBase: <A
+HREF="http://www.frontbase.com/"
+TARGET="_top"
+>http://www.frontbase.com/</A
+>.
+    </P
+><P
+>&#13;     Documentazione su FrontBase : <A
+HREF="http://www.frontbase.com/cgi-bin/WebObjects/FrontBase.woa/wa/productsPage?currentPage=Documentation"
+TARGET="_top"
+>http://www.frontbase.com/cgi-bin/WebObjects/FrontBase.woa/wa/productsPage?currentPage=Documentation</A
+>.
+    </P
+><P
+>&#13;     Il supporto Frontbase è stato aggiunto dal PHP 4.0.6.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fbsql.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Per potere utilizzare queste funzioni occorre installare o il server FrontBase
+     o, al limite, le librerie fbsql client. Si può ottenere FrontBase da
+     <A
+HREF="http://www.frontbase.com/"
+TARGET="_top"
+>http://www.frontbase.com/</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fbsql.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Affinché queste funzioni siano disponibili è necessario compilare php con 
+  il supporto fbsql usando l' opzione <VAR
+CLASS="option"
+>--with-fbsql[=DIR]</VAR
+>.Se si usa questa opzione senza specificare 
+  il percorso a fbsql, php cercherà le librerie client di fbsql nella cartella di default 
+  specificata nell'istallazione di FrontBase, a seconda del sistema operativo. Se si installa 
+  FrontBase in una cartella non standard è necessario specificare sempre 
+  il percorso a fbsql: <VAR
+CLASS="option"
+>--with-fbsql=/path/to/fbsql</VAR
+>.  In questo modo 
+  si forzerà php ad usare le librerie client installate da FrontBase, 
+  evitando ogni conflitto. 
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fbsql.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN45025"
+></A
+><P
+><B
+>Tabella 1. Opzioni di configurazione per FrontBase</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>fbsql.allow_persistent</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.generate_warnings</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.autocommit</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.max_persistent</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.max_links</TD
+><TD
+>"128"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.max_connections</TD
+><TD
+>"128"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.max_results</TD
+><TD
+>"128"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.batchSize</TD
+><TD
+>"1000"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.default_host</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.default_user</TD
+><TD
+>"_SYSTEM"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.default_password</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.default_database</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+><TR
+><TD
+>fbsql.default_database_password</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per maggiori dettagli e per le definizioni delle costanti PHP_INI_*
+ vedere <A
+HREF="function.ini-set.html"
+><B
+CLASS="function"
+>ini_set()</B
+></A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fbsql.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fbsql.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_ASSOC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_NUM</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_BOTH</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_LOCK_DEFERRED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_LOCK_OPTIMISTIC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_LOCK_PESSIMISTIC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_ISO_READ_UNCOMMITTED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_ISO_READ_COMMITTED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_ISO_REPEATABLE_READ</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_ISO_SERIALIZABLE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_ISO_VERSIONED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_UNKNOWN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_STOPPED</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_STARTING</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_RUNNING</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_STOPPING</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_NOEXEC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_LOB_DIRECT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>FBSQL_LOB_HANDLE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.fbsql-affected-rows.html"
+>fbsql_affected_rows</A
+>&nbsp;--&nbsp;
+     Restituisce il numero di righe (tuple) interessate nella precedente operazione di FrontBase
+    </DT
+><DT
+><A
+HREF="function.fbsql-autocommit.html"
+>fbsql_autocommit</A
+>&nbsp;--&nbsp;Abilita o disabilita autocommit</DT
+><DT
+><A
+HREF="function.fbsql-blob-size.html"
+>fbsql_blob_size</A
+>&nbsp;--&nbsp;
+     Get the size of a BLOB
+    </DT
+><DT
+><A
+HREF="function.fbsql-change-user.html"
+>fbsql_change_user</A
+>&nbsp;--&nbsp;Cambia l'identità dell'utente connesso con una connessione attiva</DT
+><DT
+><A
+HREF="function.fbsql-clob-size.html"
+>fbsql_clob_size</A
+>&nbsp;--&nbsp;
+     Get the size of a CLOB
+    </DT
+><DT
+><A
+HREF="function.fbsql-close.html"
+>fbsql_close</A
+>&nbsp;--&nbsp;Chiude la connessione a FrontBase</DT
+><DT
+><A
+HREF="function.fbsql-commit.html"
+>fbsql_commit</A
+>&nbsp;--&nbsp;Compie una transazione</DT
+><DT
+><A
+HREF="function.fbsql-connect.html"
+>fbsql_connect</A
+>&nbsp;--&nbsp;Apre una connessione al Server FrontBase</DT
+><DT
+><A
+HREF="function.fbsql-create-blob.html"
+>fbsql_create_blob</A
+>&nbsp;--&nbsp;Crea un BLOB</DT
+><DT
+><A
+HREF="function.fbsql-create-clob.html"
+>fbsql_create_clob</A
+>&nbsp;--&nbsp;Crea un CLOB</DT
+><DT
+><A
+HREF="function.fbsql-create-db.html"
+>fbsql_create_db</A
+>&nbsp;--&nbsp;Crea un database</DT
+><DT
+><A
+HREF="function.fbsql-data-seek.html"
+>fbsql_data_seek</A
+>&nbsp;--&nbsp;Sposta il puntatore del risultato interno</DT
+><DT
+><A
+HREF="function.fbsql-database-password.html"
+>fbsql_database_password</A
+>&nbsp;--&nbsp;
+     Imposta o ricerca la password di un database FrontBase.
+    </DT
+><DT
+><A
+HREF="function.fbsql-database.html"
+>fbsql_database</A
+>&nbsp;--&nbsp;Imposta oppure ottiene il nome del database usato per la connessione</DT
+><DT
+><A
+HREF="function.fbsql-db-query.html"
+>fbsql_db_query</A
+>&nbsp;--&nbsp;Manda una query FrontBase</DT
+><DT
+><A
+HREF="function.fbsql-db-status.html"
+>fbsql_db_status</A
+>&nbsp;--&nbsp;Restituisce lo stato di un dato database.</DT
+><DT
+><A
+HREF="function.fbsql-drop-db.html"
+>fbsql_drop_db</A
+>&nbsp;--&nbsp;Cancella un database FrontBase</DT
+><DT
+><A
+HREF="function.fbsql-errno.html"
+>fbsql_errno</A
+>&nbsp;--&nbsp;
+     Ritorna il valore numerico del messaggio 
+     di errore emesso dalla precedente operazione FrontBase.
+    </DT
+><DT
+><A
+HREF="function.fbsql-error.html"
+>fbsql_error</A
+>&nbsp;--&nbsp;
+     Ritorna il testo del messaggio di errore emesso dalla precedente operazione 
+     FrontBase.
+    </DT
+><DT
+><A
+HREF="function.fbsql-fetch-array.html"
+>fbsql_fetch_array</A
+>&nbsp;--&nbsp;
+     Restituisce una riga (tupla) di risultato in forma di Array associativo, Array enumerato o 
+     entrambi
+    </DT
+><DT
+><A
+HREF="function.fbsql-fetch-assoc.html"
+>fbsql_fetch_assoc</A
+>&nbsp;--&nbsp;
+     Restituisce una riga (tupla) di risultato in forma di Array associativo.
+    </DT
+><DT
+><A
+HREF="function.fbsql-fetch-field.html"
+>fbsql_fetch_field</A
+>&nbsp;--&nbsp;
+     Ottiene informazioni su una colonna da un set di risultati come oggetto
+    </DT
+><DT
+><A
+HREF="function.fbsql-fetch-lengths.html"
+>fbsql_fetch_lengths</A
+>&nbsp;--&nbsp;
+     Ottiene la lunghezza di ciascun output in un set di risultati
+    </DT
+><DT
+><A
+HREF="function.fbsql-fetch-object.html"
+>fbsql_fetch_object</A
+>&nbsp;--&nbsp;Resituisce un riga da un set di risultati come oggetto</DT
+><DT
+><A
+HREF="function.fbsql-fetch-row.html"
+>fbsql_fetch_row</A
+>&nbsp;--&nbsp;Ottiene una riga come matrice numerata</DT
+><DT
+><A
+HREF="function.fbsql-field-flags.html"
+>fbsql_field_flags</A
+>&nbsp;--&nbsp;
+     Ottiene i flag associati al campo specificato
+    </DT
+><DT
+><A
+HREF="function.fbsql-field-len.html"
+>fbsql_field_len</A
+>&nbsp;--&nbsp;
+     Restituisce la lunghezza di un campo
+    </DT
+><DT
+><A
+HREF="function.fbsql-field-name.html"
+>fbsql_field_name</A
+>&nbsp;--&nbsp;
+     Restituisce il nome del campo specificato
+    </DT
+><DT
+><A
+HREF="function.fbsql-field-seek.html"
+>fbsql_field_seek</A
+>&nbsp;--&nbsp;
+     Imposta il puntatore del set di risultati ad un specifico indice di campo
+    </DT
+><DT
+><A
+HREF="function.fbsql-field-table.html"
+>fbsql_field_table</A
+>&nbsp;--&nbsp;
+     Ottiene il nome della tabella in cui si trova il campo
+    </DT
+><DT
+><A
+HREF="function.fbsql-field-type.html"
+>fbsql_field_type</A
+>&nbsp;--&nbsp;
+     Ottiene il tipo del campo specificato
+    </DT
+><DT
+><A
+HREF="function.fbsql-free-result.html"
+>fbsql_free_result</A
+>&nbsp;--&nbsp;Libera la memoria da un set di risultati</DT
+><DT
+><A
+HREF="function.fbsql-get-autostart-info.html"
+>fbsql_get_autostart_info</A
+>&nbsp;--&nbsp;Nessuna descrizione fornita, per ora</DT
+><DT
+><A
+HREF="function.fbsql-hostname.html"
+>fbsql_hostname</A
+>&nbsp;--&nbsp;Ottiene o imposta il nome del server per la connessione</DT
+><DT
+><A
+HREF="function.fbsql-insert-id.html"
+>fbsql_insert_id</A
+>&nbsp;--&nbsp;
+     restituisce l'id generato dalla precedente operazione di INSERT
+    </DT
+><DT
+><A
+HREF="function.fbsql-list-dbs.html"
+>fbsql_list_dbs</A
+>&nbsp;--&nbsp;
+     Elenca i database presenti su un server FrontBase
+    </DT
+><DT
+><A
+HREF="function.fbsql-list-fields.html"
+>fbsql_list_fields</A
+>&nbsp;--&nbsp;Elenca i campi di un set di risultati</DT
+><DT
+><A
+HREF="function.fbsql-list-tables.html"
+>fbsql_list_tables</A
+>&nbsp;--&nbsp;Elenxa le tabelle presenti in un database FrontBase</DT
+><DT
+><A
+HREF="function.fbsql-next-result.html"
+>fbsql_next_result</A
+>&nbsp;--&nbsp;
+     Muove il puntatore interno al risultato successivo
+    </DT
+><DT
+><A
+HREF="function.fbsql-num-fields.html"
+>fbsql_num_fields</A
+>&nbsp;--&nbsp;Ottiene il numero dei campi presenti in un set di risultati</DT
+><DT
+><A
+HREF="function.fbsql-num-rows.html"
+>fbsql_num_rows</A
+>&nbsp;--&nbsp;Restituisce il numero di righe presenti in un set di risultati</DT
+><DT
+><A
+HREF="function.fbsql-password.html"
+>fbsql_password</A
+>&nbsp;--&nbsp;Ottiene o imposta la password per la connessione</DT
+><DT
+><A
+HREF="function.fbsql-pconnect.html"
+>fbsql_pconnect</A
+>&nbsp;--&nbsp;
+     Apre una connessione persistente ad un server FrontBase
+    </DT
+><DT
+><A
+HREF="function.fbsql-query.html"
+>fbsql_query</A
+>&nbsp;--&nbsp;Invia una query a FrontBase</DT
+><DT
+><A
+HREF="function.fbsql-read-blob.html"
+>fbsql_read_blob</A
+>&nbsp;--&nbsp;Legge un BLOB dal database</DT
+><DT
+><A
+HREF="function.fbsql-read-clob.html"
+>fbsql_read_clob</A
+>&nbsp;--&nbsp;Legge un CLOB dal database</DT
+><DT
+><A
+HREF="function.fbsql-result.html"
+>fbsql_result</A
+>&nbsp;--&nbsp;Restituisce i dati di una query</DT
+><DT
+><A
+HREF="function.fbsql-rollback.html"
+>fbsql_rollback</A
+>&nbsp;--&nbsp;Esegue il rollback della transazione</DT
+><DT
+><A
+HREF="function.fbsql-select-db.html"
+>fbsql_select_db</A
+>&nbsp;--&nbsp;Seleziona un database FrontBase</DT
+><DT
+><A
+HREF="function.fbsql-set-lob-mode.html"
+>fbsql_set_lob_mode</A
+>&nbsp;--&nbsp;
+     Imposta la modalità LOB in un set di risultati FrontBase
+    </DT
+><DT
+><A
+HREF="function.fbsql-set-password.html"
+>fbsql_set_password</A
+>&nbsp;--&nbsp;
+     Change the password for a given user
+    </DT
+><DT
+><A
+HREF="function.fbsql-set-transaction.html"
+>fbsql_set_transaction</A
+>&nbsp;--&nbsp;
+     Imposta i lock e l'isolamento delle transazioni
+    </DT
+><DT
+><A
+HREF="function.fbsql-start-db.html"
+>fbsql_start_db</A
+>&nbsp;--&nbsp;Attiva un database locale o remoto</DT
+><DT
+><A
+HREF="function.fbsql-stop-db.html"
+>fbsql_stop_db</A
+>&nbsp;--&nbsp;Ferma un database locale o remoto</DT
+><DT
+><A
+HREF="function.fbsql-tablename.html"
+>fbsql_tablename</A
+>&nbsp;--&nbsp;Restituisce il nome della tabella dei campi</DT
+><DT
+><A
+HREF="function.fbsql-username.html"
+>fbsql_username</A
+>&nbsp;--&nbsp;Ottiene o imposta l'utente per la connessione</DT
+><DT
+><A
+HREF="function.fbsql-warnings.html"
+>fbsql_warnings</A
+>&nbsp;--&nbsp;Abilita o disabilita i warnings FrontBase</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fribidi-log2vis.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fbsql-affected-rows.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fribidi_log2vis</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fbsql_affected_rows</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Operatori bitwise</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Operatori"
+HREF="language.operators.html"><LINK
+REL="PREVIOUS"
+TITLE="Operatori di assegnazione"
+HREF="language.operators.assignment.html"><LINK
+REL="NEXT"
+TITLE="Operatori di confronto"
+HREF="language.operators.comparison.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.operators.assignment.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 15. Operatori</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.operators.comparison.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.operators.bitwise"
+>Operatori bitwise</A
+></H1
+><P
+>&#13;    Gli operatori bitwise vi permettono di alterare bit specifici
+    in posizione on oppure off. Se entrambi i parametri di sinistra e destra sono
+    stringhe, l'operatore bitwise opererà sui caratteri ASCII
+    della stringa.
+   </P
+><P
+>&#13;    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4278"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo </font><font color="#0000BB">12 </font><font color="#007700">^ </font><font color="#0000BB">9</font><font color="#007700">; </font><font color="#FF8000">// L'output è '5'<br /></font><font color="#007700">echo </font><font color="#DD0000">"12" </font><font color="#007700">^ </font><font color="#DD0000">"9"</font><font color="#007700">; </font><font color="#FF8000">// L'output è il carattere Backspace (ascii 8)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// ('1' (ascii 49)) ^ ('9' (ascii 57)) = #8<br /></font><font color="#007700">echo </font><font color="#DD0000">"hallo" </font><font color="#007700">^ </font><font color="#DD0000">"hello"</font><font color="#007700">; </font><font color="#FF8000">// L'output è il valore ascii #0 #4 #0 #0 #0<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 'a' ^ 'e' = #4<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN4280"
+></A
+><P
+><B
+>Tabella 15-3. Operatori bitwise</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Esempio</TH
+><TH
+>Nome</TH
+><TH
+>Risultato</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>$a &#38; $b</TD
+><TD
+>And</TD
+><TD
+>Sono impostati ad ON i bit che sono ON sia in $a che in $b.</TD
+></TR
+><TR
+><TD
+>$a | $b</TD
+><TD
+>Or</TD
+><TD
+>Sono impostati ad ON i bit che sono ON in $a oppure in $b.</TD
+></TR
+><TR
+><TD
+>$a ^ $b</TD
+><TD
+>Xor</TD
+><TD
+>&#13;	Sono impostati ad ON i bit che sono ON in $a oppure in $b na non quelli che sono entrambi ON.
+       </TD
+></TR
+><TR
+><TD
+>~ $a</TD
+><TD
+>Not</TD
+><TD
+>&#13;	Sono impostati ad ON i bit che sono OFF in $a, e viceversa.
+       </TD
+></TR
+><TR
+><TD
+>$a &#60;&#60; $b</TD
+><TD
+>Shift left</TD
+><TD
+>&#13;	Sposta i bit di $a a sinistra di $b passi (ogni passo significa
+	"moltiplica per due")
+       </TD
+></TR
+><TR
+><TD
+>$a &#62;&#62; $b</TD
+><TD
+>Shift right</TD
+><TD
+>&#13;	Sposta i bit di $a a destra di $b passi (ogni passo significa
+	"dividi per due")
+       </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     Non spostare a destra per più di 32 bit sui sistemi a 32 bit. Non spostare
+     a sinistra nei casi in cui il risultato è un numero più lungo di 32 bit.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.operators.assignment.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.operators.comparison.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Operatori di assegnazione</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.operators.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Operatori di confronto</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,449 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>setcookie</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni HTTP"
+HREF="ref.http.html"><LINK
+REL="PREVIOUS"
+TITLE="headers_sent"
+HREF="function.headers-sent.html"><LINK
+REL="NEXT"
+TITLE="setrawcookie"
+HREF="function.setrawcookie.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.headers-sent.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.setrawcookie.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.setcookie"
+></A
+>setcookie</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN49472"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>setcookie&nbsp;--&nbsp;Spedisce un cookie</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN49475"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>setcookie</B
+> ( string name [, string value [, int expire [, string path [, string domain [, int secure]]]]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>setcookie()</B
+> definisce un cookie da inviare insieme 
+     alle altre informazioni di header. I cookie devono essere spediti
+     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>prima</I
+></SPAN
+> di qualsiasi altra intestazione (questa è 
+     una restrizione dei cookies, non di PHP). E' necessario perciò chiamare 
+     la funzione <B
+CLASS="function"
+>setcookie()</B
+> <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>prima</I
+></SPAN
+> di 
+     qualsiasi tags, anche <VAR
+CLASS="literal"
+>&#60;html&#62;</VAR
+> o <VAR
+CLASS="literal"
+>&#60;head&#62;</VAR
+>.
+    </P
+><P
+>&#13;     Tutti gli argomenti della funzione eccetto <VAR
+CLASS="parameter"
+>name</VAR
+>
+     sono opzionali. Se viene passato alla funzione solo l'argomento 
+     <VAR
+CLASS="parameter"
+>name</VAR
+>, il cookie registrato con quel nome 
+     verrà cancellato dal client su cui è archiviato. E' possibile 
+     sostituire gli argomenti che non si intende specificare utitlizzando 
+     una stringa vuota (<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>""</I
+></SPAN
+>). Gli argomenti 
+     <VAR
+CLASS="parameter"
+>expire</VAR
+> e <VAR
+CLASS="parameter"
+>secure</VAR
+> che richiedono
+     numeri interi, non possono essere omessi inserendo una stringa vuota, per 
+     questo scopo si usa (<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>0</I
+></SPAN
+>). L'argomento 
+     <VAR
+CLASS="parameter"
+>expire</VAR
+> è un normale intero Unix Timestamp ottenibile
+     grazie alle funzioni <A
+HREF="function.time.html"
+><B
+CLASS="function"
+>time()</B
+></A
+> o <A
+HREF="function.mktime.html"
+><B
+CLASS="function"
+>mktime()</B
+></A
+>.
+     <VAR
+CLASS="parameter"
+>secure</VAR
+> sta ad indicare che il cookie dovrebbe essere
+     trasmesso soltanto attraverso un collegamento sicuro di tipo HTTPS.
+    </P
+><P
+>&#13;     Errori comuni:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        I cookie diventano disponibili soltanto dalla pagina successiva a quella
+        che li ha generati, o dopo il ricaricamento di questa. 
+       </P
+></LI
+><LI
+><P
+>&#13;        I cookie devono essere cancellati specificando gli stessi parametri con cui sono stati creati.
+       </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     In PHP 3, chiamate successive di <B
+CLASS="function"
+>setcookie()</B
+>
+     nello stesso script sono eseguite in ordine inverso. Se state provando 
+     a cancellare un cookie prima dell' inserimento di un altro cookie, 
+     dovete creare il secondo prima della cancellazione del primo. In PHP 4, 
+     chiamate successive di <B
+CLASS="function"
+>setcookie()</B
+> invece, sono eseguite secondo l'ordine di chiamata. 
+    </P
+><P
+>&#13;     Alcuni esempi sul modo di spedire cookie:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN49526"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>setcookie()</B
+> esempi di spedizione/creazione</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+setcookie ("TestCookie", "Test Value");<br />setcookie ("TestCookie", $value,time()+3600);&nbsp;&nbsp;/* aspira in 1 ora */<br />setcookie ("TestCookie", $value,time()+3600, "/~rasmus/", ".utoronto.ca", 1);</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Gli esempi mostrano come cancellare i cookie introdotti nell'esempio precedente:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN49531"
+></A
+><P
+><B
+>Esempio 2. <B
+CLASS="function"
+>setcookie()</B
+> esempi di cancellazione</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+setcookie ("TestCookie");<br />// set the expiration date to one hour ago<br />setcookie ("TestCookie", "", time() - 3600);<br />setcookie ("TestCookie", "", time() - 3600, "/~rasmus/", ".utoronto.ca", 1);</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Per cancellare un cookie dovete assicurarvi che la data di scadenza del 
+     cookie sia già trascorsa, in questo modo il cookie verrà rimosso dal client.
+    </P
+><P
+>&#13;     Si noti che i valori salvati nei cookies sono automaticamente codificati
+     per la trasmissione via URL (urlencoded) quando il cookie viene inviato, 
+     e che al momento del richiamo sono automaticamente decodificati e assegnati ad 
+     una variabile che ha lo stesso nome del cookie. Per vedere il contenuto di 
+     un cookie in uno script, si usa una di queste due sintassi: 
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN49536"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+echo $TestCookie;<br />echo $HTTP_COOKIE_VARS["TestCookie"];</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Potete registrare array in un cookie usando la notazione degli array 
+     al posto del nome del cookie. Questo equivale alla spedizione di tanti 
+     cookie quanti sono gli elementi dell'array, ma si ha un vantaggio: quando 
+     il cookie è ricevuto, tutti i suoi valori sono ordinati in un singolo array 
+     che ha per nome il nome del cookie:
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN49539"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+setcookie ("cookie[three]", "cookiethree");<br />setcookie ("cookie[two]", "cookietwo");<br />setcookie ("cookie[one]", "cookieone");<br />if (isset ($cookie)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;while (list ($name, $value) = each ($cookie)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "$name == $value&amp;lt;br&gt;\n";<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Per saperne di più sui cookies, Netscape's cookie
+     specification è la risorsa giusta <A
+HREF="http://wp.netscape.com/newsref/std/cookie_spec.html"
+TARGET="_top"
+>http://wp.netscape.com/newsref/std/cookie_spec.html</A
+>.
+    </P
+><P
+>&#13;     Microsoft Internet Explorer 4 con Service Pack 1 non 
+     crea correttamente cookie che hanno il parametro 
+     <VAR
+CLASS="parameter"
+>path</VAR
+> specificato.
+    </P
+><P
+>&#13;     Netscape Communicator 4.05 e Microsoft Internet Explorer 3.x 
+     sembrano utilizzare in modo errato i cookie quando 
+     <VAR
+CLASS="parameter"
+>path</VAR
+> ed <VAR
+CLASS="parameter"
+>expire</VAR
+> non sono specificati.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.headers-sent.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.setrawcookie.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>headers_sent</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.http.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>setrawcookie</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

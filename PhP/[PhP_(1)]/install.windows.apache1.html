@@ -1,0 +1,457 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Apache 1.3.x on Microsoft Windows</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation on Windows systems"
+HREF="install.windows.html"><LINK
+REL="PREVIOUS"
+TITLE="Microsoft IIS / PWS"
+HREF="install.windows.iis.html"><LINK
+REL="NEXT"
+TITLE="Apache 2.0.x on Microsoft Windows"
+HREF="install.windows.apache2.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.windows.iis.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 6. Installation on Windows systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.windows.apache2.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.windows.apache1"
+>Apache 1.3.x on Microsoft Windows</A
+></H1
+><P
+>&#13;     This section contains notes and hints specific to Apache 1.3.x installs
+     of PHP on Microsoft Windows systems. There are also
+     <A
+HREF="install.windows.apache2.html"
+>instructions and notes
+     for Apache 2</A
+> on a separate page.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Please read the <A
+HREF="install.windows.manual.html"
+>manual
+      installation steps</A
+> first!
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     There are two ways to set up PHP to work with Apache 1.3.x
+     on Windows. One is to use the CGI binary (<TT
+CLASS="filename"
+>php.exe</TT
+>
+     for PHP 4 and <TT
+CLASS="filename"
+>php-cgi.exe</TT
+> for PHP 5),
+     the other is to use the Apache Module DLL. In either case
+     you need to edit your <TT
+CLASS="filename"
+>httpd.conf</TT
+> to configure Apache to
+     work with PHP, and then restart the server.
+    </P
+><P
+>&#13;     It is worth noting here that now the SAPI module has been 
+     made more stable under Windows, we recommend it's use above
+     the CGI binary, since it is more transparent and secure.
+    </P
+><P
+>&#13;     Although there can be a few variations of configuring PHP
+     under Apache, these are simple enough to be used by the
+     newcomer. Please consult the Apache Documentation for further
+     configuration directives.
+    </P
+><P
+>&#13;     After changing the configuration file, remember to restart the server, for
+     example, <B
+CLASS="command"
+>NET STOP APACHE</B
+> followed by
+     <B
+CLASS="command"
+>NET START APACHE</B
+>, if you run Apache as a Windows
+     Service, or use your regular shortcuts.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Remember that when adding
+path values in the Apache configuration files on Windows, all backslashes
+such as <TT
+CLASS="filename"
+>c:\directory\file.ext</TT
+> must be converted to
+forward slashes, as <TT
+CLASS="filename"
+>c:/directory/file.ext</TT
+>.</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.windows.apache1.module"
+>Installing as an Apache module</A
+></H2
+><P
+>&#13;      You should add the following lines to your Apache <TT
+CLASS="filename"
+>httpd.conf</TT
+> file:
+     </P
+><P
+>&#13;      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN1483"
+></A
+><P
+><B
+>Esempio 6-3. PHP as an Apache 1.3.x module</B
+></P
+><P
+>&#13;         This assumes PHP is installed to <TT
+CLASS="filename"
+>c:\php</TT
+>. Adjust the
+         path if this is not the case.
+        </P
+><P
+>&#13;         For PHP 4:
+        </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache-conf"
+># Add to the end of the LoadModule section
+# Don't forget to copy this file from the sapi directory!
+LoadModule php4_module "C:/php/php4apache.dll"
+
+# Add to the end of the AddModule section
+AddModule mod_php4.c</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;        For PHP 5:
+       </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache-conf"
+># Add to the end of the LoadModule section
+LoadModule php5_module "C:/php/php5apache.dll"
+
+# Add to the end of the AddModule section
+AddModule mod_php5.c</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;        For both:
+       </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache-conf"
+># Add this line inside the &#60;IfModule mod_mime.c&#62; conditional brace
+AddType application/x-httpd-php .php
+
+# For syntax highlighted .phps files, also add
+AddType application/x-httpd-php-source .phps</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.windows.apache1.cgi"
+>Installing as a CGI binary</A
+></H2
+><P
+>&#13;      If you unzipped the PHP package to <TT
+CLASS="filename"
+>C:\php\</TT
+> as described
+      in the <A
+HREF="install.windows.manual.html"
+>Manual
+      Installation Steps</A
+> section, you need to insert
+      these lines to your Apache configuration file to set
+      up the CGI binary:
+      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN1498"
+></A
+><P
+><B
+>Esempio 6-4. PHP and Apache 1.3.x as CGI</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache-conf"
+>ScriptAlias /php/ "c:/php/"
+AddType application/x-httpd-php .php
+
+# For PHP 4
+Action application/x-httpd-php "/php/php.exe"
+
+# For PHP 5
+Action application/x-httpd-php "/php/php-cgi.exe"
+
+# specify the directory where php.ini is
+SetEnv PHPRC C:/php</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+      Note that the second line in the list above can be found
+      in the actual versions of <TT
+CLASS="filename"
+>httpd.conf</TT
+>, but it is commented out. Remember
+      also to substitute the <TT
+CLASS="filename"
+>c:/php/</TT
+> for your actual path to
+      PHP.
+     </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>By using the CGI setup, your server
+is open to several possible attacks. Please read our
+<A
+HREF="security.cgi-bin.html"
+>CGI security section</A
+> to learn how to
+defend yourself from those attacks.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;      If you would like to present PHP source files syntax highlighted, there
+      is no such convenient option as with the module version of PHP.
+      If you chose to configure Apache to use PHP as a CGI binary, you
+      will need to use the <A
+HREF="function.highlight-file.html"
+><B
+CLASS="function"
+>highlight_file()</B
+></A
+> function. To
+      do this simply create a PHP script file and add this code: 
+      <VAR
+CLASS="literal"
+>&#60;?php highlight_file('some_php_script.php'); ?&#62;</VAR
+>.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.windows.iis.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.windows.apache2.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Microsoft IIS / PWS</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.windows.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Apache 2.0.x on Microsoft Windows</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

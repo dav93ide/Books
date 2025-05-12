@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>apache_lookup_uri</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Apache"
+HREF="ref.apache.html"><LINK
+REL="PREVIOUS"
+TITLE="apache_getenv"
+HREF="function.apache-getenv.html"><LINK
+REL="NEXT"
+TITLE="apache_note"
+HREF="function.apache-note.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.apache-getenv.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.apache-note.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.apache-lookup-uri"
+></A
+>apache_lookup_uri</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN8404"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.4, PHP 4, PHP 5)</P
+>apache_lookup_uri&nbsp;--&nbsp;
+     Esegue una richiesta parziale della URI specificata e restituisce
+     tutte le informazioni
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN8407"
+></A
+><H2
+>Descrizione</H2
+>object <B
+CLASS="methodname"
+>apache_lookup_uri</B
+> ( string nomefile )<BR
+></BR
+><P
+>&#13;     Questa funzione esegue una richiesta parziale per una URI. Esegue l'operazione 
+     finché ottiene tutte le informazioni importanti sulla
+     risorsa e restituisce queste informazioni in una classe. Le proprietà
+     della classe restituita sono:
+     <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+>status</TD
+></TR
+><TR
+><TD
+>the_request</TD
+></TR
+><TR
+><TD
+>status_line</TD
+></TR
+><TR
+><TD
+>method</TD
+></TR
+><TR
+><TD
+>content_type</TD
+></TR
+><TR
+><TD
+>handler</TD
+></TR
+><TR
+><TD
+>uri</TD
+></TR
+><TR
+><TD
+>filename</TD
+></TR
+><TR
+><TD
+>path_info</TD
+></TR
+><TR
+><TD
+>args</TD
+></TR
+><TR
+><TD
+>boundary</TD
+></TR
+><TR
+><TD
+>no_cache</TD
+></TR
+><TR
+><TD
+>no_local_copy</TD
+></TR
+><TR
+><TD
+>allowed</TD
+></TR
+><TR
+><TD
+>send_bodyct</TD
+></TR
+><TR
+><TD
+>bytes_sent</TD
+></TR
+><TR
+><TD
+>byterange</TD
+></TR
+><TR
+><TD
+>clength</TD
+></TR
+><TR
+><TD
+>unparsed_uri</TD
+></TR
+><TR
+><TD
+>mtime</TD
+></TR
+><TR
+><TD
+>request_time</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN8439"
+></A
+><P
+><B
+>Esempio 1. esempio di <B
+CLASS="function"
+>apache_lookup_uri()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$info </font><font color="#007700">= </font><font color="#0000BB">apache_lookup_uri</font><font color="#007700">(</font><font color="#DD0000">'index.php?var=value'</font><font color="#007700">);<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$info</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">file_exists</font><font color="#007700">(</font><font color="#0000BB">$info</font><font color="#007700">-&gt;</font><font color="#0000BB">filename</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'file exists!'</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Questo esempio produrrà un risultato simile al seguente:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>stdClass Object
+(
+    [status] =&#62; 200
+    [the_request] =&#62; GET /dir/file.php HTTP/1.1
+    [method] =&#62; GET
+    [mtime] =&#62; 0
+    [clength] =&#62; 0
+    [chunked] =&#62; 0
+    [content_type] =&#62; application/x-httpd-php
+    [no_cache] =&#62; 0
+    [no_local_copy] =&#62; 1
+    [unparsed_uri] =&#62; /dir/index.php?var=value
+    [uri] =&#62; /dir/index.php
+    [filename] =&#62; /home/htdocs/dir/index.php
+    [args] =&#62; var=value
+    [allowed] =&#62; 0
+    [sent_bodyct] =&#62; 0
+    [bytes_sent] =&#62; 0
+    [request_time] =&#62; 1074282764
+)
+file exists!</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <B
+CLASS="function"
+>apache_lookup_uri()</B
+> funziona solo quando PHP
+     è installato come modulo Apache.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.apache-getenv.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.apache-note.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>apache_getenv</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.apache.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>apache_note</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

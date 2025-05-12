@@ -1,0 +1,683 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni POSIX</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="zend_version"
+HREF="function.zend-version.html"><LINK
+REL="NEXT"
+TITLE="posix_access"
+HREF="function.posix-access.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.zend-version.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.posix-access.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.posix"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXII. Funzioni POSIX</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN130706"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="posix.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Questo modulo contiene un'interfaccia alle funzioni definite
+     dallo standard IEEE 1003.1 (POSIX.1) che non sono accessibili
+     in altro modo. Ad esempio lo standard POSIX.1 definisce le
+     funzioni open(), read(), write() e close() che tradizionalmente 
+     sono parte di PHP 3 da lungo tempo. Altre funzioni più specifiche
+     del sistema operativo non sono disponibili,
+     e quindi con questo modulo si cerca di porre rimedio a questa mancanza
+     dando un facile accesso a queste funzioni.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Con le funzioni POSIX si possono ricavare informazioni sensibili
+      tipo <A
+HREF="function.posix-getpwnam.html"
+><B
+CLASS="function"
+>posix_getpwnam()</B
+></A
+> e simili. Nessuna delle funzioni
+      POSIX esegue alcun tipo di controllo di accesso quando è abilitata la
+      <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+>.
+      Pertanto è <SPAN
+CLASS="strong"
+><B
+CLASS="emphasis"
+>vivamente</B
+></SPAN
+> consigliato
+      di disabilitare l'estensione POSIX (impostare
+      <VAR
+CLASS="literal"
+>--disable-posix</VAR
+> nella linea di configurazione) se si opera
+      con la modalità sicura.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questo modulo non è
+disponibile su piattaforme Windows.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="posix.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Le funzioni POSIX sono abilitate per default. Si possono disabilitare
+  con <VAR
+CLASS="option"
+>--disable-posix</VAR
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="posix.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>POSIX_F_OK</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Check whether the file exists.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>POSIX_R_OK</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Check whether the file exists and has read permissions.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>POSIX_W_OK</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Check whether the file exists and has write permissions.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>POSIX_X_OK</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Check whether the file exists and has execute permissions.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>POSIX_S_IFBLK</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Block special file
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>POSIX_S_IFCHR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Character special file
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>POSIX_S_IFIFO</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     FIFO (named pipe) special file
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>POSIX_S_IFREG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Normal file
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>POSIX_S_IFSOCK</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Socket
+    </P
+></DD
+></DL
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+   These constants are available since PHP 5.1.0. Please also note that some
+   of them may not be available in your system.
+  </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="posix.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     Potrebbe essere interessante anche la sezione <A
+HREF="ref.pcntl.html"
+>Funzioni per il controllo dei processi</A
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.posix-access.html"
+>posix_access</A
+>&nbsp;--&nbsp;
+   Determine accessibility of a file
+  </DT
+><DT
+><A
+HREF="function.posix-ctermid.html"
+>posix_ctermid</A
+>&nbsp;--&nbsp;Restituisce il percorso del terminale </DT
+><DT
+><A
+HREF="function.posix-get-last-error.html"
+>posix_get_last_error</A
+>&nbsp;--&nbsp;
+     Recupera il numero di errore dell'ultima funzione
+     posix non riuscita
+    </DT
+><DT
+><A
+HREF="function.posix-getcwd.html"
+>posix_getcwd</A
+>&nbsp;--&nbsp;Percorso della directory corrente</DT
+><DT
+><A
+HREF="function.posix-getegid.html"
+>posix_getegid</A
+>&nbsp;--&nbsp;
+     Restituisce l'ID del gruppo per il processo corrente
+    </DT
+><DT
+><A
+HREF="function.posix-geteuid.html"
+>posix_geteuid</A
+>&nbsp;--&nbsp;
+     Restituisce l'ID dell'utente per il processo corrente
+    </DT
+><DT
+><A
+HREF="function.posix-getgid.html"
+>posix_getgid</A
+>&nbsp;--&nbsp;
+     Restituisce il reale ID del gruppo per il processo corrente
+    </DT
+><DT
+><A
+HREF="function.posix-getgrgid.html"
+>posix_getgrgid</A
+>&nbsp;--&nbsp;Restituisce informazioni su un gruppo dato il suo ID</DT
+><DT
+><A
+HREF="function.posix-getgrnam.html"
+>posix_getgrnam</A
+>&nbsp;--&nbsp;Restituisce le informazioni di un gruppo dato il nome</DT
+><DT
+><A
+HREF="function.posix-getgroups.html"
+>posix_getgroups</A
+>&nbsp;--&nbsp;
+     Restituisce i gruppi per il processo corrente
+    </DT
+><DT
+><A
+HREF="function.posix-getlogin.html"
+>posix_getlogin</A
+>&nbsp;--&nbsp;Restituisce il nome dell'utente</DT
+><DT
+><A
+HREF="function.posix-getpgid.html"
+>posix_getpgid</A
+>&nbsp;--&nbsp;Restituisce l'id del gruppo del processo per il controllo dei job</DT
+><DT
+><A
+HREF="function.posix-getpgrp.html"
+>posix_getpgrp</A
+>&nbsp;--&nbsp;
+     Restituisce l'identificatore di gruppo per il processo corrente
+    </DT
+><DT
+><A
+HREF="function.posix-getpid.html"
+>posix_getpid</A
+>&nbsp;--&nbsp;Restituisce l'ID per il processo corrente</DT
+><DT
+><A
+HREF="function.posix-getppid.html"
+>posix_getppid</A
+>&nbsp;--&nbsp;Restituisce l'ID del processo genitore</DT
+><DT
+><A
+HREF="function.posix-getpwnam.html"
+>posix_getpwnam</A
+>&nbsp;--&nbsp;Restituisce informazioni su un utente dato il nome</DT
+><DT
+><A
+HREF="function.posix-getpwuid.html"
+>posix_getpwuid</A
+>&nbsp;--&nbsp;Restituisce le informazioni di un utente dato il suo ID</DT
+><DT
+><A
+HREF="function.posix-getrlimit.html"
+>posix_getrlimit</A
+>&nbsp;--&nbsp;Restituisce informazioni sui limiti delle risorse del sistema</DT
+><DT
+><A
+HREF="function.posix-getsid.html"
+>posix_getsid</A
+>&nbsp;--&nbsp;Restituisce il sid corrente per un processo</DT
+><DT
+><A
+HREF="function.posix-getuid.html"
+>posix_getuid</A
+>&nbsp;--&nbsp;
+     Restituisce il reale ID dell'utente per il processo corrente
+    </DT
+><DT
+><A
+HREF="function.posix-isatty.html"
+>posix_isatty</A
+>&nbsp;--&nbsp;
+     Determina se il decrittore di file è un terminale
+    </DT
+><DT
+><A
+HREF="function.posix-kill.html"
+>posix_kill</A
+>&nbsp;--&nbsp;Invia un segnale ad un processo</DT
+><DT
+><A
+HREF="function.posix-mkfifo.html"
+>posix_mkfifo</A
+>&nbsp;--&nbsp;
+     Crea un file speciale di tipo fifo (una pipe nominata)
+    </DT
+><DT
+><A
+HREF="function.posix-mknod.html"
+>posix_mknod</A
+>&nbsp;--&nbsp;
+   Create a special or ordinary file (POSIX.1)
+  </DT
+><DT
+><A
+HREF="function.posix-setegid.html"
+>posix_setegid</A
+>&nbsp;--&nbsp;
+     Imposta l'effettivo GID per il processo corrente
+    </DT
+><DT
+><A
+HREF="function.posix-seteuid.html"
+>posix_seteuid</A
+>&nbsp;--&nbsp;
+     Imposta l'effettivo UID del processo corrente
+    </DT
+><DT
+><A
+HREF="function.posix-setgid.html"
+>posix_setgid</A
+>&nbsp;--&nbsp;
+     Imposta il GID per il processo corrente
+    </DT
+><DT
+><A
+HREF="function.posix-setpgid.html"
+>posix_setpgid</A
+>&nbsp;--&nbsp;Imposta l'id di gruppo per il controllo dei job</DT
+><DT
+><A
+HREF="function.posix-setsid.html"
+>posix_setsid</A
+>&nbsp;--&nbsp;Rende il processo corrente leader di sessione</DT
+><DT
+><A
+HREF="function.posix-setuid.html"
+>posix_setuid</A
+>&nbsp;--&nbsp;
+     Imposta l'UID per il processo corrente
+    </DT
+><DT
+><A
+HREF="function.posix-strerror.html"
+>posix_strerror</A
+>&nbsp;--&nbsp;
+     Recupera il messaggio di errore di un dato codice di errore
+    </DT
+><DT
+><A
+HREF="function.posix-times.html"
+>posix_times</A
+>&nbsp;--&nbsp;Restituisce il tempo del processo</DT
+><DT
+><A
+HREF="function.posix-ttyname.html"
+>posix_ttyname</A
+>&nbsp;--&nbsp;Determina il nome del device per il terminale</DT
+><DT
+><A
+HREF="function.posix-uname.html"
+>posix_uname</A
+>&nbsp;--&nbsp;Restituisce il nome del sistema</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.zend-version.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.posix-access.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>zend_version</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>posix_access</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

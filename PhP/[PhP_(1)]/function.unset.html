@@ -1,0 +1,490 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>unset</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per la gestione delle variabili"
+HREF="ref.var.html"><LINK
+REL="PREVIOUS"
+TITLE="unserialize"
+HREF="function.unserialize.html"><LINK
+REL="NEXT"
+TITLE="var_dump"
+HREF="function.var-dump.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.unserialize.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.var-dump.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.unset"
+></A
+>unset</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN174040"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>unset&nbsp;--&nbsp;Cancella una data variabile</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN174043"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>unset</B
+> ( mixed var [, mixed var [, mixed ...]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>unset()</B
+> distrugge la variabile specificata. Occorre
+     notare che in PHP 3 la funzione <B
+CLASS="function"
+>unset()</B
+> restituiva sempre <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>
+     (in realtà era il valore 1). In PHP 4, invece, la funzione 
+     <B
+CLASS="function"
+>unset()</B
+> non è più una vera funzione, ora è una
+     istruzione. In questa veste non ritorna alcun valore, e cercare di ottenere
+     un valore dalla funzione <B
+CLASS="function"
+>unset()</B
+> produce un errore
+     di parsing.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN174064"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>unset()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Distrugge una singola variabile<br /></font><font color="#007700">unset(</font><font color="#0000BB">$foo</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// distrugge un singolo elemento di un array<br /></font><font color="#007700">unset(</font><font color="#0000BB">$bar</font><font color="#007700">[</font><font color="#DD0000">'quux'</font><font color="#007700">]);<br /><br /></font><font color="#FF8000">// distrugge più di una variabile<br /></font><font color="#007700">unset(</font><font color="#0000BB">$foo1</font><font color="#007700">, </font><font color="#0000BB">$foo2</font><font color="#007700">, </font><font color="#0000BB">$foo3</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Il comportamento di <B
+CLASS="function"
+>unset()</B
+> all'interno di una funzione
+     può variare in funzione del tipo di variabile che si intende
+     distruggere.
+    </P
+><P
+>&#13;     Se si applica <B
+CLASS="function"
+>unset()</B
+> ad una variabile globale all'interno
+     di una funzione, sarà distrutta solo la variabile locale. Nell'ambiente 
+     chiamante, la variabile manterrà il medesimo valore che aveva prima dell'uso 
+     di <B
+CLASS="function"
+>unset()</B
+>.
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN174073"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">destroy_foo</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;global </font><font color="#0000BB">$foo</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;unset(</font><font color="#0000BB">$foo</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#DD0000">'bar'</font><font color="#007700">;<br /></font><font color="#0000BB">destroy_foo</font><font color="#007700">();<br />echo </font><font color="#0000BB">$foo</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>Il precedente esempio visualizzerà:</P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN174077"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>bar</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Nel caso di una variabile PASSATA PER RIFERIMENTO ad una funzione, 
+     l'uso della funzione <B
+CLASS="function"
+>unset()</B
+> distrugge solo la copia
+     locale della variabile. Nell'ambiente chiamante, la variabile manterrà
+     il medesimo valore che aveva prima dell'uso 
+     di <B
+CLASS="function"
+>unset()</B
+>.
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN174082"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">foo</font><font color="#007700">(&amp;</font><font color="#0000BB">$bar</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;unset(</font><font color="#0000BB">$bar</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$bar </font><font color="#007700">= </font><font color="#DD0000">"blah"</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">$bar </font><font color="#007700">= </font><font color="#DD0000">'something'</font><font color="#007700">;<br />echo </font><font color="#DD0000">"$bar</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">foo</font><font color="#007700">(</font><font color="#0000BB">$bar</font><font color="#007700">);<br />echo </font><font color="#DD0000">"$bar</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>Il precedente esempio visualizzerà:</P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN174086"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>something
+something</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Se si usa <B
+CLASS="function"
+>unset()</B
+> su una variabile statica all'interno
+     di una funzione, <B
+CLASS="function"
+>unset()</B
+> cancella la variabile e tutti
+     i suoi riferimenti.
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN174091"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">foo</font><font color="#007700">() <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;static </font><font color="#0000BB">$a</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$a</font><font color="#007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$a</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;unset(</font><font color="#0000BB">$a</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">foo</font><font color="#007700">();<br /></font><font color="#0000BB">foo</font><font color="#007700">();<br /></font><font color="#0000BB">foo</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>Il precedente esempio visualizzerà:</P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN174095"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>1
+2
+3</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Se si desidera cancellare una variabile globale dall'interno di una funzione, 
+     occorre usare <B
+CLASS="function"
+>unset()</B
+> sull'array <VAR
+CLASS="varname"
+>$GLOBALS</VAR
+> 
+     nel seguente modo:
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN174100"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">foo</font><font color="#007700">() <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;unset(</font><font color="#0000BB">$GLOBALS</font><font color="#007700">[</font><font color="#DD0000">'bar'</font><font color="#007700">]);<br />}<br /><br /></font><font color="#0000BB">$bar </font><font color="#007700">= </font><font color="#DD0000">"something"</font><font color="#007700">;<br /></font><font color="#0000BB">foo</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Poichè questo è
+un costrutto del linguaggio e non una funzione, non può essere chiamato con le
+<A
+HREF="functions.variable-functions.html"
+>variabili funzione</A
+></P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.isset.html"
+><B
+CLASS="function"
+>isset()</B
+></A
+> e
+     <A
+HREF="function.empty.html"
+><B
+CLASS="function"
+>empty()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.unserialize.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.var-dump.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>unserialize</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.var.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>var_dump</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

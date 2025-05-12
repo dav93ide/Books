@@ -1,0 +1,410 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>xattr Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="win32_stop_service"
+HREF="function.win32-stop-service.html"><LINK
+REL="NEXT"
+TITLE="xattr_get"
+HREF="function.xattr-get.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.win32-stop-service.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.xattr-get.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.xattr"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CLIX. xattr Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN175921"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xattr.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     The xattr extension allows for the manipulation of extended attributes on a filesystem.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xattr.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     To use xattr, you will need libattr installed. It is available
+     at <A
+HREF="http://oss.sgi.com/projects/xfs/"
+TARGET="_top"
+>http://oss.sgi.com/projects/xfs/</A
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      These functions only work on filesystems that support extended 
+      attributes, and have them enabled at mount time. Some common
+      filesystems that support extended attributes are ext2, ext3,
+      reiserfs, jfs, and xfs.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xattr.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  xattr is currently available through PECL
+  <A
+HREF="http://pecl.php.net/package/xattr"
+TARGET="_top"
+>http://pecl.php.net/package/xattr</A
+>.
+ </P
+><P
+>&#13;  If <A
+HREF="http://pear.php.net/"
+TARGET="_top"
+>PEAR</A
+> is available on your *nix-like
+  system you can use the pear installer to install the xattr extension, by the
+  following command: <B
+CLASS="command"
+>pear -v install xattr</B
+>.
+ </P
+><P
+>&#13;  You can always download the tar.gz package and install xattr by hand:
+  <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN175939"
+></A
+><P
+><B
+>Esempio 1. xattr install by hand</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>gunzip xattr-xxx.tgz
+tar -xvf xattr-xxx.tar
+cd xattr-xxx
+phpize
+./configure &#38;&#38; make &#38;&#38; make install</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xattr.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>XATTR_ROOT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Set attribute in root (trusted) namespace. Requires root privileges.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XATTR_DONTFOLLOW</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Do not follow the symbolic link but operate on symbolic link itself.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XATTR_CREATE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Function will fail if extended attribute already exists.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XATTR_REPLACE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Function will fail if extended attribute doesn't exist.
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.xattr-get.html"
+>xattr_get</A
+>&nbsp;--&nbsp;
+   Get an extended attribute
+  </DT
+><DT
+><A
+HREF="function.xattr-list.html"
+>xattr_list</A
+>&nbsp;--&nbsp;
+   Get a list of extended attributes
+  </DT
+><DT
+><A
+HREF="function.xattr-remove.html"
+>xattr_remove</A
+>&nbsp;--&nbsp;
+   Remove an extended attribute
+  </DT
+><DT
+><A
+HREF="function.xattr-set.html"
+>xattr_set</A
+>&nbsp;--&nbsp;
+   Set an extended attribute
+  </DT
+><DT
+><A
+HREF="function.xattr-supported.html"
+>xattr_supported</A
+>&nbsp;--&nbsp;
+   Check if filesystem supports extended attributes
+  </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.win32-stop-service.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.xattr-get.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>win32_stop_service</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>xattr_get</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

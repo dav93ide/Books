@@ -1,0 +1,407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pg_prepare</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni PostgreSQL"
+HREF="ref.pgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="pg_port"
+HREF="function.pg-port.html"><LINK
+REL="NEXT"
+TITLE="pg_put_line"
+HREF="function.pg-put-line.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pg-port.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-put-line.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pg-prepare"
+></A
+>pg_prepare</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN134162"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>pg_prepare&nbsp;--&nbsp; Submits a request to create a prepared statement with the 
+  given parameters, and waits for completion.</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134165"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>pg_prepare</B
+> ( resource connection, string stmtname, string query )<BR
+></BR
+>resource <B
+CLASS="methodname"
+>pg_prepare</B
+> ( string stmtname, string query )<BR
+></BR
+><P
+>&#13;    <B
+CLASS="function"
+>pg_prepare()</B
+> creates a prepared statement for later execution with 
+    <A
+HREF="function.pg-execute.html"
+><B
+CLASS="function"
+>pg_execute()</B
+></A
+> or <A
+HREF="function.pg-send-execute.html"
+><B
+CLASS="function"
+>pg_send_execute()</B
+></A
+>. 
+    This feature allows commands that will be used repeatedly to 
+    be parsed and planned just once, rather than each time they are executed. 
+    <B
+CLASS="function"
+>pg_prepare()</B
+> is supported only against PostgreSQL 7.4 or
+    higher connections; it will fail when using earlier versions.
+  </P
+><P
+>&#13;    The function creates a prepared statement named <VAR
+CLASS="parameter"
+>stmtname</VAR
+> from the <VAR
+CLASS="parameter"
+>query</VAR
+> 
+    string, which must contain a single SQL command. <VAR
+CLASS="parameter"
+>stmtname</VAR
+> may be "" to 
+    create an unnamed statement, in which case any pre-existing unnamed 
+    statement is automatically replaced; otherwise it is an error if the 
+    statement name is already defined in the current session. If any parameters 
+    are used, they are referred to in the <VAR
+CLASS="parameter"
+>query</VAR
+> as $1, $2, etc.
+  </P
+><P
+>&#13;    Prepared statements for use with <B
+CLASS="function"
+>pg_prepare()</B
+> can also be created by 
+    executing SQL <VAR
+CLASS="literal"
+>PREPARE</VAR
+> statements. (But <B
+CLASS="function"
+>pg_prepare()</B
+> is more flexible since it 
+    does not require parameter types to be pre-specified.) Also, although there 
+    is no PHP function for deleting a prepared statement, the SQL <VAR
+CLASS="literal"
+>DEALLOCATE</VAR
+>
+    statement can be used for that purpose.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134203"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       PostgreSQL database connection resource.  When 
+       <VAR
+CLASS="parameter"
+>connection</VAR
+> is not present, the default connection 
+       is used. The default connection is the last connection made by 
+       <A
+HREF="function.pg-connect.html"
+><B
+CLASS="function"
+>pg_connect()</B
+></A
+> or <A
+HREF="function.pg-pconnect.html"
+><B
+CLASS="function"
+>pg_pconnect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>stmtname</VAR
+></DT
+><DD
+><P
+>&#13;       The name to give the prepared statement.  Must be unique per-connection.  If
+       "" is specified, then an unnamed statement is created, overwriting any
+       previously defined unnamed statement.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>query</VAR
+></DT
+><DD
+><P
+>&#13;       The parameterised SQL statement.  Must contain only a single statement.
+       (multiple statements separated by semi-colons are not allowed.)  If any parameters 
+       are used, they are referred to as $1, $2, etc.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134225"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   A query result resource on success, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on failure.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134229"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN134232"
+></A
+><P
+><B
+>Esempio 1. Using <B
+CLASS="function"
+>pg_prepare()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Connect to a database named "mary"<br /></font><font color="#0000BB">$dbconn </font><font color="#007700">= </font><font color="#0000BB">pg_connect</font><font color="#007700">(</font><font color="#DD0000">"dbname=mary"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Prepare a query for execution<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_prepare</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"my_query"</font><font color="#007700">, </font><font color="#DD0000">'SELECT * FROM shops WHERE name = $1'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Execute the prepared query.&nbsp;&nbsp;Note that it is not necessary to escape<br />// the string "Joe's Widgets" in any way<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_execute</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"my_query"</font><font color="#007700">, array(</font><font color="#DD0000">"Joe's Widgets"</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Execute the same prepared query, this time with a different parameter<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_execute</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"my_query"</font><font color="#007700">, array(</font><font color="#DD0000">"Clothes Clothes Clothes"</font><font color="#007700">));<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134236"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.pg-execute.html"
+><B
+CLASS="function"
+>pg_execute()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.pg-send-execute.html"
+><B
+CLASS="function"
+>pg_send_execute()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pg-port.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-put-line.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pg_port</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pgsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_put_line</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

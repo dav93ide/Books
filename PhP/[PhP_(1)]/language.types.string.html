@@ -1,0 +1,1248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Strings</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Types"
+HREF="language.types.html"><LINK
+REL="PREVIOUS"
+TITLE="Floating point numbers"
+HREF="language.types.float.html"><LINK
+REL="NEXT"
+TITLE="Arrays"
+HREF="language.types.array.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.types.float.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 11. Types</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.types.array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.types.string"
+>Strings</A
+></H1
+><P
+>&#13;    A <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+> is series of characters. In PHP,
+    a character is the same as a byte, that is, there are exactly
+    256 different characters possible. This also implies that PHP
+    has no native support of Unicode. See <A
+HREF="function.utf8-encode.html"
+><B
+CLASS="function"
+>utf8_encode()</B
+></A
+>
+    and <A
+HREF="function.utf8-decode.html"
+><B
+CLASS="function"
+>utf8_decode()</B
+></A
+> for some Unicode support.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     It is no problem for a string to become very large. 
+     There is no practical bound to the size
+     of strings imposed by PHP, so there is no reason at all
+     to worry about long strings.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.string.syntax"
+>Syntax</A
+></H2
+><P
+>&#13;     A string literal can be specified in three different
+     ways.
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        <A
+HREF="language.types.string.html#language.types.string.syntax.single"
+>single quoted</A
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        <A
+HREF="language.types.string.html#language.types.string.syntax.double"
+>double quoted</A
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        <A
+HREF="language.types.string.html#language.types.string.syntax.heredoc"
+>heredoc syntax</A
+>
+       </P
+></LI
+></UL
+>
+    </P
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="language.types.string.syntax.single"
+>Single quoted</A
+></H3
+><P
+>&#13;      The easiest way to specify a simple string is to
+      enclose it in single quotes (the character <VAR
+CLASS="literal"
+>'</VAR
+>). 
+     </P
+><P
+>&#13;      To specify a literal single
+      quote, you will need to escape it with a backslash
+      (<VAR
+CLASS="literal"
+>\</VAR
+>), like in many other languages.
+      If a backslash needs to occur before a single quote or at 
+      the end of the string, you need to double it.
+      Note that if you try to escape any
+      other character, the backslash will also be printed! So
+      usually there is no need to escape the backslash itself.
+      <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        In PHP 3, a warning will
+        be issued at the <VAR
+CLASS="literal"
+>E_NOTICE</VAR
+> level when this
+        happens.
+       </P
+></BLOCKQUOTE
+></DIV
+>
+      <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        Unlike the two other syntaxes, <A
+HREF="language.variables.html"
+>variables</A
+> and escape sequences
+        for special characters will <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>not</I
+></SPAN
+> be expanded 
+        when they occur in single quoted strings.
+       </P
+></BLOCKQUOTE
+></DIV
+>
+      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3023"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo </font><font color="#DD0000">'this is a simple string'</font><font color="#007700">;<br /><br />echo </font><font color="#DD0000">'You can also have embedded newlines in <br />strings this way as it is<br />okay to do'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Outputs: Arnold once said: "I'll be back"<br /></font><font color="#007700">echo </font><font color="#DD0000">'Arnold once said: "I\'ll be back"'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Outputs: You deleted C:\*.*?<br /></font><font color="#007700">echo </font><font color="#DD0000">'You deleted C:\\*.*?'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Outputs: You deleted C:\*.*?<br /></font><font color="#007700">echo </font><font color="#DD0000">'You deleted C:\*.*?'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Outputs: This will not expand: \n a newline<br /></font><font color="#007700">echo </font><font color="#DD0000">'This will not expand: \n a newline'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Outputs: Variables do not $expand $either<br /></font><font color="#007700">echo </font><font color="#DD0000">'Variables do not $expand $either'</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     </P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="language.types.string.syntax.double"
+>Double quoted</A
+></H3
+><P
+>&#13;      If the string is enclosed in double-quotes ("),
+      PHP understands more escape sequences for special
+      characters:
+     </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN3028"
+></A
+><P
+><B
+>Tabella 11-1. Escaped characters</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>sequence</TH
+><TH
+>meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>\n</VAR
+></TD
+><TD
+>linefeed (LF or 0x0A (10) in ASCII)</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>\r</VAR
+></TD
+><TD
+>carriage return (CR or 0x0D (13) in ASCII)</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>\t</VAR
+></TD
+><TD
+>horizontal tab (HT or 0x09 (9) in ASCII)</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>\\</VAR
+></TD
+><TD
+>backslash</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>\$</VAR
+></TD
+><TD
+>dollar sign</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>\"</VAR
+></TD
+><TD
+>double-quote</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>\[0-7]{1,3}</VAR
+></TD
+><TD
+>&#13;          the sequence of characters matching the regular
+          expression is a character in octal notation
+         </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>\x[0-9A-Fa-f]{1,2}</VAR
+></TD
+><TD
+>&#13;          the sequence of characters matching the regular
+          expression is a character in hexadecimal notation
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;      Again, if you try to escape any other character, the
+      backslash will be printed too!
+     </P
+><P
+>&#13;      But the most important feature of double-quoted strings
+      is the fact that variable names will be expanded.
+      See <A
+HREF="language.types.string.html#language.types.string.parsing"
+>string 
+      parsing</A
+> for details.
+     </P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="language.types.string.syntax.heredoc"
+>Heredoc</A
+></H3
+><P
+>&#13;      Another way to delimit strings is by using heredoc syntax
+      ("&#60;&#60;&#60;").  One should provide an identifier after
+      <VAR
+CLASS="literal"
+>&#60;&#60;&#60;</VAR
+>, then the string, and then the
+      same identifier to close the quotation. 
+     </P
+><P
+>&#13;      The closing identifier <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>must</I
+></SPAN
+> begin in the
+      first column of the line. Also, the identifier used must follow
+      the same naming rules as any other label in PHP: it must contain
+      only alphanumeric characters and underscores, and must start with
+      a non-digit character or underscore.
+     </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;       It is very important to note that the line with the closing
+       identifier contains no other characters, except 
+       <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>possibly</I
+></SPAN
+> a semicolon (<VAR
+CLASS="literal"
+>;</VAR
+>).
+       That means especially that the identifier 
+       <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>may not be indented</I
+></SPAN
+>, and there
+       may not be any spaces or tabs after or before the semicolon.
+       It's also important to realize that the first character before
+       the closing identifier must be a newline as defined by your
+       operating system. This is <VAR
+CLASS="literal"
+>\r</VAR
+> on Macintosh
+       for example.
+      </P
+><P
+>&#13;       If this rule is broken and the closing identifier is not "clean"
+       then it's not considered to be a closing identifier and PHP 
+       will continue looking for one.  If in this case a proper closing 
+       identifier is not found then a parse error will result with the 
+       line number being at the end of the script.
+      </P
+><P
+>&#13;       It is not allowed to use heredoc syntax in initializing class members.
+       Use other string syntaxes instead.
+       <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3085"
+></A
+><P
+><B
+>Esempio 11-3. Invalid example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">foo </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $bar </font><font color="#007700">= &lt;&lt;&lt;EOT<br /></font><font color="#0000BB">bar<br /></font><font color="#007700">EOT;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+      </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;      Heredoc text behaves just like a double-quoted string, without
+      the double-quotes. This means that you do not need to escape quotes
+      in your here docs, but you can still use the escape codes listed
+      above. Variables are expanded, but the same care must be taken
+      when expressing complex variables inside a heredoc as with
+      strings.
+      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3089"
+></A
+><P
+><B
+>Esempio 11-4. Heredoc string quoting example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$str </font><font color="#007700">= &lt;&lt;&lt;EOD<br /></font><font color="#0000BB">Example of string<br />spanning multiple lines<br />using heredoc syntax.<br /></font><font color="#007700">EOD;<br /><br /></font><font color="#FF8000">/* More complex example, with variables. */<br /></font><font color="#007700">class </font><font color="#0000BB">foo<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$foo</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$bar</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">foo</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">foo </font><font color="#007700">= </font><font color="#DD0000">'Foo'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">bar </font><font color="#007700">= array(</font><font color="#DD0000">'Bar1'</font><font color="#007700">, </font><font color="#DD0000">'Bar2'</font><font color="#007700">, </font><font color="#DD0000">'Bar3'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$foo </font><font color="#007700">= new </font><font color="#0000BB">foo</font><font color="#007700">();<br /></font><font color="#0000BB">$name </font><font color="#007700">= </font><font color="#DD0000">'MyName'</font><font color="#007700">;<br /><br />echo &lt;&lt;&lt;EOT<br /></font><font color="#0000BB">My name is "$name". I am printing some $foo</font><font color="#007700">-&gt;</font><font color="#0000BB">foo.<br />Now, I am printing some </font><font color="#007700">{</font><font color="#0000BB">$foo</font><font color="#007700">-&gt;</font><font color="#0000BB">bar</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">]}</font><font color="#0000BB">.<br />This should print a capital 'A': </font><font color="#007700">\x41</font><font color="#0000BB"><br /></font><font color="#007700">EOT;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Heredoc support was added in PHP 4.
+      </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="language.types.string.parsing"
+>Variable parsing</A
+></H3
+><P
+>&#13;      When a string is specified in double quotes or with
+      heredoc, <A
+HREF="language.variables.html"
+>variables</A
+> are 
+      parsed within it. 
+     </P
+><P
+>&#13;      There are two types of syntax: a 
+      <A
+HREF="language.types.string.html#language.types.string.parsing.simple"
+>simple</A
+>
+      one and a 
+      <A
+HREF="language.types.string.html#language.types.string.parsing.complex"
+>complex</A
+>
+      one.
+      The simple syntax is the most common and convenient. It provides a way
+      to parse a variable, an <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> value, or an 
+      object property.
+     </P
+><P
+>&#13;      The complex syntax was introduced in PHP 4, and can be recognised
+      by the curly braces surrounding the expression.
+     </P
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="language.types.string.parsing.simple"
+>Simple syntax</A
+></H4
+><P
+>&#13;       If a dollar sign (<VAR
+CLASS="literal"
+>$</VAR
+>) is encountered, the
+       parser will greedily take as many tokens as possible to form a
+       valid variable name. Enclose the variable name in curly
+       braces if you want to explicitly specify the end of the name.
+      </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3108"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$beer </font><font color="#007700">= </font><font color="#DD0000">'Heineken'</font><font color="#007700">;<br />echo </font><font color="#DD0000">"$beer's taste is great"</font><font color="#007700">; </font><font color="#FF8000">// works, "'" is an invalid character for varnames<br /></font><font color="#007700">echo </font><font color="#DD0000">"He drank some $beers"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// won't work, 's' is a valid character for varnames<br /></font><font color="#007700">echo </font><font color="#DD0000">"He drank some </font><font color="#007700">${</font><font color="#DD0000">beer</font><font color="#007700">}</font><font color="#DD0000">s"</font><font color="#007700">; </font><font color="#FF8000">// works<br /></font><font color="#007700">echo </font><font color="#DD0000">"He drank some </font><font color="#007700">{</font><font color="#DD0000">$beer</font><font color="#007700">}</font><font color="#DD0000">s"</font><font color="#007700">; </font><font color="#FF8000">// works<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;       Similarly, you can also have an <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> index or an 
+       object property parsed. With array indices, the closing square 
+       bracket (<VAR
+CLASS="literal"
+>]</VAR
+>) marks the end of the index. For
+       object properties the same rules apply as to simple variables,
+       though with object properties there doesn't exist a trick like
+       the one with variables.
+       
+       
+      
+      </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3114"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// These examples are specific to using arrays inside of strings.<br />// When outside of a string, always quote your array string keys <br />// and do not use {braces} when outside of strings either.<br /><br />// Let's show all errors<br /></font><font color="#0000BB">error_reporting</font><font color="#007700">(</font><font color="#0000BB">E_ALL</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$fruits </font><font color="#007700">= array(</font><font color="#DD0000">'strawberry' </font><font color="#007700">=&gt; </font><font color="#DD0000">'red'</font><font color="#007700">, </font><font color="#DD0000">'banana' </font><font color="#007700">=&gt; </font><font color="#DD0000">'yellow'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Works but note that this works differently outside string-quotes<br /></font><font color="#007700">echo </font><font color="#DD0000">"A banana is $fruits</font><font color="#007700">[</font><font color="#DD0000">banana</font><font color="#007700">]</font><font color="#DD0000">."</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Works<br /></font><font color="#007700">echo </font><font color="#DD0000">"A banana is </font><font color="#007700">{</font><font color="#DD0000">$fruits</font><font color="#007700">[</font><font color="#DD0000">'banana'</font><font color="#007700">]}</font><font color="#DD0000">."</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Works but PHP looks for a constant named banana first<br />// as described below.<br /></font><font color="#007700">echo </font><font color="#DD0000">"A banana is </font><font color="#007700">{</font><font color="#DD0000">$fruits</font><font color="#007700">[</font><font color="#DD0000">banana</font><font color="#007700">]}</font><font color="#DD0000">."</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Won't work, use braces.&nbsp;&nbsp;This results in a parse error.<br /></font><font color="#007700">echo </font><font color="#DD0000">"A banana is $fruits</font><font color="#007700">[</font><font color="#DD0000">'banana'</font><font color="#007700">]</font><font color="#DD0000">."</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Works<br /></font><font color="#007700">echo </font><font color="#DD0000">"A banana is " </font><font color="#007700">. </font><font color="#0000BB">$fruits</font><font color="#007700">[</font><font color="#DD0000">'banana'</font><font color="#007700">] . </font><font color="#DD0000">"."</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Works<br /></font><font color="#007700">echo </font><font color="#DD0000">"This square is $square</font><font color="#007700">-&gt;</font><font color="#DD0000">width meters broad."</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Won't work. For a solution, see the complex syntax.<br /></font><font color="#007700">echo </font><font color="#DD0000">"This square is $square</font><font color="#007700">-&gt;</font><font color="#DD0000">width00 centimeters broad."</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;       For anything more complex, you should use the complex syntax.
+      </P
+></DIV
+><DIV
+CLASS="sect4"
+><H4
+CLASS="sect4"
+><A
+NAME="language.types.string.parsing.complex"
+>Complex (curly) syntax</A
+></H4
+><P
+>&#13;       This isn't called complex because the syntax is complex,
+       but because you can include complex expressions this way.
+     </P
+><P
+>&#13;      In fact, you can include any value that is in the namespace
+      in strings with this syntax. You simply write the expression
+      the same way as you would outside the string, and then include
+      it in { and }. Since you can't escape '{', this syntax will
+      only be recognised when the $ is immediately following the {.
+      (Use "{\$" or "\{$" to get a literal "{$").
+      Some examples to make it clear:
+     </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3121"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Let's show all errors<br /></font><font color="#0000BB">error_reporting</font><font color="#007700">(</font><font color="#0000BB">E_ALL</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$great </font><font color="#007700">= </font><font color="#DD0000">'fantastic'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Won't work, outputs: This is { fantastic}<br /></font><font color="#007700">echo </font><font color="#DD0000">"This is </font><font color="#007700">{</font><font color="#DD0000"> $great</font><font color="#007700">}</font><font color="#DD0000">"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Works, outputs: This is fantastic<br /></font><font color="#007700">echo </font><font color="#DD0000">"This is </font><font color="#007700">{</font><font color="#DD0000">$great</font><font color="#007700">}</font><font color="#DD0000">"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"This is </font><font color="#007700">${</font><font color="#DD0000">great</font><font color="#007700">}</font><font color="#DD0000">"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Works<br /></font><font color="#007700">echo </font><font color="#DD0000">"This square is </font><font color="#007700">{</font><font color="#DD0000">$square</font><font color="#007700">-&gt;</font><font color="#DD0000">width</font><font color="#007700">}</font><font color="#DD0000">00 centimeters broad."</font><font color="#007700">; <br /><br /></font><font color="#FF8000">// Works<br /></font><font color="#007700">echo </font><font color="#DD0000">"This works: </font><font color="#007700">{</font><font color="#DD0000">$arr</font><font color="#007700">[</font><font color="#DD0000">4</font><font color="#007700">][</font><font color="#DD0000">3</font><font color="#007700">]}</font><font color="#DD0000">"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// This is wrong for the same reason as $foo[bar] is wrong <br />// outside a string.&nbsp;&nbsp;In other words, it will still work but<br />// because PHP first looks for a constant named foo, it will<br />// throw an error of level E_NOTICE (undefined constant).<br /></font><font color="#007700">echo </font><font color="#DD0000">"This is wrong: </font><font color="#007700">{</font><font color="#DD0000">$arr</font><font color="#007700">[</font><font color="#DD0000">foo</font><font color="#007700">][</font><font color="#DD0000">3</font><font color="#007700">]}</font><font color="#DD0000">"</font><font color="#007700">; <br /><br /></font><font color="#FF8000">// Works.&nbsp;&nbsp;When using multi-dimensional arrays, always use<br />// braces around arrays when inside of strings<br /></font><font color="#007700">echo </font><font color="#DD0000">"This works: </font><font color="#007700">{</font><font color="#DD0000">$arr</font><font color="#007700">[</font><font color="#DD0000">'foo'</font><font color="#007700">][</font><font color="#DD0000">3</font><font color="#007700">]}</font><font color="#DD0000">"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Works.<br /></font><font color="#007700">echo </font><font color="#DD0000">"This works: " </font><font color="#007700">. </font><font color="#0000BB">$arr</font><font color="#007700">[</font><font color="#DD0000">'foo'</font><font color="#007700">][</font><font color="#0000BB">3</font><font color="#007700">];<br /><br />echo </font><font color="#DD0000">"You can even write </font><font color="#007700">{</font><font color="#DD0000">$obj</font><font color="#007700">-&gt;</font><font color="#DD0000">values</font><font color="#007700">[</font><font color="#DD0000">3</font><font color="#007700">]-&gt;</font><font color="#DD0000">name</font><font color="#007700">}</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />echo </font><font color="#DD0000">"This is the value of the var named $name: </font><font color="#007700">{${</font><font color="#DD0000">$name</font><font color="#007700">}}</font><font color="#DD0000">"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="language.types.string.substr"
+>String access and modification by character</A
+></H3
+><P
+>&#13;      Characters within strings may be accessed and modified by specifying the
+      zero-based offset of the desired character after the string 
+      in curly braces.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       For backwards compatibility, you can still use array-brackets
+       for the same purpose. However, this syntax is deprecated as
+       of PHP 4.
+      </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN3129"
+></A
+><P
+><B
+>Esempio 11-5. Some string examples</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Get the first character of a string<br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#DD0000">'This is a test.'</font><font color="#007700">;<br /></font><font color="#0000BB">$first </font><font color="#007700">= </font><font color="#0000BB">$str</font><font color="#007700">{</font><font color="#0000BB">0</font><font color="#007700">};<br /><br /></font><font color="#FF8000">// Get the third character of a string<br /></font><font color="#0000BB">$third </font><font color="#007700">= </font><font color="#0000BB">$str</font><font color="#007700">{</font><font color="#0000BB">2</font><font color="#007700">};<br /><br /></font><font color="#FF8000">// Get the last character of a string.<br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#DD0000">'This is still a test.'</font><font color="#007700">;<br /></font><font color="#0000BB">$last </font><font color="#007700">= </font><font color="#0000BB">$str</font><font color="#007700">{</font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">)-</font><font color="#0000BB">1</font><font color="#007700">}; <br /><br /></font><font color="#FF8000">// Modify the last character of a string<br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#DD0000">'Look at the sea'</font><font color="#007700">;<br /></font><font color="#0000BB">$str</font><font color="#007700">{</font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">)-</font><font color="#0000BB">1</font><font color="#007700">} = </font><font color="#DD0000">'e'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.string.useful-funcs"
+>Useful functions and operators</A
+></H2
+><P
+>&#13;     Strings may be concatenated using the '.' (dot) operator. Note
+     that the '+' (addition) operator will not work for this. Please
+     see <A
+HREF="language.operators.string.html"
+>String
+     operators</A
+> for more information.
+    </P
+><P
+>&#13;     There are a lot of useful functions for string modification.
+    </P
+><P
+>&#13;     See the <A
+HREF="ref.strings.html"
+>string functions section</A
+> 
+     for general functions, the regular expression functions for
+     advanced find&#38;replacing (in two tastes: 
+     <A
+HREF="ref.pcre.html"
+>Perl</A
+> and 
+     <A
+HREF="ref.regex.html"
+>POSIX extended</A
+>).
+    </P
+><P
+>&#13;     There are also <A
+HREF="ref.url.html"
+>functions for URL-strings</A
+>,
+     and functions to encrypt/decrypt strings 
+     (<A
+HREF="ref.mcrypt.html"
+>mcrypt</A
+> and 
+     <A
+HREF="ref.mhash.html"
+>mhash</A
+>).
+    </P
+><P
+>&#13;     Finally, if you still didn't find what you're looking for,
+     see also the <A
+HREF="ref.ctype.html"
+>character type functions</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.string.casting"
+>Converting to string</A
+></H2
+><P
+>&#13;     You can convert a value to a string using the <VAR
+CLASS="literal"
+>(string)</VAR
+>
+     cast, or the <A
+HREF="function.strval.html"
+><B
+CLASS="function"
+>strval()</B
+></A
+> function. String conversion
+     is automatically done in the scope of an expression for you where a
+     string is needed. This happens when you use the <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+>
+     or <A
+HREF="function.print.html"
+><B
+CLASS="function"
+>print()</B
+></A
+> functions, or when you compare a variable
+     value to a string.  Reading the manual sections on <A
+HREF="language.types.html"
+>Types</A
+> and <A
+HREF="language.types.type-juggling.html"
+>Type Juggling</A
+> will make
+     the following clearer.  See also <A
+HREF="function.settype.html"
+><B
+CLASS="function"
+>settype()</B
+></A
+>.
+    </P
+><P
+>&#13;     A <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+> <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> value is converted to the string <VAR
+CLASS="literal"
+>"1"</VAR
+>,
+     the <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> value is represented as <VAR
+CLASS="literal"
+>""</VAR
+> (empty string).
+     This way you can convert back and forth between boolean and string values.
+    </P
+><P
+> 
+     An <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+> or a floating point number (<A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+>) 
+     is converted to a string representing the number with its digits
+     (including the exponent part for floating point numbers).
+    </P
+><P
+>&#13;     Arrays are always converted to the string <VAR
+CLASS="literal"
+>"Array"</VAR
+>,
+     so you cannot dump out the contents of an <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> with 
+     <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+> or <A
+HREF="function.print.html"
+><B
+CLASS="function"
+>print()</B
+></A
+> to see what is inside 
+     them.  To view one element, you'd do something like <VAR
+CLASS="literal"
+>&#13;     echo $arr['foo']</VAR
+>.  See below for tips on dumping/viewing the 
+     entire contents.
+    </P
+><P
+>&#13;     Objects are always converted to the string <VAR
+CLASS="literal"
+>"Object"</VAR
+>.
+     If you would like to print out the member variable values of an 
+     <A
+HREF="language.types.object.html"
+><B
+CLASS="type"
+>object</B
+></A
+> for debugging reasons, read the paragraphs 
+     below. If you would like to find out the class name of which an object 
+     is an instance of, use <A
+HREF="function.get-class.html"
+><B
+CLASS="function"
+>get_class()</B
+></A
+>.
+     As of PHP 5, __toString() method is used if applicable.
+    </P
+><P
+>&#13;     Resources are always converted to strings with the structure
+     <VAR
+CLASS="literal"
+>"Resource id #1"</VAR
+> where <VAR
+CLASS="literal"
+>1</VAR
+> is
+     the unique number of the <A
+HREF="language.types.resource.html"
+><B
+CLASS="type"
+>resource</B
+></A
+> assigned by PHP during runtime.
+     If you would like to get the type of the resource, use
+     <A
+HREF="function.get-resource-type.html"
+><B
+CLASS="function"
+>get_resource_type()</B
+></A
+>.
+    </P
+><P
+>&#13;     <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> is always converted to an empty string.
+    </P
+><P
+>&#13;     As you can see above, printing out the arrays, objects or resources does not
+     provide you any useful information about the values themselves. Look at the
+     functions <A
+HREF="function.print-r.html"
+><B
+CLASS="function"
+>print_r()</B
+></A
+> and <A
+HREF="function.var-dump.html"
+><B
+CLASS="function"
+>var_dump()</B
+></A
+>
+     for better ways to print out values for debugging.
+    </P
+><P
+>&#13;     You can also convert PHP values to strings to store them permanently. This
+     method is called serialization, and can be done with the function
+     <A
+HREF="function.serialize.html"
+><B
+CLASS="function"
+>serialize()</B
+></A
+>. You can also serialize PHP values to
+     XML structures, if you have <A
+HREF="ref.wddx.html"
+>WDDX</A
+> support
+     in your PHP setup.
+    </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.string.conversion"
+>String conversion to numbers</A
+></H2
+><P
+>&#13;     When a string is evaluated as a numeric value, the resulting
+     value and type are determined as follows.
+    </P
+><P
+>&#13;     The string will evaluate as a <A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+> if it contains any of the
+     characters '.', 'e', or 'E'. Otherwise, it will evaluate as an
+     integer.
+    </P
+><P
+>&#13;     The value is given by the initial portion of the string. If the
+     string starts with valid numeric data, this will be the value
+     used. Otherwise, the value will be 0 (zero). Valid numeric data
+     is an optional sign, followed by one or more digits (optionally
+     containing a decimal point), followed by an optional
+     exponent. The exponent is an 'e' or 'E' followed by one or more
+     digits.
+    </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3195"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$foo </font><font color="#007700">= </font><font color="#0000BB">1 </font><font color="#007700">+ </font><font color="#DD0000">"10.5"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is float (11.5)<br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#0000BB">1 </font><font color="#007700">+ </font><font color="#DD0000">"-1.3e3"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is float (-1299)<br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#0000BB">1 </font><font color="#007700">+ </font><font color="#DD0000">"bob-1.3e3"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is integer (1)<br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#0000BB">1 </font><font color="#007700">+ </font><font color="#DD0000">"bob3"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is integer (1)<br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#0000BB">1 </font><font color="#007700">+ </font><font color="#DD0000">"10 Small Pigs"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is integer (11)<br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#0000BB">4 </font><font color="#007700">+ </font><font color="#DD0000">"10.2 Little Piggies"</font><font color="#007700">; </font><font color="#FF8000">// $foo is float (14.2)<br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#DD0000">"10.0 pigs " </font><font color="#007700">+ </font><font color="#0000BB">1</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is float (11)<br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#DD0000">"10.0 pigs " </font><font color="#007700">+ </font><font color="#0000BB">1.0</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is float (11)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;     For more information on this conversion, see the Unix manual page
+     for strtod(3).
+    </P
+><P
+>&#13;     If you would like to test any of the examples in this section,
+     you can cut and paste the examples and insert the following line
+     to see for yourself what's going on:
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3199"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo </font><font color="#DD0000">"</font><font color="#007700">\$</font><font color="#DD0000">foo==$foo; type is " </font><font color="#007700">. </font><font color="#0000BB">gettype </font><font color="#007700">(</font><font color="#0000BB">$foo</font><font color="#007700">) . </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Do not expect to get the code of one character by converting it
+     to integer (as you would do in C for example). Use the functions
+     <A
+HREF="function.ord.html"
+><B
+CLASS="function"
+>ord()</B
+></A
+> and <A
+HREF="function.chr.html"
+><B
+CLASS="function"
+>chr()</B
+></A
+> to convert
+     between charcodes and characters.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.types.float.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.types.array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Floating point numbers</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.types.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Arrays</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sqlite_fetch_column_types</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SQLite"
+HREF="ref.sqlite.html"><LINK
+REL="PREVIOUS"
+TITLE="sqlite_fetch_array"
+HREF="function.sqlite-fetch-array.html"><LINK
+REL="NEXT"
+TITLE="sqlite_fetch_object"
+HREF="function.sqlite-fetch-object.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-fetch-array.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-fetch-object.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sqlite-fetch-column-types"
+></A
+>sqlite_fetch_column_types</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN157551"
+></A
+><P
+>    (PHP 5)</P
+>sqlite_fetch_column_types<P
+>    (no version information, might be only in CVS)</P
+>SQLiteDatabase-&#62;fetchColumnTypes&nbsp;--&nbsp;
+   Restituisce una matrice con il formato delle colonne di una tabella
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157555"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>sqlite_fetch_column_types</B
+> ( string table_name, resource dbhandle [, int result_type] )<BR
+></BR
+><P
+>Versione ad oggetti (metodo):</P
+>class <B
+CLASS="classname"
+>SQLiteDatabase</B
+> { <BR
+></BR
+>array <B
+CLASS="methodname"
+>fetchColumnTypes</B
+> ( string table_name [, int result_type] )<BR
+></BR
+>}<P
+>&#13;   <B
+CLASS="function"
+>sqlite_fetch_column_types()</B
+> rRestituisce una matrice
+   con il tipo di dato delle colonne della tabella indicata da <VAR
+CLASS="parameter"
+>table_name</VAR
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157585"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>table_name</VAR
+></DT
+><DD
+><P
+>&#13;       Nome della tabella.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>dbhandle</VAR
+></DT
+><DD
+><P
+>&#13;       Risorsa SQLite Database restituita da <B
+CLASS="function"
+>sqlite_open
+       ()</B
+> quando usato in modo procedurale. Questo parametro non è
+       richiesto nel metodo ad oggetti.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>result_type</VAR
+></DT
+><DD
+><P
+>The optional <VAR
+CLASS="parameter"
+>result_type</VAR
+>
+parameter accepts a constant and determines how the returned array will be
+indexed. Using <TT
+CLASS="constant"
+><B
+>SQLITE_ASSOC</B
+></TT
+> will return only associative
+indices (named fields) while <TT
+CLASS="constant"
+><B
+>SQLITE_NUM</B
+></TT
+> will return
+only numerical indices (ordinal field numbers). <TT
+CLASS="constant"
+><B
+>SQLITE_BOTH</B
+></TT
+>
+will return both associative and numerical indices.
+<TT
+CLASS="constant"
+><B
+>SQLITE_BOTH</B
+></TT
+> is the default for this function.</P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157610"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce una matrice con i tipi di dati delle colonne, oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di errore.
+  </P
+><P
+>I nomi delle colonne restituiti da 
+<VAR
+CLASS="literal"
+>SQLITE_ASSOC</VAR
+> e da
+<VAR
+CLASS="literal"
+>SQLITE_BOTH</VAR
+> saranno maiuscoli o minuscoli in base al valore
+del parametro di configurazione
+<A
+HREF="ref.sqlite.html#ini.sqlite.assoc-case"
+>sqlite.assoc_case</A
+>.</P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN157618"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN157621"
+></A
+><P
+><B
+>Esempio 1. Esempio procedurale</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$db </font><font color="#007700">= </font><font color="#0000BB">sqlite_open</font><font color="#007700">(</font><font color="#DD0000">'mysqlitedb'</font><font color="#007700">);<br /></font><font color="#0000BB">sqlite_query</font><font color="#007700">(</font><font color="#0000BB">$db</font><font color="#007700">, </font><font color="#DD0000">'CREATE TABLE foo (bar varchar(10), arf text)'</font><font color="#007700">);<br /></font><font color="#0000BB">$cols </font><font color="#007700">= </font><font color="#0000BB">sqlite_fetch_column_types</font><font color="#007700">(</font><font color="#DD0000">'foo'</font><font color="#007700">, </font><font color="#0000BB">$db</font><font color="#007700">, </font><font color="#0000BB">SQLITE_ASSOC</font><font color="#007700">);<br /><br />foreach (</font><font color="#0000BB">$cols </font><font color="#007700">as </font><font color="#0000BB">$column </font><font color="#007700">=&gt; </font><font color="#0000BB">$type</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Column: $column&nbsp;&nbsp;Type: $type"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN157625"
+></A
+><P
+><B
+>Esempio 2. Esempio ad oggetti</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$db </font><font color="#007700">= new </font><font color="#0000BB">SQLiteDatabase</font><font color="#007700">(</font><font color="#DD0000">'mysqlitedb'</font><font color="#007700">);<br /></font><font color="#0000BB">$db</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">'CREATE TABLE foo (bar varchar(10), arf text)'</font><font color="#007700">);<br /></font><font color="#0000BB">$cols </font><font color="#007700">= </font><font color="#0000BB">$db</font><font color="#007700">-&gt;</font><font color="#0000BB">fetchColumnTypes</font><font color="#007700">(</font><font color="#DD0000">'foo'</font><font color="#007700">, </font><font color="#0000BB">SQLITE_ASSOC</font><font color="#007700">);<br /><br />foreach (</font><font color="#0000BB">$cols </font><font color="#007700">as </font><font color="#0000BB">$column </font><font color="#007700">=&gt; </font><font color="#0000BB">$type</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Column: $column&nbsp;&nbsp;Type: $type"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Column: bar  Type: VARCHAR
+Column: arf  Type: TEXT</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sqlite-fetch-array.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sqlite-fetch-object.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sqlite_fetch_array</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sqlite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sqlite_fetch_object</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

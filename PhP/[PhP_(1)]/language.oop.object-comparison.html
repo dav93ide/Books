@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Confronto di oggetti</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classi e Oggetti (PHP 4)"
+HREF="language.oop.html"><LINK
+REL="PREVIOUS"
+TITLE="Riferimenti all'interno del costruttore"
+HREF="language.oop.newref.html"><LINK
+REL="NEXT"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop.newref.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 18. Classi e Oggetti (PHP 4)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop.object-comparison"
+>Confronto di oggetti</A
+></H1
+><P
+>&#13;   In PHP 4, gli oggetti sono confrontati semplicemente, cioè: due istanze
+   di oggetto sono uguali se hanno gli stessi attributi e valori, e sono
+   istanze della stessa classe. Questa regola regola è applicata anche nel confronto
+   di due oggetti utilizzando l'operatore di identità (<VAR
+CLASS="literal"
+>===</VAR
+>).
+  </P
+><P
+>&#13;   Eseguendo il codice seguente:
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5681"
+></A
+><P
+><B
+>Esempio 18-1. Esempio di confronto di oggetti in PHP 4</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">bool2str</font><font color="#007700">(</font><font color="#0000BB">$bool</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$bool </font><font color="#007700">=== </font><font color="#0000BB">false</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#DD0000">'FALSE'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#DD0000">'TRUE'</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />function </font><font color="#0000BB">compareObjects</font><font color="#007700">(&amp;</font><font color="#0000BB">$o1</font><font color="#007700">, &amp;</font><font color="#0000BB">$o2</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'o1 == o2 : '</font><font color="#007700">.</font><font color="#0000BB">bool2str</font><font color="#007700">(</font><font color="#0000BB">$o1 </font><font color="#007700">== </font><font color="#0000BB">$o2</font><font color="#007700">).</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'o1 != o2 : '</font><font color="#007700">.</font><font color="#0000BB">bool2str</font><font color="#007700">(</font><font color="#0000BB">$o1 </font><font color="#007700">!= </font><font color="#0000BB">$o2</font><font color="#007700">).</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'o1 === o2 : '</font><font color="#007700">.</font><font color="#0000BB">bool2str</font><font color="#007700">(</font><font color="#0000BB">$o1 </font><font color="#007700">=== </font><font color="#0000BB">$o2</font><font color="#007700">).</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'o1 !== o2 : '</font><font color="#007700">.</font><font color="#0000BB">bool2str</font><font color="#007700">(</font><font color="#0000BB">$o1 </font><font color="#007700">!== </font><font color="#0000BB">$o2</font><font color="#007700">).</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /><br />class </font><font color="#0000BB">Flag </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$flag</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">Flag</font><font color="#007700">(</font><font color="#0000BB">$flag</font><font color="#007700">=</font><font color="#0000BB">true</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">flag </font><font color="#007700">= </font><font color="#0000BB">$flag</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class </font><font color="#0000BB">SwitchableFlag </font><font color="#007700">extends </font><font color="#0000BB">Flag </font><font color="#007700">{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">turnOn</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">flag </font><font color="#007700">= </font><font color="#0000BB">true</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">turnOff</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">flag </font><font color="#007700">= </font><font color="#0000BB">false</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$o </font><font color="#007700">= new </font><font color="#0000BB">Flag</font><font color="#007700">();<br /></font><font color="#0000BB">$p </font><font color="#007700">= new </font><font color="#0000BB">Flag</font><font color="#007700">(</font><font color="#0000BB">false</font><font color="#007700">);<br /></font><font color="#0000BB">$q </font><font color="#007700">= new </font><font color="#0000BB">Flag</font><font color="#007700">();<br /><br /></font><font color="#0000BB">$r </font><font color="#007700">= new </font><font color="#0000BB">SwitchableFlag</font><font color="#007700">();<br /><br />echo </font><font color="#DD0000">"Confronto di istanze create con gli stessi parametri\n"</font><font color="#007700">;<br /></font><font color="#0000BB">compareObjects</font><font color="#007700">(</font><font color="#0000BB">$o</font><font color="#007700">, </font><font color="#0000BB">$q</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"\nConfronto di istanze create con parametri diversi\n"</font><font color="#007700">;<br /></font><font color="#0000BB">compareObjects</font><font color="#007700">(</font><font color="#0000BB">$o</font><font color="#007700">, </font><font color="#0000BB">$p</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"\nConfronto di un'istanza della classe genitore con una sottoclasse\n"</font><font color="#007700">;<br /></font><font color="#0000BB">compareObjects</font><font color="#007700">(</font><font color="#0000BB">$o</font><font color="#007700">, </font><font color="#0000BB">$r</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Confronto di istanze create con gli stessi parametri
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : TRUE
+o1 !== o2 : FALSE
+
+Confronto di istanze create con parametri diversi
+o1 == o2 : FALSE
+o1 != o2 : TRUE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE
+
+Confronto di un'istanza della classe genitore con una sottoclasse
+o1 == o2 : FALSE
+o1 != o2 : TRUE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   Questo è l'output che si ottiene secondo le regole di confronto
+   descritte sopra. Solo le istanze con gli stessi valori per gli attributi e derivanti dalla stessa
+   classe sono considerate uguali ed identiche.
+  </P
+><P
+>&#13;   Anche nei casi in cui l'oggetto è composto si applicano le stesse regole
+   di confronto. Nell'esempio seguente creiamo una classe contenitore che archivia
+   nell'array associativo <B
+CLASS="classname"
+>Flag</B
+> altri oggetti.
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5688"
+></A
+><P
+><B
+>Esempio 18-2. Confronto di oggetti composti in PHP 4</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">FlagSet </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$set</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">FlagSet</font><font color="#007700">(</font><font color="#0000BB">$flagArr </font><font color="#007700">= array()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">set </font><font color="#007700">= </font><font color="#0000BB">$flagArr</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">addFlag</font><font color="#007700">(</font><font color="#0000BB">$name</font><font color="#007700">, </font><font color="#0000BB">$flag</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">set</font><font color="#007700">[</font><font color="#0000BB">$name</font><font color="#007700">] = </font><font color="#0000BB">$flag</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">removeFlag</font><font color="#007700">(</font><font color="#0000BB">$name</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">array_key_exists</font><font color="#007700">(</font><font color="#0000BB">$name</font><font color="#007700">, </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">set</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unset(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">set</font><font color="#007700">[</font><font color="#0000BB">$name</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /><br /></font><font color="#0000BB">$u </font><font color="#007700">= new </font><font color="#0000BB">FlagSet</font><font color="#007700">();<br /></font><font color="#0000BB">$u</font><font color="#007700">-&gt;</font><font color="#0000BB">addFlag</font><font color="#007700">(</font><font color="#DD0000">'flag1'</font><font color="#007700">, </font><font color="#0000BB">$o</font><font color="#007700">);<br /></font><font color="#0000BB">$u</font><font color="#007700">-&gt;</font><font color="#0000BB">addFlag</font><font color="#007700">(</font><font color="#DD0000">'flag2'</font><font color="#007700">, </font><font color="#0000BB">$p</font><font color="#007700">);<br /></font><font color="#0000BB">$v </font><font color="#007700">= new </font><font color="#0000BB">FlagSet</font><font color="#007700">(array(</font><font color="#DD0000">'flag1'</font><font color="#007700">=&gt;</font><font color="#0000BB">$q</font><font color="#007700">, </font><font color="#DD0000">'flag2'</font><font color="#007700">=&gt;</font><font color="#0000BB">$p</font><font color="#007700">));<br /></font><font color="#0000BB">$w </font><font color="#007700">= new </font><font color="#0000BB">FlagSet</font><font color="#007700">(array(</font><font color="#DD0000">'flag1'</font><font color="#007700">=&gt;</font><font color="#0000BB">$q</font><font color="#007700">));<br /><br />echo </font><font color="#DD0000">"\nOggetti composti u(o,p) e v(q,p)\n"</font><font color="#007700">;<br /></font><font color="#0000BB">compareObjects</font><font color="#007700">(</font><font color="#0000BB">$u</font><font color="#007700">, </font><font color="#0000BB">$v</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"\nu(o,p) and w(q)\n"</font><font color="#007700">;<br /></font><font color="#0000BB">compareObjects</font><font color="#007700">(</font><font color="#0000BB">$u</font><font color="#007700">, </font><font color="#0000BB">$w</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Oggetti composti u(o,p) e v(q,p)
+o1 == o2 : TRUE
+o1 != o2 : FALSE
+o1 === o2 : TRUE
+o1 !== o2 : FALSE
+
+u(o,p) and w(q)
+o1 == o2 : FALSE
+o1 != o2 : TRUE
+o1 === o2 : FALSE
+o1 !== o2 : TRUE</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop.newref.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Riferimenti all'interno del costruttore</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Classes and Objects (PHP 5)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,669 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni GMP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="textdomain"
+HREF="function.textdomain.html"><LINK
+REL="NEXT"
+TITLE="gmp_abs"
+HREF="function.gmp-abs.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.textdomain.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.gmp-abs.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.gmp"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XLVI. Funzioni GMP</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN48401"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="gmp.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    Queste funzioni permettono di lavorare con numeri interi 
+    di lunghezza arbitraria usando le librerie GNU <ACRONYM
+CLASS="acronym"
+>MP</ACRONYM
+>. 
+   </P
+><P
+>&#13;     Queste funzioni sono state aggiunte in PHP 4.0.4.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Molte funzioni accettano argomenti numerici GMP, definiti come 
+      <VAR
+CLASS="literal"
+>risorse</VAR
+>più in basso.  Comunque, molte di queste funzioni accetteranno anche normali 
+      argomenti numerici e stringhe, considerato ciò è quindi possibile convertire 
+      queste ultime in numero. Inoltre, se c'è una funzione che può operare velocemente su 
+       argomenti interi, questa potrebbe essere usata al posto della più lenta quando l'argomento 
+      fornito è un intero. 
+      Questo è fatto con chiarezza, così la logica vuole che tu possa utilizzare
+      numeri interi in ogni funzione che richieda un numero GMP. 
+      Vedere anche la funzione <A
+HREF="function.gmp-init.html"
+><B
+CLASS="function"
+>gmp_init()</B
+></A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Se desideri specificare un "large integer" come costante, scrivilo 
+      tra virgolette come stringa. Se non lo fai, PHP interpreterà l'"integer literal" 
+      immediatamente, con una possibile perdita di precisione, 
+      ancora prima che la libreria <VAR
+CLASS="literal"
+>GMP</VAR
+> 
+      venga richiamata.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questo modulo non è
+disponibile su piattaforme Windows.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="gmp.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    Puoi scaricare la libreria <ACRONYM
+CLASS="acronym"
+>GMP</ACRONYM
+> dal sito <A
+HREF="http://www.swox.com/gmp/"
+TARGET="_top"
+>http://www.swox.com/gmp/</A
+>.  Dove è possibile anche scaricare il manuale  
+    <ACRONYM
+CLASS="acronym"
+>GMP</ACRONYM
+>.
+   </P
+><P
+>&#13;    Per usare queste funzioni è necessaria la versione 2 
+    o superiore delle librerie GMP.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="gmp.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Per potere utilizzare queste funzioni, occorre compilare il PHP con
+  il supporto <ACRONYM
+CLASS="acronym"
+>GMP</ACRONYM
+> utilizzando il parametro <VAR
+CLASS="option"
+>--with-gmp</VAR
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="gmp.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="gmp.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="gmp.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>GMP_ROUND_ZERO</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>GMP_ROUND_PLUSINF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>GMP_ROUND_MINUSINF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="gmp.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN48460"
+></A
+><P
+><B
+>Esempio 1. Funzione fattoriale usando GMP</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">fact </font><font color="#007700">(</font><font color="#0000BB">$x</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$x </font><font color="#007700">&lt;= </font><font color="#0000BB">1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">1</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">gmp_mul</font><font color="#007700">(</font><font color="#0000BB">$x</font><font color="#007700">, </font><font color="#0000BB">fact</font><font color="#007700">(</font><font color="#0000BB">$x</font><font color="#007700">-</font><font color="#0000BB">1</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />echo </font><font color="#0000BB">gmp_strval </font><font color="#007700">(</font><font color="#0000BB">fact </font><font color="#007700">(</font><font color="#0000BB">1000</font><font color="#007700">)) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Questo calcolerà il fattoriale di 1000 (numero abbastanza grande) 
+    molto velocemente. 
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="gmp.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     Ulteriori funzioni matematiche sono elencate nelle sezioni
+     <A
+HREF="ref.bc.html"
+>BCMath Funzione Matematiche a Precisione Arbitraria</A
+>
+     e <A
+HREF="ref.math.html"
+>Funzioni Matematiche</A
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.gmp-abs.html"
+>gmp_abs</A
+>&nbsp;--&nbsp;Valore assoluto</DT
+><DT
+><A
+HREF="function.gmp-add.html"
+>gmp_add</A
+>&nbsp;--&nbsp;Somma di numeri</DT
+><DT
+><A
+HREF="function.gmp-and.html"
+>gmp_and</A
+>&nbsp;--&nbsp;AND logico</DT
+><DT
+><A
+HREF="function.gmp-clrbit.html"
+>gmp_clrbit</A
+>&nbsp;--&nbsp;Pulisce bit</DT
+><DT
+><A
+HREF="function.gmp-cmp.html"
+>gmp_cmp</A
+>&nbsp;--&nbsp;Confronto di numeri</DT
+><DT
+><A
+HREF="function.gmp-com.html"
+>gmp_com</A
+>&nbsp;--&nbsp;Calcola il complemento a uno di 'a'</DT
+><DT
+><A
+HREF="function.gmp-div-q.html"
+>gmp_div_q</A
+>&nbsp;--&nbsp;Divide due numberi</DT
+><DT
+><A
+HREF="function.gmp-div-qr.html"
+>gmp_div_qr</A
+>&nbsp;--&nbsp;Divide due numeri e restituisce quoziente e resto</DT
+><DT
+><A
+HREF="function.gmp-div-r.html"
+>gmp_div_r</A
+>&nbsp;--&nbsp;Resto di una divisione</DT
+><DT
+><A
+HREF="function.gmp-div.html"
+>gmp_div</A
+>&nbsp;--&nbsp;Divisione di numberi</DT
+><DT
+><A
+HREF="function.gmp-divexact.html"
+>gmp_divexact</A
+>&nbsp;--&nbsp;Divisione intera di numeri</DT
+><DT
+><A
+HREF="function.gmp-fact.html"
+>gmp_fact</A
+>&nbsp;--&nbsp;Fattoriale</DT
+><DT
+><A
+HREF="function.gmp-gcd.html"
+>gmp_gcd</A
+>&nbsp;--&nbsp;Calcola il MCD</DT
+><DT
+><A
+HREF="function.gmp-gcdext.html"
+>gmp_gcdext</A
+>&nbsp;--&nbsp;Calcola il MCD e moltiplicatori</DT
+><DT
+><A
+HREF="function.gmp-hamdist.html"
+>gmp_hamdist</A
+>&nbsp;--&nbsp;Distanza dell'hamming</DT
+><DT
+><A
+HREF="function.gmp-init.html"
+>gmp_init</A
+>&nbsp;--&nbsp;Crea un numero GMP</DT
+><DT
+><A
+HREF="function.gmp-intval.html"
+>gmp_intval</A
+>&nbsp;--&nbsp;Converte un numero GMP in un intero</DT
+><DT
+><A
+HREF="function.gmp-invert.html"
+>gmp_invert</A
+>&nbsp;--&nbsp;Inversione di modulo</DT
+><DT
+><A
+HREF="function.gmp-jacobi.html"
+>gmp_jacobi</A
+>&nbsp;--&nbsp;Simbolo di Jacobi</DT
+><DT
+><A
+HREF="function.gmp-legendre.html"
+>gmp_legendre</A
+>&nbsp;--&nbsp;Simbolo di Legendre</DT
+><DT
+><A
+HREF="function.gmp-mod.html"
+>gmp_mod</A
+>&nbsp;--&nbsp;Modulo</DT
+><DT
+><A
+HREF="function.gmp-mul.html"
+>gmp_mul</A
+>&nbsp;--&nbsp;Prodotto di numeri</DT
+><DT
+><A
+HREF="function.gmp-neg.html"
+>gmp_neg</A
+>&nbsp;--&nbsp;Rende un numero negativo</DT
+><DT
+><A
+HREF="function.gmp-or.html"
+>gmp_or</A
+>&nbsp;--&nbsp;OR logico</DT
+><DT
+><A
+HREF="function.gmp-perfect-square.html"
+>gmp_perfect_square</A
+>&nbsp;--&nbsp;Controllo quadrato perfetto</DT
+><DT
+><A
+HREF="function.gmp-popcount.html"
+>gmp_popcount</A
+>&nbsp;--&nbsp;Conteggio della popolazione</DT
+><DT
+><A
+HREF="function.gmp-pow.html"
+>gmp_pow</A
+>&nbsp;--&nbsp;Eleva un  numero a potenza</DT
+><DT
+><A
+HREF="function.gmp-powm.html"
+>gmp_powm</A
+>&nbsp;--&nbsp;Modulo di un elevamento a potenza.</DT
+><DT
+><A
+HREF="function.gmp-prob-prime.html"
+>gmp_prob_prime</A
+>&nbsp;--&nbsp;Controlla se il numero è "probabilmente primo"</DT
+><DT
+><A
+HREF="function.gmp-random.html"
+>gmp_random</A
+>&nbsp;--&nbsp;Generatore di numeri casuali</DT
+><DT
+><A
+HREF="function.gmp-scan0.html"
+>gmp_scan0</A
+>&nbsp;--&nbsp;Ricerca per 0</DT
+><DT
+><A
+HREF="function.gmp-scan1.html"
+>gmp_scan1</A
+>&nbsp;--&nbsp;Ricerca per 1</DT
+><DT
+><A
+HREF="function.gmp-setbit.html"
+>gmp_setbit</A
+>&nbsp;--&nbsp;Imposta bit</DT
+><DT
+><A
+HREF="function.gmp-sign.html"
+>gmp_sign</A
+>&nbsp;--&nbsp;Segno di un numero</DT
+><DT
+><A
+HREF="function.gmp-sqrt.html"
+>gmp_sqrt</A
+>&nbsp;--&nbsp;Radice quadrata</DT
+><DT
+><A
+HREF="function.gmp-sqrtrem.html"
+>gmp_sqrtrem</A
+>&nbsp;--&nbsp;Radice quadrata con resto</DT
+><DT
+><A
+HREF="function.gmp-strval.html"
+>gmp_strval</A
+>&nbsp;--&nbsp;Converte un numero GMP in una stringa</DT
+><DT
+><A
+HREF="function.gmp-sub.html"
+>gmp_sub</A
+>&nbsp;--&nbsp;Sottrazione di numeri</DT
+><DT
+><A
+HREF="function.gmp-xor.html"
+>gmp_xor</A
+>&nbsp;--&nbsp;XOR logico</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.textdomain.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.gmp-abs.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>textdomain</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>gmp_abs</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fgetc</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="fflush"
+HREF="function.fflush.html"><LINK
+REL="NEXT"
+TITLE="fgetcsv"
+HREF="function.fgetcsv.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fflush.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fgetcsv.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fgetc"
+></A
+>fgetc</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN40742"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>fgetc&nbsp;--&nbsp;Prende un carattere da un puntatore a file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN40745"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>fgetc</B
+> ( resource handle )<BR
+></BR
+><P
+>&#13;     Restituisce una stringa contenente un singolo carattere letto dal file puntato
+     da <VAR
+CLASS="parameter"
+>handle</VAR
+>.
+     Restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> alla fine del file (EOF).
+    </P
+><P
+>The file pointer must be valid, and must point to
+a file successfully opened by <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+> or
+<A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+>.</P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione può
+restituire il Booleano <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, ma può anche restituire un valore non-Booleano valutato
+come <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, come ad esempio <VAR
+CLASS="literal"
+>0</VAR
+> o
+"". Per favore fare riferimento alla sezione <A
+HREF="language.types.boolean.html"
+>Booleans</A
+> per maggiori 
+informazioni. Usare <A
+HREF="language.operators.comparison.html"
+>l'operatore 
+=== </A
+> per controllare il valore restituito da questa 
+funzione.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN40767"
+></A
+><P
+><B
+>Esempio 1. Un esempio per <B
+CLASS="function"
+>fgetc()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'somefile.txt'</font><font color="#007700">, </font><font color="#DD0000">'r'</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$fp</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'Non si riesce ad aprire il file somefile.txt'</font><font color="#007700">;<br />}<br />while (</font><font color="#0000BB">false </font><font color="#007700">!== (</font><font color="#0000BB">$char </font><font color="#007700">= </font><font color="#0000BB">fgetc</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">))) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$char</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione è
+ binary-safe (gestisce correttamente i file binari)</P
+></BLOCKQUOTE
+></DIV
+><P
+> 
+     Vedere anche <A
+HREF="function.fread.html"
+><B
+CLASS="function"
+>fread()</B
+></A
+>, <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>,
+     <A
+HREF="function.popen.html"
+><B
+CLASS="function"
+>popen()</B
+></A
+>, <A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+> e
+     <A
+HREF="function.fgets.html"
+><B
+CLASS="function"
+>fgets()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fflush.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fgetcsv.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fflush</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fgetcsv</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

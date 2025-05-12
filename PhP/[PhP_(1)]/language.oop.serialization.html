@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Serializzare oggetti - oggetti nelle sessioni</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classi e Oggetti (PHP 4)"
+HREF="language.oop.html"><LINK
+REL="PREVIOUS"
+TITLE="parent"
+HREF="keyword.parent.html"><LINK
+REL="NEXT"
+TITLE="Le funzioni magiche __sleep e __wakeup"
+HREF="language.oop.magic-functions.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="keyword.parent.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 18. Classi e Oggetti (PHP 4)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop.magic-functions.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop.serialization"
+>Serializzare oggetti - oggetti nelle sessioni</A
+></H1
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    In PHP 3, gli oggetti perdono la loro associazione di classe 
+    durante il processo di serializzazione e di deserializzazione. 
+    La variabile risultante è di tipo oggetto, ma non ha classe e
+    metodi, e diventa inutile (come un buffo array).
+
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;    Le seguenti informazioni sono valide soltanto per PHP 4.
+   </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   <A
+HREF="function.serialize.html"
+><B
+CLASS="function"
+>serialize()</B
+></A
+> restituisce una stringa che 
+   contiene una rappresentazione byte-stream di tutti i valori 
+   che possono essere memorizzati in PHP. <A
+HREF="function.unserialize.html"
+><B
+CLASS="function"
+>unserialize()</B
+></A
+>
+   può usare questa stringa per ricreare i valori variabili utilizzabili. 
+   Usando <A
+HREF="function.serialize.html"
+><B
+CLASS="function"
+>serialize()</B
+></A
+> per salvare un oggetto si salveranno 
+   tutte le variabili dell'oggetto. Le funzioni dell'oggetto non sono 
+   salvate, viene salvato solo il nome della classe.
+  </P
+><P
+>&#13;   Per potere usare <A
+HREF="function.unserialize.html"
+><B
+CLASS="function"
+>unserialize()</B
+></A
+> su un oggetto, 
+   la classe dell'oggetto deve essere definita. Cioè se avete un 
+   oggetto $a della classe A su una pagina di nome page1.php e 
+   usate <A
+HREF="function.serialize.html"
+><B
+CLASS="function"
+>serialize()</B
+></A
+>, otterrete una stringa che 
+   si riferisce alla classe A e contiene tutti i valori delle variabili 
+   contenute in $a. Se desiderate potere deserializzare l'oggetto in 
+   un'altra pagina chiamata page2.php, dovete ricreare $a dalla classe A,
+   la definizione della classe A perciò deve essere presente nella pagina
+   page2.php. Questo può essere fatto per esempio memorizzando la definizione
+   della classe A in un file che viene incluso sia in page1.php che in page2.php.
+  </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5629"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// classa.inc:<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</font><font color="#007700">class </font><font color="#0000BB">A&nbsp;&nbsp;&nbsp;</font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$one </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">show_one</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">one</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;<br /></font><font color="#FF8000">// page1.php:<br />&nbsp;&nbsp;</font><font color="#007700">include(</font><font color="#DD0000">"classa.inc"</font><font color="#007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</font><font color="#0000BB">$a </font><font color="#007700">= new </font><font color="#0000BB">A</font><font color="#007700">;<br />&nbsp;&nbsp;</font><font color="#0000BB">$s </font><font color="#007700">= </font><font color="#0000BB">serialize</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#FF8000">// memorizzare $s in qualche posto della page2.<br />&nbsp;&nbsp;</font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"store"</font><font color="#007700">, </font><font color="#DD0000">"w"</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">$s</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// page2.php:<br /><br />&nbsp;&nbsp;// questo è necessario perchè unserialize() funzioni correttamente.<br />&nbsp;&nbsp;</font><font color="#007700">include(</font><font color="#DD0000">"classa.inc"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">$s </font><font color="#007700">= </font><font color="#0000BB">implode</font><font color="#007700">(</font><font color="#DD0000">""</font><font color="#007700">, @</font><font color="#0000BB">file</font><font color="#007700">(</font><font color="#DD0000">"store"</font><font color="#007700">));<br />&nbsp;&nbsp;</font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#0000BB">unserialize</font><font color="#007700">(</font><font color="#0000BB">$s</font><font color="#007700">);<br /><br />&nbsp;&nbsp;</font><font color="#FF8000">// ora usiamo la function show_one() dell'oggetto $a.&nbsp;&nbsp;<br />&nbsp;&nbsp;</font><font color="#0000BB">$a</font><font color="#007700">-&gt;</font><font color="#0000BB">show_one</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;   Se state usando le sessioni ed usate <A
+HREF="function.session-register.html"
+><B
+CLASS="function"
+>session_register()</B
+></A
+>
+   per registrare oggetti, questi oggetti vengono serializzati 
+   automaticamente alla fine di ogni pagina PHP e sono deserializzate 
+   automaticamente su ogni pagina della sessione. Ciò significa che 
+   gli oggetti possono mostrarsi in ogni pagina e che sono parte 
+   integrante della sessione.
+  </P
+><P
+>&#13;   Si suggerisce vivamente di includere le definizioni delle 
+   classi degli oggetti registrati su tutte le pagine, anche 
+   se le classi non sono usate su tutte le pagine. Se un 
+   oggetto viene deserializzato senza la relativa definizione 
+   della classe, perderà l'associazione ad essa e si transformerà 
+   in in un oggetto della classe <VAR
+CLASS="literal"
+>stdClass</VAR
+> senza 
+   nessuna funzione disponibile, diventando inutile.
+
+  </P
+><P
+>&#13;   Così se nell'esempio qui sopra $a diventasse parte di una
+   sessione e fosse registrato con <VAR
+CLASS="literal"
+>session_register("a")</VAR
+>, 
+   dovreste includere un file <VAR
+CLASS="literal"
+>classa.inc</VAR
+> su tutte le pagine 
+   in cui è valida la sessione, non soltanto nella page1.php  e nella page2.php.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="keyword.parent.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop.magic-functions.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>parent</VAR
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Le funzioni magiche <VAR
+CLASS="literal"
+>__sleep</VAR
+> e <VAR
+CLASS="literal"
+>__wakeup</VAR
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

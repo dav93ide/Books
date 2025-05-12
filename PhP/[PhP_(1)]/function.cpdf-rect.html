@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>cpdf_rect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni ClibPDF"
+HREF="ref.cpdf.html"><LINK
+REL="PREVIOUS"
+TITLE="cpdf_place_inline_image"
+HREF="function.cpdf-place-inline-image.html"><LINK
+REL="NEXT"
+TITLE="cpdf_restore"
+HREF="function.cpdf-restore.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.cpdf-place-inline-image.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.cpdf-restore.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.cpdf-rect"
+></A
+>cpdf_rect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN16860"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.8, PHP 4, PHP 5 &#60;= 5.0.4)</P
+>cpdf_rect&nbsp;--&nbsp;Disegna un rettangolo</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN16863"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>cpdf_rect</B
+> ( int documento_pdf, float x-coor, float y-coor, float larghezza, float altezza [, int modo] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>cpdf_rect()</B
+> disegna un rettangolo con
+     l'angolo in basso a sinistra nel punto
+     (<VAR
+CLASS="parameter"
+>x-coor</VAR
+>, <VAR
+CLASS="parameter"
+>y-coor</VAR
+>).
+     La larghezza è settata a <VAR
+CLASS="parameter"
+>larghezza</VAR
+>.
+     L'altezza è settata a <VAR
+CLASS="parameter"
+>altezza</VAR
+>. Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><P
+>Il parametro opzionale
+<VAR
+CLASS="parameter"
+>mode</VAR
+> determina l'unità di misura.
+Se viene impostato a 0, oppure omesso, si utilizza come default l'unità  
+specificata nella pagina. Altrimenti le coordinate sono misurate in punti postscript
+ignorando l'unità corrente.</P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN16897"
+></A
+><P
+><B
+>Esempio 1. Traccia un rettangolo</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> <br />$cpdf </font><font color="#007700">= </font><font color="#0000BB">cpdf_open</font><font color="#007700">(</font><font color="#0000BB">0</font><font color="#007700">);<br /></font><font color="#0000BB">cpdf_page_init</font><font color="#007700">(</font><font color="#0000BB">$cpdf</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">595</font><font color="#007700">, </font><font color="#0000BB">842</font><font color="#007700">, </font><font color="#0000BB">1.0</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// imposta il colore di riempimento a rosso<br /></font><font color="#0000BB">cpdf_setrgbcolor</font><font color="#007700">(</font><font color="#0000BB">$cpdf</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// traccia il rettangolo di (180 * 100)<br /></font><font color="#0000BB">cpdf_rect</font><font color="#007700">(</font><font color="#0000BB">$cpdf</font><font color="#007700">, </font><font color="#0000BB">645</font><font color="#007700">, </font><font color="#0000BB">400</font><font color="#007700">, </font><font color="#0000BB">180</font><font color="#007700">, </font><font color="#0000BB">100</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">// riempie il rettangolo<br /></font><font color="#0000BB">cpdf_fill</font><font color="#007700">(</font><font color="#0000BB">$cpdf</font><font color="#007700">);<br /> <br /></font><font color="#0000BB">cpdf_finalize</font><font color="#007700">(</font><font color="#0000BB">$cpdf</font><font color="#007700">);<br /></font><font color="#0000BB">Header</font><font color="#007700">(</font><font color="#DD0000">"Content-type: application/pdf"</font><font color="#007700">);<br /></font><font color="#0000BB">cpdf_output_buffer</font><font color="#007700">(</font><font color="#0000BB">$cpdf</font><font color="#007700">);<br /></font><font color="#0000BB">cpdf_close</font><font color="#007700">(</font><font color="#0000BB">$cpdf</font><font color="#007700">);<br /> <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.cpdf-place-inline-image.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.cpdf-restore.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>cpdf_place_inline_image</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.cpdf.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>cpdf_restore</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

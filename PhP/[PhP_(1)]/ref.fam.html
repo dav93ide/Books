@@ -1,0 +1,551 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>File Alteration Monitor Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="expect_popen"
+HREF="function.expect-popen.html"><LINK
+REL="NEXT"
+TITLE="fam_cancel_monitor"
+HREF="function.fam-cancel-monitor.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.expect-popen.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fam-cancel-monitor.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.fam"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XXXV. File Alteration Monitor Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN38649"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fam.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     FAM monitors files and directories, notifying interested applications of
+     changes. More information about FAM is available at
+     <A
+HREF="http://oss.sgi.com/projects/fam/"
+TARGET="_top"
+>http://oss.sgi.com/projects/fam/</A
+>.
+    </P
+><P
+>&#13;     A PHP script may specify a list of files for FAM to monitor
+     using the functions provided by this extension.
+    </P
+><P
+>&#13;     The FAM process is started when the first connection 
+     from any application to it is opened.  It exits after  all  
+     connections to it have been closed.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questo modulo è stato spostato nel repository <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> e non sarà più rilascio con il
+PHP dalla versione 5.1.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questo modulo non è
+disponibile su piattaforme Windows.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fam.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     This extension uses the functions of the <A
+HREF="http://oss.sgi.com/projects/fam/download.html"
+TARGET="_top"
+>&#13;     FAM</A
+> library, developed by SGI. Therefore you have to download and
+     install the FAM library.
+     
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fam.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  To use PHP's FAM support you must compile PHP <VAR
+CLASS="option"
+>--with-fam[=DIR]</VAR
+> where DIR is the
+  location of the directory containing the lib and include
+  directories.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fam.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fam.resources"
+>Tipi di risorse</A
+></H1
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="fam.resources.fam"
+>FAM resource</A
+></H2
+><P
+>&#13;     </P
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="fam.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><DIV
+CLASS="table"
+><A
+NAME="AEN38681"
+></A
+><P
+><B
+>Tabella 1. FAM event constants</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Constant</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>FAMChanged</B
+></TT
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&#13;       Some value which can be obtained with fstat(1) changed for a
+       file or directory.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>FAMDeleted</B
+></TT
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>A file or directory was deleted or renamed.</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>FAMStartExecuting</B
+></TT
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>An executable file started executing.</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>FAMStopExecuting</B
+></TT
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>An executable file that was running finished.</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>FAMCreated</B
+></TT
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>A file was created in a directory.</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>FAMMoved</B
+></TT
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>This event never occurs.</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>FAMAcknowledge</B
+></TT
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&#13;       An event in response to <A
+HREF="function.fam-cancel-monitor.html"
+><B
+CLASS="function"
+>fam_cancel_monitor()</B
+></A
+>.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>FAMExists</B
+></TT
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&#13;       An event upon request to monitor a file or directory. When a
+       directory is monitored, an event for that directory and every file
+       contained in that directory is issued.
+      </TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>FAMEndExist</B
+></TT
+> (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>Event after the last FAMEExists event.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.fam-cancel-monitor.html"
+>fam_cancel_monitor</A
+>&nbsp;--&nbsp;Terminate monitoring</DT
+><DT
+><A
+HREF="function.fam-close.html"
+>fam_close</A
+>&nbsp;--&nbsp;Close FAM connection</DT
+><DT
+><A
+HREF="function.fam-monitor-collection.html"
+>fam_monitor_collection</A
+>&nbsp;--&nbsp;Monitor a collection of files in a directory for changes</DT
+><DT
+><A
+HREF="function.fam-monitor-directory.html"
+>fam_monitor_directory</A
+>&nbsp;--&nbsp;Monitor a directory for changes</DT
+><DT
+><A
+HREF="function.fam-monitor-file.html"
+>fam_monitor_file</A
+>&nbsp;--&nbsp;Monitor a regular file for changes</DT
+><DT
+><A
+HREF="function.fam-next-event.html"
+>fam_next_event</A
+>&nbsp;--&nbsp;Get next pending FAM event</DT
+><DT
+><A
+HREF="function.fam-open.html"
+>fam_open</A
+>&nbsp;--&nbsp;Open connection to FAM daemon</DT
+><DT
+><A
+HREF="function.fam-pending.html"
+>fam_pending</A
+>&nbsp;--&nbsp;Check for pending FAM events</DT
+><DT
+><A
+HREF="function.fam-resume-monitor.html"
+>fam_resume_monitor</A
+>&nbsp;--&nbsp;Resume suspended monitoring</DT
+><DT
+><A
+HREF="function.fam-suspend-monitor.html"
+>fam_suspend_monitor</A
+>&nbsp;--&nbsp;Temporarily suspend monitoring</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.expect-popen.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fam-cancel-monitor.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>expect_popen</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fam_cancel_monitor</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

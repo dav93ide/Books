@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>array_reduce</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Array"
+HREF="ref.array.html"><LINK
+REL="PREVIOUS"
+TITLE="array_rand"
+HREF="function.array-rand.html"><LINK
+REL="NEXT"
+TITLE="array_reverse"
+HREF="function.array-reverse.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.array-rand.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.array-reverse.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.array-reduce"
+></A
+>array_reduce</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN10999"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.5, PHP 5)</P
+>array_reduce&nbsp;--&nbsp;
+     Riduce iterativamente l'array a un singolo valore utilizzando una funzione
+     callback
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN11002"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>array_reduce</B
+> ( array input, callback funzione [, int initial] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>array_reduce()</B
+> applica iterativamente la
+     funzione <VAR
+CLASS="parameter"
+>callback</VAR
+> agli elementi
+     dell'array <VAR
+CLASS="parameter"
+>input</VAR
+>, riducendo l'array a
+     un singolo valore. Seil parametro opzionale <VAR
+CLASS="parameter"
+>intial</VAR
+> è
+     specificato, viene usato come valore iniziale all'inizio del processo, o come
+     risultato finale nel caso l'array sia vuoto.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN11022"
+></A
+><P
+><B
+>Esempio 1. esempio di <B
+CLASS="function"
+>array_reduce()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">rsum</font><font color="#007700">(</font><font color="#0000BB">$v</font><font color="#007700">, </font><font color="#0000BB">$w</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$v </font><font color="#007700">+= </font><font color="#0000BB">$w</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$v</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">rmul</font><font color="#007700">(</font><font color="#0000BB">$v</font><font color="#007700">, </font><font color="#0000BB">$w</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$v </font><font color="#007700">*= </font><font color="#0000BB">$w</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$v</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">$a </font><font color="#007700">= array(</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#0000BB">4</font><font color="#007700">, </font><font color="#0000BB">5</font><font color="#007700">);<br /></font><font color="#0000BB">$x </font><font color="#007700">= array();<br /></font><font color="#0000BB">$b </font><font color="#007700">= </font><font color="#0000BB">array_reduce</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#DD0000">"rsum"</font><font color="#007700">);<br /></font><font color="#0000BB">$c </font><font color="#007700">= </font><font color="#0000BB">array_reduce</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#DD0000">"rmul"</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">);<br /></font><font color="#0000BB">$d </font><font color="#007700">= </font><font color="#0000BB">array_reduce</font><font color="#007700">(</font><font color="#0000BB">$x</font><font color="#007700">, </font><font color="#DD0000">"rsum"</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     In questo modo <VAR
+CLASS="varname"
+>$b</VAR
+> conterrà
+     <VAR
+CLASS="literal"
+>15</VAR
+>, <VAR
+CLASS="varname"
+>$c</VAR
+> conterrà
+     <VAR
+CLASS="literal"
+>1200</VAR
+> (= 1*2*3*4*5*10) e
+     <VAR
+CLASS="varname"
+>$d</VAR
+> conterrà <VAR
+CLASS="literal"
+>1</VAR
+>.
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.array-filter.html"
+><B
+CLASS="function"
+>array_filter()</B
+></A
+> e
+     <A
+HREF="function.array-map.html"
+><B
+CLASS="function"
+>array_map()</B
+></A
+>,
+     <A
+HREF="function.array-unique.html"
+><B
+CLASS="function"
+>array_unique()</B
+></A
+> e
+     <A
+HREF="function.array-count-values.html"
+><B
+CLASS="function"
+>array_count_values()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.array-rand.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.array-reverse.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>array_rand</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.array.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>array_reverse</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

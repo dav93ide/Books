@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>px_new</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Paradox File Access"
+HREF="ref.paradox.html"><LINK
+REL="PREVIOUS"
+TITLE="px_get_value"
+HREF="function.px-get-value.html"><LINK
+REL="NEXT"
+TITLE="px_numfields"
+HREF="function.px-numfields.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.px-get-value.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.px-numfields.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.px-new"
+></A
+>px_new</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN120541"
+></A
+><P
+>    (PECL)</P
+>px_new&nbsp;--&nbsp;Create a new paradox object</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN120544"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>px_new</B
+> ( void  )<BR
+></BR
+><P
+>&#13;   Create a new paradox object. You will have to call this function before any
+   further functions. <B
+CLASS="function"
+>px_new()</B
+> does not create any file on
+   the disk, it justs creates an instance of a paradox object. 
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN120552"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on failure.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN120556"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN120559"
+></A
+><P
+><B
+>Esempio 1. Opening a Paradox database</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if(!</font><font color="#0000BB">$pxdoc </font><font color="#007700">= </font><font color="#0000BB">px_new</font><font color="#007700">()) {<br />&nbsp;&nbsp;</font><font color="#FF8000">/* Error handling */<br /></font><font color="#007700">}<br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"test.db"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br />if(!</font><font color="#0000BB">px_open_fp</font><font color="#007700">(</font><font color="#0000BB">$pxdoc</font><font color="#007700">, </font><font color="#0000BB">$fp</font><font color="#007700">)) {<br />&nbsp;&nbsp;</font><font color="#FF8000">/* Error handling */<br /></font><font color="#007700">}<br /></font><font color="#FF8000">// ...<br /></font><font color="#0000BB">px_close</font><font color="#007700">(</font><font color="#0000BB">$pxdoc</font><font color="#007700">);<br /></font><font color="#0000BB">px_delete</font><font color="#007700">(</font><font color="#0000BB">$pxdoc</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   If you prefer the object oriented API, then the above example will look
+   like the following.
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN120563"
+></A
+><P
+><B
+>Esempio 2. Opening a Paradox database</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"test.db"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br /></font><font color="#0000BB">$pxdoc </font><font color="#007700">= new </font><font color="#0000BB">paradox_db</font><font color="#007700">();<br />if(!</font><font color="#0000BB">$pxdoc</font><font color="#007700">-&gt;</font><font color="#0000BB">open_fp</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">)) {<br />&nbsp;&nbsp;</font><font color="#FF8000">/* Error handling */<br /></font><font color="#007700">}<br /></font><font color="#FF8000">// ...<br /></font><font color="#0000BB">$pxdoc</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN120566"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.px-delete.html"
+><B
+CLASS="function"
+>px_delete()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.px-open-fp.html"
+><B
+CLASS="function"
+>px_open_fp()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.px-get-value.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.px-numfields.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>px_get_value</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.paradox.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>px_numfields</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

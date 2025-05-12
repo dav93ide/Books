@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Compiling for MacOS X Client</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation on Mac OS X"
+HREF="install.macosx.html"><LINK
+REL="PREVIOUS"
+TITLE="Compiling for OS X Server"
+HREF="install.macosx.server.html"><LINK
+REL="NEXT"
+TITLE="Installation on Windows systems"
+HREF="install.windows.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.macosx.server.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 5. Installation on Mac OS X</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.windows.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.macosx.client"
+>Compiling for MacOS X Client</A
+></H1
+><P
+>&#13;   The following instructions will help you install a PHP module for the Apache
+   web server included in MacOS X. This version includes support for the MySQL
+   and PostgreSQL databases. These instructions are graciously provided by
+   <A
+HREF="http://www.entropy.ch/software/macosx/"
+TARGET="_top"
+>Marc Liyanage</A
+>.
+  </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;    Be careful when you do this, you could screw up your Apache web server!
+   </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   Do this to install:
+   <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;      Open a terminal window.
+     </P
+></LI
+><LI
+><P
+>&#13;      Type
+      <KBD
+CLASS="userinput"
+>wget http://www.diax.ch/users/liyanage/software/macosx/libphp4.so.gz</KBD
+>,
+      wait for the download to finish.
+     </P
+></LI
+><LI
+><P
+>&#13;      Type <KBD
+CLASS="userinput"
+>gunzip libphp4.so.gz</KBD
+>.
+     </P
+></LI
+><LI
+><P
+>&#13;      Type <KBD
+CLASS="userinput"
+>sudo apxs -i -a -n php4 libphp4.so</KBD
+>
+     </P
+></LI
+><LI
+><P
+>&#13;      Now type <KBD
+CLASS="userinput"
+>sudo open -a TextEdit /etc/httpd/httpd.conf</KBD
+>.
+      TextEdit will open with the web server configuration file. Locate these 
+      two lines towards the end of the file: (Use the Find command)
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache"
+>#AddType application/x-httpd-php .php 
+#AddType application/x-httpd-php-source .phps</PRE
+></TD
+></TR
+></TABLE
+>
+       Remove the two hash marks (<VAR
+CLASS="literal"
+>#</VAR
+>), then save the file and
+       quit TextEdit.
+      </P
+></LI
+><LI
+><P
+>&#13;      Finally, type <KBD
+CLASS="userinput"
+>sudo apachectl graceful</KBD
+> to restart
+      the web server.
+     </P
+></LI
+></OL
+>
+  </P
+><P
+>&#13;   PHP should now be up and running. You can test it by dropping a file into 
+   your <TT
+CLASS="filename"
+>Sites</TT
+> folder which is called
+   <TT
+CLASS="filename"
+>test.php</TT
+>. Into that file, write this line:
+   <VAR
+CLASS="literal"
+>&#60;?php phpinfo() ?&#62;</VAR
+>.
+  </P
+><P
+>&#13;   Now open up <VAR
+CLASS="literal"
+>127.0.0.1/~your_username/test.php</VAR
+> in your web
+   browser. You should see a status table with information about the PHP module.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.macosx.server.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.windows.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Compiling for OS X Server</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.macosx.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Installation on Windows systems</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

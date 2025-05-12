@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>for</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Strutture di controllo"
+HREF="language.control-structures.html"><LINK
+REL="PREVIOUS"
+TITLE="do-while"
+HREF="control-structures.do.while.html"><LINK
+REL="NEXT"
+TITLE="foreach"
+HREF="control-structures.foreach.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="control-structures.do.while.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 16. Strutture di controllo</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="control-structures.foreach.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="control-structures.for"
+><VAR
+CLASS="literal"
+>for</VAR
+></A
+></H1
+><P
+>&#13;    Il ciclo <VAR
+CLASS="literal"
+>for</VAR
+> è il ciclo più complesso tra quelli disponibili in PHP.
+    Si comporta come la sua controparte nel linguaggio C.
+    La sintassi di un clico <VAR
+CLASS="literal"
+>for</VAR
+> è:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4848"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>for (espressione1; espressione2; espressione3) 
+    istruzione</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;   Il valore della prima espressione (<VAR
+CLASS="varname"
+>espressione1</VAR
+>) viene
+   verificato (eseguito) una sola volta incondizionatamente all'inizio del
+   ciclo.
+   </P
+><P
+>&#13;    Ad ogni iterazione,
+    si controlla il valore di <VAR
+CLASS="varname"
+>espressione2</VAR
+>. Se è
+    <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>, il ciclo prosegue e viene eseguita
+    l'istruzione (o le istruzioni) contenuta nel blocco;
+    se è <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, l'esecuzione del ciclo termina.
+   </P
+><P
+>&#13;    Al termine di ogni iterazione, si verifica (si esegue)
+    il valore di <VAR
+CLASS="varname"
+>espressione3</VAR
+>.
+   </P
+><P
+>&#13;    Le due espressioni possono anche non essere presenti.
+    Se non esiste <VAR
+CLASS="varname"
+>espressione2</VAR
+> significa che il ciclo deve
+    essere eseguito indefinitamente (PHP considera implicitamente che il
+    suo valore è <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>, come in C). Questa possibilità in fondo non è
+    utile come può sembrare perchè obbliga a terminare il ciclo utilizzando
+    l'istruzione <A
+HREF="control-structures.break.html"
+><VAR
+CLASS="literal"
+>break</VAR
+></A
+>
+    invece di utilizzare le espressioni booleane del ciclo <VAR
+CLASS="literal"
+>for</VAR
+>
+    .
+   </P
+><P
+>&#13;    Si considerino gli esempi seguenti. In ciascun caso si visualizzeranno
+    i numeri da 1 a 10:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4865"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* esempio 1 */<br /><br /></font><font color="#007700">for (</font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">; </font><font color="#0000BB">$i </font><font color="#007700">&lt;= </font><font color="#0000BB">10</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$i</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">/* esempio 2 */<br /><br /></font><font color="#007700">for (</font><font color="#0000BB">$i</font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">; ; </font><font color="#0000BB">$i</font><font color="#007700">++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$i </font><font color="#007700">&gt; </font><font color="#0000BB">10</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$i</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">/* esempio 3 */<br /></font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">;<br />for (; ; ) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$i </font><font color="#007700">&gt; </font><font color="#0000BB">10</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$i</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i</font><font color="#007700">++;<br />}<br /><br /></font><font color="#FF8000">/* esempio 4 */<br /></font><font color="#007700">for (</font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">; </font><font color="#0000BB">$i </font><font color="#007700">&lt;= </font><font color="#0000BB">10</font><font color="#007700">; print </font><font color="#0000BB">$i</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">++) ;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Naturalmente il primo esempio sembra il migliore (o
+    forse il quarto),  ma l'uso del
+    ciclo <VAR
+CLASS="literal"
+>for</VAR
+> senza espressioni può essere utile
+    in molti casi.
+   </P
+><P
+>&#13;    PHP offre una sintassi alternativa (con i "punto e virgola") per i
+    cicli <VAR
+CLASS="literal"
+>for</VAR
+>.
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4871"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>for (espressione1; espressione2; espressione3): 
+   istruzione
+   ...
+endfor;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="control-structures.do.while.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="control-structures.foreach.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>do-while</VAR
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.control-structures.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>foreach</VAR
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

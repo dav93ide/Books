@@ -1,0 +1,949 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>runkit Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="rpm_open"
+HREF="function.rpm-open.html"><LINK
+REL="NEXT"
+TITLE="Runkit_Sandbox"
+HREF="runkit.sandbox.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.rpm-open.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="runkit.sandbox.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.runkit"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXXVI. runkit Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN143689"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="runkit.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    The runkit extension provides means to modify constants,
+    user-defined functions, and user-defined classes.
+    It also provides for custom superglobal variables
+    and embeddable sub-interpreters via sandboxing.
+   </P
+><P
+>&#13;    Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+    <A
+HREF="http://pecl.php.net/package/runkit"
+TARGET="_top"
+>http://pecl.php.net/package/runkit</A
+>.
+   </P
+><P
+>&#13;    This package is meant as a feature added replacement for the
+    <A
+HREF="http://pecl.php.net/package/classkit"
+TARGET="_top"
+>classkit</A
+> package.
+    When compiled with the <VAR
+CLASS="literal"
+>--enable-runkit=classkit</VAR
+>
+    option to ./configure, it will export classkit compatible function definitions
+    and constants.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="runkit.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Modifying Constants, Functions, Classes, and Methods</I
+></SPAN
+>
+    works with all releases of PHP 4 and PHP 5.  No special requirements are
+    necessary.
+   </P
+><P
+>&#13;    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Custom Superglobals</I
+></SPAN
+> are only available in PHP 4.2.0 or later.
+   </P
+><P
+>&#13;    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Sandboxing</I
+></SPAN
+> requires PHP 5.1.0 or later, or
+    PHP 5.0.0 with a special TSRM patch applied.
+    Regardless of which version of PHP is in use it must be compiled with the
+    <VAR
+CLASS="literal"
+>--enable-maintainer-zts</VAR
+> option.
+    See the <VAR
+CLASS="literal"
+>README</VAR
+> file in the runkit package for additional information.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="runkit.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN143713"
+></A
+><P
+><B
+>Tabella 1. Runkit Configuration Options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>runkit.superglobal</TD
+><TD
+>&nbsp;</TD
+><TD
+>PHP_INI_PERDIR</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>runkit.internal_override</TD
+><TD
+>&nbsp;</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+</P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13; <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.runkit.superglobal"
+></A
+><VAR
+CLASS="parameter"
+>runkit.superglobal</VAR
+>
+    <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;     Comma-separated list of variable names to be treated as superglobals.
+     This value should be set in the systemwide php.ini file, but may work
+     in perdir configuration contexts depending on your SAPI.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN143743"
+></A
+><P
+><B
+>Esempio 1. Custom Superglobals with runkit.superglobal=_FOO,_BAR in php.ini</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">show_values</font><font color="#007700">() {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"Foo is $_FOO</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"Bar is $_BAR</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"Baz is $_BAZ</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">$_FOO </font><font color="#007700">= </font><font color="#DD0000">'foo'</font><font color="#007700">;<br /></font><font color="#0000BB">$_BAR </font><font color="#007700">= </font><font color="#DD0000">'bar'</font><font color="#007700">;<br /></font><font color="#0000BB">$_BAZ </font><font color="#007700">= </font><font color="#DD0000">'baz'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Displays foo and bar, but not baz */<br /></font><font color="#0000BB">show_values</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="runkit.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>RUNKIT_IMPORT_FUNCTIONS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <A
+HREF="function.runkit-import.html"
+><B
+CLASS="function"
+>runkit_import()</B
+></A
+> flag indicating
+     that normal functions should be imported from the
+     specified file.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RUNKIT_IMPORT_CLASS_METHODS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <A
+HREF="function.runkit-import.html"
+><B
+CLASS="function"
+>runkit_import()</B
+></A
+> flag indicating
+     that class methods should be imported from the
+     specified file.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RUNKIT_IMPORT_CLASS_CONSTS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <A
+HREF="function.runkit-import.html"
+><B
+CLASS="function"
+>runkit_import()</B
+></A
+> flag indicating
+     that class constants should be imported from the
+     specified file.  Note that this flag is only meaningful
+     in PHP versions 5.1.0 and above.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RUNKIT_IMPORT_CLASS_PROPS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <A
+HREF="function.runkit-import.html"
+><B
+CLASS="function"
+>runkit_import()</B
+></A
+> flag indicating
+     that class standard properties should be imported
+     from the specified file.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RUNKIT_IMPORT_CLASSES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <A
+HREF="function.runkit-import.html"
+><B
+CLASS="function"
+>runkit_import()</B
+></A
+> flag representing
+     a bitwise OR of the <TT
+CLASS="constant"
+><B
+>RUNKIT_IMPORT_CLASS_*</B
+></TT
+>
+     constants.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RUNKIT_IMPORT_OVERRIDE</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <A
+HREF="function.runkit-import.html"
+><B
+CLASS="function"
+>runkit_import()</B
+></A
+> flag indicating that
+     if any of the imported functions, methods, constants,
+     or properties already exist, they should be replaced with
+     the new definitions.  If this flag is not set, then any
+     imported definitions which already exist will be discarded.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RUNKIT_ACC_PUBLIC</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PHP5 specific flag to <A
+HREF="function.runkit-method-add.html"
+><B
+CLASS="function"
+>runkit_method_add()</B
+></A
+>
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RUNKIT_ACC_PROTECTED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PHP5 specific flag to <A
+HREF="function.runkit-method-add.html"
+><B
+CLASS="function"
+>runkit_method_add()</B
+></A
+>
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RUNKIT_ACC_PRIVATE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PHP5 specific flag to <A
+HREF="function.runkit-method-add.html"
+><B
+CLASS="function"
+>runkit_method_add()</B
+></A
+>
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CLASSKIT_ACC_PUBLIC</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PHP5 specific flag to <A
+HREF="function.classkit-method-add.html"
+><B
+CLASS="function"
+>classkit_method_add()</B
+></A
+>
+     Only defined when classkit compatibility is enabled.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CLASSKIT_ACC_PROTECTED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PHP5 specific flag to <A
+HREF="function.classkit-method-add.html"
+><B
+CLASS="function"
+>classkit_method_add()</B
+></A
+>
+     Only defined when classkit compatibility is enabled.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CLASSKIT_ACC_PRIVATE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PHP5 specific flag to <A
+HREF="function.classkit-method-add.html"
+><B
+CLASS="function"
+>classkit_method_add()</B
+></A
+>
+     Only defined when classkit compatibility is enabled.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CLASSKIT_AGGREGATE_OVERRIDE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     PHP5 specific flag to <A
+HREF="function.classkit-import.html"
+><B
+CLASS="function"
+>classkit_import()</B
+></A
+>
+     Only defined when classkit compatibility is enabled.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RUNKIT_VERSION</B
+></TT
+>
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Defined to the current version of the runkit package.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CLASSKIT_VERSION</B
+></TT
+>
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Defined to the current version of the runkit package.
+     Only defined when classkit compatibility is enabled.
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="runkit.sandbox.html"
+>Runkit_Sandbox</A
+>&nbsp;--&nbsp;
+   Runkit Sandbox Class -- PHP Virtual Machine
+  </DT
+><DT
+><A
+HREF="runkit.sandbox-parent.html"
+>Runkit_Sandbox_Parent</A
+>&nbsp;--&nbsp;
+   Runkit Anti-Sandbox Class
+  </DT
+><DT
+><A
+HREF="function.runkit-class-adopt.html"
+>runkit_class_adopt</A
+>&nbsp;--&nbsp;
+   Convert a base class to an inherited class, add ancestral methods when appropriate
+  </DT
+><DT
+><A
+HREF="function.runkit-class-emancipate.html"
+>runkit_class_emancipate</A
+>&nbsp;--&nbsp;
+   Convert an inherited class to a base class, removes any method whose scope is ancestral
+  </DT
+><DT
+><A
+HREF="function.runkit-constant-add.html"
+>runkit_constant_add</A
+>&nbsp;--&nbsp;
+   Similar to define(), but allows defining in class definitions as well
+  </DT
+><DT
+><A
+HREF="function.runkit-constant-redefine.html"
+>runkit_constant_redefine</A
+>&nbsp;--&nbsp;
+   Redefine an already defined constant
+  </DT
+><DT
+><A
+HREF="function.runkit-constant-remove.html"
+>runkit_constant_remove</A
+>&nbsp;--&nbsp;
+   Remove/Delete an already defined constant
+  </DT
+><DT
+><A
+HREF="function.runkit-function-add.html"
+>runkit_function_add</A
+>&nbsp;--&nbsp;
+   Add a new function, similar to <A
+HREF="function.create-function.html"
+><B
+CLASS="function"
+>create_function()</B
+></A
+>
+  </DT
+><DT
+><A
+HREF="function.runkit-function-copy.html"
+>runkit_function_copy</A
+>&nbsp;--&nbsp;
+   Copy a function to a new function name
+  </DT
+><DT
+><A
+HREF="function.runkit-function-redefine.html"
+>runkit_function_redefine</A
+>&nbsp;--&nbsp;
+   Replace a function definition with a new implementation
+  </DT
+><DT
+><A
+HREF="function.runkit-function-remove.html"
+>runkit_function_remove</A
+>&nbsp;--&nbsp;
+   Remove a function definition
+  </DT
+><DT
+><A
+HREF="function.runkit-function-rename.html"
+>runkit_function_rename</A
+>&nbsp;--&nbsp;
+   Change a function's name
+  </DT
+><DT
+><A
+HREF="function.runkit-import.html"
+>runkit_import</A
+>&nbsp;--&nbsp;
+   Process a PHP file importing function and class definitions, overwriting where appropriate
+  </DT
+><DT
+><A
+HREF="function.runkit-lint-file.html"
+>runkit_lint_file</A
+>&nbsp;--&nbsp;
+   Check the PHP syntax of the specified file
+  </DT
+><DT
+><A
+HREF="function.runkit-lint.html"
+>runkit_lint</A
+>&nbsp;--&nbsp;
+   Check the PHP syntax of the specified php code
+  </DT
+><DT
+><A
+HREF="function.runkit-method-add.html"
+>runkit_method_add</A
+>&nbsp;--&nbsp;Dynamically adds a new method to a given class</DT
+><DT
+><A
+HREF="function.runkit-method-copy.html"
+>runkit_method_copy</A
+>&nbsp;--&nbsp;Copies a method from class to another</DT
+><DT
+><A
+HREF="function.runkit-method-redefine.html"
+>runkit_method_redefine</A
+>&nbsp;--&nbsp;Dynamically changes the code of the given method</DT
+><DT
+><A
+HREF="function.runkit-method-remove.html"
+>runkit_method_remove</A
+>&nbsp;--&nbsp;Dynamically removes the given method</DT
+><DT
+><A
+HREF="function.runkit-method-rename.html"
+>runkit_method_rename</A
+>&nbsp;--&nbsp;Dynamically changes the name of the given method</DT
+><DT
+><A
+HREF="function.runkit-sandbox-output-handler.html"
+>runkit_sandbox_output_handler</A
+>&nbsp;--&nbsp;
+   Specify a function to capture and/or process output from a runkit sandbox
+  </DT
+><DT
+><A
+HREF="function.runkit-superglobals.html"
+>runkit_superglobals</A
+>&nbsp;--&nbsp;
+   Return numerically indexed array of registered superglobals
+  </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.rpm-open.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="runkit.sandbox.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>rpm_open</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Runkit_Sandbox</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>satellite_caught_exception</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Satellite CORBA client extension [deprecated]"
+HREF="ref.satellite.html"><LINK
+REL="PREVIOUS"
+TITLE="OrbitStruct"
+HREF="function.orbitstruct.html"><LINK
+REL="NEXT"
+TITLE="satellite_exception_id"
+HREF="function.satellite-exception-id.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.orbitstruct.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.satellite-exception-id.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.satellite-caught-exception"
+></A
+>satellite_caught_exception</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN145326"
+></A
+><P
+>    (4.0.3 - 4.1.2 only, PECL)</P
+>satellite_caught_exception&nbsp;--&nbsp;See if an exception was caught from the previous function</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN145329"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>satellite_caught_exception</B
+> ( void  )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN145339"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   This function returns <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> if an exception has been caught, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+   otherwise.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN145344"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN145347"
+></A
+><P
+><B
+>Esempio 1. Sample IDL file</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="txt"
+>/* ++?????++ Out of Cheese Error. Redo From Start. */
+exception OutOfCheeseError {
+    int parameter;
+}
+
+interface AnotherInterface {
+    void AskWhy() raises (OutOfCheeseError);
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN145351"
+></A
+><P
+><B
+>Esempio 2. PHP code for handling CORBA exceptions</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$obj </font><font color="#007700">= new </font><font color="#0000BB">OrbitObject </font><font color="#007700">(</font><font color="#0000BB">$ior</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$obj</font><font color="#007700">-&gt;</font><font color="#0000BB">AskWhy</font><font color="#007700">();<br /><br />if (</font><font color="#0000BB">satellite_caught_exception</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#DD0000">"IDL:OutOfCheeseError:1.0" </font><font color="#007700">== </font><font color="#0000BB">satellite_exception_id</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$exception </font><font color="#007700">= </font><font color="#0000BB">satellite_exception_value</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$exception</font><font color="#007700">-&gt;</font><font color="#0000BB">parameter</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.orbitstruct.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.satellite-exception-id.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>OrbitStruct</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.satellite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>satellite_exception_id</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

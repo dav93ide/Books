@@ -1,0 +1,685 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>SQLite</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="spl_classes"
+HREF="function.spl-classes.html"><LINK
+REL="NEXT"
+TITLE="sqlite_array_query"
+HREF="function.sqlite-array-query.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.spl-classes.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-array-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.sqlite"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXLI. SQLite</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN156382"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sqlite.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Questo è un modulo per l'uso di SQLite Embeddable SQL Database Engine.   
+     SQLite è una libreria C che implementa al proprio interno un motore per database SQL.
+     I programmi che compilano al proprio interno la libreria SQLite possono accedere ad un database
+     senza dovere eseguire un processo RDBMS separato.
+    </P
+><P
+>&#13;     SQLite non è una libreria client che si deve collegare ad un qualche grosso server database.
+     SQLite è il server. La libreria SQLite legge e scrive direttamente sul
+     file del database.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Per maggiori informazioni vedere il sito web di SQLite
+      (<A
+HREF="http://sqlite.org/"
+TARGET="_top"
+>http://sqlite.org/</A
+>).
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sqlite.install"
+>Installazione</A
+></H1
+><P
+>&#13;     Leggere il file INSTALL allegato al pacchetto. Oppure utilizzare l'installatore PEAR
+     con i parametri "pear install sqlite".
+     La libreria SQLite è già inclusa. Non occorre installare altro
+     software.
+    </P
+><P
+>&#13;     Gli utenti di Windows possono scaricare la versione DLL del module SQLite da qui:
+     (<A
+HREF="http://snaps.php.net/win32/PECL_STABLE/php_sqlite.dll"
+TARGET="_top"
+>php_sqlite.dll</A
+>).
+    </P
+><P
+>&#13;     Da PHP 5, il modulo SQLite e il motore stesso saranno inclusi per 
+     default.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sqlite.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Per potere utilizzare questa funzioni, occorre compilare il PHP con il 
+     supporto per SQLite, oppure caricare dinamicamente il modulo da 
+     <TT
+CLASS="filename"
+>php.ini</TT
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sqlite.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;     SQLite utilizza due risorse. La prima è la connessione
+     con il database, la seconda è il set di risultati.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sqlite.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;  Le funzioni <A
+HREF="function.sqlite-fetch-array.html"
+><B
+CLASS="function"
+>sqlite_fetch_array()</B
+></A
+> e
+  <A
+HREF="function.sqlite-current.html"
+><B
+CLASS="function"
+>sqlite_current()</B
+></A
+> utilizzano costanti per indicare i differenti
+  tipi di matrici da restituire. Tali costanti sono:
+ </P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN156409"
+></A
+><P
+><B
+>Tabella 1. Costanti di SQLiteper scaricare le righe</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>costante</TH
+><TH
+>significato</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>SQLITE_ASSOC</TD
+><TD
+>&#13;      Le colonne sono restituite in una matrice il cui indice è il nome
+      del campo.
+      </TD
+></TR
+><TR
+><TD
+>SQLITE_BOTH</TD
+><TD
+>&#13;       Le colonne sono restituite in una matrice il cui indice è costituito 
+       sia dal nome del campo sia numero della posizione di questo nella riga.
+      </TD
+></TR
+><TR
+><TD
+>SQLITE_NUM</TD
+><TD
+>&#13;       Le colonne sono restituite in una matrice il cui indice è costituito 
+       dalla posizione del campo nella riga. La prima colonna parte da 0.
+      </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sqlite.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN156431"
+></A
+><P
+><B
+>Tabella 2. Parametri di configurazione di SQLite</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>sqlite.assoc_case</TD
+><TD
+>0</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli e definizioni delle costanti PHP_INI_* vedere
+  <A
+HREF="function.ini-set.html"
+><B
+CLASS="function"
+>ini_set()</B
+></A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.sqlite.assoc-case"
+></A
+><VAR
+CLASS="parameter"
+>sqlite.assoc_case</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+></DT
+><DD
+><P
+>&#13;      Indica se utilizzare indici misti (<VAR
+CLASS="literal"
+>0</VAR
+>), solo maiuscole
+      (<VAR
+CLASS="literal"
+>1</VAR
+>) oppure solo minuscoli (<VAR
+CLASS="literal"
+>2</VAR
+>).
+     </P
+><P
+>&#13;      Questa opzione è utile quando si ha necessità di avere compatibilità con
+      altri database, nei quali i nomi delle colonne sono sempre restituiti o maiuscoli
+      o minuscoli, a prescindere dalla definizione del campo nello schema del 
+      database.
+     </P
+><P
+>&#13;      La libreria SQLite restituisce i nomi delle colonne così come sono definiti
+      (ovvero rispettando le maiuscole o le minuscole indicate nello schema). Quando si imposta
+      <VAR
+CLASS="parameter"
+>sqlite.assoc_case</VAR
+> a <VAR
+CLASS="literal"
+>0</VAR
+>
+      si rispetta la definizione. Quando si imposta il parametro a 
+      <VAR
+CLASS="literal"
+>1</VAR
+> oppure a <VAR
+CLASS="literal"
+>2</VAR
+>, il PHP converte i nomi
+      rispettivamente in maiuscolo o minuscolo.
+     </P
+><P
+>&#13;      L'utilizzo di questa opzione comporta una lieve penalità nelle performance, ma è molto
+      più veloce che convertire i nomi dallo script PHP.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.sqlite-array-query.html"
+>sqlite_array_query</A
+>&nbsp;--&nbsp;Esegue una query in un dato database e restituisce una matrice</DT
+><DT
+><A
+HREF="function.sqlite-busy-timeout.html"
+>sqlite_busy_timeout</A
+>&nbsp;--&nbsp;Imposta il timeout di 'in uso', o disabilita l'handle di 'in uso'</DT
+><DT
+><A
+HREF="function.sqlite-changes.html"
+>sqlite_changes</A
+>&nbsp;--&nbsp;
+   Restituisce il numero di righe modificate dall'ultima
+   istruzione SQL
+  </DT
+><DT
+><A
+HREF="function.sqlite-close.html"
+>sqlite_close</A
+>&nbsp;--&nbsp;Chiude un database SQLite</DT
+><DT
+><A
+HREF="function.sqlite-column.html"
+>sqlite_column</A
+>&nbsp;--&nbsp;Scarica una riga dal set di risultati corrente</DT
+><DT
+><A
+HREF="function.sqlite-create-aggregate.html"
+>sqlite_create_aggregate</A
+>&nbsp;--&nbsp;Registra un aggregato UDF da utilizzare nelle istruzioni SQL</DT
+><DT
+><A
+HREF="function.sqlite-create-function.html"
+>sqlite_create_function</A
+>&nbsp;--&nbsp;
+   Registra una funzione utente  "regolare" da utilizzare nelle istruzioni SQL
+  </DT
+><DT
+><A
+HREF="function.sqlite-current.html"
+>sqlite_current</A
+>&nbsp;--&nbsp;Scarica la riga corrente di un set di risultati in una matrice</DT
+><DT
+><A
+HREF="function.sqlite-error-string.html"
+>sqlite_error_string</A
+>&nbsp;--&nbsp;Restituisce la descrizione testuale di un codice di errore</DT
+><DT
+><A
+HREF="function.sqlite-escape-string.html"
+>sqlite_escape_string</A
+>&nbsp;--&nbsp;Inserisce il carattere di escape in stringa da usarsi in una query</DT
+><DT
+><A
+HREF="function.sqlite-exec.html"
+>sqlite_exec</A
+>&nbsp;--&nbsp;ESegue una query priva di risultato in un dato database</DT
+><DT
+><A
+HREF="function.sqlite-factory.html"
+>sqlite_factory</A
+>&nbsp;--&nbsp;Apre un database SQLite e restituisce un oggetto SQLiteDatabase</DT
+><DT
+><A
+HREF="function.sqlite-fetch-all.html"
+>sqlite_fetch_all</A
+>&nbsp;--&nbsp;Scarica tutte le righe di un risultato in una matrice di matrici</DT
+><DT
+><A
+HREF="function.sqlite-fetch-array.html"
+>sqlite_fetch_array</A
+>&nbsp;--&nbsp;Scarica in una matrice la riga successiva da un set di risultati</DT
+><DT
+><A
+HREF="function.sqlite-fetch-column-types.html"
+>sqlite_fetch_column_types</A
+>&nbsp;--&nbsp;
+   Restituisce una matrice con il formato delle colonne di una tabella
+  </DT
+><DT
+><A
+HREF="function.sqlite-fetch-object.html"
+>sqlite_fetch_object</A
+>&nbsp;--&nbsp;Scarica i dati deti della riga successiva come oggetto</DT
+><DT
+><A
+HREF="function.sqlite-fetch-single.html"
+>sqlite_fetch_single</A
+>&nbsp;--&nbsp;Scarica come stringa la prima colonna di un set di risultati</DT
+><DT
+><A
+HREF="function.sqlite-fetch-string.html"
+>sqlite_fetch_string</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.sqlite-fetch-single.html"
+><B
+CLASS="function"
+>sqlite_fetch_single()</B
+></A
+></DT
+><DT
+><A
+HREF="function.sqlite-field-name.html"
+>sqlite_field_name</A
+>&nbsp;--&nbsp;Restituisce il nome di un particolare campo</DT
+><DT
+><A
+HREF="function.sqlite-has-more.html"
+>sqlite_has_more</A
+>&nbsp;--&nbsp;Restituisce se sono disponibili o meno ulteriori righe</DT
+><DT
+><A
+HREF="function.sqlite-has-prev.html"
+>sqlite_has_prev</A
+>&nbsp;--&nbsp;Indica se è disponibile o meno una riga precedente</DT
+><DT
+><A
+HREF="function.sqlite-key.html"
+>sqlite_key</A
+>&nbsp;--&nbsp;Restituisce l'indice di riga corrente</DT
+><DT
+><A
+HREF="function.sqlite-last-error.html"
+>sqlite_last_error</A
+>&nbsp;--&nbsp;Restituisce il codice di errore dell'ultimo errore accorso sul database</DT
+><DT
+><A
+HREF="function.sqlite-last-insert-rowid.html"
+>sqlite_last_insert_rowid</A
+>&nbsp;--&nbsp;Restituisce l'identificativo di riga dell'ultima riga inserita</DT
+><DT
+><A
+HREF="function.sqlite-libencoding.html"
+>sqlite_libencoding</A
+>&nbsp;--&nbsp;Restituisce la codifica della libreria SQLite</DT
+><DT
+><A
+HREF="function.sqlite-libversion.html"
+>sqlite_libversion</A
+>&nbsp;--&nbsp;Restituisce la versione della libreria SQLite</DT
+><DT
+><A
+HREF="function.sqlite-next.html"
+>sqlite_next</A
+>&nbsp;--&nbsp;Si sposta al successivo numero di riga</DT
+><DT
+><A
+HREF="function.sqlite-num-fields.html"
+>sqlite_num_fields</A
+>&nbsp;--&nbsp;Resituitsce il numero di campi da un set di risultati</DT
+><DT
+><A
+HREF="function.sqlite-num-rows.html"
+>sqlite_num_rows</A
+>&nbsp;--&nbsp;Restituisce il numero di righe da un set di risultati bufferizzato</DT
+><DT
+><A
+HREF="function.sqlite-open.html"
+>sqlite_open</A
+>&nbsp;--&nbsp;Apre un database SQLite e crea il database se non esiste</DT
+><DT
+><A
+HREF="function.sqlite-popen.html"
+>sqlite_popen</A
+>&nbsp;--&nbsp;
+   Apre una connessione persistente ad un database SQLite e crea il database se non esiste
+  </DT
+><DT
+><A
+HREF="function.sqlite-prev.html"
+>sqlite_prev</A
+>&nbsp;--&nbsp;Si posiziona sulla riga precedente di un set di risultati</DT
+><DT
+><A
+HREF="function.sqlite-query.html"
+>sqlite_query</A
+>&nbsp;--&nbsp;Esegue una query su un database e restituisce un puntatore al set di risultati</DT
+><DT
+><A
+HREF="function.sqlite-rewind.html"
+>sqlite_rewind</A
+>&nbsp;--&nbsp;Si posiziona sulla prima riga</DT
+><DT
+><A
+HREF="function.sqlite-seek.html"
+>sqlite_seek</A
+>&nbsp;--&nbsp;Posizionamento su una data riga di un set di risultati bufferizzato</DT
+><DT
+><A
+HREF="function.sqlite-single-query.html"
+>sqlite_single_query</A
+>&nbsp;--&nbsp;
+   Esegue una query e restituisce o una matrice per ogni singola colonna o il valore della prima riga
+  </DT
+><DT
+><A
+HREF="function.sqlite-udf-decode-binary.html"
+>sqlite_udf_decode_binary</A
+>&nbsp;--&nbsp;Decodifica dati binari passati come parametri in UDF</DT
+><DT
+><A
+HREF="function.sqlite-udf-encode-binary.html"
+>sqlite_udf_encode_binary</A
+>&nbsp;--&nbsp;Codifica i dati binari prima di restituirli da un UDF</DT
+><DT
+><A
+HREF="function.sqlite-unbuffered-query.html"
+>sqlite_unbuffered_query</A
+>&nbsp;--&nbsp;Esegue una query senza scaricare e bufferizzare i dati</DT
+><DT
+><A
+HREF="function.sqlite-valid.html"
+>sqlite_valid</A
+>&nbsp;--&nbsp;Indica se una o più righe sono disponibili</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.spl-classes.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sqlite-array-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>spl_classes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sqlite_array_query</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

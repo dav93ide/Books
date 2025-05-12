@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Usage</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="oggvorbis"
+HREF="ref.oggvorbis.html"><LINK
+REL="PREVIOUS"
+TITLE="oggvorbis"
+HREF="ref.oggvorbis.html"><LINK
+REL="NEXT"
+TITLE="OpenAL Audio Bindings"
+HREF="ref.openal.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.oggvorbis.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.openal.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="AEN115843"
+></A
+>Usage</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN115844"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>Usage&nbsp;--&nbsp;
+    Examples on using the ogg:// wrapper.
+   </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN115847"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN115850"
+></A
+><P
+><B
+>Esempio 1. Reading an OGG/Vorbis file</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />dl</font><font color="#007700">(</font><font color="#DD0000">"oggvorbis.so"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* By default, ogg:// will decode to Signed 16-bit Little Endian */<br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'ogg://myaudio.ogg'</font><font color="#007700">, </font><font color="#DD0000">'r'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Collect some information about the file. */<br /></font><font color="#0000BB">$metadata </font><font color="#007700">= </font><font color="#0000BB">stream_get_meta_data</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Inspect the first song (usually the only song, <br />&nbsp;&nbsp;&nbsp;but OGG/Vorbis files may be chained) */<br /></font><font color="#0000BB">$songdata </font><font color="#007700">= </font><font color="#0000BB">$metadata</font><font color="#007700">[</font><font color="#DD0000">'wrapper_data'</font><font color="#007700">][</font><font color="#0000BB">0</font><font color="#007700">];<br /><br />echo </font><font color="#DD0000">"OGG/Vorbis file encoded by: </font><font color="#007700">{</font><font color="#DD0000">$songdata</font><font color="#007700">[</font><font color="#DD0000">'vendor'</font><font color="#007700">]}\n</font><font color="#DD0000">."</font><font color="#007700">;<br />echo </font><font color="#DD0000">"&nbsp;&nbsp;</font><font color="#007700">{</font><font color="#DD0000">$songdata</font><font color="#007700">[</font><font color="#DD0000">'channels'</font><font color="#007700">]}</font><font color="#DD0000"> channels of </font><font color="#007700">{</font><font color="#DD0000">$songdata</font><font color="#007700">[</font><font color="#DD0000">'rate'</font><font color="#007700">]}</font><font color="#DD0000">Hz sampling encoded at </font><font color="#007700">{</font><font color="#DD0000">$songdata</font><font color="#007700">[</font><font color="#DD0000">'bitrate_nominal'</font><font color="#007700">]}</font><font color="#DD0000">bps.</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />foreach(</font><font color="#0000BB">$songdata</font><font color="#007700">[</font><font color="#DD0000">'comments'</font><font color="#007700">] as </font><font color="#0000BB">$comment</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&nbsp;&nbsp;$comment</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br />while (</font><font color="#0000BB">$audio_data </font><font color="#007700">= </font><font color="#0000BB">fread</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">8192</font><font color="#007700">)) {<br />&nbsp;&nbsp;</font><font color="#FF8000">/* Do something with the PCM audio we're extracting from the OGG.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Copying to /dev/dsp is a good target on linux systems, <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;just remember to setup the device for your sampling mode first. */<br /></font><font color="#007700">}<br /><br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN115854"
+></A
+><P
+><B
+>Esempio 2. Encode an audio file to OGG/Vorbis</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />dl</font><font color="#007700">(</font><font color="#DD0000">'oggvorbis.so'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$context </font><font color="#007700">= </font><font color="#0000BB">stream_context_create</font><font color="#007700">(array(</font><font color="#DD0000">'ogg'</font><font color="#007700">=&gt;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'pcm_mode' </font><font color="#007700">=&gt; </font><font color="#0000BB">OGGVORBIS_PCM_S8</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#FF8000">/* Signed 8bit audio */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'rate' </font><font color="#007700">=&gt; </font><font color="#0000BB">44100</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* 44kHz CD quality */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'bitrate' </font><font color="#007700">=&gt; </font><font color="#0000BB">0.5</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Midquality VBR */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'channels' </font><font color="#007700">=&gt; </font><font color="#0000BB">1</font><font color="#007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Mono */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'serialno' </font><font color="#007700">=&gt; </font><font color="#0000BB">12345</font><font color="#007700">)));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Unique within our stream */<br /><br />/* Open file for appending.&nbsp;&nbsp;This will "chain" a second OGG stream at the end of the first. */<br /></font><font color="#0000BB">$ogg </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'ogg://mysong.ogg'</font><font color="#007700">, </font><font color="#DD0000">'a'</font><font color="#007700">, </font><font color="#0000BB">false</font><font color="#007700">, </font><font color="#0000BB">$context</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$pcm </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'mysample.pcm'</font><font color="#007700">, </font><font color="#DD0000">'r'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Compress the raw PCM audio from mysample.pcm into mysong.ogg */<br /></font><font color="#0000BB">stream_copy_to_stream</font><font color="#007700">(</font><font color="#0000BB">$pcm</font><font color="#007700">, </font><font color="#0000BB">$ogg</font><font color="#007700">);<br /><br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$pcm</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$ogg</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.oggvorbis.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.openal.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>oggvorbis</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.oggvorbis.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>OpenAL Audio Bindings</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

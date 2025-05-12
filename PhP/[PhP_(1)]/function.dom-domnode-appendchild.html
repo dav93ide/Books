@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>DOMNode-&#62;appendChild()</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="DOM Functions"
+HREF="ref.dom.html"><LINK
+REL="PREVIOUS"
+TITLE="DOMNamedNodeMap->item()"
+HREF="function.dom-domnamednodemap-item.html"><LINK
+REL="NEXT"
+TITLE="DOMNode->cloneNode()"
+HREF="function.dom-domnode-clonenode.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dom-domnamednodemap-item.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dom-domnode-clonenode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.dom-domnode-appendchild"
+></A
+>DOMNode-&#62;appendChild()</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN33523"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>DOMNode-&#62;appendChild()&nbsp;--&nbsp;
+   Aggiunge un nuovo nodo figlio alla fine dei nodi figli
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33526"
+></A
+><H2
+>Descrizione</H2
+>class <B
+CLASS="classname"
+>DOMNode</B
+> { <BR
+></BR
+>DOMNode <B
+CLASS="methodname"
+>appendChild</B
+> ( DOMNode newnode )<BR
+></BR
+>}<P
+>&#13;   Questa funzione accoda un nodo figlio ad una lista esistente di nodi figlio oppure
+   crea una nuova lista. Il nodo figlio può essere creato, ad esempio, con  <A
+HREF="function.dom-domdocument-createelement.html"
+>DOMDocument-&#62;createElement()</A
+>, <A
+HREF="function.dom-domdocument-createtextnode.html"
+>DOMDocument-&#62;createTextNode()</A
+>
+   ecc. oppure semplicemente utilizzando un'altro nodo.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33540"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>newnode</VAR
+></DT
+><DD
+><P
+>&#13;       Il nodo figlio da aggiungere.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33549"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Il nodo aggiunto.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33552"
+></A
+><H2
+>Eccezioni</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>DOM_NO_MODIFICATION_ALLOWED_ERR</B
+></TT
+></DT
+><DD
+><P
+>&#13;       Generato se questo nodo è in sola lettura, oppure se il nodo genitore del nodo
+       da inserire è in sola lettura.
+      </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DOM_HIERARCHY_REQUEST_ERR</B
+></TT
+></DT
+><DD
+><P
+>&#13;       Generato se questo nodo è del tipo che non ammette figli del tipo di 
+       <VAR
+CLASS="parameter"
+>newnode</VAR
+>, oppure se il nodo da aggiungere
+       è uno dei genitori del nodi o di se stesso.
+      </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>DOM_WRONG_DOCUMENT_ERR</B
+></TT
+></DT
+><DD
+><P
+>&#13;       Generato se <VAR
+CLASS="parameter"
+>newnode</VAR
+> è stato creato in un documento differente
+       rispetto al nodo che crea questo.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33573"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   Nel seguente esempio si aggiunge un nuovo nodo elemento ad un documento.
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN33576"
+></A
+><P
+><B
+>Esempio 1. Aggiunta di un nodo figlio</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$doc </font><font color="#007700">= new </font><font color="#0000BB">DOMDocument</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$node </font><font color="#007700">= </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">createElement</font><font color="#007700">(</font><font color="#DD0000">"para"</font><font color="#007700">);<br /></font><font color="#0000BB">$newnode </font><font color="#007700">= </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">appendChild</font><font color="#007700">(</font><font color="#0000BB">$node</font><font color="#007700">);<br /><br />echo </font><font color="#0000BB">$doc</font><font color="#007700">-&gt;</font><font color="#0000BB">saveXML</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN33579"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.dom-domnode-removechild.html"
+>DOMNode-&#62;removeChild()</A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.dom-domnode-replacechild.html"
+>DOMNode-&#62;replaceChild()</A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dom-domnamednodemap-item.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dom-domnode-clonenode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>DOMNamedNodeMap-&#62;item()</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dom.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DOMNode-&#62;cloneNode()</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

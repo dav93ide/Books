@@ -1,0 +1,1126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Reflection</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><LINK
+REL="PREVIOUS"
+TITLE="Comparing objects"
+HREF="language.oop5.object-comparison.html"><LINK
+REL="NEXT"
+TITLE="Type Hinting"
+HREF="language.oop5.typehinting.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop5.object-comparison.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 19. Classes and Objects (PHP 5)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop5.typehinting.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop5.reflection"
+>Reflection</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.reflection.introduction"
+>Introduction</A
+></H2
+><P
+>&#13;    PHP 5 comes with a complete reflection API that adds the ability to
+    reverse-engineer classes, interfaces, functions and methods as well
+    as extensions. Additionally, the reflection API also offers ways of 
+    retrieving doc comments for functions, classes and methods.
+   </P
+><P
+>&#13;    The reflection API is an object-oriented extension to the Zend Engine,
+    consisting of the following classes:
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6109"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Reflection </font><font color="#007700">{ }<br /></font><font color="#0000BB">interface Reflector </font><font color="#007700">{ }<br />class </font><font color="#0000BB">ReflectionException </font><font color="#007700">extends </font><font color="#0000BB">Exception </font><font color="#007700">{ }<br />class </font><font color="#0000BB">ReflectionFunction implements Reflector </font><font color="#007700">{ }<br />class </font><font color="#0000BB">ReflectionParameter implements Reflector </font><font color="#007700">{ }<br />class </font><font color="#0000BB">ReflectionMethod </font><font color="#007700">extends </font><font color="#0000BB">ReflectionFunction </font><font color="#007700">{ }<br />class </font><font color="#0000BB">ReflectionClass implements Reflector </font><font color="#007700">{ }<br />class </font><font color="#0000BB">ReflectionObject </font><font color="#007700">extends </font><font color="#0000BB">ReflectionClass </font><font color="#007700">{ }<br />class </font><font color="#0000BB">ReflectionProperty implements Reflector </font><font color="#007700">{ }<br />class </font><font color="#0000BB">ReflectionExtension implements Reflector </font><font color="#007700">{ }<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     For details on these classes, have a look at the next chapters.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    If we were to execute the code in the example below:
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6114"
+></A
+><P
+><B
+>Esempio 19-32. Basic usage of the reflection API</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />Reflection</font><font color="#007700">::</font><font color="#0000BB">export</font><font color="#007700">(new </font><font color="#0000BB">ReflectionClass</font><font color="#007700">(</font><font color="#DD0000">'Exception'</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Class [ &#60;internal&#62; class Exception ] {
+
+  - Constants [0] {
+  }
+
+  - Static properties [0] {
+  }
+
+  - Static methods [0] {
+  }
+
+  - Properties [6] {
+    Property [ &#60;default&#62; protected $message ]
+    Property [ &#60;default&#62; private $string ]
+    Property [ &#60;default&#62; protected $code ]
+    Property [ &#60;default&#62; protected $file ]
+    Property [ &#60;default&#62; protected $line ]
+    Property [ &#60;default&#62; private $trace ]
+  }
+
+  - Methods [9] {
+    Method [ &#60;internal&#62; final private method __clone ] {
+    }
+
+    Method [ &#60;internal&#62; &#60;ctor&#62; public method __construct ] {
+
+      - Parameters [2] {
+        Parameter #0 [ &#60;required&#62; $message ]
+        Parameter #1 [ &#60;required&#62; $code ]
+      }
+    }
+
+    Method [ &#60;internal&#62; final public method getMessage ] {
+    }
+
+    Method [ &#60;internal&#62; final public method getCode ] {
+    }
+
+    Method [ &#60;internal&#62; final public method getFile ] {
+    }
+
+    Method [ &#60;internal&#62; final public method getLine ] {
+    }
+
+    Method [ &#60;internal&#62; final public method getTrace ] {
+    }
+
+    Method [ &#60;internal&#62; final public method getTraceAsString ] {
+    }
+
+    Method [ &#60;internal&#62; public method __toString ] {
+    }
+  }
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.reflection.reflectionexception"
+><B
+CLASS="classname"
+>ReflectionException</B
+></A
+></H2
+><P
+>&#13;    <B
+CLASS="classname"
+>ReflectionException</B
+> extends the standard <A
+HREF="language.exceptions.html"
+>Exception</A
+> and is thrown by Reflection
+    API. No specific methods or properties are introduced.
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.reflection.reflectionfunction"
+><B
+CLASS="classname"
+>ReflectionFunction</B
+></A
+></H2
+><P
+>&#13;    The <B
+CLASS="classname"
+>ReflectionFunction</B
+> class lets you
+    reverse-engineer functions.
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6130"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">ReflectionFunction implements Reflector<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">final private __clone</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public object __construct</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string __toString</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">static </font><font color="#0000BB">string export</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getName</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isInternal</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isUserDefined</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getFileName</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getStartLine</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getEndLine</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getDocComment</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">array </font><font color="#0000BB">getStaticVariables</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public mixed invoke</font><font color="#007700">(</font><font color="#0000BB">mixed</font><font color="#007700">* </font><font color="#0000BB">args</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public mixed invokeArgs</font><font color="#007700">(array </font><font color="#0000BB">args</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool returnsReference</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionParameter</font><font color="#007700">[] </font><font color="#0000BB">getParameters</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getNumberOfParameters</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getNumberOfRequiredParameters</font><font color="#007700">()<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     <B
+CLASS="function"
+>getNumberOfParameters()</B
+> and
+     <B
+CLASS="function"
+>getNumberOfRequiredParameters()</B
+> were added in PHP
+     5.0.3, while <B
+CLASS="function"
+>invokeArgs()</B
+> was added in PHP 5.1.0.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    To introspect a function, you will first have to create an instance
+    of the <B
+CLASS="classname"
+>ReflectionFunction</B
+> class. You can then call
+    any of the above methods on this instance.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6139"
+></A
+><P
+><B
+>Esempio 19-33. Using the <B
+CLASS="classname"
+>ReflectionFunction</B
+> class</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/**<br /> * A simple counter<br /> *<br /> * @return&nbsp;&nbsp;&nbsp;&nbsp;int<br /> */<br /></font><font color="#007700">function </font><font color="#0000BB">counter</font><font color="#007700">() <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;static </font><font color="#0000BB">$c </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$c</font><font color="#007700">++;<br />}<br /><br /></font><font color="#FF8000">// Create an instance of the Reflection_Function class<br /></font><font color="#0000BB">$func </font><font color="#007700">= new </font><font color="#0000BB">ReflectionFunction</font><font color="#007700">(</font><font color="#DD0000">'counter'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Print out basic information<br /></font><font color="#0000BB">printf</font><font color="#007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"===&gt; The %s function '%s'\n"</font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;declared in %s\n"</font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines %d to %d\n"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$func</font><font color="#007700">-&gt;</font><font color="#0000BB">isInternal</font><font color="#007700">() ? </font><font color="#DD0000">'internal' </font><font color="#007700">: </font><font color="#DD0000">'user-defined'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$func</font><font color="#007700">-&gt;</font><font color="#0000BB">getName</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$func</font><font color="#007700">-&gt;</font><font color="#0000BB">getFileName</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$func</font><font color="#007700">-&gt;</font><font color="#0000BB">getStartLine</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$func</font><font color="#007700">-&gt;</font><font color="#0000BB">getEndline</font><font color="#007700">()<br />);<br /><br /></font><font color="#FF8000">// Print documentation comment<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Documentation:\n %s\n"</font><font color="#007700">, </font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$func</font><font color="#007700">-&gt;</font><font color="#0000BB">getDocComment</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Print static variables if existant<br /></font><font color="#007700">if (</font><font color="#0000BB">$statics </font><font color="#007700">= </font><font color="#0000BB">$func</font><font color="#007700">-&gt;</font><font color="#0000BB">getStaticVariables</font><font color="#007700">())<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Static variables: %s\n"</font><font color="#007700">, </font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$statics</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">));<br />}<br /><br /></font><font color="#FF8000">// Invoke the function<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Invokation results in: "</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$func</font><font color="#007700">-&gt;</font><font color="#0000BB">invoke</font><font color="#007700">());<br /><br /><br /></font><font color="#FF8000">// you may prefer to use the export() method<br /></font><font color="#007700">echo </font><font color="#DD0000">"\nReflectionFunction::export() results:\n"</font><font color="#007700">;<br />echo </font><font color="#0000BB">ReflectionFunction</font><font color="#007700">::</font><font color="#0000BB">export</font><font color="#007700">(</font><font color="#DD0000">'counter'</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     The method <B
+CLASS="function"
+>invoke()</B
+> accepts a variable number of
+     arguments which are passed to the function just as in
+     <A
+HREF="function.call-user-func.html"
+><B
+CLASS="function"
+>call_user_func()</B
+></A
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.reflection.reflectionparameter"
+><B
+CLASS="classname"
+>ReflectionParameter</B
+></A
+></H2
+><P
+>&#13;    The <B
+CLASS="classname"
+>ReflectionParameter</B
+> class retrieves
+    information about a function's or method's parameters.
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6152"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">ReflectionParameter implements Reflector<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">final private __clone</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public object __construct</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string __toString</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">static </font><font color="#0000BB">string export</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getName</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isPassedByReference</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionClass getClass</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isArray</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool allowsNull</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isOptional</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isDefaultValueAvailable</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public mixed getDefaultValue</font><font color="#007700">()<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     <B
+CLASS="function"
+>getDefaultValue()</B
+>,
+     <B
+CLASS="function"
+>isDefaultValueAvailable()</B
+> and
+     <B
+CLASS="function"
+>isOptional()</B
+> were added in PHP 5.0.3,
+     while <B
+CLASS="function"
+>isArray()</B
+> was added in PHP 5.1.0.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    To introspect function parameters, you will first have to create an instance
+    of the <B
+CLASS="classname"
+>ReflectionFunction</B
+> or 
+    <B
+CLASS="classname"
+>ReflectionMethod</B
+> classes and then use their 
+    <B
+CLASS="function"
+>getParameters()</B
+> method to retrieve an array of parameters.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6164"
+></A
+><P
+><B
+>Esempio 19-34. Using the <B
+CLASS="classname"
+>ReflectionParameter</B
+> class</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">foo</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#0000BB">$c</font><font color="#007700">) { }<br />function </font><font color="#0000BB">bar</font><font color="#007700">(</font><font color="#0000BB">Exception $a</font><font color="#007700">, &amp;</font><font color="#0000BB">$b</font><font color="#007700">, </font><font color="#0000BB">$c</font><font color="#007700">) { }<br />function </font><font color="#0000BB">baz</font><font color="#007700">(</font><font color="#0000BB">ReflectionFunction $a</font><font color="#007700">, </font><font color="#0000BB">$b </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">$c </font><font color="#007700">= </font><font color="#0000BB">null</font><font color="#007700">) { }<br />function </font><font color="#0000BB">abc</font><font color="#007700">() { }<br /><br /></font><font color="#FF8000">// Create an instance of Reflection_Function with the<br />// parameter given from the command line.&nbsp;&nbsp;&nbsp;&nbsp;<br /></font><font color="#0000BB">$reflect </font><font color="#007700">= new </font><font color="#0000BB">ReflectionFunction</font><font color="#007700">(</font><font color="#0000BB">$argv</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">]);<br /><br />echo </font><font color="#0000BB">$reflect</font><font color="#007700">;<br /><br />foreach (</font><font color="#0000BB">$reflect</font><font color="#007700">-&gt;</font><font color="#0000BB">getParameters</font><font color="#007700">() as </font><font color="#0000BB">$i </font><font color="#007700">=&gt; </font><font color="#0000BB">$param</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"-- Parameter #%d: %s {\n"</font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;Class: %s\n"</font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;Allows NULL: %s\n"</font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;Passed to by reference: %s\n"</font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;Is optional?: %s\n"</font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"}\n"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i</font><font color="#007700">, <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$param</font><font color="#007700">-&gt;</font><font color="#0000BB">getName</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$param</font><font color="#007700">-&gt;</font><font color="#0000BB">getClass</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$param</font><font color="#007700">-&gt;</font><font color="#0000BB">allowsNull</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$param</font><font color="#007700">-&gt;</font><font color="#0000BB">isPassedByReference</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$param</font><font color="#007700">-&gt;</font><font color="#0000BB">isOptional</font><font color="#007700">() ? </font><font color="#DD0000">'yes' </font><font color="#007700">: </font><font color="#DD0000">'no'<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.reflection.reflectionclass"
+><B
+CLASS="classname"
+>ReflectionClass</B
+></A
+></H2
+><P
+>&#13;    The <B
+CLASS="classname"
+>ReflectionClass</B
+> class lets
+    you reverse-engineer classes.
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6173"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">ReflectionClass implements Reflector<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">final private __clone</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public object __construct</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string __toString</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">static </font><font color="#0000BB">string export</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getName</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isInternal</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isUserDefined</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isInstantiable</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool hasConstant</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool hasMethod</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool hasProperty</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getFileName</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getStartLine</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getEndLine</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getDocComment</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionMethod getConstructor</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionMethod getMethod</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionMethod</font><font color="#007700">[] </font><font color="#0000BB">getMethods</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionProperty getProperty</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionProperty</font><font color="#007700">[] </font><font color="#0000BB">getProperties</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">array </font><font color="#0000BB">getConstants</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public mixed getConstant</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionClass</font><font color="#007700">[] </font><font color="#0000BB">getInterfaces</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isInterface</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isAbstract</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isFinal</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getModifiers</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isInstance</font><font color="#007700">(</font><font color="#0000BB">stdclass object</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public stdclass newInstance</font><font color="#007700">(</font><font color="#0000BB">mixed</font><font color="#007700">* </font><font color="#0000BB">args</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionClass getParentClass</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isSubclassOf</font><font color="#007700">(</font><font color="#0000BB">ReflectionClass </font><font color="#007700">class)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">array </font><font color="#0000BB">getStaticProperties</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public mixed getStaticPropertyValue</font><font color="#007700">(</font><font color="#0000BB">string name </font><font color="#007700">[, </font><font color="#0000BB">mixed </font><font color="#007700">default])<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public void setStaticPropertyValue</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">, </font><font color="#0000BB">mixed value</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">array </font><font color="#0000BB">getDefaultProperties</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isIterateable</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool implementsInterface</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionExtension getExtension</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getExtensionName</font><font color="#007700">()<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     <B
+CLASS="function"
+>hasConstant()</B
+>, <B
+CLASS="function"
+>hasMethod()</B
+>,
+     <B
+CLASS="function"
+>hasProperty()</B
+>, <B
+CLASS="function"
+>getStaticPropertyValue()</B
+>
+     and <B
+CLASS="function"
+>setStaticPropertyValue()</B
+> were added in PHP 5.1.0.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    To introspect a class, you will first have to create an instance
+    of the <B
+CLASS="classname"
+>ReflectionClass</B
+> class. You can then
+    call any of the above methods on this instance.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6184"
+></A
+><P
+><B
+>Esempio 19-35. Using the <B
+CLASS="classname"
+>ReflectionClass</B
+> class</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />interface Serializable<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// ...<br /></font><font color="#007700">}<br /><br />class </font><font color="#0000BB">Object<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// ...<br /></font><font color="#007700">}<br /><br /></font><font color="#FF8000">/**<br /> * A counter class<br /> */<br /></font><font color="#007700">class </font><font color="#0000BB">Counter </font><font color="#007700">extends </font><font color="#0000BB">Object implements Serializable <br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;const </font><font color="#0000BB">START </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private </font><font color="#007700">static </font><font color="#0000BB">$c </font><font color="#007700">= </font><font color="#0000BB">Counter</font><font color="#007700">::</font><font color="#0000BB">START</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/**<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Invoke counter<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @access&nbsp;&nbsp;public<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @return&nbsp;&nbsp;int<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">count</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">self</font><font color="#007700">::</font><font color="#0000BB">$c</font><font color="#007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#FF8000">// Create an instance of the ReflectionClass class<br /></font><font color="#0000BB">$class </font><font color="#007700">= new </font><font color="#0000BB">ReflectionClass</font><font color="#007700">(</font><font color="#DD0000">'Counter'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Print out basic information<br /></font><font color="#0000BB">printf</font><font color="#007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"===&gt; The %s%s%s %s '%s' [extends %s]\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;declared in %s\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines %d to %d\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;having the modifiers %d [%s]\n"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">isInternal</font><font color="#007700">() ? </font><font color="#DD0000">'internal' </font><font color="#007700">: </font><font color="#DD0000">'user-defined'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">isAbstract</font><font color="#007700">() ? </font><font color="#DD0000">' abstract' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">isFinal</font><font color="#007700">() ? </font><font color="#DD0000">' final' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">isInterface</font><font color="#007700">() ? </font><font color="#DD0000">'interface' </font><font color="#007700">: </font><font color="#DD0000">'class'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getName</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getParentClass</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getFileName</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getStartLine</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getEndline</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getModifiers</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">implode</font><font color="#007700">(</font><font color="#DD0000">' '</font><font color="#007700">, </font><font color="#0000BB">Reflection</font><font color="#007700">::</font><font color="#0000BB">getModifierNames</font><font color="#007700">(</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getModifiers</font><font color="#007700">()))<br />);<br /><br /></font><font color="#FF8000">// Print documentation comment<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Documentation:\n %s\n"</font><font color="#007700">, </font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getDocComment</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Print which interfaces are implemented by this class<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Implements:\n %s\n"</font><font color="#007700">, </font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getInterfaces</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Print class constants<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Constants: %s\n"</font><font color="#007700">, </font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getConstants</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Print class properties<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Properties: %s\n"</font><font color="#007700">, </font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getProperties</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Print class methods<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Methods: %s\n"</font><font color="#007700">, </font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">getMethods</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// If this class is instantiable, create an instance<br /></font><font color="#007700">if (</font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">isInstantiable</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$counter </font><font color="#007700">= </font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">newInstance</font><font color="#007700">();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'---&gt; $counter is instance? '</font><font color="#007700">; <br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">isInstance</font><font color="#007700">(</font><font color="#0000BB">$counter</font><font color="#007700">) ? </font><font color="#DD0000">'yes' </font><font color="#007700">: </font><font color="#DD0000">'no'</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"\n---&gt; new Object() is instance? "</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$class</font><font color="#007700">-&gt;</font><font color="#0000BB">isInstance</font><font color="#007700">(new </font><font color="#0000BB">Object</font><font color="#007700">()) ? </font><font color="#DD0000">'yes' </font><font color="#007700">: </font><font color="#DD0000">'no'</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     The method <B
+CLASS="function"
+>newInstance()</B
+> accepts a variable number of
+     arguments which are passed to the function just as in
+     <A
+HREF="function.call-user-func.html"
+><B
+CLASS="function"
+>call_user_func()</B
+></A
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     <VAR
+CLASS="literal"
+>$class = new ReflectionClass('Foo'); $class-&#62;isInstance($arg)</VAR
+>
+     is equivalent to <VAR
+CLASS="literal"
+>$arg instanceof Foo</VAR
+> or 
+     <VAR
+CLASS="literal"
+>is_a($arg, 'Foo')</VAR
+>.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.reflection.reflectionmethod"
+><B
+CLASS="classname"
+>ReflectionMethod</B
+></A
+></H2
+><P
+>&#13;    The <B
+CLASS="classname"
+>ReflectionMethod</B
+> class lets you
+    reverse-engineer class methods.
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6202"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">ReflectionMethod </font><font color="#007700">extends </font><font color="#0000BB">ReflectionFunction<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public __construct</font><font color="#007700">(</font><font color="#0000BB">mixed </font><font color="#007700">class, </font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string __toString</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">static </font><font color="#0000BB">string export</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public mixed invoke</font><font color="#007700">(</font><font color="#0000BB">stdclass object</font><font color="#007700">, </font><font color="#0000BB">mixed</font><font color="#007700">* </font><font color="#0000BB">args</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public mixed invokeArgs</font><font color="#007700">(</font><font color="#0000BB">stdclass object</font><font color="#007700">, array </font><font color="#0000BB">args</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isFinal</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isAbstract</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isPublic</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isPrivate</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isProtected</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isStatic</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isConstructor</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isDestructor</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getModifiers</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionClass getDeclaringClass</font><font color="#007700">()<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Inherited from ReflectionFunction<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">final private __clone</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getName</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isInternal</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isUserDefined</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getFileName</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getStartLine</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getEndLine</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getDocComment</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">array </font><font color="#0000BB">getStaticVariables</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool returnsReference</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionParameter</font><font color="#007700">[] </font><font color="#0000BB">getParameters</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getNumberOfParameters</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getNumberOfRequiredParameters</font><font color="#007700">()<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    To introspect a method, you will first have to create an instance
+    of the <B
+CLASS="classname"
+>ReflectionMethod</B
+> class. You can then call
+    any of the above methods on this instance.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6206"
+></A
+><P
+><B
+>Esempio 19-36. Using the <B
+CLASS="classname"
+>ReflectionMethod</B
+> class</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Counter<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private </font><font color="#007700">static </font><font color="#0000BB">$c </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/**<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Increment counter<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @final<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @static<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @access&nbsp;&nbsp;public<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* @return&nbsp;&nbsp;int<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">final public </font><font color="#007700">static function </font><font color="#0000BB">increment</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return ++</font><font color="#0000BB">self</font><font color="#007700">::</font><font color="#0000BB">$c</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#FF8000">// Create an instance of the Reflection_Method class<br /></font><font color="#0000BB">$method </font><font color="#007700">= new </font><font color="#0000BB">ReflectionMethod</font><font color="#007700">(</font><font color="#DD0000">'Counter'</font><font color="#007700">, </font><font color="#DD0000">'increment'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Print out basic information<br /></font><font color="#0000BB">printf</font><font color="#007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"===&gt; The %s%s%s%s%s%s%s method '%s' (which is %s)\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;declared in %s\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lines %d to %d\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;having the modifiers %d[%s]\n"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">isInternal</font><font color="#007700">() ? </font><font color="#DD0000">'internal' </font><font color="#007700">: </font><font color="#DD0000">'user-defined'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">isAbstract</font><font color="#007700">() ? </font><font color="#DD0000">' abstract' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">isFinal</font><font color="#007700">() ? </font><font color="#DD0000">' final' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">isPublic</font><font color="#007700">() ? </font><font color="#DD0000">' public' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">isPrivate</font><font color="#007700">() ? </font><font color="#DD0000">' private' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">isProtected</font><font color="#007700">() ? </font><font color="#DD0000">' protected' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">isStatic</font><font color="#007700">() ? </font><font color="#DD0000">' static' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">getName</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">isConstructor</font><font color="#007700">() ? </font><font color="#DD0000">'the constructor' </font><font color="#007700">: </font><font color="#DD0000">'a regular method'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">getFileName</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">getStartLine</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">getEndline</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">getModifiers</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">implode</font><font color="#007700">(</font><font color="#DD0000">' '</font><font color="#007700">, </font><font color="#0000BB">Reflection</font><font color="#007700">::</font><font color="#0000BB">getModifierNames</font><font color="#007700">(</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">getModifiers</font><font color="#007700">()))<br />);<br /><br /></font><font color="#FF8000">// Print documentation comment<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Documentation:\n %s\n"</font><font color="#007700">, </font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">getDocComment</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Print static variables if existant<br /></font><font color="#007700">if (</font><font color="#0000BB">$statics</font><font color="#007700">= </font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">getStaticVariables</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Static variables: %s\n"</font><font color="#007700">, </font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$statics</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">));<br />}<br /><br /></font><font color="#FF8000">// Invoke the method<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Invokation results in: "</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$method</font><font color="#007700">-&gt;</font><font color="#0000BB">invoke</font><font color="#007700">(</font><font color="#0000BB">NULL</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Trying to invoke private, protected or abstract methods will result
+     in an exception being thrown from the <B
+CLASS="function"
+>invoke()</B
+>
+     method.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     For static methods as seen above, you should pass NULL as the first
+     argument to <B
+CLASS="function"
+>invoke()</B
+>. For non-static methods, pass 
+     an instance of the class.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.reflection.reflectionproperty"
+><B
+CLASS="classname"
+>ReflectionProperty</B
+></A
+></H2
+><P
+>&#13;    The <B
+CLASS="classname"
+>ReflectionProperty</B
+> class lets you
+    reverse-engineer class properties.
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6221"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">ReflectionProperty implements Reflector<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">final private __clone</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public __construct</font><font color="#007700">(</font><font color="#0000BB">mixed </font><font color="#007700">class, </font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string __toString</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">static </font><font color="#0000BB">string export</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getName</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isPublic</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isPrivate</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isProtected</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isStatic</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public bool isDefault</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public int getModifiers</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public mixed getValue</font><font color="#007700">(</font><font color="#0000BB">stdclass object</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public void setValue</font><font color="#007700">(</font><font color="#0000BB">stdclass object</font><font color="#007700">, </font><font color="#0000BB">mixed value</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionClass getDeclaringClass</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getDocComment</font><font color="#007700">()<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     <B
+CLASS="function"
+>getDocComment()</B
+> was added in PHP 5.1.0.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    To introspect a property, you will first have to create an instance
+    of the <B
+CLASS="classname"
+>ReflectionProperty</B
+> class. You can then
+    call any of the above methods on this instance.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6228"
+></A
+><P
+><B
+>Esempio 19-37. Using the <B
+CLASS="classname"
+>ReflectionProperty</B
+> class</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">String<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $length&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">5</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// Create an instance of the ReflectionProperty class<br /></font><font color="#0000BB">$prop </font><font color="#007700">= new </font><font color="#0000BB">ReflectionProperty</font><font color="#007700">(</font><font color="#DD0000">'String'</font><font color="#007700">, </font><font color="#DD0000">'length'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Print out basic information<br /></font><font color="#0000BB">printf</font><font color="#007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"===&gt; The%s%s%s%s property '%s' (which was %s)\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;having the modifiers %s\n"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$prop</font><font color="#007700">-&gt;</font><font color="#0000BB">isPublic</font><font color="#007700">() ? </font><font color="#DD0000">' public' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$prop</font><font color="#007700">-&gt;</font><font color="#0000BB">isPrivate</font><font color="#007700">() ? </font><font color="#DD0000">' private' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$prop</font><font color="#007700">-&gt;</font><font color="#0000BB">isProtected</font><font color="#007700">() ? </font><font color="#DD0000">' protected' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$prop</font><font color="#007700">-&gt;</font><font color="#0000BB">isStatic</font><font color="#007700">() ? </font><font color="#DD0000">' static' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$prop</font><font color="#007700">-&gt;</font><font color="#0000BB">getName</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$prop</font><font color="#007700">-&gt;</font><font color="#0000BB">isDefault</font><font color="#007700">() ? </font><font color="#DD0000">'declared at compile-time' </font><font color="#007700">: </font><font color="#DD0000">'created at run-time'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">Reflection</font><font color="#007700">::</font><font color="#0000BB">getModifierNames</font><font color="#007700">(</font><font color="#0000BB">$prop</font><font color="#007700">-&gt;</font><font color="#0000BB">getModifiers</font><font color="#007700">()), </font><font color="#0000BB">1</font><font color="#007700">)<br />);<br /><br /></font><font color="#FF8000">// Create an instance of String<br /></font><font color="#0000BB">$obj</font><font color="#007700">= new </font><font color="#0000BB">String</font><font color="#007700">();<br /><br /></font><font color="#FF8000">// Get current value<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Value is: "</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$prop</font><font color="#007700">-&gt;</font><font color="#0000BB">getValue</font><font color="#007700">(</font><font color="#0000BB">$obj</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Change value<br /></font><font color="#0000BB">$prop</font><font color="#007700">-&gt;</font><font color="#0000BB">setValue</font><font color="#007700">(</font><font color="#0000BB">$obj</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">);<br /></font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"---&gt; Setting value to 10, new value is: "</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$prop</font><font color="#007700">-&gt;</font><font color="#0000BB">getValue</font><font color="#007700">(</font><font color="#0000BB">$obj</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Dump object<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$obj</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Trying to get or set private or protected class property's values
+     will result in an exception being thrown.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.reflection.reflectionextension"
+><B
+CLASS="classname"
+>ReflectionExtension</B
+></A
+></H2
+><P
+>&#13;    The <B
+CLASS="classname"
+>ReflectionExtension</B
+> class lets you
+    reverse-engineer extensions. You can retrieve all loaded extensions
+    at runtime using the <A
+HREF="function.get-loaded-extensions.html"
+><B
+CLASS="function"
+>get_loaded_extensions()</B
+></A
+>.
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6240"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">ReflectionExtension implements Reflector </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">final private __clone</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public __construct</font><font color="#007700">(</font><font color="#0000BB">string name</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string __toString</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">static </font><font color="#0000BB">string export</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getName</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public string getVersion</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionFunction</font><font color="#007700">[] </font><font color="#0000BB">getFunctions</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">array </font><font color="#0000BB">getConstants</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">array </font><font color="#0000BB">getINIEntries</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public ReflectionClass</font><font color="#007700">[] </font><font color="#0000BB">getClasses</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">array </font><font color="#0000BB">getClassNames</font><font color="#007700">()<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    To introspect an extension, you will first have to create an instance
+    of the <B
+CLASS="classname"
+>ReflectionExtension</B
+> class. You can then call
+    any of the above methods on this instance.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6244"
+></A
+><P
+><B
+>Esempio 19-38. Using the <B
+CLASS="classname"
+>ReflectionExtension</B
+> class</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Create an instance of the ReflectionProperty class<br /></font><font color="#0000BB">$ext </font><font color="#007700">= new </font><font color="#0000BB">ReflectionExtension</font><font color="#007700">(</font><font color="#DD0000">'standard'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Print out basic information<br /></font><font color="#0000BB">printf</font><font color="#007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: %s\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"Version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: %s\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"Functions&nbsp;&nbsp;&nbsp;: [%d] %s\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"Constants&nbsp;&nbsp;&nbsp;: [%d] %s\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"INI entries : [%d] %s\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"Classes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: [%d] %s\n"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getName</font><font color="#007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getVersion</font><font color="#007700">() ? </font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getVersion</font><font color="#007700">() : </font><font color="#DD0000">'NO_VERSION'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">sizeof</font><font color="#007700">(</font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getFunctions</font><font color="#007700">()),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getFunctions</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">),<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">sizeof</font><font color="#007700">(</font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getConstants</font><font color="#007700">()),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getConstants</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">),<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">sizeof</font><font color="#007700">(</font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getINIEntries</font><font color="#007700">()),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getINIEntries</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">),<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">sizeof</font><font color="#007700">(</font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getClassNames</font><font color="#007700">()),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_export</font><font color="#007700">(</font><font color="#0000BB">$ext</font><font color="#007700">-&gt;</font><font color="#0000BB">getClassNames</font><font color="#007700">(), </font><font color="#0000BB">1</font><font color="#007700">)<br />);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.reflection.extending"
+>Extending the reflection classes</A
+></H2
+><P
+>&#13;    In case you want to create specialized versions of the built-in
+    classes (say, for creating colorized HTML when being exported,
+    having easy-access member variables instead of methods or
+    having utility methods), you may go ahead and extend them.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6251"
+></A
+><P
+><B
+>Esempio 19-39. Extending the built-in classes</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/**<br /> * My Reflection_Method class<br /> */<br /></font><font color="#007700">class </font><font color="#0000BB">My_Reflection_Method </font><font color="#007700">extends </font><font color="#0000BB">ReflectionMethod<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $visibility </font><font color="#007700">= </font><font color="#DD0000">''</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">__construct</font><font color="#007700">(</font><font color="#0000BB">$o</font><font color="#007700">, </font><font color="#0000BB">$m</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">parent</font><font color="#007700">::</font><font color="#0000BB">__construct</font><font color="#007700">(</font><font color="#0000BB">$o</font><font color="#007700">, </font><font color="#0000BB">$m</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">visibility</font><font color="#007700">= </font><font color="#0000BB">Reflection</font><font color="#007700">::</font><font color="#0000BB">getModifierNames</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">getModifiers</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#FF8000">/**<br /> * Demo class #1<br /> *<br /> */<br /></font><font color="#007700">class </font><font color="#0000BB">T </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">protected </font><font color="#007700">function </font><font color="#0000BB">x</font><font color="#007700">() {}<br />}<br /><br /></font><font color="#FF8000">/**<br /> * Demo class #2<br /> *<br /> */<br /></font><font color="#007700">class </font><font color="#0000BB">U </font><font color="#007700">extends </font><font color="#0000BB">T </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">x</font><font color="#007700">() {}<br />}<br /><br /></font><font color="#FF8000">// Print out information<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(new </font><font color="#0000BB">My_Reflection_Method</font><font color="#007700">(</font><font color="#DD0000">'U'</font><font color="#007700">, </font><font color="#DD0000">'x'</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Caution: If you're overwriting the constructor, remember to call
+     the parent's constructor _before_ any code you insert. Failing to
+     do so will result in the following:
+     <VAR
+CLASS="literal"
+>&#13;      Fatal error: Internal error: Failed to retrieve the reflection object
+     </VAR
+>
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop5.object-comparison.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop5.typehinting.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Comparing objects</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Type Hinting</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

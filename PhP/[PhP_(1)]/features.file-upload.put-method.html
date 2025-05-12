@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Supporto per metodo PUT</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caricare file"
+HREF="features.file-upload.html"><LINK
+REL="PREVIOUS"
+TITLE="Caricamento di più file"
+HREF="features.file-upload.multiple.html"><LINK
+REL="NEXT"
+TITLE="Utilizzo di file remoti"
+HREF="features.remote-files.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="features.file-upload.multiple.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 38. Caricare file</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="features.remote-files.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="features.file-upload.put-method"
+>Supporto per metodo PUT</A
+></H1
+><P
+>&#13;    Il supporto al metodo PUT è cambiato tra PHP 3 e PHP 4.
+    In PHP 4 occorre utilizzare il flusso standard di input per leggere
+    il contenuto di un PUT HTTP.
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN7212"
+></A
+><P
+><B
+>Esempio 38-5. Salvataggio di un file HTTP PUT con PHP 4</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* I dati PUT arrivano in stdin */<br /></font><font color="#0000BB">$putdata </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"php://stdin"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br /></font><font color="#FF8000">/* Apertura del file in scrittura */<br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"myputfile.ext"</font><font color="#007700">, </font><font color="#DD0000">"w"</font><font color="#007700">);<br /></font><font color="#FF8000">/* Lettura dei dati d 1kb alla volta e scrittura nel file */<br /></font><font color="#007700">while (</font><font color="#0000BB">$data </font><font color="#007700">= </font><font color="#0000BB">fread</font><font color="#007700">(</font><font color="#0000BB">$putdata</font><font color="#007700">, </font><font color="#0000BB">1024</font><font color="#007700">))<br />&nbsp;&nbsp;</font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">$data</font><font color="#007700">);<br /> <br /></font><font color="#FF8000">/* Chiusura */<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$putdata</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Tutta la documentazione che segue si applica solo a PHP 3. 
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    PHP fornisce supporto per il metodo HTTP PUT utilizzato da programmi 
+    come <SPAN
+CLASS="productname"
+>Netscape Composer</SPAN
+> e W3C <SPAN
+CLASS="productname"
+>Amaya</SPAN
+>.  
+    Le richieste PUT sono molto più semplici rispetto al 
+    caricamento di un file, e assomigliano a 
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN7220"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="HTTP"
+>PUT /percorso/nomefile.html HTTP/1.1</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Questo significa che normalmente il programma remoto intende salvare 
+    il contenuto della richesta come : <TT
+CLASS="filename"
+>/path/filename.html</TT
+> nel filesystem sul server web.
+    Non è ovviamente una buona idea per Apache o PHP lasciare a un qualsiasi utente la 
+    possibilità di sovrascrivere file sul server web.  Quindi, per gestire questa 
+    richiesta si deve chiedere al server web che si vuole che sia un certo script PHP a 
+    gestire la richiesta stessa. In Apache si ottiene questo con la direttiva
+    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Script</I
+></SPAN
+>.  Può essere posta quasi ovunque nel file di
+    configurazione di Apache.  Un posto frequente è all'interno di un blocco 
+     &#60;Directory&#62; oppurte all'interno del blocco 
+     &#60;Virtualhost&#62;.  Un linea come la seguente è sufficiente:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN7225"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>Script PUT /put.php</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Questo chiede ad Apache di inviare tutte le richieste PUT che soddisfano
+    il contesto in cui si è inserito questo comando allo script put.php.  Questo 
+    richiede, naturalmente, che sia abilitato PHP per l'estensione .php e che 
+    PHP sia attivo.
+   </P
+><P
+>&#13;    All'interno del file put.php si può inserire qualcosa del tipo:
+   </P
+><P
+>&#13;    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN7230"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php copy</font><font color="#007700">(</font><font color="#0000BB">$PHP_UPLOADED_FILE_NAME</font><font color="#007700">, </font><font color="#0000BB">$DOCUMENT_ROOT </font><font color="#007700">. </font><font color="#0000BB">$REQUEST_URI</font><font color="#007700">); </font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Questo copia il file nella posizione chiesta dal programma
+    remoto.  E' probabile che si vogliano effettuare dei controlli o 
+    autenticazioni dell'utente prima di effettuare questa copia.  L'unica magia 
+    qui presente è che quando PHP vede una richiesta con metodo PUT memorizza il file caricato in 
+    un file temporaneo così come per i file caricati con il <A
+HREF="features.file-upload.html#features.file-upload.post-method"
+>metodo POST</A
+>.
+    Quando la richiesta termina, questo file temporaneo è eliminato. Quindi il gestore della
+    richiesta PUT deve copiare il file da qualche parte.  Il nome del file temporaneo è 
+    memorizzato nella variabile <VAR
+CLASS="varname"
+>$PHP_PUT_FILENAME</VAR
+>, 
+    ed è possibile vedere il nome del file di destinazione nella variabile 
+    <VAR
+CLASS="varname"
+>$REQUEST_URI</VAR
+> (potrebbe variare su web server diversi da Apache).  Qusto nome di file di 
+    destinazione è quello specificato dal client remoto.
+    Non è necessario seguire le indicazioni del client.  E' possibile, per esempio,
+    copiare tutti i file caricati in una apposita directory.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="features.file-upload.multiple.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="features.remote-files.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Caricamento di più file</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="features.file-upload.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Utilizzo di file remoti</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

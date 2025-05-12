@@ -1,0 +1,299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Duplicating Variable Contents: The Copy Constructor</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Zend API: Hacking the Core of PHP"
+HREF="zend.html"><LINK
+REL="PREVIOUS"
+TITLE="Creating Variables"
+HREF="zend.variables.html"><LINK
+REL="NEXT"
+TITLE="Returning Values"
+HREF="zend.returning.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="zend.variables.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 46. Zend API: Hacking the Core of PHP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="zend.returning.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="zend.copy-constructor"
+>Duplicating Variable Contents: The Copy Constructor</A
+></H1
+><P
+>&#13;   Sooner or later, you may need to assign the contents of one
+   <VAR
+CLASS="envar"
+>zval</VAR
+> container to another. This is easier said than
+   done, since the <VAR
+CLASS="envar"
+>zval</VAR
+> container doesn't contain only
+   type information, but also references to places in Zend's internal
+   data. For example, depending on their size, arrays and objects may
+   be nested with lots of hash table entries. By assigning one
+   <VAR
+CLASS="envar"
+>zval</VAR
+> to another, you avoid duplicating the hash
+   table entries, using only a reference to them (at most).
+  </P
+><P
+>&#13;   To copy this complex kind of data, use the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>copy
+    constructor</I
+></SPAN
+>. Copy constructors are typically defined in
+   languages that support operator overloading, with the express
+   purpose of copying complex types. If you define an object in such a
+   language, you have the possibility of overloading the "=" operator,
+   which is usually responsible for assigning the contents of the
+   rvalue (result of the evaluation of the right side of the operator)
+   to the lvalue (same for the left side).
+  </P
+><P
+>&#13;   <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Overloading</I
+></SPAN
+> means assigning a different
+   meaning to this operator, and is usually used to assign a function
+   call to an operator. Whenever this operator would be used on such
+   an object in a program, this function would be called with the
+   lvalue and rvalue as parameters. Equipped with that information, it
+   can perform the operation it intends the "=" operator to have
+   (usually an extended form of copying).
+  </P
+><P
+>&#13;   This same form of "extended copying" is also necessary for PHP's
+   <VAR
+CLASS="envar"
+>zval</VAR
+> containers. Again, in the case of an array,
+   this extended copying would imply re-creation of all hash table
+   entries relating to this array. For strings, proper memory
+   allocation would have to be assured, and so on.
+  </P
+><P
+>&#13;   Zend ships with such a function,
+   called <B
+CLASS="function"
+>zend_copy_ctor()</B
+> (the previous PHP equivalent
+   was <B
+CLASS="function"
+>pval_copy_constructor()</B
+>).
+  </P
+><P
+>&#13;   A most useful demonstration is a function that accepts a complex type as
+   argument, modifies it, and then returns the argument: 
+  </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>zval *parameter;
+   
+if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "z", &#38;parameter) == FAILURE)
+   return;
+}
+   
+// do modifications to the parameter here
+
+// now we want to return the modified container:
+*return_value = *parameter;
+zval_copy_ctor(return_value);</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;   The first part of the function is plain-vanilla argument retrieval.
+   After the (left out) modifications, however, it gets interesting:
+   The container of <VAR
+CLASS="envar"
+>parameter</VAR
+> is assigned to the
+   (predefined) <VAR
+CLASS="envar"
+>return_value</VAR
+> container. Now, in order
+   to effectively duplicate its contents, the copy constructor is
+   called. The copy constructor works directly with the supplied
+   argument, and the standard return values are
+   <VAR
+CLASS="literal"
+>FAILURE</VAR
+> on failure and
+   <VAR
+CLASS="literal"
+>SUCCESS</VAR
+> on success.
+  </P
+><P
+>&#13;   If you omit the call to the copy constructor in this example, both
+   <VAR
+CLASS="envar"
+>parameter</VAR
+> and <VAR
+CLASS="envar"
+>return_value</VAR
+> would
+   point to the same internal data, meaning that
+   <VAR
+CLASS="envar"
+>return_value</VAR
+> would be an illegal additional
+   reference to the same data structures. Whenever changes occurred in
+   the data that <VAR
+CLASS="envar"
+>parameter</VAR
+> points to,
+   <VAR
+CLASS="envar"
+>return_value</VAR
+> might be affected. Thus, in order to
+   create separate copies, the copy constructor must be used.
+  </P
+><P
+>&#13;   The copy constructor's counterpart in the Zend API, the destructor
+   <B
+CLASS="function"
+>zval_dtor()</B
+>, does the opposite of the
+   constructor.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="zend.variables.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="zend.returning.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Creating Variables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="zend.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Returning Values</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

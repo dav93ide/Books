@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>tcpwrap_check</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="TCP Wrappers Functions"
+HREF="ref.tcpwrap.html"><LINK
+REL="PREVIOUS"
+TITLE="TCP Wrappers Functions"
+HREF="ref.tcpwrap.html"><LINK
+REL="NEXT"
+TITLE="Tidy Functions"
+HREF="ref.tidy.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.tcpwrap.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.tidy.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.tcpwrap-check"
+></A
+>tcpwrap_check</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN169224"
+></A
+><P
+>    (PECL)</P
+>tcpwrap_check&nbsp;--&nbsp;Performs a tcpwrap check</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN169227"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>tcpwrap_check</B
+> ( string daemon, string address [, string user [, bool nodns]] )<BR
+></BR
+><P
+>&#13;   This function consults the <TT
+CLASS="filename"
+>/etc/hosts.allow</TT
+> and 
+   <TT
+CLASS="filename"
+>/etc/hosts.deny</TT
+> files to check if access to service 
+   <VAR
+CLASS="parameter"
+>daemon</VAR
+> should be granted or denied for a client.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN169248"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>daemon</VAR
+></DT
+><DD
+><P
+>&#13;       The service name.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>address</VAR
+></DT
+><DD
+><P
+>&#13;       The client remote address. Can be either an IP address or a domain name.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>user</VAR
+></DT
+><DD
+><P
+>&#13;       An optional user name.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>nodns</VAR
+></DT
+><DD
+><P
+>&#13;       If <VAR
+CLASS="parameter"
+>address</VAR
+> looks like domain name then DNS is 
+       used to resolve it to IP address; set <VAR
+CLASS="parameter"
+>nodns</VAR
+> to 
+       <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> to avoid this.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN169275"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   This function returns <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> if access should be granted, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> otherwise.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN169280"
+></A
+><H2
+>Esempi</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN169282"
+></A
+><P
+><B
+>Esempio 1. Deny all connections from localhost</B
+></P
+><P
+>&#13;    If your /etc/hosts.deny file contains:
+   </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>php: 127.0.0.1</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;    And your code looks like:
+   </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (!</font><font color="#0000BB">tcpwrap_check</font><font color="#007700">(</font><font color="#DD0000">'php'</font><font color="#007700">, </font><font color="#0000BB">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'REMOTE_ADDR'</font><font color="#007700">])) {<br />&nbsp;&nbsp;die(</font><font color="#DD0000">'You are not welcome here'</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN169288"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   For more details please consult hosts_access(3) man page.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.tcpwrap.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.tidy.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>TCP Wrappers Functions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.tcpwrap.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Tidy Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

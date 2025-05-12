@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>printer_select_brush</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le Stampanti"
+HREF="ref.printer.html"><LINK
+REL="PREVIOUS"
+TITLE="printer_open"
+HREF="function.printer-open.html"><LINK
+REL="NEXT"
+TITLE="printer_select_font"
+HREF="function.printer-select-font.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.printer-open.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.printer-select-font.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.printer-select-brush"
+></A
+>printer_select_brush</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN136021"
+></A
+><P
+>    (PECL)</P
+>printer_select_brush&nbsp;--&nbsp;Seleziona un pennello</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN136024"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>printer_select_brush</B
+> ( resource printer_handle, resource brush_handle )<BR
+></BR
+><P
+>&#13;     La funzione seleziona un pennello come oggetto attivo per il disegno nel 
+     device context corrente. Un pennello viene utilizzato per riempire le figure. Se si disegna un rettangolo
+     il pennello viene utilizzato per disegnarne la forma, mentre si utilizza la penna
+     per tracciarne i contorni.
+     Se non si seleziona alcun pennello prima di disegnare delle figure, queste non
+     saranno riempite. Il parametro <VAR
+CLASS="parameter"
+>printer_handle</VAR
+> deve indicare un 
+     handle valido di stampante. Il parametro <VAR
+CLASS="parameter"
+>brush_handle</VAR
+> deve indicare un 
+     handle valido di pennello.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN136038"
+></A
+><P
+><B
+>Esempio 1. 
+      Esempio di utilizzo di <B
+CLASS="function"
+>printer_select_brush()</B
+>
+     </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$handle </font><font color="#007700">= </font><font color="#0000BB">printer_open</font><font color="#007700">();<br /></font><font color="#0000BB">printer_start_doc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#DD0000">"My Document"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_start_page</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$pen </font><font color="#007700">= </font><font color="#0000BB">printer_create_pen</font><font color="#007700">(</font><font color="#0000BB">PRINTER_PEN_SOLID</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#DD0000">"000000"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_select_pen</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">$pen</font><font color="#007700">);<br /></font><font color="#0000BB">$brush </font><font color="#007700">= </font><font color="#0000BB">printer_create_brush</font><font color="#007700">(</font><font color="#0000BB">PRINTER_BRUSH_CUSTOM</font><font color="#007700">, </font><font color="#DD0000">"c:\\brush.bmp"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_select_brush</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">$brush</font><font color="#007700">);<br /></font><font color="#0000BB">printer_draw_rectangle</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">500</font><font color="#007700">, </font><font color="#0000BB">500</font><font color="#007700">);<br /></font><font color="#0000BB">printer_delete_brush</font><font color="#007700">(</font><font color="#0000BB">$brush</font><font color="#007700">);<br /></font><font color="#0000BB">$brush </font><font color="#007700">= </font><font color="#0000BB">printer_create_brush</font><font color="#007700">(</font><font color="#0000BB">PRINTER_BRUSH_SOLID</font><font color="#007700">, </font><font color="#DD0000">"000000"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_select_brush</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">$brush</font><font color="#007700">);<br /></font><font color="#0000BB">printer_draw_rectangle</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">501</font><font color="#007700">, </font><font color="#0000BB">500</font><font color="#007700">, </font><font color="#0000BB">1001</font><font color="#007700">);<br /></font><font color="#0000BB">printer_delete_brush</font><font color="#007700">(</font><font color="#0000BB">$brush</font><font color="#007700">);<br /></font><font color="#0000BB">printer_delete_pen</font><font color="#007700">(</font><font color="#0000BB">$pen</font><font color="#007700">);<br /></font><font color="#0000BB">printer_end_page</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">printer_end_doc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">printer_close</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.printer-open.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.printer-select-font.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>printer_open</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.printer.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>printer_select_font</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

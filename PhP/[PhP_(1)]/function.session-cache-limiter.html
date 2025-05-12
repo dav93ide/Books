@@ -1,0 +1,279 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>session_cache_limiter</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di gestione della sessione"
+HREF="ref.session.html"><LINK
+REL="PREVIOUS"
+TITLE="session_cache_expire"
+HREF="function.session-cache-expire.html"><LINK
+REL="NEXT"
+TITLE="session_commit"
+HREF="function.session-commit.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.session-cache-expire.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.session-commit.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.session-cache-limiter"
+></A
+>session_cache_limiter</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN150402"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.3, PHP 5)</P
+>session_cache_limiter&nbsp;--&nbsp;Assume o imposta il limitatore di cache corrente</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN150405"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>session_cache_limiter</B
+> ( [string cache_limiter] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>session_cache_limiter()</B
+> restituisce il nome del limitatore
+     di cache corrente. Se <VAR
+CLASS="parameter"
+>cache_limiter</VAR
+> è
+     specificato, il nome del limitatore di cache corrente viene cambiato
+     nel nuovo valore.
+    </P
+><P
+>&#13;     Il limitatore di cache controlla quali header HTTP che influenzano la cache vengono 
+     mandati al client. Questi header determinano i modi in cui il contenuto della 
+     pagina può essere mandato in cache, sia da parte del client che da parte di 
+     eventuali proxy. Impostando il limitatore di cache a
+     <VAR
+CLASS="literal"
+>nocache</VAR
+>, per esempio, non permetterebbe nessun caching
+     lato client. Un valore di <VAR
+CLASS="literal"
+>public</VAR
+>, invece, permetterebbe il caching.  
+     Può anche essere impostato a <VAR
+CLASS="literal"
+>private</VAR
+>, che è leggermente più restrittivo di
+     <VAR
+CLASS="literal"
+>public</VAR
+>.
+    </P
+><P
+>&#13;     Nella modalità <VAR
+CLASS="literal"
+>private</VAR
+>, l'header Expire mandato al 
+     client, potrebbe causare confusione per alcuni browser incluso Mozilla.
+     Si può evitare questo problema con la modalità 
+     <VAR
+CLASS="literal"
+>private_no_expire</VAR
+>. In questo modo l'header Expire non
+     viene mai spedito al client.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      <VAR
+CLASS="literal"
+>private_no_expire</VAR
+> è stato aggiunto in PHP 4.2.0dev.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Il limitatore di cache è resettato al valore di default archiviato in
+     <VAR
+CLASS="literal"
+>session.cache_limiter</VAR
+> alla richiesta iniziale. Per questo motivo,
+     avete bisogno di chiamare <B
+CLASS="function"
+>session_cache_limiter()</B
+> per ogni
+     richiesta (e prima che <A
+HREF="function.session-start.html"
+><B
+CLASS="function"
+>session_start()</B
+></A
+> sia chiamata).
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN150431"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>session_cache_limiter()</B
+> esempi</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000"># set the cache limiter to 'private'<br /><br /></font><font color="#0000BB">session_cache_limiter</font><font color="#007700">(</font><font color="#DD0000">'private'</font><font color="#007700">);<br /></font><font color="#0000BB">$cache_limiter </font><font color="#007700">= </font><font color="#0000BB">session_cache_limiter</font><font color="#007700">();<br /><br />echo </font><font color="#DD0000">"Il limitatore di cache è adesso impostato a $cache_limiter&lt;p&gt;"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.session-cache-expire.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.session-commit.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>session_cache_expire</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.session.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>session_commit</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,460 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Booleans</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Types"
+HREF="language.types.html"><LINK
+REL="PREVIOUS"
+TITLE="Types"
+HREF="language.types.html"><LINK
+REL="NEXT"
+TITLE="Integers"
+HREF="language.types.integer.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.types.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 11. Types</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.types.integer.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.types.boolean"
+>Booleans</A
+></H1
+><P
+>&#13;     This is the easiest type. A <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+> expresses a 
+     truth value. It can be either <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. 
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      The boolean type was introduced in PHP 4.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.boolean.syntax"
+>Syntax</A
+></H2
+><P
+>&#13;      To specify a boolean literal, use either the keyword <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> 
+      or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. Both are case-insensitive.
+      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN2823"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$foo </font><font color="#007700">= </font><font color="#0000BB">True</font><font color="#007700">; </font><font color="#FF8000">// assign the value TRUE to $foo<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     </P
+><P
+>&#13;      Usually you 
+      use some kind of <A
+HREF="language.operators.html"
+>operator</A
+>
+      which returns a <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+> value, and then pass it 
+      on to a <A
+HREF="language.control-structures.html"
+>control
+      structure</A
+>.
+      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN2829"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// == is an operator which test<br />// equality and returns a boolean<br /></font><font color="#007700">if (</font><font color="#0000BB">$action </font><font color="#007700">== </font><font color="#DD0000">"show_version"</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"The version is 1.23"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// this is not necessary...<br /></font><font color="#007700">if (</font><font color="#0000BB">$show_separators </font><font color="#007700">== </font><font color="#0000BB">TRUE</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;hr&gt;\n"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// ...because you can simply type<br /></font><font color="#007700">if (</font><font color="#0000BB">$show_separators</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;hr&gt;\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.boolean.casting"
+>Converting to boolean</A
+></H2
+><P
+>&#13;       To explicitly convert a value to <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+>, use either
+       the <VAR
+CLASS="literal"
+>(bool)</VAR
+> or the <VAR
+CLASS="literal"
+>(boolean)</VAR
+> cast.
+       However, in most cases you do not need to use the cast, since a value
+       will be automatically converted if an operator, function or 
+       control structure requires a <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+> argument.
+      </P
+><P
+>&#13;       See also <A
+HREF="language.types.type-juggling.html"
+>Type Juggling</A
+>.
+      </P
+><P
+>&#13;       When converting to <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+>, the following values 
+       are considered <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>:
+  
+       <P
+></P
+><UL
+><LI
+><P
+>the <A
+HREF="language.types.boolean.html"
+>boolean</A
+> 
+          <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> itself</P
+></LI
+><LI
+><P
+>the <A
+HREF="language.types.integer.html"
+>integer</A
+> 0 (zero) </P
+></LI
+><LI
+><P
+>the <A
+HREF="language.types.float.html"
+>float</A
+> 
+         0.0 (zero) </P
+></LI
+><LI
+><P
+>the empty <A
+HREF="language.types.string.html"
+>string</A
+>, and the <A
+HREF="language.types.string.html"
+>string</A
+>
+           "0"</P
+></LI
+><LI
+><P
+>an <A
+HREF="language.types.array.html"
+>array</A
+> 
+         with zero elements</P
+></LI
+><LI
+><P
+>an <A
+HREF="language.types.object.html"
+>object</A
+> 
+         with zero member variables (PHP 4 only)</P
+></LI
+><LI
+><P
+>the special type <A
+HREF="language.types.null.html"
+>NULL</A
+> (including unset variables)
+         </P
+></LI
+></UL
+>
+       
+       Every other value is considered <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> (including any 
+       <A
+HREF="language.types.resource.html"
+>resource</A
+>).
+       <DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;         <VAR
+CLASS="literal"
+>-1</VAR
+> is considered  
+         <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>, like any other non-zero (whether negative
+         or positive) number!
+        </P
+></TD
+></TR
+></TABLE
+></DIV
+>
+       <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN2873"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />var_dump</font><font color="#007700">((bool) </font><font color="#DD0000">""</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// bool(false)<br /></font><font color="#0000BB">var_dump</font><font color="#007700">((bool) </font><font color="#0000BB">1</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// bool(true)<br /></font><font color="#0000BB">var_dump</font><font color="#007700">((bool) -</font><font color="#0000BB">2</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// bool(true)<br /></font><font color="#0000BB">var_dump</font><font color="#007700">((bool) </font><font color="#DD0000">"foo"</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// bool(true)<br /></font><font color="#0000BB">var_dump</font><font color="#007700">((bool) </font><font color="#0000BB">2.3e5</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// bool(true)<br /></font><font color="#0000BB">var_dump</font><font color="#007700">((bool) array(</font><font color="#0000BB">12</font><font color="#007700">)); </font><font color="#FF8000">// bool(true)<br /></font><font color="#0000BB">var_dump</font><font color="#007700">((bool) array());&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// bool(false)<br /></font><font color="#0000BB">var_dump</font><font color="#007700">((bool) </font><font color="#DD0000">"false"</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// bool(true)<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+      </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.types.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.types.integer.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Types</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.types.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Integers</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

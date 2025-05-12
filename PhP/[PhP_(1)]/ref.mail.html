@@ -1,0 +1,513 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni di Mail</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="lzf_optimized_for"
+HREF="function.lzf-optimized-for.html"><LINK
+REL="NEXT"
+TITLE="ezmlm_hash"
+HREF="function.ezmlm-hash.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.lzf-optimized-for.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ezmlm-hash.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.mail"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LXVII. Funzioni di Mail</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN69437"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mail.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     La funzione <A
+HREF="function.mail.html"
+><B
+CLASS="function"
+>mail()</B
+></A
+> permette di inviare messaggi 
+     di posta elettronica.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mail.requirements"
+>Requisiti</A
+></H1
+><P
+> 
+     Per avere disponibili le funzioni Mail, il PHP deve potere accedere
+     all'eseguibile <VAR
+CLASS="literal"
+>sendmail</VAR
+> del sistema durante la compila.
+     Qualora si utilizzi un'altro programma di posta, tipo qmail o postfix, occorre
+     utlizzare il wrapper sendmail allegato al programma di posta. Il PHP cercherà
+     sendmail in <VAR
+CLASS="literal"
+>PATH</VAR
+> e quindi in:
+     <VAR
+CLASS="literal"
+>/usr/bin:/usr/sbin:/usr/etc:/etc:/usr/ucblib:/usr/lib</VAR
+>. 
+     Si consiglia vivamente di avere sendmail in 
+     <VAR
+CLASS="literal"
+>PATH</VAR
+>. Inoltre, l'utente che compila PHP deve avere i diritti
+     di accesso all'eseguibile di sendmail.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mail.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mail.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN69457"
+></A
+><P
+><B
+>Tabella 1. Opzioni di configurazione Mail</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Predefinito</TH
+><TH
+>Modificabile in</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>SMTP</TD
+><TD
+>"localhost"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>smtp_port</TD
+><TD
+>"25"</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>sendmail_from</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_ALL</TD
+></TR
+><TR
+><TD
+>sendmail_path</TD
+><TD
+>DEFAULT_SENDMAIL_PATH</TD
+><TD
+>PHP_INI_SYSTEM</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per ulteriori dettagli e per la definizione delle costanti
+ PHP_INI_* fare riferimento a <A
+HREF="function.ini-set.html"
+><B
+CLASS="function"
+>ini_set()</B
+></A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13; <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.smtp"
+></A
+><VAR
+CLASS="parameter"
+>SMTP</VAR
+>
+    <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;     Usato solo sotto Windows: Nome DNS o indirizzo IP del server SMTP che PHP
+     deve usare per spedire posta elettronica con la funzione <A
+HREF="function.mail.html"
+><B
+CLASS="function"
+>mail()</B
+></A
+>.
+    </P
+></DD
+><DT
+><A
+NAME="ini.smtp-port"
+></A
+><VAR
+CLASS="parameter"
+>smtp_port</VAR
+>
+    <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+></DT
+><DD
+><P
+>&#13;     Usato solo sotto Windows: Numero della porta del server specificato da
+     <VAR
+CLASS="literal"
+>SMTP</VAR
+> al quale connettersi quando si inviano email
+     usando <A
+HREF="function.mail.html"
+><B
+CLASS="function"
+>mail()</B
+></A
+>; il valore predefinito è 25. Disponibile 
+     solo a partire da PHP 4.3.0.
+    </P
+></DD
+><DT
+><A
+NAME="ini.sendmail-from"
+></A
+><VAR
+CLASS="parameter"
+>sendmail_from</VAR
+>
+    <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;     Quale campo "From:" devono avere i messaggi inviati da
+     PHP sotto Windows.
+    </P
+></DD
+><DT
+><A
+NAME="ini.sendmail-path"
+></A
+><VAR
+CLASS="parameter"
+>sendmail_path</VAR
+>
+    <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;       Dove trovare il programma <B
+CLASS="command"
+>sendmail</B
+>,
+       solitamente <TT
+CLASS="filename"
+>/usr/sbin/sendmail</TT
+> oppure
+       <TT
+CLASS="filename"
+>/usr/lib/sendmail</TT
+>.
+       <B
+CLASS="command"
+>configure</B
+> cerca di trovare il file
+       e lo imposta di default, ma se non riesce a localizzarlo,
+       lo si può impostare qui.
+      </P
+><P
+>&#13;       I sistemi che non usano sendmail devono impostare questa direttiva
+       al wrapper che i rispettivi sistemi di posta offrono, se esistenti.
+       Per esempio, gli utenti di <A
+HREF="http://www.qmail.org/"
+TARGET="_top"
+>Qmail</A
+>
+       possono normalmente impostarla a
+       <TT
+CLASS="filename"
+>/var/qmail/bin/sendmail</TT
+> o <TT
+CLASS="filename"
+>&#13;       /var/qmail/bin/qmail-inject</TT
+>.
+    </P
+><P
+>&#13;     <B
+CLASS="command"
+>qmail-inject</B
+> non necessita di nessuna opzione
+     al fine di processare correttamente la mail.
+    </P
+><P
+>&#13;     Questi parametri funzionano anche su Windows. Se si impostate <VAR
+CLASS="varname"
+>smtp</VAR
+>,
+     <VAR
+CLASS="varname"
+>smtp_port</VAR
+> e <VAR
+CLASS="varname"
+>sendmail_from</VAR
+> saranno
+     ignorate e verrà eseguito il comando indicato.
+    </P
+></DD
+></DL
+></DIV
+>
+
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mail.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mail.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.ezmlm-hash.html"
+>ezmlm_hash</A
+>&nbsp;--&nbsp;Calcola il valore hash che occorre a EZMLM</DT
+><DT
+><A
+HREF="function.mail.html"
+>mail</A
+>&nbsp;--&nbsp;Invio mail</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.lzf-optimized-for.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ezmlm-hash.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>lzf_optimized_for</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ezmlm_hash</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

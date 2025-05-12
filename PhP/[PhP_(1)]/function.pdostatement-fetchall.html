@@ -1,0 +1,555 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDOStatement::fetchAll</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Functions"
+HREF="ref.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="PDOStatement::fetch"
+HREF="function.pdostatement-fetch.html"><LINK
+REL="NEXT"
+TITLE="PDOStatement::fetchColumn"
+HREF="function.pdostatement-fetchcolumn.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-fetch.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-fetchcolumn.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDOStatement-fetchAll"
+></A
+>PDOStatement::fetchAll</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN128672"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDOStatement::fetchAll&nbsp;--&nbsp;
+     Returns an array containing all of the result set rows
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128675"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>PDOStatement::fetchAll</B
+> ( [int fetch_style [, int column_index]] )<BR
+></BR
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128686"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>fetch_style</VAR
+></DT
+><DD
+><P
+>&#13;         Controls the contents of the returned array as documented in
+         <B
+CLASS="function"
+>PDOStatement::fetch()</B
+>. Defaults to
+         <VAR
+CLASS="literal"
+>PDO::FETCH_BOTH</VAR
+>.
+        </P
+><P
+>&#13;         To return an array consisting of all values of a single column from
+         the result set, specify <VAR
+CLASS="literal"
+>PDO::FETCH_COLUMN</VAR
+>.
+        </P
+><P
+>&#13;         To fetch only the unique values of a single column from the result set,
+         bitwise-OR <VAR
+CLASS="literal"
+>PDO::FETCH_COLUMN</VAR
+> with
+         <VAR
+CLASS="literal"
+>PDO::FETCH_UNIQUE</VAR
+>.
+        </P
+><P
+>&#13;         To return an associative array grouped by the values of a specified
+         column, bitwise-OR <VAR
+CLASS="literal"
+>PDO::FETCH_COLUMN</VAR
+> with
+         <VAR
+CLASS="literal"
+>PDO::FETCH_GROUP</VAR
+>.
+        </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>column_index</VAR
+></DT
+><DD
+><P
+>&#13;         Returns the indicated 0-indexed column when the value of
+         <VAR
+CLASS="parameter"
+>fetch_style</VAR
+> is
+         <VAR
+CLASS="literal"
+>PDO::FETCH_COLUMN</VAR
+>. Defaults to <VAR
+CLASS="literal"
+>0</VAR
+>.
+        </P
+></DD
+></DL
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128713"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;     <B
+CLASS="function"
+>PDOStatement::fetchAll()</B
+> returns an array containing
+     all of the remaining rows in the result set. The array represents each
+     row as either an array of column values or an object with properties
+     corresponding to each column name.
+    </P
+><P
+>&#13;     Using this method to fetch large result sets will result in a heavy
+     demand on system and possibly network resources. Rather than retrieving
+     all of the data and manipulating it in PHP, consider using the database
+     server to manipulate the result sets. For example, use the WHERE and
+     SORT BY clauses in SQL to restrict results before retrieving and
+     processing them with PHP.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128718"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128721"
+></A
+><P
+><B
+>Esempio 1. Fetch all remaining rows in a result set</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$sth </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">"SELECT name, colour FROM fruit"</font><font color="#007700">);<br /></font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* Fetch all of the remaining rows in the result set */<br /></font><font color="#007700">print(</font><font color="#DD0000">"Fetch all of the remaining rows in the result set:\n"</font><font color="#007700">);<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">fetchAll</font><font color="#007700">();<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Fetch all of the remaining rows in the result set:
+Array
+(
+    [0] =&#62; Array
+        (
+            [NAME] =&#62; pear
+            [0] =&#62; pear
+            [COLOUR] =&#62; green
+            [1] =&#62; green
+        )
+
+    [1] =&#62; Array
+        (
+            [NAME] =&#62; watermelon
+            [0] =&#62; watermelon
+            [COLOUR] =&#62; pink
+            [1] =&#62; pink
+        )
+
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128726"
+></A
+><P
+><B
+>Esempio 2. Fetching all values of a single column from a result set</B
+></P
+><P
+>&#13;       The following example demonstrates how to return all of the values of a
+       single column from a result set, even though the SQL statement itself
+       may return multiple columns per row.
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$sth </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">"SELECT name, colour FROM fruit"</font><font color="#007700">);<br /></font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* Fetch all of the values of the first column */<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">fetchAll</font><font color="#007700">(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_COLUMN</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array(3)
+(
+    [0] =&#62;
+    string(5) =&#62; apple
+    [1] =&#62;
+    string(4) =&#62; pear
+    [2] =&#62;
+    string(10) =&#62; watermelon
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128732"
+></A
+><P
+><B
+>Esempio 3. Grouping all values by a single column</B
+></P
+><P
+>&#13;       The following example demonstrates how to return an associative array
+       grouped by the values of the specified column in the result set. The
+       array contains three keys: values <VAR
+CLASS="literal"
+>apple</VAR
+> and
+       <VAR
+CLASS="literal"
+>pear</VAR
+> are returned as arrays that contain two
+       different colours, while <VAR
+CLASS="literal"
+>watermelon</VAR
+> is
+       returned as an array that contains only one colour.
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$insert </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">"INSERT INTO fruit(name, colour) VALUES (?, ?)"</font><font color="#007700">);<br /></font><font color="#0000BB">$insert</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">(</font><font color="#DD0000">'apple'</font><font color="#007700">, </font><font color="#DD0000">'green'</font><font color="#007700">);<br /></font><font color="#0000BB">$insert</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">(</font><font color="#DD0000">'pear'</font><font color="#007700">, </font><font color="#DD0000">'yellow'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$sth </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">"SELECT name, colour FROM fruit"</font><font color="#007700">);<br /></font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* Group values by the first column */<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$sth</font><font color="#007700">-&gt;</font><font color="#0000BB">fetchAll</font><font color="#007700">(</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_COLUMN</font><font color="#007700">|</font><font color="#0000BB">PDO</font><font color="#007700">::</font><font color="#0000BB">FETCH_GROUP</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>array(3) {
+  ["apple"]=&#62;
+  array(2) {
+    [0]=&#62;
+    string(5) "green"
+    [1]=&#62;
+    string(3) "red"
+  }
+  ["pear"]=&#62;
+  array(2) {
+    [0]=&#62;
+    string(5) "green"
+    [1]=&#62;
+    string(6) "yellow"
+  }
+  ["watermelon"]=&#62;
+  array(1) {
+    [0]=&#62;
+    string(5) "green"
+  }
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128741"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;     <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDO::query()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::fetch()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::fetchColumn()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::prepare()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::setFetchMode()</B
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdostatement-fetch.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pdostatement-fetchcolumn.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDOStatement::fetch</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDOStatement::fetchColumn</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

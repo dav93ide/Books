@@ -1,0 +1,417 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mb_convert_kana</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Multibyte String Functions"
+HREF="ref.mbstring.html"><LINK
+REL="PREVIOUS"
+TITLE="mb_convert_encoding"
+HREF="function.mb-convert-encoding.html"><LINK
+REL="NEXT"
+TITLE="mb_convert_variables"
+HREF="function.mb-convert-variables.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mb-convert-encoding.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mb-convert-variables.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mb-convert-kana"
+></A
+>mb_convert_kana</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN90979"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PHP 5)</P
+>mb_convert_kana&nbsp;--&nbsp;
+     Convert "kana" one from another ("zen-kaku", "han-kaku" and more)
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN90982"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>mb_convert_kana</B
+> ( string str [, string option [, string encoding]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mb_convert_kana()</B
+> performs "han-kaku" -
+     "zen-kaku" conversion for string <VAR
+CLASS="parameter"
+>str</VAR
+>. It
+     returns converted string. This function is only useful for
+     Japanese.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>option</VAR
+> is conversion option. Default value
+     is <VAR
+CLASS="literal"
+>"KV"</VAR
+>.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>encoding</VAR
+> is character encoding. If it is
+     omitted, internal character encoding is used.
+    </P
+><P
+>&#13;     Specify with combination of following options. Default 
+     value is <VAR
+CLASS="literal"
+>KV</VAR
+>.
+      <DIV
+CLASS="table"
+><A
+NAME="AEN91006"
+></A
+><P
+><B
+>Tabella 1. Applicable Conversion Options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Option</TH
+><TH
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>r</VAR
+></TD
+><TD
+>&#13;            Convert "zen-kaku" alphabets to "han-kaku"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>R</VAR
+></TD
+><TD
+>&#13;           Convert "han-kaku" alphabets to "zen-kaku"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>n</VAR
+></TD
+><TD
+>&#13;           Convert "zen-kaku" numbers to "han-kaku"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>N</VAR
+></TD
+><TD
+>&#13;          Convert "han-kaku" numbers to "zen-kaku"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>a</VAR
+></TD
+><TD
+>&#13;           Convert "zen-kaku" alphabets and numbers to "han-kaku"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>A</VAR
+></TD
+><TD
+>&#13;           Convert "han-kaku" alphabets and numbers to "zen-kaku"
+           (Characters included in "a", "A" options are
+           U+0021 - U+007E excluding U+0022, U+0027, U+005C, U+007E)
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>s</VAR
+></TD
+><TD
+>&#13;            Convert "zen-kaku" space to "han-kaku" (U+3000 -&#62; U+0020)
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>S</VAR
+></TD
+><TD
+>&#13;            Convert "han-kaku" space to "zen-kaku" (U+0020 -&#62; U+3000)
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>k</VAR
+></TD
+><TD
+>&#13;           Convert "zen-kaku kata-kana" to "han-kaku kata-kana"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>K</VAR
+></TD
+><TD
+>&#13;          Convert "han-kaku kata-kana" to "zen-kaku kata-kana"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>h</VAR
+></TD
+><TD
+>&#13;           Convert "zen-kaku hira-gana" to "han-kaku kata-kana"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>H</VAR
+></TD
+><TD
+>&#13;           Convert "han-kaku kata-kana" to "zen-kaku hira-gana"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>c</VAR
+></TD
+><TD
+>&#13;          Convert "zen-kaku kata-kana" to "zen-kaku hira-gana"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>C</VAR
+></TD
+><TD
+>&#13;           Convert "zen-kaku hira-gana" to "zen-kaku kata-kana"
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>V</VAR
+></TD
+><TD
+>&#13;           Collapse voiced sound notation and convert them into a character. Use with "K","H"
+          </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+     </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN91075"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>mb_convert_kana()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Convert all "kana" to "zen-kaku" "kata-kana" */<br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#0000BB">mb_convert_kana</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">, </font><font color="#DD0000">"KVC"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Convert "han-kaku" "kata-kana" to "zen-kaku" "kata-kana" <br />&nbsp;&nbsp;&nbsp;and "zen-kaku" alpha-numeric to "han-kaku" */<br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#0000BB">mb_convert_kana</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">, </font><font color="#DD0000">"KVa"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mb-convert-encoding.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mb-convert-variables.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mb_convert_encoding</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mbstring.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mb_convert_variables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

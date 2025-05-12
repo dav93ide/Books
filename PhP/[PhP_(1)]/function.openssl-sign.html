@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>openssl_sign</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="OpenSSL Functions"
+HREF="ref.openssl.html"><LINK
+REL="PREVIOUS"
+TITLE="openssl_seal"
+HREF="function.openssl-seal.html"><LINK
+REL="NEXT"
+TITLE="openssl_verify"
+HREF="function.openssl-verify.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.openssl-seal.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.openssl-verify.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.openssl-sign"
+></A
+>openssl_sign</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN118086"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.4, PHP 5)</P
+>openssl_sign&nbsp;--&nbsp;Generate signature</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN118089"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>openssl_sign</B
+> ( string data, string &#38;signature, mixed priv_key_id [, int signature_alg] )<BR
+></BR
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+     If successful the signature is returned in
+     <VAR
+CLASS="parameter"
+>signature</VAR
+>. 
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>openssl_sign()</B
+> computes a signature for the
+     specified <VAR
+CLASS="parameter"
+>data</VAR
+> by using SHA1 for hashing
+     followed by encryption using the private key associated with
+     <VAR
+CLASS="parameter"
+>priv_key_id</VAR
+>. Note that the data itself is
+     not encrypted.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN118115"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>openssl_sign()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// $data is assumed to contain the data to be signed<br /><br />// fetch private key from file and ready it<br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"/src/openssl-0.9.6/demos/sign/key.pem"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br /></font><font color="#0000BB">$priv_key </font><font color="#007700">= </font><font color="#0000BB">fread</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#0000BB">8192</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#0000BB">$pkeyid </font><font color="#007700">= </font><font color="#0000BB">openssl_get_privatekey</font><font color="#007700">(</font><font color="#0000BB">$priv_key</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// compute signature<br /></font><font color="#0000BB">openssl_sign</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">, </font><font color="#0000BB">$signature</font><font color="#007700">, </font><font color="#0000BB">$pkeyid</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// free the key from memory<br /></font><font color="#0000BB">openssl_free_key</font><font color="#007700">(</font><font color="#0000BB">$pkeyid</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     See also <A
+HREF="function.openssl-verify.html"
+><B
+CLASS="function"
+>openssl_verify()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.openssl-seal.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.openssl-verify.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>openssl_seal</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.openssl.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>openssl_verify</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

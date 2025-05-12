@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_procedures</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_procedure_columns"
+HREF="function.db2-procedure-columns.html"><LINK
+REL="NEXT"
+TITLE="db2_result"
+HREF="function.db2-result.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-procedure-columns.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-procedures"
+></A
+>db2_procedures</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN54903"
+></A
+><P
+>    (PECL)</P
+>db2_procedures&nbsp;--&nbsp;
+   Returns a result set listing the stored procedures registered in a database
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54906"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>db2_procedures</B
+> ( resource connection, string qualifier, string schema, string procedure )<BR
+></BR
+><P
+>&#13;   Returns a result set listing the stored procedures registered in a
+   database.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54924"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       A valid connection to an IBM DB2, Cloudscape, or Apache Derby database.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>qualifier</VAR
+></DT
+><DD
+><P
+>&#13;       A qualifier for DB2 databases running on OS/390 or z/OS servers. For
+       other databases, pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> or an empty string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>schema</VAR
+></DT
+><DD
+><P
+>&#13;       The schema which contains the procedures. This parameter accepts a
+       search pattern containing <VAR
+CLASS="literal"
+>_</VAR
+> and <VAR
+CLASS="literal"
+>%</VAR
+>
+       as wildcards.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>procedure</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the procedure. This parameter accepts a
+       search pattern containing <VAR
+CLASS="literal"
+>_</VAR
+> and <VAR
+CLASS="literal"
+>%</VAR
+>
+       as wildcards.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54953"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a statement resource with a result set containing rows describing
+   the stored procedures matching the specified parameters. The rows are
+   composed of the following columns:
+   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN54956"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Column name</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>PROCEDURE_CAT</TD
+><TD
+>The catalog that contains the procedure. The value is <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> if
+        this table does not have catalogs.</TD
+></TR
+><TR
+><TD
+>PROCEDURE_SCHEM</TD
+><TD
+>Name of the schema that contains the stored procedure.</TD
+></TR
+><TR
+><TD
+>PROCEDURE_NAME</TD
+><TD
+>Name of the procedure.</TD
+></TR
+><TR
+><TD
+>NUM_INPUT_PARAMS</TD
+><TD
+>Number of input (IN) parameters for the stored procedure.</TD
+></TR
+><TR
+><TD
+>NUM_OUTPUT_PARAMS</TD
+><TD
+>Number of output (OUT) parameters for the stored procedure.</TD
+></TR
+><TR
+><TD
+>NUM_RESULT_SETS</TD
+><TD
+>Number of result sets returned by the stored procedure.</TD
+></TR
+><TR
+><TD
+>REMARKS</TD
+><TD
+>Any comments about the stored procedure.</TD
+></TR
+><TR
+><TD
+>PROCEDURE_TYPE</TD
+><TD
+>Always returns <VAR
+CLASS="literal"
+>1</VAR
+>, indicating that the stored
+        procedure does not return a return value.</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54989"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-column-privileges.html"
+><B
+CLASS="function"
+>db2_column_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-columns.html"
+><B
+CLASS="function"
+>db2_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-foreign-keys.html"
+><B
+CLASS="function"
+>db2_foreign_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-primary-keys.html"
+><B
+CLASS="function"
+>db2_primary_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedure-columns.html"
+><B
+CLASS="function"
+>db2_procedure_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-special-columns.html"
+><B
+CLASS="function"
+>db2_special_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-statistics.html"
+><B
+CLASS="function"
+>db2_statistics()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-table-privileges.html"
+><B
+CLASS="function"
+>db2_table_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-tables.html"
+><B
+CLASS="function"
+>db2_tables()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-procedure-columns.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_procedure_columns</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_result</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

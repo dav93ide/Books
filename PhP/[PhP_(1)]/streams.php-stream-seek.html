@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>php_stream_seek</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Streams Common API Reference"
+HREF="streams.common-api.html"><LINK
+REL="PREVIOUS"
+TITLE="php_stream_flush"
+HREF="streams.php-stream-flush.html"><LINK
+REL="NEXT"
+TITLE="php_stream_tell"
+HREF="streams.php-stream-tell.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="streams.php-stream-flush.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="streams.php-stream-tell.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="streams.php-stream-seek"
+></A
+>php_stream_seek</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN184284"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>php_stream_seek&nbsp;--&nbsp;Reposition a stream</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN184287"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>php_stream_seek</B
+> ( php_stream * stream, off_t offset, int whence )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>php_stream_seek()</B
+> repositions the internal
+     position of <VAR
+CLASS="parameter"
+>stream</VAR
+>.
+     The new position is determined by adding the <VAR
+CLASS="parameter"
+>offset</VAR
+>
+     to the position indicated by <VAR
+CLASS="parameter"
+>whence</VAR
+>.
+     If <VAR
+CLASS="parameter"
+>whence</VAR
+> is set to <TT
+CLASS="constant"
+><B
+>SEEK_SET</B
+></TT
+>,
+     <TT
+CLASS="constant"
+><B
+>SEEK_CUR</B
+></TT
+> or <TT
+CLASS="constant"
+><B
+>SEEK_END</B
+></TT
+> the offset
+     is relative to the start of the stream, the current position or the end of the stream, respectively.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>php_stream_seek()</B
+> returns 0 on success, but -1 if there was an error.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Not all streams support seeking, although the streams API will emulate a seek if
+     <VAR
+CLASS="parameter"
+>whence</VAR
+> is set to <TT
+CLASS="constant"
+><B
+>SEEK_CUR</B
+></TT
+>
+     and <VAR
+CLASS="parameter"
+>offset</VAR
+> is positive, by calling <B
+CLASS="function"
+>php_stream_read()</B
+>
+     to read (and discard) <VAR
+CLASS="parameter"
+>offset</VAR
+> bytes.
+      </P
+><P
+>&#13;      The emulation is only applied when the underlying stream implementation does not
+      support seeking.  If the stream is (for example) a file based stream that is wrapping
+      a non-seekable pipe, the streams api will not apply emulation because the file based
+      stream implements a seek operation; the seek will fail and an error result will be
+      returned to the caller.
+      </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="streams.php-stream-flush.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="streams.php-stream-tell.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>php_stream_flush</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="streams.common-api.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>php_stream_tell</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

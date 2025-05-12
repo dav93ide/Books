@@ -1,0 +1,480 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ID3 Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="ob_iconv_handler"
+HREF="function.ob-iconv-handler.html"><LINK
+REL="NEXT"
+TITLE="id3_get_frame_long_name"
+HREF="function.id3-get-frame-long-name.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ob-iconv-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.id3-get-frame-long-name.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.id3"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LIV. ID3 Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN56938"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="id3.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     These functions let you read and manipulate ID3 tags.
+     ID3 tags are used in MP3 files to store title of the song, as well
+     as information about the artist, album, genre, year and track
+     number.
+    </P
+><P
+>&#13;     Since version 0.2 it is also possible to extract text frames from
+     ID3 v2.2+ tags.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="id3.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="id3.installation"
+>Installazione</A
+></H1
+><P
+>&#13;      id3 is part of PECL and can be installed using the PEAR installer.
+      To compile PHP with id3 support, download the sourcecode, put it in
+      php-src/ext/id3 and compile PHP using --enable-id3.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="id3.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="id3.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="id3.constants"
+>Predefined Constants</A
+></H1
+><P
+>&#13;   Most of the id3 functions either let you specify
+   or return a tag version. In order to specify the version
+   please use on of these constants.
+ </P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>ID3_V1_0</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      <TT
+CLASS="constant"
+><B
+>ID3_V1_0</B
+></TT
+> is used if you are working with
+      ID3 V1.0 tags. These tags may contain the fields title, artist,
+      album, genre, year and comment.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ID3_V1_1</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      <TT
+CLASS="constant"
+><B
+>ID3_V1_1</B
+></TT
+> is used if you are working with
+      ID3 V1.1 tags. These tags may all information contained in v1.0
+      tags plus the track number.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ID3_V2_1</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      <TT
+CLASS="constant"
+><B
+>ID3_V2_1</B
+></TT
+> is used if you are working with
+      ID3 V2.1 tags.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ID3_V2_2</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      <TT
+CLASS="constant"
+><B
+>ID3_V2_2</B
+></TT
+> is used if you are working with
+      ID3 V2.2 tags.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ID3_V2_3</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      <TT
+CLASS="constant"
+><B
+>ID3_V2_3</B
+></TT
+> is used if you are working with
+      ID3 V2.3 tags.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ID3_V2_4</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      <TT
+CLASS="constant"
+><B
+>ID3_V2_4</B
+></TT
+> is used if you are working with
+      ID3 V2.4 tags.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ID3_BEST</B
+></TT
+> 
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      <TT
+CLASS="constant"
+><B
+>ID3_BEST</B
+></TT
+> is used if would like to let the id3 functions
+      determine which tag version should be used.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.id3-get-frame-long-name.html"
+>id3_get_frame_long_name</A
+>&nbsp;--&nbsp;Get the long name of an ID3v2 frame</DT
+><DT
+><A
+HREF="function.id3-get-frame-short-name.html"
+>id3_get_frame_short_name</A
+>&nbsp;--&nbsp;Get the short name of an ID3v2 frame</DT
+><DT
+><A
+HREF="function.id3-get-genre-id.html"
+>id3_get_genre_id</A
+>&nbsp;--&nbsp;Get the id for a genre</DT
+><DT
+><A
+HREF="function.id3-get-genre-list.html"
+>id3_get_genre_list</A
+>&nbsp;--&nbsp;Get all possible genre values</DT
+><DT
+><A
+HREF="function.id3-get-genre-name.html"
+>id3_get_genre_name</A
+>&nbsp;--&nbsp;Get the name for a genre id</DT
+><DT
+><A
+HREF="function.id3-get-tag.html"
+>id3_get_tag</A
+>&nbsp;--&nbsp;Get all information stored in an ID3 tag</DT
+><DT
+><A
+HREF="function.id3-get-version.html"
+>id3_get_version</A
+>&nbsp;--&nbsp;Get version of an ID3 tag</DT
+><DT
+><A
+HREF="function.id3-remove-tag.html"
+>id3_remove_tag</A
+>&nbsp;--&nbsp;Remove an existing ID3 tag</DT
+><DT
+><A
+HREF="function.id3-set-tag.html"
+>id3_set_tag</A
+>&nbsp;--&nbsp;Update information stored in an ID3 tag</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ob-iconv-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.id3-get-frame-long-name.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ob_iconv_handler</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>id3_get_frame_long_name</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

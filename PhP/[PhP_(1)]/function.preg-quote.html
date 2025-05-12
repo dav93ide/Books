@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>preg_quote</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le espressioni regolari (Perl compatibili)"
+HREF="ref.pcre.html"><LINK
+REL="PREVIOUS"
+TITLE="preg_match"
+HREF="function.preg-match.html"><LINK
+REL="NEXT"
+TITLE="preg_replace_callback"
+HREF="function.preg-replace-callback.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.preg-match.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.preg-replace-callback.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.preg-quote"
+></A
+>preg_quote</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN123749"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.9, PHP 4, PHP 5)</P
+>preg_quote&nbsp;--&nbsp;Inserisce il carattere di escape nei caratteri delle espressioni regolari</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN123752"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>preg_quote</B
+> ( string stringa [, string delimitatori] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>preg_quote()</B
+> inserisce il carattere 
+     di escape (\) davanti ad ogni carattere presente in <VAR
+CLASS="parameter"
+>stringa</VAR
+>
+     che sia parte della sintassi di una espressione regolare. Questa
+     funzione è utile nei casi in cui si generino, durante l'esecuzione, 
+     delle stringhe da usare come criteri di riconoscimento, e queste possano
+     contenere dei caratteri speciali per le espressioni regolari.
+    </P
+><P
+>&#13;     Se viene specificato un carattere come parametro <VAR
+CLASS="parameter"
+>delimitatore</VAR
+>,
+     anche a questo sarà anteposto il carattere di escape (\).
+     Ciò è particolarmente utile per porre il carattere di escape nei
+     delimitatori richiesti dalle funzioni PCRE. Il carattere di delimitazione
+     più comunemente utilizzato è /.
+    </P
+><P
+>&#13;     I caratteri speciali per le espressioni regolari sono:
+     <VAR
+CLASS="literal"
+>. \\ + * ? [ ^ ] $ ( ) { } = ! &#60; &#62; | :</VAR
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123771"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>preg_quote()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$keywords </font><font color="#007700">= </font><font color="#DD0000">"</font><font color="#007700">$</font><font color="#DD0000">40 for a g3/400"</font><font color="#007700">;<br /></font><font color="#0000BB">$keywords </font><font color="#007700">= </font><font color="#0000BB">preg_quote</font><font color="#007700">(</font><font color="#0000BB">$keywords</font><font color="#007700">, </font><font color="#DD0000">"/"</font><font color="#007700">);<br />echo </font><font color="#0000BB">$keywords</font><font color="#007700">; </font><font color="#FF8000">// returns \$40 for a g3\/400<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN123776"
+></A
+><P
+><B
+>Esempio 2. Esempio di come rendere in corsivo una qualsiasi parola di un testo</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// In questo esempio, la funzione preg_quote($word) viene usata<br />// per impedire agli asterischi di avere il loro significato<br />// speciale per le espressioni regolari.<br /><br /></font><font color="#0000BB">$testo </font><font color="#007700">= </font><font color="#DD0000">"Questo libro è *molto* difficile da trovare."</font><font color="#007700">;<br /></font><font color="#0000BB">$parola </font><font color="#007700">= </font><font color="#DD0000">"*molto*"</font><font color="#007700">;<br /></font><font color="#0000BB">$testo </font><font color="#007700">= </font><font color="#0000BB">preg_replace</font><font color="#007700">(</font><font color="#DD0000">"/"</font><font color="#007700">. </font><font color="#0000BB">preg_quote</font><font color="#007700">(</font><font color="#0000BB">$parola</font><font color="#007700">) . </font><font color="#DD0000">"/"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"&lt;i&gt;" </font><font color="#007700">. </font><font color="#0000BB">$parola </font><font color="#007700">. </font><font color="#DD0000">"&lt;/i&gt;"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$testo</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione è
+ binary-safe (gestisce correttamente i file binari)</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.preg-match.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.preg-replace-callback.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>preg_match</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pcre.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>preg_replace_callback</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

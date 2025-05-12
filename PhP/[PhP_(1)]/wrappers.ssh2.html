@@ -1,0 +1,649 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Secure Shell 2</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="List of Supported Protocols/Wrappers"
+HREF="wrappers.html"><LINK
+REL="PREVIOUS"
+TITLE="Compression Streams"
+HREF="wrappers.compression.html"><LINK
+REL="NEXT"
+TITLE="Audio Streams"
+HREF="wrappers.audio.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="wrappers.compression.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice M. List of Supported Protocols/Wrappers</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="wrappers.audio.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="wrappers.ssh2"
+>Secure Shell 2</A
+></H1
+><P
+>&#13;   <TT
+CLASS="filename"
+>ssh2.shell://</TT
+>
+   <TT
+CLASS="filename"
+>ssh2.exec://</TT
+>
+   <TT
+CLASS="filename"
+>ssh2.tunnel://</TT
+>
+   <TT
+CLASS="filename"
+>ssh2.sftp://</TT
+>
+   <TT
+CLASS="filename"
+>ssh2.scp://</TT
+>
+   PHP 4.3.0 and up (PECL)
+  </P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>ssh2.shell://user:pass@example.com:22/xterm</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>ssh2.exec://user:pass@example.com:22/usr/local/bin/somecmd</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>ssh2.tunnel://user:pass@example.com:22/192.168.0.1:14</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>ssh2.sftp://user:pass@example.com:22/path/to/filename</TT
+></P
+></LI
+></UL
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>This wrapper is not enabled by default: </B
+>
+    In order to use the <TT
+CLASS="filename"
+>ssh2.*://</TT
+> wrappers you must install
+    the <A
+HREF="http://pecl.php.net/package/ssh2"
+TARGET="_top"
+>SSH2</A
+> extension
+    available from <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+>.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;   In addition to accepting traditional URI login details, the ssh2 wrappers
+   will also reuse open connections by passing the connection resource in the
+   host portion of the URL.
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN211721"
+></A
+><P
+><B
+>Esempio M-2. Opening a stream from an active connection</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$session </font><font color="#007700">= </font><font color="#0000BB">ssh2_connect</font><font color="#007700">(</font><font color="#DD0000">'example.com'</font><font color="#007700">, </font><font color="#0000BB">22</font><font color="#007700">);<br /></font><font color="#0000BB">ssh2_auth_pubkey_file</font><font color="#007700">(</font><font color="#0000BB">$session</font><font color="#007700">, </font><font color="#DD0000">'username'</font><font color="#007700">, </font><font color="#DD0000">'/home/username/.ssh/id_rsa.pub'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'/home/username/.ssh/id_rsa'</font><font color="#007700">, </font><font color="#DD0000">'secret'</font><font color="#007700">);<br /></font><font color="#0000BB">$stream </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"ssh2.tunnel://$session/remote.example.com:1234"</font><font color="#007700">, </font><font color="#DD0000">'r'</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN211725"
+></A
+><P
+><B
+>Tabella M-8. Wrapper Summary</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Attribute</TH
+><TH
+>ssh2.shell</TH
+><TH
+>ssh2.exec</TH
+><TH
+>ssh2.tunnel</TH
+><TH
+>ssh2.sftp</TH
+><TH
+>ssh2.scp</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>Restricted by <A
+HREF="ref.filesystem.html#ini.allow-url-fopen"
+>allow_url_fopen</A
+>.</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Reading</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Writing</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Allows Appending</TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>Yes (When supported by server)</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Allows Simultaneous Reading and Writing</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>Yes</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+></TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>Yes</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.unlink.html"
+><B
+CLASS="function"
+>unlink()</B
+></A
+></TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>Yes</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rename.html"
+><B
+CLASS="function"
+>rename()</B
+></A
+></TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>Yes</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.mkdir.html"
+><B
+CLASS="function"
+>mkdir()</B
+></A
+></TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>Yes</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rmdir.html"
+><B
+CLASS="function"
+>rmdir()</B
+></A
+></TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>No</TD
+><TD
+>Yes</TD
+><TD
+>No</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN211814"
+></A
+><P
+><B
+>Tabella M-9. Context options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Usage</TH
+><TH
+>Default</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>session</VAR
+></TD
+><TD
+>Preconnected ssh2 resource to be reused</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>sftp</VAR
+></TD
+><TD
+>Preallocated sftp resource to be reused</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>methods</VAR
+></TD
+><TD
+>Key exchange, hostkey, cipher, compression, and MAC methods to use</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>callbacks</VAR
+></TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>username</VAR
+></TD
+><TD
+>Username to connect as</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>password</VAR
+></TD
+><TD
+>Password to use with password authentication</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>pubkey_file</VAR
+></TD
+><TD
+>Name of public key file to use for authentication</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>privkey_file</VAR
+></TD
+><TD
+>Name of private key file to use for authentication</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>env</VAR
+></TD
+><TD
+>Associate array of environment variables to set</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>term</VAR
+></TD
+><TD
+>Terminal emulation type to request when allocating a pty</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>term_width</VAR
+></TD
+><TD
+>Width of terminal requested when allocating a pty</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>term_height</VAR
+></TD
+><TD
+>Height of terminal requested when allocating a pty</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>term_units</VAR
+></TD
+><TD
+>Units to use with term_width and term_height</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>SSH2_TERM_UNIT_CHARS</B
+></TT
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wrappers.compression.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="wrappers.audio.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Compression Streams</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="wrappers.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Audio Streams</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

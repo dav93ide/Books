@@ -1,0 +1,250 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>tidyNode-&#62;isPhp</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Tidy Functions"
+HREF="ref.tidy.html"><LINK
+REL="PREVIOUS"
+TITLE="tidyNode->isJste"
+HREF="function.tidynode-isjste.html"><LINK
+REL="NEXT"
+TITLE="tidyNode->isText"
+HREF="function.tidynode-istext.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.tidynode-isjste.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.tidynode-istext.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.tidyNode-isPhp"
+></A
+>tidyNode-&#62;isPhp</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN171137"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>tidyNode-&#62;isPhp&nbsp;--&nbsp;
+     Returns true if this node is PHP
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN171140"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>tidyNode-&#62;isPhp</B
+> ( void  )<BR
+></BR
+><P
+>&#13;     Returns <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> if the current node is PHP code, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> otherwise.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN171150"
+></A
+><P
+><B
+>Esempio 1. get the PHP code from a mixed HTML/PHP document</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$html </font><font color="#007700">= &lt;&lt;&lt; HTML<br /></font><font color="#0000BB">&lt;html&gt;&lt;head&gt;<br />&lt;?php echo '&lt;title&gt;title&lt;/title&gt;'; ?&gt;<br />&lt;/head&gt;<br />&lt;body&gt;<br /><br />&lt;?php<br />echo 'hello world!';<br />?&gt;<br /><br />&lt;/body&gt;&lt;/html&gt;<br /></font><font color="#007700">HTML;<br /><br /><br /></font><font color="#0000BB">$tidy </font><font color="#007700">= </font><font color="#0000BB">tidy_parse_string</font><font color="#007700">(</font><font color="#0000BB">$html</font><font color="#007700">);<br /></font><font color="#0000BB">$num </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br /><br /></font><font color="#0000BB">get_php</font><font color="#007700">(</font><font color="#0000BB">$tidy</font><font color="#007700">-&gt;</font><font color="#0000BB">html</font><font color="#007700">());<br /><br /><br />function </font><font color="#0000BB">get_php</font><font color="#007700">(</font><font color="#0000BB">$node</font><font color="#007700">) {<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// check if the current node is PHP code<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if(</font><font color="#0000BB">$node</font><font color="#007700">-&gt;</font><font color="#0000BB">isPhp</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"\n\n# PHP node #" </font><font color="#007700">. ++</font><font color="#0000BB">$GLOBALS</font><font color="#007700">[</font><font color="#DD0000">'num'</font><font color="#007700">] . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$node</font><font color="#007700">-&gt;</font><font color="#0000BB">value</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// check if the current node has childrens<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if(</font><font color="#0000BB">$node</font><font color="#007700">-&gt;</font><font color="#0000BB">hasChildren</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach(</font><font color="#0000BB">$node</font><font color="#007700">-&gt;</font><font color="#0000BB">child </font><font color="#007700">as </font><font color="#0000BB">$child</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">get_php</font><font color="#007700">(</font><font color="#0000BB">$child</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+># PHP node #1
+&#60;?php echo '&#60;title&#62;title&#60;/title&#62;'; ?&#62;
+
+# PHP node #2
+&#60;?php
+echo 'hello world!';
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      This function was named <B
+CLASS="function"
+>tidy_node-&#62;is_php()</B
+> in
+      PHP 4/Tidy 1.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.tidynode-isjste.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.tidynode-istext.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>tidyNode-&#62;isJste</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.tidy.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>tidyNode-&#62;isText</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

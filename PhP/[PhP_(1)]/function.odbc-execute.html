@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>odbc_execute</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni ODBC (Unificate)"
+HREF="ref.uodbc.html"><LINK
+REL="PREVIOUS"
+TITLE="odbc_exec"
+HREF="function.odbc-exec.html"><LINK
+REL="NEXT"
+TITLE="odbc_fetch_array"
+HREF="function.odbc-fetch-array.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.odbc-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.odbc-fetch-array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.odbc-execute"
+></A
+>odbc_execute</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN114477"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.6, PHP 4, PHP 5)</P
+>odbc_execute&nbsp;--&nbsp;Esecuzione di un'espressione memorizzata</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN114480"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>odbc_execute</B
+> ( resource id_risultato [, array array_parametri] )<BR
+></BR
+><P
+>&#13;     Esegue una espressione SQL memorizzata tramite la funzione 
+     <A
+HREF="function.odbc-prepare.html"
+><B
+CLASS="function"
+>odbc_prepare()</B
+></A
+>. Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+     L'array 
+     <VAR
+CLASS="parameter"
+>array_parametri</VAR
+> occorre soltanto
+     se è necessario fornire parametri all'espressione.
+    </P
+><P
+> 
+     I parametri in <VAR
+CLASS="parameter"
+>array_parametri</VAR
+> saranno sostituiti
+     dai segnaposto nell'ordine dell'espressione predisposta.
+    </P
+><P
+> 
+     Qualsiasi parametro in <VAR
+CLASS="parameter"
+>array_parametri</VAR
+> che inizia
+     e finisce con gli apici singoli sarà considerato come il nome di un file
+     da leggere e inviare al database server come dati per gli appropriati
+     segnaposto.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+> 
+      Dalla versione 4.1.1 la funzionalità di lettura del file ha
+      le seguenti restrizioni:
+      <P
+></P
+><UL
+><LI
+><P
+> 
+         La lettura del file <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non</I
+></SPAN
+> è soggetta alle 
+         restrizioni di <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+> o 
+         <A
+HREF="features.safe-mode.html#ini.open-basedir"
+>open-basedir</A
+>. 
+         Questo sarà risolto nella versione 4.2.0 di PHP. 
+        </P
+></LI
+><LI
+><P
+> 
+         <A
+HREF="features.remote-files.html"
+>File remoti</A
+> 
+         non sono supportati. 
+        </P
+></LI
+><LI
+><P
+> 
+         Se si desidera archiviare una stringa che inizia e termina
+         con l'apice singolo, occorre farla precedere dal carattere di escape, 
+         oppure da un'altro carattere all'inizio o alla fine del
+         parametro, per prevenire che il parametro sia considerato
+         come nome di un file. Se questo non è possibile occorre
+         utilizzare altri meccanismi per archiviare la stringa, quali,
+         ad esempio, eseguire direttamente la query con <A
+HREF="function.odbc-exec.html"
+><B
+CLASS="function"
+>odbc_exec()</B
+></A
+>. 
+        </P
+></LI
+></UL
+> 
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.odbc-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.odbc-fetch-array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>odbc_exec</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.uodbc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>odbc_fetch_array</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

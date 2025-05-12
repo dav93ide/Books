@@ -1,0 +1,519 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Mimetype Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="mhash"
+HREF="function.mhash.html"><LINK
+REL="NEXT"
+TITLE="mime_content_type"
+HREF="function.mime-content-type.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mhash.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mime-content-type.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.mime-magic"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LXXVI. Mimetype Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN81952"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mime-magic.intro"
+>Introduzione</A
+></H1
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      This extension has been deprecated as the PECL extension
+      <A
+HREF="http://pecl.php.net/package/fileinfo"
+TARGET="_top"
+>fileinfo</A
+>
+      provides the same functionality (and more) in a much cleaner way.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     The functions in this module try to guess the content type
+     and encoding of a file by looking for certain 
+     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>magic</I
+></SPAN
+> byte sequences at specific
+     positions within the file. While this is not a bullet proof
+     approach the heuristics used do a very good job.
+    </P
+><P
+>&#13;     This extension is derived from Apache mod_mime_magic, 
+     which is itself based on the <TT
+CLASS="filename"
+>file</TT
+> 
+     command maintained by Ian F. Darwin. See the source code for
+     further historic and copyright information.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mime-magic.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mime-magic.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  You must compile PHP with the configure switch
+  <VAR
+CLASS="option"
+>--with-mime-magic</VAR
+> to get support for
+  mime-type functions. The extension needs a copy of the simplified
+  <TT
+CLASS="filename"
+>magic</TT
+> file that is distributed with the Apache httpd.
+ </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+   The configure option has been changed from
+   <VAR
+CLASS="option"
+>--enable-mime-magic</VAR
+>
+   to <VAR
+CLASS="option"
+>--with-mime-magic</VAR
+> since PHP 4.3.2
+  </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+   This extension is not capable of handling the fully decorated
+   <TT
+CLASS="filename"
+>magic</TT
+> file that generally comes with
+   standard Linux distro's and is supposed to be used with
+   recent versions of <TT
+CLASS="filename"
+>file</TT
+> command.
+  </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Note to Win32 Users: </B
+>
+   In order to use this module on a Windows environment, you must set the path
+   to the bundled <TT
+CLASS="filename"
+>magic.mime</TT
+> file in your <TT
+CLASS="filename"
+>php.ini</TT
+>.
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN81984"
+></A
+><P
+><B
+>Esempio 1. Setting the path to <TT
+CLASS="filename"
+>magic.mime</TT
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>mime_magic.magicfile = "$PHP_INSTALL_DIR\magic.mime"</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   Remember to substitute the <TT
+CLASS="filename"
+>$PHP_INSTALL_DIR</TT
+> for your actual
+   path to PHP in the above example. e.g.
+  <TT
+CLASS="filename"
+>c:\php</TT
+>
+  </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mime-magic.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN81996"
+></A
+><P
+><B
+>Tabella 1. Mimetype configuration options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>mime_magic.debug</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Available since PHP 5.0.0.</TD
+></TR
+><TR
+><TD
+>mime_magic.magicfile</TD
+><TD
+>"/path/to/php/magic.mime"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Available since PHP 4.3.0.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.mime-magic.debug"
+></A
+><VAR
+CLASS="parameter"
+>mime_magic.debug</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>bool</B
+></A
+></DT
+><DD
+><P
+>&#13;      Enable/disable debugging.
+     </P
+></DD
+><DT
+><A
+NAME="ini.mime-magic.magicfile"
+></A
+><VAR
+CLASS="parameter"
+>mime_magic.magicfile</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      The path to the magic.mime file.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mime-magic.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="mime-magic.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.mime-content-type.html"
+>mime_content_type</A
+>&nbsp;--&nbsp;Detect MIME Content-type for a file</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mhash.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mime-content-type.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mhash</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mime_content_type</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

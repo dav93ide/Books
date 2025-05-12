@@ -1,0 +1,529 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>yaz_search</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="YAZ Functions"
+HREF="ref.yaz.html"><LINK
+REL="PREVIOUS"
+TITLE="yaz_schema"
+HREF="function.yaz-schema.html"><LINK
+REL="NEXT"
+TITLE="yaz_set_option"
+HREF="function.yaz-set-option.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.yaz-schema.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.yaz-set-option.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.yaz-search"
+></A
+>yaz_search</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN181837"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.1, PECL)</P
+>yaz_search&nbsp;--&nbsp;Prepares for a search</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN181840"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>yaz_search</B
+> ( resource id, string type, string query )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>yaz_search()</B
+> prepares for a search on the given 
+   connection.
+  </P
+><P
+>&#13;   Like <A
+HREF="function.yaz-connect.html"
+><B
+CLASS="function"
+>yaz_connect()</B
+></A
+> this function is non-blocking and
+   only prepares for a search to be executed later when 
+   <A
+HREF="function.yaz-wait.html"
+><B
+CLASS="function"
+>yaz_wait()</B
+></A
+> is called.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN181859"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>id</VAR
+></DT
+><DD
+><P
+>&#13;       The connection resource returned by <A
+HREF="function.yaz-connect.html"
+><B
+CLASS="function"
+>yaz_connect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>type</VAR
+></DT
+><DD
+><P
+>&#13;       This parameter represents the query type - only <VAR
+CLASS="literal"
+>"rpn"</VAR
+>
+       is supported now in which case the third argument specifies a Type-1 
+       query in prefix query notation. 
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>query</VAR
+></DT
+><DD
+><P
+>&#13;       The RPN query is a textual representation of the Type-1 query as
+       defined by the Z39.50 standard. However, in the text representation
+       as used by YAZ a prefix notation is used, that is the operator
+       precedes the operands. The query string is a sequence of tokens where
+       white space is ignored unless surrounded by double quotes. Tokens beginning
+       with an at-character (<VAR
+CLASS="literal"
+>@</VAR
+>) are considered operators,
+       otherwise they are treated as search terms.
+      </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN181881"
+></A
+><P
+><B
+>Tabella 1. RPN Operators</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="construct"><COL
+WIDTH="2*"
+TITLE="description"><THEAD
+><TR
+><TH
+>Construct</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>@and</VAR
+> query1 query2</TD
+><TD
+>intersection of query1 and query2</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>@or</VAR
+> query1 query2</TD
+><TD
+>union of query1 and query2</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>@not</VAR
+> query1 query2</TD
+><TD
+>query1 and not query2</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>@set</VAR
+> name</TD
+><TD
+>result set reference</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>@attrset</VAR
+> set query</TD
+><TD
+>&#13;           specifies attribute-set for query. This construction is only allowed
+           once - in the beginning of the whole query
+          </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>@attr</VAR
+> [set] type=value query</TD
+><TD
+>&#13;           applies attribute to query. The type and value are integers 
+           specifying the attribute-type and attribute-value respectively. 
+           The set, if given, specifies the attribute-set.
+          </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;       You can find information about attributes at the 
+       <A
+HREF="http://www.loc.gov/z3950/agency/defns/bib1.html"
+TARGET="_top"
+>Z39.50 Maintenance Agency</A
+>
+       site.
+      </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        If you would like to use a more friendly notation,
+        use the CCL parser - functions <A
+HREF="function.yaz-ccl-conf.html"
+><B
+CLASS="function"
+>yaz_ccl_conf()</B
+></A
+> and 
+        <A
+HREF="function.yaz-ccl-parse.html"
+><B
+CLASS="function"
+>yaz_ccl_parse()</B
+></A
+>.
+       </P
+></BLOCKQUOTE
+></DIV
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN181921"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN181926"
+></A
+><H2
+>Esempi</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN181928"
+></A
+><P
+><B
+>Esempio 1. Query Examples</B
+></P
+><P
+>&#13;    You can search for simple terms, like this:
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>computer</PRE
+></TD
+></TR
+></TABLE
+>
+    which matches documents where "computer" occur. No attributes are 
+    specified.
+   </P
+><P
+>&#13;    The query 
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>"knuth donald"</PRE
+></TD
+></TR
+></TABLE
+>
+    matches documents where "knuth donald" occur (provided that the
+    server supports phrase search).
+   </P
+><P
+>&#13;    This query applies two attributes for the same phrase.
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>@attr 1=1003 @attr 4=1 "knuth donald"</PRE
+></TD
+></TR
+></TABLE
+>
+    First attribute is type 1 (Bib-1 use), attribute value is 1003
+    (Author).
+    Second attribute has is type 4 (structure), value 1 (phrase),
+    so this should match documents where Donald Knuth is author.
+   </P
+><P
+>&#13;    The query
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>@and @or a b @not @or c d e</PRE
+></TD
+></TR
+></TABLE
+>
+    would in infix notation look like <VAR
+CLASS="literal"
+>(a or b) and ((c or d) not 
+    e)</VAR
+>.
+   </P
+><P
+>&#13;    Another, more complex, one:
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>@attrset gils @and @attr 1=4 art @attr 1=2000 company</PRE
+></TD
+></TR
+></TABLE
+>
+    The query as a whole uses the GILS attributeset. The query matches
+    documents where <VAR
+CLASS="literal"
+>art</VAR
+> occur in the title (GILS,BIB-1)
+    and in which <VAR
+CLASS="literal"
+>company</VAR
+> occur as Distributor (GILS).
+   </P
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.yaz-schema.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.yaz-set-option.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>yaz_schema</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.yaz.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>yaz_set_option</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

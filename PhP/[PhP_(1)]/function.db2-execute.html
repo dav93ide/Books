@@ -1,0 +1,545 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_execute</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_exec"
+HREF="function.db2-exec.html"><LINK
+REL="NEXT"
+TITLE="db2_fetch_array"
+HREF="function.db2-fetch-array.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-fetch-array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-execute"
+></A
+>db2_execute</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN53337"
+></A
+><P
+>    (PECL)</P
+>db2_execute&nbsp;--&nbsp;
+   Executes a prepared SQL statement
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53340"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>db2_execute</B
+> ( resource stmt [, array parameters] )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>db2_execute()</B
+> executes an SQL statement that was
+   prepared by <A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+>.
+  </P
+><P
+>&#13;   If the SQL statement returns a result set, for example, a SELECT statement
+   or a CALL to a stored procedure that returns one or more result sets, you
+   can retrieve a row as an array from the <VAR
+CLASS="literal"
+>stmt</VAR
+> resource
+   using <A
+HREF="function.db2-fetch-assoc.html"
+><B
+CLASS="function"
+>db2_fetch_assoc()</B
+></A
+>,
+   <A
+HREF="function.db2-fetch-both.html"
+><B
+CLASS="function"
+>db2_fetch_both()</B
+></A
+>, or
+   <A
+HREF="function.db2-fetch-array.html"
+><B
+CLASS="function"
+>db2_fetch_array()</B
+></A
+>. Alternatively, you can use
+   <A
+HREF="function.db2-fetch-row.html"
+><B
+CLASS="function"
+>db2_fetch_row()</B
+></A
+> to move the result set pointer to the
+   next row and fetch a column at a time from that row with
+   <A
+HREF="function.db2-result.html"
+><B
+CLASS="function"
+>db2_result()</B
+></A
+>.
+  </P
+><P
+>&#13;   Refer to <A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+> for a brief discussion of the
+   advantages of using <A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+> and
+   <B
+CLASS="function"
+>db2_execute()</B
+> rather than <A
+HREF="function.db2-exec.html"
+><B
+CLASS="function"
+>db2_exec()</B
+></A
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53366"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>stmt</VAR
+></DT
+><DD
+><P
+>&#13;       A prepared statement returned from <A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>parameters</VAR
+></DT
+><DD
+><P
+>&#13;       An array of input parameters matching any parameter markers contained
+       in the prepared statement.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53381"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53386"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53389"
+></A
+><P
+><B
+>Esempio 1. Preparing and executing an SQL statement with parameter markers</B
+></P
+><P
+>&#13;     The following example prepares an INSERT statement that accepts four
+     parameter markers, then iterates over an array of arrays containing the
+     input values to be passed to <B
+CLASS="function"
+>db2_execute()</B
+>.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$pet </font><font color="#007700">= array(</font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#DD0000">'cat'</font><font color="#007700">, </font><font color="#DD0000">'Pook'</font><font color="#007700">, </font><font color="#0000BB">3.2</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$insert </font><font color="#007700">= </font><font color="#DD0000">'INSERT INTO animals (id, breed, name, weight)<br />&nbsp;&nbsp;&nbsp;&nbsp;VALUES (?, ?, ?, ?)'</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">db2_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#0000BB">$insert</font><font color="#007700">);<br />if (</font><font color="#0000BB">$stmt</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">db2_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">$pet</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$result</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"Successfully added new pet."</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Successfully added new pet.</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53396"
+></A
+><P
+><B
+>Esempio 2. Calling a stored procedure with an OUT parameter</B
+></P
+><P
+>&#13;     The following example prepares a CALL statement that accepts one 
+     parameter marker representing an OUT parameter, binds the PHP variable
+     <VAR
+CLASS="literal"
+>$my_pets</VAR
+> to the parameter using
+     <A
+HREF="function.db2-bind-param.html"
+><B
+CLASS="function"
+>db2_bind_param()</B
+></A
+>, then issues
+     <B
+CLASS="function"
+>db2_execute()</B
+> to execute the CALL statement. After the
+     CALL to the stored procedure has been made, the value of
+     <VAR
+CLASS="literal"
+>$num_pets</VAR
+> changes to reflect the value returned by the
+     stored procedure for that OUT parameter.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$num_pets </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br /></font><font color="#0000BB">$res </font><font color="#007700">= </font><font color="#0000BB">db2_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"CALL count_my_pets(?)"</font><font color="#007700">);<br /></font><font color="#0000BB">$rc </font><font color="#007700">= </font><font color="#0000BB">db2_bind_param</font><font color="#007700">(</font><font color="#0000BB">$res</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#DD0000">"num_pets"</font><font color="#007700">, </font><font color="#0000BB">DB2_PARAM_OUT</font><font color="#007700">);<br /></font><font color="#0000BB">$rc </font><font color="#007700">= </font><font color="#0000BB">db2_execute</font><font color="#007700">(</font><font color="#0000BB">$res</font><font color="#007700">);<br />print </font><font color="#DD0000">"I have $num_pets pets!"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>I have 7 pets!</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53406"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-exec.html"
+><B
+CLASS="function"
+>db2_exec()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-fetch-array.html"
+><B
+CLASS="function"
+>db2_fetch_array()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-fetch-assoc.html"
+><B
+CLASS="function"
+>db2_fetch_assoc()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-fetch-both.html"
+><B
+CLASS="function"
+>db2_fetch_both()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-fetch-row.html"
+><B
+CLASS="function"
+>db2_fetch_row()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-result.html"
+><B
+CLASS="function"
+>db2_result()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-exec.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-fetch-array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_exec</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_fetch_array</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

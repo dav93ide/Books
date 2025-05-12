@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>SimpleXMLElement-&#62;xpath</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SimpleXML functions"
+HREF="ref.simplexml.html"><LINK
+REL="PREVIOUS"
+TITLE="SimpleXMLElement->children"
+HREF="function.simplexml-element-children.html"><LINK
+REL="NEXT"
+TITLE="simplexml_import_dom"
+HREF="function.simplexml-import-dom.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.simplexml-element-children.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.simplexml-import-dom.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.simplexml-element-xpath"
+></A
+>SimpleXMLElement-&#62;xpath</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN151247"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>SimpleXMLElement-&#62;xpath&nbsp;--&nbsp;
+     Runs Xpath query on XML data
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN151250"
+></A
+><H2
+>Description</H2
+>array <B
+CLASS="methodname"
+>SimpleXMLElement-&#62;xpath</B
+> ( string path )<BR
+></BR
+><P
+>&#13;     The <VAR
+CLASS="literal"
+>xpath</VAR
+> method searches the SimpleXML node for
+     children matching the <ACRONYM
+CLASS="acronym"
+>Xpath</ACRONYM
+> <VAR
+CLASS="parameter"
+>path</VAR
+>.
+     It always returns an <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> of SimpleXMLElement objects.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN151264"
+></A
+><P
+><B
+>Esempio 1. Xpath</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$string </font><font color="#007700">= &lt;&lt;&lt;XML<br /></font><font color="#0000BB">&lt;a&gt;<br /> &lt;b&gt;<br />&nbsp;&nbsp;&lt;c&gt;text&lt;/c&gt;<br />&nbsp;&nbsp;&lt;c&gt;stuff&lt;/c&gt;<br /> &lt;/b&gt;<br /> &lt;d&gt;<br />&nbsp;&nbsp;&lt;c&gt;code&lt;/c&gt;<br /> &lt;/d&gt;<br />&lt;/a&gt;<br /></font><font color="#007700">XML;<br /><br /></font><font color="#0000BB">$xml </font><font color="#007700">= </font><font color="#0000BB">simplexml_load_string</font><font color="#007700">(</font><font color="#0000BB">$string</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Search for &lt;a&gt;&lt;b&gt;&lt;c&gt; */<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$xml</font><font color="#007700">-&gt;</font><font color="#0000BB">xpath</font><font color="#007700">(</font><font color="#DD0000">'/a/b/c'</font><font color="#007700">);<br /><br />while(list( , </font><font color="#0000BB">$node</font><font color="#007700">) = </font><font color="#0000BB">each</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'/a/b/c: '</font><font color="#007700">,</font><font color="#0000BB">$node</font><font color="#007700">,</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">/* Relative paths also work... */<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$xml</font><font color="#007700">-&gt;</font><font color="#0000BB">xpath</font><font color="#007700">(</font><font color="#DD0000">'b/c'</font><font color="#007700">);<br /><br />while(list( , </font><font color="#0000BB">$node</font><font color="#007700">) = </font><font color="#0000BB">each</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'b/c: '</font><font color="#007700">,</font><font color="#0000BB">$node</font><font color="#007700">,</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       This script will display:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>/a/b/c: text
+/a/b/c: stuff
+b/c: text
+b/c: stuff</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;       Notice that the two results are equal.
+      </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.simplexml-element-children.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.simplexml-import-dom.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SimpleXMLElement-&#62;children</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.simplexml.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>simplexml_import_dom</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>radius_get_vendor_attr</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Radius"
+HREF="ref.radius.html"><LINK
+REL="PREVIOUS"
+TITLE="radius_get_attr"
+HREF="function.radius-get-attr.html"><LINK
+REL="NEXT"
+TITLE="radius_put_addr"
+HREF="function.radius-put-addr.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.radius-get-attr.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.radius-put-addr.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.radius-get-vendor-attr"
+></A
+>radius_get_vendor_attr</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN141681"
+></A
+><P
+>    (PECL)</P
+>radius_get_vendor_attr&nbsp;--&nbsp;Extracts a vendor specific attribute</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN141684"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>radius_get_vendor_attr</B
+> ( string data )<BR
+></BR
+><P
+>&#13;   If <A
+HREF="function.radius-get-attr.html"
+><B
+CLASS="function"
+>radius_get_attr()</B
+></A
+> returns
+   <TT
+CLASS="constant"
+><B
+>RADIUS_VENDOR_SPECIFIC</B
+></TT
+>,
+   <B
+CLASS="function"
+>radius_get_vendor_attr()</B
+> may be called to determine the
+   vendor.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN141696"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns an associative array containing the attribute-type, vendor and the
+   data, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on error.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN141700"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN141703"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>radius_get_vendor_attr()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">while (</font><font color="#0000BB">$resa </font><font color="#007700">= </font><font color="#0000BB">radius_get_attr</font><font color="#007700">(</font><font color="#0000BB">$res</font><font color="#007700">)) {<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">is_array</font><font color="#007700">(</font><font color="#0000BB">$resa</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"Error getting attribute: %s\n"</font><font color="#007700">,&nbsp;&nbsp;</font><font color="#0000BB">radius_strerror</font><font color="#007700">(</font><font color="#0000BB">$res</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$attr </font><font color="#007700">= </font><font color="#0000BB">$resa</font><font color="#007700">[</font><font color="#DD0000">'attr'</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$data </font><font color="#007700">= </font><font color="#0000BB">$resa</font><font color="#007700">[</font><font color="#DD0000">'data'</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Got Attr:%d %d Bytes %s\n"</font><font color="#007700">, </font><font color="#0000BB">$attr</font><font color="#007700">, </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">), </font><font color="#0000BB">bin2hex</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$attr </font><font color="#007700">== </font><font color="#0000BB">RADIUS_VENDOR_SPECIFIC</font><font color="#007700">) {<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$resv </font><font color="#007700">= </font><font color="#0000BB">radius_get_vendor_attr</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">is_array</font><font color="#007700">(</font><font color="#0000BB">$resv</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$vendor </font><font color="#007700">= </font><font color="#0000BB">$resv</font><font color="#007700">[</font><font color="#DD0000">'vendor'</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$attrv </font><font color="#007700">= </font><font color="#0000BB">$resv</font><font color="#007700">[</font><font color="#DD0000">'attr'</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$datav </font><font color="#007700">= </font><font color="#0000BB">$resv</font><font color="#007700">[</font><font color="#DD0000">'data'</font><font color="#007700">];&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Got Vendor Attr:%d %d Bytes %s\n"</font><font color="#007700">, </font><font color="#0000BB">$attrv</font><font color="#007700">, </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$datav</font><font color="#007700">), </font><font color="#0000BB">bin2hex</font><font color="#007700">(</font><font color="#0000BB">$datav</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN141707"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.radius-get-attr.html"
+><B
+CLASS="function"
+>radius_get_attr()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.radius-put-vendor-attr.html"
+><B
+CLASS="function"
+>radius_put_vendor_attr()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.radius-get-attr.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.radius-put-addr.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>radius_get_attr</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.radius.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>radius_put_addr</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

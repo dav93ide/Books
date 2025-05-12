@@ -1,0 +1,724 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Operatori di confronto</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Operatori"
+HREF="language.operators.html"><LINK
+REL="PREVIOUS"
+TITLE="Operatori bitwise"
+HREF="language.operators.bitwise.html"><LINK
+REL="NEXT"
+TITLE="Operatori di controllo errori"
+HREF="language.operators.errorcontrol.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.operators.bitwise.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 15. Operatori</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.operators.errorcontrol.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.operators.comparison"
+>Operatori di confronto</A
+></H1
+><P
+>&#13;    Gli operatori di confronto, come suggerisce il loro nome, permettono di confrontare
+    due valori. Può essere interessante vedere la 
+    <A
+HREF="types.comparisons.html"
+>tabella di raffronto dei tipi</A
+>,
+    dato che mostra esempi di vari confronti tra i tipi di variabili.
+   </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN4319"
+></A
+><P
+><B
+>Tabella 15-4. Operatori di confronto</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Esempio</TH
+><TH
+>Nome</TH
+><TH
+>Risultato</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>$a == $b</TD
+><TD
+>Uguale</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se $a è uguale a $b.</TD
+></TR
+><TR
+><TD
+>$a === $b</TD
+><TD
+>Identico</TD
+><TD
+>&#13;	<TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se $a è uguale a $b, ed essi sono dello stesso
+	tipo. (Dal PHP 4)
+       </TD
+></TR
+><TR
+><TD
+>$a != $b</TD
+><TD
+>Diversi</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se $a è diverso da $b.</TD
+></TR
+><TR
+><TD
+>$a &#60;&#62; $b</TD
+><TD
+>Diversi</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se $a è diverso da $b.</TD
+></TR
+><TR
+><TD
+>$a !== $b</TD
+><TD
+>Non identici</TD
+><TD
+>&#13;	<TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se $a è diverso da $b, o se essi non sono dello stesso
+	tipo. (Dal PHP 4)
+       </TD
+></TR
+><TR
+><TD
+>$a &#60; $b</TD
+><TD
+>Minore</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se $a è strettamente minore di $b.</TD
+></TR
+><TR
+><TD
+>$a &#62; $b</TD
+><TD
+>Maggiore</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se $a è strettamente maggiore di $b.</TD
+></TR
+><TR
+><TD
+>$a &#60;= $b</TD
+><TD
+>Minore o uguale</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se $a è minore o uguale a $b.</TD
+></TR
+><TR
+><TD
+>$a &#62;= $b</TD
+><TD
+>Maggiore o uguale</TD
+><TD
+><TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se $a è maggiore o uguale a $b.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;    Se si confronta interi con stringhe, la stringa viene
+    <A
+HREF="language.types.string.html#language.types.string.conversion"
+>convertita in numero</A
+>.
+    Se si confronta due stringhe numeriche, queste vengono confrontate come interi. Queste 
+    regole valgono anche per l'istruzione
+    <A
+HREF="control-structures.switch.html"
+>switch</A
+>.    
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN4376"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />var_dump</font><font color="#007700">(</font><font color="#0000BB">0 </font><font color="#007700">== </font><font color="#DD0000">"a"</font><font color="#007700">); </font><font color="#FF8000">// 0 == 0 -&gt; true<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#DD0000">"1" </font><font color="#007700">== </font><font color="#DD0000">"01"</font><font color="#007700">); </font><font color="#FF8000">// 1 == 1 -&gt; true<br /><br /></font><font color="#007700">switch (</font><font color="#DD0000">"a"</font><font color="#007700">) {<br />case </font><font color="#0000BB">0</font><font color="#007700">:<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"0"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;break;<br />case </font><font color="#DD0000">"a"</font><font color="#007700">: </font><font color="#FF8000">// mai raggiunta perchè "a" è già riconosciuta come 0<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">echo </font><font color="#DD0000">"a"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;break;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Se i tipi di operarandi utilizzati differiscono, il confronto viene svolto
+    nell'ordine indicato della seguente tabella.
+   </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN4379"
+></A
+><P
+><B
+>Tabella 15-5. Confronti con differenti tipi</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Tipo dell'operando 1</TH
+><TH
+>Tipo dell'operando 2</TH
+><TH
+>Risultato</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><A
+HREF="language.types.null.html"
+><B
+CLASS="type"
+>null</B
+></A
+> oppure <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+><TD
+>Si converte <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> in "", confronto numerico o lessicale</TD
+></TR
+><TR
+><TD
+><A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>bool</B
+></A
+> oppure <A
+HREF="language.types.null.html"
+><B
+CLASS="type"
+>null</B
+></A
+></TD
+><TD
+>qualsiasi</TD
+><TD
+>Convertito in <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>bool</B
+></A
+>, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> &#60; <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="language.types.object.html"
+><B
+CLASS="type"
+>object</B
+></A
+></TD
+><TD
+><A
+HREF="language.types.object.html"
+><B
+CLASS="type"
+>object</B
+></A
+></TD
+><TD
+>Le classi predefinite possono avere la propria funzione di confronto, differenti classi
+        non sono confrontabili, classi uguali - hanno le medesime proprietà di confronto delle
+        matrici (PHP 4), pre il PHP 5 vedere <A
+HREF="language.oop5.object-comparison.html"
+>qui</A
+> per maggiori spiegazioni.
+       </TD
+></TR
+><TR
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>, <A
+HREF="language.types.resource.html"
+><B
+CLASS="type"
+>resource</B
+></A
+> oppure <A
+HREF="language.pseudo-types.html#language.types.number"
+><B
+CLASS="type"
+>number</B
+></A
+></TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>, <A
+HREF="language.types.resource.html"
+><B
+CLASS="type"
+>resource</B
+></A
+> oppure <A
+HREF="language.pseudo-types.html#language.types.number"
+><B
+CLASS="type"
+>number</B
+></A
+></TD
+><TD
+>Stringhe e risorse sono converti in numeri, confronto matematico</TD
+></TR
+><TR
+><TD
+><A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+></TD
+><TD
+><A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+></TD
+><TD
+>La matrice con meno membri è più piccola, se la chiave dell'operando 1 non si
+        trova nell'operando 2 allora le matrici non si possono confrontare, in altri casi
+        il confronto avviene valore per valore (vedere l'esempio seguente)</TD
+></TR
+><TR
+><TD
+><A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+></TD
+><TD
+>qualsiasi</TD
+><TD
+><A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> è sempre più grande</TD
+></TR
+><TR
+><TD
+><A
+HREF="language.types.object.html"
+><B
+CLASS="type"
+>object</B
+></A
+></TD
+><TD
+>qualsiasi</TD
+><TD
+><A
+HREF="language.types.object.html"
+><B
+CLASS="type"
+>object</B
+></A
+> è sempre più grande</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN4441"
+></A
+><P
+><B
+>Esempio 15-2. Trascrizione del confronto standard tra matrici</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Le matrici vengono confrontate come illustrato in questa funzione<br /></font><font color="#007700">function </font><font color="#0000BB">standard_array_compare</font><font color="#007700">(</font><font color="#0000BB">$op1</font><font color="#007700">, </font><font color="#0000BB">$op2</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$op1</font><font color="#007700">) &lt; </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$op2</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return -</font><font color="#0000BB">1</font><font color="#007700">; </font><font color="#FF8000">// $op1 &lt; $op2<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">} elseif (</font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$op1</font><font color="#007700">) &gt; </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$op2</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">1</font><font color="#007700">; </font><font color="#FF8000">// $op1 &gt; $op2<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach (</font><font color="#0000BB">$op1 </font><font color="#007700">as </font><font color="#0000BB">$key </font><font color="#007700">=&gt; </font><font color="#0000BB">$val</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">array_key_exists</font><font color="#007700">(</font><font color="#0000BB">$key</font><font color="#007700">, </font><font color="#0000BB">$op2</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">null</font><font color="#007700">; </font><font color="#FF8000">// uncomparable<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">} elseif (</font><font color="#0000BB">$val </font><font color="#007700">&lt; </font><font color="#0000BB">$op2</font><font color="#007700">[</font><font color="#0000BB">$key</font><font color="#007700">]) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return -</font><font color="#0000BB">1</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} elseif (</font><font color="#0000BB">$val </font><font color="#007700">&gt; </font><font color="#0000BB">$op2</font><font color="#007700">[</font><font color="#0000BB">$key</font><font color="#007700">]) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">1</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#FF8000">// $op1 == $op2<br /></font><font color="#007700">}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Vedere anche <A
+HREF="function.strcasecmp.html"
+><B
+CLASS="function"
+>strcasecmp()</B
+></A
+>,
+    <A
+HREF="function.strcmp.html"
+><B
+CLASS="function"
+>strcmp()</B
+></A
+>,
+    <A
+HREF="language.operators.array.html"
+>Array operators</A
+>,
+    e la sezione del manuale su
+    <A
+HREF="language.types.html"
+>Types</A
+>.
+   </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.operators.comparison.ternary"
+>Operatore ternario</A
+></H2
+><P
+>&#13;     Un'altro operatore condizionale è l'operatore ternario "?:".
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN4452"
+></A
+><P
+><B
+>Esempio 15-3. Assegnazione di un valore di default</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Esempio di utilizzo dell'operatore ternario<br /></font><font color="#0000BB">$action </font><font color="#007700">= (empty(</font><font color="#0000BB">$_POST</font><font color="#007700">[</font><font color="#DD0000">'action'</font><font color="#007700">])) ? </font><font color="#DD0000">'default' </font><font color="#007700">: </font><font color="#0000BB">$_POST</font><font color="#007700">[</font><font color="#DD0000">'action'</font><font color="#007700">];<br /><br /></font><font color="#FF8000">// La riga precedente è simile a<br /></font><font color="#007700">if (empty(</font><font color="#0000BB">$_POST</font><font color="#007700">[</font><font color="#DD0000">'action'</font><font color="#007700">])) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$action </font><font color="#007700">= </font><font color="#DD0000">'default'</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$action </font><font color="#007700">= </font><font color="#0000BB">$_POST</font><font color="#007700">[</font><font color="#DD0000">'action'</font><font color="#007700">];<br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     L'espressione <VAR
+CLASS="literal"
+>(espressione1) ? (espressione2) : (espressione3)</VAR
+>
+     vale <VAR
+CLASS="replaceable"
+>espressione2</VAR
+> se
+     <VAR
+CLASS="replaceable"
+>espressione1</VAR
+> è <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>, e
+     <VAR
+CLASS="replaceable"
+>espressione3</VAR
+> se
+     <VAR
+CLASS="replaceable"
+>espressione1</VAR
+> è <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.     
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Si noti che l'operatore ternario è un'istruzione, e non viene valutato
+      come variabile, ma come risultato di un'istruzione. Questo
+      è importante da sapere nel caso si desideri restituire una variabile per riferimento.
+      La riga <VAR
+CLASS="literal"
+>return $var == 42 ? $a : $b;</VAR
+> in una funzione
+      che restituisce per riferimento non funzionerà e, nelle ultime versioni di PHP,
+      genererà un warning.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.operators.bitwise.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.operators.errorcontrol.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Operatori bitwise</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.operators.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Operatori di controllo errori</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

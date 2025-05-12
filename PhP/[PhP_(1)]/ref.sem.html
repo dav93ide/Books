@@ -1,0 +1,551 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni per i semafori, la memoria condivisa ed IPC</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="SDO_DAS_Relational::executeQuery"
+HREF="function.sdo-das-relational-executequery.html"><LINK
+REL="NEXT"
+TITLE="ftok"
+HREF="function.ftok.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sdo-das-relational-executequery.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ftok.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.sem"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXXXI. Funzioni per i semafori, la memoria condivisa ed IPC</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN148250"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sem.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Questo modulo fornisce le funzioni relative all'IPC di System V.
+     Queste includono semafori, memoria condivisa e messaggi tra i processi (IPC).    
+    </P
+><P
+>&#13;     I semafori possono essere utilizzati per fornire
+     un accesso esclusivo alle risorse sulla macchina corrente, oppure per limitare
+     il numero di processi che possono utilizzare simultaneamente una risorsa.
+    </P
+><P
+>&#13;     Questo modulo fornisce anche le funzioni per la memoria condivisa a partire dalla gestione della
+     memoria condivisa di System V. La memoria condivisa può essere utilizzata per fornire
+     l'accesso a variabili globali. Differenti demoni httpd e anche altri programmi 
+     (tipo Perl, C, ...) sono in grado di accedere a questi dati creando 
+     uno scambio di dati globale. Si ricordi che la memoria condivisa non è garantita
+     nei confronti di accessi simultanei. Si utilizzino i semafori per la sincronizzazione.
+     <DIV
+CLASS="table"
+><A
+NAME="AEN148256"
+></A
+><P
+><B
+>Tabella 1. Limiti della memoria condivisa posti da UNIX</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+>SHMMAX</TD
+><TD
+>dimensione massima della memoria condivisa, solitamente 131072 bytes</TD
+></TR
+><TR
+><TD
+>SHMMIN</TD
+><TD
+>dimensione minima della memoria condivisa, solitamente 1 byte</TD
+></TR
+><TR
+><TD
+>SHMMNI</TD
+><TD
+>&#13;          massimo ammontare dei segmenti di memoria condivisa sul sistema,
+          solitamente 100
+         </TD
+></TR
+><TR
+><TD
+>SHMSEG</TD
+><TD
+>&#13;          numero massimo di segmenti di memoria condivisa per processo, solitamente 6
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     Le funzioni relative ai messaggi possono essere usate per inviare e ricevere
+     messaggi da/per altri processi. Esse permettono un semplice ed efficace metodo di interscambio dati
+     tra i processi, senza dovere ricorrere ad alternative quali i
+     socket nel dominio Unix.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questo modulo non è
+disponibile su piattaforme Windows.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sem.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sem.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Di default non viene abilitato il supporto per queste funzioni.
+  Per abilitare il supporto dei semafori di System V, compilare il PHP con l'opzione
+  <VAR
+CLASS="option"
+>--enable-sysvsem</VAR
+>.
+  Per abilitare il supporto della memoria condivisa, compilare il PHP con l'opzione
+  <VAR
+CLASS="option"
+>--enable-sysvshm</VAR
+>.
+  Per abilitare il supporto dei messaggi, compilare il PHP con l'opzione
+  <VAR
+CLASS="option"
+>--enable-sysvmsg</VAR
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sem.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN148289"
+></A
+><P
+><B
+>Tabella 2. Opzioni per la configurazione dei Semafori</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+><TH
+>Variazioni</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>sysvmsg.value</TD
+><TD
+>"42"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>sysvmsg.string</TD
+><TD
+>"foobar"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sem.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;     
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sem.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN148317"
+></A
+><P
+><B
+>Tabella 3. Costanti per i messaggi System V</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Costante</TH
+><TH
+>Tipo</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>MSG_IPC_NOWAIT</TD
+><TD
+><A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></TD
+></TR
+><TR
+><TD
+>MSG_NOERROR</TD
+><TD
+><A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></TD
+></TR
+><TR
+><TD
+>MSG_EXCEPT</TD
+><TD
+><A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.ftok.html"
+>ftok</A
+>&nbsp;--&nbsp;
+     Converte il percorso e un identificatore di progetto in un chiave IPC di System V
+    </DT
+><DT
+><A
+HREF="function.msg-get-queue.html"
+>msg_get_queue</A
+>&nbsp;--&nbsp;
+     Crea, o si collega ad una coda di messaggi
+    </DT
+><DT
+><A
+HREF="function.msg-receive.html"
+>msg_receive</A
+>&nbsp;--&nbsp;
+     Riceve un messaggio da una coda
+    </DT
+><DT
+><A
+HREF="function.msg-remove-queue.html"
+>msg_remove_queue</A
+>&nbsp;--&nbsp;
+     Distrugge una coda di messaggi
+    </DT
+><DT
+><A
+HREF="function.msg-send.html"
+>msg_send</A
+>&nbsp;--&nbsp;
+     Invia un messaggio ad una coda di messaggi
+    </DT
+><DT
+><A
+HREF="function.msg-set-queue.html"
+>msg_set_queue</A
+>&nbsp;--&nbsp;
+     Valorizza le informazioni nella struttura dati della coda dei messaggi
+    </DT
+><DT
+><A
+HREF="function.msg-stat-queue.html"
+>msg_stat_queue</A
+>&nbsp;--&nbsp;
+     Restituisce informazioni dalla struttura dati della coda
+    </DT
+><DT
+><A
+HREF="function.sem-acquire.html"
+>sem_acquire</A
+>&nbsp;--&nbsp;Acquisisce un semaforo</DT
+><DT
+><A
+HREF="function.sem-get.html"
+>sem_get</A
+>&nbsp;--&nbsp;Ottiene l'id di un semaforo</DT
+><DT
+><A
+HREF="function.sem-release.html"
+>sem_release</A
+>&nbsp;--&nbsp;Rilascia un semaforo</DT
+><DT
+><A
+HREF="function.sem-remove.html"
+>sem_remove</A
+>&nbsp;--&nbsp;Rimuove un semaforo</DT
+><DT
+><A
+HREF="function.shm-attach.html"
+>shm_attach</A
+>&nbsp;--&nbsp;Crea oppure apre un segmento di memoria condivisa</DT
+><DT
+><A
+HREF="function.shm-detach.html"
+>shm_detach</A
+>&nbsp;--&nbsp;Disconnette da un segmento di memoria condivisa</DT
+><DT
+><A
+HREF="function.shm-get-var.html"
+>shm_get_var</A
+>&nbsp;--&nbsp;Restituisce una variabile dalla memoria condivisa</DT
+><DT
+><A
+HREF="function.shm-put-var.html"
+>shm_put_var</A
+>&nbsp;--&nbsp;
+     Inserisce o aggiorna una variabile nella memoria condivisa
+   </DT
+><DT
+><A
+HREF="function.shm-remove-var.html"
+>shm_remove_var</A
+>&nbsp;--&nbsp;Rimuove una variabile dalla memoria condivisa
+    </DT
+><DT
+><A
+HREF="function.shm-remove.html"
+>shm_remove</A
+>&nbsp;--&nbsp;Rimuove un segmento di memoria condivisa dal sistema Unix</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sdo-das-relational-executequery.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ftok.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SDO_DAS_Relational::executeQuery</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ftok</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

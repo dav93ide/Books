@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_fetch_object</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_fetch_both"
+HREF="function.db2-fetch-both.html"><LINK
+REL="NEXT"
+TITLE="db2_fetch_row"
+HREF="function.db2-fetch-row.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-fetch-both.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-fetch-row.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-fetch-object"
+></A
+>db2_fetch_object</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN53632"
+></A
+><P
+>    (PECL)</P
+>db2_fetch_object&nbsp;--&nbsp;
+   Returns an object with properties representing columns in the fetched row
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53635"
+></A
+><H2
+>Descrizione</H2
+>object <B
+CLASS="methodname"
+>db2_fetch_object</B
+> ( resource stmt [, int row_number] )<BR
+></BR
+><P
+>&#13;   Returns an object in which each property represents a column returned in
+   the row fetched from a result set.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53647"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>stmt</VAR
+></DT
+><DD
+><P
+>&#13;       A valid <VAR
+CLASS="literal"
+>stmt</VAR
+> resource containing a result set.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>row_number</VAR
+></DT
+><DD
+><P
+>&#13;       Requests a specific 1-indexed row from the result set. Passing this
+       parameter results in a PHP warning if the result set uses a
+       forward-only cursor.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53662"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns an object representing a single row in the result set. The
+   properties of the object map to the names of the columns in the result set.
+  </P
+><P
+>&#13;   The IBM DB2, Cloudscape, and Apache Derby database servers typically fold
+   column names to upper-case, so the object properties will reflect that case. 
+  </P
+><P
+>&#13;   If your SELECT statement calls a scalar function to modify the value
+   of a column, the database servers return the column number as the name of
+   the column in the result set. If you prefer a more descriptive column name
+   and object property, you can use the AS clause to assign a name to the
+   column in the result set.
+  </P
+><P
+>&#13;   Returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if no row was retrieved.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53669"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53672"
+></A
+><P
+><B
+>Esempio 1. A <B
+CLASS="function"
+>db2_fetch_object()</B
+> example</B
+></P
+><P
+>&#13;     The following example issues a SELECT statement with a scalar function,
+     RTRIM, that removes whitespace from the end of the column. Rather than
+     creating an object with the properties "BREED" and "2", we use the AS
+     clause in the SELECT statement to assign the name "name" to the modified
+     column. The database server folds the column names to upper-case,
+     resulting in an object with the properties "BREED" and "NAME".
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$conn </font><font color="#007700">= </font><font color="#0000BB">db2_connect</font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$sql </font><font color="#007700">= </font><font color="#DD0000">"SELECT breed, RTRIM(name) AS name<br />&nbsp;&nbsp;&nbsp;&nbsp;FROM animals<br />&nbsp;&nbsp;&nbsp;&nbsp;WHERE id = ?"</font><font color="#007700">;<br /><br />if (</font><font color="#0000BB">$conn</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">db2_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#0000BB">$sql</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">db2_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, array(</font><font color="#0000BB">0</font><font color="#007700">));<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$pet </font><font color="#007700">= </font><font color="#0000BB">db2_fetch_object</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Come here, </font><font color="#007700">{</font><font color="#DD0000">$pet</font><font color="#007700">-&gt;</font><font color="#DD0000">NAME</font><font color="#007700">}</font><font color="#DD0000">, my little </font><font color="#007700">{</font><font color="#DD0000">$pet</font><font color="#007700">-&gt;</font><font color="#DD0000">BREED</font><font color="#007700">}</font><font color="#DD0000">!"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">db2_close</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Come here, Pook, my little cat!</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53679"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-fetch-array.html"
+><B
+CLASS="function"
+>db2_fetch_array()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-fetch-assoc.html"
+><B
+CLASS="function"
+>db2_fetch_assoc()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-fetch-both.html"
+><B
+CLASS="function"
+>db2_fetch_both()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-fetch-row.html"
+><B
+CLASS="function"
+>db2_fetch_row()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-result.html"
+><B
+CLASS="function"
+>db2_result()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-fetch-both.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-fetch-row.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_fetch_both</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_fetch_row</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

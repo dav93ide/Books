@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDOStatement::closeCursor</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Functions"
+HREF="ref.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="PDOStatement::bindValue"
+HREF="function.pdostatement-bindvalue.html"><LINK
+REL="NEXT"
+TITLE="PDOStatement::columnCount"
+HREF="function.pdostatement-columncount.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-bindvalue.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-columncount.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDOStatement-closeCursor"
+></A
+>PDOStatement::closeCursor</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN128373"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDOStatement::closeCursor&nbsp;--&nbsp;
+   Closes the cursor, enabling the statement to be executed again.
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128376"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>PDOStatement::closeCursor</B
+> ( void  )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>PDOStatement::closeCursor()</B
+> frees up the connection
+   to the server so that other SQL statements may be issued, but leaves the
+   statement in a state that enables it to be executed again.
+  </P
+><P
+>&#13;   This method is useful for database drivers that do not support executing
+   a PDOStatement object when a previously executed PDOStatement object still
+   has unfetched rows. If your database driver suffers from this limitation,
+   the problem may manifest itself in an out-of-sequence error.
+  </P
+><P
+>&#13;   <B
+CLASS="function"
+>PDOStatement::closeCursor()</B
+> is implemented either as an
+   optional driver specific method (allowing for maximum efficiency), or as
+   the generic PDO fallback if no driver specific function is installed.
+   The PDO generic fallback is semantically the same as writing the following
+   code in your PHP script:
+   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">do {<br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch</font><font color="#007700">())<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">nextRowset</font><font color="#007700">())<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />} while (</font><font color="#0000BB">true</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128388"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128391"
+></A
+><P
+><B
+>Esempio 1. A <B
+CLASS="function"
+>PDOStatement::closeCursor()</B
+> example</B
+></P
+><P
+>&#13;     In the following example, the <VAR
+CLASS="varname"
+>$stmt</VAR
+> PDOStatement
+     object returns multiple rows but the application fetches only the first
+     row, leaving the PDOStatement object in a state of having unfetched rows.
+     To ensure that the application will work with all database drivers, the
+     author inserts a call to <B
+CLASS="function"
+>PDOStatement::closeCursor()</B
+>
+     on <VAR
+CLASS="varname"
+>$stmt</VAR
+> before executing the
+     <VAR
+CLASS="varname"
+>$otherStmt</VAR
+> PDOStatement object.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Create a PDOStatement object */<br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">'SELECT foo FROM bar'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Create a second PDOStatement object */<br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">$dbh</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">'SELECT foobaz FROM foobar'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Execute the first statement */<br /></font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* Fetch only the first row from the results */<br /></font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* The following call to closeCursor() may be required by some drivers */<br /></font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">closeCursor</font><font color="#007700">();<br /><br /></font><font color="#FF8000">/* Now we can execute the second statement */<br /></font><font color="#0000BB">$otherStmt</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128400"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::execute()</B
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdostatement-bindvalue.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pdostatement-columncount.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDOStatement::bindValue</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDOStatement::columnCount</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

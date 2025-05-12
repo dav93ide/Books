@@ -1,0 +1,444 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>The Basics</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><LINK
+REL="PREVIOUS"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><LINK
+REL="NEXT"
+TITLE="Autoloading Objects"
+HREF="language.oop5.autoload.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 19. Classes and Objects (PHP 5)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop5.autoload.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop5.basic"
+>The Basics</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.basic.class"
+>class</A
+></H2
+><P
+>&#13;    Every class definition begins with the keyword class, followed by a class
+    name, which can be any name that isn't a <A
+HREF="reserved.html"
+>reserved</A
+>
+    word in PHP. Followed  by a pair of curly braces, of
+    which contains the definition of the classes members and methods. A
+    pseudo-variable, <VAR
+CLASS="varname"
+>$this</VAR
+> is available when a method is
+    called from within an object context. <VAR
+CLASS="varname"
+>$this</VAR
+> is a
+    reference to the calling object (usually the object to which the method
+    belongs, but can be another object, if the method is called
+    <A
+HREF="language.oop5.static.html"
+>statically</A
+> from the context
+    of a secondary object). This is illustrated in the following example:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5707"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">A<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">foo</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (isset(</font><font color="#0000BB">$this</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'$this is defined ('</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">get_class</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">")\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"\$this is not defined.\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class </font><font color="#0000BB">B<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">bar</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">A</font><font color="#007700">::</font><font color="#0000BB">foo</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$a </font><font color="#007700">= new </font><font color="#0000BB">A</font><font color="#007700">();<br /></font><font color="#0000BB">$a</font><font color="#007700">-&gt;</font><font color="#0000BB">foo</font><font color="#007700">();<br /></font><font color="#0000BB">A</font><font color="#007700">::</font><font color="#0000BB">foo</font><font color="#007700">();<br /></font><font color="#0000BB">$b </font><font color="#007700">= new </font><font color="#0000BB">B</font><font color="#007700">();<br /></font><font color="#0000BB">$b</font><font color="#007700">-&gt;</font><font color="#0000BB">bar</font><font color="#007700">();<br /></font><font color="#0000BB">B</font><font color="#007700">::</font><font color="#0000BB">bar</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$this is defined (a)
+$this is not defined.
+$this is defined (b)
+$this is not defined.</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5711"
+></A
+><P
+><B
+>Esempio 19-1. Simple Class definition</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">SimpleClass<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// member declaration<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $var </font><font color="#007700">= </font><font color="#DD0000">'a default value'</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// method declaration<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">displayVar</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">var</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.basic.new"
+>new</A
+></H2
+><P
+>&#13;    To create an instance of an object, a new object must be created and
+    assigned to a variable.  An object will always be assigned when
+    creating a new object unless the object has a
+    <A
+HREF="language.oop5.decon.html"
+>constructor</A
+> defined that throws an
+    <A
+HREF="language.exceptions.html"
+>exception</A
+> on error.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5719"
+></A
+><P
+><B
+>Esempio 19-2. Creating an instance</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$instance </font><font color="#007700">= new </font><font color="#0000BB">SimpleClass</font><font color="#007700">()<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;    When assigning an already created instance of an object to a new variable, the new variable
+    will access the same instance as the object that was assigned. This
+    behaviour is the same when passing instances to a function. A new instance
+    of an already created object can be made by
+    <A
+HREF="language.oop5.cloning.html"
+>cloning</A
+> it.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5724"
+></A
+><P
+><B
+>Esempio 19-3. Object Assignment</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$assigned&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&nbsp;&nbsp;</font><font color="#0000BB">$instance</font><font color="#007700">;<br /></font><font color="#0000BB">$reference&nbsp;&nbsp;</font><font color="#007700">=&amp; </font><font color="#0000BB">$instance</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$instance</font><font color="#007700">-&gt;</font><font color="#0000BB">var </font><font color="#007700">= </font><font color="#DD0000">'$assigned will have this value'</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$instance </font><font color="#007700">= </font><font color="#0000BB">null</font><font color="#007700">; </font><font color="#FF8000">// $instance and $reference become null<br /><br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$instance</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$reference</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$assigned</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>NULL
+NULL
+object(SimpleClass)#1 (1) {
+   ["var"]=&#62;
+     string(30) "$assigned will have this value"
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.basic.extends"
+>extends</A
+></H2
+><P
+>&#13;    A class can inherit methods and members of another class by using the
+    extends keyword in the declaration. It is not possible to extend multiple
+    classes, a class can only inherit one base class.
+   </P
+><P
+>&#13;    The inherited methods and members can be overridden, unless the parent
+    class has defined a method as <A
+HREF="language.oop5.final.html"
+>final</A
+>,
+    by redeclaring them within the same name defined in the parent class.
+    It is possible to access the overrided method or members by
+    referencing them with <A
+HREF="language.oop5.paamayim-nekudotayim.html"
+>parent::</A
+>
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5735"
+></A
+><P
+><B
+>Esempio 19-4. Simple Class Inherintance</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">ExtendClass </font><font color="#007700">extends </font><font color="#0000BB">SimpleClass<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Redefine the parent method<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">function </font><font color="#0000BB">displayVar</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Extending class\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">parent</font><font color="#007700">::</font><font color="#0000BB">displayVar</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$extended </font><font color="#007700">= new </font><font color="#0000BB">ExtendClass</font><font color="#007700">();<br /></font><font color="#0000BB">$extended</font><font color="#007700">-&gt;</font><font color="#0000BB">displayVar</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Extending class
+a default value</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop5.autoload.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Classes and Objects (PHP 5)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Autoloading Objects</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

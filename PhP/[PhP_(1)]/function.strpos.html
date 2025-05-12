@@ -1,0 +1,381 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>strpos</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="strpbrk"
+HREF="function.strpbrk.html"><LINK
+REL="NEXT"
+TITLE="strrchr"
+HREF="function.strrchr.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.strpbrk.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.strrchr.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.strpos"
+></A
+>strpos</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN165854"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>strpos&nbsp;--&nbsp;
+     Trova la posizione della prima occorrenza di una stringa
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN165857"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>strpos</B
+> ( string haystack, mixed needle [, int offset] )<BR
+></BR
+><P
+>&#13;     Restituisce la posizione numerica della prima occorrenza di
+     <VAR
+CLASS="parameter"
+>needle</VAR
+> nella stringa
+     <VAR
+CLASS="parameter"
+>haystack</VAR
+>. Differentemente rispetto a 
+     <A
+HREF="function.strrpos.html"
+><B
+CLASS="function"
+>strrpos()</B
+></A
+>, questa funzione considera tutta la stringa
+     <VAR
+CLASS="parameter"
+>needle</VAR
+>, e, quindi, cercherà tutta
+     la stringa.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>needle</VAR
+> non viene trovato
+     <B
+CLASS="function"
+>strpos()</B
+> restituirà <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+> <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione può
+restituire il Booleano <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, ma può anche restituire un valore non-Booleano valutato
+come <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>, come ad esempio <VAR
+CLASS="literal"
+>0</VAR
+> o
+"". Per favore fare riferimento alla sezione <A
+HREF="language.types.boolean.html"
+>Booleans</A
+> per maggiori 
+informazioni. Usare <A
+HREF="language.operators.comparison.html"
+>l'operatore 
+=== </A
+> per controllare il valore restituito da questa 
+funzione.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione è
+ binary-safe (gestisce correttamente i file binari)</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN165891"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>strpos()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$mystring </font><font color="#007700">= </font><font color="#DD0000">'abc'</font><font color="#007700">;<br /></font><font color="#0000BB">$findme&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">'a'</font><font color="#007700">;<br /></font><font color="#0000BB">$pos </font><font color="#007700">= </font><font color="#0000BB">strpos</font><font color="#007700">(</font><font color="#0000BB">$mystring</font><font color="#007700">, </font><font color="#0000BB">$findme</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Notate l'uso di ===.&nbsp;&nbsp;Il == non avrebbe risposto come atteso<br />// poichè la posizione di 'a' è nel primo carattere.<br /></font><font color="#007700">if (</font><font color="#0000BB">$pos </font><font color="#007700">=== </font><font color="#0000BB">false</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"The string '$findme' was not found in the string '$mystring'"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"The string '$findme' was found in the string '$mystring'"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">" and exists at position $pos"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// Ricerca di un carattere ignorando qualsiasi cosa prima di offset<br /></font><font color="#0000BB">$newstring </font><font color="#007700">= </font><font color="#DD0000">'abcdef abcdef'</font><font color="#007700">;<br /></font><font color="#0000BB">$pos </font><font color="#007700">= </font><font color="#0000BB">strpos</font><font color="#007700">(</font><font color="#0000BB">$newstring</font><font color="#007700">, </font><font color="#DD0000">'a'</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">); </font><font color="#FF8000">// $pos = 7, not 0<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>needle</VAR
+> non è una stringa, viene convertito
+     in un intero e utilizzato come valore ordinale di un carattere.
+    </P
+><P
+>&#13;     Il parametro opzionale <VAR
+CLASS="parameter"
+>offset</VAR
+> permette di indicare
+     da quale carattere in <VAR
+CLASS="parameter"
+>haystack</VAR
+> 
+     iniziare la ricerca. La posizione restituita è, comunque, relativa 
+     all'inizio di <VAR
+CLASS="parameter"
+>haystack</VAR
+>.
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.strrpos.html"
+><B
+CLASS="function"
+>strrpos()</B
+></A
+>, 
+     <A
+HREF="function.stripos.html"
+><B
+CLASS="function"
+>stripos()</B
+></A
+>,
+     <A
+HREF="function.strripos.html"
+><B
+CLASS="function"
+>strripos()</B
+></A
+>,
+     <A
+HREF="function.strrchr.html"
+><B
+CLASS="function"
+>strrchr()</B
+></A
+>, 
+     <A
+HREF="function.substr.html"
+><B
+CLASS="function"
+>substr()</B
+></A
+>,
+     <A
+HREF="function.stristr.html"
+><B
+CLASS="function"
+>stristr()</B
+></A
+> e
+     <A
+HREF="function.strstr.html"
+><B
+CLASS="function"
+>strstr()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.strpbrk.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.strrchr.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>strpbrk</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>strrchr</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

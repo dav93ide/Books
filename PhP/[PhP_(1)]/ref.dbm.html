@@ -1,0 +1,393 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni DBM</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="dbase_replace_record"
+HREF="function.dbase-replace-record.html"><LINK
+REL="NEXT"
+TITLE="dblist"
+HREF="function.dblist.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dbase-replace-record.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.dblist.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.dbm"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XXVI. Funzioni DBM</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN27114"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dbm.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    Questa funzioni consentono lo storage di records memorizzati 
+    in un dbm-style database. Questo tipo di database (supportato da Berkeley DB, 
+    <A
+HREF="ftp://ftp.gnu.org/pub/gnu/gdbm/"
+TARGET="_top"
+>GDBM</A
+>, e qualche libreria di sistema, così come una built-in flatfile library) 
+    memorizza coppie key/value (al contrario dei full-blown records supportati dai 
+    database relazionali). 
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il supporto per dbm è deprecato e si incoraggia ad utilizzare
+      <A
+HREF="ref.dba.html"
+>Database (dbm-style) abstraction layer functions</A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dbm.required"
+>Requisiti</A
+></H1
+><P
+>&#13;     Per utilizzare queste funzioni occorre compilare il PHP con il supporto
+     per un database sottostante. Vedere
+     <A
+HREF="ref.dba.html#dba.requirements"
+>l'elenco</A
+> dei database supoprtati.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dbm.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Per potere utilizzare queste funzioni occorre compilare il PHP con il supporto dbm
+  utilizzando l'opzione <VAR
+CLASS="option"
+>--with-db</VAR
+>. Inoltre
+  occorre garantire il <A
+HREF="ref.dba.html#dba.installation"
+>supporto</A
+>
+  per il sottostante database oppure occorre utilizzare qualche libreria di sistema.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dbm.runtime"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dbm.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;     La funzione <A
+HREF="function.dbmopen.html"
+><B
+CLASS="function"
+>dbmopen()</B
+></A
+> restituisce un identificatore di database
+     che può essere utilizzato con le altre funzioni dbm.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dbm.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="dbm.examples"
+>Esempi</A
+></H1
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN27145"
+></A
+><P
+><B
+>Esempio 1. Esempio DBM</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$dbm </font><font color="#007700">= </font><font color="#0000BB">dbmopen </font><font color="#007700">(</font><font color="#DD0000">"lastseen"</font><font color="#007700">, </font><font color="#DD0000">"w"</font><font color="#007700">);<br />if (</font><font color="#0000BB">dbmexists </font><font color="#007700">(</font><font color="#0000BB">$dbm</font><font color="#007700">, </font><font color="#0000BB">$userid</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$last_seen </font><font color="#007700">= </font><font color="#0000BB">dbmfetch </font><font color="#007700">(</font><font color="#0000BB">$dbm</font><font color="#007700">, </font><font color="#0000BB">$userid</font><font color="#007700">);<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">dbminsert </font><font color="#007700">(</font><font color="#0000BB">$dbm</font><font color="#007700">, </font><font color="#0000BB">$userid</font><font color="#007700">, </font><font color="#0000BB">time</font><font color="#007700">());<br />}<br /></font><font color="#0000BB">do_stuff</font><font color="#007700">();<br /></font><font color="#0000BB">dbmreplace</font><font color="#007700">(</font><font color="#0000BB">$dbm</font><font color="#007700">, </font><font color="#0000BB">$userid</font><font color="#007700">, </font><font color="#0000BB">time</font><font color="#007700">());<br /></font><font color="#0000BB">dbmclose</font><font color="#007700">(</font><font color="#0000BB">$dbm</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.dblist.html"
+>dblist</A
+>&nbsp;--&nbsp;
+     Descrive la libreria DBM-compatibile in uso.
+    </DT
+><DT
+><A
+HREF="function.dbmclose.html"
+>dbmclose</A
+>&nbsp;--&nbsp;Chiude un database dbm</DT
+><DT
+><A
+HREF="function.dbmdelete.html"
+>dbmdelete</A
+>&nbsp;--&nbsp;
+     Cancella il valore per una chiave da un database DBM
+    </DT
+><DT
+><A
+HREF="function.dbmexists.html"
+>dbmexists</A
+>&nbsp;--&nbsp;
+     Dice se esiste un valore per una chiave in un database DBM
+    </DT
+><DT
+><A
+HREF="function.dbmfetch.html"
+>dbmfetch</A
+>&nbsp;--&nbsp;
+     Estrae un valore per una chiave da un database DBM 
+    </DT
+><DT
+><A
+HREF="function.dbmfirstkey.html"
+>dbmfirstkey</A
+>&nbsp;--&nbsp;
+     Recupera la prima chiave da un database DBM
+    </DT
+><DT
+><A
+HREF="function.dbminsert.html"
+>dbminsert</A
+>&nbsp;--&nbsp;
+     Inserisce un valore per una chiave in un database DBM
+    </DT
+><DT
+><A
+HREF="function.dbmnextkey.html"
+>dbmnextkey</A
+>&nbsp;--&nbsp;
+     Recupera la chiave successiva da un database DBM</DT
+><DT
+><A
+HREF="function.dbmopen.html"
+>dbmopen</A
+>&nbsp;--&nbsp;Apre un database DBM</DT
+><DT
+><A
+HREF="function.dbmreplace.html"
+>dbmreplace</A
+>&nbsp;--&nbsp;
+     Sostituisce il valore per una chiave in un database DBM
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dbase-replace-record.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.dblist.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>dbase_replace_record</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>dblist</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,3352 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni DOM XML</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="dom_import_simplexml"
+HREF="function.dom-import-simplexml.html"><LINK
+REL="NEXT"
+TITLE="DomAttribute->name"
+HREF="function.domattribute-name.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.dom-import-simplexml.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.domattribute-name.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.domxml"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XXXI. Funzioni DOM XML</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN34440"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="domxml.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Nella versione 4.3.0 di PHP l'estensione DOM XML è stata rivista in modo
+     da fornire una migliore adesione allo standard DOM. Il modulo contiene ancora
+     diverse vecchie funzioni, ma non dovrebbero essere più usate. Specialmente
+     quelle funzioni non orientate agli oggetti.
+    </P
+><P
+>&#13;     Questo modulo permette di operare con un documento XML utilizzando API DOM.
+     Inoltre viene fornita una funzione, <A
+HREF="function.domxml-xmltree.html"
+><B
+CLASS="function"
+>domxml_xmltree()</B
+></A
+>, per convertire 
+     l'intero documento XML in un albero di oggetti PHP. Attualmente questo
+     albero dovrebbe essere considerato di sola lettura, è possibile modificarlo, ma
+     questa operazione non avrebbe senso dato che la funzione <A
+HREF="function.domdocument-dump-mem.html"
+><B
+CLASS="function"
+>DomDocument_dump_mem()</B
+></A
+>
+     non può essere applicata
+     all'albero. Pertanto se si desidera leggere un file XML e scriverne una
+     versione modificata, occorre utilizzare le funzioni <A
+HREF="function.domdocument-create-element.html"
+><B
+CLASS="function"
+>DomDocument_create_element()</B
+></A
+>,
+     <A
+HREF="function.domdocument-create-text-node.html"
+><B
+CLASS="function"
+>DomDocument_create_text_node()</B
+></A
+>,
+     <B
+CLASS="function"
+>set_attribute()</B
+>, ecc. ed infine
+     <A
+HREF="function.domdocument-dump-mem.html"
+><B
+CLASS="function"
+>DomDocument_dump_mem()</B
+></A
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questo modulo è stato spostato nel repository <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> e non sarà più rilascio con il
+PHP dalla versione 5.0.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questo modulo non è più considerato sperimentale. Tuttavia non sarà rilasciato
+      con PHP 5, e sarà solo distribuito con PHP 4.
+      Se si ha bisogno del supporto DOM XML in PHP 5, si può utilizzare
+      il modulo <A
+HREF="ref.dom.html"
+>DOM</A
+>. Questa estensione
+      <VAR
+CLASS="literal"
+>domxml</VAR
+> non è compatibile con
+      <A
+HREF="ref.dom.html"
+>DOM</A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="domxml.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Questo modulo utilizza la libreria
+     <A
+HREF="http://www.xmlsoft.org/"
+TARGET="_top"
+>GNOME XML library</A
+>. Fare il download
+     ed installare questa libreria. Occorre avere almeno la libxml-2.4.14.
+     Per potere utilizzare le caratteristiche previste nel DOM XSLT occorre 
+     utilizzare <A
+HREF="http://xmlsoft.org/XSLT/"
+TARGET="_top"
+>libxslt library</A
+> ed EXSLT
+     enhancements da <A
+HREF="http://www.exslt.org/"
+TARGET="_top"
+>http://www.exslt.org/</A
+>. Scaricare
+     ed installare queste librerie se si prevede di utilizzare la funzioni 
+     avanzate di XSLT. Occorre almeno la versione libxslt-1.0.18.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="domxml.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  This <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> extension
+is not bundled with PHP.
+  Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+  <A
+HREF="http://pecl.php.net/package/domxml"
+TARGET="_top"
+>http://pecl.php.net/package/domxml</A
+>.
+ </P
+><P
+>&#13;  In PHP 4 this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> extensions
+source can be found in the <TT
+CLASS="filename"
+>ext/</TT
+> directory within the
+PHP source or at the <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> link above.
+  Questo modulo è disponibile soltanto se il PHP è stato configurato con
+  <VAR
+CLASS="option"
+>--with-dom=[DIR]</VAR
+>. Aggiungere
+  <VAR
+CLASS="option"
+>--with-dom-xslt[=DIR]</VAR
+> per includere il supporto al
+  DOM XSLT support. DIR indica la directory in cui è installato libxslt. Aggiungere
+  <VAR
+CLASS="option"
+>--with-dom-exslt[=DIR]</VAR
+> per includere il supporto
+  al DOM EXSLT, dove DIR indica la directory in cui è installato libexslt.
+ </P
+><P
+>&#13;  Gli utenti Windows devono abilitare <TT
+CLASS="filename"
+>php_domxml.dll</TT
+> dal 
+  <TT
+CLASS="filename"
+>php.ini</TT
+> per potere utilizzare queste funzioni.
+  In PHP 4 this <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> resides in
+the <TT
+CLASS="filename"
+>extensions/</TT
+> directory within the PHP Windows
+binaries download.
+  You may download this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+>
+extension <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> from the <A
+HREF="http://www.php.net/downloads.php"
+TARGET="_top"
+>&#13;PHP Downloads</A
+> page or at <A
+HREF="http://snaps.php.net/"
+TARGET="_top"
+>&#13;http://snaps.php.net/</A
+>.
+  Inoltre, per potere utilizzare queste funzioni, occorre che una DLL aggiuntiva 
+  sia presente nella PATH del sistema. In PHP 4 questa DLL si trova nella 
+  directory <TT
+CLASS="filename"
+>dlls/</TT
+>. Il suo nome:
+  Per PHP &#60;= 4.2.0, è <TT
+CLASS="filename"
+>libxml2.dll</TT
+>.
+  Per PHP &#62;= 4.3.0, è <TT
+CLASS="filename"
+>iconv.dll</TT
+>.
+  E dal PHP 5.0.0 iconv è compilata nell'eseguibile PHP per Windows, percui
+  non vi è più bisogno di dll aggiuntive.  
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="domxml.deprecated"
+>Funzioni deprecate</A
+></H1
+><P
+>&#13;     Esistono alcune funzioni che non rientrano nello standard DOM e quindi
+     non dovrebbero essere più utilizzate come evidenziato nella tabella seguente.
+     La funzione <A
+HREF="function.domnode-append-child.html"
+><B
+CLASS="function"
+>DomNode_append_child()</B
+></A
+> ha modificato il suo
+     comportamento. Attualmente aggiunge un figlio e non un elemento fratello. Se ciò crea
+     problemi alle applicazioni si può usare la funzione non DOM    
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN34494"
+></A
+><P
+><B
+>Tabella 1. Funzioni deprecate e loro sostituti</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Vecchia funzione</TH
+><TH
+>Nuova funzione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>xmldoc</TD
+><TD
+><A
+HREF="function.domxml-open-mem.html"
+><B
+CLASS="function"
+>domxml_open_mem()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>xmldocfile</TD
+><TD
+><A
+HREF="function.domxml-open-file.html"
+><B
+CLASS="function"
+>domxml_open_file()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>domxml_new_xmldoc</TD
+><TD
+><A
+HREF="function.domxml-new-doc.html"
+><B
+CLASS="function"
+>domxml_new_doc()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>domxml_dump_mem</TD
+><TD
+><A
+HREF="function.domdocument-dump-mem.html"
+><B
+CLASS="function"
+>DomDocument_dump_mem()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>domxml_dump_mem_file</TD
+><TD
+><A
+HREF="function.domdocument-dump-file.html"
+><B
+CLASS="function"
+>DomDocument_dump_file()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>DomDocument_dump_mem_file</TD
+><TD
+><A
+HREF="function.domdocument-dump-file.html"
+><B
+CLASS="function"
+>DomDocument_dump_file()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>DomDocument_add_root</TD
+><TD
+><A
+HREF="function.domdocument-create-element.html"
+><B
+CLASS="function"
+>DomDocument_create_element()</B
+></A
+> seguita da
+               <A
+HREF="function.domnode-append-child.html"
+><B
+CLASS="function"
+>DomNode_append_child()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>DomDocument_dtd</TD
+><TD
+><A
+HREF="function.domdocument-doctype.html"
+><B
+CLASS="function"
+>DomDocument_doctype()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>DomDocument_root</TD
+><TD
+><A
+HREF="function.domdocument-document-element.html"
+><B
+CLASS="function"
+>DomDocument_document_element()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>DomDocument_children</TD
+><TD
+><A
+HREF="function.domnode-child-nodes.html"
+><B
+CLASS="function"
+>DomNode_child_nodes()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>DomDocument_imported_node</TD
+><TD
+>Nessun sostituto.</TD
+></TR
+><TR
+><TD
+>DomNode_add_child</TD
+><TD
+>Creare un nuovo nodo con, ad esempio,
+         <A
+HREF="function.domdocument-create-element.html"
+><B
+CLASS="function"
+>DomDocument_create_element()</B
+></A
+> e aggiungere il figlio con
+         <A
+HREF="function.domnode-append-child.html"
+><B
+CLASS="function"
+>DomNode_append_child()</B
+></A
+>.
+        </TD
+></TR
+><TR
+><TD
+>DomNode_children</TD
+><TD
+><A
+HREF="function.domnode-child-nodes.html"
+><B
+CLASS="function"
+>DomNode_child_nodes()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>DomNode_parent</TD
+><TD
+><A
+HREF="function.domnode-parent-node.html"
+><B
+CLASS="function"
+>DomNode_parent_node()</B
+></A
+></TD
+></TR
+><TR
+><TD
+>DomNode_new_child</TD
+><TD
+>Creare un nuovo nodo con, ad esempio,
+         <A
+HREF="function.domdocument-create-element.html"
+><B
+CLASS="function"
+>DomDocument_create_element()</B
+></A
+> e aggiungere il figlio con
+         <A
+HREF="function.domnode-append-child.html"
+><B
+CLASS="function"
+>DomNode_append_child()</B
+></A
+>.
+        </TD
+></TR
+><TR
+><TD
+>DomNode_get_content</TD
+><TD
+>Il contenuto è semplicemente un nodo di testo ed è accessibile tramite
+         <A
+HREF="function.domnode-child-nodes.html"
+><B
+CLASS="function"
+>DomNode_child_nodes()</B
+></A
+>.
+        </TD
+></TR
+><TR
+><TD
+>DomNode_set_content</TD
+><TD
+>Il contenuto è semplicemente un nodo di testo e può essere aggiunto con
+         <A
+HREF="function.domnode-append-child.html"
+><B
+CLASS="function"
+>DomNode_append_child()</B
+></A
+>.
+        </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="domxml.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><DIV
+CLASS="table"
+><A
+NAME="AEN34575"
+></A
+><P
+><B
+>Tabella 2. Costanti XML</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Costante</TH
+><TH
+>Valore</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ELEMENT_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>1</TD
+><TD
+>Il nodo è un elemento</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_NODE</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>2</TD
+><TD
+>Il nodo è un attributo</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_TEXT_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>3</TD
+><TD
+>Il nodo è un segmento di testo</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_CDATA_SECTION_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>4</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ENTITY_REF_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>5</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ENTITY_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>6</TD
+><TD
+>Il nodo è un'entità come, ad esempio, &#38;nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_PI_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>7</TD
+><TD
+>Il nodo è una istruzione di processamento</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_COMMENT_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>8</TD
+><TD
+>Il nodo è un commento</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_DOCUMENT_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>9</TD
+><TD
+>Il nodo è un documento</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_DOCUMENT_TYPE_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>10</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_DOCUMENT_FRAG_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>11</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_NOTATION_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>12</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_GLOBAL_NAMESPACE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>1</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_LOCAL_NAMESPACE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>2</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_HTML_DOCUMENT_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_DTD_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ELEMENT_DECL_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_DECL_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ENTITY_DECL_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_NAMESPACE_DECL_NODE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_CDATA</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_ID</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_IDREF</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_IDREFS</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_ENTITY</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_NMTOKEN</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_NMTOKENS</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_ENUMERATION</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XML_ATTRIBUTE_NOTATION</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XPATH_UNDEFINED</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XPATH_NODESET</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XPATH_BOOLEAN</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XPATH_NUMBER</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XPATH_STRING</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XPATH_POINT</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XPATH_RANGE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XPATH_LOCATIONSET</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XPATH_USERS</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XPATH_NUMBER</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>&nbsp;</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="domxml.classes"
+>Classi</A
+></H1
+><P
+>&#13;     Le API di questo modulo aderiscono il più possibile allo standard
+     DOM di livello 2. Di conseguenza le API sono completamente orientate agli oggetti.
+     Si ritiene una buona idea avere disponibile lo standard DOM quando
+     si utilizza questo modulo.
+     Sebbene le API siano orientate agli oggetti, vi sono alcune funzioni che possono
+     essere richiamate in modo non orientato agli oggetti, passando l'oggetto su cui operare come
+     primo argomento. Queste funzioni sono state mantenute per compatibilità
+     verso le vecchie versioni del modulo, ma non se ne incoraggia l'uso nello
+     sviluppo di nuovi prodotti.
+    </P
+><P
+>&#13;     Queste API differiscono della API DOM ufficiali per due aspetti. Primo, gli attributi
+     della classe sono implermentati come funzioni con il medesimo nome e, secondo,
+     i nomi delle funzioni seguono la convenzione del PHP. Questo significa che
+     la funzione DOM lastChild() sarà chiamata last_child().
+    </P
+><P
+>&#13;     In questo modulo sono definite diverse classi, queste saranno elencate
+     - compresi i loro metodi -
+     nella seguente tabella. Le classi con un equivalente nello standard
+     DOM sono chiamate DOMxxx.
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN34824"
+></A
+><P
+><B
+>Tabella 3. Elenco delle classi</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Nome della classe</TH
+><TH
+>Classe genitrice</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>DomAttribute</TD
+><TD
+>DomNode</TD
+></TR
+><TR
+><TD
+>DomCData</TD
+><TD
+>DomNode</TD
+></TR
+><TR
+><TD
+>DomComment</TD
+><TD
+>DomCData : DomNode</TD
+></TR
+><TR
+><TD
+>DomDocument</TD
+><TD
+>DomNode</TD
+></TR
+><TR
+><TD
+>DomDocumentType</TD
+><TD
+>DomNode</TD
+></TR
+><TR
+><TD
+>DomElement</TD
+><TD
+>DomNode</TD
+></TR
+><TR
+><TD
+>DomEntity</TD
+><TD
+>DomNode</TD
+></TR
+><TR
+><TD
+>DomEntityReference</TD
+><TD
+>DomNode</TD
+></TR
+><TR
+><TD
+>DomProcessingInstruction</TD
+><TD
+>DomNode</TD
+></TR
+><TR
+><TD
+>DomText</TD
+><TD
+>DomCData : DomNode</TD
+></TR
+><TR
+><TD
+>Parser</TD
+><TD
+>Attualmente chiamata DomParser</TD
+></TR
+><TR
+><TD
+>XPathContext</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN34869"
+></A
+><P
+><B
+>Tabella 4. Classe DomDocument (DomDocument : DomNode)</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Metodi</TH
+><TH
+>Funzioni</TH
+><TH
+>Note</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>doctype</TD
+><TD
+><A
+HREF="function.domdocument-doctype.html"
+><B
+CLASS="function"
+>DomDocument_doctype()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>document_element</TD
+><TD
+><A
+HREF="function.domdocument-document-element.html"
+><B
+CLASS="function"
+>DomDocument_document_element()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>create_element</TD
+><TD
+><A
+HREF="function.domdocument-create-element.html"
+><B
+CLASS="function"
+>DomDocument_create_element()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>create_text_node</TD
+><TD
+><A
+HREF="function.domdocument-create-text-node.html"
+><B
+CLASS="function"
+>DomDocument_create_text_node()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>create_comment</TD
+><TD
+><A
+HREF="function.domdocument-create-comment.html"
+><B
+CLASS="function"
+>DomDocument_create_comment()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>create_cdata_section</TD
+><TD
+><A
+HREF="function.domdocument-create-cdata-section.html"
+><B
+CLASS="function"
+>DomDocument_create_cdata_section()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>create_processing_instruction</TD
+><TD
+><A
+HREF="function.domdocument-create-processing-instruction.html"
+><B
+CLASS="function"
+>DomDocument_create_processing_instruction()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>create_attribute</TD
+><TD
+><A
+HREF="function.domdocument-create-attribute.html"
+><B
+CLASS="function"
+>DomDocument_create_attribute()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>create_entity_reference</TD
+><TD
+><A
+HREF="function.domdocument-create-entity-reference.html"
+><B
+CLASS="function"
+>DomDocument_create_entity_reference()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>get_elements_by_tagname</TD
+><TD
+><A
+HREF="function.domdocument-get-elements-by-tagname.html"
+><B
+CLASS="function"
+>DomDocument_get_elements_by_tagname()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>get_element_by_id</TD
+><TD
+><A
+HREF="function.domdocument-get-element-by-id.html"
+><B
+CLASS="function"
+>DomDocument_get_element_by_id()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>dump_mem</TD
+><TD
+><A
+HREF="function.domdocument-dump-mem.html"
+><B
+CLASS="function"
+>DomDocument_dump_mem()</B
+></A
+></TD
+><TD
+>non standard DOM</TD
+></TR
+><TR
+><TD
+>dump_file</TD
+><TD
+><A
+HREF="function.domdocument-dump-file.html"
+><B
+CLASS="function"
+>DomDocument_dump_file()</B
+></A
+></TD
+><TD
+>non standard DOM</TD
+></TR
+><TR
+><TD
+>html_dump_mem</TD
+><TD
+><A
+HREF="function.domdocument-html-dump-mem.html"
+><B
+CLASS="function"
+>DomDocument_html_dump_mem()</B
+></A
+></TD
+><TD
+>non standard DOM</TD
+></TR
+><TR
+><TD
+>xpath_init</TD
+><TD
+>xpath_init</TD
+><TD
+>non standard DOM</TD
+></TR
+><TR
+><TD
+>xpath_new_context</TD
+><TD
+>xpath_new_context</TD
+><TD
+>non standard DOM</TD
+></TR
+><TR
+><TD
+>xptr_new_context</TD
+><TD
+>xptr_new_context</TD
+><TD
+>non standard DOM</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN34961"
+></A
+><P
+><B
+>Tabella 5. Classe DomElement (DomElement : DomNode)</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Metodo</TH
+><TH
+>Funzioni</TH
+><TH
+>Note</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>tagname</TD
+><TD
+><A
+HREF="function.domelement-tagname.html"
+><B
+CLASS="function"
+>DomElement_tagname()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>get_attribute</TD
+><TD
+><A
+HREF="function.domelement-get-attribute.html"
+><B
+CLASS="function"
+>DomElement_get_attribute()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>set_attribute</TD
+><TD
+><A
+HREF="function.domelement-set-attribute.html"
+><B
+CLASS="function"
+>DomElement_set_attribute()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>remove_attribute</TD
+><TD
+><A
+HREF="function.domelement-remove-attribute.html"
+><B
+CLASS="function"
+>DomElement_remove_attribute()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>get_attribute_node</TD
+><TD
+><A
+HREF="function.domelement-get-attribute-node.html"
+><B
+CLASS="function"
+>DomElement_get_attribute_node()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>get_elements_by_tagname</TD
+><TD
+><A
+HREF="function.domelement-get-elements-by-tagname.html"
+><B
+CLASS="function"
+>DomElement_get_elements_by_tagname()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>has_attribute</TD
+><TD
+><A
+HREF="function.domelement-has-attribute.html"
+><B
+CLASS="function"
+>DomElement_has_attribute()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN35006"
+></A
+><P
+><B
+>Tabella 6. Classe DomNode</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Metodo</TH
+><TH
+>Note</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><A
+HREF="function.domnode-node-name.html"
+><B
+CLASS="function"
+>DomNode_node_name()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-node-value.html"
+><B
+CLASS="function"
+>DomNode_node_value()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-node-type.html"
+><B
+CLASS="function"
+>DomNode_node_type()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-last-child.html"
+><B
+CLASS="function"
+>DomNode_last_child()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-first-child.html"
+><B
+CLASS="function"
+>DomNode_first_child()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-child-nodes.html"
+><B
+CLASS="function"
+>DomNode_child_nodes()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-previous-sibling.html"
+><B
+CLASS="function"
+>DomNode_previous_sibling()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-next-sibling.html"
+><B
+CLASS="function"
+>DomNode_next_sibling()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-parent-node.html"
+><B
+CLASS="function"
+>DomNode_parent_node()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-owner-document.html"
+><B
+CLASS="function"
+>DomNode_owner_document()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-insert-before.html"
+><B
+CLASS="function"
+>DomNode_insert_before()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-append-child.html"
+><B
+CLASS="function"
+>DomNode_append_child()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-append-sibling.html"
+><B
+CLASS="function"
+>DomNode_append_sibling()</B
+></A
+></TD
+><TD
+>non standard DOM. Questa funzione emula il comportamento
+        di <A
+HREF="function.domnode-append-child.html"
+><B
+CLASS="function"
+>DomNode_append_child()</B
+></A
+>.</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-remove-child.html"
+><B
+CLASS="function"
+>DomNode_remove_child()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-has-child-nodes.html"
+><B
+CLASS="function"
+>DomNode_has_child_nodes()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-has-attributes.html"
+><B
+CLASS="function"
+>DomNode_has_attributes()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-clone-node.html"
+><B
+CLASS="function"
+>DomNode_clone_node()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-attributes.html"
+><B
+CLASS="function"
+>DomNode_attributes()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-unlink-node.html"
+><B
+CLASS="function"
+>DomNode_unlink_node()</B
+></A
+></TD
+><TD
+>non standard DOM</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-replace-node.html"
+><B
+CLASS="function"
+>DomNode_replace_node()</B
+></A
+></TD
+><TD
+>non standard DOM</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-set-content.html"
+><B
+CLASS="function"
+>DomNode_set_content()</B
+></A
+></TD
+><TD
+>non standard DOM, deprecata</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-get-content.html"
+><B
+CLASS="function"
+>DomNode_get_content()</B
+></A
+></TD
+><TD
+>non standard DOM, deprecata</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-dump-node.html"
+><B
+CLASS="function"
+>DomNode_dump_node()</B
+></A
+></TD
+><TD
+>non standard DOM</TD
+></TR
+><TR
+><TD
+><A
+HREF="function.domnode-is-blank-node.html"
+><B
+CLASS="function"
+>DomNode_is_blank_node()</B
+></A
+></TD
+><TD
+>non standard DOM</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN35112"
+></A
+><P
+><B
+>Tabella 7. Classe DomAttribute (DomAttribute : DomNode)</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Metodo</TH
+><TH
+>&nbsp;</TH
+><TH
+>Note</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>name</TD
+><TD
+><A
+HREF="function.domattribute-name.html"
+><B
+CLASS="function"
+>DomAttribute_name()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>value</TD
+><TD
+><A
+HREF="function.domattribute-value.html"
+><B
+CLASS="function"
+>DomAttribute_value()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>specified</TD
+><TD
+><A
+HREF="function.domattribute-specified.html"
+><B
+CLASS="function"
+>DomAttribute_specified()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN35137"
+></A
+><P
+><B
+>Tabella 8. Classe DomProcessingInstruction (DomProcessingInstruction : DomNode)</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Metodo</TH
+><TH
+>Funzione</TH
+><TH
+>Note</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>target</TD
+><TD
+><A
+HREF="function.domprocessinginstruction-target.html"
+><B
+CLASS="function"
+>DomProcessingInstruction_target()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>data</TD
+><TD
+><A
+HREF="function.domprocessinginstruction-data.html"
+><B
+CLASS="function"
+>DomProcessingInstruction_data()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN35157"
+></A
+><P
+><B
+>Tabella 9. Classe Parser class</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Metodo</TH
+><TH
+>Funzione</TH
+><TH
+>Note</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>add_chunk</TD
+><TD
+><B
+CLASS="function"
+>Parser_add_chunk()</B
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>end</TD
+><TD
+><B
+CLASS="function"
+>Parser_end()</B
+></TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN35177"
+></A
+><P
+><B
+>Tabella 10. Classe XPathContext</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Metodo</TH
+><TH
+>Funzione</TH
+><TH
+>Note</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>eval</TD
+><TD
+><B
+CLASS="function"
+>XPathContext_eval()</B
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>eval_expression</TD
+><TD
+><B
+CLASS="function"
+>XPathContext_eval_expression()</B
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>register_ns</TD
+><TD
+><B
+CLASS="function"
+>XPathContext_register_ns()</B
+></TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN35202"
+></A
+><P
+><B
+>Tabella 11. Classe DomDocumentType (DomDocumentType : DomNode)</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Metodo</TH
+><TH
+>Funzione</TH
+><TH
+>Note</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>name</TD
+><TD
+><A
+HREF="function.domdocumenttype-name.html"
+><B
+CLASS="function"
+>DomDocumentType_name()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>entities</TD
+><TD
+><A
+HREF="function.domdocumenttype-entities.html"
+><B
+CLASS="function"
+>DomDocumentType_entities()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>notations</TD
+><TD
+><A
+HREF="function.domdocumenttype-notations.html"
+><B
+CLASS="function"
+>DomDocumentType_notations()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>public_id</TD
+><TD
+><A
+HREF="function.domdocumenttype-public-id.html"
+><B
+CLASS="function"
+>DomDocumentType_public_id()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>system_id</TD
+><TD
+><A
+HREF="function.domdocumenttype-system-id.html"
+><B
+CLASS="function"
+>DomDocumentType_system_id()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>internal_subset</TD
+><TD
+><A
+HREF="function.domdocumenttype-internal-subset.html"
+><B
+CLASS="function"
+>DomDocumentType_internal_subset()</B
+></A
+></TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     La classe DomDtd è derivata da DomNode. Mentre DomComment è derivata da
+     DomCData
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="domxml.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     Diversi esempi presenti in questo manuale richiedono un testo XML. Anzichè
+     ripetere questo testo in ogni esempio, si inserirà il testo in un file
+     che verrà incluso in ogni esempio. Questo file di include verrà illustrato
+     nel seguente esempio. Si può anche creare un documento XML e 
+     leggerlo con <B
+CLASS="function"
+>DomDocument_open_file()</B
+>.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN35247"
+></A
+><P
+><B
+>Esempio 1. File di include example.inc con testo XML</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$xmlstr </font><font color="#007700">= </font><font color="#DD0000">"&lt;?xml version='1.0' standalone='yes'?&gt;<br />&lt;!DOCTYPE chapter SYSTEM '/share/sgml/Norman_Walsh/db3xml10/db3xml10.dtd'<br />[ &lt;!ENTITY sp \"spanish\"&gt;<br />]&gt;<br />&lt;!-- lsfj&nbsp;&nbsp;--&gt;<br />&lt;chapter language='en'&gt;&lt;title language='en'&gt;Title&lt;/title&gt;<br /> &lt;para language='ge'&gt;<br />&nbsp;&nbsp;sp;<br />&nbsp;&nbsp;&lt;!-- comment --&gt;<br />&nbsp;&nbsp;&lt;informaltable ID='findme' language='&amp;sp;'&gt;<br />&nbsp;&nbsp;&nbsp;&lt;tgroup cols='3'&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;tbody&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;row&gt;&lt;entry&gt;a1&lt;/entry&gt;&lt;entry<br />morerows='1'&gt;b1&lt;/entry&gt;&lt;entry&gt;c1&lt;/entry&gt;&lt;/row&gt;<br />&lt;row&gt;&lt;entry&gt;a2&lt;/entry&gt;&lt;entry&gt;c2&lt;/entry&gt;&lt;/row&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;row&gt;&lt;entry&gt;a3&lt;/entry&gt;&lt;entry&gt;b3&lt;/entry&gt;&lt;entry&gt;c3&lt;/entry&gt;&lt;/row&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tbody&gt;<br />&nbsp;&nbsp;&nbsp;&lt;/tgroup&gt;<br />&nbsp;&nbsp;&lt;/informaltable&gt;<br /> &lt;/para&gt;<br />&lt;/chapter&gt;"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.domattribute-name.html"
+>DomAttribute-&#62;name</A
+>&nbsp;--&nbsp;
+     Restituisce il nome di un attributo
+    </DT
+><DT
+><A
+HREF="function.domattribute-set-value.html"
+>DomAttribute-&#62;set_value</A
+>&nbsp;--&nbsp;
+   Sets the value of an attribute
+  </DT
+><DT
+><A
+HREF="function.domattribute-specified.html"
+>DomAttribute-&#62;specified</A
+>&nbsp;--&nbsp;
+     Verifica se l'attributo è presente
+    </DT
+><DT
+><A
+HREF="function.domattribute-value.html"
+>DomAttribute-&#62;value</A
+>&nbsp;--&nbsp;
+     Restituisce il valore di un attributo
+    </DT
+><DT
+><A
+HREF="function.domdocument-add-root.html"
+>DomDocument-&#62;add_root</A
+>&nbsp;--&nbsp;
+     Aggiunge un nodo radice [deprecated]
+    </DT
+><DT
+><A
+HREF="function.domdocument-create-attribute.html"
+>DomDocument-&#62;create_attribute</A
+>&nbsp;--&nbsp; Crea un nuovo attributo </DT
+><DT
+><A
+HREF="function.domdocument-create-cdata-section.html"
+>DomDocument-&#62;create_cdata_section</A
+>&nbsp;--&nbsp;Crea un nuovo nodo cdata</DT
+><DT
+><A
+HREF="function.domdocument-create-comment.html"
+>DomDocument-&#62;create_comment</A
+>&nbsp;--&nbsp;Crea un nodo commento</DT
+><DT
+><A
+HREF="function.domdocument-create-element-ns.html"
+>DomDocument-&#62;create_element_ns</A
+>&nbsp;--&nbsp;
+     Crea un nodo elemento con il relativo spazio dei nomi
+    </DT
+><DT
+><A
+HREF="function.domdocument-create-element.html"
+>DomDocument-&#62;create_element</A
+>&nbsp;--&nbsp;Crea un nodo elemento</DT
+><DT
+><A
+HREF="function.domdocument-create-entity-reference.html"
+>DomDocument-&#62;create_entity_reference</A
+>&nbsp;--&nbsp;
+    </DT
+><DT
+><A
+HREF="function.domdocument-create-processing-instruction.html"
+>DomDocument-&#62;create_processing_instruction</A
+>&nbsp;--&nbsp;Crea un nuovo nodo PI</DT
+><DT
+><A
+HREF="function.domdocument-create-text-node.html"
+>DomDocument-&#62;create_text_node</A
+>&nbsp;--&nbsp;Crea un nodo di testo</DT
+><DT
+><A
+HREF="function.domdocument-doctype.html"
+>DomDocument-&#62;doctype</A
+>&nbsp;--&nbsp;
+     Restituisce il tipo di documento
+    </DT
+><DT
+><A
+HREF="function.domdocument-document-element.html"
+>DomDocument-&#62;document_element</A
+>&nbsp;--&nbsp;
+     Restituisce il nodo radice
+    </DT
+><DT
+><A
+HREF="function.domdocument-dump-file.html"
+>DomDocument-&#62;dump_file</A
+>&nbsp;--&nbsp;
+     Scarica in un file l'albero XML interno
+    </DT
+><DT
+><A
+HREF="function.domdocument-dump-mem.html"
+>DomDocument-&#62;dump_mem</A
+>&nbsp;--&nbsp;
+     Scarica in una stringa la struttura XML interna
+    </DT
+><DT
+><A
+HREF="function.domdocument-get-element-by-id.html"
+>DomDocument-&#62;get_element_by_id</A
+>&nbsp;--&nbsp;
+     Ricerca di un elemento per id
+    </DT
+><DT
+><A
+HREF="function.domdocument-get-elements-by-tagname.html"
+>DomDocument-&#62;get_elements_by_tagname</A
+>&nbsp;--&nbsp;
+     Restituisce un elemento dato il tag
+    </DT
+><DT
+><A
+HREF="function.domdocument-html-dump-mem.html"
+>DomDocument-&#62;html_dump_mem</A
+>&nbsp;--&nbsp;
+     Scarica la struttura XML interna in una stringa come HTML
+    </DT
+><DT
+><A
+HREF="function.domdocument-xinclude.html"
+>DomDocument-&#62;xinclude</A
+>&nbsp;--&nbsp;
+         Sostituisce gli XIncludes in un oggetto DomDocument
+    </DT
+><DT
+><A
+HREF="function.domdocumenttype-entities.html"
+>DomDocumentType-&#62;entities</A
+>&nbsp;--&nbsp;
+     Restituisce l'elenco delle entità
+    </DT
+><DT
+><A
+HREF="function.domdocumenttype-internal-subset.html"
+>DomDocumentType-&#62;internal_subset</A
+>&nbsp;--&nbsp;
+     Restituisce un subset interno
+    </DT
+><DT
+><A
+HREF="function.domdocumenttype-name.html"
+>DomDocumentType-&#62;name</A
+>&nbsp;--&nbsp;
+     Restituisce il nome del tipo documento
+    </DT
+><DT
+><A
+HREF="function.domdocumenttype-notations.html"
+>DomDocumentType-&#62;notations</A
+>&nbsp;--&nbsp;
+     Restituisce la lista delle notazioni
+    </DT
+><DT
+><A
+HREF="function.domdocumenttype-public-id.html"
+>DomDocumentType-&#62;public_id</A
+>&nbsp;--&nbsp;
+     Restituisce l'identificatore pubblico del tipo documento
+    </DT
+><DT
+><A
+HREF="function.domdocumenttype-system-id.html"
+>DomDocumentType-&#62;system_id</A
+>&nbsp;--&nbsp;
+     Restituisce l'identificativo di sistema del tipo documento
+    </DT
+><DT
+><A
+HREF="function.domelement-get-attribute-node.html"
+>DomElement-&#62;get_attribute_node</A
+>&nbsp;--&nbsp;
+     Restituisce il nodo dell'attributo dato
+    </DT
+><DT
+><A
+HREF="function.domelement-get-attribute.html"
+>DomElement-&#62;get_attribute</A
+>&nbsp;--&nbsp;
+     Restituisce il valore di un attributo
+    </DT
+><DT
+><A
+HREF="function.domelement-get-elements-by-tagname.html"
+>DomElement-&#62;get_elements_by_tagname</A
+>&nbsp;--&nbsp;
+     Restituisce l'elemento con il tag dato
+    </DT
+><DT
+><A
+HREF="function.domelement-has-attribute.html"
+>DomElement-&#62;has_attribute</A
+>&nbsp;--&nbsp;
+     Verifica l'esistenza dell'attributo
+    </DT
+><DT
+><A
+HREF="function.domelement-remove-attribute.html"
+>DomElement-&#62;remove_attribute</A
+>&nbsp;--&nbsp;
+     Rimuove un attributo
+    </DT
+><DT
+><A
+HREF="function.domelement-set-attribute.html"
+>DomElement-&#62;set_attribute</A
+>&nbsp;--&nbsp;
+     Valorizza un attributo
+    </DT
+><DT
+><A
+HREF="function.domelement-tagname.html"
+>DomElement-&#62;tagname</A
+>&nbsp;--&nbsp;
+     Restituisce il nome dell'elemento corrente
+    </DT
+><DT
+><A
+HREF="function.domnode-add-namespace.html"
+>DomNode-&#62;add_namespace</A
+>&nbsp;--&nbsp;
+     Aggiunge la dichiarazione dello spazio dei nomi ad un nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-append-child.html"
+>DomNode-&#62;append_child</A
+>&nbsp;--&nbsp;
+     Accoda un nuovo figlio
+    </DT
+><DT
+><A
+HREF="function.domnode-append-sibling.html"
+>DomNode-&#62;append_sibling</A
+>&nbsp;--&nbsp;
+     Aggiunge un nodo fratello
+    </DT
+><DT
+><A
+HREF="function.domnode-attributes.html"
+>DomNode-&#62;attributes</A
+>&nbsp;--&nbsp;
+     Restituisce la lista degli attributi
+    </DT
+><DT
+><A
+HREF="function.domnode-child-nodes.html"
+>DomNode-&#62;child_nodes</A
+>&nbsp;--&nbsp;
+     Restituisce i figli di un nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-clone-node.html"
+>DomNode-&#62;clone_node</A
+>&nbsp;--&nbsp;
+     Clona un nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-dump-node.html"
+>DomNode-&#62;dump_node</A
+>&nbsp;--&nbsp;
+     Scarica un singolo nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-first-child.html"
+>DomNode-&#62;first_child</A
+>&nbsp;--&nbsp;
+     Restituisce il primo nodo figlio
+    </DT
+><DT
+><A
+HREF="function.domnode-get-content.html"
+>DomNode-&#62;get_content</A
+>&nbsp;--&nbsp;
+     Restituisce il contenuto del nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-has-attributes.html"
+>DomNode-&#62;has_attributes</A
+>&nbsp;--&nbsp;
+     Verifica se il nodo ha attributi
+    </DT
+><DT
+><A
+HREF="function.domnode-has-child-nodes.html"
+>DomNode-&#62;has_child_nodes</A
+>&nbsp;--&nbsp;
+     Verifica se esistono nodi figlio
+    </DT
+><DT
+><A
+HREF="function.domnode-insert-before.html"
+>DomNode-&#62;insert_before</A
+>&nbsp;--&nbsp;
+     Inserisce un nuovo nodo come figlio
+    </DT
+><DT
+><A
+HREF="function.domnode-is-blank-node.html"
+>DomNode-&#62;is_blank_node</A
+>&nbsp;--&nbsp;
+     Verifica se il nodo è vuoto
+    </DT
+><DT
+><A
+HREF="function.domnode-last-child.html"
+>DomNode-&#62;last_child</A
+>&nbsp;--&nbsp;
+     Restituisce l'ultimo nodo figlio del nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-next-sibling.html"
+>DomNode-&#62;next_sibling</A
+>&nbsp;--&nbsp;
+     Restituisce il successivo fratello del nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-node-name.html"
+>DomNode-&#62;node_name</A
+>&nbsp;--&nbsp;
+     Restituisce il nome del nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-node-type.html"
+>DomNode-&#62;node_type</A
+>&nbsp;--&nbsp;
+     Restituisce il tipo di nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-node-value.html"
+>DomNode-&#62;node_value</A
+>&nbsp;--&nbsp;
+     Restituisce il valore di un nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-owner-document.html"
+>DomNode-&#62;owner_document</A
+>&nbsp;--&nbsp;
+     Restituisce il documento a cui appartiene questo nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-parent-node.html"
+>DomNode-&#62;parent_node</A
+>&nbsp;--&nbsp;
+     Restituisce il genitore del nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-prefix.html"
+>DomNode-&#62;prefix</A
+>&nbsp;--&nbsp;
+     Restituisce lo spazio dei nomi prefisso al nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-previous-sibling.html"
+>DomNode-&#62;previous_sibling</A
+>&nbsp;--&nbsp;
+     Restituisce il nodo fratello precedente
+    </DT
+><DT
+><A
+HREF="function.domnode-remove-child.html"
+>DomNode-&#62;remove_child</A
+>&nbsp;--&nbsp;
+     Rimuove un nodo figlio dalla lista dei figli
+    </DT
+><DT
+><A
+HREF="function.domnode-replace-child.html"
+>DomNode-&#62;replace_child</A
+>&nbsp;--&nbsp;
+     Sostituisce un nodo figlio
+    </DT
+><DT
+><A
+HREF="function.domnode-replace-node.html"
+>DomNode-&#62;replace_node</A
+>&nbsp;--&nbsp;
+     Sostituisce il nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-set-content.html"
+>DomNode-&#62;set_content</A
+>&nbsp;--&nbsp;
+     Imposta il contenuto del nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-set-name.html"
+>DomNode-&#62;set_name</A
+>&nbsp;--&nbsp;
+     Imposta il nome del nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-set-namespace.html"
+>DomNode-&#62;set_namespace</A
+>&nbsp;--&nbsp;
+     Imposta lo spazio dei nomi del nodo
+    </DT
+><DT
+><A
+HREF="function.domnode-unlink-node.html"
+>DomNode-&#62;unlink_node</A
+>&nbsp;--&nbsp;
+     Rimuove il nodo
+    </DT
+><DT
+><A
+HREF="function.domprocessinginstruction-data.html"
+>DomProcessingInstruction-&#62;data</A
+>&nbsp;--&nbsp;
+     Restituisce i dati di un nodo PI
+    </DT
+><DT
+><A
+HREF="function.domprocessinginstruction-target.html"
+>DomProcessingInstruction-&#62;target</A
+>&nbsp;--&nbsp;
+     Restituisce il target di un nodo PI
+    </DT
+><DT
+><A
+HREF="function.domxsltstylesheet-process.html"
+>DomXsltStylesheet-&#62;process</A
+>&nbsp;--&nbsp;
+        Applica una trasformazione XSLT ad un oggetto DomDocument
+    </DT
+><DT
+><A
+HREF="function.domxsltstylesheet-result-dump-file.html"
+>DomXsltStylesheet-&#62;result_dump_file</A
+>&nbsp;--&nbsp;
+     Scarica il risultato di una trasformazione XSLT in un file
+    </DT
+><DT
+><A
+HREF="function.domxsltstylesheet-result-dump-mem.html"
+>DomXsltStylesheet-&#62;result_dump_mem</A
+>&nbsp;--&nbsp;
+         Scarica il risultato di una trasformazione XSLT in una stringa
+    </DT
+><DT
+><A
+HREF="function.domxml-new-doc.html"
+>domxml_new_doc</A
+>&nbsp;--&nbsp;
+     Crea un nuovo documento XML vuoto
+    </DT
+><DT
+><A
+HREF="function.domxml-open-file.html"
+>domxml_open_file</A
+>&nbsp;--&nbsp;Crea un oggetto DOM da un file XML</DT
+><DT
+><A
+HREF="function.domxml-open-mem.html"
+>domxml_open_mem</A
+>&nbsp;--&nbsp;Crea un oggetto DOM da un documento XML</DT
+><DT
+><A
+HREF="function.domxml-version.html"
+>domxml_version</A
+>&nbsp;--&nbsp;
+     restituisce la versione della libreria XML
+    </DT
+><DT
+><A
+HREF="function.domxml-xmltree.html"
+>domxml_xmltree</A
+>&nbsp;--&nbsp;
+     Crea un albero di oggetti PHP da un documento XML
+    </DT
+><DT
+><A
+HREF="function.domxml-xslt-stylesheet-doc.html"
+>domxml_xslt_stylesheet_doc</A
+>&nbsp;--&nbsp;
+        Crea un oggetto  DomXsltStylesheet da un oggetto DomDocument.
+    </DT
+><DT
+><A
+HREF="function.domxml-xslt-stylesheet-file.html"
+>domxml_xslt_stylesheet_file</A
+>&nbsp;--&nbsp;
+        Crea un oggetto DomXsltStylesheet da un file con un documento XSL
+    </DT
+><DT
+><A
+HREF="function.domxml-xslt-stylesheet.html"
+>domxml_xslt_stylesheet</A
+>&nbsp;--&nbsp;
+        Crea un oggetto DomXsltStylesheet da un documento XML contenuto in una stringa
+    </DT
+><DT
+><A
+HREF="function.domxml-xslt-version.html"
+>domxml_xslt_version</A
+>&nbsp;--&nbsp;
+   Gets the XSLT library version
+  </DT
+><DT
+><A
+HREF="function.xpath-eval-expression.html"
+>xpath_eval_expression</A
+>&nbsp;--&nbsp;
+     Valuta il percorso XPath nella stringa data
+    </DT
+><DT
+><A
+HREF="function.xpath-eval.html"
+>xpath_eval</A
+>&nbsp;--&nbsp;
+     Valuta il percorso XPath nella stringa data
+    </DT
+><DT
+><A
+HREF="function.xpath-new-context.html"
+>xpath_new_context</A
+>&nbsp;--&nbsp;
+     Crea un nuovo contesto xpath
+    </DT
+><DT
+><A
+HREF="function.xpath-register-ns-auto.html"
+>xpath_register_ns_auto</A
+>&nbsp;--&nbsp;
+   Register the given namespace in the passed XPath context
+  </DT
+><DT
+><A
+HREF="function.xpath-register-ns.html"
+>xpath_register_ns</A
+>&nbsp;--&nbsp;
+   Register the given namespace in the passed XPath context
+  </DT
+><DT
+><A
+HREF="function.xptr-eval.html"
+>xptr_eval</A
+>&nbsp;--&nbsp;
+     Valuta il percorso della locazione XPtr nella stringa data
+    </DT
+><DT
+><A
+HREF="function.xptr-new-context.html"
+>xptr_new_context</A
+>&nbsp;--&nbsp;
+     Crea un nuovo contesto XPath
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.dom-import-simplexml.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.domattribute-name.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>dom_import_simplexml</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DomAttribute-&#62;name</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

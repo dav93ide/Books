@@ -1,0 +1,481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sqlite_create_aggregate</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SQLite"
+HREF="ref.sqlite.html"><LINK
+REL="PREVIOUS"
+TITLE="sqlite_column"
+HREF="function.sqlite-column.html"><LINK
+REL="NEXT"
+TITLE="sqlite_create_function"
+HREF="function.sqlite-create-function.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-column.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-create-function.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sqlite-create-aggregate"
+></A
+>sqlite_create_aggregate</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN156823"
+></A
+><P
+>    (PHP 5)</P
+>sqlite_create_aggregate<P
+>    (no version information, might be only in CVS)</P
+>SQLiteDatabase-&#62;createAggregate&nbsp;--&nbsp;Registra un aggregato UDF da utilizzare nelle istruzioni SQL</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156827"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>sqlite_create_aggregate</B
+> ( resource dbhandle, string function_name, callback step_func, callback finalize_func [, int num_args] )<BR
+></BR
+><P
+>Versione ad oggetti (metodo):</P
+>class <B
+CLASS="classname"
+>SQLiteDatabase</B
+> { <BR
+></BR
+>bool <B
+CLASS="methodname"
+>createAggregate</B
+> ( string function_name, callback step_func, callback finalize_func [, int num_args] )<BR
+></BR
+>}<P
+>&#13;   <B
+CLASS="function"
+>sqlite_create_aggregate()</B
+> è simile a
+   <A
+HREF="function.sqlite-create-function.html"
+><B
+CLASS="function"
+>sqlite_create_function()</B
+></A
+> tranne che le funzioni di registrazione
+   possono essere utilizzate per calcolare un risultato aggregato da tutte le righe
+   della query.
+  </P
+><P
+>&#13;   La differenza chiave tra questa funzione e 
+   <A
+HREF="function.sqlite-create-function.html"
+><B
+CLASS="function"
+>sqlite_create_function()</B
+></A
+> è che entrambe le funzioni sono necessarie
+   per gestire gli aggregati; la funzione <VAR
+CLASS="parameter"
+>step_func</VAR
+> viene richiamata
+   per ogni riga del set di risultati. La funzione PHP personalizzata dovrebbe
+   accumulare i dati memorizzarli nel contesto di aggregazione.
+   Una volta che tutte le righe sono state processate,
+   si esegue la funzione <VAR
+CLASS="parameter"
+>finalize_func</VAR
+> che dovrebbe
+   prendere i dati dal contesto di aggregazione e restituire il risultato.
+   La funzione personalizzata deve restituire un tipo riconosciuto da SQLite
+   (ad esempio <A
+HREF="language.types.html#language.types.intro"
+>un tipo scalare</A
+>).
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156874"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>dbhandle</VAR
+></DT
+><DD
+><P
+>&#13;       Risorsa SQLite Database restituita da <B
+CLASS="function"
+>sqlite_open
+       ()</B
+> quando usato in modo procedurale. Questo parametro non è
+       richiesto nel metodo ad oggetti.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>function_name</VAR
+></DT
+><DD
+><P
+>&#13;       Nome della funzione usata nell'istruzione SQL.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>step_func</VAR
+></DT
+><DD
+><P
+>&#13;       Funzione richiamata per ogni riga del set di risultati.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>finalize_func</VAR
+></DT
+><DD
+><P
+>&#13;       Funzione di callback richiamata per aggragare i dati da ogni riga.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>num_args</VAR
+></DT
+><DD
+><P
+>&#13;       Suggerisce al parser SQLite se la funzione di callback accetta un
+       numero predefinito di argomenti.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156904"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN156907"
+></A
+><P
+><B
+>Esempio 1. Esempio di una funzione di aggregazione lunghezza_massima</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$data </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'one'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'two'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'three'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'four'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'five'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'six'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'seven'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'eight'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'nine'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'ten'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;);<br /></font><font color="#0000BB">$dbhandle </font><font color="#007700">= </font><font color="#0000BB">sqlite_open</font><font color="#007700">(</font><font color="#DD0000">':memory:'</font><font color="#007700">);<br /></font><font color="#0000BB">sqlite_query</font><font color="#007700">(</font><font color="#0000BB">$dbhandle</font><font color="#007700">, </font><font color="#DD0000">"CREATE TABLE strings(a)"</font><font color="#007700">);<br />foreach (</font><font color="#0000BB">$data </font><font color="#007700">as </font><font color="#0000BB">$str</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#0000BB">sqlite_escape_string</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">sqlite_query</font><font color="#007700">(</font><font color="#0000BB">$dbhandle</font><font color="#007700">, </font><font color="#DD0000">"INSERT INTO strings VALUES ('$str')"</font><font color="#007700">);<br />}<br /><br />function </font><font color="#0000BB">max_len_step</font><font color="#007700">(&amp;</font><font color="#0000BB">$context</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$string</font><font color="#007700">) &gt; </font><font color="#0000BB">$context</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$context </font><font color="#007700">= </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$string</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />function </font><font color="#0000BB">max_len_finalize</font><font color="#007700">(&amp;</font><font color="#0000BB">$context</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$context</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">sqlite_create_aggregate</font><font color="#007700">(</font><font color="#0000BB">$dbhandle</font><font color="#007700">, </font><font color="#DD0000">'max_len'</font><font color="#007700">, </font><font color="#DD0000">'max_len_step'</font><font color="#007700">, </font><font color="#DD0000">'max_len_finalize'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">sqlite_array_query</font><font color="#007700">(</font><font color="#0000BB">$dbhandle</font><font color="#007700">, </font><font color="#DD0000">'SELECT max_len(a) from strings'</font><font color="#007700">));<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   In questo esempio creiamo una funzione di aggregazione che calcola
+   la lunghezza della stringa più lunga presente in una colonna della
+   tabella. Per ciascuna riga, si esegue la funzione <VAR
+CLASS="literal"
+>max_len_step</VAR
+>
+   nella quale viene passato il parametro <VAR
+CLASS="parameter"
+>context</VAR
+>. Questo parametro
+   è come una qualsiasi variabile PHP ed è impostata per contenere un array od un
+   oggetto. In questo esempio, verrà utilizzata semplicemente per contenere
+   la lunghezza massima della stringa; se la
+   <VAR
+CLASS="parameter"
+>string</VAR
+> è di lunghezza superiore al valore
+   massimo corrente, noi aggiorneremo il contesto affinchè registri il nuovo massimo.
+  </P
+><P
+>&#13;   Quando sono state processate tutte le righe, SQLite esegue la funzione
+   <VAR
+CLASS="literal"
+>max_len_finalize</VAR
+> per determinare il risultato aggregato.
+   In questa funzione possiamo svolgere qualsiasi tipo di operazione basata sui dati
+   presenti nel parametro <VAR
+CLASS="parameter"
+>context</VAR
+>.
+   Nel nostro esempio abbiamo calcolato il risultato man mano che si processava la righe, 
+   pertanto non ci resta che restituire il valore.   
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      L'esempio precedente non avrebbe funzionato correttamente se la colonna 
+    avesse contenuto dati binari. Guardare sul manuale la pagina
+    <A
+HREF="function.sqlite-udf-decode-binary.html"
+><B
+CLASS="function"
+>sqlite_udf_decode_binary()</B
+></A
+> per una spiegazione del perché,
+    e l'esempio di come questo rispetti la codifica binaria.
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+    NON si raccomanda si memorizzare nel contesto una copia dei valori di ciascuna
+    riga, per poi processarli alla fina; questo costringe SQLite a utilizzare una
+    grande quantità di memoria per processare la query - basta pensare a quanta memoria
+    sarebbe necessaria se si memorizzasse un milione di righe, ciscuna contenente una stringa
+    di 32 byte.
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+    Si può utilizzare <A
+HREF="function.sqlite-create-function.html"
+><B
+CLASS="function"
+>sqlite_create_function()</B
+></A
+> e
+    <B
+CLASS="function"
+>sqlite_create_aggregate()</B
+> per non utilizzare la funzioni
+    SQL native di SQLite.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN156926"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.sqlite-create-function.html"
+><B
+CLASS="function"
+>sqlite_create_function()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sqlite-udf-encode-binary.html"
+><B
+CLASS="function"
+>sqlite_udf_encode_binary()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sqlite-udf-decode-binary.html"
+><B
+CLASS="function"
+>sqlite_udf_decode_binary()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sqlite-column.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sqlite-create-function.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sqlite_column</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sqlite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sqlite_create_function</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,419 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>count</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Array"
+HREF="ref.array.html"><LINK
+REL="PREVIOUS"
+TITLE="compact"
+HREF="function.compact.html"><LINK
+REL="NEXT"
+TITLE="current"
+HREF="function.current.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.compact.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.current.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.count"
+></A
+>count</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN11949"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>count&nbsp;--&nbsp;Conta gli elementi in una variabile, o le proprietà in un oggetto</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN11952"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>count</B
+> ( mixed var [, int mode] )<BR
+></BR
+><P
+>&#13;     Restituisce il numero di elementi in <VAR
+CLASS="parameter"
+>var</VAR
+>,
+     la quale è di norma un <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+>, dal momento che qualsiasi altro oggetto
+     avrà un elemento.
+    </P
+><P
+>&#13;     Per gli oggetti, se
+     <A
+HREF="ref.spl.html"
+>SPL</A
+> è installato, è possibile agganciarsi a
+     <B
+CLASS="function"
+>count()</B
+> implementando l'interfaccia
+     <VAR
+CLASS="literal"
+>Countable</VAR
+>. L'interfaccia ha esattamente un metodo,
+     <B
+CLASS="function"
+>count()</B
+>, che ritorna il valore restituito dalla
+     funzione <B
+CLASS="function"
+>count()</B
+>.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>var</VAR
+> non è un array o un oggetto con
+     l'interfaccia <VAR
+CLASS="literal"
+>Countable</VAR
+> implementata,
+     verrà restituito <VAR
+CLASS="literal"
+>1</VAR
+> 
+     C'è una eccezione, se <VAR
+CLASS="parameter"
+>var</VAR
+> è <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>,
+     verrà restituito <VAR
+CLASS="literal"
+>0</VAR
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il parametro opzionale <VAR
+CLASS="parameter"
+>mode</VAR
+> è disponibile da
+      PHP 4.2.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Se il parametro opzionale <VAR
+CLASS="parameter"
+>mode</VAR
+> è impostato a
+     <TT
+CLASS="constant"
+><B
+>COUNT_RECURSIVE</B
+></TT
+> (o 1), <B
+CLASS="function"
+>count()</B
+>
+     conterà ricorsivamente l'array. Questo è utile in particolare per
+     contare tutti gli elementi di un array multidimensionale. Il valore di
+     default per <VAR
+CLASS="parameter"
+>mode</VAR
+> è <VAR
+CLASS="literal"
+>0</VAR
+>.
+     <B
+CLASS="function"
+>count()</B
+> non identifica le ricorsioni infinite.
+    </P
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      <B
+CLASS="function"
+>count()</B
+> può restituire 0 per una variabile che
+      non è impostata, ma può anche restituire 0 per una variabile che è
+      stata inizializzata con un array vuoto. Usare
+      <A
+HREF="function.isset.html"
+><B
+CLASS="function"
+>isset()</B
+></A
+> per verificare se una variabile è impostata.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Vedere la sezione <A
+HREF="language.types.array.html"
+>Array</A
+>
+     nel manuale per una spiegazione dettagliata di come gli array siano 
+     implementati ed usati in PHP.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN11996"
+></A
+><P
+><B
+>Esempio 1. esempio di <B
+CLASS="function"
+>count()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$a</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">] = </font><font color="#0000BB">1</font><font color="#007700">;<br /></font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">] = </font><font color="#0000BB">3</font><font color="#007700">;<br /></font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#0000BB">2</font><font color="#007700">] = </font><font color="#0000BB">5</font><font color="#007700">;<br /></font><font color="#0000BB">$risultato </font><font color="#007700">= </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">);<br /></font><font color="#FF8000">//$risultato == 3<br /><br /></font><font color="#0000BB">$b</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]&nbsp;&nbsp;= </font><font color="#0000BB">7</font><font color="#007700">;<br /></font><font color="#0000BB">$b</font><font color="#007700">[</font><font color="#0000BB">5</font><font color="#007700">]&nbsp;&nbsp;= </font><font color="#0000BB">9</font><font color="#007700">;<br /></font><font color="#0000BB">$b</font><font color="#007700">[</font><font color="#0000BB">10</font><font color="#007700">] = </font><font color="#0000BB">11</font><font color="#007700">;<br /></font><font color="#0000BB">$risultato </font><font color="#007700">= </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$b</font><font color="#007700">);<br /></font><font color="#FF8000">// $risultato == 3;<br /><br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">null</font><font color="#007700">);<br /></font><font color="#FF8000">// $result == 0<br /><br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">false</font><font color="#007700">);<br /></font><font color="#FF8000">// $result == 1<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN12001"
+></A
+><P
+><B
+>Esempio 2. 
+       esempio di <B
+CLASS="function"
+>count()</B
+> ricorsiva (PHP &#62;= 4.2.0)
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$cibo </font><font color="#007700">= array(</font><font color="#DD0000">'frutta' </font><font color="#007700">=&gt; array(</font><font color="#DD0000">'arancia'</font><font color="#007700">, </font><font color="#DD0000">'banana'</font><font color="#007700">, </font><font color="#DD0000">'mela'</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'verdura' </font><font color="#007700">=&gt; array(</font><font color="#DD0000">'carota'</font><font color="#007700">, </font><font color="#DD0000">'zucchina'</font><font color="#007700">, </font><font color="#DD0000">'piselli'</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// conteggio ricorsivo<br /></font><font color="#007700">echo </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$cibp</font><font color="#007700">,</font><font color="#0000BB">COUNT_RECURSIVE</font><font color="#007700">); </font><font color="#FF8000">// output 8<br /><br />// conteggio normale<br /></font><font color="#007700">echo </font><font color="#0000BB">count</font><font color="#007700">(</font><font color="#0000BB">$cibo</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// output 2<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.is-array.html"
+><B
+CLASS="function"
+>is_array()</B
+></A
+>,
+     <A
+HREF="function.isset.html"
+><B
+CLASS="function"
+>isset()</B
+></A
+> e
+     <A
+HREF="function.strlen.html"
+><B
+CLASS="function"
+>strlen()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.compact.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.current.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>compact</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.array.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>current</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Socket</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="List of Supported Protocols/Wrappers"
+HREF="wrappers.html"><LINK
+REL="PREVIOUS"
+TITLE="List of Supported Protocols/Wrappers"
+HREF="wrappers.html"><LINK
+REL="NEXT"
+TITLE="HTTP and HTTPS"
+HREF="wrappers.http.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="wrappers.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice M. List of Supported Protocols/Wrappers</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="wrappers.http.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="wrappers.socket"
+>Socket</A
+></H1
+><P
+>&#13;   This section contains the context options supported by the wrappers that
+   work over sockets, like <VAR
+CLASS="literal"
+>tcp</VAR
+>, <VAR
+CLASS="literal"
+>http</VAR
+> or
+   <VAR
+CLASS="literal"
+>ftp</VAR
+>.
+  </P
+><P
+>&#13;   As of PHP 5.1.0 only one option is supported, <VAR
+CLASS="literal"
+>bindto</VAR
+>,
+   which can be used to specify the IP address (either IPv4 or IPv6) and/or
+   the port number that PHP will use to access the network. The syntax is
+   <VAR
+CLASS="literal"
+>ip:port</VAR
+> (you can set the IP or the port number to
+   <VAR
+CLASS="literal"
+>0</VAR
+> if you want to let the system choose them for you).
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    As FTP creates two socket connections during normal operation, you cannot
+    specify the port number in the <VAR
+CLASS="literal"
+>bindto</VAR
+> option. So, the
+    only supported syntax is <VAR
+CLASS="literal"
+>ip:0</VAR
+> for the FTP wrapper.
+   </P
+></BLOCKQUOTE
+></DIV
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN211200"
+></A
+><P
+><B
+>Esempio M-1. Some examples of how to use the bindto option</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// connect to the internet using the '192.168.0.100' IP<br /></font><font color="#0000BB">$opts </font><font color="#007700">= array(</font><font color="#DD0000">'socket' </font><font color="#007700">=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#DD0000">'bindto' </font><font color="#007700">=&gt; </font><font color="#DD0000">'192.168.0.100:0'</font><font color="#007700">));<br /><br /><br /></font><font color="#FF8000">// connect to the internet using the '192.168.0.100' IP and port '7000'<br /></font><font color="#0000BB">$opts </font><font color="#007700">= array(</font><font color="#DD0000">'socket' </font><font color="#007700">=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#DD0000">'bindto' </font><font color="#007700">=&gt; </font><font color="#DD0000">'192.168.0.100:7000'</font><font color="#007700">));<br /><br /><br /></font><font color="#FF8000">// connect to the internet using port '7000'<br /></font><font color="#0000BB">$opts </font><font color="#007700">= array(</font><font color="#DD0000">'socket' </font><font color="#007700">=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#DD0000">'bindto' </font><font color="#007700">=&gt; </font><font color="#DD0000">'0:7000'</font><font color="#007700">));<br /><br /><br /></font><font color="#FF8000">// create the context...<br /></font><font color="#0000BB">$context </font><font color="#007700">= </font><font color="#0000BB">stream_context_create</font><font color="#007700">(</font><font color="#0000BB">$opts</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// ...and use it to fetch the data<br /></font><font color="#007700">echo </font><font color="#0000BB">file_get_contents</font><font color="#007700">(</font><font color="#DD0000">'http://www.example.com'</font><font color="#007700">, </font><font color="#0000BB">false</font><font color="#007700">, </font><font color="#0000BB">$context</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wrappers.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="wrappers.http.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>List of Supported Protocols/Wrappers</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="wrappers.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>HTTP and HTTPS</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

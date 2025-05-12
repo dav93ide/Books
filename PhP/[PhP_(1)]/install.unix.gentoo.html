@@ -1,0 +1,428 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Gentoo installation notes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation on Unix systems"
+HREF="install.unix.html"><LINK
+REL="PREVIOUS"
+TITLE="Solaris specific installation tips"
+HREF="install.unix.solaris.html"><LINK
+REL="NEXT"
+TITLE="Debian GNU/Linux installation notes"
+HREF="install.unix.debian.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.unix.solaris.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 4. Installation on Unix systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.unix.debian.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.unix.gentoo"
+>Gentoo installation notes</A
+></H1
+><P
+>&#13;  This section contains notes and hints specific to installing
+  PHP on <A
+HREF="http://www.gentoo.org/"
+TARGET="_top"
+>Gentoo Linux</A
+>.
+ </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.gentoo.portage"
+>Using Portage (emerge)</A
+></H2
+><P
+>&#13;    While you can just download the PHP source and compile it yourself,
+    using Gentoo's packaging system is the simplest and cleanest
+    method of installing PHP. If you are not familiar with building
+    software on Linux, this is the way to go.
+   </P
+><P
+>&#13;    If you have built your Gentoo system so far, you are probably used
+    to Portage already. Installing Apache and PHP is no different than 
+    the other system tools.
+   </P
+><P
+>&#13;    The first decision you need to make is whether you want to install
+    Apache 1.3.x or Apache 2.x. While both can be used with PHP, the 
+    steps given below will use Apache 1.3.x. Another thing to consider
+    is whether your local Portage tree is up to date. If you have not
+    updated it recently, you need to run <B
+CLASS="command"
+>emerge sync</B
+>
+    before anything else. This way, you will be using the most recent
+    stable version of Apache and PHP.
+   </P
+><P
+>&#13;    Now that everything is in place, you can use the following example
+    to install Apache and PHP:
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="install.unix.gentoo.portage.example"
+></A
+><P
+><B
+>Esempio 4-7. Gentoo Install Example with Apache 1.3</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+># emerge \&#60;apache-2
+# USE="-*" emerge php mod_php
+# ebuild /var/db/pkg/dev-php/mod_php-&#60;your PHP version&#62;/mod_php-&#60;your PHP version&#62;.ebuild config
+# nano /etc/conf.d/apache
+  Add "-D PHP4" to APACHE_OPTS
+  
+# rc-update add apache default
+# /etc/init.d/apache start</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;    You can read more about emerge in the excellent 
+    <A
+HREF="http://www.gentoo.org/doc/en/handbook/handbook-x86.xml?part=2&chap=1"
+TARGET="_top"
+>Portage Manual</A
+> provided
+    on the Gentoo website.
+   </P
+><P
+>&#13;    If you need to use Apache 2, you can simply use <B
+CLASS="command"
+>emerge apache</B
+>
+    in the last example.
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.gentoo.config"
+>Better control on configuration</A
+></H2
+><P
+>&#13;    In the last section, PHP was emerged without any activated modules.
+    As of this writing, the only module activated by default with Portage 
+    is XML which is needed by <A
+HREF="http://pear.php.net/"
+TARGET="_top"
+>PEAR</A
+>.
+    This may not be what you want and you will soon discover that you need 
+    more activated modules, like MySQL, gettext, GD, etc.
+   </P
+><P
+>&#13;    When you compile PHP from source yourself, you need to activate modules
+    via the <B
+CLASS="command"
+>configure</B
+> command. With Gentoo, you can simply
+    provide USE flags which will be passed to the configure script automatically.
+    To see which USE flags to use with emerge, you can try:
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="install.unix.gentoo.config.example"
+></A
+><P
+><B
+>Esempio 4-8. Getting the list of valid USE flags</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+># USE="-*" emerge -pv php
+
+[ebuild  N    ] dev-php/php-4.3.6-r1  -X -berkdb -crypt -curl -debug -doc 
+-fdftk -firebird -flash -freetds -gd -gd-external -gdbm -gmp -hardenedphp 
+-imap -informix -ipv6 -java -jpeg -kerberos -ldap -mcal -memlimit -mssql 
+-mysql -ncurses -nls -oci8 -odbc -pam -pdflib -png -postgres -qt -readline 
+-snmp -spell -ssl -tiff -truetype -xml2 -yaz  3,876 kB</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;    As you can see from the last output, PHP considers a lot of USE flags.
+    Look at them closely and choose what you need. If you choose a flag and 
+    you do not have the proper libraries, Portage will compile them for you.
+    It is a good idea to use <B
+CLASS="command"
+>emerge -pv</B
+> again to see what
+    Portage will compile in accordance to your USE flags. As an example,
+    if you do not have X installed and you choose to include X in the USE
+    flags, Portage will compile X prior to PHP, which can take a couple
+    of hours.
+   </P
+><P
+>&#13;    If you choose to compile PHP with MySQL, cURL and GD support, the command
+    will look something like this:
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="install.unix.gentoo.config.example2"
+></A
+><P
+><B
+>Esempio 4-9. Install PHP with USE flags</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+># USE="-* curl mysql gd" emerge php mod_php</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;    As in the last example, do not forget to emerge php as well as mod_php.
+    php is responsible for the command line version of PHP as mod_php is
+    for the Apache module version of PHP.
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.gentoo.faq"
+>Common Problems</A
+></H2
+><P
+></P
+><UL
+><LI
+><P
+>&#13;     If you see the PHP source instead of the result the script should
+     produce, you have probably forgot to edit <TT
+CLASS="filename"
+>/etc/conf.d/apache</TT
+>.
+     Apache needs to be started with the -D PHP4 flag. To see if the flag is
+     present, you should be able to see it when using 
+     <B
+CLASS="command"
+>ps ax | grep apache</B
+> while Apache is running.
+    </P
+></LI
+><LI
+><P
+>&#13;     Due to slotting problems, you might end up with more than one version
+     of PHP installed on your system. If this is the case, you need to unmerge
+     the old versions manually by using
+     <B
+CLASS="command"
+>emerge unmerge mod_php-&#60;old version&#62;</B
+>.
+    </P
+></LI
+><LI
+><P
+>&#13;     If you cannot emerge PHP because of Java, try putting <B
+CLASS="command"
+>-*</B
+>
+     in front of your USE flags like in the above examples.
+    </P
+></LI
+><LI
+><P
+>&#13;     If you are having problems configuring Apache and PHP, you can always
+     search the <A
+HREF="http://forums.gentoo.org/"
+TARGET="_top"
+>Gentoo Forums</A
+>.
+     Try searching with the keywords "Apache PHP".
+    </P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.unix.solaris.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.unix.debian.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Solaris specific installation tips</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.unix.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Debian GNU/Linux installation notes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

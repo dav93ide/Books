@@ -1,0 +1,378 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>SDO_DAS_Relational::executeQuery</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SDO Relational Data Access Service Functions"
+HREF="ref.sdo.das.rel.html"><LINK
+REL="PREVIOUS"
+TITLE="SDO_DAS_Relational::executePreparedQuery"
+HREF="function.sdo-das-relational-executepreparedquery.html"><LINK
+REL="NEXT"
+TITLE="Funzioni per i semafori, la memoria condivisa ed IPC"
+HREF="ref.sem.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sdo-das-relational-executepreparedquery.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.sem.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.SDO-DAS-Relational-executeQuery"
+></A
+>SDO_DAS_Relational::executeQuery</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN148189"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>SDO_DAS_Relational::executeQuery&nbsp;--&nbsp;
+	    Executes a given SQL query against a relational database 
+        and returns the results as a normalised data graph.
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148192"
+></A
+><H2
+>Descrizione</H2
+>SDODataObject <B
+CLASS="methodname"
+>SDO_DAS_Relational::executeQuery</B
+> ( PDO database_handle, string SQL_statement [, array column_specifier] )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   Executes a given query against the relational database, 
+   using the supplied PDO database handle.
+   Uses the model that it built from the the metadata 
+   to interpret the result set.
+   Returns a data graph.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148210"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>PDO_database_handle</DT
+><DD
+><P
+>&#13;       Constructed using the PDO extension. 
+       A typical line to construct a PDO database handle might look 
+       like this:
+       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$dbh = new PDO("mysql:dbname=COMPANYDB;host=localhost",DATABASE_USER,DATABASE_PASSWORD);</font>
+</code></TD
+></TR
+></TABLE
+>
+      </P
+></DD
+><DT
+>SQL_statement</DT
+><DD
+><P
+>&#13;       The SQL statement to be executed against the database.
+      </P
+></DD
+><DT
+>column_specifier</DT
+><DD
+><P
+>&#13;       The Relational DAS needs to examine the result set and 
+       for every column, know which table and which column of 
+       that table it came from.
+       In some circumstances it can find this information for itself, 
+       but sometimes it cannot.
+       In these cases a column specifier is needed, 
+       which is an array that identifies the columns.
+       Each entry in the array is simply a string in the form
+       <VAR
+CLASS="varname"
+>table-name.column_name</VAR
+>.
+      </P
+><P
+>&#13;       The column specifier is needed when there are duplicate 
+       column names in the database metadata.
+       For example, in the database used within the examples, 
+       all the tables have both a
+       <VAR
+CLASS="varname"
+>id</VAR
+>
+       and a
+       <VAR
+CLASS="varname"
+>name</VAR
+>
+       column.
+       When the Relational DAS fetches the result set from PDO 
+       it can do so with the PDO_FETCH_ASSOC attribute, 
+       which will cause the columns in the results set 
+       to be labelled with  the column name, but will not distinguish 
+       duplicates.
+       So this will only work when there are no duplicates 
+       possible in the results set.
+      </P
+><P
+>&#13;       To summarise, specify a column specifier array whenever there 
+       is any uncertainty about which column could be from which table and
+       only omit it when every column name in the database metadata is unique.
+      </P
+><P
+>&#13;       All of the examples in the
+       <A
+HREF="ref.sdo.das.rel.html#sdo.das.rel.examples"
+>Examples</A
+>
+       use a column specifier.
+       There is one example in the
+       <TT
+CLASS="filename"
+>Scenarios</TT
+>
+       directory of the installation that does not: 
+       that which works with just the employee table, 
+       and because it works with just one table, 
+       there can not exist duplicate column names.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148235"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a data graph. 
+   Specifically, it returns a root object of a special type.
+   Under this root object will be the data from the result set.
+   The root object will have a multi-valued containment property 
+   with the same name as the application root type 
+   specified on the constructor,
+   and that property will contain one or more data objects 
+   of the application root type.
+  </P
+><P
+>&#13;   In the event that the query returns no data, 
+   the special root object will still be returned but 
+   the containment property for the application root type will be empty.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148239"
+></A
+><H2
+>Eccezioni</H2
+><P
+>&#13;   <B
+CLASS="function"
+>SDO_DAS_Relational::executeQuery()</B
+>
+   can throw an SDO_DAS_Relational_Exception if it is unable 
+   to construct the data graph correctly.
+   This can occur for a  number of reasons: 
+   for example if it finds that it does not have primary keys 
+   in the result set for all the objects.
+   It also catches any PDO exceptions and obtains PDO 
+   diagnostic information which it includes in an 
+   SDO_DAS_Relational_Exception which it then throws.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN148243"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   Please see the
+   <A
+HREF="ref.sdo.das.rel.html#sdo.das.rel.examples"
+>Examples</A
+>
+   section in the general information about the 
+   Relational DAS for many examples of calling this method.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sdo-das-relational-executepreparedquery.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.sem.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SDO_DAS_Relational::executePreparedQuery</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sdo.das.rel.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Funzioni per i semafori, la memoria condivisa ed IPC</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

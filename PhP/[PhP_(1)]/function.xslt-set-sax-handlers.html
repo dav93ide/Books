@@ -1,0 +1,476 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>xslt_set_sax_handlers</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni XSLT"
+HREF="ref.xslt.html"><LINK
+REL="PREVIOUS"
+TITLE="xslt_set_sax_handler"
+HREF="function.xslt-set-sax-handler.html"><LINK
+REL="NEXT"
+TITLE="xslt_set_scheme_handler"
+HREF="function.xslt-set-scheme-handler.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xslt-set-sax-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.xslt-set-scheme-handler.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.xslt-set-sax-handlers"
+></A
+>xslt_set_sax_handlers</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN180560"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.6, PECL)</P
+>xslt_set_sax_handlers&nbsp;--&nbsp;
+     Imposta gli handler SAX da richiamare quando il document XML viene processato
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180563"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>xslt_set_sax_handlers</B
+> ( resource processor, array handler )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>xslt_set_sax_handlers()</B
+> registra 
+     gli <VAR
+CLASS="parameter"
+>handlers</VAR
+> SAX per il documento, dato 
+     <VAR
+CLASS="parameter"
+>processor</VAR
+> XSLT.
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>handlers</VAR
+> dovrebbe essere una matrice del seguente formato:
+      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN180580"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> <br />$handlers </font><font color="#007700">= array(<br /> <br />&nbsp;&nbsp;</font><font color="#DD0000">"document" </font><font color="#007700">=&gt; array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"start_doc"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"end_doc"</font><font color="#007700">),<br /> <br />&nbsp;&nbsp;</font><font color="#DD0000">"element"&nbsp;&nbsp;</font><font color="#007700">=&gt; array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"start_element"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"end_element"</font><font color="#007700">),<br /> <br />&nbsp;&nbsp;</font><font color="#DD0000">"namespace" </font><font color="#007700">=&gt; array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"start_namespace"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"end_namespace"</font><font color="#007700">),<br /> <br />&nbsp;&nbsp;</font><font color="#DD0000">"comment"&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"comment"</font><font color="#007700">,<br /> <br />&nbsp;&nbsp;</font><font color="#DD0000">"pi"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">=&gt; </font><font color="#DD0000">"pi"</font><font color="#007700">,<br /> <br />&nbsp;&nbsp;</font><font color="#DD0000">"character" </font><font color="#007700">=&gt; </font><font color="#DD0000">"characters"<br /> <br /></font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     Dove le funzioni seguono la sintassi descritta per lo 
+     schema.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      La matrice fornita non richiede di essere completa di tutti i differenti
+      handler agli elementi sax (sebbene possa esserlo), ma richiede solo di essere conforme al
+      formato "handler" =&#62; "function" descritto in precedenza.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Chiascuno degli handler SAX sono nel formato:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>start_doc</VAR
+></B
+> ( resource processor )<BR
+></BR
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>end_doc</VAR
+></B
+> ( resource processor )<BR
+></BR
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>start_element</VAR
+></B
+> ( resource processor, string name, array attributes )<BR
+></BR
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>end_element</VAR
+></B
+> ( resource processor, string name )<BR
+></BR
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>start_namespace</VAR
+></B
+> ( resource processor, string prefix, string uri )<BR
+></BR
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>end_namespace</VAR
+></B
+> ( resource processor, string prefix )<BR
+></BR
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>comment</VAR
+></B
+> ( resource processor, string contents )<BR
+></BR
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>pi</VAR
+></B
+> ( resource processor, string target, string contents )<BR
+></BR
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>characters</VAR
+></B
+> ( resource processor, string contents )<BR
+></BR
+>
+       </P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     L'utilizzo di <B
+CLASS="function"
+>xslt_set_sax_handlers()</B
+> non è molto differente
+     rispetto ad un parser SAX tipo <A
+HREF="function.xml-parse.html"
+><B
+CLASS="function"
+>xml_parse()</B
+></A
+> nelle trasformazioni
+     <A
+HREF="function.xslt-process.html"
+><B
+CLASS="function"
+>xslt_process()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180692"
+></A
+><H2
+>Esempi</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN180694"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso <B
+CLASS="function"
+>xslt_set_sax_handlers()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Da ohlesbeauxjours at yahoo dot fr<br />// Questo è un semplice esempio che applica strtoupper()<br />// sul contenuto di ciascun tag &lt;auteur&gt; e visualizza<br />// l'albero XML risultante:<br /> &nbsp;&nbsp;&nbsp;&nbsp; <br /></font><font color="#0000BB">$xml</font><font color="#007700">=</font><font color="#DD0000">'&lt;?xml version="1.0"?&gt;<br />&lt;books&gt;<br /> &lt;book&gt;<br />&nbsp;&nbsp;&lt;title&gt;Mme Bovary&lt;/title&gt;<br />&nbsp;&nbsp;&lt;author&gt;Gustave Flaubert&lt;/author&gt;<br /> &lt;/book&gt;<br /> &lt;book&gt;<br />&nbsp;&nbsp;&lt;title&gt;Mrs Dalloway&lt;/title&gt;<br />&nbsp;&nbsp;&lt;author&gt;Virginia Woolf&lt;/author&gt;<br /> &lt;/book&gt;<br />&lt;/books&gt;'</font><font color="#007700">;<br /> <br /></font><font color="#0000BB">$xsl</font><font color="#007700">=</font><font color="#DD0000">'&lt;?xml version="1.0"?&gt;<br />&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;<br />&lt;xsl:output method="html" encoding="ISO-8859-1" indent="no" omit-xml-declaration="yes"/&gt;<br />&lt;xsl:template match="/"&gt;<br /> &lt;xsl:for-each select="books/book"&gt;<br />&nbsp;&nbsp;&lt;livre&gt;<br />&nbsp;&nbsp;&nbsp;&lt;auteur&gt;&lt;xsl:value-of select="author/text()"/&gt;&lt;/auteur&gt;<br />&nbsp;&nbsp;&lt;/livre&gt;<br /> &lt;/xsl:for-each&gt;<br />&lt;/xsl:template&gt;<br />&lt;/xsl:stylesheet&gt;'</font><font color="#007700">;<br /> <br /></font><font color="#FF8000">// Handlers :<br /></font><font color="#007700">function </font><font color="#0000BB">start_document</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;</font><font color="#FF8000">// inizia la lettura del coumento<br /></font><font color="#007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />function </font><font color="#0000BB">end_document</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;</font><font color="#FF8000">// fine lettura del documento<br /></font><font color="#007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />function </font><font color="#0000BB">start_element</font><font color="#007700">(</font><font color="#0000BB">$parser</font><font color="#007700">, </font><font color="#0000BB">$name</font><font color="#007700">, </font><font color="#0000BB">$attributes</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;global </font><font color="#0000BB">$result</font><font color="#007700">,</font><font color="#0000BB">$tag</font><font color="#007700">;<br />&nbsp;&nbsp;</font><font color="#0000BB">$result </font><font color="#007700">.= </font><font color="#DD0000">"&lt;"</font><font color="#007700">. </font><font color="#0000BB">$name </font><font color="#007700">. </font><font color="#DD0000">"&gt;"</font><font color="#007700">;<br />&nbsp;&nbsp;</font><font color="#0000BB">$tag </font><font color="#007700">= </font><font color="#0000BB">$name</font><font color="#007700">;<br />}<br /> <br />function </font><font color="#0000BB">end_element</font><font color="#007700">(</font><font color="#0000BB">$parser</font><font color="#007700">, </font><font color="#0000BB">$name</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;global </font><font color="#0000BB">$result</font><font color="#007700">;<br />&nbsp;&nbsp;</font><font color="#0000BB">$result </font><font color="#007700">.= </font><font color="#DD0000">"&lt;/" </font><font color="#007700">. </font><font color="#0000BB">$name </font><font color="#007700">. </font><font color="#DD0000">"&gt;"</font><font color="#007700">;<br />}<br /> <br />function </font><font color="#0000BB">characters</font><font color="#007700">(</font><font color="#0000BB">$parser</font><font color="#007700">, </font><font color="#0000BB">$data</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;global </font><font color="#0000BB">$result</font><font color="#007700">,</font><font color="#0000BB">$tag</font><font color="#007700">;<br />&nbsp;&nbsp;if (</font><font color="#0000BB">$tag </font><font color="#007700">== </font><font color="#DD0000">"auteur" </font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$data </font><font color="#007700">= </font><font color="#0000BB">strtoupper</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">);<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;</font><font color="#0000BB">$result </font><font color="#007700">.= </font><font color="#0000BB">$data</font><font color="#007700">;<br />}<br /> <br /></font><font color="#FF8000">// Trasformazione :<br /></font><font color="#0000BB">$xh </font><font color="#007700">= </font><font color="#0000BB">xslt_create</font><font color="#007700">();<br /></font><font color="#0000BB">$handlers </font><font color="#007700">= array(</font><font color="#DD0000">"document" </font><font color="#007700">=&gt; array(</font><font color="#DD0000">"start_document"</font><font color="#007700">,</font><font color="#DD0000">"end_document"</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"element" </font><font color="#007700">=&gt; array(</font><font color="#DD0000">"start_element"</font><font color="#007700">,</font><font color="#DD0000">"end_element"</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"character" </font><font color="#007700">=&gt; </font><font color="#DD0000">"characters"</font><font color="#007700">);<br /> <br /></font><font color="#0000BB">xslt_set_sax_handlers</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#0000BB">$handlers</font><font color="#007700">);<br /></font><font color="#0000BB">xslt_process</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#DD0000">'arg:/_xml'</font><font color="#007700">, </font><font color="#DD0000">'arg:/_xsl'</font><font color="#007700">, </font><font color="#0000BB">NULL</font><font color="#007700">, array(</font><font color="#DD0000">"/_xml"</font><font color="#007700">=&gt;</font><font color="#0000BB">$xml</font><font color="#007700">, </font><font color="#DD0000">"/_xsl"</font><font color="#007700">=&gt;</font><font color="#0000BB">$xsl</font><font color="#007700">));<br /></font><font color="#0000BB">xslt_free</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Si può anche utilizzare <A
+HREF="function.xslt-set-object.html"
+><B
+CLASS="function"
+>xslt_set_object()</B
+></A
+> per implementare i
+     propri handler in un oggetto.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN180700"
+></A
+><P
+><B
+>Esempio 2. Handler orientato agli oggetti</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Questa è una versione ad oggetti dell'esempi precedente<br /></font><font color="#007700">class </font><font color="#0000BB">data_sax_handler </font><font color="#007700">{<br /> <br />&nbsp;&nbsp;var </font><font color="#0000BB">$buffer</font><font color="#007700">, </font><font color="#0000BB">$tag</font><font color="#007700">, </font><font color="#0000BB">$attrs</font><font color="#007700">;<br /> <br />&nbsp;&nbsp;var </font><font color="#0000BB">$_xh</font><font color="#007700">;<br /> <br />&nbsp;&nbsp;function </font><font color="#0000BB">data_sax_handler</font><font color="#007700">(</font><font color="#0000BB">$xml</font><font color="#007700">, </font><font color="#0000BB">$xsl</font><font color="#007700">)<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// la nostra risorsa xslt<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">_xh </font><font color="#007700">= </font><font color="#0000BB">xslt_create</font><font color="#007700">();<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">xslt_set_object</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">_xs</font><font color="#007700">, </font><font color="#0000BB">$this</font><font color="#007700">);<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// configura gli handler sax<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$handlers </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"document" </font><font color="#007700">=&gt; array(</font><font color="#DD0000">'start_document'</font><font color="#007700">, </font><font color="#DD0000">'end_document'</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"element" </font><font color="#007700">=&gt; array(</font><font color="#DD0000">'start_element'</font><font color="#007700">, </font><font color="#DD0000">'end_element'</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"character" </font><font color="#007700">=&gt; </font><font color="#DD0000">'characters'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">);<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">xslt_set_sax_handlers</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">_xh</font><font color="#007700">, </font><font color="#0000BB">$handlers</font><font color="#007700">);<br /> <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">xslt_process</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">_xh</font><font color="#007700">, </font><font color="#DD0000">'arg:/_xml'</font><font color="#007700">, </font><font color="#DD0000">'arg:/_xsl'</font><font color="#007700">, </font><font color="#0000BB">NULL</font><font color="#007700">, array(</font><font color="#DD0000">"/_xml"</font><font color="#007700">=&gt;</font><font color="#0000BB">$xml</font><font color="#007700">, </font><font color="#DD0000">"/_xsl"</font><font color="#007700">=&gt;</font><font color="#0000BB">$xsl</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">xslt_free</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">_xh</font><font color="#007700">);<br /> <br /> <br />&nbsp;&nbsp;}<br /> <br />&nbsp;&nbsp;function </font><font color="#0000BB">start_document</font><font color="#007700">()<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// inizia la lettura del documento<br />&nbsp;&nbsp;</font><font color="#007700">}<br /> <br />&nbsp;&nbsp;function </font><font color="#0000BB">end_document</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// completa la lettura del documento<br />&nbsp;&nbsp;</font><font color="#007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp; <br />&nbsp;&nbsp;function </font><font color="#0000BB">start_element</font><font color="#007700">(</font><font color="#0000BB">$parser</font><font color="#007700">, </font><font color="#0000BB">$name</font><font color="#007700">, </font><font color="#0000BB">$attributes</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">tag </font><font color="#007700">= </font><font color="#0000BB">$name</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">buffer </font><font color="#007700">.= </font><font color="#DD0000">"&lt;" </font><font color="#007700">. </font><font color="#0000BB">$name </font><font color="#007700">. </font><font color="#DD0000">"&gt;"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">attrs </font><font color="#007700">= </font><font color="#0000BB">$attributes</font><font color="#007700">;<br />&nbsp;&nbsp;}<br /> <br />&nbsp;&nbsp;function </font><font color="#0000BB">end_element</font><font color="#007700">(</font><font color="#0000BB">$parser</font><font color="#007700">, </font><font color="#0000BB">$name</font><font color="#007700">)<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">tag </font><font color="#007700">= </font><font color="#DD0000">''</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">buffer </font><font color="#007700">.= </font><font color="#DD0000">"&lt;/" </font><font color="#007700">. </font><font color="#0000BB">$name </font><font color="#007700">. </font><font color="#DD0000">"&gt;"</font><font color="#007700">;<br />&nbsp;&nbsp;}<br /> <br />&nbsp;&nbsp;function </font><font color="#0000BB">characters</font><font color="#007700">(</font><font color="#0000BB">$parser</font><font color="#007700">, </font><font color="#0000BB">$data</font><font color="#007700">)<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">tag </font><font color="#007700">== </font><font color="#DD0000">'auteur'</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$data </font><font color="#007700">= </font><font color="#0000BB">strtoupper</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">buffer </font><font color="#007700">.= </font><font color="#0000BB">$data</font><font color="#007700">;<br />&nbsp;&nbsp;}<br /> <br />&nbsp;&nbsp;function </font><font color="#0000BB">get_buffer</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">buffer</font><font color="#007700">;<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp; <br />}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br /></font><font color="#0000BB">$exec </font><font color="#007700">= new </font><font color="#0000BB">data_sax_handler</font><font color="#007700">(</font><font color="#0000BB">$xml</font><font color="#007700">, </font><font color="#0000BB">$xsl</font><font color="#007700">);<br /> <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;      Entrambi gli esempi visualizzeranno:
+     </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="xml"
+>&#60;livre&#62;
+   &#60;auteur&#62;GUSTAVE FLAUBERT&#60;/auteur&#62;
+&#60;/livre&#62;
+&#60;livre&#62;
+   &#60;auteur&#62;VIRGINIA WOOLF&#60;/auteur&#62;
+&#60;/livre&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xslt-set-sax-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.xslt-set-scheme-handler.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>xslt_set_sax_handler</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.xslt.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>xslt_set_scheme_handler</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,324 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Encryption Filters</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="List of Available Filters"
+HREF="filters.html"><LINK
+REL="PREVIOUS"
+TITLE="Compression Filters"
+HREF="filters.compression.html"><LINK
+REL="NEXT"
+TITLE="List of Supported Socket Transports"
+HREF="transports.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="filters.compression.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice N. List of Available Filters</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="transports.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="filters.encryption"
+>Encryption Filters</A
+></H1
+><P
+>&#13;   <VAR
+CLASS="literal"
+>mcrypt.*</VAR
+> and <VAR
+CLASS="literal"
+>mdecrypt.*</VAR
+>
+   provide symmetric encryption and decryption using libmcrypt.
+   Both sets of filters support the same algorithms available to
+   <A
+HREF="ref.mcrypt.html"
+>mcrypt extension</A
+> in the form of
+   <VAR
+CLASS="literal"
+>mcrypt.ciphername</VAR
+> where <VAR
+CLASS="parameter"
+>ciphername</VAR
+>
+   is the name of the cipher as it would be passed to
+   <A
+HREF="function.mcrypt-module-open.html"
+><B
+CLASS="function"
+>mcrypt_module_open()</B
+></A
+>.
+   The following five filter parameters are also available:
+  </P
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN212215"
+></A
+><P
+><B
+>Tabella N-1. mcrypt filter parameters</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Parameter</TH
+><TH
+>Required?</TH
+><TH
+>Default</TH
+><TH
+>Sample Values</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>mode</TD
+><TD
+>Optional</TD
+><TD
+>cbc</TD
+><TD
+>cbc, cfb, ecb, nofb, ofb, stream</TD
+></TR
+><TR
+><TD
+>algorithms_dir</TD
+><TD
+>Optional</TD
+><TD
+>ini_get('mcrypt.algorithms_dir')</TD
+><TD
+>Location of algorithms modules</TD
+></TR
+><TR
+><TD
+>modes_dir</TD
+><TD
+>Optional</TD
+><TD
+>ini_get('mcrypt.modes_dir')</TD
+><TD
+>Location of modes modules</TD
+></TR
+><TR
+><TD
+>iv</TD
+><TD
+>Required</TD
+><TD
+>N/A</TD
+><TD
+>Typically 8, 16, or 32 bytes of binary data.  Depends on cipher</TD
+></TR
+><TR
+><TD
+>key</TD
+><TD
+>Required</TD
+><TD
+>N/A</TD
+><TD
+>Typically 8, 16, or 32 bytes of binary data.  Depends on cipher</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN212250"
+></A
+><P
+><B
+>Esempio N-10. Encrypting file output using 3DES</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$passphrase </font><font color="#007700">= </font><font color="#DD0000">'My secret'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Turn a human readable passphrase<br /> * into a reproducable iv/key pair<br /> */<br /></font><font color="#0000BB">$iv </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#DD0000">'iv'</font><font color="#007700">.</font><font color="#0000BB">$passphrase</font><font color="#007700">, </font><font color="#0000BB">true</font><font color="#007700">), </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">8</font><font color="#007700">);<br /></font><font color="#0000BB">$key </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#DD0000">'pass1'</font><font color="#007700">.</font><font color="#0000BB">$passphrase</font><font color="#007700">, </font><font color="#0000BB">true</font><font color="#007700">) . <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#DD0000">'pass2'</font><font color="#007700">.</font><font color="#0000BB">$passphrase</font><font color="#007700">, </font><font color="#0000BB">true</font><font color="#007700">), </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">24</font><font color="#007700">);<br /></font><font color="#0000BB">$opts </font><font color="#007700">= array(</font><font color="#DD0000">'iv'</font><font color="#007700">=&gt;</font><font color="#0000BB">$iv</font><font color="#007700">, </font><font color="#DD0000">'key'</font><font color="#007700">=&gt;</font><font color="#0000BB">$key</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'secert-file.enc'</font><font color="#007700">, </font><font color="#DD0000">'wb'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'mcrypt.tripledes'</font><font color="#007700">, </font><font color="#0000BB">STREAM_FILTER_WRITE</font><font color="#007700">, </font><font color="#0000BB">$opts</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'Secret secret secret data'</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN212253"
+></A
+><P
+><B
+>Esempio N-11. Reading an encrypted file</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$passphrase </font><font color="#007700">= </font><font color="#DD0000">'My secret'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Turn a human readable passphrase<br /> * into a reproducable iv/key pair<br /> */<br /></font><font color="#0000BB">$iv </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#DD0000">'iv'</font><font color="#007700">.</font><font color="#0000BB">$passphrase</font><font color="#007700">, </font><font color="#0000BB">true</font><font color="#007700">), </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">8</font><font color="#007700">);<br /></font><font color="#0000BB">$key </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#DD0000">'pass1'</font><font color="#007700">.</font><font color="#0000BB">$passphrase</font><font color="#007700">, </font><font color="#0000BB">true</font><font color="#007700">) . <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#DD0000">'pass2'</font><font color="#007700">.</font><font color="#0000BB">$passphrase</font><font color="#007700">, </font><font color="#0000BB">true</font><font color="#007700">), </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">24</font><font color="#007700">);<br /></font><font color="#0000BB">$opts </font><font color="#007700">= array(</font><font color="#DD0000">'iv'</font><font color="#007700">=&gt;</font><font color="#0000BB">$iv</font><font color="#007700">, </font><font color="#DD0000">'key'</font><font color="#007700">=&gt;</font><font color="#0000BB">$key</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">'secert-file.enc'</font><font color="#007700">, </font><font color="#DD0000">'rb'</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">'mdecrypt.tripledes'</font><font color="#007700">, </font><font color="#0000BB">STREAM_FILTER_WRITE</font><font color="#007700">, </font><font color="#0000BB">$opts</font><font color="#007700">);<br /></font><font color="#0000BB">$data </font><font color="#007700">= </font><font color="#0000BB">rtrim</font><font color="#007700">(</font><font color="#0000BB">stream_get_contents</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">));<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /><br />echo </font><font color="#0000BB">$data</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="filters.compression.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="transports.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Compression Filters</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="filters.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>List of Supported Socket Transports</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

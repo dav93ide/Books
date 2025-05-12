@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Overview</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Zend API: Hacking the Core of PHP"
+HREF="zend.html"><LINK
+REL="PREVIOUS"
+TITLE="Zend API: Hacking the Core of PHP"
+HREF="zend.html"><LINK
+REL="NEXT"
+TITLE="Extension Possibilities"
+HREF="zend.possibilities.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="zend.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 46. Zend API: Hacking the Core of PHP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="zend.possibilities.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="zend.overview"
+>Overview</A
+></H1
+><P
+>&#13;   "Extending PHP" is easier said than done. PHP has evolved to a
+   full-fledged tool consisting of a few megabytes of source code,
+   and to hack a system like this quite a few things have to be
+   learned and considered.  When structuring this chapter, we finally
+   decided on the "learn by doing" approach. This is not the most
+   scientific and professional approach, but the method that's the
+   most fun and gives the best end results. In the following
+   sections, you'll learn quickly how to get the most basic
+   extensions to work almost instantly. After that, you'll learn
+   about Zend's advanced API functionality. The alternative would
+   have been to try to impart the functionality, design, tips,
+   tricks, etc. as a whole, all at once, thus giving a complete look
+   at the big picture before doing anything practical. Although this
+   is the "better" method, as no dirty hacks have to be made, it can
+   be very frustrating as well as energy- and time-consuming, which
+   is why we've decided on the direct approach.
+  </P
+><P
+>&#13;   Note that even though this chapter tries to impart as much
+   knowledge as possible about the inner workings of PHP, it's
+   impossible to really give a complete guide to extending PHP that
+   works 100% of the time in all cases. PHP is such a huge and
+   complex package that its inner workings can only be understood if
+   you make yourself familiar with it by practicing, so we encourage
+   you to work with the source.
+  </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.overview.whatisit"
+>What Is Zend? and What Is PHP?</A
+></H2
+><P
+>&#13;    The name <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Zend</I
+></SPAN
+> refers to the language engine,
+    PHP's core. The term <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>PHP</I
+></SPAN
+> refers to the
+    complete system as it appears from the outside. This might sound
+    a bit confusing at first, but it's not that complicated (see
+    <A
+HREF="zend.overview.html#fig.internal-struct"
+>Figura 46-1</A
+>). To implement a Web script interpreter, you need
+    three parts: 
+    <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;       The <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>interpreter</I
+></SPAN
+> part analyzes the input
+       code, translates it, and executes it.
+      </P
+></LI
+><LI
+><P
+>&#13;       The <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>functionality</I
+></SPAN
+> part implements the
+       functionality of the language (its functions, etc.).
+      </P
+></LI
+><LI
+><P
+>&#13;       The <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>interface</I
+></SPAN
+> part talks to the Web
+       server, etc.
+      </P
+></LI
+></OL
+>
+    Zend takes part 1 completely and a bit of part 2; PHP takes parts
+    2 and 3. Together they form the complete PHP package. Zend itself
+    really forms only the language core, implementing PHP at its very
+    basics with some predefined functions. PHP contains all the
+    modules that actually create the language's outstanding
+    capabilities. 
+    <DIV
+CLASS="figure"
+><A
+NAME="fig.internal-struct"
+></A
+><P
+><B
+>Figura 46-1. The internal structure of PHP.</B
+></P
+><P
+><IMG
+SRC="figures/zend.01-internal-structure.png"></P
+></DIV
+>
+   </P
+><P
+>&#13;    The following sections discuss where PHP can be extended and how
+    it's done.
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="zend.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="zend.possibilities.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Zend API: Hacking the Core of PHP</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="zend.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Extension Possibilities</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

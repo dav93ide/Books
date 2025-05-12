@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>filectime</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="fileatime"
+HREF="function.fileatime.html"><LINK
+REL="NEXT"
+TITLE="filegroup"
+HREF="function.filegroup.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fileatime.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.filegroup.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.filectime"
+></A
+>filectime</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN41232"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>filectime&nbsp;--&nbsp;Prende l'ora in cui l'inode del file è stato modificato</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41235"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>filectime</B
+> ( string filename )<BR
+></BR
+><P
+>&#13;     Restituisce l'ora in cui il file è stato cambiato l'ultima volta o <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in 
+     caso d'errore. L'ora viene restituita come un timestamp di Unix.
+    </P
+><P
+>&#13;     Nota: In molti filesystem Unix, si considera un file modificato, quando il 
+     suo inode viene cambiato; cioè quando i permessi, il proprietario, il gruppo
+     o altri metadata dell'inode vengono aggiornati. Vedere anche 
+     <A
+HREF="function.filemtime.html"
+><B
+CLASS="function"
+>filemtime()</B
+></A
+> (che è ciò che ti serve se vuoi inserire la 
+     scritta "Ultima modifica: " nel piede delle tue pagine web) e 
+     <A
+HREF="function.fileatime.html"
+><B
+CLASS="function"
+>fileatime()</B
+></A
+>.
+    </P
+><P
+>&#13;     Sappi anche che in alcuni testi su Unix si fa riferimento al ctime di
+     un file come l'ora di creazione dello stesso. E' sbagliato.
+     Nella maggioranza dei filesystem Unix non esiste un oa di creazione.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>I risultati di questa funzione 
+saranno memorizzati. Vedere <A
+HREF="function.clearstatcache.html"
+><B
+CLASS="function"
+>clearstatcache()</B
+></A
+> per  
+maggiori dettagli.</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>A partire da 
+<VAR
+CLASS="literal"
+>PHP 5.0.0</VAR
+>, questa funzione può essere utilizzata con
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>alcuni</I
+></SPAN
+> URL wrappers.  Fare riferimento a 
+<A
+HREF="wrappers.html"
+>Appendice M</A
+> per la lista di quali wrappers supportano le funzioni della famiglia
+<A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+>.</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN41259"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <A
+HREF="function.fileatime.html"
+><B
+CLASS="function"
+>fileatime()</B
+></A
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> <br /></font><font color="#FF8000">// Visualizza ad esempio:&nbsp;&nbsp;somefile.txt è stato modificato: December 29 2002 22:16:23.<br /> <br /></font><font color="#0000BB">$filename </font><font color="#007700">= </font><font color="#DD0000">'somefile.txt'</font><font color="#007700">;<br />if (</font><font color="#0000BB">file_exists</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$filename è stato modificato: " </font><font color="#007700">. </font><font color="#0000BB">date</font><font color="#007700">(</font><font color="#DD0000">"F d Y H:i:s."</font><font color="#007700">, </font><font color="#0000BB">filectime</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">));<br />}<br /> <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.filemtime.html"
+><B
+CLASS="function"
+>filemtime()</B
+></A
+>.    
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fileatime.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.filegroup.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fileatime</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>filegroup</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

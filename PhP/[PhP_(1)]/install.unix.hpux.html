@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>HP-UX specific installation notes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation on Unix systems"
+HREF="install.unix.html"><LINK
+REL="PREVIOUS"
+TITLE="CGI and commandline setups"
+HREF="install.unix.commandline.html"><LINK
+REL="NEXT"
+TITLE="OpenBSD installation notes"
+HREF="install.unix.openbsd.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.unix.commandline.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 4. Installation on Unix systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.unix.openbsd.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.unix.hpux"
+>HP-UX specific installation notes</A
+></H1
+><P
+>&#13;    This section contains notes and hints specific to installing PHP
+    on HP-UX systems. (Contributed by paul_mckay at clearwater-it dot co dot
+    uk).
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     These tips were written for PHP 4.0.4 and Apache 1.3.9.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;       You need gzip, download a binary distribution from
+       <TT
+CLASS="filename"
+>http://hpux.connect.org.uk/ftp/hpux/Gnu/gzip-1.2.4a/gzip-1.2.4a-sd-10.20.depot.Z</TT
+>
+       uncompress the file and install using swinstall.
+      </P
+></LI
+><LI
+><P
+>&#13;       You need gcc, download a binary distribution from
+       <TT
+CLASS="filename"
+>http://gatekeep.cs.utah.edu/ftp/hpux/Gnu/gcc-2.95.2/gcc-2.95.2-sd-10.20.depot.gz</TT
+>.
+       uncompress this file and install gcc using swinstall.
+      </P
+></LI
+><LI
+><P
+>&#13;       You need the GNU binutils, you can download a binary distribution from
+       <TT
+CLASS="filename"
+>http://hpux.connect.org.uk/ftp/hpux/Gnu/binutils-2.9.1/binutils-2.9.1-sd-10.20.depot.gz</TT
+>.
+       uncompress this file and install binutils using swinstall.
+      </P
+></LI
+><LI
+><P
+>&#13;       You now need bison, you can download a binary distribution from
+       <TT
+CLASS="filename"
+>http://hpux.connect.org.uk/ftp/hpux/Gnu/bison-1.28/bison-1.28-sd-10.20.depot.gz</TT
+>,
+       install as above.
+      </P
+></LI
+><LI
+><P
+>&#13;       You now need flex, you need to download the source from one of the
+       http://www.gnu.org mirrors. It is in the non-gnu directory of the ftp
+       site.  Download the file, <B
+CLASS="command"
+>gunzip</B
+>, then
+       <B
+CLASS="command"
+>tar -xvf</B
+> it. Go into the newly created flex directory
+       and run <B
+CLASS="command"
+>./configure</B
+>, followed by 
+       <B
+CLASS="command"
+>make</B
+>, and then <B
+CLASS="command"
+>make install</B
+>.
+      </P
+><P
+>&#13;       If you have errors here, it's probably because gcc etc. are not in your
+       PATH so add them to your PATH. 
+      </P
+></LI
+><LI
+><P
+>&#13;       Download the PHP and apache sources. 
+      </P
+></LI
+><LI
+><P
+>&#13;       <B
+CLASS="command"
+>gunzip</B
+> and <B
+CLASS="command"
+>tar -xvf</B
+> them. We
+       need to hack a couple of files so that they can compile OK.
+      </P
+></LI
+><LI
+><P
+>&#13;       Firstly the configure file needs to be hacked because it seems to lose
+       track of the fact that you are a hpux machine, there will be a better
+       way of doing this but a cheap and cheerful hack is to put
+       <VAR
+CLASS="literal"
+>lt_target=hpux10.20</VAR
+> on line 47286 of the configure
+       script.
+      </P
+></LI
+><LI
+><P
+>&#13;       Next, the Apache GuessOS file needs to be hacked. Under
+       <TT
+CLASS="filename"
+>apache_1.3.9/src/helpers</TT
+> change line 89 from <VAR
+CLASS="literal"
+>echo
+       "hp${HPUXMACH}-hpux${HPUXVER}"; exit 0</VAR
+> to: <VAR
+CLASS="literal"
+>echo
+       "hp${HPUXMACH}-hp-hpux${HPUXVER}"; exit 0</VAR
+>
+      </P
+></LI
+><LI
+><P
+>&#13;       You cannot install PHP as a shared object under HP-UX so you must
+       compile it as a static, just follow the instructions at the Apache
+       page. 
+      </P
+></LI
+><LI
+><P
+>&#13;       PHP and Apache should have compiled OK, but Apache won't start. you
+       need to create a new user for Apache, e.g. www, or apache. You then
+       change lines 252 and 253 of the <TT
+CLASS="filename"
+>conf/httpd.conf</TT
+> in
+       Apache so that instead of
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>User nobody 
+Group nogroup</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;       you have something like 
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>User www 
+Group sys</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;       This is because you can't run Apache as nobody under hp-ux. Apache and
+       PHP should then work. 
+      </P
+></LI
+></OL
+>
+ </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.unix.commandline.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.unix.openbsd.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>CGI and commandline setups</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.unix.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>OpenBSD installation notes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,364 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sqlite_unbuffered_query</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SQLite"
+HREF="ref.sqlite.html"><LINK
+REL="PREVIOUS"
+TITLE="sqlite_udf_encode_binary"
+HREF="function.sqlite-udf-encode-binary.html"><LINK
+REL="NEXT"
+TITLE="sqlite_valid"
+HREF="function.sqlite-valid.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-udf-encode-binary.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-valid.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sqlite-unbuffered-query"
+></A
+>sqlite_unbuffered_query</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN158755"
+></A
+><P
+>    (PHP 5)</P
+>sqlite_unbuffered_query<P
+>    (no version information, might be only in CVS)</P
+>SQLiteDatabase-&#62;unbufferedQuery&nbsp;--&nbsp;Esegue una query senza scaricare e bufferizzare i dati</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN158759"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>sqlite_unbuffered_query</B
+> ( resource dbhandle, string query )<BR
+></BR
+>resource <B
+CLASS="methodname"
+>sqlite_unbuffered_query</B
+> ( string query, resource dbhandle )<BR
+></BR
+><P
+>Versione ad oggetti (metodo):</P
+>class <B
+CLASS="classname"
+>SQLiteDatabase</B
+> { <BR
+></BR
+>SQLiteUnbuffered <B
+CLASS="methodname"
+>unbufferedQuery</B
+> ( string query )<BR
+></BR
+>}<P
+>&#13;   <B
+CLASS="function"
+>sqlite_unbuffered_query()</B
+> è simile a
+   <A
+HREF="function.sqlite-query.html"
+><B
+CLASS="function"
+>sqlite_query()</B
+></A
+> tranne che i risultati sono restituiti
+   in modo sequenziale una riga dopo l'altra, permettendo solo la lettura
+   del record successivo.
+  </P
+><P
+>&#13;    Questa funzione è l'ideale per generare oggetti tipo tavole HTML in cui
+   occorre processare una riga alla volta e non occorre muoversi a caso
+   tra le righe.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    Funzioni tipo <A
+HREF="function.sqlite-seek.html"
+><B
+CLASS="function"
+>sqlite_seek()</B
+></A
+>, 
+    <A
+HREF="function.sqlite-rewind.html"
+><B
+CLASS="function"
+>sqlite_rewind()</B
+></A
+>, <A
+HREF="function.sqlite-next.html"
+><B
+CLASS="function"
+>sqlite_next()</B
+></A
+>,
+    <A
+HREF="function.sqlite-current.html"
+><B
+CLASS="function"
+>sqlite_current()</B
+></A
+>, e
+    <A
+HREF="function.sqlite-num-rows.html"
+><B
+CLASS="function"
+>sqlite_num_rows()</B
+></A
+> non sono applicabili agli handles
+    restituiti da <B
+CLASS="function"
+>sqlite_unbuffered_query()</B
+>.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN158801"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>query</VAR
+></DT
+><DD
+><P
+>&#13;       La query da eseguire.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>dbhandle</VAR
+></DT
+><DD
+><P
+>&#13;       Risorsa SQLite Database restituita da <B
+CLASS="function"
+>sqlite_open
+       ()</B
+> quando usato in modo procedurale. Questo parametro non è
+       richiesto nel metodo ad oggetti.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Two alternative syntaxes are
+supported for compatibility with other database extensions (such as MySQL).
+The preferred form is the first, where the <VAR
+CLASS="parameter"
+>dbhandle</VAR
+>
+parameter is the first parameter to the function.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN158819"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Resituisce un puntatore ad un risultato oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+  </P
+><P
+>&#13;   <B
+CLASS="function"
+>sqlite_unbuffered_query()</B
+> restituisce
+   un set di risultati sequenzialeche può essere utilizzato per leggere una riga
+   dopo l'altra.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN158825"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.sqlite-query.html"
+><B
+CLASS="function"
+>sqlite_query()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sqlite-udf-encode-binary.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sqlite-valid.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sqlite_udf_encode_binary</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sqlite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sqlite_valid</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

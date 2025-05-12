@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Compression Streams</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="List of Supported Protocols/Wrappers"
+HREF="wrappers.html"><LINK
+REL="PREVIOUS"
+TITLE="PHP input/output streams"
+HREF="wrappers.php.html"><LINK
+REL="NEXT"
+TITLE="Secure Shell 2"
+HREF="wrappers.ssh2.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="wrappers.php.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice M. List of Supported Protocols/Wrappers</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="wrappers.ssh2.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="wrappers.compression"
+>Compression Streams</A
+></H1
+><P
+><TT
+CLASS="filename"
+>zlib:</TT
+> PHP 4.0.4 - PHP 4.2.3 (systems with fopencookie only)</P
+><P
+><TT
+CLASS="filename"
+>compress.zlib://</TT
+> and <TT
+CLASS="filename"
+>compress.bzip2://</TT
+> PHP 4.3.0 and up</P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="filename"
+>zlib:</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>compress.zlib://</TT
+></P
+></LI
+><LI
+><P
+><TT
+CLASS="filename"
+>compress.bzip2://</TT
+></P
+></LI
+></UL
+><P
+> 
+   <TT
+CLASS="filename"
+>zlib:</TT
+> works like <A
+HREF="function.gzopen.html"
+><B
+CLASS="function"
+>gzopen()</B
+></A
+>, except that the
+   stream can be used with <A
+HREF="function.fread.html"
+><B
+CLASS="function"
+>fread()</B
+></A
+> and the other
+   filesystem functions.  This is deprecated as of PHP 4.3.0 due
+   to ambiguities with filenames containing ':' characters; use
+   <TT
+CLASS="filename"
+>compress.zlib://</TT
+> instead.
+  </P
+><P
+>&#13;   <TT
+CLASS="filename"
+>compress.zlib://</TT
+> and
+   <TT
+CLASS="filename"
+>compress.bzip2://</TT
+> are equivalent to
+   <A
+HREF="function.gzopen.html"
+><B
+CLASS="function"
+>gzopen()</B
+></A
+> and <A
+HREF="function.bzopen.html"
+><B
+CLASS="function"
+>bzopen()</B
+></A
+>
+   respectively, and operate even on systems that do not support
+   fopencookie.
+  </P
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN211647"
+></A
+><P
+><B
+>Tabella M-7. Wrapper Summary</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Attribute</TH
+><TH
+>Supported</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>Restricted by <A
+HREF="ref.filesystem.html#ini.allow-url-fopen"
+>allow_url_fopen</A
+>.</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Allows Reading</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Writing</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Appending</TD
+><TD
+>Yes</TD
+></TR
+><TR
+><TD
+>Allows Simultaneous Reading and Writing</TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+></TD
+><TD
+>&#13;        No, use the normal <VAR
+CLASS="literal"
+>file://</VAR
+> wrapper 
+        to stat compressed files.
+       </TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.unlink.html"
+><B
+CLASS="function"
+>unlink()</B
+></A
+></TD
+><TD
+>&#13;        No, use the normal <VAR
+CLASS="literal"
+>file://</VAR
+> wrapper 
+        to unlink compressed files.
+       </TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rename.html"
+><B
+CLASS="function"
+>rename()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.mkdir.html"
+><B
+CLASS="function"
+>mkdir()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+><TR
+><TD
+>Supports <A
+HREF="function.rmdir.html"
+><B
+CLASS="function"
+>rmdir()</B
+></A
+></TD
+><TD
+>No</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wrappers.php.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="wrappers.ssh2.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PHP input/output streams</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="wrappers.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Secure Shell 2</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

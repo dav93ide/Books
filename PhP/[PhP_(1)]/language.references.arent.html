@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Cosa i riferimenti non sono</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Spiegazioni sui riferimenti"
+HREF="language.references.html"><LINK
+REL="PREVIOUS"
+TITLE="Che cosa fanno i riferimenti"
+HREF="language.references.whatdo.html"><LINK
+REL="NEXT"
+TITLE="Passaggio per riferimento"
+HREF="language.references.pass.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.references.whatdo.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 21. Spiegazioni sui riferimenti</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.references.pass.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.references.arent"
+>Cosa i riferimenti non sono</A
+></H1
+><P
+>&#13;    Come detto prima, i riferimenti non sono puntatori. Questo significa, che
+    il seguente costrutto non fà quello che ci si aspetterebbe:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN6364"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">foo</font><font color="#007700">(&amp;</font><font color="#0000BB">$var</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$var </font><font color="#007700">=&amp; </font><font color="#0000BB">$GLOBALS</font><font color="#007700">[</font><font color="#DD0000">"baz"</font><font color="#007700">];<br />}<br /></font><font color="#0000BB">foo</font><font color="#007700">(</font><font color="#0000BB">$bar</font><font color="#007700">); <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Nell'esempio <VAR
+CLASS="varname"
+>$var</VAR
+> in
+    <VAR
+CLASS="varname"
+>foo</VAR
+> viene scambiato con
+    <VAR
+CLASS="varname"
+>$bar</VAR
+> nella chiamata, e poi
+    riscambiato con <VAR
+CLASS="varname"
+>$GLOBALS["baz"]</VAR
+>. Questo non è il modo
+    per collegare <VAR
+CLASS="varname"
+>$bar</VAR
+> nell'ambito della chiamata con qualcos'altro
+    usando il meccanismo di riferimento, poichè <VAR
+CLASS="varname"
+>$bar</VAR
+> non è
+    disponibile nella funzione <VAR
+CLASS="varname"
+>foo</VAR
+> (è rappresentato da
+    <VAR
+CLASS="varname"
+>$var</VAR
+>, ma <VAR
+CLASS="varname"
+>$var</VAR
+> possiede soltanto
+    il contenuto della variabile e non il nome del valore collegato nella tabella
+    dei simboli).
+    Si può utilizzare <A
+HREF="language.references.return.html"
+>restiture i
+    riferimenti</A
+> per fare riferimenti a variabili selezionate dalla funzione.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.references.whatdo.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.references.pass.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Che cosa fanno i riferimenti</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.references.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Passaggio per riferimento</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

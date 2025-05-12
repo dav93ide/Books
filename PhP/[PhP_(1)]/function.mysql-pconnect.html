@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_pconnect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_num_rows"
+HREF="function.mysql-num-rows.html"><LINK
+REL="NEXT"
+TITLE="mysql_ping"
+HREF="function.mysql-ping.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-num-rows.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-ping.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-pconnect"
+></A
+>mysql_pconnect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN93936"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mysql_pconnect&nbsp;--&nbsp;
+     Apre una connessione persiostente ad un server MySQL
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN93939"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>mysql_pconnect</B
+> ( [string server [, string nome_utente [, string password [, int flag_client]]]] )<BR
+></BR
+><P
+>&#13;     Restituisce un identificativo di connessione MySQL valido in caso di successo oppure
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di errore.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_pconnect()</B
+> stabilisce una connessione
+     ad un server MySQL. I seguenti valori predefiniti sono usati
+     per i parametri opzionali mancanti: <VAR
+CLASS="parameter"
+>server</VAR
+> =
+     'localhost:3306', <VAR
+CLASS="parameter"
+>nome_utente</VAR
+> = nome dell'utente
+     prprietario del processo server e
+     <VAR
+CLASS="parameter"
+>password</VAR
+> = password vuota.
+     Il parametro <VAR
+CLASS="parameter"
+>flag_client</VAR
+>
+     può essere una combinatione delle costanti
+     MYSQL_CLIENT_COMPRESS, MYSQL_CLIENT_IGNORE_SPACE o
+     MYSQL_CLIENT_INTERACTIVE.
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>server</VAR
+> può includere una numero
+	 di porta. Es. "hostname:porta" o un percorso ad un socket
+     es. ":/percorso/a/socket" per il localhost.
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Il supporto per ":porta" è stato aggiunto nel PHP 3.0B4.
+      </P
+><P
+>&#13;       Il supportp per ":/percorso/a/socket" è stato aggiunto nel
+       PHP 3.0.10.
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_pconnect()</B
+> agisce in modo molto simile a
+     <A
+HREF="function.mysql-connect.html"
+><B
+CLASS="function"
+>mysql_connect()</B
+></A
+> con due differenze principali.
+    </P
+><P
+>&#13;     Primo, quando si connette, la funzione tenta innanzitutto di trovare una
+     connessione (persistente) già aperta avente gli stessi host,
+     username e password. Se viene trovata una connessione, viene restituito un identificativo a questa
+     anziché aprirne una nuova.
+    </P
+><P
+>&#13;     Secondo, la connessione al server SQL non sarà chiusa quando
+     l'esecuzione dello script termina. La connessione rimane invece
+     aperta per usi futuri (<A
+HREF="function.mysql-close.html"
+><B
+CLASS="function"
+>mysql_close()</B
+></A
+> non
+     chiuderà le connessioni stabilite da <B
+CLASS="function"
+>mysql_pconnect()</B
+>).
+    </P
+><P
+>&#13;     Il parametro opzionale <VAR
+CLASS="parameter"
+>flag_client</VAR
+> è diventato
+     disponibile nel PHP 4.3.0.
+    </P
+><P
+>&#13;     Questo tipo di link è perciò chiamato 'persistente'.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Notare che questo tipo di connessione funziona solo se si usa
+      PHP come modulo. Vedere la sezione
+      <A
+HREF="features.persistent-connections.html"
+>Persistent
+      Database Connections</A
+> per maggiori informazioni.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      L'uso di connessioni persistenti può richiedere un po' di messa a punto
+      delle configurazioni di Apache e MySQL per assicurarsi di non eccedere il numero di
+      connessioni consentite da MySQL.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-num-rows.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-ping.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_num_rows</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_ping</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

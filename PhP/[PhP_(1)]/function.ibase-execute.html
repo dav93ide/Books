@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ibase_execute</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Firebird/InterBase"
+HREF="ref.ibase.html"><LINK
+REL="PREVIOUS"
+TITLE="ibase_errmsg"
+HREF="function.ibase-errmsg.html"><LINK
+REL="NEXT"
+TITLE="ibase_fetch_assoc"
+HREF="function.ibase-fetch-assoc.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ibase-errmsg.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ibase-fetch-assoc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ibase-execute"
+></A
+>ibase_execute</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN44192"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.6, PHP 4, PHP 5)</P
+>ibase_execute&nbsp;--&nbsp;Esegue una query preparata in precedenza</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN44195"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>ibase_execute</B
+> ( resource query [, int bind_args] )<BR
+></BR
+><P
+>&#13;     Esegue una query preparata da <A
+HREF="function.ibase-prepare.html"
+><B
+CLASS="function"
+>ibase_prepare()</B
+></A
+>.
+     Se la query genera un errore, la funzione restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. Se invece ha successo
+     ed si ha un set di risultati (tipo un query SELECT),
+     la funzione ne restituisce l'identificativo. Se la query ha successo e non vi sono
+     risultati, restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>
+    </P
+><P
+>&#13;     Ciò è molto più efficace che usare <A
+HREF="function.ibase-query.html"
+><B
+CLASS="function"
+>ibase_query()</B
+></A
+>
+     se state ripetendo uno stesso tipo di query molte volte cambiando solo
+     alcuni parametri.
+     </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN44213"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>ibase_execute()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;$dbh </font><font color="#007700">= </font><font color="#0000BB">ibase_connect</font><font color="#007700">(</font><font color="#0000BB">$host</font><font color="#007700">, </font><font color="#0000BB">$username</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$updates </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">1 </font><font color="#007700">=&gt; </font><font color="#DD0000">'Eric'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">5 </font><font color="#007700">=&gt; </font><font color="#DD0000">'Filip'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">7 </font><font color="#007700">=&gt; </font><font color="#DD0000">'Larry'<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$query </font><font color="#007700">= </font><font color="#0000BB">ibase_prepare</font><font color="#007700">(</font><font color="#0000BB">$dbh</font><font color="#007700">, </font><font color="#DD0000">"UPDATE FOO SET BAR = ? WHERE BAZ = ?"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;while (list(</font><font color="#0000BB">$baz</font><font color="#007700">, </font><font color="#0000BB">$bar</font><font color="#007700">) = </font><font color="#0000BB">each</font><font color="#007700">(</font><font color="#0000BB">$updates</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">ibase_execute</font><font color="#007700">(</font><font color="#0000BB">$query</font><font color="#007700">, </font><font color="#0000BB">$bar</font><font color="#007700">, </font><font color="#0000BB">$baz</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      In PHP 5.0.0 e successivi, questa funzione restituisce il numero di righe toccate
+      dalla query (se &#62;0 ed è applicabile al tipo di query). Una query che ha successo,
+      ma che non modifica nessuna righa (ad esempio un UPDATE su record che non esistono) restituirà
+      <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>
+      </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    Vedere anche <A
+HREF="function.ibase-query.html"
+><B
+CLASS="function"
+>ibase_query()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ibase-errmsg.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ibase-fetch-assoc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ibase_errmsg</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibase.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ibase_fetch_assoc</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

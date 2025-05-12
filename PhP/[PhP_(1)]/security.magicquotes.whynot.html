@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Why not to use Magic Quotes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Magic Quotes"
+HREF="security.magicquotes.html"><LINK
+REL="PREVIOUS"
+TITLE="Why use Magic Quotes"
+HREF="security.magicquotes.why.html"><LINK
+REL="NEXT"
+TITLE="Disabling Magic Quotes"
+HREF="security.magicquotes.disabling.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="security.magicquotes.why.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 31. Magic Quotes</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="security.magicquotes.disabling.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="security.magicquotes.whynot"
+>Why not to use Magic Quotes</A
+></H1
+><P
+></P
+><UL
+><LI
+><P
+>&#13;       Portability
+      </P
+><P
+>&#13;       Assuming it to be on, or off, affects portability. Use
+       <A
+HREF="function.get-magic-quotes-gpc.html"
+><B
+CLASS="function"
+>get_magic_quotes_gpc()</B
+></A
+> to check for this, and code
+       accordingly.
+      </P
+></LI
+><LI
+><P
+>&#13;       Performance
+      </P
+><P
+>&#13;       Because not every piece of escaped data is inserted into a 
+       database, there is a performance loss for escaping all this data. 
+       Simply calling on the escaping functions (like 
+       <A
+HREF="function.addslashes.html"
+><B
+CLASS="function"
+>addslashes()</B
+></A
+>) at runtime is more efficient.
+      </P
+><P
+>&#13;       Although <TT
+CLASS="filename"
+>php.ini-dist</TT
+> enables these directives  
+       by default, <TT
+CLASS="filename"
+>php.ini-recommended</TT
+> disables it.
+       This recommendation is mainly due to performance reasons.
+      </P
+></LI
+><LI
+><P
+>&#13;       Inconvenience
+      </P
+><P
+>&#13;       Because not all data needs escaping, it's often annoying to see escaped
+       data where it shouldn't be. For example, emailing from a form, and
+       seeing a bunch of \' within the email. To fix, this may require 
+       excessive use of <A
+HREF="function.stripslashes.html"
+><B
+CLASS="function"
+>stripslashes()</B
+></A
+>.
+      </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="security.magicquotes.why.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="security.magicquotes.disabling.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Why use Magic Quotes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="security.magicquotes.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Disabling Magic Quotes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

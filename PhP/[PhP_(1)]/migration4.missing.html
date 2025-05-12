@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Missing functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Migrating from PHP 3 to PHP 4"
+HREF="migration4.html"><LINK
+REL="PREVIOUS"
+TITLE='empty("0")'
+HREF="migration4.empty.html"><LINK
+REL="NEXT"
+TITLE="PHP 3 extension"
+HREF="migration4.extensions.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="migration4.empty.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice C. Migrating from PHP 3 to PHP 4</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="migration4.extensions.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="migration4.missing"
+>Missing functions</A
+></H1
+><P
+>&#13;    While PHP 4 comes with a lot of new features, functions and
+    extensions, you may still find some functions from version 3
+    missing. A small number of core functions has vanished because
+    they do not work with the new scheme of splitting parsing and
+    execution as introduced into 4 with the Zend engine.  Other
+    functions and even complete extensions have become obsolete as
+    newer functions and extensions serve the same task better and/or
+    in a more general way. Some functions just simply haven't been
+    ported yet and finally some functions or extensions may be missing
+    due to license conflicts.
+   </P
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="migration4.missing.concept"
+>Functions missing due to conceptual changes</A
+></H2
+><P
+>&#13;     As PHP 4 now separates parsing from execution it is no longer
+     possible to change the behavior of the parser (now embedded in
+     the Zend engine) at runtime as parsing already happened by
+     then. So the function <B
+CLASS="function"
+>short_tags()</B
+> no longer
+     exists. You can still change the parsers behavior by setting
+     appropriate values in the <TT
+CLASS="filename"
+>php.ini</TT
+> file.
+    </P
+><P
+>&#13;     Another feature of PHP 3 that is not a part of PHP 4 is the bundled
+     debugging interface. There are third-party add-ons for the Zend engine
+     which add similar functionality.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="migration4.deprecate"
+>Deprecate functions and extensions</A
+></H2
+><P
+>&#13;     The Adabas and Solid database extensions are no more. Long live
+     the unified ODBC extension instead.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="migration4.unset"
+>Changed status for <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+></A
+></H2
+><P
+>&#13;     <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+>, although still available, is
+     implemented as a language construct rather than a function.
+    </P
+><P
+>&#13;     This does not have any consequences on the behavior of
+     <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+>, but testing for "unset" using
+     <A
+HREF="function.function-exists.html"
+><B
+CLASS="function"
+>function_exists()</B
+></A
+> will return <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> as it would with
+     other language constructs that look like functions such as
+     <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+>.
+    </P
+><P
+>&#13;     Another more practical change is that it is no longer possible to
+     call <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+> indirectly, that is
+     <VAR
+CLASS="literal"
+>$func="unset"; $func($somevar)</VAR
+> won't work
+     anymore.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="migration4.empty.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="migration4.extensions.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>empty("0")</VAR
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="migration4.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PHP 3 extension</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

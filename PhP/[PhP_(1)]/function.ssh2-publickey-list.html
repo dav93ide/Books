@@ -1,0 +1,415 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ssh2_publickey_list</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Secure Shell2 Functions"
+HREF="ref.ssh2.html"><LINK
+REL="PREVIOUS"
+TITLE="ssh2_publickey_init"
+HREF="function.ssh2-publickey-init.html"><LINK
+REL="NEXT"
+TITLE="ssh2_publickey_remove"
+HREF="function.ssh2-publickey-remove.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-publickey-init.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-publickey-remove.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ssh2-publickey-list"
+></A
+>ssh2_publickey_list</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN159734"
+></A
+><P
+>    (PECL)</P
+>ssh2_publickey_list&nbsp;--&nbsp;
+   List currently authorized publickeys
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159737"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>ssh2_publickey_list</B
+> ( resource pkey )<BR
+></BR
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>The publickey subsystem
+is used for managing publickeys on a server to which the client is
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>already</I
+></SPAN
+> authenticated.  To authenticate to a remote system
+using publickey authentication, use the <A
+HREF="function.ssh2-auth-pubkey-file.html"
+><B
+CLASS="function"
+>ssh2_auth_pubkey_file()</B
+></A
+>
+function instead.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159749"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>pkey</VAR
+></DT
+><DD
+><P
+>&#13;       Publickey Subsystem resource
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159758"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a numericly indexed array of keys,
+   each of which is an associative array containing:
+   name, blob, and attrs elements.
+  </P
+><P
+>&#13;   <DIV
+CLASS="table"
+><A
+NAME="AEN159762"
+></A
+><P
+><B
+>Tabella 1. Publickey elements</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Array Key</TH
+><TH
+>Meaning</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>name</TD
+><TD
+>Name of algorithm used by this publickey, for example:
+              <VAR
+CLASS="literal"
+>ssh-dss</VAR
+> or <VAR
+CLASS="literal"
+>ssh-rsa</VAR
+>.</TD
+></TR
+><TR
+><TD
+>blob</TD
+><TD
+>Publickey blob as raw binary data.</TD
+></TR
+><TR
+><TD
+>attrs</TD
+><TD
+>Attributes assigned to this publickey.
+              The most common attribute, and the only one supported by
+              publickey version 1 servers, is <VAR
+CLASS="literal"
+>comment</VAR
+>,
+              which may be any freeform string.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159782"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN159785"
+></A
+><P
+><B
+>Esempio 1. Listing authorized keys with <B
+CLASS="function"
+>ssh2_publickey_list()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$ssh2 </font><font color="#007700">= </font><font color="#0000BB">ssh2_connect</font><font color="#007700">(</font><font color="#DD0000">'shell.example.com'</font><font color="#007700">, </font><font color="#0000BB">22</font><font color="#007700">);<br /></font><font color="#0000BB">ssh2_auth_password</font><font color="#007700">(</font><font color="#0000BB">$ssh2</font><font color="#007700">, </font><font color="#DD0000">'jdoe'</font><font color="#007700">, </font><font color="#DD0000">'secret'</font><font color="#007700">);<br /></font><font color="#0000BB">$pkey </font><font color="#007700">= </font><font color="#0000BB">ssh2_publickey_init</font><font color="#007700">(</font><font color="#0000BB">$ssh2</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$list </font><font color="#007700">= </font><font color="#0000BB">ssh2_publickey_list</font><font color="#007700">(</font><font color="#0000BB">$pkey</font><font color="#007700">);<br /><br />foreach(</font><font color="#0000BB">$list </font><font color="#007700">as </font><font color="#0000BB">$key</font><font color="#007700">) {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"Key: </font><font color="#007700">{</font><font color="#DD0000">$key</font><font color="#007700">[</font><font color="#DD0000">'name'</font><font color="#007700">]}\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"Blob: " </font><font color="#007700">. </font><font color="#0000BB">chunk_split</font><font color="#007700">(</font><font color="#0000BB">base64_encode</font><font color="#007700">(</font><font color="#0000BB">$key</font><font color="#007700">[</font><font color="#DD0000">'blob'</font><font color="#007700">]), </font><font color="#0000BB">40</font><font color="#007700">, </font><font color="#DD0000">"\n"</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"Comment: </font><font color="#007700">{</font><font color="#DD0000">$key</font><font color="#007700">[</font><font color="#DD0000">'attrs'</font><font color="#007700">][</font><font color="#DD0000">'comment'</font><font color="#007700">]}\n\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Key: ssh-rsa
+Blob: AAAAB3NzaC1yc2EAAAABIwAAAIEA5HVt6VqSGd5P
+TrLRdjNONxXH1tVFGn0Bd26BF0aCP9qyJRlvdJ3j
+4WBeX4ZmrveGrjMgkseSYc4xZ26sDHwfL351xjza
+Lpipu\BGRrw17mWVBhuCExo476ri5tQFzbTc54VE
+HYckxQ16CjSTibI5X69GmnYC9PNqEYq/1TP+HF10
+Comment: John's Key
+
+Key: ssh-rsa
+Blob: AAAAB3NzaHVt6VqSGd5C1yc2EAAAABIwA232dnJA
+AIEA5HVt6VqSGd5PTrLRdjNONxX/1TP+HF1HVt6V
+qSGd50H1tVFGn0BB3NzaC1yc2EAd26BF0aCP9qyJ
+RlvdJ3j4WBeX4ZmrveGrjMgkseSYc4xZ26HVt6Vq
+SGd5sDHwfL351xjzaLpipu\BGB3NzaC1yc2EA/1T
+Comment: Alice's Key</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159791"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.ssh2-publickey-init.html"
+><B
+CLASS="function"
+>ssh2_publickey_init()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.ssh2-publickey-add.html"
+><B
+CLASS="function"
+>ssh2_publickey_add()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.ssh2-publickey-remove.html"
+><B
+CLASS="function"
+>ssh2_publickey_remove()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ssh2-publickey-init.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ssh2-publickey-remove.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ssh2_publickey_init</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ssh2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ssh2_publickey_remove</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>printer_draw_rectangle</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le Stampanti"
+HREF="ref.printer.html"><LINK
+REL="PREVIOUS"
+TITLE="printer_draw_pie"
+HREF="function.printer-draw-pie.html"><LINK
+REL="NEXT"
+TITLE="printer_draw_roundrect"
+HREF="function.printer-draw-roundrect.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.printer-draw-pie.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.printer-draw-roundrect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.printer-draw-rectangle"
+></A
+>printer_draw_rectangle</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN135747"
+></A
+><P
+>    (PECL)</P
+>printer_draw_rectangle&nbsp;--&nbsp;Traccia un rettangolo</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN135750"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>printer_draw_rectangle</B
+> ( resource handle, int ul_x, int ul_y, int lr_x, int lr_y )<BR
+></BR
+><P
+>&#13;     La funzione disegna un rettangolo.
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>handle</VAR
+> deve indicare un handle valido di stampante.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>ul_x</VAR
+> indica la coordinata x dell'angolo in alto a sinistra del rettangolo.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>ul_y</VAR
+> indica la coordinata y dell'angolo in alto a sinistra del rettangolo.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>lr_x</VAR
+> indica la coordinata x dell'angolo in basso a destra del rettangolo.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>lr_y</VAR
+> indica la coordinata y dell'angolo in basso a destra del rettangolo.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN135781"
+></A
+><P
+><B
+>Esempio 1. 
+      Esempio di utilizzo di <B
+CLASS="function"
+>printer_draw_rectangle()</B
+>
+     </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$handle </font><font color="#007700">= </font><font color="#0000BB">printer_open</font><font color="#007700">();<br /></font><font color="#0000BB">printer_start_doc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#DD0000">"My Document"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_start_page</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$pen </font><font color="#007700">= </font><font color="#0000BB">printer_create_pen</font><font color="#007700">(</font><font color="#0000BB">PRINTER_PEN_SOLID</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#DD0000">"000000"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_select_pen</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">$pen</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$brush </font><font color="#007700">= </font><font color="#0000BB">printer_create_brush</font><font color="#007700">(</font><font color="#0000BB">PRINTER_BRUSH_SOLID</font><font color="#007700">, </font><font color="#DD0000">"2222FF"</font><font color="#007700">);<br /></font><font color="#0000BB">printer_select_brush</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">$brush</font><font color="#007700">);<br /><br /></font><font color="#0000BB">printer_draw_rectangle</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">500</font><font color="#007700">, </font><font color="#0000BB">500</font><font color="#007700">);<br /><br /></font><font color="#0000BB">printer_delete_brush</font><font color="#007700">(</font><font color="#0000BB">$brush</font><font color="#007700">);<br /></font><font color="#0000BB">printer_delete_pen</font><font color="#007700">(</font><font color="#0000BB">$pen</font><font color="#007700">);<br /><br /></font><font color="#0000BB">printer_end_page</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">printer_end_doc</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">printer_close</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.printer-draw-pie.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.printer-draw-roundrect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>printer_draw_pie</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.printer.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>printer_draw_roundrect</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

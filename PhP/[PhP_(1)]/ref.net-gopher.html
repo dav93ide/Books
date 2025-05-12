@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Net_Gopher</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="gmp_xor"
+HREF="function.gmp-xor.html"><LINK
+REL="NEXT"
+TITLE="gopher_parsedir"
+HREF="function.gopher-parsedir.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.gmp-xor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.gopher-parsedir.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.net-gopher"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XLVII. Net_Gopher</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN49208"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="net-gopher.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     The gopher protocol, as defined by <A
+HREF="http://www.faqs.org/rfcs/rfc1436"
+TARGET="_top"
+>RFC 1436</A
+>,
+     is generally considered the ancestor of the modern HTTP protocol.
+     However, gopher was also intended to provide references to non-gopher
+     resources including telnet, wais, nntp, and even http. This extension
+     adds gopher support to PHP's <A
+HREF="wrappers.html"
+>URL Wrappers</A
+>,
+     and provides a helper function <A
+HREF="function.gopher-parsedir.html"
+><B
+CLASS="function"
+>gopher_parsedir()</B
+></A
+> to
+     make sense of gopher formatted directory listings.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="net-gopher.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="net-gopher.install"
+>Installazione</A
+></H1
+><P
+>&#13;  Net_Gopher is installed through the usual PECL package installation process.
+ </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;    Prerequisite: <VAR
+CLASS="literal"
+>PHP 4.3.0</VAR
+>.
+   </P
+></LI
+><LI
+><P
+>&#13;    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$ pear install Net_Gopher</PRE
+></TD
+></TR
+></TABLE
+> 
+   </P
+></LI
+><LI
+><P
+>&#13;    Copy the resulting <TT
+CLASS="filename"
+>gopher.so</TT
+> to an appropriate location
+    and add <VAR
+CLASS="literal"
+>extension=gopher.so</VAR
+> to your <TT
+CLASS="filename"
+>php.ini</TT
+>
+    file or load it dynamically in your PHP script using 
+    <VAR
+CLASS="literal"
+>dl("gopher.so");</VAR
+>
+   </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="net-gopher.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="net-gopher.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="net-gopher.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="net-gopher.examples"
+>Esempi</A
+></H1
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN49246"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />dl</font><font color="#007700">(</font><font color="#DD0000">"gopher.so"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">readfile</font><font color="#007700">(</font><font color="#DD0000">"gopher://gopher.example.com/somedocument"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.gopher-parsedir.html"
+>gopher_parsedir</A
+>&nbsp;--&nbsp;Translate a gopher formatted directory entry into an associative array.</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.gmp-xor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.gopher-parsedir.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>gmp_xor</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>gopher_parsedir</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

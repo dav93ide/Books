@@ -1,0 +1,504 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>PDOStatement::getColumnMeta</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Functions"
+HREF="ref.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="PDOStatement::getAttribute"
+HREF="function.pdostatement-getattribute.html"><LINK
+REL="NEXT"
+TITLE="PDOStatement::nextRowset"
+HREF="function.pdostatement-nextrowset.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-getattribute.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pdostatement-nextrowset.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.PDOStatement-getColumnMeta"
+></A
+>PDOStatement::getColumnMeta</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN128832"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>PDOStatement::getColumnMeta&nbsp;--&nbsp;
+   Returns metadata for a column in a result set
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128835"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>PDOStatement::getColumnMeta</B
+> ( int column )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   Retrieves the metadata for a 0-indexed column in a result set as an
+   associative array.
+  </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;    Not all PDO drivers support
+    <B
+CLASS="function"
+>PDOStatement::getColumnMeta()</B
+>.
+   </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128850"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>column</VAR
+></DT
+><DD
+><P
+>&#13;        The 0-indexed column in the result set.
+       </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128859"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns an associative array containing the following values representing
+   the metadata for a single column:
+  </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN128862"
+></A
+><P
+><B
+>Tabella 1. Column metadata</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="c1"><COL
+WIDTH="1*"
+TITLE="c2"><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Value</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>native_type</VAR
+></TD
+><TD
+>The PHP native type used to represent the column value.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+><VAR
+CLASS="varname"
+>driver</VAR
+>:decl_type</VAR
+></TD
+><TD
+>The SQL type used to represent the column value in the database.
+       If the column in the result set is the result of a function, this value
+       is not returned by <B
+CLASS="function"
+>PDOStatement::getColumnMeta()</B
+>.
+       </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>flags</VAR
+></TD
+><TD
+>Any flags set for this column.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>name</VAR
+></TD
+><TD
+>The name of this column as returned by the database.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>len</VAR
+></TD
+><TD
+>The length of this column. Normally <VAR
+CLASS="literal"
+>-1</VAR
+> for
+       types other than floating point decimals.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>precision</VAR
+></TD
+><TD
+>The numeric precision of this column. Normally
+       <VAR
+CLASS="literal"
+>0</VAR
+> for types other than floating point
+       decimals.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>pdo_type</VAR
+></TD
+><TD
+>The type of this column as represented by the
+       <VAR
+CLASS="literal"
+>PDO::PARAM_*</VAR
+> constants.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;   Returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if the requested column does not exist in the result set,
+   or if no result set exists.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128907"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN128910"
+></A
+><P
+><B
+>Esempio 1. Retrieving column metadata</B
+></P
+><P
+>&#13;     The following example shows the results of retrieving the metadata for a
+     single column generated by a function (COUNT) in a PDO_SQLITE driver.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$select </font><font color="#007700">= </font><font color="#0000BB">$DB</font><font color="#007700">-&gt;</font><font color="#0000BB">query</font><font color="#007700">(</font><font color="#DD0000">'SELECT COUNT(*) FROM fruit'</font><font color="#007700">);<br /></font><font color="#0000BB">$meta </font><font color="#007700">= </font><font color="#0000BB">$select</font><font color="#007700">-&gt;</font><font color="#0000BB">getColumnMeta</font><font color="#007700">(</font><font color="#0000BB">0</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$meta</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>array(6) {
+  ["native_type"]=&#62;
+  string(7) "integer"
+  ["flags"]=&#62;
+  array(0) {
+  }
+  ["name"]=&#62;
+  string(8) "COUNT(*)"
+  ["len"]=&#62;
+  int(-1)
+  ["precision"]=&#62;
+  int(0)
+  ["pdo_type"]=&#62;
+  int(2)
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN128916"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::columnCount()</B
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>PDOStatement::rowCount()</B
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pdostatement-getattribute.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pdostatement-nextrowset.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDOStatement::getAttribute</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDOStatement::nextRowset</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

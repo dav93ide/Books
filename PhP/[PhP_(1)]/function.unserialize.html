@@ -1,0 +1,423 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>unserialize</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per la gestione delle variabili"
+HREF="ref.var.html"><LINK
+REL="PREVIOUS"
+TITLE="strval"
+HREF="function.strval.html"><LINK
+REL="NEXT"
+TITLE="unset"
+HREF="function.unset.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.strval.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.unset.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.unserialize"
+></A
+>unserialize</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN173987"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.5, PHP 4, PHP 5)</P
+>unserialize&nbsp;--&nbsp;
+     Crea un valore PHP a partire da una rappresentazione archiviata
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN173990"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>unserialize</B
+> ( string str )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>unserialize()</B
+> prende il formato serializzato di
+     una variabile (vedere <A
+HREF="function.serialize.html"
+><B
+CLASS="function"
+>serialize()</B
+></A
+>) e la riporta
+     a valore PHP. La funzione restituisce il valore ottenuto, che può essere
+     di tipo <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+>, <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>, <A
+HREF="language.types.float.html"
+><B
+CLASS="type"
+>float</B
+></A
+>,
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>, <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> oppure <A
+HREF="language.types.object.html"
+><B
+CLASS="type"
+>object</B
+></A
+>.
+     Nel caso in cui la stringa passata non sia deserializzabile la funzione restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> e genera
+     un  <VAR
+CLASS="literal"
+>E_NOTICE</VAR
+>.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> è restituito sia in caso di errore e sia in caso di de-serializzazione 
+      del valore <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. Questo caso particolare può essere intercettato
+      confrontando <VAR
+CLASS="parameter"
+>str</VAR
+> con
+      <VAR
+CLASS="literal"
+>serialize(false)</VAR
+> o rilevando il 
+      <VAR
+CLASS="literal"
+>E_NOTICE</VAR
+> generato.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Direttiva unserialize_callback_func: </B
+>
+      E' possibile impostare una funzione di callback che possa essere richiamata
+      se, durante la fase di deserializzazione, occorre istanziare una classe indefinita.
+      (per evitare di ottenere un tipo <A
+HREF="language.types.object.html"
+><B
+CLASS="type"
+>object</B
+></A
+> incompleto "__PHP_Incomplete_Class".)
+      Per definire il parametro 'unserialize_callback_func' si può agire sul
+      <TT
+CLASS="filename"
+>php.ini</TT
+>, o usare <A
+HREF="function.ini-set.html"
+><B
+CLASS="function"
+>ini_set()</B
+></A
+> oppure con <TT
+CLASS="filename"
+>.htaccess</TT
+>.
+      Verrà  utilizzata questa funzione ogni volta che occorre istanziare una classe indefinita.
+      Per disabilitare questa opzione, lasciare vuota questa impostazione. Attenzione che la direttiva unserialize_callback_func è disponibile dalla versione 4.2.0 di PHP.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Se la variabile da ripristinare è un oggetto, dopo avere ricostruito
+     l'oggetto, il PHP cercherà di eseguire la funzione membro <B
+CLASS="function"
+>__wakeup()</B
+>
+     (se esiste).
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN174025"
+></A
+><P
+><B
+>Esempio 1. Esempio di unserialize_callback_func.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$serialized_object</font><font color="#007700">=</font><font color="#DD0000">'O:1:"a":1:{s:5:"value";s:3:"100";}'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// direttiva unserialize_callback_func disponibile dalla versione 4.2.0<br /></font><font color="#0000BB">ini_set</font><font color="#007700">(</font><font color="#DD0000">'unserialize_callback_func'</font><font color="#007700">, </font><font color="#DD0000">'mycallback'</font><font color="#007700">); </font><font color="#FF8000">// imposta la funzione di callback<br /><br /></font><font color="#007700">function </font><font color="#0000BB">mycallback</font><font color="#007700">(</font><font color="#0000BB">$classname</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// semplicemente include un file contenente la definizione della classe<br />&nbsp;&nbsp;&nbsp;&nbsp;// la variabile $classname indica di quale classe occorre la definizione<br /></font><font color="#007700">}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Nella versione 3 di PHP, i metodi non erano preservati durante la fase di deserializzazione
+      di un oggetto. In PHP 4 questo limite è stato superato e possono essere 
+      recuperati sia metodi sia proprietà. Per maggiori informazioni 
+      vedere la sezione <A
+HREF="language.oop.serialization.html"
+>Serializzare oggetti</A
+> in 
+      <A
+HREF="language.oop.html"
+>Classi e oggetti</A
+>
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN174033"
+></A
+><P
+><B
+>Esempio 2. Esempio di uso di <B
+CLASS="function"
+>unserialize()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// In quest esempio si usa unserialize() per caricare i dati di una sessione da un database<br />// alla variabile $session_data. Questo esempio è complementare a quello illustrato<br />// nella funzione &lt;function&gt;serialize&lt;/function&gt;.<br /><br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">odbc_connect</font><font color="#007700">(</font><font color="#DD0000">"webdb"</font><font color="#007700">, </font><font color="#DD0000">"php"</font><font color="#007700">, </font><font color="#DD0000">"chicken"</font><font color="#007700">);<br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">odbc_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"SELECT data FROM sessions WHERE id = ?"</font><font color="#007700">);<br /></font><font color="#0000BB">$sqldata </font><font color="#007700">= array (</font><font color="#0000BB">$PHP_AUTH_USER</font><font color="#007700">);<br />if (!</font><font color="#0000BB">odbc_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, &amp;</font><font color="#0000BB">$sqldata</font><font color="#007700">) || !</font><font color="#0000BB">odbc_fetch_into</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, &amp;</font><font color="#0000BB">$tmp</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// se odbc_execute o odbc_fetch_into hanno un errore si predispone un array vuoto<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$session_data </font><font color="#007700">= array();<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// ora abbiamo i dati serializzati in $tmp[0].<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$session_data </font><font color="#007700">= </font><font color="#0000BB">unserialize</font><font color="#007700">(</font><font color="#0000BB">$tmp</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">is_array</font><font color="#007700">(</font><font color="#0000BB">$session_data</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// qualcosa è andato storto, si predispone un array vuoto<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$session_data </font><font color="#007700">= array();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;    Vedere anche: <A
+HREF="function.serialize.html"
+><B
+CLASS="function"
+>serialize()</B
+></A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.strval.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.unset.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>strval</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.var.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>unset</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

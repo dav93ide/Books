@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_fetch_field</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_fetch_assoc"
+HREF="function.mysql-fetch-assoc.html"><LINK
+REL="NEXT"
+TITLE="mysql_fetch_lengths"
+HREF="function.mysql-fetch-lengths.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-fetch-assoc.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-fetch-lengths.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-fetch-field"
+></A
+>mysql_fetch_field</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN93320"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mysql_fetch_field&nbsp;--&nbsp;
+     Ottiene informazioni sulla colonna da un risultato e le restituisce come oggetto
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN93323"
+></A
+><H2
+>Descrizione</H2
+>object <B
+CLASS="methodname"
+>mysql_fetch_field</B
+> ( resource risultato [, int indice_campo] )<BR
+></BR
+><P
+>&#13;     Restituisce un oggetto contenente le informazioni di un campo.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_fetch_field()</B
+> può essere usata al fine di
+     ottenere informazioni circa i campi di un determinato risultato di una query. Se
+     l'indice del campo non è specificato, il successivo campo non ancora
+     recuperato da <B
+CLASS="function"
+>mysql_fetch_field()</B
+> viene considerato.
+    </P
+><P
+>&#13;     Le proprietà dell'oggetto sono:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        name - nome della colonna
+       </P
+></LI
+><LI
+><P
+>&#13;        table - nome della tabella a cui appartiene la colonna
+       </P
+></LI
+><LI
+><P
+>&#13;        max_length - massima lunghezza della colonna
+       </P
+></LI
+><LI
+><P
+>&#13;        not_null - 1 se la colonna non può essere <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>
+       </P
+></LI
+><LI
+><P
+>&#13;        primary_key - 1 se la colonna è una chiave primaria
+       </P
+></LI
+><LI
+><P
+>&#13;        unique_key - 1 se la colonna è una chiave unica
+       </P
+></LI
+><LI
+><P
+>&#13;        multiple_key - 1 se la colonna è una chiave non-unica
+       </P
+></LI
+><LI
+><P
+>&#13;        numeric - 1 se la colonna è numerica
+       </P
+></LI
+><LI
+><P
+>&#13;        blob - 1 se la colonna è un BLOB
+       </P
+></LI
+><LI
+><P
+>&#13;        type - il tipo della colonna
+       </P
+></LI
+><LI
+><P
+>&#13;        unsigned - 1 se la colonna è senza segno
+       </P
+></LI
+><LI
+><P
+>&#13;        zerofill - 1 se la colonna è completata da zeri
+       </P
+></LI
+></UL
+>
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN93365"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>mysql_fetch_field()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />mysql_connect</font><font color="#007700">(</font><font color="#DD0000">'localhost:3306'</font><font color="#007700">, </font><font color="#0000BB">$utente</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Connessione non riuscita: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">());<br /></font><font color="#0000BB">mysql_select_db</font><font color="#007700">(</font><font color="#DD0000">"database"</font><font color="#007700">);<br /></font><font color="#0000BB">$risultato </font><font color="#007700">= </font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"select * from tabella"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Query fallita: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">());<br /></font><font color="#FF8000">/* ottiene i metadata della colonna */<br /></font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br />while (</font><font color="#0000BB">$i </font><font color="#007700">&lt; </font><font color="#0000BB">mysql_num_fields</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Informazioni della colonna $i:&lt;br /&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$meta </font><font color="#007700">= </font><font color="#0000BB">mysql_fetch_field</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">$meta</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Nessuna informazione disponibile&lt;br /&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;pre&gt;<br />blob:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">blob<br />max_length:&nbsp;&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">max_length<br />multiple_key: $meta</font><font color="#007700">-&gt;</font><font color="#DD0000">multiple_key<br />name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">name<br />not_null:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">not_null<br />numeric:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">numeric<br />primary_key:&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">primary_key<br />table:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">table<br />type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">type<br />unique_key:&nbsp;&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">unique_key<br />unsigned:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">unsigned<br />zerofill:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$meta</font><font color="#007700">-&gt;</font><font color="#DD0000">zerofill<br />&lt;/pre&gt;"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i</font><font color="#007700">++;<br />}<br /></font><font color="#0000BB">mysql_free_result</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Vedere anche <A
+HREF="function.mysql-field-seek.html"
+><B
+CLASS="function"
+>mysql_field_seek()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-fetch-assoc.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-fetch-lengths.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_fetch_assoc</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_fetch_lengths</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

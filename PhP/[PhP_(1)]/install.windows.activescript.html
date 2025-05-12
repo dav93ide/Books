@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ActiveScript</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation on Windows systems"
+HREF="install.windows.html"><LINK
+REL="PREVIOUS"
+TITLE="Manual Installation Steps"
+HREF="install.windows.manual.html"><LINK
+REL="NEXT"
+TITLE="Microsoft IIS / PWS"
+HREF="install.windows.iis.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.windows.manual.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 6. Installation on Windows systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.windows.iis.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.windows.activescript"
+>ActiveScript</A
+></H1
+><P
+>&#13;     This section contains notes specific to the ActiveScript installation.
+    </P
+><P
+>&#13;     ActiveScript is a windows only SAPI that enables you to use PHP script in
+     any ActiveScript compliant host, like Windows Script Host, ASP/ASP.NET,
+     Windows Script Components or Microsoft Scriptlet control.
+    </P
+><P
+>&#13;     As of PHP 5.0.1, ActiveScript has been moved to the <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> repository. You may download this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+>
+extension <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> from the <A
+HREF="http://www.php.net/downloads.php"
+TARGET="_top"
+>&#13;PHP Downloads</A
+> page or at <A
+HREF="http://snaps.php.net/"
+TARGET="_top"
+>&#13;http://snaps.php.net/</A
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      You should read the <A
+HREF="install.windows.manual.html"
+>manual
+       installation steps</A
+> first!
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     After installing PHP, you should download the ActiveScript DLL
+     (<TT
+CLASS="filename"
+>php5activescript.dll</TT
+>) and place it in the main PHP
+     folder (e.g. <TT
+CLASS="filename"
+>C:\php</TT
+>).
+    </P
+><P
+>&#13;     After having all the files needed, you must register the DLL on your
+     system. To achieve this, open a Command Prompt window (located in the
+     Start Menu). Then go to your PHP directory by typing something like
+     <VAR
+CLASS="literal"
+>cd C:\php</VAR
+>. To register the DLL just type
+     <VAR
+CLASS="literal"
+>regsvr32 php5activescript.dll</VAR
+>.
+    </P
+><P
+>&#13;     To test if ActiveScript is working, create a new file, named
+     <VAR
+CLASS="literal"
+>test.wsf</VAR
+> (the extension is very important) and type:
+     <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;job id="test"&#62;
+ 
+ &#60;script language="PHPScript"&#62;
+  $WScript-&#62;Echo("Hello World!");
+ &#60;/script&#62;
+ 
+&#60;/job&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+     Save and double-click on the file. If you receive a little window saying
+     "Hello World!" you're done.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      In PHP 4, the engine was named 'ActivePHP', so if you are using PHP 4,
+      you should replace 'PHPScript' with 'ActivePHP' in the above example.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      ActiveScript doesn't use the default <TT
+CLASS="filename"
+>php.ini</TT
+> file. Instead, it will
+      look only in the same directory as the .exe that caused it to load. You
+      should create <TT
+CLASS="filename"
+>php-activescript.ini</TT
+> and place it in
+      that folder, if you wish to load extensions, etc.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.windows.manual.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.windows.iis.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Manual Installation Steps</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.windows.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Microsoft IIS / PWS</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Valori restituiti</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni"
+HREF="language.functions.html"><LINK
+REL="PREVIOUS"
+TITLE="Argomenti delle funzioni"
+HREF="functions.arguments.html"><LINK
+REL="NEXT"
+TITLE="Funzioni variabili"
+HREF="functions.variable-functions.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="functions.arguments.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 17. Funzioni</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="functions.variable-functions.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="functions.returning-values"
+>Valori restituiti</A
+></H1
+><P
+>&#13;    I valori vengono restituiti usando l'istruzione opzionale return. Può
+    essere restituito qualsiasi tipo, incluse liste ed oggetti. Ciò provoca
+    l'interruzione dell'esecuzione della funzione immediatamente e la restituzione del controllo
+    alla linea da cui è stata chiamata. Vedere <A
+HREF="function.return.html"
+><B
+CLASS="function"
+>return()</B
+></A
+>
+    per maggiori informazioni.
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5432"
+></A
+><P
+><B
+>Esempio 17-11. Esempio di uso di <A
+HREF="function.return.html"
+><B
+CLASS="function"
+>return()</B
+></A
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">quadrato </font><font color="#007700">(</font><font color="#0000BB">$num</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$num </font><font color="#007700">* </font><font color="#0000BB">$num</font><font color="#007700">;<br />}<br />echo </font><font color="#0000BB">quadrato</font><font color="#007700">(</font><font color="#0000BB">4</font><font color="#007700">);&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// L'output è '16'.<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Non possono essere restituiti valori multipli da una funzione, ma
+    risultati simili possono essere ottenuti restituendo una lista.
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5438"
+></A
+><P
+><B
+>Esempio 17-12. Restituzione di una matrice per ottenere più valori</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">numeri_piccoli</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return array (</font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">);<br />}<br />list (</font><font color="#0000BB">$zero</font><font color="#007700">, </font><font color="#0000BB">$uno</font><font color="#007700">, </font><font color="#0000BB">$due</font><font color="#007700">) = </font><font color="#0000BB">numeri_piccoli</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Per restituire un riferimento da una funzione, è necessario usare
+    l'operatore di passaggio per riferimento &#38; in entrambe le dichiarazioni di funzioni e
+    quando viene assegnato il valore restituito ad una variabile:
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN5443"
+></A
+><P
+><B
+>Esempio 17-13. Restituzione di un riferimento ad una funzione</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function &amp;</font><font color="#0000BB">restituisce_riferimento</font><font color="#007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$un_riferimento</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">$nuovo_riferimento </font><font color="#007700">=&amp; </font><font color="#0000BB">restituisce_riferimento</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Per maggiori informazioni sui riferimenti, consultare <A
+HREF="language.references.html"
+>References Explained</A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="functions.arguments.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="functions.variable-functions.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Argomenti delle funzioni</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.functions.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Funzioni variabili</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

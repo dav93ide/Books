@@ -1,0 +1,359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ereg</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le espressioni regolari (POSIX estesa)"
+HREF="ref.regex.html"><LINK
+REL="PREVIOUS"
+TITLE="ereg_replace"
+HREF="function.ereg-replace.html"><LINK
+REL="NEXT"
+TITLE="eregi_replace"
+HREF="function.eregi-replace.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ereg-replace.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.eregi-replace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ereg"
+></A
+>ereg</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN131605"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>ereg&nbsp;--&nbsp;Riconoscimento di espressione regolare</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN131608"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>ereg</B
+> ( string epressione_regolare, string stringa [, array &#38;regs] )<BR
+></BR
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Poichè utilizza espressioni regolari con sintassi compatibile 
+      con PERL, <A
+HREF="function.preg-match.html"
+><B
+CLASS="function"
+>preg_match()</B
+></A
+>, è spesso una alternativa
+      più veloce a <B
+CLASS="function"
+>ereg()</B
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Ricerca in <VAR
+CLASS="parameter"
+>stringa</VAR
+> testi che possano incrociarsi
+     con l'espressione regolare indicata in <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+> distinguendo tra 
+     lettere minuscole e maiuscole.
+    </P
+><P
+>&#13;     Se le parti di testo poste tra parentesi nel campo 
+     <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+> sono incontrate nella 
+     <VAR
+CLASS="parameter"
+>stringa</VAR
+> e la funzione viene chiamata utilizzando
+     il terzo parametro <VAR
+CLASS="parameter"
+>regs</VAR
+>, il testo riconosciuto
+     sarà memorizzato nella matrice <VAR
+CLASS="parameter"
+>regs</VAR
+>.
+     L'indice 1, $regs[1], conterrà la sottostringa che parte dalla prima
+     parentesi sinistra; $regs[2] conterrà la sottostringa a partire dalla
+     seconda e così via. L'indice 0, $regs[0], conterrà la copia completa
+     della stringa riconosciuta.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Fino alla versione di PHP 4.1.0 compresa, <VAR
+CLASS="varname"
+>$regs</VAR
+>
+     conterrà esattamente 10 elementi, anche se il numero delle stringhe
+     riconosciute sia maggiore o minore di 10. Ciò non limita
+     <B
+CLASS="function"
+>ereg()</B
+> nella ricerca di più sottostringhe.
+     Se non si riconoscono testi, <VAR
+CLASS="literal"
+>$regs</VAR
+> non
+     sarà modificato da <B
+CLASS="function"
+>ereg()</B
+>. 
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     La funzione ritorna la lunghezza della stringa riconosciuta se le ricerche previste da 
+     <VAR
+CLASS="parameter"
+>espressione_regolare</VAR
+> sono riscontrate in 
+     <VAR
+CLASS="parameter"
+>stringa</VAR
+>. Viene restituito <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se non
+     si hanno riscontri, oppure si verificano degli errori.
+     Se non si fornisce il parametro opzionale <VAR
+CLASS="parameter"
+>regs</VAR
+> oppure
+     la lunghezza della stringa riconosciuta è 0, questa funzione restituisce 1.
+    </P
+><P
+>&#13;     Nel seguente frammento di codice, una data in formato
+     ISO (YYYY-MM-DD) verrà visualizzata nel formato DD.MM.YYYY:
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN131647"
+></A
+><P
+><B
+>Esempio 1. Esempio dell'uso di <B
+CLASS="function"
+>ereg()</B
+> Esempio</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">ereg </font><font color="#007700">(</font><font color="#DD0000">"([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})"</font><font color="#007700">, </font><font color="#0000BB">$data</font><font color="#007700">, </font><font color="#0000BB">$regs</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$regs</font><font color="#007700">[</font><font color="#DD0000">3</font><font color="#007700">]</font><font color="#DD0000">.$regs</font><font color="#007700">[</font><font color="#DD0000">2</font><font color="#007700">]</font><font color="#DD0000">.$regs</font><font color="#007700">[</font><font color="#DD0000">1</font><font color="#007700">]</font><font color="#DD0000">"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Formato di data non valido: $data"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche 
+     <A
+HREF="function.eregi.html"
+><B
+CLASS="function"
+>eregi()</B
+></A
+>,
+     <A
+HREF="function.ereg-replace.html"
+><B
+CLASS="function"
+>ereg_replace()</B
+></A
+>,
+     <A
+HREF="function.eregi-replace.html"
+><B
+CLASS="function"
+>eregi_replace()</B
+></A
+>,
+     <A
+HREF="function.preg-match.html"
+><B
+CLASS="function"
+>preg_match()</B
+></A
+>,
+     <A
+HREF="function.strpos.html"
+><B
+CLASS="function"
+>strpos()</B
+></A
+> e
+     <A
+HREF="function.strstr.html"
+><B
+CLASS="function"
+>strstr()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ereg-replace.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.eregi-replace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ereg_replace</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.regex.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>eregi_replace</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>TRUE/FALSE valori ritornati dalle funzioni</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Migrazione da PHP/FI 2 a PHP 3"
+HREF="migration.html"><LINK
+REL="PREVIOUS"
+TITLE="Valutazione cortocircuita booleana"
+HREF="migration.booleval.html"><LINK
+REL="NEXT"
+TITLE="Altre incompatibilità"
+HREF="migration.other.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="migration.booleval.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice D. Migrazione da PHP/FI 2 a PHP 3</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="migration.other.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="migration.truefalse"
+><TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>/<TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> valori ritornati dalle funzioni</A
+></H1
+><P
+>&#13;   La maggior parte delle funzioni interne sono state riscritte in modo
+   che ritornino <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> al successo e <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> al fallimento, invece
+   di 0 e -1 come nel PHP/FI 2.0. Il nuovo comportamento
+   aggevola un codice più logico, come <VAR
+CLASS="literal"
+>$fp = fopen("/tuo/file") or
+   fail("fallito!");</VAR
+>. Datto che PHP/FI 2.0 non ha avuto una chiara
+   regola su cosa deve ritornare una funzione fallita, la maggior parte dei
+   tali scritti probabilmente dovranno essere verificate manualmente dopo
+   aver usato il convertitore 2.0 - 3.0.
+  </P
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN199877"
+></A
+><P
+><B
+>Esempio D-9. Migrazione da 2.0: valori di ritorno, vecchio codice</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$fp = fopen($file, "r");<br />if ($fp == -1);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo("Apertura per la lettura del $file fallita&lt;br /&gt;\n");<br />endif;</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN199880"
+></A
+><P
+><B
+>Esempio D-10. Migrazione da 2.0: valori di ritorno, nuovo codice</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$fp = @fopen($file, "r") or print("Apertura per la lettura del $file fallita&lt;br /&gt;\n");</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="migration.booleval.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="migration.other.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Valutazione cortocircuita booleana</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="migration.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Altre incompatibilità</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fstat</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="fseek"
+HREF="function.fseek.html"><LINK
+REL="NEXT"
+TITLE="ftell"
+HREF="function.ftell.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fseek.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ftell.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fstat"
+></A
+>fstat</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN42009"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>fstat&nbsp;--&nbsp;Restituisce le informazioni riguardanti un file attraverso un puntatore al file aperto</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN42012"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>fstat</B
+> ( resource handle )<BR
+></BR
+><P
+>&#13;     Restituisce le statistiche del file aperto dal puntatore <VAR
+CLASS="parameter"
+>handle</VAR
+>.
+     Questa funzione è simile a 
+     <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+> eccetto per il fatto che opera
+     su un puntatore a file aperto invece che su un nome di file.
+    </P
+><P
+>&#13;     Restituisce un vettore con le statistiche del file con il formato 
+     del vettore è descritto nella pagina di <A
+HREF="function.stat.html"
+><B
+CLASS="function"
+>stat()</B
+></A
+>.     
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN42026"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>fstat()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">// apertura del file<br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"/etc/passwd"</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// raccolta delle informazioni<br /></font><font color="#0000BB">$fstat </font><font color="#007700">= </font><font color="#0000BB">fstat</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// chiusura del file<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// scrittura della sola parte associativa<br /></font><font color="#0000BB">print_r</font><font color="#007700">(</font><font color="#0000BB">array_slice</font><font color="#007700">(</font><font color="#0000BB">$fstat</font><font color="#007700">, </font><font color="#0000BB">13</font><font color="#007700">));<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       l'esempio visualizzerà :
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Array
+(
+    [dev] =&#62; 771
+    [ino] =&#62; 488704
+    [mode] =&#62; 33188
+    [nlink] =&#62; 1
+    [uid] =&#62; 0
+    [gid] =&#62; 0
+    [rdev] =&#62; 0
+    [size] =&#62; 1114
+    [atime] =&#62; 1061067181
+    [mtime] =&#62; 1056136526
+    [ctime] =&#62; 1056136526
+    [blksize] =&#62; 4096
+    [blocks] =&#62; 8
+)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>I risultati di questa funzione 
+saranno memorizzati. Vedere <A
+HREF="function.clearstatcache.html"
+><B
+CLASS="function"
+>clearstatcache()</B
+></A
+> per  
+maggiori dettagli.</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione non è eseguibile con 
+<A
+HREF="features.remote-files.html"
+>file remoti</A
+>, ma con file 
+accessibili attraverso il filesystem del server.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fseek.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ftell.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fseek</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ftell</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

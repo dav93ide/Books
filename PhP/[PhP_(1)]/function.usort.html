@@ -1,0 +1,466 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>usort</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Array"
+HREF="ref.array.html"><LINK
+REL="PREVIOUS"
+TITLE="uksort"
+HREF="function.uksort.html"><LINK
+REL="NEXT"
+TITLE="Funzioni Aspell [deprecated]"
+HREF="ref.aspell.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.uksort.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.aspell.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.usort"
+></A
+>usort</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN12865"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.3, PHP 4, PHP 5)</P
+>usort&nbsp;--&nbsp;
+     Ordina un array mediante una funzione definita dall'utente
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN12868"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>usort</B
+> ( array &#38;array, callback cmp_function )<BR
+></BR
+><P
+>&#13;     Ordina i valori di un array mediante una
+     funzione di comparazione definita dall'utente. Se si vuole ordinare un array
+     con dei criteri non usuali, si deve usare
+     questa funzione.
+    </P
+><P
+>&#13;     La funzione di comparazione deve restituire un intero minore, uguale
+     o superiore a zero se il primo elemento è da considerarsi
+     rispettivamente minore, uguale o maggiore del 
+     secondo.
+    </P
+><P
+>&#13;     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Se due parametri vengono valutati come uguali, il loro ordinamento nell'array ordinato è indefinito.
+       Fino al PHP 4.0.6 le funzioni definite dall'utente mantenevano l'ordine originario per
+       questi elementi, ma con il nuovo algoritmo di ordinamento introdotto con la versione 4.1.0 questo
+       non succede più dal momento che non c'è un modo per ottenerlo in maniera efficiente.
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN12888"
+></A
+><P
+><B
+>Esempio 1. esempio di <B
+CLASS="function"
+>usort()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">cmp</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$a </font><font color="#007700">== </font><font color="#0000BB">$b</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">0</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;return (</font><font color="#0000BB">$a </font><font color="#007700">&lt; </font><font color="#0000BB">$b</font><font color="#007700">) ? -</font><font color="#0000BB">1 </font><font color="#007700">: </font><font color="#0000BB">1</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">$a </font><font color="#007700">= array(</font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#0000BB">5</font><font color="#007700">, </font><font color="#0000BB">6</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br /><br /></font><font color="#0000BB">usort</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#DD0000">"cmp"</font><font color="#007700">);<br /><br />while (list(</font><font color="#0000BB">$chiave</font><font color="#007700">, </font><font color="#0000BB">$valore</font><font color="#007700">) = </font><font color="#0000BB">each</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$chiave: $valore</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Questo esempio mostrerà:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>0: 1
+1: 2
+2: 3
+3: 5
+4: 6</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Ovviamente, in questo caso banale di ordinamento decrescente la funzione <A
+HREF="function.sort.html"
+><B
+CLASS="function"
+>sort()</B
+></A
+>
+      sarebbe stata più appropriata.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN12898"
+></A
+><P
+><B
+>Esempio 2. 
+       esempio di <B
+CLASS="function"
+>usort()</B
+> con un array multidimensionale
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">function </font><font color="#0000BB">cmp</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">strcmp</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#DD0000">"frutto"</font><font color="#007700">], </font><font color="#0000BB">$b</font><font color="#007700">[</font><font color="#DD0000">"frutto"</font><font color="#007700">]);<br />}<br /><br /></font><font color="#0000BB">$frutti</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">][</font><font color="#DD0000">"frutto"</font><font color="#007700">] = </font><font color="#DD0000">"limoni"</font><font color="#007700">;<br /></font><font color="#0000BB">$frutti</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">][</font><font color="#DD0000">"frutto"</font><font color="#007700">] = </font><font color="#DD0000">"arance"</font><font color="#007700">;<br /></font><font color="#0000BB">$frutti</font><font color="#007700">[</font><font color="#0000BB">2</font><font color="#007700">][</font><font color="#DD0000">"frutto"</font><font color="#007700">] = </font><font color="#DD0000">"uva"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">usort</font><font color="#007700">(</font><font color="#0000BB">$frutti</font><font color="#007700">, </font><font color="#DD0000">"cmp"</font><font color="#007700">);<br /><br />while (list(</font><font color="#0000BB">$chiave</font><font color="#007700">, </font><font color="#0000BB">$valore</font><font color="#007700">) = </font><font color="#0000BB">each</font><font color="#007700">(</font><font color="#0000BB">$frutti</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"</font><font color="#007700">\$</font><font color="#DD0000">frutti</font><font color="#007700">[</font><font color="#DD0000">$chiave</font><font color="#007700">]</font><font color="#DD0000">: " </font><font color="#007700">. </font><font color="#0000BB">$valore</font><font color="#007700">[</font><font color="#DD0000">"frutto"</font><font color="#007700">] . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Quando si ordina un array multidimensionale, <VAR
+CLASS="varname"
+>$a</VAR
+> e
+       <VAR
+CLASS="varname"
+>$b</VAR
+> contengono riferimenti al primo indice dell'array.
+      </P
+><P
+>&#13;       Questo esempio mostrerà:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>$frutti[0]: arance
+$frutti[1]: limoni
+$frutti[2]: uva</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN12908"
+></A
+><P
+><B
+>Esempio 3. 
+       esempio di <B
+CLASS="function"
+>usort()</B
+> usando una funzione membro di un oggetto
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">OggettoTest </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$nome</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">OggettoTest</font><font color="#007700">(</font><font color="#0000BB">$nome</font><font color="#007700">) <br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">nome </font><font color="#007700">= </font><font color="#0000BB">$nome</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Questa è la funzione statica di comparazione: */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">function </font><font color="#0000BB">comp_ogg</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">) <br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$al </font><font color="#007700">= </font><font color="#0000BB">strtolower</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">-&gt;</font><font color="#0000BB">nome</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$bl </font><font color="#007700">= </font><font color="#0000BB">strtolower</font><font color="#007700">(</font><font color="#0000BB">$b</font><font color="#007700">-&gt;</font><font color="#0000BB">nome</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$al </font><font color="#007700">== </font><font color="#0000BB">$bl</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">0</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return (</font><font color="#0000BB">$al </font><font color="#007700">&gt; </font><font color="#0000BB">$bl</font><font color="#007700">) ? +</font><font color="#0000BB">1 </font><font color="#007700">: -</font><font color="#0000BB">1</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$a</font><font color="#007700">[] = new </font><font color="#0000BB">OggettoTest</font><font color="#007700">(</font><font color="#DD0000">"c"</font><font color="#007700">);<br /></font><font color="#0000BB">$a</font><font color="#007700">[] = new </font><font color="#0000BB">OggettoTest</font><font color="#007700">(</font><font color="#DD0000">"b"</font><font color="#007700">);<br /></font><font color="#0000BB">$a</font><font color="#007700">[] = new </font><font color="#0000BB">OggettoTest</font><font color="#007700">(</font><font color="#DD0000">"d"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">usort</font><font color="#007700">(</font><font color="#0000BB">$a</font><font color="#007700">, array(</font><font color="#DD0000">"OggettoTest"</font><font color="#007700">, </font><font color="#DD0000">"comp_ogg"</font><font color="#007700">));<br /><br />foreach (</font><font color="#0000BB">$a </font><font color="#007700">as </font><font color="#0000BB">$voce</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$voce</font><font color="#007700">-&gt;</font><font color="#0000BB">nome</font><font color="#007700">.</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Questo esempio mostrerà:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>b
+c
+d</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.uasort.html"
+><B
+CLASS="function"
+>uasort()</B
+></A
+>,
+     <A
+HREF="function.uksort.html"
+><B
+CLASS="function"
+>uksort()</B
+></A
+>, <A
+HREF="function.sort.html"
+><B
+CLASS="function"
+>sort()</B
+></A
+>,
+     <A
+HREF="function.asort.html"
+><B
+CLASS="function"
+>asort()</B
+></A
+>,
+     <A
+HREF="function.arsort.html"
+><B
+CLASS="function"
+>arsort()</B
+></A
+>,<A
+HREF="function.ksort.html"
+><B
+CLASS="function"
+>ksort()</B
+></A
+>,
+     <A
+HREF="function.natsort.html"
+><B
+CLASS="function"
+>natsort()</B
+></A
+> e <A
+HREF="function.rsort.html"
+><B
+CLASS="function"
+>rsort()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.uksort.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.aspell.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>uksort</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.array.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Funzioni Aspell [deprecated]</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

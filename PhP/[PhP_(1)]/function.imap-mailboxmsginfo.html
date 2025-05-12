@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>imap_mailboxmsginfo</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IMAP, POP3 and NNTP Functions"
+HREF="ref.imap.html"><LINK
+REL="PREVIOUS"
+TITLE="imap_mail"
+HREF="function.imap-mail.html"><LINK
+REL="NEXT"
+TITLE="imap_mime_header_decode"
+HREF="function.imap-mime-header-decode.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.imap-mail.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.imap-mime-header-decode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.imap-mailboxmsginfo"
+></A
+>imap_mailboxmsginfo</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN63075"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.2, PHP 4, PHP 5)</P
+>imap_mailboxmsginfo&nbsp;--&nbsp;Get information about the current mailbox</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN63078"
+></A
+><H2
+>Description</H2
+>object <B
+CLASS="methodname"
+>imap_mailboxmsginfo</B
+> ( resource imap_stream )<BR
+></BR
+><P
+>&#13;     Returns information about the current mailbox. Returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on
+     failure.
+    </P
+><P
+> 
+     The <B
+CLASS="function"
+>imap_mailboxmsginfo()</B
+> function checks the
+     current mailbox status on the server. It is similar to 
+     <A
+HREF="function.imap-status.html"
+><B
+CLASS="function"
+>imap_status()</B
+></A
+>, but will additionally sum up the
+     size of all messages in the mailbox, which will take some additional
+     time to execute. It returns the information
+     in an object with following properties.
+    </P
+><P
+>&#13;     <DIV
+CLASS="table"
+><A
+NAME="AEN63092"
+></A
+><P
+><B
+>Tabella 1. Mailbox properties</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+>Date</TD
+><TD
+>date of last change</TD
+></TR
+><TR
+><TD
+>Driver</TD
+><TD
+>driver</TD
+></TR
+><TR
+><TD
+>Mailbox</TD
+><TD
+>name of the mailbox</TD
+></TR
+><TR
+><TD
+>Nmsgs</TD
+><TD
+>number of messages</TD
+></TR
+><TR
+><TD
+>Recent</TD
+><TD
+>number of recent messages</TD
+></TR
+><TR
+><TD
+>Unread</TD
+><TD
+>number of unread messages</TD
+></TR
+><TR
+><TD
+>Deleted</TD
+><TD
+>number of deleted messages</TD
+></TR
+><TR
+><TD
+>Size</TD
+><TD
+>mailbox size</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN63121"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>imap_mailboxmsginfo()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$mbox </font><font color="#007700">= </font><font color="#0000BB">imap_open</font><font color="#007700">(</font><font color="#DD0000">"{your.imap.host}INBOX"</font><font color="#007700">, </font><font color="#DD0000">"username"</font><font color="#007700">, </font><font color="#DD0000">"password"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"can't connect: " </font><font color="#007700">. </font><font color="#0000BB">imap_last_error</font><font color="#007700">());<br /> <br /></font><font color="#0000BB">$check </font><font color="#007700">= </font><font color="#0000BB">imap_mailboxmsginfo</font><font color="#007700">(</font><font color="#0000BB">$mbox</font><font color="#007700">);<br /> <br />if (</font><font color="#0000BB">$check</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Date: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#0000BB">$check</font><font color="#007700">-&gt;</font><font color="#0000BB">Date&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;\n" </font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Driver: "&nbsp;&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#0000BB">$check</font><font color="#007700">-&gt;</font><font color="#0000BB">Driver&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;\n" </font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Mailbox: "&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#0000BB">$check</font><font color="#007700">-&gt;</font><font color="#0000BB">Mailbox </font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;\n" </font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Messages: " </font><font color="#007700">. </font><font color="#0000BB">$check</font><font color="#007700">-&gt;</font><font color="#0000BB">Nmsgs&nbsp;&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;\n" </font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Recent: "&nbsp;&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#0000BB">$check</font><font color="#007700">-&gt;</font><font color="#0000BB">Recent&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;\n" </font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Unread: "&nbsp;&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#0000BB">$check</font><font color="#007700">-&gt;</font><font color="#0000BB">Unread&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;\n" </font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Deleted: "&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#0000BB">$check</font><font color="#007700">-&gt;</font><font color="#0000BB">Deleted </font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;\n" </font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Size: "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#0000BB">$check</font><font color="#007700">-&gt;</font><font color="#0000BB">Size&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">. </font><font color="#DD0000">"&lt;br /&gt;\n" </font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"imap_check() failed: " </font><font color="#007700">. </font><font color="#0000BB">imap_last_error</font><font color="#007700">() . </font><font color="#DD0000">"&lt;br /&gt;\n"</font><font color="#007700">;<br />}<br /> <br /></font><font color="#0000BB">imap_close</font><font color="#007700">(</font><font color="#0000BB">$mbox</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.imap-mail.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.imap-mime-header-decode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>imap_mail</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.imap.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>imap_mime_header_decode</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

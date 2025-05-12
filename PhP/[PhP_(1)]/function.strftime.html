@@ -1,0 +1,496 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>strftime</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Data e Ora"
+HREF="ref.datetime.html"><LINK
+REL="PREVIOUS"
+TITLE="mktime"
+HREF="function.mktime.html"><LINK
+REL="NEXT"
+TITLE="strptime"
+HREF="function.strptime.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mktime.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.strptime.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.strftime"
+></A
+>strftime</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN24126"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>strftime&nbsp;--&nbsp;
+     Formatta una data/orario locale accordandola/o alle impostazioni locali according to locale settings
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN24129"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>strftime</B
+> ( string format [, int timestamp] )<BR
+></BR
+><P
+>&#13;     Restituisce una stringa formattata in accordo con la stringa del formato data
+     usando il parametro dato <VAR
+CLASS="parameter"
+>timestamp</VAR
+> o l'attuale 
+     orario locale se non è stato dato il timestamp. I nomi di mesi e giorni della settimana e 
+     le altre stringhe dipendenti dalla lingua rispettano le attuali impostazioni locali
+     con <A
+HREF="function.setlocale.html"
+><B
+CLASS="function"
+>setlocale()</B
+></A
+>.
+    </P
+><P
+>&#13;     Le seguenti sequenze di caratteri sono utilizzate nella stringa del 
+     formato:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        %a - Nome del giorno della settimana abbreviato in accordo con i parametri locali
+       </P
+></LI
+><LI
+><P
+>&#13;        %A - Nome completo del giorno della settimana in accordo con i parametri locali
+       </P
+></LI
+><LI
+><P
+>&#13;        %b - Nome del mese abbreviato in accordo con i parametri locali
+       </P
+></LI
+><LI
+><P
+>&#13;        %B - Nome completo del mese in accordo con i parametri locali
+       </P
+></LI
+><LI
+><P
+>&#13;        %c - Rappresentazione preferita di data e orario per le attuali
+        impostazioni locali
+       </P
+></LI
+><LI
+><P
+>&#13;        %C - numero del secolo (l'anno diviso 100 e troncato in
+        un intero, intervallo tra 00 e 99)
+       </P
+></LI
+><LI
+><P
+>&#13;        %d - giorno del mese come numero decimale (intervallo tra 01 e 31)
+       </P
+></LI
+><LI
+><P
+>&#13;        %D - come %m/%d/%y
+       </P
+></LI
+><LI
+><P
+>&#13;        %e - giorno del mese come numero decimale, un singolo carattere è 
+        preceduto da uno spapzio (intervallo tra ' 1' e '31')
+       </P
+></LI
+><LI
+><P
+>&#13;        %g - come %G, ma senza il secolo.
+       </P
+></LI
+><LI
+><P
+>&#13;        %G - L'anno a 4 cifre corrispondente al numero di setitmana ISO (vedi %V).
+        Questa ha lo stesso formato e valore di %Y, eccetto che se il numero di
+        settimana ISO appartiene al precedente o prossimo anno, è invece utilizzato l'anno 
+        attuale.
+       </P
+></LI
+><LI
+><P
+>&#13;        %h - come %b
+       </P
+></LI
+><LI
+><P
+>&#13;        %H - ora come numero decimale usando il sistema a 24 ore (intervallo tra 00
+        e 23)
+       </P
+></LI
+><LI
+><P
+>&#13;        %I - ora come numero decimale usando il sistema a 12 ore (intervallo tra 01
+        e 12)
+       </P
+></LI
+><LI
+><P
+>&#13;        %j - giorno dell'anno come numero decimale (intervallo tra 001 e 366)
+       </P
+></LI
+><LI
+><P
+>&#13;        %m - mese come numero decimale (intervallo tra 01 e 12)
+       </P
+></LI
+><LI
+><P
+>&#13;        %M - minuto come numero decimale 
+       </P
+></LI
+><LI
+><P
+>&#13;        %n - carattere di nuova linea
+       </P
+></LI
+><LI
+><P
+>&#13;        %p - entrambi `am' o `pm' accordati a un valore di tempo dato, o
+        alle stringhe corrispondenti per le impostazioni locali
+       </P
+></LI
+><LI
+><P
+>&#13;        %r - orario in notazione a.m. e p.m
+       </P
+></LI
+><LI
+><P
+>&#13;        %R - orario nella notazione a 24 ore
+       </P
+></LI
+><LI
+><P
+>&#13;        %S - secondi come numero decimale
+       </P
+></LI
+><LI
+><P
+>&#13;        %t - Carattere di tabella
+       </P
+></LI
+><LI
+><P
+>&#13;        %T - orario attuale, identico a %H:%M:%S
+       </P
+></LI
+><LI
+><P
+>&#13;        %u - giorno della settimana come numero decimale [1,7], dove 1 rappresenta il
+        Lunedì
+       </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;         Sun Solaris sembra far iniziare con la Domenica a come 1
+         sebbe la ISO 9889:1999 (l'attuale standard di C) specifica
+         chiaramente che dovrebbe iniziare dal Lunedì.
+        </P
+></TD
+></TR
+></TABLE
+></DIV
+></LI
+><LI
+><P
+>&#13;        %U - numero della settimana dell'anno in corso come numero decimale,
+        iniziando dalla prima Domenica come primo giorno della prima
+        settimana
+       </P
+></LI
+><LI
+><P
+> 
+        %V - Il numero di settimana ISO 8601:1988 dell'anno attuale come numero decimale, 
+        intervallo tra 01 e 53, dove la settimana 1 è la prima
+        settimana che ha almeno 4 giorni dell'attuale anno, e con
+        il Lunedì come primo giorno della settimana. (Utilizza %G o %g per l'anno
+        componente che corrisponde al numero di settimana per il timestamp
+        specificato.)
+       </P
+></LI
+><LI
+><P
+>&#13;        %W - numero della settimana dell'attuale anno come numero decimale,
+        partendo con il primo Lunedì come primo giorno della prima
+        settimana
+       </P
+></LI
+><LI
+><P
+>&#13;        %w - giorno della settimana come decimale, dove la Domenica è 0
+       </P
+></LI
+><LI
+><P
+>&#13;        %x - visualizzazione della data preferita dalle impostazioni del sistema locale
+        senza orario
+       </P
+></LI
+><LI
+><P
+>&#13;        %X - visualizzazione dell'orario preferito dalle impostazioni del sistema locale
+        senza data
+       </P
+></LI
+><LI
+><P
+>&#13;        %y - anno come numero decimale senza secolo (intervallo tra 00 e
+        99)
+       </P
+></LI
+><LI
+><P
+>&#13;        %Y - anno come numero decimale incluso il secolo
+       </P
+></LI
+><LI
+><P
+>&#13;        %Z - fuso orario o abbreviazione
+       </P
+></LI
+><LI
+><P
+>&#13;        %% - il carattere `%'
+       </P
+></LI
+></UL
+>
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Non tutte le sequenze di caratteri potrebbero essere supportate dalla tua libreria locale
+       di C, in tal caso la funzione <B
+CLASS="function"
+>strftime()</B
+>
+       non sarà supportata dal PHP. Questo significa che %T e %D non
+       funzioneranno sotto Windows.
+      </P
+></BLOCKQUOTE
+></DIV
+>
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN24220"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>strftime()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+setlocale (LC_TIME, "C");<br />print (strftime ("%A in Finlandese è "));<br />setlocale (LC_TIME, "fi_FI");<br />print (strftime ("%A, in Francese "));<br />setlocale (LC_TIME, "fr_FR");<br />print (strftime ("%A e in Italiano "));<br />setlocale (LC_TIME, "it_IT");<br />print (strftime ("%A.\n"));</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Questo esempio funziona se hai le ripettive impostazioni di lingua installate 
+     nel tuo sistema.
+    </P
+><P
+>&#13;     Guarda anche <A
+HREF="function.setlocale.html"
+><B
+CLASS="function"
+>setlocale()</B
+></A
+> e
+     <A
+HREF="function.mktime.html"
+><B
+CLASS="function"
+>mktime()</B
+></A
+> e le<A
+HREF="http://www.opengroup.org/onlinepubs/007908799/xsh/strftime.html"
+TARGET="_top"
+>&#13;     specifiche dell' Open Group per
+     <B
+CLASS="function"
+>strftime()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mktime.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.strptime.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mktime</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.datetime.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>strptime</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pg_send_query_params</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni PostgreSQL"
+HREF="ref.pgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="pg_send_prepare"
+HREF="function.pg-send-prepare.html"><LINK
+REL="NEXT"
+TITLE="pg_send_query"
+HREF="function.pg-send-query.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pg-send-prepare.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-send-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pg-send-query-params"
+></A
+>pg_send_query_params</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN134717"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>pg_send_query_params&nbsp;--&nbsp;Submits a command and separate parameters to the server without waiting for the result(s).</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134720"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>pg_send_query_params</B
+> ( resource connection, string query, array params )<BR
+></BR
+><P
+>&#13;    Submits a command and separate parameters to the server without 
+    waiting for the result(s).
+  </P
+><P
+>&#13;    This is equivalent to <A
+HREF="function.pg-send-query.html"
+><B
+CLASS="function"
+>pg_send_query()</B
+></A
+> except that query 
+    parameters can be specified separately from the 
+    <VAR
+CLASS="parameter"
+>query</VAR
+> string. The function's parameters are 
+    handled identically to <A
+HREF="function.pg-query-params.html"
+><B
+CLASS="function"
+>pg_query_params()</B
+></A
+>. Like 
+    <A
+HREF="function.pg-query-params.html"
+><B
+CLASS="function"
+>pg_query_params()</B
+></A
+>, it will not work on pre-7.4 PostgreSQL 
+    connections, and it allows only one command in the query string. 
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134740"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       PostgreSQL database connection resource.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>query</VAR
+></DT
+><DD
+><P
+>&#13;       The parameterised SQL statement.  Must contain only a single statement.
+       (multiple statements separated by semi-colons are not allowed.)  If any parameters 
+       are used, they are referred to as $1, $2, etc.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>params</VAR
+></DT
+><DD
+><P
+>&#13;        An array of parameter values to substitute for the $1, $2, etc. placeholders
+        in the original prepared query string.  The number of elements in the array
+        must match the number of placeholders.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134759"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.</P
+><P
+>&#13;   Use <A
+HREF="function.pg-get-result.html"
+><B
+CLASS="function"
+>pg_get_result()</B
+></A
+> to determine the query result.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134766"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN134769"
+></A
+><P
+><B
+>Esempio 1. Using <B
+CLASS="function"
+>pg_send_query_params()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;$dbconn </font><font color="#007700">= </font><font color="#0000BB">pg_connect</font><font color="#007700">(</font><font color="#DD0000">"dbname=publisher"</font><font color="#007700">) or die(</font><font color="#DD0000">"Could not connect"</font><font color="#007700">);<br /><br />&nbsp;&nbsp;</font><font color="#FF8000">// Using parameters.&nbsp;&nbsp;Note that it is not necessary to quote or escape<br />&nbsp;&nbsp;// the parameter.<br />&nbsp;&nbsp;</font><font color="#0000BB">pg_send_query_params</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">'select count(*) from authors where city = $1'</font><font color="#007700">, array(</font><font color="#DD0000">'Perth'</font><font color="#007700">));<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</font><font color="#FF8000">// Compare against basic pg_send_query usage<br />&nbsp;&nbsp;</font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#0000BB">pg_escape_string</font><font color="#007700">(</font><font color="#DD0000">'Perth'</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">pg_send_query</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"select count(*) from authors where city = '</font><font color="#007700">${</font><font color="#DD0000">str</font><font color="#007700">}</font><font color="#DD0000">'"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+> 
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN134773"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.pg-send-query.html"
+><B
+CLASS="function"
+>pg_send_query()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pg-send-prepare.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-send-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pg_send_prepare</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pgsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_send_query</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

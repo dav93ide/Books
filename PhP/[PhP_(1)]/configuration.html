@@ -1,0 +1,393 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Runtime Configuration</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installazione e configurazione"
+HREF="install.html"><LINK
+REL="PREVIOUS"
+TITLE="Bug reports"
+HREF="install.problems.bugs.html"><LINK
+REL="NEXT"
+TITLE="How to change configuration settings"
+HREF="configuration.changes.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.problems.bugs.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="configuration.changes.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="configuration"
+>Capitolo 9. Runtime Configuration</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="configuration.html#configuration.file"
+>The configuration file</A
+></DT
+><DT
+><A
+HREF="configuration.changes.html"
+>How to change configuration settings</A
+></DT
+></DL
+></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="configuration.file"
+>The configuration file</A
+></H1
+><P
+>&#13;    The configuration file (called <TT
+CLASS="filename"
+>php3.ini</TT
+> in
+    PHP 3, and simply <TT
+CLASS="filename"
+>php.ini</TT
+> as of PHP 4)
+    is read when PHP starts up. For the server module versions of PHP,
+    this happens only once when the web server is started. For the
+    <ACRONYM
+CLASS="acronym"
+>CGI</ACRONYM
+> and <ACRONYM
+CLASS="acronym"
+>CLI</ACRONYM
+> version, it happens on
+    every invocation.
+   </P
+><P
+>&#13;    <TT
+CLASS="filename"
+>php.ini</TT
+> is searched in these locations (in order):
+    <P
+></P
+><UL
+><LI
+><P
+>&#13;       SAPI module specific location (<VAR
+CLASS="literal"
+>PHPIniDir</VAR
+> directive
+       in Apache 2, <VAR
+CLASS="literal"
+>-c</VAR
+> command line option in CGI and CLI,
+       <VAR
+CLASS="literal"
+>php_ini</VAR
+> parameter in NSAPI,
+       <VAR
+CLASS="literal"
+>PHP_INI_PATH</VAR
+> environment variable in THTTPD)
+      </P
+></LI
+><LI
+><P
+>&#13;       <VAR
+CLASS="literal"
+>HKEY_LOCAL_MACHINE\SOFTWARE\PHP\IniFilePath</VAR
+>
+       (Windows Registry location)
+      </P
+></LI
+><LI
+><P
+>&#13;       The <VAR
+CLASS="varname"
+>PHPRC</VAR
+> environment variable
+      </P
+></LI
+><LI
+><P
+>&#13;       Current working directory (for CLI)
+      </P
+></LI
+><LI
+><P
+>&#13;       The web server's directory (for SAPI modules), or directory of PHP
+       (otherwise in Windows)
+      </P
+></LI
+><LI
+><P
+>&#13;       Windows directory (<TT
+CLASS="filename"
+>C:\windows</TT
+>
+       or <TT
+CLASS="filename"
+>C:\winnt</TT
+>) (for Windows), or
+       <VAR
+CLASS="literal"
+>--with-config-file-path</VAR
+> compile time option
+      </P
+></LI
+></UL
+> 
+   </P
+><P
+>&#13;    If <TT
+CLASS="filename"
+>php-SAPI.ini</TT
+> exists (where SAPI is used SAPI, so the
+    filename is e.g. <TT
+CLASS="filename"
+>php-cli.ini</TT
+> or
+    <TT
+CLASS="filename"
+>php-apache.ini</TT
+>), it's used instead of <TT
+CLASS="filename"
+>php.ini</TT
+>.
+    SAPI name can be determined by <A
+HREF="function.php-sapi-name.html"
+><B
+CLASS="function"
+>php_sapi_name()</B
+></A
+>.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     The Apache web server changes the directory to root at startup causing
+     PHP to attempt to read <TT
+CLASS="filename"
+>php.ini</TT
+> from the root filesystem if it exists.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    The <TT
+CLASS="filename"
+>php.ini</TT
+> directives handled by extensions are documented respectively
+    on the pages of the extensions themselves. The <A
+HREF="ini.html"
+>list of
+    the core directives</A
+> is available in the appendix. Probably not all
+    PHP directives are documented in the manual though. For a complete list
+    of directives available in your PHP version, please read your well commented
+    <TT
+CLASS="filename"
+>php.ini</TT
+> file. Alternatively, you may find the
+    <A
+HREF="http://cvs.php.net/co.php/php-src/php.ini-dist"
+TARGET="_top"
+>the latest <TT
+CLASS="filename"
+>php.ini</TT
+></A
+> from CVS
+    helpful too.
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN2578"
+></A
+><P
+><B
+>Esempio 9-1. <TT
+CLASS="filename"
+>php.ini</TT
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="ini"
+>; any text on a line after an unquoted semicolon (;) is ignored
+[php] ; section markers (text within square brackets) are also ignored
+; Boolean values can be set to either:
+;    true, on, yes
+; or false, off, no, none
+register_globals = off
+track_errors = yes
+
+; you can enclose strings in double-quotes
+include_path = ".:/usr/local/lib/php"
+
+; backslashes are treated the same as any other character
+include_path = ".;c:\php\lib"</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Since PHP 5.1.0, it is possible to refer to existing .ini variables from
+    within .ini files. Example: <VAR
+CLASS="literal"
+>open_basedir = ${open_basedir}
+    ":/new/dir"</VAR
+>.
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.problems.bugs.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="configuration.changes.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Bug reports</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>How to change configuration settings</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

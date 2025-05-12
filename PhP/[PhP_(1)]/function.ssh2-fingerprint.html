@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ssh2_fingerprint</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Secure Shell2 Functions"
+HREF="ref.ssh2.html"><LINK
+REL="PREVIOUS"
+TITLE="ssh2_fetch_stream"
+HREF="function.ssh2-fetch-stream.html"><LINK
+REL="NEXT"
+TITLE="ssh2_methods_negotiated"
+HREF="function.ssh2-methods-negotiated.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-fetch-stream.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-methods-negotiated.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ssh2-fingerprint"
+></A
+>ssh2_fingerprint</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN159575"
+></A
+><P
+>    (PECL)</P
+>ssh2_fingerprint&nbsp;--&nbsp;
+     Retreive fingerprint of remote server
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159578"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>ssh2_fingerprint</B
+> ( resource session [, int flags] )<BR
+></BR
+><P
+>&#13;     Returns a server hostkey hash from an active session.
+     Defaults to MD5 fingerprint encoded as ASCII hex values.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>flags</VAR
+> may be either of
+     <TT
+CLASS="constant"
+><B
+>SSH2_FINGERPRINT_MD5</B
+></TT
+> or
+     <TT
+CLASS="constant"
+><B
+>SSH2_FINGERPRINT_SHA1</B
+></TT
+> logically ORed with
+     <TT
+CLASS="constant"
+><B
+>SSH2_FINGERPRINT_HEX</B
+></TT
+> or
+     <TT
+CLASS="constant"
+><B
+>SSH2_FINGERPRINT_RAW</B
+></TT
+>.
+     Defaults to <TT
+CLASS="constant"
+><B
+>SSH2_FINGERPRINT_MD5</B
+></TT
+> |
+     <TT
+CLASS="constant"
+><B
+>SSH2_FINGERPRINT_HEX</B
+></TT
+>.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN159598"
+></A
+><P
+><B
+>Esempio 1. Checking the fingerprint against a known value</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$known_host </font><font color="#007700">= </font><font color="#DD0000">'6F89C2F0A719B30CC38ABDF90755F2E4'</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$connection </font><font color="#007700">= </font><font color="#0000BB">ssh2_connect</font><font color="#007700">(</font><font color="#DD0000">'shell.example.com'</font><font color="#007700">, </font><font color="#0000BB">22</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$fingerprint </font><font color="#007700">= </font><font color="#0000BB">ssh2_fingerprint</font><font color="#007700">(</font><font color="#0000BB">$connection</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">SSH2_FINGERPRINT_MD5 </font><font color="#007700">| </font><font color="#0000BB">SSH2_FINGERPRINT_HEX</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">$fingerprint </font><font color="#007700">!= </font><font color="#0000BB">$known_host</font><font color="#007700">) {<br />&nbsp;&nbsp;die(</font><font color="#DD0000">"HOSTKEY MISMATCH!\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"Possible Man-In-The-Middle Attack?"</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ssh2-fetch-stream.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ssh2-methods-negotiated.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ssh2_fetch_stream</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ssh2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ssh2_methods_negotiated</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

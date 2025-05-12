@@ -1,0 +1,303 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>readdir</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le directory"
+HREF="ref.dir.html"><LINK
+REL="PREVIOUS"
+TITLE="opendir"
+HREF="function.opendir.html"><LINK
+REL="NEXT"
+TITLE="rewinddir"
+HREF="function.rewinddir.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.opendir.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.rewinddir.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.readdir"
+></A
+>readdir</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN29005"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>readdir&nbsp;--&nbsp;Legge una voce dall'handle della directory</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN29008"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>readdir</B
+> ( resource dir_handle )<BR
+></BR
+><P
+>&#13;     Restituisce il nomefile del file successivo della directory. I nomi
+     dei file vengono restituiti secondo l'ordine in cui sono memorizzati
+     nel filesystem.
+    </P
+><P
+>&#13;     Si faccia caso al modo in cui il valore restituito da <B
+CLASS="function"
+>readdir()</B
+>
+     viene controllato negli esempi successivi. Viene controllato esplicitamente
+     che il valore restituito sia identico a (uguale a e dello
+     stesso tipo di (vedere <A
+HREF="language.operators.comparison.html"
+>Comparison
+     Operators</A
+> per maggiori informazioni) <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> altrimenti avverrebbe che
+     ogni nome di directory il cui nome fosse valutato <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> interromperebbe il
+     loop (per esempio una directory chiamata "0").
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN29023"
+></A
+><P
+><B
+>Esempio 1. Elenca tutti i file presenti in una directory</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Nota che l'operatore !== non è esistito fino alla versione 4.0.0-RC2<br /></font><font color="#007700">if (</font><font color="#0000BB">$handle </font><font color="#007700">= </font><font color="#0000BB">opendir</font><font color="#007700">(</font><font color="#DD0000">'/percorso/ai/file'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Handle della directory: $handle</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"File:\n"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Questa è la maniera corretta di eseguire un loop all'interno di una directory. */<br />&nbsp;&nbsp;&nbsp;</font><font color="#007700">while (</font><font color="#0000BB">false </font><font color="#007700">!== (</font><font color="#0000BB">$file </font><font color="#007700">= </font><font color="#0000BB">readdir</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">))) { <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$file</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Questa è la maniera SCORRETTA di eseguire un loop all'interno di una directory. */<br />&nbsp;&nbsp;&nbsp;</font><font color="#007700">while (</font><font color="#0000BB">$file </font><font color="#007700">= </font><font color="#0000BB">readdir</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">)) { <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$file</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">closedir</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">); <br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Nota che <B
+CLASS="function"
+>readdir()</B
+> restituirà le voci <VAR
+CLASS="literal"
+>.</VAR
+> 
+     e 
+     <VAR
+CLASS="literal"
+>..</VAR
+>. Se non si vogliono ottenere queste, si possono semplicemente 
+     eliminare:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN29030"
+></A
+><P
+><B
+>Esempio 2. 
+       Elenca tutti i file della directory in uso ed elimina <VAR
+CLASS="literal"
+>.</VAR
+> 
+       e <VAR
+CLASS="literal"
+>..</VAR
+>
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br /></font><font color="#007700">if (</font><font color="#0000BB">$handle </font><font color="#007700">= </font><font color="#0000BB">opendir</font><font color="#007700">(</font><font color="#DD0000">'.'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">false </font><font color="#007700">!== (</font><font color="#0000BB">$file </font><font color="#007700">= </font><font color="#0000BB">readdir</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">))) { <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$file </font><font color="#007700">!= </font><font color="#DD0000">"." </font><font color="#007700">&amp;&amp; </font><font color="#0000BB">$file </font><font color="#007700">!= </font><font color="#DD0000">".."</font><font color="#007700">) { <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$file</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">; <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">closedir</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">); <br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche: <A
+HREF="function.is-dir.html"
+><B
+CLASS="function"
+>is_dir()</B
+></A
+> e
+     <A
+HREF="function.glob.html"
+><B
+CLASS="function"
+>glob()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.opendir.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.rewinddir.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>opendir</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.dir.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>rewinddir</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,458 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>dl</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PHP Opzioni&Informazioni"
+HREF="ref.info.html"><LINK
+REL="PREVIOUS"
+TITLE="assert"
+HREF="function.assert.html"><LINK
+REL="NEXT"
+TITLE="extension_loaded"
+HREF="function.extension-loaded.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.assert.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.extension-loaded.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.dl"
+></A
+>dl</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN129458"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>dl&nbsp;--&nbsp;Carica i moduli del PHP a runtime</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN129461"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>dl</B
+> ( string library )<BR
+></BR
+><P
+>&#13;     La funzione carica il modulo di PHP passato nel parametro
+     <VAR
+CLASS="parameter"
+>library</VAR
+>. Il parametro <VAR
+CLASS="parameter"
+>library</VAR
+>
+     indica <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>soltanto</I
+></SPAN
+> il nome del file del modulo da caricare
+     il quale può dipendere dal piattaforma utilizzata. Ad esempio il modulo 
+     <A
+HREF="ref.sockets.html"
+>sockets</A
+> (se compilato come modulo
+     condiviso, non è il default!) sulle piattaforme Unix si chiama
+     <TT
+CLASS="filename"
+>sockets.so</TT
+>, mentre in Windows 
+     si chiama <TT
+CLASS="filename"
+>php_sockets.dll</TT
+>.
+    </P
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento. Se la funzionalità di carico dei moduli non è disponibile
+     (vedi note), oppure è stata disabilitata (sia disabilitando
+     <VAR
+CLASS="literal"
+>enable_dl</VAR
+> oppure attivando <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+>
+     nel <TT
+CLASS="filename"
+>php.ini</TT
+>), sarà generato un <TT
+CLASS="constant"
+><B
+>E_ERROR</B
+></TT
+>
+     e sarà bloccata l'esecuzione dello script. Se <B
+CLASS="function"
+>dl()</B
+>
+     fallisce perché non riesce a caricare la libreria indicata, oltre a restituire <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+     verrà generato un messaggio di tipo <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+>.
+    </P
+><P
+>&#13;     Si può utilizzare <A
+HREF="function.extension-loaded.html"
+><B
+CLASS="function"
+>extension_loaded()</B
+></A
+> per testare se un modulo
+     è veramente affidabile o meno. Questa funzione si applica sia a moduli built-in
+     sia ai moduli caricati (tramite <TT
+CLASS="filename"
+>php.ini</TT
+> oppure
+     <B
+CLASS="function"
+>dl()</B
+>).
+    </P
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>dl()</B
+> è deprecata dal PHP 5.
+     Piuttosto utilizzare
+     <A
+HREF="ini.core.html#ini.extension"
+>Parametri per il carico dei moduli</A
+>.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN129493"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>dl()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Caricare un modulo in base al sistema operativo<br /></font><font color="#007700">if (!</font><font color="#0000BB">extension_loaded</font><font color="#007700">(</font><font color="#DD0000">'sqlite'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">strtoupper</font><font color="#007700">(</font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">PHP_OS</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">) == </font><font color="#DD0000">'WIN'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">dl</font><font color="#007700">(</font><font color="#DD0000">'php_sqlite.dll'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">dl</font><font color="#007700">(</font><font color="#DD0000">'sqlite.so'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#FF8000">// Oppure la costante PHP_SHLIB_SUFFIX disponibile da 4.3.0<br /></font><font color="#007700">if (!</font><font color="#0000BB">extension_loaded</font><font color="#007700">(</font><font color="#DD0000">'sqlite'</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$prefix </font><font color="#007700">= (</font><font color="#0000BB">PHP_SHLIB_SUFFIX </font><font color="#007700">== </font><font color="#DD0000">'dll'</font><font color="#007700">) ? </font><font color="#DD0000">'php_' </font><font color="#007700">: </font><font color="#DD0000">''</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">dl</font><font color="#007700">(</font><font color="#0000BB">$prefix </font><font color="#007700">. </font><font color="#DD0000">'sqlite.' </font><font color="#007700">. </font><font color="#0000BB">PHP_SHLIB_SUFFIX</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     La directory da cui vengono caricate le estensioni dipende dal sistema 
+     operativo della macchina:
+    </P
+><P
+>&#13;     Windows - Se non viene impostato esplicitamente nel <TT
+CLASS="filename"
+>php.ini</TT
+>, i moduli sono caricati
+     da <TT
+CLASS="filename"
+>c:\php4\extensions\</TT
+> .
+    </P
+><P
+>&#13;     Unix - Se non viene impostato esplicitamente nel <TT
+CLASS="filename"
+>php.ini</TT
+>, la directory di default
+     dipenda da
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        se il PHP è stato compilato con <VAR
+CLASS="literal"
+>--enable-debug</VAR
+> o
+        meno
+       </P
+></LI
+><LI
+><P
+>&#13;        se il PHP è stato compilato con (versione sperimentale) ZTS (Zend Thread Safety)
+        o meno
+       </P
+></LI
+><LI
+><P
+>&#13;        il valore attuale di <VAR
+CLASS="literal"
+>ZEND_MODULE_API_NO</VAR
+> (numero interno
+        del modulo API Zend, il quale indica la data in cui
+        si sono apportate le maggiori modifiche al modulo, ad esempio <VAR
+CLASS="literal"
+>20010901</VAR
+>)        
+       </P
+></LI
+></UL
+>
+     Quindi considerando quanto detto, la directory di default può essere
+     <VAR
+CLASS="literal"
+>&#60;install-dir&#62;/lib/php/extensions/ &#60;debug-or-not&#62;-&#60;zts-or-not&#62;-ZEND_MODULE_API_NO</VAR
+>,
+     <TT
+CLASS="filename"
+>/usr/local/php/lib/php/extensions/debug-non-zts-20010901</TT
+>
+     oppure
+     <TT
+CLASS="filename"
+>/usr/local/php/lib/php/extensions/no-debug-zts-20010901</TT
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      La funzione <B
+CLASS="function"
+>dl()</B
+> <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non è</I
+></SPAN
+> supportata
+      dai web server multithread. Utilizzare il parametro del <TT
+CLASS="filename"
+>php.ini</TT
+>
+      <VAR
+CLASS="literal"
+>extensions</VAR
+> quando si debba utilizzare tali server. Mentre
+      le versioni <VAR
+CLASS="literal"
+>CGI</VAR
+> e <VAR
+CLASS="literal"
+>CLI</VAR
+> 
+      <SPAN
+CLASS="strong"
+><B
+CLASS="emphasis"
+>non hanno</B
+></SPAN
+> questa limitazione.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      La <B
+CLASS="function"
+>dl()</B
+> è sensibile alla maiuscole sulle piattaforme Unix.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione è disabilitata nella modalità<A
+HREF="features.safe-mode.html"
+>safe-mode</A
+></P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche
+     <A
+HREF="ini.core.html#ini.extension"
+>Direttive per il carimaneto dei moduli</A
+>
+     e <A
+HREF="function.extension-loaded.html"
+><B
+CLASS="function"
+>extension_loaded()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.assert.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.extension-loaded.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>assert</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.info.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>extension_loaded</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

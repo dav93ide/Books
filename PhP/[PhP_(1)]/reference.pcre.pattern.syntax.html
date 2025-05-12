@@ -1,0 +1,2906 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Sintassi delle espressioni regolari</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le espressioni regolari (Perl compatibili)"
+HREF="ref.pcre.html"><LINK
+REL="PREVIOUS"
+TITLE="Modificatori di criterio (Pattern Modifiers)"
+HREF="reference.pcre.pattern.modifiers.html"><LINK
+REL="NEXT"
+TITLE="preg_grep"
+HREF="function.preg-grep.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="reference.pcre.pattern.modifiers.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.preg-grep.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="reference.pcre.pattern.syntax"
+></A
+>Sintassi delle espressioni regolari</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN122938"
+></A
+>Sintassi delle espressioni regolari&nbsp;--&nbsp;Descrizione della sintassi utilizzata da PCRE 
+    per la definizione delle espressioni regolari</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN122941"
+></A
+><H2
+>Descrizione</H2
+><P
+>&#13;     La libreria PCRE è costituita da una serie di funzioni che 
+     utilizzano come criterio di riconoscimento le espressioni
+     regolari mutuando la stessa sintassi e la stessa semantica
+     di Perl 5, a parte qualche lieve differenza descritta di seguito.
+     L'attuale implementazione corrisponde alla versione 5.005 di Perl.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN122944"
+></A
+><H2
+>Differenze rispetto a Perl</H2
+><P
+>&#13;     In questo capitolo saranno descritte le differenze rispetto
+     a Perl 5.005.
+    <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;            Per default, lo  spazio  bianco  indica  tutti  i  caratteri
+            riconoscibili  dalla  funzione  isspace()  della libreria C,
+            ciò non pregiudica la possibilità di compilare PCRE  con  un
+            set di caratteri alternativi. Normalmente isspace() 
+            riconosce  gli  spazi,  il  salto  pagina,  il  carattere 'a 
+            capo' (newline), il carattere carriage return, la tabulazione
+            orizzontale  e verticale.  Perl 5  non riconosce  nel set dei 
+            caratteri  indicati  dallo  "spazio  bianco"  la  tabulazione
+            verticale. Infatti il carattere di escape \v è stato presente
+            per diverso tempo nella  documentazione di Perl, ma  di fatto
+            non viene  riconosciuto. Tuttavia lo  stesso carattere  viene 
+            trattato come spazio bianco fino alla versione 5.002 di Perl. 
+            Nelle versioni 5.004 e 5.005 non viene riconosciuto il 
+            carattere \s.
+	  </P
+></LI
+><LI
+><P
+>&#13;            PCRE non supporta occorrenze ripetute in espressioni
+            che "guardano avanti". Perl lo permette, ma non nel modo 
+            a cui si possa pensare. Ad esempio, (?!a){3}, non indica
+            che i tre caratteri successivi non debbano essere delle
+            "a", ma indica per tre volte che il carattere successivo 
+            non debba essere una "a".
+	  </P
+></LI
+><LI
+><P
+>&#13;            Il riconoscimento di criteri parziali che possono verificarsi
+            all'interno di espressioni che "guardano avanti" negative 
+            sono contati, ma i loro riferimenti non sono inseriti nel
+            vettore degli offset. Perl valorizza le sue variabili da 
+            qualsiasi criterio che sia riconosciuto prima che l'espressione
+            regolare fallisca nel riconoscere qualcosa, ma questo solo se
+            l'espressione che "guarda avanti" contiene almeno un ramo
+            alternativo.
+	  </P
+></LI
+><LI
+><P
+>&#13;            Sebbene il carattere di 0 binario sia supportato nella
+            stringa in cui si deve svolgere la ricerca, non è ammesso
+            nel testo dell'espressione regolare, questo perché il testo 
+            viene passato come stringa C conclusa dal carattere zero. 
+            Si può comunque utilizzare la sequenza "\\x00" per richiedere 
+            il riconoscimento dello zero binario.
+	  </P
+></LI
+><LI
+><P
+>&#13;            Non sono supportate le seguenti sequenze di escape di Perl:
+            \l,  \u,  \L,  \U,  \E e  \Q. Infatti queste sono implementate
+            nelle funzioni di gestione delle stringhe di Perl e non nel 
+            suo motore di riconoscimento delle espressioni regolari.
+	  </P
+></LI
+><LI
+><P
+>&#13;            L'asserzione di Perl \G non è supportata.
+	  </P
+></LI
+><LI
+><P
+>&#13;            Ovviamente PCRE non supporta il costrutto (?{code}).
+	  </P
+></LI
+><LI
+><P
+>&#13;           Al momento in cui si scrive, in Perl  5.005_02 vi sono 
+           alcune particolarità riguardanti la parametrizzazione 
+           delle stringhe catturate quando parte del criterio di
+           riconoscimento viene ripetuto. Ad esempio, il riconoscimento
+           di "aba" con il criterio /^(a(b)?)+$/, valorizza $2 
+           con la lettera "b", usando il testo "aabbaa" con il 
+           criterio /^(aa(bb)?)+$/ non si ha la valorizzazione 
+           di $2. Tuttavia se il criterio di riconoscimento viene            
+           variato in /^(aa(b(b))?)+$/, sia $2 che $3 vengono
+           valorizzate. Nelle versione 5.004 di Perl, la variabile
+           $2 viene valorizzata in entrambi i casi, come pure è 
+           <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in PCRE. Se in futuro Perl cambierà nella gestione
+           anche PCRE potrà cambiare di conseguenza.
+	  </P
+></LI
+><LI
+><P
+>&#13;            Un'altra discrepanza non ancora risolta riguarda il
+            criterio di riconoscimento /^(a)?(?(1)a|b)+$/, che in
+            Perl 5.005_02 riconosce la stringa "a", mentre non
+            accade in PCRE. Tuttavia in entrambi ( Perl e PCRE )
+            il riconoscimento di "a" con il criterio /^(a)?a/ non
+            valorizza $1.
+	  </P
+></LI
+><LI
+><P
+>&#13;            PCRE prevede alcune estensione alla gestione delle 
+            espressioni regolari di Perl:
+       <P
+></P
+><OL
+TYPE="a"
+><LI
+><P
+>&#13;               Sebbene le asserzioni che "guardano indietro" richiedano
+               testi di lunghezza fissa, è ammesso che ciascun ramo 
+               alternativo del criterio di ricerca possa intercettare
+               stringhe di lunghezza differente. Al contrario Perl 
+               5.005 richiede che tutte le stringhe abbiamo la stessa
+               lunghezza.
+         </P
+></LI
+><LI
+><P
+>&#13;           Se viene settato <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOLLAR_ENDONLY</A
+>
+           e non viene attivato <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_MULTILINE</A
+>,
+           il meta-carattere $ indica soltanto la fine della stringa. 
+         </P
+></LI
+><LI
+><P
+>&#13;           Se si attiva <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_EXTRA</A
+>, 
+           un carattere backslash (\) seguito da una lettera che
+           non abbia un significato speciale genera un errore.
+         </P
+></LI
+><LI
+><P
+>&#13;          Se si attiva <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_UNGREEDY</A
+>,
+          si inverte la "voracità" delle occorrenze, in modo da non
+          essere voraci per default, ma lo tornano ad essere se
+          seguiti da "?".     
+         </P
+></LI
+></OL
+>
+      </P
+></LI
+></OL
+>
+   </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="regexp.reference"
+></A
+><H2
+>Dettagli sulle espressioni regolari</H2
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.introduction"
+></A
+><H3
+>Introduzione</H3
+><P
+>&#13;     Di seguito verrà descritta la sintassi e la semantica delle
+     espressioni regolari così come sono supportate da PCRE. La
+     descrizione delle espressioni regolari può essere reperita
+     anche nei manuali di Perl e in numerosi altri libri, alcuni
+     dei quali ricchi di esempi. Ad esempio il libro di Jeffrey
+     Friedl intitolato  "Mastering  Regular  Expressions", edito
+     da O'Reilly  (ISBN 1-56592-257-3), li tratta in modo dettagliato.
+     Questa descrizione, invece, viene intesa come una documentazione
+     di riferimento.
+
+     Una espressione regolare è un criterio utilizzato per 
+     identificare parti di un testo partendo da sinistra verso
+     destra. La maggior parte delle lettere identifica se  
+     stessa nel testo oggetto del riconoscimento. Ad esempio 
+     il banale testo <VAR
+CLASS="literal"
+>La volpe veloce</VAR
+> 
+     intercetta la parte del testo uguale all'espressione
+     regolare.
+    </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.meta"
+></A
+><H3
+>Meta-caratteri</H3
+><P
+>   
+     La potenza delle espressioni regolari deriva dalla
+     possibilità di inserire criteri alternativi oppure
+     ripetuti. Questi sono codificati nel criterio di 
+     ricerca tramite l'uso di <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>meta-caratteri</I
+></SPAN
+>,
+     lettere che non indicano se stesse, ma sono interpretate 
+     in modo particolare.
+    </P
+><P
+>&#13;     Esistono due differenti set di meta-caratteri: quelli che
+     sono riconosciuti ovunque tranne che all'interno di parentesi
+     quadrate, e quelli che sono riconosciuti all'interno di parentesi
+     quadrate. I meta-caratteri che si usano all'esterno delle 
+     parentesi quadrate sono:
+      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;	   carattere di escape generico con diversi utilizzi
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>^</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;	  indica l'inizio del testo (o della linea in modalità multi-linea)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>$</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;	   indica la fine del testo (o della linea in modalità multi-linea)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>.</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;	   indica qualsiasi carattere tranne "a capo" (per default)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>[</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;	  carattere di inizio della definizione di classe
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>]</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          carattere di fine della definizione di classe
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>|</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          inizio di un ramo alternativo
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>(</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          inizio di un criterio di riconoscimento parziale
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>)</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          fine del criterio di riconoscimento parziale
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>?</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;           estende il significato di (, oppure 0 o 1 occorrenza, oppure occorrenza minima 
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>*</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;           0 o più occorrenze
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>+</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          1 o più occorrenze
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>{</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;           inizia l'intervallo minimo/massimo di occorrenze
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>}</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          termina l'intervallo minimo/massimo di occorrenze
+	 </P
+></DD
+></DL
+></DIV
+>
+
+     La parte del criterio che si trova tra parentesi quadrate
+     viene detta "classe di caratteri". In una classe di caratteri
+     i meta-caratteri previsti sono:
+      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          carattere di escape generico con diversi utilizzi
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>^</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          nega la classe, ma solo se posto all'inizio
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>-</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          indica un intervallo
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>]</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          chiude la classe di caratteri
+	 </P
+></DD
+></DL
+></DIV
+>
+     Le sezioni seguenti descriveranno l'uso di ciascuno dei
+     meta-caratteri.
+    </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.backslash"
+></A
+><H3
+>Backslash</H3
+><P
+>&#13;     Il carattere backslash (\) ha diversi utilizzi. Primo uso: se
+     viene anteposto a caratteri non alfanumerici, rimuove gli
+     eventuali significati speciali che il carattere può avere.
+     Questo utilizzo di backslash come carattere di escape può 
+     essere svolto sia all'interno delle classi di caratteri sia 
+     all'esterno.
+    </P
+><P
+>&#13;     Ad esempio, un criterio che deve riconoscere il carattere "*"
+     conterrà "\*". Ciò si applica indipendentemente dal 
+     carattere seguente, sia esso interpretabile come meta-carattere 
+     o meno. Nel caso in cui un carattere non alfanumerico debba
+     identificare se stesso è opportuno farlo precedere dal "\".
+     In particolare per identificare un backslash occorre scrivere 
+     "\\".
+    </P
+><P
+>&#13;     Se nel criterio di riconoscimento si specifica l'opzione  
+     <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_EXTENDED</A
+>, 
+     lo spazio bianco (diversamente da quando si trova all'interno
+     di una classe di caratteri), e i caratteri posti tra "#" e un 
+     "a capo" all'esterno di una classe di caratteri sono ignorati.
+     Un backslash può essere usato come escape per inserire uno
+     spazio bianco od il carattere "#" come parte del criterio di
+     riconoscimento.
+    </P
+><P
+>&#13;     Un secondo utilizzo del backslash consiste nel codificare in
+     modo visibile dei caratteri non visibili. Non ci sono restrizioni
+     nella presenza di caratteri non-stampabili, a parte lo zero 
+     binario terminante la stringa dell'espressione regolare. 
+     Di seguito saranno elencate le sequenze di caratteri che
+     è preferibile utilizzare per la loro semplicità al posto
+     delle corrispondenti codifiche binarie.     
+    </P
+><P
+>&#13;      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\a</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;           allarme, il carattere BEL  (hex 07)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\cx</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;           "control-x", dove x è un qualsiasi carattere
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\e</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          escape (hex 1B)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\f</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          salto pagina (hex 0C)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\n</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          "a capo" (newline) (hex 0A)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\r</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          carriage return (hex 0D)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\t</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          tabulazione (hex 09)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\xhh</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          carattere il cui codice esadecimale è hh
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\ddd</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          carattere il cui codice ottale è ddd, oppure riferimento all'indietro
+	 </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     Il preciso effetto di "<VAR
+CLASS="literal"
+>\cx</VAR
+>" è il seguente: 
+     se "<VAR
+CLASS="literal"
+>x</VAR
+>" è una lettera minuscola, viene convertita 
+     in lettera maiuscola. In pratica viene invertito il sesto bit (hex 40) 
+     del carattere. Quindi "<VAR
+CLASS="literal"
+>\cz</VAR
+>" diventa hex 1A, ma
+     "<VAR
+CLASS="literal"
+>\c{</VAR
+>" diventa hex 3B, mentre "<VAR
+CLASS="literal"
+>\c;</VAR
+>" 
+     diventa hex 7B.
+    </P
+><P
+>&#13;     Dopo la sequenza "<VAR
+CLASS="literal"
+>\x</VAR
+>", saranno letti due 
+     numeri esadecimali (per le lettere non si distingue tra 
+     maiuscolo e minuscolo)
+    </P
+><P
+>&#13;     Dopo la sequenza "<VAR
+CLASS="literal"
+>\0</VAR
+>" saranno lette due
+     cifre in ottale. In entrambi i casi se vi sono meno di due
+     cifre, saranno usati i numeri presenti. Pertanto la sequenza
+     "<VAR
+CLASS="literal"
+>\0\x\07</VAR
+>" indica 2 zeri binari seguiti dal 
+     carattere BEL. Occorre accertarsi di passare le cifre necessarie
+     dopo lo zero iniziale se il carattere che segue può essere
+     scambiato per una cifra in ottale.
+    </P
+><P
+>&#13;     Più complicata è la gestione del backslash seguito da una cifra
+     diversa da 0. Al di fuori di una classe di caratteri, PCRE
+     tratta le cifre che trova come numeri decimali. Se il numero
+     è inferiore a 10, oppure vi sono state almeno altrettante
+     parentesi sinistre, la sequenza viene considerata come un 
+     <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>riferimento</I
+></SPAN
+> <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>all'indietro</I
+></SPAN
+>.
+     Più avanti, nella parte dei criteri parziali, sarà descritto come 
+     funzionano questi riferimenti.
+    </P
+><P
+>&#13;     All'interno di una classe di caratteri, oppure nel caso in cui il numero decimale
+     è maggiore di 9 e non ci sono stati altrettanti criteri parziali,
+     PCRE rilegge le prime 3 cifre seguenti il backslash in ottale
+     e genera il carattere dagli 8 bit meno significativi del valore
+     ottenuto. Ogni altra cifra seguente indica se stessa. 
+     Ad esempio:
+    </P
+><P
+>&#13;      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\040</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;           è un'altro modo per indicare uno spazio
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\40</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          ha il medesimo significato dell'esempio precedente che 
+          non vi sono 40 sotto-criteri 
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\7</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          è sempre un riferimento all'indietro
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\11</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          può essere un riferimento all'indietro o un'altro modo
+          per indicare il carattere di tabulazione
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\011</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          è ancora il carattere di tabulazione
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\0113</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          il carattere di tabulazione seguito da "3"
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\113</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          è il carattere con il codice ottale 113 (poiché non 
+          ci possono essere più di 99 riferimenti all'indietro)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\377</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;           è un byte con tutti i bit a 1
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\81</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          può essere un riferimento all'indietro o 
+          uno zero binario seguito da "8" e da "1"
+         </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     Occorre rilevare che valori ottali maggiori di 100 non devono
+     essere preceduti dallo zero, questo perché la libreria considera
+     solo tre cifre.
+    </P
+><P
+>&#13;     Tutte le sequenze che definiscono il valore di un singolo byte
+     possono essere utilizzate sia all'interno sia all'esterno delle
+     classe di caratteri. Inoltre, all'interno delle classi di
+     caratteri, la sequenza "<VAR
+CLASS="literal"
+>\b</VAR
+>" viene interpretata
+     come carattere di backspace (hex 08), mentre all'esterno ha 
+     un'altro significato (come descritto più avanti).
+    </P
+><P
+>&#13;     Il terzo utilizzo possibile per il backslash consiste nello
+     specificare il tipo di carattere:
+    </P
+><P
+>&#13;      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\d</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          qualsiasi cifra decimale
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\D</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          qualsiasi carattere che non sia una cifra decimale
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\s</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          qualsiasi carattere identificato come spazio bianco
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\S</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          qualsiasi carattere che non sia identificato come spazio bianco
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\w</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          qualsiasi carattere che sia una "parola" (word)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\W</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          qualsiasi carattere che non sia una "parola" (word)
+         </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     Ciascuna coppia di sequenze di escape suddivide il set 
+     completo dei caratteri in due insiemi disgiunti. Un dato 
+     carattere deve essere identificato da un solo insieme di 
+     ciascuna coppia.
+    </P
+><P
+>&#13;     I caratteri definiti "parole" sono quelle lettere o cifre o
+     il carattere underscore (_), cioè qualsiasi carattere
+     che possa essere parte di una "<VAR
+CLASS="literal"
+>parola</VAR
+>" 
+     in Perl. In PCRE le definizioni di lettere e cifre vengono gestite
+     tramite le tabelle dei caratteri, che possono variare in base
+     a specifici parametri di localizzazione (vedere il paragrafo
+     intitolato "Supporto alle localizzazioni"). Ad esempio, 
+     nella localizzazione fr (relativa alla Francia), qualche
+     codice carattere maggiore di 128 è utilizzato per le lettere
+     accentate, e queste sono identificate tramite la sequenza
+     <VAR
+CLASS="literal"
+>\w</VAR
+>.
+    </P
+><P
+>&#13;     Queste sequenze di tipi di caratteri possono apparire sia
+     all'interno sia all'esterno delle classi di caratteri. 
+     Ciascuna di esse identifica un carattere del tipo appropriato.
+     Se durante la fase di identificazione di un testo, si giunge
+     al termine della stringa in cui si esegue il riconoscimento 
+     e si hanno ancora di queste sequenze da incrociare, l'operazione
+     di identificazione fallirà perché, ovviamente, non vi sono più
+     caratteri in cui riconoscere le suddette sequenze.
+    </P
+><P
+>&#13;     Il quarto utilizzo per il backslash riguarda la costruzione
+     di particolari asserzioni. L'asserzione è una condizione
+     che deve essere soddisfatta ad un certo punto del riconoscimento,
+     senza "consumare" caratteri dalla stringa oggetto del 
+     riconoscimento. Più avanti verranno descritte asserzioni più
+     complicate, costruite tramite l'uso di sotto-criteri di 
+     riconoscimento, per ora saranno illustrate delle semplici 
+     asserzioni costruite con il backslash:
+    </P
+><P
+>&#13;      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\b</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          limite di una parola
+         </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\B</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          non limite di una parola
+         </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\A</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          inizio dell'oggetto di ricerca (a prescindere dalla modalità multi-linea)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\Z</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          fine dell'oggetto di ricerca oppure newline alla fine  (a prescindere dalla
+          modalità multi-linea)
+	 </P
+></DD
+><DT
+><SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>\z</I
+></SPAN
+></DT
+><DD
+><P
+>&#13;          fine dell'oggetto di ricerca (a prescindere dalla modalità multi-linea)
+	 </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     Queste asserzioni non possono apparire all'interno di una
+     classe di caratteri (attenzione che la sequenza "<VAR
+CLASS="literal"
+>\b</VAR
+>"
+     all'interno di una classe di caratteri indica il carattere backspace).
+    </P
+><P
+>&#13;     Viene definito limite di una parola la posizione nella stringa
+     oggetto della ricerca, nella quale il carattere corrente ed il
+     carattere precedente non soddisfano la sequenza <VAR
+CLASS="literal"
+>\w</VAR
+> 
+     o la sequenza <VAR
+CLASS="literal"
+>\W</VAR
+> (ad esempio uno soddisfa la
+     sequenza <VAR
+CLASS="literal"
+>\w</VAR
+> e l'altro carattere soddisfa la
+     sequenza <VAR
+CLASS="literal"
+>\W</VAR
+>), oppure quella posizione, 
+     all'inizio o alla fine della stringa, nella quale rispettivamente 
+     il primo o l'ultimo carattere soddisfa la sequenza <VAR
+CLASS="literal"
+>\w</VAR
+>.
+    </P
+><P
+>&#13;     Le asserzioni <VAR
+CLASS="literal"
+>\A</VAR
+>, <VAR
+CLASS="literal"
+>\Z</VAR
+> e <VAR
+CLASS="literal"
+>\z</VAR
+> 
+     differiscono dai tradizionali caratteri "^" e "$" (descritti
+     di seguito) per il fatto di identificare sempre l'inizio  o la
+     fine della stringa oggetto di ricerca a prescindere da quale
+     opzione sia stata attivata. Infatti queste asserzioni non sono
+     alterate da <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_MULTILINE</A
+>  
+     oppure da  <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOLLAR_ENDONLY</A
+>.
+     La differenza tra <VAR
+CLASS="literal"
+>\Z</VAR
+> e <VAR
+CLASS="literal"
+>\z</VAR
+>
+     consiste nel fatto che <VAR
+CLASS="literal"
+>\Z</VAR
+> identifica  sia il carattere
+     precedente il newline posto al termine della stringa sia la fine della
+     stringa, mentre <VAR
+CLASS="literal"
+>\z</VAR
+> identifica solo la fine.
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.circudollar"
+></A
+><H3
+>I caratteri "^" e "$"</H3
+><P
+>&#13;     In condizioni normali, il carattere "^", posto all'esterno di 
+     una classe di caratteri, indica un asserzione che è vera soltanto
+     se il punto da cui si inizia a identificare il testo si trova
+     all'inizio della stringa oggetto della ricerca. Al contrario,
+     se il carattere "^" si trova all'interno di una classe di 
+     caratteri, assume altri significati (vedere i capitoli seguenti).
+    </P
+><P
+>&#13;     Non è necessario che il carattere "^" sia la prima lettera
+     del criterio di riconoscimento nei casi in cui si utilizzino
+     dei criteri di riconoscimento alternativi. Tuttavia è necessario
+     che sia la prima lettera nei rami alternativi in cui compare.
+     Se si inserisce il carattere "^" in tutte le alternative, caso
+     che ricorre quando si vuole riconoscere un testo a partire 
+     dall'inizio della stringa, si dice che si è costruito un criterio
+     di ricerca "ancorato". (Esistono anche altre costruzioni che
+     portano all'ancoraggio di un criterio di ricerca).
+    </P
+><P
+>&#13;     Il carattere dollaro "$" è una asserzione che è <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> soltanto
+     se il punto a cui si è arrivati ad identificare il testo si 
+     trova alla fine della stringa oggetto della ricerca, o 
+     nella lettera immediatamente precedente il carattere di "a capo",
+     che (per default) è l'ultimo carattere del testo. Il dollaro "$"
+     non deve essere necessariamente l'ultima lettera di un criterio 
+     di riconoscimento se in questo si sono utilizzati dei criteri
+     alternativi. Deve, comunque, essere l'ultima lettera nei criteri
+     ove compare. Il carattere dollaro "$" non ha significati speciali 
+     all'interno di una classe di caratteri.
+    </P
+><P
+>&#13;     Il comportamento del simbolo "$" può essere variato in modo
+     da identificare la reale fine della stringa oggetto di ricerca
+     attivando il flag <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOLLAR_ENDONLY</A
+> 
+     durante la compila o durante la fase di riconoscimento. Ciò
+     non influisce sull'asserzione \Z.
+    </P
+><P
+>&#13;     Il comportamento dei simboli "^" e "$" può essere influenzato
+     dall'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_MULTILINE</A
+>. Quando viene 
+     attivata, questi caratteri identificano rispettivamente,
+     oltre ai tradizionali inizio e fine testo, la lettera immediatamente 
+     successiva ed immediatamente precedente il carattere "\n" presente 
+     all'interno della stringa oggetto di ricerca. Per esempio il 
+     criterio /^abc$/ riconosce il testo "def\nabc" solo in modalità
+     multi-linea. Di conseguenza i criteri di riconoscimento che
+     sono "ancorati" in modalità singola linea, non lo sono in modalità
+     multi-linea. L'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOLLAR_ENDONLY</A
+> 
+     viene ignorata se si attiva il flag <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_MULTILINE</A
+> .
+    </P
+><P
+>&#13;     Occorre rilevare che le sequenze \A, \Z e \z possono essere 
+     utilizzate per riconoscere l'inizio e la fine del testo in
+     entrambe le modalità, e, se tutti i criteri alternativi 
+     iniziano con \A, si ha ancora un criterio "ancorato"
+     a prescindere che sia attivata o meno l'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_MULTILINE</A
+>.
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.dot"
+></A
+><H3
+>FULL STOP</H3
+><P
+>&#13;     Il carattere punto ".", all'esterno di una classe di caratteri,
+     identifica qualsiasi carattere, anche quelli non stampabili,
+     ma (per default) non il carattere "a capo". Invece se si 
+     abilita l'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOTALL</A
+> 
+     si avrà anche il riconoscimento del carattere "a capo".
+     La gestione del simbolo "." è svincolata dalla gestione dei
+     simboli "^" ed "$", l'unica relazione che possono avere riguarda
+     il carattere "a capo". Il punto "." non ha significati speciali
+     all'interno delle classi di caratteri.
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.squarebrackets"
+></A
+><H3
+>Parentesi quadrate</H3
+><P
+>&#13;     Un parentesi quadrata aperta "[" inizia una classe di caratteri;
+     una parentesi quadrata chiusa "]" termina la definizione
+     della classe. Di suo il carattere di parentesi quadrata chiusa 
+     non ha significati speciali. Se occorre inserire la parentesi
+     chiusa all'interno di una classe di caratteri, questa deve 
+     essere la prima lettera (ovviamente deve seguire il carattere "^", 
+     se presente) oppure deve essere preceduta dal carattere di escape "\".
+    </P
+><P
+>&#13;     Una classe di caratteri identifica un singolo carattere nella
+     stringa oggetto di ricerca; il carattere deve comparire nel
+     set di caratteri definito dalla classe, a meno che il primo 
+     carattere della classe non sia l'accento circonflesso "^",
+     in tal caso il carattere non deve essere nel set definito 
+     dalla classe. Se è richiesto l'inserimento del carattere "^"
+     nel set definito dalla classe, questo non deve essere la 
+     prima lettera dopo la parentesi di apertura, oppure deve
+     essere preceduto dal carattere di escape (\).
+    </P
+><P
+>&#13;     Ad esempio, la classe [aeiou] identifica ogni vocale minuscola,
+     mentre [^aeiou] identifica tutti i caratteri che non siano delle
+     vocali minuscole. Occorre notare che il simbolo "^" è un modo
+     pratico per indicare i caratteri che sono nella classe, citando
+     quelli che non lo sono. Questa non è una asserzione: consuma
+     un carattere della stringa oggetto di ricerca e fallisce se ci
+     si trova alla fine del testo. 
+    </P
+><P
+>&#13;     In un riconoscimento senza distinzione tra minuscole e maiuscole,
+     ogni lettera della classe identifica sia la versione maiuscola
+     sia la minuscola. Così, ad esempio, la classe [aeiou] identifica
+     sia "A" sia "a", e, in questo caso, [^aeiou] non identifica "A",
+     mentre con la distinzione delle maiuscole [^aeiou] identifica
+     la lettera "A".
+    </P
+><P
+>&#13;     Il carattere di "a capo" (newline) non viene trattato in
+     modo speciale nelle classi di caratteri, indipendentemente
+     dalle opzioni <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOTALL</A
+> o <A
+HREF="missing-stuff.html#pcre.pattern.modifiers"
+>PCRE_MULTILINE</A
+>.
+     La classe [^a] riconosce sempre il carattere "a capo".
+    </P
+><P
+>&#13;     Il segno meno (-) può essere usato per definire un intervallo
+     all'interno della classe. Ad esempio, [d-m] identifica ogni
+     lettera compresa tra d ed m inclusi. Se occorre inserire il
+     segno meno (-) come carattere da riconoscere o lo si fa 
+     precedere dal carattere di escape (\), oppure lo si mette in 
+     una posizione tale che non possa essere identificato come 
+     definizione di un intervallo (ad esempio all'inizio o alla fine 
+     della definizione della classe).
+    </P
+><P
+>     
+     Non è possibile usare il carattere "]" come limite di un
+     intervallo. Un criterio definito come [W-]46], viene inteso 
+     come una classe di due caratteri (W e -) seguita dalla stringa
+     46], in tal modo sarebbero riconosciuti i testi "W46]" oppure "-46]".
+     Quindi è necessario precedere la lettera "]" con il carattere di
+     escape (\), in questo modo [W-\]46], viene interpretata 
+     correttamente come una singola classe contenente un range seguito
+     da due caratteri separati. In alternativa, per delimitare l'intervallo 
+     si può utilizzare la notazione ottale di "]".
+    </P
+><P
+>&#13;     Gli intervalli utilizzano la sequenza di caratteri ASCII.
+     Inoltre possono essere utilizzati per definire caratteri con 
+     specifica numerica (ad esempio [\000-\037]). Nei casi in cui
+     si abiliti il riconoscimento senza distinzione tra lettere 
+     maiuscole e minuscole, gli intervalli comprendenti lettere
+     identificano sia la lettera maiuscola che minuscola. Ad esempio,
+     [W-c] è equivalente ad [][\^_`wxyzabc] (con il riconoscimento 
+     a prescindere dalla lettera maiuscole e minuscole), e, se
+     si utilizza la tabella dei caratteri locali francesi "fr",
+     [\xc8-\xcb] identifica la lettera "e" accentata sia maiuscola
+     sia minuscola.
+    </P
+><P
+>&#13;     Nelle classi di caratteri si possono utilizzare le sequenze
+     \d, \D, \s, \S,  \w e \W per aggiungere altri tipi di caratteri
+     alla classe. Ad esempio, [\dABCDEF] riconosce qualsiasi cifra 
+     esadecimale. Il carattere "^" può essere utilizzato con i caratteri
+     maiuscoli per indicare un set di caratteri più ristretto
+     che l'identificazione del set di caratteri minuscoli. Ad 
+     esempio, la classe [^\W_] identifica qualsiasi lettera o cifra
+     ma non il trattino basso (_).
+    </P
+><P
+>&#13;     Tutti i caratteri non alfabetici, eccetto \,  -,  ^ (posto
+     all'inizio) e ] non sono speciali per la classi di caratteri,
+     e non sono dannosi se preceduti dal caratteri di escape (\).
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.verticalbar"
+></A
+><H3
+>Barra verticale (|)</H3
+><P
+>&#13;     La barra verticale (|) viene utilizzata per separare criteri 
+     di riconoscimento alternativi. Ad esempio il seguente criterio
+ 
+       <VAR
+CLASS="literal"
+>gilbert|sullivan</VAR
+>
+
+     può riconoscere "gilbert" oppure "sullivan". Ci possono essere
+     innumerevoli alternative, compresa un'alternativa vuota (per 
+     identificare una stringa vuota). Il processo di riconoscimento 
+     prova tutte le alternative possibili (da sinistra a destra)
+     fino a quando non ne trova una che sia soddisfatta. Se le
+     alternative sono nella definizione di un criterio parziale
+     il riconoscimento ha successo quando avviene su tutto il criterio.
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.internal-options"
+></A
+><H3
+>Settaggio delle opzioni interne</H3
+><P
+>&#13;     Le opzioni <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_CASELESS</A
+>, 
+     <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_MULTILINE</A
+> ,  
+     <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOTALL</A
+>,
+     <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_UNGREEDY</A
+>
+     e <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_EXTENDED</A
+> 
+     possono essere cambiate "al volo" dall'interno del criterio di 
+     riconoscimento, utilizzando le sequenze di lettere definite per 
+     queste opzioni in Perl, racchiuse tra "(?" ed ")". Le lettere 
+     utilizzabili sono:
+     <DIV
+CLASS="table"
+><A
+NAME="AEN123332"
+></A
+><P
+><B
+>Tabella 1. Lettere per le opzioni interne</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>i</VAR
+></TD
+><TD
+> per <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_CASELESS</A
+></TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>m</VAR
+></TD
+><TD
+>per <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_MULTILINE</A
+></TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>s</VAR
+></TD
+><TD
+>per <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOTALL</A
+></TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>x</VAR
+></TD
+><TD
+>per <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_EXTENDED</A
+></TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>U</VAR
+></TD
+><TD
+>per <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_UNGREEDY</A
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+> 
+    </P
+><P
+>&#13;     Ad esempio, (?im) abilita il riconoscimento senza distinzione
+     tra lettere maiuscole e minuscole e la modalità multi-linea.
+     E' anche possibile disabilitare queste opzioni facendo precedere
+     la lettera dal segno meno (-), o combinare l'attivazione con la
+     disattivazione come nel caso (?im-sx), in cui si attiva <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_CASELESS</A
+> e 
+     <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_MULTILINE</A
+> e si disattiva <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOTALL</A
+> e <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_EXTENDED</A
+>.
+     Se la lettera compare sia prima che dopo il segno meno (-)
+     l'opzione resta disabilitata.
+    </P
+><P
+>&#13;     L'ambito di validità delle opzioni dipende da dove sono
+     i flag di abilitazione/disabilitazione nel criterio di ricerca.
+     Nei casi in cui il settaggio di un'opzione avvenga all'esterno
+     di un qualsiasi criterio parziale (come definito in seguito) gli 
+     effetti sono  medesimi di quando l'attivazione/disattivazione 
+     avviene all'inizio del criterio di riconoscimento. Gli esempi
+     seguenti si comportano tutti allo stesso modo:
+    </P
+><P
+CLASS="literallayout"
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(?i)abc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a(?i)bc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ab(?i)c<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abc(?i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P
+><P
+>&#13;     In questi esempi si attiva <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_CASELESS</A
+>  
+     per il criterio "abc". In altre parole, questo settaggio compiuto 
+     al primo livello si applica a tutto il criterio (a meno che non
+     vi siano altre variazioni nelle sotto-regole di riconoscimento).
+     Qualora vi siano più settaggi per lo stesso parametro, viene
+     utilizzato quello più a destra.
+    </P
+><P
+>&#13;     Se si inserisce la variazione di un'opzione in una sotto-regola
+     gli effetti sono differenti. Questa è una variazione rispetto al 
+     comportamento di Perl 5.005. Una variazione apportata all'interno 
+     di una sotto-regola, vale solo per la parte della sotto-regola 
+     che segue la variazione, pertanto
+
+       <VAR
+CLASS="literal"
+>(a(?i)b)c</VAR
+>
+
+     identifica abc, aBc e nessuna altra stringa ( si assume che
+     <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_CASELESS</A
+> non sia usato).  
+     Da ciò deriva che le opzioni possono avere comportamenti differenti
+     nelle varie parti del criterio di riconoscimento. Ogni variazione
+     apportata ad una ramo alternativo del criterio viene estesa alle
+     alternative successive della medesima sotto-regola. Ad esempio,
+
+       <VAR
+CLASS="literal"
+>(a(?i)b|c)</VAR
+>
+
+     identifica "ab", "aB", "c" e "C", anche se per identificare "C"
+     viene scartato il primo ramo prima di incontrare il settaggio
+     dell'opzione. Questo accade perché gli effetti dei settaggi 
+     vengono inseriti nella fase di compila. Diversamente si avrebbero
+     dei comportamenti molto bizzarri.
+    </P
+><P
+>&#13;     Le opzioni specifiche di PCRE <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_UNGREEDY</A
+> e <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_EXTRA</A
+> 
+     possono essere variate nel medesimo modo delle opzioni 
+     Perl compatibili, utilizzando rispettivamente i caratteri 
+     U e X. Il flag (?X) è particolare poiché deve comparire 
+     prima di qualsiasi opzione esso attivi anche quando si 
+     trova al primo livello. E' opportuno inserirlo all'inizio.
+
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.subpatterns"
+></A
+><H3
+>Sotto-regole</H3
+><P
+>&#13;     Le sotto-regole sono delimitate dalle parentesi tonde e
+     possono essere annidate. La definizione di una parte di
+     una regola di riconoscimento come sotto-regola può servire a:
+    </P
+><P
+>&#13;     1. Localizzare un set di alternative. Ad esempio nel seguente
+     criterio di riconoscimento
+
+       <VAR
+CLASS="literal"
+>cat(aract|erpillar|)</VAR
+>
+
+     si riconosce una tra le parole "cat", "cataract" oppure "caterpil-
+     lar".  Se non fossero state usate le parentesi, il criterio
+     avrebbe permesso il riconoscimento delle parole "cataract",
+     "erpillar" oppure una stringa vuota.
+    </P
+><P
+>&#13;     2. Identificare e catturare parte del testo riconosciuto 
+     dalla sotto-regola (come illustrato in seguito). Quando 
+     il riconoscimento dell'intero criterio ha avuto successo, 
+     le porzioni della stringa oggetto della ricerca identificate
+     dalle sotto-regole sono restituite alla funzione chiamante
+     tramite l'argomento <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>vettore</I
+></SPAN
+> della funzione
+     <B
+CLASS="function"
+>pcre_exec()</B
+>. Per determinare il numero ordinale
+     di ciascuna sotto-regola si contano le parentesi aperte da
+     sinistra verso destra partendo da 1.
+    </P
+><P
+>&#13;     Ad esempio, se si esegue un riconoscimento nella frase 
+     "the red king" con il seguente criterio
+
+       <VAR
+CLASS="literal"
+>the ((red|white) (king|queen))</VAR
+>
+
+     si ottengono i testi "red king", "red" e "king", rispettivamente
+     identificati dalla sotto-regola 1, 2 e 3.
+    </P
+><P
+>&#13;     Il fatto che le parentesi tonde adempiano a due funzioni non
+     sempre porta a situazioni comprensibili. Spesso capita di 
+     dovere raggruppare delle sotto-regole senza per questo essere
+     richiesta la cattura del testo. A tale scopo l'uso della 
+     sequenza "?:" dopo la parentesi di apertura permette di indicare
+     che questa sotto-regola non deve catturare il testo, e non deve essere
+     conteggiata nel numero d'ordine delle sotto-regole di cattura.
+     Ad esempio, applicando il criterio  
+
+       <VAR
+CLASS="literal"
+>the ((?:red|white) (king|queen))</VAR
+>
+
+     alla frase "the  white  queen", si catturano i testi "white queen" 
+     e  "queen",  rispettivamente numerati 1 e 2. Il numero massimo
+     di testi catturabili è 99, il numero massimo di sotto-regole,
+     a prescindere che siano di cattura o meno, è 200.
+   </P
+><P
+>&#13;     Come utile abbreviazione, nei casi in cui l'attivazione di
+     alcune opzioni debba essere fatta all'inizio di una sotto-regola
+     non di cattura, la lettera dell'opzione può comparire tra la 
+     "?" e ":". Pertanto i due criteri
+    </P
+><P
+CLASS="literallayout"
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(?i:saturday|sunday)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(?:(?i)saturday|sunday)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;</P
+><P
+>&#13;     riconoscono esattamente lo stesso set di parole. Poiché i rami 
+     alternativi sono provati da sinistra verso destra, e le opzioni
+     non sono azzerate fino a quando non si è conclusa la sotto-regola,
+     una opzione attivata in un ramo alternativo si applica a tutte
+     le alternative che seguono. Pertanto, nell'esempio di prima, sia
+     la parola "SUNDAY" che la parola "Saturday" sono testi
+     identificati correttamente.
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.repetition"
+></A
+><H3
+>Ripetizioni</H3
+><P
+>&#13;     Le ripetizioni sono il numero delle occorrenze che possono
+     essere indicate dopo i seguenti elementi:
+      <P
+></P
+><UL
+><LI
+><P
+>un singolo carattere, possibilmente preceduto dal carattere di escape (\)</P
+></LI
+><LI
+><P
+>il metacarattere .</P
+></LI
+><LI
+><P
+>una classe di caratteri</P
+></LI
+><LI
+><P
+>un riferimento all'indietro (vedere la sezione successiva)</P
+></LI
+><LI
+><P
+>una sotto-regola (a meno che non si tratti di una asserzione - 
+       vedere più avanti)</P
+></LI
+></UL
+> 
+    </P
+><P
+>&#13;     In generale una occorrenza specifica un numero minimo e massimo
+     di riconoscimenti previsti tramite la specifica dei due limiti,
+     posti tra parentesi graffe e separati da una virgola. Entrambi i numeri
+     devono essere minori di 65536 ed il primo deve essere minore o 
+     uguale rispetto al secondo. Ad esempio:
+
+       <VAR
+CLASS="literal"
+>z{2,4}</VAR
+>
+
+     identifica  "zz", "zzz" oppure "zzzz". La parentesi graffa chiusa
+     di suo non rappresenta un carattere speciale. Se si omette il 
+     secondo numero, ma si lascia la virgola, non si indica un 
+     limite superiore; se sia la virgola sia il secondo numero sono
+     omessi, l'occorrenza specifica l'esatto numero di riconoscimenti
+     richiesti. Il criterio
+
+       <VAR
+CLASS="literal"
+>[aeiou]{3,}</VAR
+>
+
+     identifica almeno 3 o più vocali consecutive, mentre
+
+       <VAR
+CLASS="literal"
+>\d{8}</VAR
+>
+
+     identifica esattamente 8 cifre. Una parentesi graffa aperta
+     che compaia in una posizione in cui non sia prevista una 
+     occorrenza, o che comunque non sia riconducibile alla sintassi
+     di una occorrenza, viene tratta come il carattere "{". Ad 
+     esempio {,6} non indica delle occorrenze, ma una stringa di
+     4 caratteri.
+    </P
+><P
+>&#13;     L'indicazione {0} è permessa. Indica di comportarsi come se 
+     l'elemento precedente all'occorrenza non fosse presente.
+    </P
+><P
+>&#13;     Per praticità (e compatibilità verso il passato) si usano 3
+     abbreviazioni per le occorrenze più comuni:
+     <DIV
+CLASS="table"
+><A
+NAME="AEN123412"
+></A
+><P
+><B
+>Tabella 2. Indicatore di occorrenza</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>*</VAR
+></TD
+><TD
+>equivale a <VAR
+CLASS="literal"
+>{0,}</VAR
+></TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>+</VAR
+></TD
+><TD
+>equivale a <VAR
+CLASS="literal"
+>{1,}</VAR
+></TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>?</VAR
+></TD
+><TD
+>equivale a <VAR
+CLASS="literal"
+>{0,1}</VAR
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+> 
+    </P
+><P
+>&#13;     E' anche possibile creare un ciclo infinito facendo seguire
+     ad una sotto-regola che non identifica alcun carattere una
+     occorrenza priva di limite superiore. Ad esempio:
+      <VAR
+CLASS="literal"
+>(a?)*</VAR
+> 
+    </P
+><P
+>&#13;
+     Le versioni precedenti di Perl e di PCRE segnalavano un errore
+     durante la fase di compila per questi criteri. Tuttavia, poiché
+     vi sono casi dove questi criteri possono essere utili, queste
+     regole sono accettate, ma, se la ripetizione non riconosce 
+     alcun carattere, il ciclo viene interrotto.   
+    </P
+><P
+>&#13;     Per default le occorrenze sono "bramose", infatti identificano
+     più testi possibile (fino al numero massimo permesso), senza
+     per questo fare fallire il riconoscimento della parte rimanente
+     del criterio di ricerca. Il classico esempio dove questo comportamento
+     può essere un problema, riguarda il riconoscimento dei commenti
+     nei programmi C. Questi compaiono tra le sequenze /* ed */,
+     ma all'interno, nel commento, si possono usare sia il carattere
+     *, sia il carattere /. Il tentativo di individuare i commenti C
+     con il seguente criterio    
+
+       <VAR
+CLASS="literal"
+>/\*.*\*/</VAR
+>
+
+     se applicato al commento
+
+        <VAR
+CLASS="literal"
+>/* primo commento */  nessun commento  /* secondo commento */</VAR
+>
+
+     non ha successo, perché identifica l'intera stringa a causa
+     della "bramosia" dell'elemento ".*".
+    </P
+><P
+>&#13;     Tuttavia, se un'occorrenza è seguita da un punto interrogativo,
+     questa cessa di essere "bramosa", e identifica il numero
+     minimo di testi permessi. Pertanto il criterio
+
+       <VAR
+CLASS="literal"
+>/\*.*?\*/</VAR
+>
+
+     si comporta correttamente con i commenti C. Il significato 
+     delle varie occorrenze non è stato cambiato, si è soltanto
+     modificato il numero delle occorrenze da riconoscere. Attenzione
+     a non confondere questo uso del punto interrogativo con il
+     suo proprio significato. Dati i due utilizzi del ?, può
+     anche capitare di averli entrambi come in     
+
+       <VAR
+CLASS="literal"
+>\d??\d</VAR
+>
+
+     che, preferibilmente, identifica una cifra, ma può riconoscerne
+     due se questa è l'unica via per soddisfare il riconoscimento
+     dell'intero criterio.     
+    </P
+><P
+>&#13;     Se si attiva l'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_UNGREEDY</A
+>
+     (un'opzione disponibile anche in Perl), per default le occorrenze
+     non sono "bramose", ma ogni singola occorrenza può essere 
+     resa "bramosa" se seguita dal punto interrogativo. In altre
+     parole si è invertito il normale comportamento.
+    </P
+><P
+>&#13;     Quando si indica un numero minimo di occorrenze maggiore di 1,
+     per una sotto-regola posta tra parentesi, oppure
+     si indica un numero massimo di occorrenze, la fase di
+     compila richiede più spazio in proporzione ai valori 
+     minimo e massimo.     
+    </P
+><P
+>&#13;     Se un criterio inizia con .* oppure .{0,} e si è attivata
+     l'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOTALL</A
+> 
+     (equivalente al /s di Perl), permettendo al . di identificare
+     il carattere di "a capo", si dice che il criterio è implicitamente
+     ancorato, perché qualsiasi elemento che segue sarà confrontato
+     con ciascun carattere della stringa oggetto della ricerca,
+     e pertanto non vi è nessuna posizione, a parte la prima, da
+     cui ripartire per ritentare il riconoscimento dell'intero criterio. 
+     PCRE tratta tale criterio come se fosse preceduto dalla sequenza
+     \A. Nei casi in cui è noto a priori che la stringa oggetto di 
+     ricerca non contiene caratteri di "a capo", vale la pena di 
+     attivare l'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOTALL</A
+>
+     se il criterio di ricerca inizia con ".*", per ottenere 
+     questa ottimizzazione, oppure, in alternativa, usare "^"
+     per indicare in modo esplicito un ancoraggio.
+    </P
+><P
+>&#13;     Quando si ripete una sotto-regola di cattura, il testo 
+     estrapolato è la parte identificata dall'iterazione finale.
+     Ad esempio se il criterio   
+
+       <VAR
+CLASS="literal"
+>(tweedle[dume]{3}\s*)+</VAR
+>
+
+     viene applicato al testo "tweedledum tweedledee", il testo 
+     estrapolato sarà "tweedledee". Tuttavia se vi sono delle
+     sotto-regole annidate, il testo catturato può essere 
+     determinato dalle iterazioni precedenti. Ad esempio nel 
+     criterio 
+     
+       <VAR
+CLASS="literal"
+>/(a|(b))+/</VAR
+>
+
+     applicato a "aba", la seconda stringa catturata è "b".
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.back-references"
+></A
+><H3
+>Riferimenti all'indietro</H3
+><P
+>&#13;     Esternamente ad una classe di caratteri, un backslah (\) 
+     seguito da una o più cifre maggiori di 0 è un riferimento
+     all'indietro verso testi catturati precedentemente (ad esempio
+     alla sinistra rispetto a dove ci si trova), conteggiati tramite
+     il numero delle parentesi chiuse precedenti.
+    </P
+><P
+>&#13;     Tuttavia, se il numero che segue il backslash (\) è un valore
+     inferiore a 10, si assume che si tratti sempre di un riferimento
+     all'indietro, e pertanto viene generato un errore se nel criterio
+     non vi sono almeno altrettante parentesi chiuse di sotto-regole
+     di cattura. In altre parole per i numeri inferiori a 10 non è 
+     necessario che il numero parentesi precedenti (a sinistra)
+     alla sotto-regola sia pari o maggiore al numero indicato.
+     Vedere la sezione relativa al backslash per informazioni su
+     come gestire le cifre seguenti il backslash.
+    </P
+><P
+>&#13;     Un riferimento all'indietro identifica ciò che è già
+     stato catturato dalla sotto-regola, e non ciò che la
+     sotto-regola stessa possa riconoscere. Ad esempio il
+     criterio
+
+        <VAR
+CLASS="literal"
+>(sens|respons)e and \1ibility</VAR
+>
+
+     può riconoscere "sense and sensibility" oppure "response and
+     responsibility", ma non il testo "sense  and  responsibility". 
+     Se al momento del riferimento all'indietro, è attiva la distinzione
+     tra lettere maiuscole e minuscole, il formato della lettera 
+     diventa rilevante. Ad esempio,
+
+       <VAR
+CLASS="literal"
+>((?i)rah)\s+\1</VAR
+>
+
+     può identificare "rah rah" e "RAH RAH", ma non "RAH  rah",  
+     anche se la sotto-regola originale eseguiva dei riconoscimenti
+     a prescindere dalle lettere maiuscole e minuscole.
+    </P
+><P
+>&#13;     Nella medesima sotto-regola si possono avere più di un riferimento
+     all'indietro. Se una sotto-regola non viene utilizzata in
+     un particolare riconoscimento, un riferimento a questa
+     ha sempre esito  negativo. Ad esempio il criterio
+
+       <VAR
+CLASS="literal"
+>(a|(bc))\2</VAR
+>
+
+     non avrà mai successo se l'identificazione della stringa 
+     inizia con "a" e non con "bc". Dato che sono possibili fino a 99
+     riferimenti all'indietro, tutte le cifre che seguono un backslash
+     (\) sono considerate come parte di un potenziale numero di
+     riferimento. Se il criterio continua con altri caratteri 
+     numerici, occorre stabilire un carattere per delimitare il
+     numero del riferimento. Se si attiva l'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_EXTENDED</A
+> 
+     questo carattere può essere lo spazio. Altrimenti si può usare 
+     un commento vuoto.
+    </P
+><P
+>&#13;     Un riferimento all'indietro non ha successo se viene inserito 
+     in una sotto regola prima che sia applicata. Con questo si 
+     intende, ad esempio, che (a\1) non avrà mai successo, ma, nel
+     caso di una sottoregola ripetuta, si avrà un riscontro positivo.
+     Ad esempio
+
+       <VAR
+CLASS="literal"
+>(a|b\1)+</VAR
+>
+
+     identificherà qualsiasi numero di "a", ma anche "aba" oppure
+     "ababaa" eccetera. In pratica a ciascuna iterazione della 
+     sotto-regola il riferimento andrà a sostituire la stringa riconosciuta
+     tramite la sotto-regola dell'iterazione precedente. Affinchè
+     il tutto funzioni, è necessario che la prima iterazione sia
+     identificata senza l'ausilio del riferimento "all'indietro".
+     Ciò può essere ottenuto o usando casi alternativi, come nell'esempio
+     precedente, o usando le occorrenze indicando come numero minimo
+     di occorrenze il valore zero.
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.assertions"
+></A
+><H3
+>Asserzioni</H3
+><P
+>&#13;     L'asserzione è un test basato su un carattere, che può precedere
+     o seguire l'attuale punto di riconoscimento, e non consuma
+     alcun carattere. Le semplici asserzioni quali \b, \B, \A, \Z,
+     \z, ^ e $ sono state descritte precedentemente. Asserzioni più
+     complesse possono essere strutturate come delle sotto-regole.
+     Se ne hanno di due tipologie: quelle che "guardano avanti"
+     alla posizione attuale nella stringa oggetto del riconoscimento,
+     e quelle che "guardano dietro" la posizione attuale.
+    </P
+><P
+>&#13;     Una asserzione definita come sotto-regola esegue il riconoscimento
+     nel modo usuale, ma tale riconoscimento non sposta la posizione
+     attuale nella stringa. Le asserzioni che "guardano avanti" cominciano
+     per "(?=", se sono positive, per "(?!", se sono asserzioni negative.     
+     Ad esempio
+
+       <VAR
+CLASS="literal"
+>\w+(?=;)</VAR
+>
+
+     riconosce una parola seguita da ";", ma non include il 
+     punto e virgola nel riconoscimento, mentre     
+
+       <VAR
+CLASS="literal"
+>foo(?!bar)</VAR
+>
+
+     identifica qualsiasi occorrenza di "foo" che non sia seguita da
+     "bar". Attenzione che il criterio, apparentemente simile,
+
+       <VAR
+CLASS="literal"
+>(?!foo)bar</VAR
+>
+
+     non riconosce alcuna occorrenza di "bar" se questa è preceduta
+     da qualsiasi testo che non sia  "foo"; infatti l'espressione 
+     riconosce qualsiasi occorrenza di "bar", poiché l'asserzione (?!foo)
+     è sempre <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> quando i tre caratteri successivi sono "bar".
+     Pertanto è necessario una asserzione che "guarda" all'indietro 
+     per ottenere effetto desiderato.
+    </P
+><P
+>    
+     Le asserzioni che "guardano" indietro positive iniziano con 
+     "(?&#60;=", e con "(?&#60;!" le negative. Ad esempio:
+
+       <VAR
+CLASS="literal"
+>(?&#60;!foo)bar</VAR
+>
+
+     riconosce una occorrenza di "bar" che non sia preceduta da 
+     "foo". Le asserzioni che "guardano" indietro hanno una limitazione:
+     tutte le stringhe che riconoscono devono avere lunghezza fissa.
+     Mentre, se si hanno casi alternativi, la limitazione della lunghezza
+     fissa non sussiste. Quindi
+
+        <VAR
+CLASS="literal"
+>(?&#60;=bullock|donkey)</VAR
+>
+
+     è una asserzione permessa, ma
+
+        <VAR
+CLASS="literal"
+>(?&#60;!dogs?|cats?)</VAR
+>
+
+     genera un errore durante la fase di compila. Rami alternativi
+     con lunghezze di stringa differenti sono permessi solo
+     al primo livello dell'asserzione. Questa è da considerarsi una 
+     estensione rispetto a Perl 5.005, che richiede a tutte le alternative
+     possibili la medesima lunghezza di stringa. Quindi una asserzione
+     tipo
+
+       <VAR
+CLASS="literal"
+>(?&#60;=ab(c|de))</VAR
+>
+
+     non è permessa, poiché il suo singolo ramo di primo livello
+     può identificare testi di due lunghezze differenti, ma è accettabile
+     se riscritta usando due alternative di primo livello:
+
+       <VAR
+CLASS="literal"
+>(?&#60;=abc|abde)</VAR
+>
+
+     L'implementazione di questo tipo di asserzioni consiste, per
+     ciascuna alternativa, di uno spostamento all'indietro temporaneo
+     per la lunghezza fissa necessaria, e ad un tentativo di 
+     riconoscimento del testo. Se non ci sono sufficienti caratteri
+     precedenti alla posizione attuale, l'asserzione è destinata a 
+     fallire. L'uso accoppiato delle asserzioni che "guardano" indietro
+     con sotto-regole a riconoscimento singolo può essere utile
+     per identificare la fine dei testi; un esempio è illustrato
+     al termine della sezione sulle sotto-regole a riconoscimento 
+     singolo.
+    </P
+><P
+>&#13;     Diverse asserzioni (di qualsiasi tipologia) possono essere 
+     utilizzate in modo consecutivo. Ad esempio:
+
+       <VAR
+CLASS="literal"
+>(?&#60;=\d{3})(?&#60;!999)foo</VAR
+>
+
+     riconosce "foo" preceduto da tre cifre che non siano "999".
+     Occorre rilevare che ciascuna asserzione viene applicata
+     singolarmente sul medesimo punto nella stringa oggetto di 
+     riconoscimento. Nell'esempio precedente per prima cosa si
+     verifica che i tre caratteri precedenti siano cifre, quindi
+     che non siamo "999". Questo esempio non identifica il testo
+     se "foo" è preceduto da sei caratteri di cui i primi tre siano 
+     cifre e i secondi tre non siano "999". In pratica il testo
+     "123abcfoo" non viene riconosciuto. Un criterio per riconoscere
+     tale stringa può essere:
+       <VAR
+CLASS="literal"
+>(?&#60;=\d{3}...)(?&#60;!999)foo</VAR
+> 
+    </P
+><P
+>&#13;     In questo caso la prima asserzione controlla i primi sei caratteri
+     verificando che i primi tre siano cifre, mentre la seconda
+     asserzione verifica che i secondi tre caratteri non siano
+     "999".     
+    </P
+><P
+>&#13;     Le asserzioni possono essere annidate in qualsiasi combinazione.
+     Il seguente esempio
+
+       <VAR
+CLASS="literal"
+>(?&#60;=(?&#60;!foo)bar)baz</VAR
+>
+
+     identifica il testo "baz" se è preceduto da "bar" il quale
+     non deve essere preceduto da "foo", mentre    
+
+       <VAR
+CLASS="literal"
+>(?&#60;=\d{3}...(?&#60;!999))foo</VAR
+>
+
+     è un'altro criterio che riconosce "foo" preceduto da tre cifre
+     e da tre caratteri che non siano "999".     
+    </P
+><P
+>&#13;     Le asserzioni definite come sotto-regole non catturano parte 
+     del testo e non possono essere ripetute (non avrebbe senso
+     ripetere il medesimo riconoscimento sul medesimo testo).
+     Se una di queste asserzioni contiene una sotto-regola di cattura
+     questa viene conteggiata ai fini della numerazione delle regole
+     di cattura. Tuttavia il testo viene effettivamente catturato
+     solo nelle asserzioni positive, dato che non avrebbe senso farlo
+     in quelle negative.
+    </P
+><P
+>&#13;     Le asserzioni possono essere composte fino ad un massimo
+     di 200 sotto-regole.
+     subpatterns.
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.onlyonce"
+></A
+><H3
+>Sotto-regole a riconoscimento singolo (Once-only subpatterns)</H3
+><P
+>&#13;     Con l'indicazione del numero minimo e massimo di ripetizioni,
+     il fallimento del riconoscimento della parte successiva del testo
+     causa una ripetizione dell'identificazione con un numero di 
+     occorrenze diverse per verificare se in questa situazione anche il 
+     resto  del testo viene identificato. In alcune situazioni può
+     essere utile bloccare questo meccanismo,  per la cambiata
+     natura del criterio, oppure per fare fallire la ricerca prima 
+     di quando potrebbe accadere, oppure quando l'autore sa che non
+     ci sono punti da cui ripartire.
+    </P
+><P
+>&#13;     Consideriamo, ad esempio, il criterio \d+foo applicato alla
+     seguente linea
+       <VAR
+CLASS="literal"
+>123456bar</VAR
+> 
+    </P
+><P
+>&#13;     Dopo avere identificato le 6 cifre ed avere mancato nel riconoscimento
+     di "foo", il comportamento normale consiste nel tentare di 
+     procedere identificando 5 cifre per l'elemento \d+, quindi
+     tentare con 4 e così via, prima di fallire definitivamente.
+     Le sotto-regole a riconoscimento singolo permettono di specificare
+     che, una volta riconosciuta una porzione della regola, questa
+     non debba essere più considerata, in maniera tale da abortire
+     immediatamente il riconoscimento se non si ha successo 
+     nell'identificare la parte restante del criterio.
+     L'espressione per definire questo tipo di sotto-regola richiede
+     un'altro tipologia di utilizzo speciale delle parentesi. Infatti
+     iniziano con (?&#62; come nell'esempio seguente:
+         <VAR
+CLASS="literal"
+>(?&#62;\d+)bar</VAR
+> 
+    </P
+><P
+>&#13;     Questa tipologia di parentesi "inchioda" la parte di criterio
+     una volta che avviene il riconoscimento, e, quindi, un fallimento
+     successivo impedisce la ri-elaborazione di questo segmento.
+     Tuttavia, occorre notare che gli elementi precedenti a questo
+     si comportano in modo normale, e pertanto la ri-elaborazione,
+     pur non toccando questo elemento, passa ai precedenti.
+    </P
+><P
+>&#13;     Una descrizione alternativa di questa tipologia di sotto-regola
+     potrebbe essere che questo criterio identifica un testo come
+     avrebbe fatto un singolo criterio se fosse stato ancorato
+     alla posizione corrente.     
+    </P
+><P
+>&#13;     Le sotto-regole a riconoscimento singolo non compiono la cattura
+     del testo identificato. I casi semplici illustrati in precedenza
+     possono essere considerati come una estremizzazione della
+     ripetizione che porta ad inglobare tutto ciò che può. Pertanto,
+     da una parte \d+ e \d+? sono sequenze che si adattano a riconoscere
+     il numero corretto di cifre affinchè la ricerca abbia successo,
+     dall'altra la sequenza (?&#62;\d+) riconosce soltanto una sequenza
+     di cifre.
+    </P
+><P
+>&#13;     Ovviamente queste costruzioni possono contenere diverse
+     sotto-regole sia complesse, sia annidate.     
+    </P
+><P
+>&#13;     Le sotto-regole a riconoscimento singolo possono essere usate
+     congiuntamente alle asserzioni che guardano indietro, per definire
+     una regola efficiente per riconoscere la fine della stringa.
+     Ad esempio si consideri questo semplice criterio:
+
+       <VAR
+CLASS="literal"
+>abcd$</VAR
+>
+
+     quando viene applicato ad un lungo testo può non avere successo.
+     Questo perché il riconoscimento procede da sinistra verso destra,
+     quindi PCRE prima cerca la "a", e poi cerca di riconoscere la
+     parte restante del criterio. Se si modifica il criterio nel 
+     seguente modo
+
+       <VAR
+CLASS="literal"
+>^.*abcd$</VAR
+>
+
+     allora la sequenza iniziale .* in prima battuta identificherà
+     tutto il testo, ma quando fallisce (poiché non vi sono più "a"),
+     la ricerca tornerà indietro di uno (quindi tutto il testo tranne
+     l'ultimo carattere), quindi, se continua non esserci la "a", si
+     torna indietro di due, e così via. Continuando a tornare indietro
+     alla ricerca della "a" si percorre tutto il testo da destra a
+     sinistra, senza ottenere nulla di valido. Tuttavia se si 
+     riscrive il criterio come:
+
+       <VAR
+CLASS="literal"
+>^(?&#62;.*)(?&#60;=abcd)</VAR
+>
+
+     non si attiva più lo scorrimento verso sinistra per .* , ma viene
+     costretto a riconoscere tutto il testo (esito del primo tentativo).
+     La asserzione successiva, esegue una verifica sulle ultime 4 
+     lettere.Se fallisce, ciò avviene immediatamente, provocando 
+     un impatto sensibile nei tempi di elaborazione con testi molto
+     lunghi.
+    </P
+><P
+>&#13;     Quando un criterio di riconoscimento contiene un elemento
+     ripetuto senza limite all'interno di una sotto-regola che
+     anch'essa possa ripetuta illimitatamente, l'uso delle sotto-regole
+     a riconoscimento singolo è l'unico mezzo per evitare che 
+     certi mancati riconoscimenti richiedano molto tempo per essere
+     rilevati. Ad esempio il criterio   
+
+       <VAR
+CLASS="literal"
+>(\D+|&#60;\d+&#62;)*[!?]</VAR
+>
+
+      riconosce un numero indefinito di frammenti di testo contenenti
+      a loro volta numeri o caratteri non numerici racchiusi tra &#60;&#62;,
+      seguiti dai caratteri ! o ?. Quando il riconoscimento ha successo
+      l'esecuzione è rapida, ma quando viene applicato al testo   
+  
+       <VAR
+CLASS="literal"
+>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</VAR
+>
+
+      richiede molto tempo prima di evidenziare l'errore. Questo
+      accade perché la stringa può essere suddivisa tra i due elementi
+      ripetuti in un elevato numero di modi che debbono essere
+      verificati. Nell'esempio si usa [!?] piuttosto che un singolo
+      carattere alla fine, questo perché sia Perl sia PCRE hanno una 
+      ottimizzazione che permette un veloce riconoscimento dell'errore
+      se si usa un solo carattere. Infatti memorizzano l'ultimo
+      carattere singolo richiesto per un riconoscimento, e, se non
+      lo trovano nel testo, falliscono subito. Se il criterio viene
+      modificato in 
+
+       <VAR
+CLASS="literal"
+>((?&#62;\D+)|&#60;\d+&#62;)*[!?]</VAR
+>
+
+     le sequenze di caratteri non numerici non possono essere 
+     interrotte e pertanto il mancato riconoscimento viene rilevato
+     più velocemente.     
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.conditional"
+></A
+><H3
+>Sotto-regole condizionali (Conditional subpatterns)</H3
+><P
+>&#13;     E' possibile forzare il processo di riconoscimento a obbedire
+     alle sotto-regole in modo condizionato, oppure a scegliere 
+     tra due alternative in base al risultato di una asserzione,
+     o piuttosto se la sotto-regola di cattura precedente ha 
+     riconosciuto il proprio testo. I due metodi possibili per 
+     esprimere una sotto-regola condizionale sono:
+    </P
+><P
+CLASS="literallayout"
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(?(condizione)yes-pattern)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(?(condizione)yes-pattern|no-pattern)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;</P
+><P
+>&#13;     Se la condizione è soddisfatta, si usa la regola indicata in
+     yes-pattern, altrimenti si applica il no-pattern (qualora sia
+     specificato). Se nella sotto-regola vi sono più di due
+     alternative, PCRE segnala un errore in fase di compila.  
+    </P
+><P
+>&#13;     Vi sono due tipi di condizioni. Se il testo tra le parentesi
+     consiste in una sequenza di cifre, allora la condizione è 
+     soddisfatta se la sotto-regola di cattura di quel numero 
+     è stata precedentemente riconosciuta. Si consideri il seguente
+     criterio contenente degli spazi non significativi per renderlo
+     più leggibile (si assuma che sia attiva l'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_EXTENDED</A
+>)
+     e lo si divida in tre parti per praticità di discussione:
+
+      <VAR
+CLASS="literal"
+>( \( )?    [^()]+    (?(1) \) )</VAR
+> 
+    </P
+><P
+>&#13;     La prima parte riconosce una parentesi aperta opzionale, e,
+     se è presente, indica quello come primo segmento di stringa
+     catturato. La seconda parte riconosce uno o più caratteri che
+     non siano parentesi. Infine la terza parte è una sotto-regola
+     condizionale che verifica se la prima parentesi è stata identifica
+     o meno. Se accade, come nel caso in cui il testo inizi con una
+     parentesi aperta, la condizione è <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>, e quindi viene eseguito 
+     il ramo yes-pattern, richiedendo, conseguentemente, la parentesi chiusa.
+     Diversamente, poiché non è specificato ramo no-pattern, non si 
+     esegue nessun altro riconoscimento. In altre parole questo criterio
+     identifica un testo che possa essere racchiuso tra parentesi
+     opzionali.
+    </P
+><P
+>&#13;     Se la condizione non è una sequenza di cifre, deve essere
+     una asserzione. Questa può essere sia una asserzione che
+     guarda avanti, sia una asserzione cha guarda indietro, sia positiva
+     sia negativa. Si consideri il seguente criterio, ancora una volta
+     contenente spazi non significativi, e con due alternative nella
+     seconda linea:
+    </P
+><P
+CLASS="literallayout"
+><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(?(?=[^a-z]*[a-z])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\d{2}-[a-z]{3}-\d{2}&nbsp;&nbsp;|&nbsp;&nbsp;\d{2}-\d{2}-\d{2}&nbsp;)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;</P
+><P
+>&#13;     La condizione è una asserzione che guarda avanti positiva, la quale 
+     identifica una sequenza opzionale di caratteri non alfabetici
+     seguiti da una lettera. In altre parole, si testa la presenza
+     di almeno una lettera nel testo. Se la lettera viene trovata
+     si applica il primo criterio per il riconoscimento del testo,
+     altrimenti viene applicato il secondo criterio. Questo criterio 
+     riconosce  stringhe in due formati dd-aaa-dd oppure dd-dd-dd,
+     dove aaa sono lettere e dd sono numeri.
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.comments"
+></A
+><H3
+>Commenti</H3
+><P
+>&#13;     La sequenza (?# indica l'inizio di un commento che si conclude
+     con la successiva parentesi chiusa. Parentesi annidate non sono
+     permesse. I caratteri che fanno parte di un commento non giocano
+     alcun ruolo nella fase di riconoscimento.
+    </P
+><P
+>&#13;     Se viene attivata l'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_EXTENDED</A
+>,
+     un carattere # privo della sequenza di escape (\) all'esterno
+     di una classe di caratteri apre un commento che continua fino
+     al carattere di "a capo".
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.recursive"
+></A
+><H3
+>Criteri ricorsivi</H3
+><P
+>&#13;     Si consideri il caso in cui si debba riconoscere una stringa tra parentesi,
+     si supponga inoltre di dovere ammettere un numero arbitrario
+     di parentesi annidate. Senza l'uso della ricorsione, il miglior
+     metodo consiste nel preparare un criterio che identifichi un 
+     numero finito di parentesi annidate. Però, in questo modo non si 
+     gestisce un numero arbitrario si parentesi annidate. Nella
+     versione 5.6 di Perl è stata introdotta, a livello sperimentale,
+     la possibilità per i criteri di riconoscimento di essere ricorsivi.
+     Allo scopo è stata definita la sequenza speciale (?R). Il criterio
+     illustrato di seguito risolve il problema delle parentesi 
+     (si assume che l'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_EXTENDED</A
+>
+     sia attivata in modo da ignorare gli spazi):
+
+      <VAR
+CLASS="literal"
+>\( ( (?&#62;[^()]+) | (?R) )* \)</VAR
+> 
+    </P
+><P
+>&#13;     In principio si identifica la parentesi di apertura. Quindi 
+     si cerca un numero indefinito di stringhe che possano essere
+     composte da caratteri che non siano parentesi, oppure che
+     siano riconosciute ricorsivamente dal criterio (ad esempio una
+     stringa correttamente tra parentesi). Infine si cerca la
+     parentesi di chiusura.
+    </P
+><P
+>&#13;     In questo particolare esempio si hanno arbitrarie ripetizioni
+     annidate, e quindi l'uso delle sotto-regole a riconoscimento singolo
+     per il riconoscimento della stringa priva di parentesi è particolarmente
+     utile se il criterio viene applicato ad un testo non riconoscibile.
+     Ad esempio, applicando il criterio a
+
+       <VAR
+CLASS="literal"
+>(aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa()</VAR
+>
+
+     si ottiene un esito di mancato riconoscimento rapidamente. Se,
+     al contrario, non si fosse usato il criterio a riconoscimento 
+     singolo, sarebbe occorso molto tempo per avere un esito dato
+     che vi sono moltissimi  modi in cui i caratteri di ripetizione + e *
+     possono essere applicati al testo, richiedendo, pertanto,
+     la verifica di tutte le combinazioni prima di fornire l'esito
+     negativo.
+    </P
+><P
+>&#13;     Il valori restituiti da una sotto-regola di cattura sono quelli
+     ottenuti dal livello di ricorsione più esterno. Se il criterio
+     illustrato in precedenza venisse applicato al testo
+
+       <VAR
+CLASS="literal"
+>(ab(cd)ef)</VAR
+>
+
+     Il valore ottenuto sarebbe "ef", che rappresenta l'ultimo 
+     valore catturato al livello più alto. Se si aggiungono altre
+     parentesi al criterio, ottenendo 
+
+       <VAR
+CLASS="literal"
+>\( ( ( (?&#62;[^()]+) | (?R) )* ) \)</VAR
+>
+     
+     allora il testo ottenuto sarebbe
+     "ab(cd)ef", cioè il valore delle parentesi di livello più alto.
+     Se nel criterio vi sono più di 15 sotto-regole di cattura,
+     PCRE ha necessità di ottenere maggiore memoria per archiviare
+     le informazioni durante la ricorsione. Questa memoria è ottenuta
+     utilizzando pcre_malloc, al termine verrà liberata con pcre_free.
+     Se non può essere ottenuta ulteriore memoria, si ha il salvataggio
+     delle informazioni dei primi 15 testi catturati, dato che non vi è modo
+     di restituire un messaggio di memoria insufficiente dalla 
+     ricorsione.
+     </P
+></DIV
+><DIV
+CLASS="refsect2"
+><A
+NAME="regexp.reference.performances"
+></A
+><H3
+>Performances</H3
+><P
+>&#13;     Certi elementi utilizzati per i criteri di riconoscimento sono più 
+     efficienti di altri. E' più efficiente usare le classi di caratteri come
+     [aeiou] piuttosto che un gruppo di alternative come (a|e|i|o|u).
+     In generale la costruzione più semplice per ottenere un dato 
+     scopo è la più efficiente. Nel libro di Jeffrey Friedl sono 
+     illustrate varie tecniche sull'ottimizzazione delle espressioni
+     regolari.
+    </P
+><P
+>&#13;     Quando un criterio comincia con .* ed è attiva l'opzione <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOTALL</A
+>, il
+     criterio è implicitamente ancorato da PCRE, dato che può rico-
+     noscere solo l'inizio della stringa. Tuttavia, se non è attivo 
+     <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOTALL</A
+>, PCRE non può 
+     fare questa ottimizzazione, perché il meta-carattere .  non ri-
+     conosce più il carattere di "a capo", e quindi se la stringa 
+     contiene dei caratteri di "a capo", il riconoscimento può par-
+     tire dal carattere immediatamente successivo ad uno di questi 
+     e non dall'inizio. Ad esempio il criterio
+
+       <VAR
+CLASS="literal"
+>(.*) second</VAR
+>
+
+     può eseguire un riconoscimento nel testo "first\nand second"
+     (dove \n indica il carattere "a capo") ottenendo "and" come
+     prima stringa catturata. perché ciò accada è necessario che 
+     PCRE possa iniziare il riconoscimento dopo ogni "a capo".
+    </P
+><P
+>&#13;     Se si deve usare un simile criterio in stringhe che non conten-
+     gono caratteri di "a capo", le performance migliori si possono 
+     ottenere abilitando <A
+HREF="reference.pcre.pattern.modifiers.html"
+>PCRE_DOTALL</A
+>,
+     oppure iniziando il criterio con ^.* in modo da richiedere un 
+     ancoraggio esplicito. Così si risparmia a PCRE di scandirsi il 
+     testo alla ricerca di un "a capo" da cui ripartire per la ri-
+     cerca.
+    </P
+><P
+>&#13;     Occorre prestare attenzione ai criteri che contengono ripeti-
+     zioni indefinite annidate. Possono richiedere molto tempo se 
+     applicati a stringhe non riconoscibili. Si consideri il fram-
+     mento
+       <VAR
+CLASS="literal"
+>(a+)*</VAR
+> 
+    </P
+><P
+>&#13;     Questo può riconoscere "aaaa" in 33 modi differenti, e questo
+     numero può crescere molto rapidamente se la stringa da ricono-
+     scere è più lunga. (Il carattere di ripetizione * può eseguire 
+     riconoscimenti per 0,1,2,3 o 4 ripetizioni, e per ciascuna di 
+     esse, tranne lo 0, il carattere di ripetizione + può esegui-
+     re riconoscimenti per diversi numeri di volte). Quindi se la 
+     parte successiva del criterio è tale da non permettere il com-
+     pletamento del riconoscimento, PCRE, per principio, ugualmente
+     tenta tutte le possibili variazioni, richiedendo diverso tempo.
+    </P
+><P
+>&#13;     Una ottimizzazione riesce a catturare qualche caso semplice
+     come in 
+
+       <VAR
+CLASS="literal"
+>(a+)*b</VAR
+>
+
+      dove si indica che seguirà un  carattere alfanumerico. PCRE,
+      prima di imbarcarsi nella procedura standard di riconoscimen-
+      to, verifica se nel testo vi è la  lettera "b", e  se non c'è 
+      restituisce immediatamente un esito negativo. Tuttavia se non 
+      viene indicata una lettera seguente questa ottimizzazione non
+      può essere utilizzata. Se ne può notare la differenza analiz-
+      zando il comportamento del criterio
+
+       <VAR
+CLASS="literal"
+>(a+)*\d</VAR
+>
+
+     rispetto al precedente. Il primo, utilizzato con  una  stringa
+     composta da "a", fallisce immediatamente, l'ultimo richiede un
+     tempo  apprezzabile, soprattutto  se  applicato a stringhe con 
+     più di 20 caratteri.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="reference.pcre.pattern.modifiers.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.preg-grep.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Modificatori di criterio (Pattern Modifiers)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pcre.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>preg_grep</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

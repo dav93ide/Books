@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>uniqid</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Miscellaneous Functions"
+HREF="ref.misc.html"><LINK
+REL="PREVIOUS"
+TITLE="time_sleep_until"
+HREF="function.time-sleep-until.html"><LINK
+REL="NEXT"
+TITLE="unpack"
+HREF="function.unpack.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.time-sleep-until.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.unpack.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.uniqid"
+></A
+>uniqid</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN85874"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>uniqid&nbsp;--&nbsp;Generate a unique ID</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN85877"
+></A
+><H2
+>Description</H2
+>string <B
+CLASS="methodname"
+>uniqid</B
+> ( [string prefix [, bool more_entropy]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>uniqid()</B
+> returns a prefixed unique identifier
+     based on the current time in microseconds. <VAR
+CLASS="parameter"
+>prefix</VAR
+>
+     is optional but can be useful, for instance, if you generate identifiers
+     simultaneously on several hosts that might happen to generate the
+     identifier at the same microsecond. Up until PHP 4.3.1,
+     <VAR
+CLASS="parameter"
+>prefix</VAR
+> could only be a maximum of 114
+     characters long.
+    </P
+><P
+>&#13;     If the optional <VAR
+CLASS="parameter"
+>more_entropy</VAR
+> parameter is
+     <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>, <B
+CLASS="function"
+>uniqid()</B
+> will add additional entropy (using
+     the combined linear congruential generator) at the end of the return
+     value, which should make the results more unique.
+    </P
+><P
+>&#13;     With an empty <VAR
+CLASS="parameter"
+>prefix</VAR
+>, the returned string
+     will be 13 characters long.  If <VAR
+CLASS="parameter"
+>more_entropy</VAR
+> is
+     <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>, it will be 23 characters.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      The <VAR
+CLASS="parameter"
+>prefix</VAR
+> parameter became optional in PHP 5.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     If you need a unique identifier or token and you intend to give
+     out that token to the user via the network (i.e. session cookies),
+     it is recommended that you use something along these lines:
+    </P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN85905"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// no prefix<br /></font><font color="#0000BB">$token </font><font color="#007700">= </font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">uniqid</font><font color="#007700">());<br /><br /></font><font color="#FF8000">// better, difficult to guess<br /></font><font color="#0000BB">$better_token </font><font color="#007700">= </font><font color="#0000BB">md5</font><font color="#007700">(</font><font color="#0000BB">uniqid</font><font color="#007700">(</font><font color="#0000BB">rand</font><font color="#007700">(), </font><font color="#0000BB">true</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     This will create a 32 character identifier (a 128 bit hex number)
+     that is extremely difficult to predict.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.time-sleep-until.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.unpack.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>time_sleep_until</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.misc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>unpack</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

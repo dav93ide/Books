@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ingres_connect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Ingres II Functions"
+HREF="ref.ingres.html"><LINK
+REL="PREVIOUS"
+TITLE="ingres_commit"
+HREF="function.ingres-commit.html"><LINK
+REL="NEXT"
+TITLE="ingres_cursor"
+HREF="function.ingres-cursor.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ingres-commit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ingres-cursor.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ingres-connect"
+></A
+>ingres_connect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN65327"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.2, PHP 5 &#60;= 5.0.4)</P
+>ingres_connect&nbsp;--&nbsp;
+     Open a connection to an Ingres II database
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN65330"
+></A
+><H2
+>Description</H2
+>resource <B
+CLASS="methodname"
+>ingres_connect</B
+> ( [string database [, string username [, string password]]] )<BR
+></BR
+><P
+>&#13;     Returns a Ingres II link resource on success, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on
+     failure.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>ingres_connect()</B
+> opens a connection with the
+     Ingres database designated by <VAR
+CLASS="parameter"
+>database</VAR
+>,
+     which follows the syntax
+     <VAR
+CLASS="parameter"
+>[node_id::]dbname[/svr_class]</VAR
+>.
+    </P
+><P
+>&#13;     If some parameters are missing, <B
+CLASS="function"
+>ingres_connect()</B
+>
+     uses the values in <TT
+CLASS="filename"
+>php.ini</TT
+> for
+     <VAR
+CLASS="parameter"
+>ingres.default_database</VAR
+>,
+     <VAR
+CLASS="parameter"
+>ingres.default_user</VAR
+>, and
+     <VAR
+CLASS="parameter"
+>ingres.default_password</VAR
+>.
+    </P
+><P
+>&#13;     The connection is closed when the script ends or when
+     <A
+HREF="function.ingres-close.html"
+><B
+CLASS="function"
+>ingres_close()</B
+></A
+> is called on this link.
+    </P
+><P
+>&#13;     All the other ingres functions use the last opened link as a
+     default, so you need to store the returned value only if you use
+     more than one link at a time.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN65360"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>ingres_connect()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$link </font><font color="#007700">= </font><font color="#0000BB">ingres_connect</font><font color="#007700">(</font><font color="#DD0000">"mydb"</font><font color="#007700">, </font><font color="#DD0000">"user"</font><font color="#007700">, </font><font color="#DD0000">"pass"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Could not connect"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Connected successfully"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">ingres_close</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN65364"
+></A
+><P
+><B
+>Esempio 2. 
+       <B
+CLASS="function"
+>ingres_connect()</B
+> example using default link
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;ingres_connect</font><font color="#007700">(</font><font color="#DD0000">"mydb"</font><font color="#007700">, </font><font color="#DD0000">"user"</font><font color="#007700">, </font><font color="#DD0000">"pass"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Could not connect"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Connected successfully"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">ingres_close</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+> See also
+     <A
+HREF="function.ingres-pconnect.html"
+><B
+CLASS="function"
+>ingres_pconnect()</B
+></A
+> and
+     <A
+HREF="function.ingres-close.html"
+><B
+CLASS="function"
+>ingres_close()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ingres-commit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ingres-cursor.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ingres_commit</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ingres.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ingres_cursor</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

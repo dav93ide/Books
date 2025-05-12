@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>oci_error</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Oracle 8"
+HREF="ref.oci8.html"><LINK
+REL="PREVIOUS"
+TITLE="oci_define_by_name"
+HREF="function.oci-define-by-name.html"><LINK
+REL="NEXT"
+TITLE="oci_execute"
+HREF="function.oci-execute.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.oci-define-by-name.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.oci-execute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.oci-error"
+></A
+>oci_error</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN111381"
+></A
+><P
+>    (PHP 5)</P
+>oci_error&nbsp;--&nbsp;Returns the last error found</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN111384"
+></A
+><H2
+>Description</H2
+>array <B
+CLASS="methodname"
+>oci_error</B
+> ( [resource source] )<BR
+></BR
+><P
+>&#13;     For most errors, the parameter is the most appropriate resource
+     handle. For connection errors with <A
+HREF="function.oci-connect.html"
+><B
+CLASS="function"
+>oci_connect()</B
+></A
+>, 
+     <A
+HREF="function.oci-new-connect.html"
+><B
+CLASS="function"
+>oci_new_connect()</B
+></A
+> or <A
+HREF="function.oci-pconnect.html"
+><B
+CLASS="function"
+>oci_pconnect()</B
+></A
+>,
+     do not pass a parameter. If no error is found, <B
+CLASS="function"
+>oci_error()</B
+> 
+     returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>. <B
+CLASS="function"
+>oci_error()</B
+> returns the error as an
+     associative array. In this array, <VAR
+CLASS="literal"
+>code</VAR
+>
+     consists the oracle error code and <VAR
+CLASS="literal"
+>message</VAR
+>
+     the oracle error string.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>As of PHP 4.3: </B
+>
+      <VAR
+CLASS="literal"
+>offset</VAR
+> and <VAR
+CLASS="literal"
+>sqltext</VAR
+> will
+      also be included in the return array to indicate the location
+      of the error and the original SQL text which caused it.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN111407"
+></A
+><P
+><B
+>Esempio 1. Displaying the Oracle error message after a connection error</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$conn = @oci_connect("scott", "tiger", "mydb");<br />if (!$conn) {<br />&nbsp;&nbsp;$e = oci_error();&nbsp;&nbsp;&nbsp;// For oci_connect errors pass no handle<br />&nbsp;&nbsp;echo htmlentities($e['message']);<br />}</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+> 
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN111411"
+></A
+><P
+><B
+>Esempio 2. Displaying the Oracle error message after a parsing error</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$stmt = @oci_parse($conn, "select ' from dual");&nbsp;&nbsp;// note mismatched quote<br />if (!$stmt) {<br />&nbsp;&nbsp;$e = oci_error($conn);&nbsp;&nbsp;// For oci_parse errors pass the connection handle<br />&nbsp;&nbsp;echo htmlentities($e['message']);<br />}</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN111415"
+></A
+><P
+><B
+>Esempio 3. Displaying the Oracle error message and problematic statement 
+       after an execution error</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$r = oci_execute($stmt);<br />if (!$r) {<br />&nbsp;&nbsp;$e = oci_error($stmt); // For oci_execute errors pass the statementhandle<br />&nbsp;&nbsp;echo htmlentities($e['message']);<br />&nbsp;&nbsp;echo "&lt;pre&gt;";<br />&nbsp;&nbsp;echo htmlentities($e['sqltext']);<br />&nbsp;&nbsp;printf("\n%".($e['offset']+1)."s", "^");<br />&nbsp;&nbsp;echo "&lt;/pre&gt;";<br />}</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      In PHP versions before 5.0.0 you must use <A
+HREF="function.ocierror.html"
+><B
+CLASS="function"
+>ocierror()</B
+></A
+> instead. 
+      This name still can be used, it was left as alias of
+      <B
+CLASS="function"
+>oci_error()</B
+> for downwards compatability. 
+      This, however, is deprecated and not recommended.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.oci-define-by-name.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.oci-execute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>oci_define_by_name</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.oci8.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>oci_execute</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,2866 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni PostgreSQL</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="sql_regcase"
+HREF="function.sql-regcase.html"><LINK
+REL="NEXT"
+TITLE="pg_affected_rows"
+HREF="function.pg-affected-rows.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sql-regcase.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-affected-rows.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.pgsql"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXIV. Funzioni PostgreSQL</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN131841"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pgsql.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Il database PostgreSQL è un prodotto OpenSource ed è disponibile gratuitamente.
+     Postgres, sviluppato originariamente nel Dipartimento di Informatica dell'Università di
+     Berkeley, ha anticipato molti dei concetti su oggetti e relazioni che ora
+     stanno diventando disponibili in alcuni database commerciali. Postgres fornisce
+     supporto per il linguaggio SQL/92/SQL99, transazioni, integrità referenziale,
+     stored procedures ed estensibilità dei tipi. PostgreSQL è un discendente open source 
+     dell'originario codice di Berkeley.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pgsql.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Per utilizzare il supporto a PostgreSQL, occorre PostgreSQL 6.5 o
+     versioni più recenti. PostgreSQL 7.0 o successivi permettono di abilitare tutte le funzionalità
+     di questo modulo. PostgreSQL ammette molte codifiche di carattere, tra cui
+     la codifica multibyte. La versione corrente e maggiori
+     informazioni su PostgreSQL sono disponibili su 
+     <A
+HREF="http://www.postgresql.org/"
+TARGET="_top"
+>http://www.postgresql.org/</A
+> e
+     <A
+HREF="http://techdocs.postgresql.org/"
+TARGET="_top"
+>http://techdocs.postgresql.org/</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pgsql.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  In order to enable PostgreSQL support,
+  <VAR
+CLASS="option"
+>--with-pgsql[=DIR]</VAR
+> is required when you compile
+  PHP. DIR is the PostgreSQL base install directory, defaults to
+  <TT
+CLASS="filename"
+>/usr/local/pgsql</TT
+>. If shared object module is
+  available, PostgreSQL module may be loaded using
+  <A
+HREF="ini.core.html#ini.extension"
+>extension</A
+> directive in <TT
+CLASS="filename"
+>php.ini</TT
+> or
+  <A
+HREF="function.dl.html"
+><B
+CLASS="function"
+>dl()</B
+></A
+>
+  function.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pgsql.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN131863"
+></A
+><P
+><B
+>Tabella 1. PostgreSQL configuration options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>pgsql.allow_persistent</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>pgsql.max_persistent</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>pgsql.max_links</TD
+><TD
+>"-1"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>pgsql.auto_reset_persistent</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Available since PHP 4.2.0.</TD
+></TR
+><TR
+><TD
+>pgsql.ignore_notice</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.3.0.</TD
+></TR
+><TR
+><TD
+>pgsql.log_notice</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 4.3.0.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+  </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.pgsql.allow-persistent"
+></A
+><VAR
+CLASS="parameter"
+>pgsql.allow_persistent</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      Whether to allow persistent Postgres connections.
+     </P
+></DD
+><DT
+><A
+NAME="ini.pgsql.max-persistent"
+></A
+><VAR
+CLASS="parameter"
+>pgsql.max_persistent</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      The maximum number of persistent Postgres connections per
+      process.
+     </P
+></DD
+><DT
+><A
+NAME="ini.pgsql.max-links"
+></A
+><VAR
+CLASS="parameter"
+>pgsql.max_links</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      The maximum number of Postgres connections per process,
+      including persistent connections.
+     </P
+></DD
+><DT
+><A
+NAME="ini.pgsql.auto-reset-persistent"
+></A
+><VAR
+CLASS="parameter"
+>pgsql.auto_reset_persistent</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      Detect broken persistent links with <A
+HREF="function.pg-pconnect.html"
+><B
+CLASS="function"
+>pg_pconnect()</B
+></A
+>.
+      Needs a little overhead. 
+     </P
+></DD
+><DT
+><A
+NAME="ini.pgsql.ignore-notice"
+></A
+><VAR
+CLASS="parameter"
+>pgsql.ignore_notice</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      Whether or not to ignore PostgreSQL backend notices.
+     </P
+></DD
+><DT
+><A
+NAME="ini.pgsql.log-notice"
+></A
+><VAR
+CLASS="parameter"
+>pgsql.log_notice</VAR
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;      Whether or not to log PostgreSQL backends notice messages.  The PHP
+      directive <A
+HREF="ref.pgsql.html#ini.pgsql.ignore-notice"
+>&#13;      pgsql.ignore_notice</A
+> must be off in order to log notice
+      messages.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pgsql.using"
+>Utilizzo e suggerimenti</A
+></H1
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      L'utilizzo del modulo PostgreSQL con PHP 4.0.6 non è raccomandato a causa
+      di un bug nella gestione dei messaggi. Si usi PHP 4.1.0 o successivi.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      I nomi delle funzioni relative a PostgreSQL verranno cambiate a partire dalla versione 4.2.0 per
+      conformarsi agli standard di sviluppo attuali. La maggior parte dei nuovi nomi avrà
+      underscore aggiuntivi, per esempio pg_lo_open(). Alcune funzioni verranno rinominate
+      per dare consistenza. Per esempio pg_exec() diventerà
+      pg_query(). I vecchi nomi potranno essere usati nella versione 4.2.0 e in alcune versioni
+      successive alla 4.2.0, ma potranno essere cancellati in futuro.
+     </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN131951"
+></A
+><P
+><B
+>Tabella 2. Nomi di funzione cambiati</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Vecchio nome</TH
+><TH
+>Nuovo nome</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><B
+CLASS="function"
+>pg_exec()</B
+></TD
+><TD
+><A
+HREF="function.pg-query.html"
+><B
+CLASS="function"
+>pg_query()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_getlastoid()</B
+></TD
+><TD
+><A
+HREF="function.pg-last-oid.html"
+><B
+CLASS="function"
+>pg_last_oid()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_cmdtuples()</B
+></TD
+><TD
+><A
+HREF="function.pg-affected-rows.html"
+><B
+CLASS="function"
+>pg_affected_rows()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_numrows()</B
+></TD
+><TD
+><A
+HREF="function.pg-num-rows.html"
+><B
+CLASS="function"
+>pg_num_rows()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_numfields()</B
+></TD
+><TD
+><A
+HREF="function.pg-num-fields.html"
+><B
+CLASS="function"
+>pg_num_fields()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_fieldname()</B
+></TD
+><TD
+><A
+HREF="function.pg-field-name.html"
+><B
+CLASS="function"
+>pg_field_name()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_fieldsize()</B
+></TD
+><TD
+><A
+HREF="function.pg-field-size.html"
+><B
+CLASS="function"
+>pg_field_size()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_fieldnum()</B
+></TD
+><TD
+><A
+HREF="function.pg-field-num.html"
+><B
+CLASS="function"
+>pg_field_num()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_fieldprtlen()</B
+></TD
+><TD
+><A
+HREF="function.pg-field-prtlen.html"
+><B
+CLASS="function"
+>pg_field_prtlen()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_fieldisnull()</B
+></TD
+><TD
+><A
+HREF="function.pg-field-is-null.html"
+><B
+CLASS="function"
+>pg_field_is_null()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_freeresult()</B
+></TD
+><TD
+><A
+HREF="function.pg-free-result.html"
+><B
+CLASS="function"
+>pg_free_result()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_result()</B
+></TD
+><TD
+><A
+HREF="function.pg-fetch-result.html"
+><B
+CLASS="function"
+>pg_fetch_result()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_loreadall()</B
+></TD
+><TD
+><A
+HREF="function.pg-lo-read-all.html"
+><B
+CLASS="function"
+>pg_lo_read_all()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_locreate()</B
+></TD
+><TD
+><A
+HREF="function.pg-lo-create.html"
+><B
+CLASS="function"
+>pg_lo_create()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_lounlink()</B
+></TD
+><TD
+><A
+HREF="function.pg-lo-unlink.html"
+><B
+CLASS="function"
+>pg_lo_unlink()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_loopen()</B
+></TD
+><TD
+><A
+HREF="function.pg-lo-open.html"
+><B
+CLASS="function"
+>pg_lo_open()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_loclose()</B
+></TD
+><TD
+><A
+HREF="function.pg-lo-close.html"
+><B
+CLASS="function"
+>pg_lo_close()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_loread()</B
+></TD
+><TD
+><A
+HREF="function.pg-lo-read.html"
+><B
+CLASS="function"
+>pg_lo_read()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_lowrite()</B
+></TD
+><TD
+><A
+HREF="function.pg-lo-write.html"
+><B
+CLASS="function"
+>pg_lo_write()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_loimport()</B
+></TD
+><TD
+><A
+HREF="function.pg-lo-import.html"
+><B
+CLASS="function"
+>pg_lo_import()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><B
+CLASS="function"
+>pg_loexport()</B
+></TD
+><TD
+><A
+HREF="function.pg-lo-export.html"
+><B
+CLASS="function"
+>pg_lo_export()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;     La vecchia sintassi di <A
+HREF="function.pg-connect.html"
+><B
+CLASS="function"
+>pg_connect()</B
+></A
+>/<A
+HREF="function.pg-pconnect.html"
+><B
+CLASS="function"
+>pg_pconnect()</B
+></A
+>
+     sarà deprecata per supportare, in futuro, connessioni asincrone.
+     Si usi una stringa di connessione con <A
+HREF="function.pg-connect.html"
+><B
+CLASS="function"
+>pg_connect()</B
+></A
+> e
+     <A
+HREF="function.pg-pconnect.html"
+><B
+CLASS="function"
+>pg_pconnect()</B
+></A
+>.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;    Non tutte le funzioni sono supportate su tutte le architetture. Dipende dalla versione
+    di libpq (L'interfaccia Client C per PostgreSQL) e da come libpq è 
+    compilato. Se c'è una funzione mancante, libpq non supporta
+    la feature richiesta per quella funzione. 
+   </P
+><P
+>&#13;    È importante usare versioni di libpq più recenti rispetto al Server
+    PostgreSQL al quale ci si vuole collegare. Se si usa una versione di libpq più vecchia rispetto 
+    al Server PostgreSQL al quale ci si vuole collegare, si andrà probabilmente incontro a problemi.
+   </P
+><P
+>&#13;    Fin dalla versione 6.3 (03/02/1998) PostgreSQL usa gli unix domain socket 
+    di default. La porta TCP, di default, NON verrà aperta. La tabella 
+    sottostante descrive queste nuove possibilità di connessione. Questo 
+    socket può essere trovato in <TT
+CLASS="filename"
+>/tmp/.s.PGSQL.5432</TT
+>.
+    Questa opzione può venire abilitata con la flag '-i' da
+    <B
+CLASS="command"
+>postmaster</B
+> e il suo significato è: "ascolta i 
+    socket TCP/IP così come gli Unix domain socket".
+    <DIV
+CLASS="table"
+><A
+NAME="AEN132074"
+></A
+><P
+><B
+>Tabella 3. Postmaster e PHP</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Postmaster</TH
+><TH
+>PHP</TH
+><TH
+>Status</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>postmaster &#38;</TD
+><TD
+>pg_connect("dbname=NomeMioDatabase");</TD
+><TD
+>OK</TD
+></TR
+><TR
+><TD
+>postmaster -i &#38;</TD
+><TD
+>pg_connect("dbname=NomeMioDatabase");</TD
+><TD
+>OK</TD
+></TR
+><TR
+><TD
+>postmaster &#38;</TD
+><TD
+>pg_connect("host=localhost dbname=NomeMioDatabase");</TD
+><TD
+>&#13;         Unable to connect to PostgreSQL server: connectDB() failed:
+         Is the postmaster running and accepting TCP/IP (with -i)
+         connection at 'localhost' on port '5432'? in
+         /path/to/file.php on line 20.
+        </TD
+></TR
+><TR
+><TD
+>postmaster -i &#38;</TD
+><TD
+>pg_connect("host=localhost dbname=NomeMioDatabase");</TD
+><TD
+>OK</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+   </P
+><P
+>&#13;    Si può stabilire una connessione al server PostgreSQL usando le 
+    seguenti coppie di valori impostate nella stringa di comando: <B
+CLASS="command"
+>$conn =
+    pg_connect("host=IlMioHost port=LaMiaPorta tty=myTTY options=LeMieOpzioni
+    dbname=IlMioDB user=IlMioUtente password=LaMiaPassword ");
+    </B
+>
+   </P
+><P
+>&#13;    L'uso della sintassi in uso precedentemente:
+    <B
+CLASS="command"
+>&#13;     $conn = pg_connect ("host", "port", "options", "tty", "dbname")
+    </B
+>
+    è deprecato.
+   </P
+><P
+>&#13;    Le variabili d'ambiente modificano il comportamento server/client di
+    PostgreSQL. Per esempio, il modulo PostgreSQL si baserà sulla variabile
+    PGHOST quando il nome dell'host è omesso nella stringa di
+    connessione. Le variabili d'ambiente riconosciute sono diverse da versione
+    a versione. Consultare il Manuale del Programmatore PostgreSQL (libpq -
+    Variabili d'Ambiente) per ulteriori dettagli.
+   </P
+><P
+>&#13;    Assicurarsi di aver impostato le variabili d'ambiente per l'utente appropriato. Usare
+    <VAR
+CLASS="literal"
+>$_ENV</VAR
+> o <A
+HREF="function.getenv.html"
+><B
+CLASS="function"
+>getenv()</B
+></A
+> per controllare
+    quali variabili d'ambiente sono disponibili al processo corrente.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN132107"
+></A
+><P
+><B
+>Esempio 1. Impostazione dei parametri di default</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>PGHOST=pgsql.example.com
+PGPORT=7890
+PGDATABASE=web-system
+PGUSER=web-user
+PGPASSWORD=segreta
+PGDATESTYLE=ISO
+PGTZ=JST
+PGCLIENTENCODING=EUC-JP
+
+export PGHOST PGPORT PGDATABASE PGUSER PGPASSWORD PGDATESTYLE PGTZ PGCLIENTENCODING</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pgsql.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_ASSOC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Passed to <A
+HREF="function.pg-fetch-array.html"
+><B
+CLASS="function"
+>pg_fetch_array()</B
+></A
+>. Return an associative array of field
+      names and values.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_NUM</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Passed to <A
+HREF="function.pg-fetch-array.html"
+><B
+CLASS="function"
+>pg_fetch_array()</B
+></A
+>. Return a numerically indexed array of field
+      numbers and values.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_BOTH</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Passed to <A
+HREF="function.pg-fetch-array.html"
+><B
+CLASS="function"
+>pg_fetch_array()</B
+></A
+>. Return an array of field values
+      that is both numerically indexed (by field number) and associated (by field name).
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_CONNECT_FORCE_NEW</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Passed to <A
+HREF="function.pg-connect.html"
+><B
+CLASS="function"
+>pg_connect()</B
+></A
+> to force the creation of a new connection,
+      rather then re-using an existing identical connection.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_CONNECTION_BAD</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Returned by <A
+HREF="function.pg-connection-status.html"
+><B
+CLASS="function"
+>pg_connection_status()</B
+></A
+> indicating that the database
+      connection is in an invalid state.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_CONNECTION_OK</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;      Returned by <A
+HREF="function.pg-connection-status.html"
+><B
+CLASS="function"
+>pg_connection_status()</B
+></A
+> indicating that the database
+      connection is in a valid state.     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_SEEK_SET</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-lo-seek.html"
+><B
+CLASS="function"
+>pg_lo_seek()</B
+></A
+>. Seek operation is to begin
+     from the start of the object.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_SEEK_CUR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-lo-seek.html"
+><B
+CLASS="function"
+>pg_lo_seek()</B
+></A
+>. Seek operation is to begin
+     from the current position.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_SEEK_END</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-lo-seek.html"
+><B
+CLASS="function"
+>pg_lo_seek()</B
+></A
+>. Seek operation is to begin
+     from the end of the object.     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_EMPTY_QUERY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-result-status.html"
+><B
+CLASS="function"
+>pg_result_status()</B
+></A
+>. The string sent to the server
+     was empty.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_COMMAND_OK</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-result-status.html"
+><B
+CLASS="function"
+>pg_result_status()</B
+></A
+>. Successful completion of a 
+     command returning no data.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_TUPLES_OK</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-result-status.html"
+><B
+CLASS="function"
+>pg_result_status()</B
+></A
+>. Successful completion of a command 
+     returning data (such as a <VAR
+CLASS="literal"
+>SELECT</VAR
+> or <VAR
+CLASS="literal"
+>SHOW</VAR
+>).
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_COPY_OUT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-result-status.html"
+><B
+CLASS="function"
+>pg_result_status()</B
+></A
+>. Copy Out (from server) data 
+     transfer started.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_COPY_IN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-result-status.html"
+><B
+CLASS="function"
+>pg_result_status()</B
+></A
+>. Copy In (to server) data 
+     transfer started.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_BAD_RESPONSE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-result-status.html"
+><B
+CLASS="function"
+>pg_result_status()</B
+></A
+>. The server's response 
+     was not understood.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_NONFATAL_ERROR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-result-status.html"
+><B
+CLASS="function"
+>pg_result_status()</B
+></A
+>. A nonfatal error 
+     (a notice or warning) occurred.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_FATAL_ERROR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-result-status.html"
+><B
+CLASS="function"
+>pg_result_status()</B
+></A
+>. A fatal error 
+     occurred.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_TRANSACTION_IDLE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-transaction-status.html"
+><B
+CLASS="function"
+>pg_transaction_status()</B
+></A
+>. Connection is
+     currently idle, not in a transaction.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_TRANSACTION_ACTIVE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-transaction-status.html"
+><B
+CLASS="function"
+>pg_transaction_status()</B
+></A
+>. A command
+     is in progress on the connection.  A query has been sent via the connection
+     and not yet completed.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_TRANSACTION_INTRANS</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-transaction-status.html"
+><B
+CLASS="function"
+>pg_transaction_status()</B
+></A
+>. The connection
+     is idle, in a transaction block.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_TRANSACTION_INERROR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-transaction-status.html"
+><B
+CLASS="function"
+>pg_transaction_status()</B
+></A
+>. The connection
+     is idle, in a failed transaction block.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_TRANSACTION_UNKNOWN</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Returned by <A
+HREF="function.pg-transaction-status.html"
+><B
+CLASS="function"
+>pg_transaction_status()</B
+></A
+>. The connection
+     is bad.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_SEVERITY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     The severity; the field contents are <VAR
+CLASS="literal"
+>ERROR</VAR
+>, 
+     <VAR
+CLASS="literal"
+>FATAL</VAR
+>, or <VAR
+CLASS="literal"
+>PANIC</VAR
+> (in an error message), or 
+     <VAR
+CLASS="literal"
+>WARNING</VAR
+>, <VAR
+CLASS="literal"
+>NOTICE</VAR
+>, <VAR
+CLASS="literal"
+>DEBUG</VAR
+>, 
+     <VAR
+CLASS="literal"
+>INFO</VAR
+>, or <VAR
+CLASS="literal"
+>LOG</VAR
+> (in a notice message), or a localized 
+     translation of one of these. Always present.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_SQLSTATE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     The SQLSTATE code for the error. The SQLSTATE code identifies the type of error 
+     that has occurred; it can be used by front-end applications to perform specific 
+     operations (such as error handling) in response to a particular database error. 
+     This field is not localizable, and is always present.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_MESSAGE_PRIMARY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     The primary human-readable error message (typically one line). Always present.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_MESSAGE_DETAIL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     Detail: an optional secondary error message carrying more detail about the problem. May run to multiple lines.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_MESSAGE_HINT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     Hint: an optional suggestion what to do about the problem. This is intended to differ from detail in that it
+     offers advice (potentially inappropriate) rather than hard facts. May run to multiple lines.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_STATEMENT_POSITION</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     A string containing a decimal integer indicating an error cursor position as an index into the original 
+     statement string. The first character has index 1, and positions are measured in characters not bytes.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_INTERNAL_POSITION</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     This is defined the same as the <TT
+CLASS="constant"
+><B
+>PG_DIAG_STATEMENT_POSITION</B
+></TT
+> field, but 
+     it is used when the cursor position refers to an internally generated 
+     command rather than the one submitted by the client. The 
+     <TT
+CLASS="constant"
+><B
+>PG_DIAG_INTERNAL_QUERY</B
+></TT
+> field will always appear when this 
+     field appears.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_INTERNAL_QUERY</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     The text of a failed internally-generated command. This could be, for example, a 
+     SQL query issued by a PL/pgSQL function.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_CONTEXT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     An indication of the context in which the error occurred. Presently 
+     this includes a call stack traceback of active procedural language 
+     functions and internally-generated queries. The trace is one entry 
+     per line, most recent first.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_SOURCE_FILE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     The file name of the PostgreSQL source-code location where the error 
+     was reported.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_SOURCE_LINE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     The line number of the PostgreSQL source-code location where the 
+     error was reported.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_DIAG_SOURCE_FUNCTION</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-error-field.html"
+><B
+CLASS="function"
+>pg_result_error_field()</B
+></A
+>.
+     The name of the PostgreSQL source-code function reporting the error.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_TERSE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-set-error-verbosity.html"
+><B
+CLASS="function"
+>pg_set_error_verbosity()</B
+></A
+>.
+     Specified that returned messages include severity, primary text, 
+     and position only; this will normally fit on a single line.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_DEFAULT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-set-error-verbosity.html"
+><B
+CLASS="function"
+>pg_set_error_verbosity()</B
+></A
+>.
+     The default mode produces messages that include the above 
+     plus any detail, hint, or context fields (these may span 
+     multiple lines).
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_ERRORS_VERBOSE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-set-error-verbosity.html"
+><B
+CLASS="function"
+>pg_set_error_verbosity()</B
+></A
+>.
+     The verbose mode includes all available fields.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_STATUS_LONG</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-status.html"
+><B
+CLASS="function"
+>pg_result_status()</B
+></A
+>.  Indicates that
+     numerical result code is desired.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_STATUS_STRING</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-result-status.html"
+><B
+CLASS="function"
+>pg_result_status()</B
+></A
+>.  Indicates that
+     textual result command tag is desired.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_CONV_IGNORE_DEFAULT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-convert.html"
+><B
+CLASS="function"
+>pg_convert()</B
+></A
+>.
+     Ignore default values in the table during conversion.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_CONV_FORCE_NULL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-convert.html"
+><B
+CLASS="function"
+>pg_convert()</B
+></A
+>.
+     Use SQL <VAR
+CLASS="literal"
+>NULL</VAR
+> in place of an empty <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PGSQL_CONV_IGNORE_DEFAULT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Passed to <A
+HREF="function.pg-convert.html"
+><B
+CLASS="function"
+>pg_convert()</B
+></A
+>.
+     Ignore conversion of <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> into SQL <VAR
+CLASS="literal"
+>NOT NULL</VAR
+> columns.
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pgsql.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     A partire da PostgreSQL 7.1.0, il tipo di dato text ha 1GB come dimensione
+     massima. Nelle versioni più vecchie di PostgreSQL il tipo di dato text è limitato dalla dimensione
+     del block. (Default 8KB. Massimo 32KB, specificato al momento della compilazione)
+    </P
+><P
+>&#13;     Per usare l'interfaccia large object (lo), è necessario includerla entro
+     un blocco di una transazione. Un blocco di transazione inizia con un
+     comando SQL <B
+CLASS="command"
+>BEGIN</B
+> e se la 
+     transazione è stata valida, termina con <B
+CLASS="command"
+>COMMIT</B
+> o 
+     <B
+CLASS="command"
+>END</B
+>. Se la transazione fallisce, essa 
+     deve venire chiusa con <B
+CLASS="command"
+>ROLLBACK</B
+> o 
+     <B
+CLASS="command"
+>ABORT</B
+>.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN132433"
+></A
+><P
+><B
+>Esempio 2. Utilizzare Large Objects</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$database </font><font color="#007700">= </font><font color="#0000BB">pg_connect </font><font color="#007700">(</font><font color="#DD0000">"dbname=jacarta"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">pg_query </font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#DD0000">"begin"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$oid </font><font color="#007700">= </font><font color="#0000BB">pg_lo_create </font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$oid</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$handle </font><font color="#007700">= </font><font color="#0000BB">pg_lo_open </font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#0000BB">$oid</font><font color="#007700">, </font><font color="#DD0000">"w"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$handle</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">pg_lo_write </font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#DD0000">"dati large object"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">pg_lo_close </font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">pg_query </font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#DD0000">"commit"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Non chiudere la risorsa di connessione prima di aver chiuso la risorsa
+     large object.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.pg-affected-rows.html"
+>pg_affected_rows</A
+>&nbsp;--&nbsp;Restituisce il numero delle tuple coinvolte dall'ultimo comando</DT
+><DT
+><A
+HREF="function.pg-cancel-query.html"
+>pg_cancel_query</A
+>&nbsp;--&nbsp;
+     Annulla una query asincrona
+    </DT
+><DT
+><A
+HREF="function.pg-client-encoding.html"
+>pg_client_encoding</A
+>&nbsp;--&nbsp;
+     Restituisce la codifica caratteri del client
+    </DT
+><DT
+><A
+HREF="function.pg-close.html"
+>pg_close</A
+>&nbsp;--&nbsp;Chiude una connessione PostgreSQL</DT
+><DT
+><A
+HREF="function.pg-connect.html"
+>pg_connect</A
+>&nbsp;--&nbsp;Stabilisce una connessione PostgreSQL</DT
+><DT
+><A
+HREF="function.pg-connection-busy.html"
+>pg_connection_busy</A
+>&nbsp;--&nbsp;
+     Riferisce se una connessione è occupata o meno
+    </DT
+><DT
+><A
+HREF="function.pg-connection-reset.html"
+>pg_connection_reset</A
+>&nbsp;--&nbsp;
+     Rpristina la connessione (riconnette)
+    </DT
+><DT
+><A
+HREF="function.pg-connection-status.html"
+>pg_connection_status</A
+>&nbsp;--&nbsp;
+     Restituisce lo stato di una connessione
+    </DT
+><DT
+><A
+HREF="function.pg-convert.html"
+>pg_convert</A
+>&nbsp;--&nbsp;
+     Converte i valori di un array associativo in una forma compatibile con i comandi SQL.
+    </DT
+><DT
+><A
+HREF="function.pg-copy-from.html"
+>pg_copy_from</A
+>&nbsp;--&nbsp;
+     Inserisce le tuple in una tabella prendendole da un array
+    </DT
+><DT
+><A
+HREF="function.pg-copy-to.html"
+>pg_copy_to</A
+>&nbsp;--&nbsp;
+     Copia una tabella in un array
+    </DT
+><DT
+><A
+HREF="function.pg-dbname.html"
+>pg_dbname</A
+>&nbsp;--&nbsp;Restituisce il nome del database</DT
+><DT
+><A
+HREF="function.pg-delete.html"
+>pg_delete</A
+>&nbsp;--&nbsp;
+     Cancella le tuple.
+    </DT
+><DT
+><A
+HREF="function.pg-end-copy.html"
+>pg_end_copy</A
+>&nbsp;--&nbsp;Esegue una sincronizzazione con il backend PostgreSQL</DT
+><DT
+><A
+HREF="function.pg-escape-bytea.html"
+>pg_escape_bytea</A
+>&nbsp;--&nbsp;
+     Aggiunge le sequenze di escape ai dati binari nel tipo bytea
+    </DT
+><DT
+><A
+HREF="function.pg-escape-string.html"
+>pg_escape_string</A
+>&nbsp;--&nbsp;
+     Aggiunge le sequenze di escape nei tipi text/char
+    </DT
+><DT
+><A
+HREF="function.pg-execute.html"
+>pg_execute</A
+>&nbsp;--&nbsp;Sends a request to execute a prepared statement with given parameters, and waits for the result.</DT
+><DT
+><A
+HREF="function.pg-fetch-all-columns.html"
+>pg_fetch_all_columns</A
+>&nbsp;--&nbsp;Fetches all rows in a particular result column as an array</DT
+><DT
+><A
+HREF="function.pg-fetch-all.html"
+>pg_fetch_all</A
+>&nbsp;--&nbsp;Carica tutte le tuple in un array</DT
+><DT
+><A
+HREF="function.pg-fetch-array.html"
+>pg_fetch_array</A
+>&nbsp;--&nbsp;Carica una tupla in un array</DT
+><DT
+><A
+HREF="function.pg-fetch-assoc.html"
+>pg_fetch_assoc</A
+>&nbsp;--&nbsp;Fetch a row as an array</DT
+><DT
+><A
+HREF="function.pg-fetch-object.html"
+>pg_fetch_object</A
+>&nbsp;--&nbsp;Carica una tupla in un oggetto</DT
+><DT
+><A
+HREF="function.pg-fetch-result.html"
+>pg_fetch_result</A
+>&nbsp;--&nbsp;Restituisce i valori da una risorsa di risultato</DT
+><DT
+><A
+HREF="function.pg-fetch-row.html"
+>pg_fetch_row</A
+>&nbsp;--&nbsp;Carica una tupla in un array</DT
+><DT
+><A
+HREF="function.pg-field-is-null.html"
+>pg_field_is_null</A
+>&nbsp;--&nbsp;Verifica se un campo è <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+></DT
+><DT
+><A
+HREF="function.pg-field-name.html"
+>pg_field_name</A
+>&nbsp;--&nbsp;Restituisce il nome di un campo</DT
+><DT
+><A
+HREF="function.pg-field-num.html"
+>pg_field_num</A
+>&nbsp;--&nbsp;Restituisce la posizione del campo specificato</DT
+><DT
+><A
+HREF="function.pg-field-prtlen.html"
+>pg_field_prtlen</A
+>&nbsp;--&nbsp;Restituisce la lunghezza "stampabile" di un valore</DT
+><DT
+><A
+HREF="function.pg-field-size.html"
+>pg_field_size</A
+>&nbsp;--&nbsp;
+     Restituisce la reale dimensione di memorizzazione del campo
+    </DT
+><DT
+><A
+HREF="function.pg-field-type-oid.html"
+>pg_field_type_oid</A
+>&nbsp;--&nbsp;
+   Returns the type ID (OID) for the corresponding field number
+  </DT
+><DT
+><A
+HREF="function.pg-field-type.html"
+>pg_field_type</A
+>&nbsp;--&nbsp;
+     Restituisce il nome del tipo del campo specificato
+    </DT
+><DT
+><A
+HREF="function.pg-free-result.html"
+>pg_free_result</A
+>&nbsp;--&nbsp;Libera la memoria allocata per i risultati</DT
+><DT
+><A
+HREF="function.pg-get-notify.html"
+>pg_get_notify</A
+>&nbsp;--&nbsp;Ping database connection</DT
+><DT
+><A
+HREF="function.pg-get-pid.html"
+>pg_get_pid</A
+>&nbsp;--&nbsp;Ping database connection</DT
+><DT
+><A
+HREF="function.pg-get-result.html"
+>pg_get_result</A
+>&nbsp;--&nbsp;
+     Recupera i risultati di una query asincrona
+    </DT
+><DT
+><A
+HREF="function.pg-host.html"
+>pg_host</A
+>&nbsp;--&nbsp;
+     Restituisce il nome dell'host associato alla connessione
+    </DT
+><DT
+><A
+HREF="function.pg-insert.html"
+>pg_insert</A
+>&nbsp;--&nbsp;
+     Inserisce un array in una tabella.
+    </DT
+><DT
+><A
+HREF="function.pg-last-error.html"
+>pg_last_error</A
+>&nbsp;--&nbsp;Restituisce l'ultimo messaggio d'errore di una connessione</DT
+><DT
+><A
+HREF="function.pg-last-notice.html"
+>pg_last_notice</A
+>&nbsp;--&nbsp;
+     Restituisce l'ultimo messaggio di notifica dal server PostgreSQL
+    </DT
+><DT
+><A
+HREF="function.pg-last-oid.html"
+>pg_last_oid</A
+>&nbsp;--&nbsp;Restituisce l'oid dell'ultimo oggetto</DT
+><DT
+><A
+HREF="function.pg-lo-close.html"
+>pg_lo_close</A
+>&nbsp;--&nbsp;Chiude un large object</DT
+><DT
+><A
+HREF="function.pg-lo-create.html"
+>pg_lo_create</A
+>&nbsp;--&nbsp;Crea un large object</DT
+><DT
+><A
+HREF="function.pg-lo-export.html"
+>pg_lo_export</A
+>&nbsp;--&nbsp;Esporta un large object salvandolo su un file</DT
+><DT
+><A
+HREF="function.pg-lo-import.html"
+>pg_lo_import</A
+>&nbsp;--&nbsp;Importa un large object da un file</DT
+><DT
+><A
+HREF="function.pg-lo-open.html"
+>pg_lo_open</A
+>&nbsp;--&nbsp;Apre un large object</DT
+><DT
+><A
+HREF="function.pg-lo-read-all.html"
+>pg_lo_read_all</A
+>&nbsp;--&nbsp;
+     Legge interamente un large object e lo manda direttamente al browser
+    </DT
+><DT
+><A
+HREF="function.pg-lo-read.html"
+>pg_lo_read</A
+>&nbsp;--&nbsp;Legge un large object</DT
+><DT
+><A
+HREF="function.pg-lo-seek.html"
+>pg_lo_seek</A
+>&nbsp;--&nbsp;
+     Ricerca la posizione di un large object
+    </DT
+><DT
+><A
+HREF="function.pg-lo-tell.html"
+>pg_lo_tell</A
+>&nbsp;--&nbsp;
+     Restituisce la posizione attuale in un large object
+    </DT
+><DT
+><A
+HREF="function.pg-lo-unlink.html"
+>pg_lo_unlink</A
+>&nbsp;--&nbsp;Cancella un large object</DT
+><DT
+><A
+HREF="function.pg-lo-write.html"
+>pg_lo_write</A
+>&nbsp;--&nbsp;Scrive un large object</DT
+><DT
+><A
+HREF="function.pg-meta-data.html"
+>pg_meta_data</A
+>&nbsp;--&nbsp;
+	    Ottiene la definizione di una tabella.
+    </DT
+><DT
+><A
+HREF="function.pg-num-fields.html"
+>pg_num_fields</A
+>&nbsp;--&nbsp;Restituisce il numero di campi</DT
+><DT
+><A
+HREF="function.pg-num-rows.html"
+>pg_num_rows</A
+>&nbsp;--&nbsp;Restituiscein numero di tuple</DT
+><DT
+><A
+HREF="function.pg-options.html"
+>pg_options</A
+>&nbsp;--&nbsp;Estrae le opzioni associate alla connessione</DT
+><DT
+><A
+HREF="function.pg-parameter-status.html"
+>pg_parameter_status</A
+>&nbsp;--&nbsp;Looks up a current parameter setting of the server.</DT
+><DT
+><A
+HREF="function.pg-pconnect.html"
+>pg_pconnect</A
+>&nbsp;--&nbsp;Open a persistent PostgreSQL connection</DT
+><DT
+><A
+HREF="function.pg-ping.html"
+>pg_ping</A
+>&nbsp;--&nbsp;Ping database connection</DT
+><DT
+><A
+HREF="function.pg-port.html"
+>pg_port</A
+>&nbsp;--&nbsp;
+     Restituisce il numero di porta associato alla connessione
+    </DT
+><DT
+><A
+HREF="function.pg-prepare.html"
+>pg_prepare</A
+>&nbsp;--&nbsp; Submits a request to create a prepared statement with the 
+  given parameters, and waits for completion.</DT
+><DT
+><A
+HREF="function.pg-put-line.html"
+>pg_put_line</A
+>&nbsp;--&nbsp;Invia una stringa terminata da NULL al backend PostgreSQL</DT
+><DT
+><A
+HREF="function.pg-query-params.html"
+>pg_query_params</A
+>&nbsp;--&nbsp;Submits a command to the server and waits for the result, with the ability to pass parameters separately from the SQL command text.</DT
+><DT
+><A
+HREF="function.pg-query.html"
+>pg_query</A
+>&nbsp;--&nbsp;Esegue una query</DT
+><DT
+><A
+HREF="function.pg-result-error-field.html"
+>pg_result_error_field</A
+>&nbsp;--&nbsp;Returns an individual field of an error report.</DT
+><DT
+><A
+HREF="function.pg-result-error.html"
+>pg_result_error</A
+>&nbsp;--&nbsp;
+     Restituisce i messaggio di errore associato al risultato
+    </DT
+><DT
+><A
+HREF="function.pg-result-seek.html"
+>pg_result_seek</A
+>&nbsp;--&nbsp;Set internal row offset in result resource</DT
+><DT
+><A
+HREF="function.pg-result-status.html"
+>pg_result_status</A
+>&nbsp;--&nbsp;
+     Recupera lo stato del risultato di una query
+    </DT
+><DT
+><A
+HREF="function.pg-select.html"
+>pg_select</A
+>&nbsp;--&nbsp;
+     Seleziona delle tuple.
+    </DT
+><DT
+><A
+HREF="function.pg-send-execute.html"
+>pg_send_execute</A
+>&nbsp;--&nbsp;Sends a request to execute a prepared statement with given parameters, without waiting for the result(s).</DT
+><DT
+><A
+HREF="function.pg-send-prepare.html"
+>pg_send_prepare</A
+>&nbsp;--&nbsp;Sends a request to create a prepared statement with the given parameters, without waiting for completion.</DT
+><DT
+><A
+HREF="function.pg-send-query-params.html"
+>pg_send_query_params</A
+>&nbsp;--&nbsp;Submits a command and separate parameters to the server without waiting for the result(s).</DT
+><DT
+><A
+HREF="function.pg-send-query.html"
+>pg_send_query</A
+>&nbsp;--&nbsp;
+     Invia una query in modo asincrono
+    </DT
+><DT
+><A
+HREF="function.pg-set-client-encoding.html"
+>pg_set_client_encoding</A
+>&nbsp;--&nbsp;
+     Imposta la codifica del client
+    </DT
+><DT
+><A
+HREF="function.pg-set-error-verbosity.html"
+>pg_set_error_verbosity</A
+>&nbsp;--&nbsp;
+   Determines the verbosity of messages returned by <A
+HREF="function.pg-last-error.html"
+><B
+CLASS="function"
+>pg_last_error()</B
+></A
+> 
+   and <A
+HREF="function.pg-result-error.html"
+><B
+CLASS="function"
+>pg_result_error()</B
+></A
+>.
+  </DT
+><DT
+><A
+HREF="function.pg-trace.html"
+>pg_trace</A
+>&nbsp;--&nbsp;iAbilita il tracciamento di una connessione PostgreSQL</DT
+><DT
+><A
+HREF="function.pg-transaction-status.html"
+>pg_transaction_status</A
+>&nbsp;--&nbsp;Returns the current in-transaction status of the server.</DT
+><DT
+><A
+HREF="function.pg-tty.html"
+>pg_tty</A
+>&nbsp;--&nbsp;
+     Restituisce il nome della tty associata alla connessione
+    </DT
+><DT
+><A
+HREF="function.pg-unescape-bytea.html"
+>pg_unescape_bytea</A
+>&nbsp;--&nbsp;
+     Escape binary for bytea type
+    </DT
+><DT
+><A
+HREF="function.pg-untrace.html"
+>pg_untrace</A
+>&nbsp;--&nbsp;Disabilita il tracciamento di una connessione PostgreSQL</DT
+><DT
+><A
+HREF="function.pg-update.html"
+>pg_update</A
+>&nbsp;--&nbsp;
+     Modifica le tuple della tabella
+    </DT
+><DT
+><A
+HREF="function.pg-version.html"
+>pg_version</A
+>&nbsp;--&nbsp;
+   Returns an array with client, protocol and server version (when available)
+  </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sql-regcase.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-affected-rows.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sql_regcase</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_affected_rows</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

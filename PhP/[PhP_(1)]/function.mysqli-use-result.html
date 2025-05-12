@@ -1,0 +1,378 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysqli_use_result</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Improved Extension"
+HREF="ref.mysqli.html"><LINK
+REL="PREVIOUS"
+TITLE="mysqli_thread_safe"
+HREF="function.mysqli-thread-safe.html"><LINK
+REL="NEXT"
+TITLE="mysqli_warning_count"
+HREF="function.mysqli-warning-count.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysqli-thread-safe.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysqli-warning-count.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysqli-use-result"
+></A
+>mysqli_use_result</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN99370"
+></A
+><P
+>    (PHP 5)</P
+>mysqli_use_result<P
+>    (no version information, might be only in CVS)</P
+>mysqli-&#62;use_result&nbsp;--&nbsp;Initiate a result set retrieval</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN99374"
+></A
+><H2
+>Description</H2
+><P
+>Procedural style:</P
+>mysqli_result <B
+CLASS="methodname"
+>mysqli_use_result</B
+> ( mysqli link )<BR
+></BR
+><P
+>Object oriented style (method):</P
+>class <B
+CLASS="classname"
+>mysqli</B
+> { <BR
+></BR
+>mysqli_result <B
+CLASS="methodname"
+>use_result</B
+> ( void  )<BR
+></BR
+>}<P
+>&#13;     <B
+CLASS="function"
+>mysqli_use_result()</B
+> is used to initiate the retrieval
+     of a result set from the last query executed using the
+     <A
+HREF="function.mysqli-real-query.html"
+><B
+CLASS="function"
+>mysqli_real_query()</B
+></A
+> function on the database connection
+     specified by the <VAR
+CLASS="parameter"
+>link</VAR
+> parameter. Either this or the
+     <A
+HREF="function.mysqli-store-result.html"
+><B
+CLASS="function"
+>mysqli_store_result()</B
+></A
+> function must be called before the
+     results of a query can be retrieved, and one or the other must be called
+     to prevent the next query on that database connection from failing.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      The <B
+CLASS="function"
+>mysqli_use_result()</B
+> function does not transfer
+      the entire result set from the database and hence cannot be used functions
+      such as <A
+HREF="function.mysqli-data-seek.html"
+><B
+CLASS="function"
+>mysqli_data_seek()</B
+></A
+> to move to a particular
+      row within the set. To use this functionality, the result set must be
+      stored using <A
+HREF="function.mysqli-store-result.html"
+><B
+CLASS="function"
+>mysqli_store_result()</B
+></A
+>. One should not
+      use <B
+CLASS="function"
+>mysqli_use_result()</B
+> if a lot of processing on
+      the client side is performed, since this will tie up the server and
+      prevent other threads from updating any tables from which the data is
+      being fetched.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN99402"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;     Returns an unbuffered result object or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if an error occurred.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN99406"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;     <A
+HREF="function.mysqli-real-query.html"
+><B
+CLASS="function"
+>mysqli_real_query()</B
+></A
+> e
+     <A
+HREF="function.mysqli-store-result.html"
+><B
+CLASS="function"
+>mysqli_store_result()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN99411"
+></A
+><H2
+>Esempi</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN99413"
+></A
+><P
+><B
+>Esempio 1. Object oriented style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$mysqli </font><font color="#007700">= new </font><font color="#0000BB">mysqli</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"my_user"</font><font color="#007700">, </font><font color="#DD0000">"my_password"</font><font color="#007700">, </font><font color="#DD0000">"world"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">mysqli_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">mysqli_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#0000BB">$query&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">"SELECT CURRENT_USER();"</font><font color="#007700">;<br /></font><font color="#0000BB">$query </font><font color="#007700">.= </font><font color="#DD0000">"SELECT Name FROM City ORDER BY ID LIMIT 20, 5"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* execute multi query */<br /></font><font color="#007700">if (</font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">multi_query</font><font color="#007700">(</font><font color="#0000BB">$query</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;do {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* store first result set */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">use_result</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch_row</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%s\n"</font><font color="#007700">, </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$result</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* print divider */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">more_results</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"-----------------\n"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;} while (</font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">next_result</font><font color="#007700">());<br />}<br /><br /></font><font color="#FF8000">/* close connection */<br /></font><font color="#0000BB">$mysqli</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN99416"
+></A
+><P
+><B
+>Esempio 2. Procedural style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$link </font><font color="#007700">= </font><font color="#0000BB">mysqli_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"my_user"</font><font color="#007700">, </font><font color="#DD0000">"my_password"</font><font color="#007700">, </font><font color="#DD0000">"world"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (</font><font color="#0000BB">mysqli_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">mysqli_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#0000BB">$query&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">"SELECT CURRENT_USER();"</font><font color="#007700">;<br /></font><font color="#0000BB">$query </font><font color="#007700">.= </font><font color="#DD0000">"SELECT Name FROM City ORDER BY ID LIMIT 20, 5"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* execute multi query */<br /></font><font color="#007700">if (</font><font color="#0000BB">mysqli_multi_query</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#0000BB">$query</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;do {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* store first result set */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">mysqli_use_result</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">mysqli_fetch_row</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%s\n"</font><font color="#007700">, </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysqli_free_result</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* print divider */<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">mysqli_more_results</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"-----------------\n"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;} while (</font><font color="#0000BB">mysqli_next_result</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">));<br />}<br /><br /></font><font color="#FF8000">/* close connection */<br /></font><font color="#0000BB">mysqli_close</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>my_user@localhost
+-----------------
+Amersfoort
+Maastricht
+Dordrecht
+Leiden
+Haarlemmermeer</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysqli-thread-safe.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysqli-warning-count.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysqli_thread_safe</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysqli.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysqli_warning_count</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

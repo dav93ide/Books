@@ -1,0 +1,393 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>gzgetss</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di compressione Zlib"
+HREF="ref.zlib.html"><LINK
+REL="PREVIOUS"
+TITLE="gzgets"
+HREF="function.gzgets.html"><LINK
+REL="NEXT"
+TITLE="gzinflate"
+HREF="function.gzinflate.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.gzgets.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.gzinflate.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.gzgetss"
+></A
+>gzgetss</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN183254"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>gzgetss&nbsp;--&nbsp;
+   Get line from gz-file pointer and strip HTML tags
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183257"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>gzgetss</B
+> ( resource zp, int length [, string allowable_tags] )<BR
+></BR
+><P
+>&#13;   Identical to <A
+HREF="function.gzgets.html"
+><B
+CLASS="function"
+>gzgets()</B
+></A
+>, except that
+   <B
+CLASS="function"
+>gzgetss()</B
+> attempts to strip any HTML and PHP
+   tags from the text it reads.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183274"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>zp</VAR
+></DT
+><DD
+><P
+>&#13;       The gz-file pointer. It must be valid, and must point to a file
+       successfully opened by <A
+HREF="function.gzopen.html"
+><B
+CLASS="function"
+>gzopen()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>length</VAR
+></DT
+><DD
+><P
+>&#13;       The length of data to get.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>allowable_tags</VAR
+></DT
+><DD
+><P
+>&#13;       You can use this optional parameter to specify tags which should not 
+       be stripped.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183294"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   The uncompressed and striped string, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on error.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183298"
+></A
+><H2
+>Log delle modifiche</H2
+><P
+>&#13;   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN183301"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Versione</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>3.0.13 and 4.0b3</TD
+><TD
+>&#13;        <VAR
+CLASS="parameter"
+>allowable_tags</VAR
+> was added.
+       </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183312"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN183315"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>gzgetss()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$handle </font><font color="#007700">= </font><font color="#0000BB">gzopen</font><font color="#007700">(</font><font color="#DD0000">'somefile.gz'</font><font color="#007700">, </font><font color="#DD0000">'r'</font><font color="#007700">);<br />while (!</font><font color="#0000BB">gzeof</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$buffer </font><font color="#007700">= </font><font color="#0000BB">gzgetss</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#0000BB">4096</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$buffer</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">gzlose</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183319"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.gzopen.html"
+><B
+CLASS="function"
+>gzopen()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.gzgets.html"
+><B
+CLASS="function"
+>gzgets()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.strip-tags.html"
+><B
+CLASS="function"
+>strip_tags()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.gzgets.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.gzinflate.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>gzgets</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.zlib.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>gzinflate</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

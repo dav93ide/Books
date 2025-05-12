@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_num_rows</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_num_fields"
+HREF="function.db2-num-fields.html"><LINK
+REL="NEXT"
+TITLE="db2_pconnect"
+HREF="function.db2-pconnect.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-num-fields.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-pconnect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-num-rows"
+></A
+>db2_num_rows</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN54407"
+></A
+><P
+>    (PECL)</P
+>db2_num_rows&nbsp;--&nbsp;
+   Returns the number of rows affected by an SQL statement
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54410"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>db2_num_rows</B
+> ( resource stmt )<BR
+></BR
+><P
+>&#13;   Returns the number of rows deleted, inserted, or updated by an SQL
+   statement.
+  </P
+><P
+>&#13;   To determine the number of rows that will be returned by a SELECT
+   statement, issue SELECT COUNT(*) with the same predicates as your
+   intended SELECT statement and retrieve the value.
+  </P
+><P
+>&#13;   If your application logic checks the number of rows returned by a SELECT
+   statement and branches if the number of rows is 0, consider modifying your
+   application to attempt to return the first row with one of
+   <A
+HREF="function.db2-fetch-assoc.html"
+><B
+CLASS="function"
+>db2_fetch_assoc()</B
+></A
+>, <A
+HREF="function.db2-fetch-both.html"
+><B
+CLASS="function"
+>db2_fetch_both()</B
+></A
+>,
+   <A
+HREF="function.db2-fetch-array.html"
+><B
+CLASS="function"
+>db2_fetch_array()</B
+></A
+>, or <A
+HREF="function.db2-fetch-row.html"
+><B
+CLASS="function"
+>db2_fetch_row()</B
+></A
+>,
+   and branch if the fetch function returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    If you issue a SELECT statement using a scrollable cursor,
+    <B
+CLASS="function"
+>db2_num_rows()</B
+> returns the number of rows returned by
+    the SELECT statement. However, the overhead associated with scrollable
+    cursors significantly degrades the performance of your application, so if
+    this is the only reason you are considering using scrollable cursors,
+    you should use a forward-only cursor and either call SELECT COUNT(*) or
+    rely on the <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+> return value of the fetch functions to
+    achieve the equivalent functionality with much better performance.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54430"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>stmt</VAR
+></DT
+><DD
+><P
+>&#13;       A valid <VAR
+CLASS="literal"
+>stmt</VAR
+> resource containing a result set.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54440"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns the number of rows affected by the last SQL statement issued by
+   the specified statement handle.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-num-fields.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-pconnect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_num_fields</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_pconnect</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

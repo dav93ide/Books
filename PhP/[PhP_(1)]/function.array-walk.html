@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>array_walk</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Array"
+HREF="ref.array.html"><LINK
+REL="PREVIOUS"
+TITLE="array_walk_recursive"
+HREF="function.array-walk-recursive.html"><LINK
+REL="NEXT"
+TITLE="array"
+HREF="function.array.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.array-walk-recursive.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.array-walk"
+></A
+>array_walk</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN11730"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.3, PHP 4, PHP 5)</P
+>array_walk&nbsp;--&nbsp;
+     Esegue una funzione su ogni elemento dell'array
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN11733"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>array_walk</B
+> ( array &#38;array, callback funzione [, mixed datiutente] )<BR
+></BR
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+><P
+>&#13;     Esegue la funzione definita dall'utente identificata da <VAR
+CLASS="parameter"
+>funzione</VAR
+> 
+     su ogni elemento di <VAR
+CLASS="parameter"
+>array</VAR
+>. Normalmente
+     <VAR
+CLASS="parameter"
+>funzione</VAR
+> accetta due parametri.
+     Il valore del parametro <VAR
+CLASS="parameter"
+>array</VAR
+> viene passato per primo,
+     la chiave/indice per secondo. Se il parametro <VAR
+CLASS="parameter"
+>datiutente</VAR
+>
+     è specificato, verrà passato come terzo parametro alla 
+     <VAR
+CLASS="parameter"
+>funzione</VAR
+> callback.
+    </P
+><P
+>&#13;     Se <VAR
+CLASS="parameter"
+>funzione</VAR
+> richiede più parametri di
+     quanti gliene vengono passati, un errore di livello <A
+HREF="ref.errorfunc.html#errorfunc.constants"
+>&#13;     E_WARNING</A
+> verrà generato ogni volta che <B
+CLASS="function"
+>array_walk()</B
+>
+     la chiama. Questi avvertimenti possono essere soppressi
+     apponendo l'operatore d'errore 
+     <A
+HREF="language.operators.errorcontrol.html"
+>@</A
+> alla
+     chiamata di <B
+CLASS="function"
+>array_walk()</B
+>, oppure usando
+     <A
+HREF="function.error-reporting.html"
+><B
+CLASS="function"
+>error_reporting()</B
+></A
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Se <VAR
+CLASS="parameter"
+>funzione</VAR
+> deve lavorare con i 
+      reali valori dell'array, specificare che il primo parametro di 
+      <VAR
+CLASS="parameter"
+>funzione</VAR
+> deve essere passato come
+      <A
+HREF="language.references.html"
+>riferimento</A
+>. A qesto punto
+      ogni modifica a questi elementi verrà effettuata sull'array
+      stesso.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il passaggio della chiave e di <VAR
+CLASS="parameter"
+>datiutente</VAR
+> a <VAR
+CLASS="parameter"
+>func</VAR
+> è
+      stato aggiunto nella versione 4.0.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <B
+CLASS="function"
+>array_walk()</B
+> non è influenzato dal puntatore
+     interno dell'array <VAR
+CLASS="parameter"
+>array</VAR
+>. <B
+CLASS="function"
+>&#13;     array_walk()</B
+> percorrerà l'intero array
+     indipendentemente dalla posizione del puntatore. Per reinizializzare il puntatore, utilizzare
+     <A
+HREF="function.reset.html"
+><B
+CLASS="function"
+>reset()</B
+></A
+>. In PHP 3,
+     <B
+CLASS="function"
+>array_walk()</B
+> reinizializza il puntatore.
+    </P
+><P
+>&#13;     Gli utenti non possono modificare l'array attraverso la funzione
+     di callback, ad esempio aggiungere/togliere un elemento, o cancellare l'array su cui
+     <B
+CLASS="function"
+>array_walk()</B
+> è applicata. Se l'array viene
+     cambiato, il comportamento di questa funzione non è definito ed
+     è imprevedibile.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN11782"
+></A
+><P
+><B
+>Esempio 1. esempio di <B
+CLASS="function"
+>array_walk()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$frutta </font><font color="#007700">= array(</font><font color="#DD0000">"d"</font><font color="#007700">=&gt;</font><font color="#DD0000">"limone"</font><font color="#007700">, </font><font color="#DD0000">"a"</font><font color="#007700">=&gt;</font><font color="#DD0000">"arancia"</font><font color="#007700">, </font><font color="#DD0000">"b"</font><font color="#007700">=&gt;</font><font color="#DD0000">"banana"</font><font color="#007700">, </font><font color="#DD0000">"c"</font><font color="#007700">=&gt;</font><font color="#DD0000">"mela"</font><font color="#007700">);<br /><br />function </font><font color="#0000BB">modifica</font><font color="#007700">(&amp;</font><font color="#0000BB">$elemento1</font><font color="#007700">, </font><font color="#0000BB">$chiave</font><font color="#007700">, </font><font color="#0000BB">$prefisso</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$elemento1 </font><font color="#007700">= </font><font color="#DD0000">"$prefisso: $elemento1"</font><font color="#007700">;<br />}<br /><br />function </font><font color="#0000BB">stampa</font><font color="#007700">(</font><font color="#0000BB">$elemento2</font><font color="#007700">, </font><font color="#0000BB">$chiave</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$chiave. $elemento2&lt;br /&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /><br />echo </font><font color="#DD0000">"Prima ...:\n"</font><font color="#007700">;<br /></font><font color="#0000BB">array_walk</font><font color="#007700">(</font><font color="#0000BB">$frutta</font><font color="#007700">, </font><font color="#DD0000">'stampa'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">array_walk</font><font color="#007700">(</font><font color="#0000BB">$frutta</font><font color="#007700">, </font><font color="#DD0000">'modifica'</font><font color="#007700">, </font><font color="#DD0000">'frutto'</font><font color="#007700">);<br />echo </font><font color="#DD0000">"... e dopo:\n"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">array_walk</font><font color="#007700">(</font><font color="#0000BB">$frutta</font><font color="#007700">, </font><font color="#DD0000">'stampa'</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Il risultato del programma sarà:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+Prima ...:<br />d. limone<br />a. arancia<br />b. banana<br />c. mela<br />... e dopo:<br />d. frutto: limone<br />a. frutto: arancia<br />b. frutto: banana<br />c. frutto: mela</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.array-walk-recursive.html"
+><B
+CLASS="function"
+>array_walk_recursive()</B
+></A
+>,
+     <A
+HREF="function.create-function.html"
+><B
+CLASS="function"
+>create_function()</B
+></A
+>,
+     <A
+HREF="function.list.html"
+><B
+CLASS="function"
+>list()</B
+></A
+>,
+     <A
+HREF="control-structures.foreach.html"
+>foreach</A
+>, 
+     <A
+HREF="function.each.html"
+><B
+CLASS="function"
+>each()</B
+></A
+>,
+     <A
+HREF="function.call-user-func-array.html"
+><B
+CLASS="function"
+>call_user_func_array()</B
+></A
+> e
+     <A
+HREF="function.array-map.html"
+><B
+CLASS="function"
+>array_map()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.array-walk-recursive.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.array.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>array_walk_recursive</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.array.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>array</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

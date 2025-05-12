@@ -1,0 +1,345 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>syslog</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di rete"
+HREF="ref.network.html"><LINK
+REL="PREVIOUS"
+TITLE="socket_set_timeout"
+HREF="function.socket-set-timeout.html"><LINK
+REL="NEXT"
+TITLE="Newt Functions"
+HREF="ref.newt.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.socket-set-timeout.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.newt.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.syslog"
+></A
+>syslog</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN104116"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>syslog&nbsp;--&nbsp;Genera un messaggio del system log</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN104119"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>syslog</B
+> ( int priorità, string messaggio )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>syslog()</B
+> genera un messaggio di log che viene distribuito dal
+     logger di sistema.
+     <VAR
+CLASS="parameter"
+>priorità</VAR
+> è la combinazione della facility
+     e del livello, valori utilizzabili sono riportati nella prossima sezione.
+     L'argomento rimanente è il messaggio da inviare, eccetto i 
+     due caratteri <VAR
+CLASS="literal"
+>%m</VAR
+> che vengono sostituiti dalla
+     stringa del messaggio di errore (strerror) corrispondente all'attuale 
+     valore di <SPAN
+CLASS="errortype"
+>errno</SPAN
+>.
+    </P
+><P
+>&#13;     <DIV
+CLASS="table"
+><A
+NAME="AEN104136"
+></A
+><P
+><B
+>Tabella 1. Priorità <B
+CLASS="function"
+>syslog()</B
+> (in ordine discendente)</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Costante</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>LOG_EMERG</TD
+><TD
+>sistema non utilizzabile</TD
+></TR
+><TR
+><TD
+>LOG_ALERT</TD
+><TD
+>azione da intraprendere immediatamente</TD
+></TR
+><TR
+><TD
+>LOG_CRIT</TD
+><TD
+>condizioni critiche</TD
+></TR
+><TR
+><TD
+>LOG_ERR</TD
+><TD
+>condizioni di errore</TD
+></TR
+><TR
+><TD
+>LOG_WARNING</TD
+><TD
+>condizioni di attenzione</TD
+></TR
+><TR
+><TD
+>LOG_NOTICE</TD
+><TD
+>condizione normale, ma significativa</TD
+></TR
+><TR
+><TD
+>LOG_INFO</TD
+><TD
+>messaggio di informazione</TD
+></TR
+><TR
+><TD
+>LOG_DEBUG</TD
+><TD
+>messaggio a livello di debug</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN104170"
+></A
+><P
+><B
+>Esempio 1. Uso di <B
+CLASS="function"
+>syslog()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />define_syslog_variables</font><font color="#007700">();<br /></font><font color="#FF8000">// apre il syslog, include l'ID del processo, invia il<br />// log anche su standard error e fa uso di un meccanismo<br />// di logging defiito dall'utente<br /></font><font color="#0000BB">openlog</font><font color="#007700">(</font><font color="#DD0000">"IlMioLog"</font><font color="#007700">, </font><font color="#0000BB">LOG_PID </font><font color="#007700">| </font><font color="#0000BB">LOG_PERROR</font><font color="#007700">, </font><font color="#0000BB">LOG_LOCAL0</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// un po' di codice<br /><br /></font><font color="#007700">if (</font><font color="#0000BB">client_autorizzato</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// fa qualcosa<br /></font><font color="#007700">} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// client non autorizzato!<br />&nbsp;&nbsp;&nbsp;&nbsp;// logga il tentativo<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$accesso </font><font color="#007700">= </font><font color="#0000BB">date</font><font color="#007700">(</font><font color="#DD0000">"Y/m/d H:i:s"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">syslog</font><font color="#007700">(</font><font color="#0000BB">LOG_WARNING</font><font color="#007700">,</font><font color="#DD0000">"Client non autorizzato: $accesso $REMOTE_ADDR ($HTTP_USER_AGENT)"</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">closelog</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Per informazioni su come creare un gestore di log definito dall'utente, fare riferimento alla man page
+     <SPAN
+CLASS="citerefentry"
+><SPAN
+CLASS="refentrytitle"
+>syslog.conf</SPAN
+>(5)</SPAN
+> di Unix. Ulteriori
+     informazioni sulle facility di syslog e sulle sue opzioni possono essere trovate sulle macchine Unix nelle man page
+     di <SPAN
+CLASS="citerefentry"
+><SPAN
+CLASS="refentrytitle"
+>syslog</SPAN
+>(3)</SPAN
+>.
+    </P
+><P
+>&#13;     Su Windows NT, il servizio syslog è emulato usando Event
+     Log.
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.define-syslog-variables.html"
+><B
+CLASS="function"
+>define_syslog_variables()</B
+></A
+>,
+     <A
+HREF="function.openlog.html"
+><B
+CLASS="function"
+>openlog()</B
+></A
+> e
+     <A
+HREF="function.closelog.html"
+><B
+CLASS="function"
+>closelog()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.socket-set-timeout.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.newt.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>socket_set_timeout</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.network.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Newt Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sesam_diagnostic</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SESAM Database Functions"
+HREF="ref.sesam.html"><LINK
+REL="PREVIOUS"
+TITLE="sesam_connect"
+HREF="function.sesam-connect.html"><LINK
+REL="NEXT"
+TITLE="sesam_disconnect"
+HREF="function.sesam-disconnect.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sesam-connect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sesam-disconnect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sesam-diagnostic"
+></A
+>sesam_diagnostic</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN149234"
+></A
+><P
+>    (PHP 3 CVS only)</P
+>sesam_diagnostic&nbsp;--&nbsp;
+     Return status information for last SESAM call
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN149237"
+></A
+><H2
+>Description</H2
+>array <B
+CLASS="methodname"
+>sesam_diagnostic</B
+> ( void  )<BR
+></BR
+><P
+>&#13;     Returns an associative array of status and return codes for the
+     last SQL query/statement/command.  Elements of the array are:
+     <DIV
+CLASS="table"
+><A
+NAME="AEN149244"
+></A
+><P
+><B
+>Tabella 1. 
+       Status information returned by <B
+CLASS="function"
+>sesam_diagnostic()</B
+>
+      </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Element</TH
+><TH
+>Contents</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>$array["sqlstate"]</TD
+><TD
+>&#13;          5 digit SQL return code (see the SESAM manual for the
+          description of the possible values of SQLSTATE)
+         </TD
+></TR
+><TR
+><TD
+>$array["rowcount"]</TD
+><TD
+>&#13;          number of affected rows in last update/insert/delete (set
+          after "immediate" statements only)
+         </TD
+></TR
+><TR
+><TD
+>$array["errmsg"]</TD
+><TD
+>&#13;          "human readable" error message string (set after errors
+          only)
+         </TD
+></TR
+><TR
+><TD
+>$array["errcol"]</TD
+><TD
+>&#13;          error column number of previous error (0-based; or -1 if
+          undefined. Set after errors only)
+         </TD
+></TR
+><TR
+><TD
+>$array["errlin"]</TD
+><TD
+>&#13;          error line number of previous error (0-based; or -1 if
+          undefined. Set after errors only)
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     In the following example, a syntax error (E SEW42AE ILLEGAL
+     CHARACTER) is displayed by including the offending SQL statement
+     and pointing to the error location:
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN149269"
+></A
+><P
+><B
+>Esempio 1. Displaying SESAM error messages with error position</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Function which prints a formatted error message,<br />// displaying a pointer to the syntax error in the<br />// SQL statement<br /></font><font color="#007700">function </font><font color="#0000BB">PrintReturncode</font><font color="#007700">(</font><font color="#0000BB">$exec_str</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$err </font><font color="#007700">= </font><font color="#0000BB">Sesam_Diagnostic</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$colspan</font><font color="#007700">=</font><font color="#0000BB">4</font><font color="#007700">; </font><font color="#FF8000">// 4 cols for: sqlstate, errlin, errcol, rowcount<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (</font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errlin"</font><font color="#007700">] == -</font><font color="#0000BB">1</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</font><font color="#0000BB">$colspan</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errcol"</font><font color="#007700">] == -</font><font color="#0000BB">1</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</font><font color="#0000BB">$colspan</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"rowcount"</font><font color="#007700">] == </font><font color="#0000BB">0</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</font><font color="#0000BB">$colspan</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;table border=\"1\"&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;tr&gt;&lt;th colspan=\"" </font><font color="#007700">. </font><font color="#0000BB">$colspan </font><font color="#007700">. </font><font color="#DD0000">"\"&gt;&lt;span class=\"spanred\"&gt;ERROR:&lt;/span&gt; "</font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">htmlspecialchars</font><font color="#007700">(</font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errmsg"</font><font color="#007700">]) . </font><font color="#DD0000">"&lt;/th&gt;&lt;/tr&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errcol"</font><font color="#007700">] &gt;= </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;tr&gt;&lt;td colspan=\"" </font><font color="#007700">. </font><font color="#0000BB">$colspan </font><font color="#007700">. </font><font color="#DD0000">"\"&gt;&lt;pre&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$errstmt </font><font color="#007700">= </font><font color="#0000BB">$exec_str </font><font color="#007700">. </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (</font><font color="#0000BB">$lin</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$errstmt </font><font color="#007700">!= </font><font color="#DD0000">""</font><font color="#007700">; ++</font><font color="#0000BB">$lin</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$lin </font><font color="#007700">!= </font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errlin"</font><font color="#007700">]) { </font><font color="#FF8000">// $lin is less or greater than errlin<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">if (!(</font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">strchr</font><font color="#007700">(</font><font color="#0000BB">$errstmt</font><font color="#007700">, </font><font color="#DD0000">"\n"</font><font color="#007700">)))<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#DD0000">""</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$line </font><font color="#007700">= </font><font color="#0000BB">substr </font><font color="#007700">(</font><font color="#0000BB">$errstmt</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$errstmt</font><font color="#007700">)-</font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$i</font><font color="#007700">)+</font><font color="#0000BB">1</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$errstmt </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">$i</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$line </font><font color="#007700">!= </font><font color="#DD0000">"\n"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">htmlspecialchars</font><font color="#007700">(</font><font color="#0000BB">$line</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (! (</font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#0000BB">strchr </font><font color="#007700">(</font><font color="#0000BB">$errstmt</font><font color="#007700">, </font><font color="#DD0000">"\n"</font><font color="#007700">)))<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$i </font><font color="#007700">= </font><font color="#DD0000">""</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$line </font><font color="#007700">= </font><font color="#0000BB">substr </font><font color="#007700">(</font><font color="#0000BB">$errstmt</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">strlen </font><font color="#007700">(</font><font color="#0000BB">$errstmt</font><font color="#007700">)-</font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$i</font><font color="#007700">)+</font><font color="#0000BB">1</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$errstmt </font><font color="#007700">= </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">$i</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (</font><font color="#0000BB">$col</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$col </font><font color="#007700">&lt; </font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errcol"</font><font color="#007700">]; ++</font><font color="#0000BB">$col</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo (</font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">$line</font><font color="#007700">, </font><font color="#0000BB">$col</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">) == </font><font color="#DD0000">"\t"</font><font color="#007700">) ? </font><font color="#DD0000">"\t" </font><font color="#007700">: </font><font color="#DD0000">"."</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;span class=\"spanred\"&gt;\\&lt;/span&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;span class=\"normal\"&gt;" </font><font color="#007700">. </font><font color="#0000BB">htmlspecialchars</font><font color="#007700">(</font><font color="#0000BB">$line</font><font color="#007700">) . </font><font color="#DD0000">"&lt;/span&gt;"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (</font><font color="#0000BB">$col</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$col </font><font color="#007700">&lt; </font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errcol"</font><font color="#007700">]; ++</font><font color="#0000BB">$col</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo (</font><font color="#0000BB">substr </font><font color="#007700">(</font><font color="#0000BB">$line</font><font color="#007700">, </font><font color="#0000BB">$col</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">) == </font><font color="#DD0000">"\t"</font><font color="#007700">) ? </font><font color="#DD0000">"\t" </font><font color="#007700">: </font><font color="#DD0000">"."</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;span class=\"spanred\"&gt;/&lt;/span&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;tr&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">" &lt;td&gt;sqlstate=" </font><font color="#007700">. </font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"sqlstate"</font><font color="#007700">] . </font><font color="#DD0000">"&lt;/td&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errlin"</font><font color="#007700">] != -</font><font color="#0000BB">1</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">" &lt;td&gt;errlin=" </font><font color="#007700">. </font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errlin"</font><font color="#007700">] . </font><font color="#DD0000">"&lt;/td&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errcol"</font><font color="#007700">] != -</font><font color="#0000BB">1</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">" &lt;td&gt;errcol=" </font><font color="#007700">. </font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"errcol"</font><font color="#007700">] . </font><font color="#DD0000">"&lt;/td&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"rowcount"</font><font color="#007700">] != </font><font color="#0000BB">0</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">" &lt;td&gt;rowcount=" </font><font color="#007700">. </font><font color="#0000BB">$err</font><font color="#007700">[</font><font color="#DD0000">"rowcount"</font><font color="#007700">] . </font><font color="#DD0000">"&lt;/td&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;/tr&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"&lt;/table&gt;\n"</font><font color="#007700">;<br />}<br /><br />if (!</font><font color="#0000BB">sesam_connect </font><font color="#007700">(</font><font color="#DD0000">"mycatalog"</font><font color="#007700">, </font><font color="#DD0000">"phoneno"</font><font color="#007700">, </font><font color="#DD0000">"otto"</font><font color="#007700">))<br />&nbsp;&nbsp;die (</font><font color="#DD0000">"cannot connect"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#DD0000">"SELECT * FROM phone\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">" WHERE@ LASTNAME='KRAEMER'\n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">" ORDER BY FIRSTNAME"</font><font color="#007700">;<br />if (!(</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">sesam_query </font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)))<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">PrintReturncode </font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     See also: <A
+HREF="function.sesam-errormsg.html"
+><B
+CLASS="function"
+>sesam_errormsg()</B
+></A
+> for simple access
+     to the error string only
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sesam-connect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sesam-disconnect.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sesam_connect</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sesam.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sesam_disconnect</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

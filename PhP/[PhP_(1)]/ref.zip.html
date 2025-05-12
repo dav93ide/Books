@@ -1,0 +1,431 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni per File Zip (Accesso di Sola Lettura)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="yp_order"
+HREF="function.yp-order.html"><LINK
+REL="NEXT"
+TITLE="zip_close"
+HREF="function.zip-close.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.yp-order.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.zip-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.zip"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CLXVIII. Funzioni per File Zip (Accesso di Sola Lettura)</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN182564"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="zip.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Questo modulo abilita l'accesso trasperente in lettura degli archivi compressi con ZIP
+     e dei file in essi contenuti.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="zip.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    Questo modulo usa le funzioni <A
+HREF="http://zziplib.sourceforge.net/"
+TARGET="_top"
+>ZZIPlib</A
+> della libreria di Guido Draheim.
+    Sono richieste le ZZIPlib versione &#62;= 0.10.6.
+   </P
+><P
+>&#13;    Notare che ZZIPlib rende disponbili solo un sottogruppo di quelle funzioni
+    disponibili in una implementazione completa dell'algoritmo di compressione ZIP
+    e può solamente leggere i file in formato ZIP. Una normale utility ZIP è
+    richiesta per creare i file ZIP letti da questa libreria.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="zip.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  This <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> extension
+is not bundled with PHP.
+  Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+  <A
+HREF="http://pecl.php.net/package/zip"
+TARGET="_top"
+>http://pecl.php.net/package/zip</A
+>.
+ </P
+><P
+>&#13;  In PHP 4 this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> extensions
+source can be found in the <TT
+CLASS="filename"
+>ext/</TT
+> directory within the
+PHP source or at the <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> link above.
+  Per utilizzare questo modulo è necessario usare
+  l'opzione di configurazione <VAR
+CLASS="option"
+>--with-zip[=DIR]</VAR
+>
+  durante la compilazione di PHP.
+ </P
+><P
+>&#13;  Per utilizzare queste funzioni, gli utenti Windows dovranno abilitare <TT
+CLASS="filename"
+>php_zip.dll</TT
+> all'interno
+  del <TT
+CLASS="filename"
+>php.ini</TT
+>.
+  In PHP 4 this <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> resides in
+the <TT
+CLASS="filename"
+>extensions/</TT
+> directory within the PHP Windows
+binaries download.
+  You may download this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+>
+extension <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> from the <A
+HREF="http://www.php.net/downloads.php"
+TARGET="_top"
+>&#13;PHP Downloads</A
+> page or at <A
+HREF="http://snaps.php.net/"
+TARGET="_top"
+>&#13;http://snaps.php.net/</A
+>.
+ </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+   Il supporto Zip precedentemente alla versione 4.1.0 di PHP è sperimentale. Questa sezione
+   riflette l'estensione Zip così come essa esiste in PHP 4.1.0 e successivi.
+  </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="zip.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="zip.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="zip.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="zip.example"
+>Esempi</A
+></H1
+><P
+>&#13;     Questo esempio apre un archivio ZIP, legge tutti i file presenti
+     nell'archivio e stampa il contenuto. L'archivio
+     <TT
+CLASS="filename"
+>test2.zip</TT
+> usato in questo esempio è
+     uno degli archivi dimostrativi presenti nella distribuzione di ZZIPlib.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN182608"
+></A
+><P
+><B
+>Esempio 1. Esempio di Utilizzo Zip</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$zip </font><font color="#007700">= </font><font color="#0000BB">zip_open</font><font color="#007700">(</font><font color="#DD0000">"/tmp/test2.zip"</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">$zip</font><font color="#007700">) {<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$zip_entry </font><font color="#007700">= </font><font color="#0000BB">zip_read</font><font color="#007700">(</font><font color="#0000BB">$zip</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Nome:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" </font><font color="#007700">. </font><font color="#0000BB">zip_entry_name</font><font color="#007700">(</font><font color="#0000BB">$zip_entry</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Dimensione File:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" </font><font color="#007700">. </font><font color="#0000BB">zip_entry_filesize</font><font color="#007700">(</font><font color="#0000BB">$zip_entry</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Dimensione Compressa:&nbsp;&nbsp;&nbsp;&nbsp;" </font><font color="#007700">. </font><font color="#0000BB">zip_entry_compressedsize</font><font color="#007700">(</font><font color="#0000BB">$zip_entry</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Metodo di Compressione:&nbsp;&nbsp;" </font><font color="#007700">. </font><font color="#0000BB">zip_entry_compressionmethod</font><font color="#007700">(</font><font color="#0000BB">$zip_entry</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">zip_entry_open</font><font color="#007700">(</font><font color="#0000BB">$zip</font><font color="#007700">, </font><font color="#0000BB">$zip_entry</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Contenuto File:\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$buf </font><font color="#007700">= </font><font color="#0000BB">zip_entry_read</font><font color="#007700">(</font><font color="#0000BB">$zip_entry</font><font color="#007700">, </font><font color="#0000BB">zip_entry_filesize</font><font color="#007700">(</font><font color="#0000BB">$zip_entry</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$buf</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">zip_entry_close</font><font color="#007700">(</font><font color="#0000BB">$zip_entry</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">zip_close</font><font color="#007700">(</font><font color="#0000BB">$zip</font><font color="#007700">);<br /><br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.zip-close.html"
+>zip_close</A
+>&nbsp;--&nbsp;Chiude un archivio Zip</DT
+><DT
+><A
+HREF="function.zip-entry-close.html"
+>zip_entry_close</A
+>&nbsp;--&nbsp;Chiude il puntatore a una directory</DT
+><DT
+><A
+HREF="function.zip-entry-compressedsize.html"
+>zip_entry_compressedsize</A
+>&nbsp;--&nbsp;Ottiene la dimensione compressa di una Directory</DT
+><DT
+><A
+HREF="function.zip-entry-compressionmethod.html"
+>zip_entry_compressionmethod</A
+>&nbsp;--&nbsp;Ottiene il metodo di compressione di una voce directory</DT
+><DT
+><A
+HREF="function.zip-entry-filesize.html"
+>zip_entry_filesize</A
+>&nbsp;--&nbsp;Ottiene la dimensione attuale di una directory</DT
+><DT
+><A
+HREF="function.zip-entry-name.html"
+>zip_entry_name</A
+>&nbsp;--&nbsp;Ottiene il nome di una directory</DT
+><DT
+><A
+HREF="function.zip-entry-open.html"
+>zip_entry_open</A
+>&nbsp;--&nbsp;Apre una voce directory in lettura</DT
+><DT
+><A
+HREF="function.zip-entry-read.html"
+>zip_entry_read</A
+>&nbsp;--&nbsp;Legge da una directory aperta</DT
+><DT
+><A
+HREF="function.zip-open.html"
+>zip_open</A
+>&nbsp;--&nbsp;Apre un archivio zip</DT
+><DT
+><A
+HREF="function.zip-read.html"
+>zip_read</A
+>&nbsp;--&nbsp;Legge la prossima voce in un archivio file zip</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.yp-order.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.zip-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>yp_order</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>zip_close</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,236 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Tipi di espressione</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Migrazione da PHP/FI 2 a PHP 3"
+HREF="migration.html"><LINK
+REL="PREVIOUS"
+TITLE="Sintassi di while"
+HREF="migration.while.html"><LINK
+REL="NEXT"
+TITLE="I messaggi di errore sono cambiati"
+HREF="migration.errors.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="migration.while.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice D. Migrazione da PHP/FI 2 a PHP 3</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="migration.errors.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="migration.expr"
+>Tipi di espressione</A
+></H1
+><P
+>&#13;   PHP/FI 2.0 usava il lato sinistro delle espressioni per
+   determinare che tipo il risultato dovrebbe essere. PHP 3.0
+   prende entrambi i lati in considerazione quando determina
+   i tipi del risultato, e questo può causare un comportamento
+   inaspettato dei script 2.0 in versione 3.0.
+  </P
+><P
+>&#13;   Considera questo exampio:
+   <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN199846"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$a[0]=5;<br />$a[1]=7;<br /><br />$key = key($a);<br />while ("" != $key) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo "$keyn";<br />&nbsp;&nbsp;&nbsp;&nbsp;next($a);<br />}</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+
+   In PHP/FI 2.0, questo visualizzerebbe entrambi gli indici di $a.
+   In PHP 3.0, invece, non visualizzerebbe nulla. Il motivo è che in
+   PHP 2.0, siccome il tipo del'argomento sinistro è una stringa, è stato
+   fatto una paragono tra le stringhe, ed infatti, <VAR
+CLASS="literal"
+>""</VAR
+>
+   non è uguale a <VAR
+CLASS="literal"
+>"0"</VAR
+>, per ciò il ciclo è continuato.
+   In PHP 3.0, quando una stringa è paragonata ad un intero,
+   viene fatto un paragone fra gli interi (la stringa è convertita in intero).
+   Ciò provoca una confrontazione di <VAR
+CLASS="literal"
+>atoi("")</VAR
+> che è
+   <VAR
+CLASS="literal"
+>0</VAR
+>, e <VAR
+CLASS="literal"
+>variablelist</VAR
+> che è anche 
+   <VAR
+CLASS="literal"
+>0</VAR
+>, e siccome <VAR
+CLASS="literal"
+>0==0</VAR
+>, il ciclo non
+   passa neanche una volta.
+  </P
+><P
+>&#13;   La soluzione è semplice.  Sostituisci l'espressione while con:
+   <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN199856"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+while ((string)$key != "") {</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="migration.while.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="migration.errors.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Sintassi di while</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="migration.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>I messaggi di errore sono cambiati</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

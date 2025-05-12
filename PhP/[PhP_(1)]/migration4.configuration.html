@@ -1,0 +1,371 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Migrating Configuration Files</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Migrating from PHP 3 to PHP 4"
+HREF="migration4.html"><LINK
+REL="PREVIOUS"
+TITLE="Running PHP 3 and PHP 4 concurrently"
+HREF="migration4.php4.with.php3.html"><LINK
+REL="NEXT"
+TITLE="Parser behavior"
+HREF="migration4.parser.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="migration4.php4.with.php3.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice C. Migrating from PHP 3 to PHP 4</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="migration4.parser.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="migration4.configuration"
+>Migrating Configuration Files</A
+></H1
+><P
+>&#13;    The global configuration file, <TT
+CLASS="filename"
+>php3.ini</TT
+>,
+    has changed its name to <TT
+CLASS="filename"
+>php.ini</TT
+>.
+   </P
+><P
+>&#13;    For the Apache configuration file, there are slightly more
+    changes. The MIME types recognized by the PHP module have
+    changed.
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN199642"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache-conf"
+>application/x-httpd-php3        --&#62;    application/x-httpd-php
+application/x-httpd-php3-source --&#62;    application/x-httpd-php-source</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    You can make your configuration files work with both versions
+    of PHP (depending on which one is currently compiled into the
+    server), using the following syntax:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN199645"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache-conf"
+>AddType  application/x-httpd-php3        .php3
+AddType  application/x-httpd-php3-source .php3s
+
+AddType  application/x-httpd-php         .php
+AddType  application/x-httpd-php-source  .phps</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    In addition,  the PHP directive names for Apache have changed.
+   </P
+><P
+>&#13;    Starting with PHP 4.0, there are only four Apache directives
+    that relate to PHP:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN199649"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache-conf"
+>php_value [PHP directive name] [value]
+php_flag [PHP directive name] [On|Off]
+php_admin_value [PHP directive name] [value]
+php_admin_flag [PHP directive name] [On|Off]</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    There are two differences between the Admin values and the non admin values:
+   </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;      Admin values (or flags) can only appear in the server-wide Apache configuration
+      files (e.g., <TT
+CLASS="filename"
+>httpd.conf</TT
+>).
+     </P
+></LI
+><LI
+><P
+>&#13;      Standard values (or flags) cannot control certain PHP directives, for example: 
+      <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+> (if you could override safe mode settings in 
+      <TT
+CLASS="filename"
+>.htaccess</TT
+> files, it 
+      would defeat <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+>'s purpose).  In contrast, Admin values can modify 
+      the value of any PHP directive.
+     </P
+></LI
+></UL
+><P
+>&#13;    To make the transition process easier, PHP 4 is bundled with scripts 
+    that automatically convert your Apache configuration and 
+    <TT
+CLASS="filename"
+>.htaccess</TT
+> files 
+    to work with both PHP 3 and PHP 4. These scripts do NOT convert the mime 
+    type lines! You have to convert these yourself.
+   </P
+><P
+>&#13;    To convert your Apache configuration files, run the apconf-conv.sh 
+    script (available in the scripts/apache/ directory).  For example:
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN199664"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>~/php4/scripts/apache:#  ./apconf-conv.sh /usr/local/apache/conf/httpd.conf</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Your original configuration file will be saved in httpd.conf.orig.
+   </P
+><P
+>&#13;    To convert your <TT
+CLASS="filename"
+>.htaccess</TT
+> files, run the 
+    <TT
+CLASS="filename"
+>aphtaccess-conv.sh</TT
+> script (available in 
+    the <TT
+CLASS="filename"
+>scripts/apache/</TT
+> directory as well):
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN199671"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>~/php4/scripts/apache:#  find / -name .htaccess -exec ./aphtaccess-conv.sh {} \;</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    Likewise, your old <TT
+CLASS="filename"
+>.htaccess</TT
+> files will be saved with 
+    an .orig prefix.
+   </P
+><P
+>&#13;    The conversion scripts require awk to be installed.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="migration4.php4.with.php3.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="migration4.parser.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Running PHP 3 and PHP 4 concurrently</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="migration4.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Parser behavior</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

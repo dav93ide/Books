@@ -1,0 +1,899 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Modalità sicura (Safe mode)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Caratteristiche"
+HREF="features.html"><LINK
+REL="PREVIOUS"
+TITLE="Connessioni Persistenti ai Database"
+HREF="features.persistent-connections.html"><LINK
+REL="NEXT"
+TITLE="Funzioni limitate/disabilitate dalla modalità sicura (safe-mode)"
+HREF="features.safe-mode.functions.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="features.persistent-connections.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="features.safe-mode.functions.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="features.safe-mode"
+>Capitolo 42. Modalità sicura (Safe mode)</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="features.safe-mode.html#ini.sect.safe-mode"
+>Security and Safe Mode</A
+></DT
+><DT
+><A
+HREF="features.safe-mode.functions.html"
+>Funzioni limitate/disabilitate dalla modalità sicura (safe-mode)</A
+></DT
+></DL
+></DIV
+><P
+>&#13;   La modalità Safe Mode è un tentativo di risolvere il problema di sicurezza 
+   derivante dalla condivisione del server. Dal punto di vista architetturale
+   non è corretto cercare di risolvere questo problema al livello del PHP, ma
+   poiché le alternative al livello del web server e del SO (Sistema Operativo)
+   non sono realistiche, in molti, specialmente ISP (Internet Service Provider),
+   utilizzano la modalità sicura. 
+  </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="ini.sect.safe-mode"
+>Security and Safe Mode</A
+></H1
+><P
+>&#13;    <DIV
+CLASS="table"
+><A
+NAME="AEN7345"
+></A
+><P
+><B
+>Tabella 42-1. Direttive di configurazione della Modalità sicura e Sdella icurezza</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>safe_mode</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>safe_mode_gid</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Disponibile dal PHP 4.1.0.</TD
+></TR
+><TR
+><TD
+>safe_mode_include_dir</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Disponibile dal PHP 4.1.0.</TD
+></TR
+><TR
+><TD
+>safe_mode_exec_dir</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>safe_mode_allowed_env_vars</TD
+><TD
+>"PHP_"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>safe_mode_protected_env_vars</TD
+><TD
+>"LD_LIBRARY_PATH"</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>open_basedir</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>disable_functions</TD
+><TD
+>""</TD
+><TD
+><TT
+CLASS="filename"
+>php.ini</TT
+> only</TD
+><TD
+>Disponibile dal PHP 4.0.1.</TD
+></TR
+><TR
+><TD
+>disable_classes</TD
+><TD
+>""</TD
+><TD
+><TT
+CLASS="filename"
+>php.ini</TT
+> only</TD
+><TD
+>Disponibile dal PHP 4.3.2.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    Per ulteriori dettagli e definizione delle costanti PHP_INI_* vedere
+    <A
+HREF="function.ini-set.html"
+><B
+CLASS="function"
+>ini_set()</B
+></A
+>.
+   </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;    <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.safe-mode"
+></A
+><VAR
+CLASS="parameter"
+>safe_mode</VAR
+>
+       <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;        Abilita o disabilita la modalità sicura di PHP's. Leggere il
+        capitolo <A
+HREF="security.html"
+>Sicurezza</A
+> per ulteriori
+        informazioni.
+       </P
+></DD
+><DT
+><A
+NAME="ini.safe-mode-gid"
+></A
+><VAR
+CLASS="parameter"
+>safe_mode_gid</VAR
+>
+       <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;        Di default, Safe Mode does a UID compare check when
+        opening files. If you want to relax this to a GID compare,
+        then turn on safe_mode_gid.
+        Whether to use <VAR
+CLASS="literal"
+>UID</VAR
+> (<TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>) or
+        <VAR
+CLASS="literal"
+>GID</VAR
+> (<TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>) checking upon file
+        access.
+       </P
+></DD
+><DT
+><A
+NAME="ini.safe-mode-include-dir"
+></A
+><VAR
+CLASS="parameter"
+>safe_mode_include_dir</VAR
+>
+       <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;        <VAR
+CLASS="literal"
+>UID</VAR
+>/<VAR
+CLASS="literal"
+>GID</VAR
+> checks are bypassed when
+        including files from this directory and its subdirectories (directory
+        must also be in <A
+HREF="ini.core.html#ini.include-path"
+>include_path</A
+>
+        or full path must including).
+       </P
+><P
+>&#13;        As of PHP 4.2.0, this directive can take a colon (semi-colon on
+        Windows) separated path in a fashion similar to the
+        <A
+HREF="ini.core.html#ini.include-path"
+>include_path</A
+> directive,
+        rather than just a single directory.
+       </P
+><P
+>&#13;        The restriction specified is actually a prefix, not a directory name. 
+        This means that "safe_mode_include_dir = /dir/incl" also allows
+        access to "/dir/include" and "/dir/incls" if they exist.  When you 
+        want to restrict access to only the specified directory, end with a 
+        slash. For example: "safe_mode_include_dir = /dir/incl/"
+       </P
+></DD
+><DT
+><A
+NAME="ini.safe-mode-exec-dir"
+></A
+><VAR
+CLASS="parameter"
+>safe_mode_exec_dir</VAR
+>
+       <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;        If PHP is used in safe mode, <A
+HREF="function.system.html"
+><B
+CLASS="function"
+>system()</B
+></A
+> and the other
+        <A
+HREF="ref.exec.html"
+>functions executing system programs</A
+>
+        refuse to start programs that are not in this directory.
+        You have to use <VAR
+CLASS="literal"
+>/</VAR
+> as directory separator on all
+        environments including Windows.
+       </P
+></DD
+><DT
+><A
+NAME="ini.safe-mode-allowed-env-vars"
+></A
+><VAR
+CLASS="parameter"
+>safe_mode_allowed_env_vars</VAR
+>
+       <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;        Setting certain environment variables may be a potential security breach.
+        This directive contains a comma-delimited list of prefixes. In Safe Mode,
+        the user may only alter environment variables whose names begin with the
+        prefixes supplied here. By default, users will only be able to set
+        environment variables that begin with PHP_ (e.g. PHP_FOO=BAR).
+       </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+         If this directive is empty, PHP will let the user modify ANY
+         environment variable!
+        </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="ini.safe-mode-protected-env-vars"
+></A
+><VAR
+CLASS="parameter"
+>safe_mode_protected_env_vars</VAR
+>
+       <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;        This directive contains a comma-delimited list of environment
+        variables that the end user won't be able to change using
+        <A
+HREF="function.putenv.html"
+><B
+CLASS="function"
+>putenv()</B
+></A
+>. These variables will be protected
+        even if safe_mode_allowed_env_vars is set to allow to change them.
+       </P
+></DD
+><DT
+><A
+NAME="ini.open-basedir"
+></A
+><VAR
+CLASS="parameter"
+>open_basedir</VAR
+>
+       <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;        Limit the files that can be opened by PHP to the specified
+        directory-tree, including the file itself.  This directive 
+        is <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>NOT</I
+></SPAN
+> affected by whether Safe Mode is 
+        turned On or Off.
+       </P
+><P
+>&#13;        When a script tries to open a file with, for example,
+        <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+> or <A
+HREF="function.gzopen.html"
+><B
+CLASS="function"
+>gzopen()</B
+></A
+>,
+        the location of the file is checked. When the file is outside the
+        specified directory-tree, PHP will refuse to open it. All symbolic
+        links are resolved, so it's not possible to avoid this restriction
+        with a symlink.
+       </P
+><P
+>&#13;        The special value <SPAN
+CLASS="systemitem"
+>.</SPAN
+>
+        indicates that the working directory of the script will be used as the
+        base-directory. This is, however, a little dangerous as the working directory
+        of the script can easily be changed with <A
+HREF="function.chdir.html"
+><B
+CLASS="function"
+>chdir()</B
+></A
+>.
+       </P
+><P
+>&#13;        In <TT
+CLASS="filename"
+>httpd.conf</TT
+>, open_basedir can be turned off
+        (e.g. for some virtual hosts)
+        <A
+HREF="configuration.changes.html#configuration.changes.apache"
+>the same way</A
+> as
+        any other configuration directive with "php_admin_value open_basedir
+        none".
+       </P
+><P
+>&#13;        Under Windows, separate the directories with a semicolon. On all
+        other systems, separate the directories with a colon. As an Apache
+        module, open_basedir paths from parent directories are now
+        automatically inherited.
+       </P
+><P
+>&#13;         The restriction specified with open_basedir is actually a
+         prefix, not a directory name.  This means that "open_basedir =
+         /dir/incl" also allows access to "/dir/include" and
+         "/dir/incls" if they exist. When you want to restrict access
+         to only the specified directory, end with a slash. For example:
+         "open_basedir = /dir/incl/"
+       </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+         Support for multiple directories was added in 3.0.7.
+        </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;        The default is to allow all files to be opened.
+       </P
+></DD
+><DT
+><A
+NAME="ini.disable-functions"
+></A
+><VAR
+CLASS="parameter"
+>disable_functions</VAR
+>
+       <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;        This directive allows you to disable certain functions for 
+        <A
+HREF="security.html"
+>security</A
+> reasons. It takes 
+        on a comma-delimited list of function names. disable_functions
+        is not affected by <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>Safe Mode</A
+>.
+       </P
+><P
+>&#13;        This directive must be set in <TT
+CLASS="filename"
+>php.ini</TT
+> For example, you 
+        cannot set this in <TT
+CLASS="filename"
+>httpd.conf</TT
+>.
+       </P
+></DD
+><DT
+><A
+NAME="ini.disable-classes"
+></A
+><VAR
+CLASS="parameter"
+>disable_classes</VAR
+>
+       <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;        This directive allows you to disable certain classes for
+        <A
+HREF="security.html"
+>security</A
+> reasons.  It takes
+        on a comma-delimited list of class names.  disable_classes
+        is not affected by <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>Safe Mode</A
+>.
+       </P
+><P
+>&#13;        This directive must be set in <TT
+CLASS="filename"
+>php.ini</TT
+>  For example, you
+        cannot set this in <TT
+CLASS="filename"
+>httpd.conf</TT
+>.
+       </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Availability note: </B
+>
+         This directive became available in PHP 4.3.2
+        </P
+></BLOCKQUOTE
+></DIV
+></DD
+></DL
+></DIV
+>
+   </P
+><P
+>&#13;    See also: <A
+HREF="ini.core.html#ini.register-globals"
+>register_globals</A
+>,
+    <A
+HREF="ref.errorfunc.html#ini.display-errors"
+>display_errors</A
+>, and
+    <A
+HREF="ref.errorfunc.html#ini.log-errors"
+>log_errors</A
+>
+   </P
+><P
+>&#13;   Le direttive di configurazione che controllano la modalità sicura sono:
+   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="ini"
+>safe_mode = Off 
+open_basedir = 
+safe_mode_exec_dir = 
+safe_mode_allowed_env_vars = PHP_ 
+safe_mode_protected_env_vars = LD_LIBRARY_PATH 
+disable_functions =</PRE
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   Quando <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>safe_mode</A
+> è attiva (on), il PHP
+   verifica se il proprietario dello 
+   script in esecuzione e il proprietario del file su cui si sta operando con
+   una funzione sui file, coincidono. Per esempio:
+   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="ls"
+>-rw-rw-r--    1 rasmus   rasmus       33 Jul  1 19:20 script.php 
+-rw-r--r--    1 root     root       1116 May 26 18:01 /etc/passwd</PRE
+></TD
+></TR
+></TABLE
+>
+   Eseguendo questo script.php
+   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> readfile</font><font color="#007700">(</font><font color="#DD0000">'/etc/passwd'</font><font color="#007700">); <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+>
+   results in this error when Safe Mode is enabled: 
+   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Warning: SAFE MODE Restriction in effect. The script whose uid is 500 is not 
+allowed to access /etc/passwd owned by uid 0 in /docroot/script.php on line 2</PRE
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   Se, invece di <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>safe_mode</A
+>, viene definita 
+   una directory open_basedir allora tutte le operazioni sui file saranno limitate ai file
+   sottostanti la directory specificata. Per esempio (nel file httpd.conf di Apache):
+   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="ini"
+>&#60;Directory /docroot&#62;
+  php_admin_value open_basedir /docroot 
+&#60;/Directory&#62;</PRE
+></TD
+></TR
+></TABLE
+>
+   If you run the same script.php with this open_basedir setting then this is 
+   the result: 
+   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Warning: open_basedir restriction in effect. File is in wrong directory in 
+/docroot/script.php on line 2</PRE
+></TD
+></TR
+></TABLE
+>
+  </P
+><P
+>&#13;   È possibile inoltre disabilitare le singole funzioni. Se si aggiunge
+   la seguente riga al file php.ini:
+   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="ini"
+>disable_functions readfile,system</PRE
+></TD
+></TR
+></TABLE
+>
+   Then we get this output: 
+   <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Warning: readfile() has been disabled for security reasons in 
+/docroot/script.php on line 2</PRE
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="features.persistent-connections.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="features.safe-mode.functions.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Connessioni Persistenti ai Database</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="features.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Funzioni limitate/disabilitate dalla modalità sicura (safe-mode)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,610 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>getimagesize</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le immagini"
+HREF="ref.image.html"><LINK
+REL="PREVIOUS"
+TITLE="gd_info"
+HREF="function.gd-info.html"><LINK
+REL="NEXT"
+TITLE="image_type_to_extension"
+HREF="function.image-type-to-extension.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.gd-info.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.image-type-to-extension.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.getimagesize"
+></A
+>getimagesize</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN57958"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>getimagesize&nbsp;--&nbsp;Get the size of an image</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN57961"
+></A
+><H2
+>Description</H2
+>array <B
+CLASS="methodname"
+>getimagesize</B
+> ( string filename [, array &#38;imageinfo] )<BR
+></BR
+><P
+>&#13;    The <B
+CLASS="function"
+>getimagesize()</B
+> function will determine the
+    size of any <ACRONYM
+CLASS="acronym"
+>GIF</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>JPG</ACRONYM
+>,
+    <ACRONYM
+CLASS="acronym"
+>PNG</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>SWF</ACRONYM
+>, 
+    <ACRONYM
+CLASS="acronym"
+>SWC</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>PSD</ACRONYM
+>, 
+    <ACRONYM
+CLASS="acronym"
+>TIFF</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>BMP</ACRONYM
+>, 
+    <ACRONYM
+CLASS="acronym"
+>IFF</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>JP2</ACRONYM
+>,
+    <ACRONYM
+CLASS="acronym"
+>JPX</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>JB2</ACRONYM
+>,
+    <ACRONYM
+CLASS="acronym"
+>JPC</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>XBM</ACRONYM
+>, or
+    <ACRONYM
+CLASS="acronym"
+>WBMP</ACRONYM
+> image file and return the dimensions along with
+    the file type and a height/width text string to be used inside a normal 
+    <ACRONYM
+CLASS="acronym"
+>HTML</ACRONYM
+> <B
+CLASS="sgmltag"
+>&#60;</B
+><B
+CLASS="sgmltag"
+>IMG</B
+><B
+CLASS="sgmltag"
+>&#62;</B
+> tag.
+   </P
+><P
+>&#13;    If accessing the <VAR
+CLASS="parameter"
+>filename</VAR
+> image is impossible,
+    or if it isn't a valid picture, <B
+CLASS="function"
+>getimagesize()</B
+>
+    will return <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> and generate an error of level 
+    <VAR
+CLASS="varname"
+>E_WARNING</VAR
+>.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Support for <ACRONYM
+CLASS="acronym"
+>JPC</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>JP2</ACRONYM
+>,
+     <ACRONYM
+CLASS="acronym"
+>JPX</ACRONYM
+>, <ACRONYM
+CLASS="acronym"
+>JB2</ACRONYM
+>,
+     <ACRONYM
+CLASS="acronym"
+>XBM</ACRONYM
+>, and <ACRONYM
+CLASS="acronym"
+>WBMP</ACRONYM
+> became available in
+     PHP 4.3.2.  Support for <ACRONYM
+CLASS="acronym"
+>SWC</ACRONYM
+> exists as of PHP 4.3.0
+     and <ACRONYM
+CLASS="acronym"
+>TIFF</ACRONYM
+> support was added in PHP 4.2.0
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     JPEG 2000 support was added in PHP 4.3.2. Note that JPC and JP2 are
+     capable of having components with different bit depths. In this case, 
+     the value for "bits" is the highest bit depth encountered. Also, JP2 
+     files may contain multiple JPEG 2000 codestreams. In this case, 
+     <B
+CLASS="function"
+>getimagesize()</B
+> returns the values for the first 
+     codestream it encounters in the root of the file.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     The <B
+CLASS="function"
+>getimagesize()</B
+> function does not require the GD
+     image library.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    Returns an array with 4 elements. Index 0 contains the width of
+    the image in pixels. Index 1 contains the height.  Index 2 is a
+    flag indicating the type of the image: 1 = GIF, 2 = JPG, 3 =
+    PNG, 4 = SWF, 5 = PSD, 6 = BMP, 7 = TIFF(intel byte order),
+    8 = TIFF(motorola byte order), 9 = JPC, 10 = JP2, 11 = JPX, 12 =
+    JB2, 13 = SWC, 14 = IFF, 15 = WBMP, 16 = XBM. These values correspond to
+    the IMAGETYPE constants that were added in PHP 4.3.0. Index 3 is a text
+    string with the correct height="yyy" width="xxx" string that can be used
+    directly in an IMG tag.
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN58013"
+></A
+><P
+><B
+>Esempio 1. getimagesize (file)</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">list(</font><font color="#0000BB">$width</font><font color="#007700">, </font><font color="#0000BB">$height</font><font color="#007700">, </font><font color="#0000BB">$type</font><font color="#007700">, </font><font color="#0000BB">$attr</font><font color="#007700">) = </font><font color="#0000BB">getimagesize</font><font color="#007700">(</font><font color="#DD0000">"img/flag.jpg"</font><font color="#007700">);<br />echo </font><font color="#DD0000">"&lt;img src=</font><font color="#007700">\"</font><font color="#DD0000">img/flag.jpg</font><font color="#007700">\"</font><font color="#DD0000"> $attr alt=</font><font color="#007700">\"</font><font color="#DD0000">getimagesize() example</font><font color="#007700">\"</font><font color="#DD0000"> /&gt;"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    URL support was added in PHP 4.0.5
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN58017"
+></A
+><P
+><B
+>Esempio 2. getimagesize (URL)</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br />$size </font><font color="#007700">= </font><font color="#0000BB">getimagesize</font><font color="#007700">(</font><font color="#DD0000">"http://www.example.com/gifs/logo.gif"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// if the file name has space in it, encode it properly<br /></font><font color="#0000BB">$size </font><font color="#007700">= </font><font color="#0000BB">getimagesize</font><font color="#007700">(</font><font color="#DD0000">"http://www.example.com/gifs/lo%20go.gif"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    With <ACRONYM
+CLASS="acronym"
+>JPG</ACRONYM
+> images, two extra indexes are returned:
+    <VAR
+CLASS="literal"
+>channels</VAR
+> and <VAR
+CLASS="literal"
+>bits</VAR
+>.
+    <VAR
+CLASS="literal"
+>channels</VAR
+> will be 3 for RGB pictures and 4 for CMYK
+    pictures. <VAR
+CLASS="literal"
+>bits</VAR
+> is the number of bits for each color.
+   </P
+><P
+>&#13;    Beginning with PHP 4.3.0, <VAR
+CLASS="literal"
+>bits</VAR
+> and
+    <VAR
+CLASS="literal"
+>channels</VAR
+> are present for other image types, too.
+    However, the presence of these values can be a bit confusing. As an
+    example, <ACRONYM
+CLASS="acronym"
+>GIF</ACRONYM
+> always uses 3 channels per pixel, but the
+    number of bits per pixel cannot be calculated for an animated
+    <ACRONYM
+CLASS="acronym"
+>GIF</ACRONYM
+> with a global color table.
+   </P
+><P
+>&#13;    Some formats may contain no image or may contain multiple images. In these
+    cases, <B
+CLASS="function"
+>getimagesize()</B
+> might not be able to properly
+    determine the image size. <B
+CLASS="function"
+>getimagesize()</B
+> will return
+    zero for width and height in these cases.
+   </P
+><P
+>&#13;    Beginning with PHP 4.3.0, <B
+CLASS="function"
+>getimagesize()</B
+> also returns an
+    additional parameter, <VAR
+CLASS="literal"
+>mime</VAR
+>, that corresponds with the
+    MIME type of the image.  This information can be used to deliver images
+    with correct HTTP Content-type headers:
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN58037"
+></A
+><P
+><B
+>Esempio 3. getimagesize() and MIME types</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$size </font><font color="#007700">= </font><font color="#0000BB">getimagesize</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">);<br /></font><font color="#0000BB">$fp</font><font color="#007700">=</font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">, </font><font color="#DD0000">"rb"</font><font color="#007700">);<br />if (</font><font color="#0000BB">$size </font><font color="#007700">&amp;&amp; </font><font color="#0000BB">$fp</font><font color="#007700">) {<br />&nbsp;&nbsp;</font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">"Content-type: </font><font color="#007700">{</font><font color="#DD0000">$size</font><font color="#007700">[</font><font color="#DD0000">'mime'</font><font color="#007700">]}</font><font color="#DD0000">"</font><font color="#007700">);<br />&nbsp;&nbsp;</font><font color="#0000BB">fpassthru</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br />&nbsp;&nbsp;exit;<br />} else {<br />&nbsp;&nbsp;</font><font color="#FF8000">// error<br /></font><font color="#007700">}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    The optional <VAR
+CLASS="parameter"
+>imageinfo</VAR
+> parameter allows
+    you to extract some extended information from the image
+    file. Currently, this will return the different
+    <ACRONYM
+CLASS="acronym"
+>JPG</ACRONYM
+> APP markers as an associative array. Some
+    programs use these APP markers to embed text information in
+    images. A very common one is to embed <ACRONYM
+CLASS="acronym"
+>IPTC</ACRONYM
+>
+    <A
+HREF="http://www.iptc.org/"
+TARGET="_top"
+>http://www.iptc.org/</A
+> information in the
+    APP13 marker. You can use the <A
+HREF="function.iptcparse.html"
+><B
+CLASS="function"
+>iptcparse()</B
+></A
+>
+    function to parse the binary APP13 marker into something
+    readable.
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN58047"
+></A
+><P
+><B
+>Esempio 4. getimagesize() returning IPTC</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$size </font><font color="#007700">= </font><font color="#0000BB">getimagesize</font><font color="#007700">(</font><font color="#DD0000">"testimg.jpg"</font><font color="#007700">, </font><font color="#0000BB">$info</font><font color="#007700">);<br />if (isset(</font><font color="#0000BB">$info</font><font color="#007700">[</font><font color="#DD0000">"APP13"</font><font color="#007700">])) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$iptc </font><font color="#007700">= </font><font color="#0000BB">iptcparse</font><font color="#007700">(</font><font color="#0000BB">$info</font><font color="#007700">[</font><font color="#DD0000">"APP13"</font><font color="#007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$iptc</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    See also <A
+HREF="function.image-type-to-mime-type.html"
+><B
+CLASS="function"
+>image_type_to_mime_type()</B
+></A
+>, 
+    <A
+HREF="function.exif-imagetype.html"
+><B
+CLASS="function"
+>exif_imagetype()</B
+></A
+>, 
+    <A
+HREF="function.exif-read-data.html"
+><B
+CLASS="function"
+>exif_read_data()</B
+></A
+>, and 
+    <A
+HREF="function.exif-thumbnail.html"
+><B
+CLASS="function"
+>exif_thumbnail()</B
+></A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.gd-info.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.image-type-to-extension.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>gd_info</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.image.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>image_type_to_extension</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

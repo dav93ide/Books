@@ -1,0 +1,752 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Miscellaneous Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="SWFTextField"
+HREF="function.swftextfield.html"><LINK
+REL="NEXT"
+TITLE="connection_aborted"
+HREF="function.connection-aborted.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.swftextfield.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.connection-aborted.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.misc"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LXXVIII. Miscellaneous Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN84945"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="misc.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     These functions were placed here because none of the other
+     categories seemed to fit.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="misc.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="misc.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="misc.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN84960"
+></A
+><P
+><B
+>Tabella 1.  Misc. Configuration Options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>ignore_user_abort</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>highlight.string</TD
+><TD
+>"#DD0000"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>highlight.comment</TD
+><TD
+>"#FF8000"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>highlight.keyword</TD
+><TD
+>"#007700"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>highlight.bg</TD
+><TD
+>"#FFFFFF"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>highlight.default</TD
+><TD
+>"#0000BB"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>highlight.html</TD
+><TD
+>"#000000"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>browscap</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.ignore-user-abort"
+></A
+><VAR
+CLASS="parameter"
+>ignore_user_abort</VAR
+>
+     <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;      <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> by default. If changed to <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> scripts will be terminated
+      as soon as they try to output something after a client has aborted
+      their connection.
+     </P
+><P
+>&#13;      See also <A
+HREF="function.ignore-user-abort.html"
+><B
+CLASS="function"
+>ignore_user_abort()</B
+></A
+>.
+     </P
+></DD
+><DT
+><A
+NAME="ini.syntax-highlighting"
+></A
+><VAR
+CLASS="parameter"
+>highlight.bg</VAR
+>
+      <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>, <VAR
+CLASS="parameter"
+>highlight.comment</VAR
+>
+      <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>, <VAR
+CLASS="parameter"
+>highlight.default</VAR
+>
+      <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>, <VAR
+CLASS="parameter"
+>highlight.html</VAR
+>
+      <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>, <VAR
+CLASS="parameter"
+>highlight.keyword</VAR
+>
+      <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>, <VAR
+CLASS="parameter"
+>highlight.string</VAR
+>
+      <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;       Colors for Syntax Highlighting mode. Anything that's acceptable in
+       &#60;font color="??????"&#62; would work.
+      </P
+></DD
+><DT
+><A
+NAME="ini.browscap"
+></A
+><VAR
+CLASS="parameter"
+>browscap</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      Name (e.g.: <TT
+CLASS="filename"
+>browscap.ini</TT
+>) and location of browser
+      capabilities file. See also <A
+HREF="function.get-browser.html"
+><B
+CLASS="function"
+>get_browser()</B
+></A
+>.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="misc.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="misc.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>CONNECTION_ABORTED</B
+></TT
+>
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CONNECTION_NORMAL</B
+></TT
+>
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CONNECTION_TIMEOUT</B
+></TT
+>
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>__COMPILER_HALT_OFFSET__</B
+></TT
+>
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Added in PHP 5.1.
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.connection-aborted.html"
+>connection_aborted</A
+>&nbsp;--&nbsp;Returns <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> if client disconnected</DT
+><DT
+><A
+HREF="function.connection-status.html"
+>connection_status</A
+>&nbsp;--&nbsp;Returns connection status bitfield</DT
+><DT
+><A
+HREF="function.connection-timeout.html"
+>connection_timeout</A
+>&nbsp;--&nbsp;Return <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> if script timed out</DT
+><DT
+><A
+HREF="function.constant.html"
+>constant</A
+>&nbsp;--&nbsp;Returns the value of a constant</DT
+><DT
+><A
+HREF="function.define.html"
+>define</A
+>&nbsp;--&nbsp;Defines a named constant</DT
+><DT
+><A
+HREF="function.defined.html"
+>defined</A
+>&nbsp;--&nbsp;
+     Checks whether a given named constant exists
+    </DT
+><DT
+><A
+HREF="function.die.html"
+>die</A
+>&nbsp;--&nbsp;Equivalent to <A
+HREF="function.exit.html"
+><B
+CLASS="function"
+>exit()</B
+></A
+></DT
+><DT
+><A
+HREF="function.eval.html"
+>eval</A
+>&nbsp;--&nbsp;Evaluate a string as PHP code</DT
+><DT
+><A
+HREF="function.exit.html"
+>exit</A
+>&nbsp;--&nbsp;Output a message and terminate the current script</DT
+><DT
+><A
+HREF="function.get-browser.html"
+>get_browser</A
+>&nbsp;--&nbsp;
+     Tells what the user's browser is capable of
+    </DT
+><DT
+><A
+HREF="function.halt-compiler.html"
+>__halt_compiler</A
+>&nbsp;--&nbsp;
+   Halts the compiler execution
+  </DT
+><DT
+><A
+HREF="function.highlight-file.html"
+>highlight_file</A
+>&nbsp;--&nbsp;Syntax highlighting of a file</DT
+><DT
+><A
+HREF="function.highlight-string.html"
+>highlight_string</A
+>&nbsp;--&nbsp;Syntax highlighting of a string</DT
+><DT
+><A
+HREF="function.ignore-user-abort.html"
+>ignore_user_abort</A
+>&nbsp;--&nbsp;
+     Set whether a client disconnect should abort script execution
+    </DT
+><DT
+><A
+HREF="function.pack.html"
+>pack</A
+>&nbsp;--&nbsp;Pack data into binary string</DT
+><DT
+><A
+HREF="function.php-check-syntax.html"
+>php_check_syntax</A
+>&nbsp;--&nbsp;
+   Check the PHP syntax of (and execute) the specified file
+  </DT
+><DT
+><A
+HREF="function.php-strip-whitespace.html"
+>php_strip_whitespace</A
+>&nbsp;--&nbsp;
+   Return source with stripped comments and whitespace
+  </DT
+><DT
+><A
+HREF="function.show-source.html"
+>show_source</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.highlight-file.html"
+><B
+CLASS="function"
+>highlight_file()</B
+></A
+></DT
+><DT
+><A
+HREF="function.sleep.html"
+>sleep</A
+>&nbsp;--&nbsp;Delay execution</DT
+><DT
+><A
+HREF="function.time-nanosleep.html"
+>time_nanosleep</A
+>&nbsp;--&nbsp;
+   Delay for a number of seconds and nanoseconds
+  </DT
+><DT
+><A
+HREF="function.time-sleep-until.html"
+>time_sleep_until</A
+>&nbsp;--&nbsp;
+   Make the script sleep until the specified time
+  </DT
+><DT
+><A
+HREF="function.uniqid.html"
+>uniqid</A
+>&nbsp;--&nbsp;Generate a unique ID</DT
+><DT
+><A
+HREF="function.unpack.html"
+>unpack</A
+>&nbsp;--&nbsp;Unpack data from binary string</DT
+><DT
+><A
+HREF="function.usleep.html"
+>usleep</A
+>&nbsp;--&nbsp;Delay execution in microseconds</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.swftextfield.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.connection-aborted.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SWFTextField</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>connection_aborted</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

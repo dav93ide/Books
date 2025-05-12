@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ibase_blob_get</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Firebird/InterBase"
+HREF="ref.ibase.html"><LINK
+REL="PREVIOUS"
+TITLE="ibase_blob_echo"
+HREF="function.ibase-blob-echo.html"><LINK
+REL="NEXT"
+TITLE="ibase_blob_import"
+HREF="function.ibase-blob-import.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ibase-blob-echo.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ibase-blob-import.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ibase-blob-get"
+></A
+>ibase_blob_get</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN43905"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.7, PHP 4, PHP 5)</P
+>ibase_blob_get&nbsp;--&nbsp;
+     Ottiene len byte di dati dal blob aperto
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN43908"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>ibase_blob_get</B
+> ( resource blob_handle, int len )<BR
+></BR
+><P
+>&#13;     Questa funzine restituisce almeno <VAR
+CLASS="parameter"
+>len</VAR
+> bytes da un BLOB
+     che è stato aperto in lettura con <A
+HREF="function.ibase-blob-open.html"
+><B
+CLASS="function"
+>ibase_blob_open()</B
+></A
+>.
+     Restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se si verifica un errore.
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN43923"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$sql&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">"SELECT blob_value FROM table"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$result&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">ibase_query</font><font color="#007700">(</font><font color="#0000BB">$sql</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">ibase_fetch_object</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$blob_data </font><font color="#007700">= </font><font color="#0000BB">ibase_blob_info</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">-&gt;</font><font color="#0000BB">BLOB_VALUE</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$blob_hndl </font><font color="#007700">= </font><font color="#0000BB">ibase_blob_open</font><font color="#007700">(</font><font color="#0000BB">$data</font><font color="#007700">-&gt;</font><font color="#0000BB">BLOB_VALUE</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">ibase_blob_get</font><font color="#007700">(</font><font color="#0000BB">$blob_hndl</font><font color="#007700">, </font><font color="#0000BB">$blob_data</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+      Questo esempio non fa altro che 'ibase_blob_echo($data-&#62;BLOB_VALUE)',
+      mostra come ottenere le informazioni in una variabile $variable da manipolare a piacere.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Non è possibile leggere da un BLOB che è stato aperto in scrittura
+      da <A
+HREF="function.ibase-blob-create.html"
+><B
+CLASS="function"
+>ibase_blob_create()</B
+></A
+>.
+      </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche
+     <A
+HREF="function.ibase-blob-open.html"
+><B
+CLASS="function"
+>ibase_blob_open()</B
+></A
+>,
+     <A
+HREF="function.ibase-blob-close.html"
+><B
+CLASS="function"
+>ibase_blob_close()</B
+></A
+> e
+     <A
+HREF="function.ibase-blob-echo.html"
+><B
+CLASS="function"
+>ibase_blob_echo()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ibase-blob-echo.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ibase-blob-import.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ibase_blob_echo</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibase.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ibase_blob_import</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

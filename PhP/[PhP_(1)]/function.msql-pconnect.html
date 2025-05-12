@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>msql_pconnect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="mSQL Functions"
+HREF="ref.msql.html"><LINK
+REL="PREVIOUS"
+TITLE="msql_numrows"
+HREF="function.msql-numrows.html"><LINK
+REL="NEXT"
+TITLE="msql_query"
+HREF="function.msql-query.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.msql-numrows.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.msql-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.msql-pconnect"
+></A
+>msql_pconnect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN89798"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>msql_pconnect&nbsp;--&nbsp;Open persistent mSQL connection</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89801"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>msql_pconnect</B
+> ( [string hostname] )<BR
+></BR
+><P
+> 
+   <B
+CLASS="function"
+>msql_pconnect()</B
+> acts very much like
+   <A
+HREF="function.msql-connect.html"
+><B
+CLASS="function"
+>msql_connect()</B
+></A
+> with two major differences.
+  </P
+><P
+> 
+   First, when connecting, the function would first try to find a 
+   (persistent) link that's already open with the same host.
+   If one is found, an identifier for it will be returned instead of opening
+   a new connection.
+  </P
+><P
+> 
+   Second, the connection to the SQL server will not be closed when the 
+   execution of the script ends.  Instead, the link will remain open for
+   future use (<A
+HREF="function.msql-close.html"
+><B
+CLASS="function"
+>msql_close()</B
+></A
+> will not close links 
+   established by this function).
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89815"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>hostname</VAR
+></DT
+><DD
+><P
+>&#13;       The hostname can also include a port number. e.g. 
+       <VAR
+CLASS="literal"
+>hostname,port</VAR
+>.
+      </P
+><P
+>&#13;       If not specified, the connection is established by the means of a Unix
+       domain socket, being then more efficient then a localhost TCP socket 
+       connection.
+      </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        While this function will accept a colon (<VAR
+CLASS="literal"
+>:</VAR
+>) as a
+        host/port separator, a comma (<VAR
+CLASS="literal"
+>,</VAR
+>) is the preferred
+        method.
+       </P
+></BLOCKQUOTE
+></DIV
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89830"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a positive mSQL link identifier on success, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on
+   error.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89834"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.msql-connect.html"
+><B
+CLASS="function"
+>msql_connect()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.msql-close.html"
+><B
+CLASS="function"
+>msql_close()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.msql-numrows.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.msql-query.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>msql_numrows</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.msql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>msql_query</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

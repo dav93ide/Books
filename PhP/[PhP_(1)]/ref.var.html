@@ -1,0 +1,567 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni per la gestione delle variabili</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="urlencode"
+HREF="function.urlencode.html"><LINK
+REL="NEXT"
+TITLE="debug_zval_dump"
+HREF="function.debug-zval-dump.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.urlencode.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.debug-zval-dump.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.var"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CLIII. Funzioni per la gestione delle variabili</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN172652"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="var.intro"
+>Introduzione</A
+></H1
+><P
+>  
+     Per maggiori informazioni sul comportamento delle variabili vedere
+     la sezione <A
+HREF="language.variables.html"
+>Variabili</A
+> nel capitolo
+     <A
+HREF="langref.html"
+>Riferimento al Linguaggio</A
+> del manuale.  
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="var.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="var.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="var.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN172669"
+></A
+><P
+><B
+>Tabella 1. Configurazioni per il modulo Variabili</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+><TH
+>Variazioni</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>unserialize_callback_func</TD
+><TD
+>""</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Disponibile dal PHP 4.2.0.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+> 
+  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="unserialize-callback-func"
+></A
+><VAR
+CLASS="parameter"
+>unserialize_callback_func</VAR
+>
+     <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;      La funzione di callback di de-serializzazione <A
+HREF="function.unserialize.html"
+><B
+CLASS="function"
+>unserialize()</B
+></A
+> viene richiamata (con il parametro 
+      "nome classe" non definito) se la funzione trova una classe indefinita da 
+      da istanziare. Verrà prodotto un warning se la funzione specificata non è definita 
+      oppure se la funzione non include/implementa la classe mancante.
+      Pertanto valorizzare questo parametro se si desidera implementare
+      tale funzione di callback.
+     </P
+><P
+>&#13;      Vedere anche <A
+HREF="function.unserialize.html"
+><B
+CLASS="function"
+>unserialize()</B
+></A
+>.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="var.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="var.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.debug-zval-dump.html"
+>debug_zval_dump</A
+>&nbsp;--&nbsp;Dumps a string representation of an internal zend value to output</DT
+><DT
+><A
+HREF="function.doubleval.html"
+>doubleval</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.floatval.html"
+><B
+CLASS="function"
+>floatval()</B
+></A
+></DT
+><DT
+><A
+HREF="function.empty.html"
+>empty</A
+>&nbsp;--&nbsp;Determina se una variabile è valorizzata</DT
+><DT
+><A
+HREF="function.floatval.html"
+>floatval</A
+>&nbsp;--&nbsp;Restituisce il valore di una variabile di tipo float</DT
+><DT
+><A
+HREF="function.get-defined-vars.html"
+>get_defined_vars</A
+>&nbsp;--&nbsp;
+   Restituisce un'array contenente tutte le variabili definite
+  </DT
+><DT
+><A
+HREF="function.get-resource-type.html"
+>get_resource_type</A
+>&nbsp;--&nbsp;
+     Restituisce il tipo di risorsa
+    </DT
+><DT
+><A
+HREF="function.gettype.html"
+>gettype</A
+>&nbsp;--&nbsp;Resituisce il tipo di una variabile</DT
+><DT
+><A
+HREF="function.import-request-variables.html"
+>import_request_variables</A
+>&nbsp;--&nbsp;Imposta la visibiltà a globale per le variabili GET/POST/Cookie</DT
+><DT
+><A
+HREF="function.intval.html"
+>intval</A
+>&nbsp;--&nbsp;Estrae il valore intero da una variabile</DT
+><DT
+><A
+HREF="function.is-array.html"
+>is_array</A
+>&nbsp;--&nbsp;Verifica se una variabile è un array</DT
+><DT
+><A
+HREF="function.is-bool.html"
+>is_bool</A
+>&nbsp;--&nbsp;
+   Verifica se una variabile è di tipo boolean
+  </DT
+><DT
+><A
+HREF="function.is-callable.html"
+>is_callable</A
+>&nbsp;--&nbsp;
+     Verifica se il contenuto dell'argomento può essere eseguito come funzione
+    </DT
+><DT
+><A
+HREF="function.is-double.html"
+>is_double</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.is-float.html"
+><B
+CLASS="function"
+>is_float()</B
+></A
+></DT
+><DT
+><A
+HREF="function.is-float.html"
+>is_float</A
+>&nbsp;--&nbsp;Verifica se una variabile è di tipo float (decimale a virgola mobile)</DT
+><DT
+><A
+HREF="function.is-int.html"
+>is_int</A
+>&nbsp;--&nbsp;Verifica se una variabile è di tipo integer</DT
+><DT
+><A
+HREF="function.is-integer.html"
+>is_integer</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.is-int.html"
+><B
+CLASS="function"
+>is_int()</B
+></A
+></DT
+><DT
+><A
+HREF="function.is-long.html"
+>is_long</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.is-int.html"
+><B
+CLASS="function"
+>is_int()</B
+></A
+></DT
+><DT
+><A
+HREF="function.is-null.html"
+>is_null</A
+>&nbsp;--&nbsp;
+   Verifica se la variabile è di tipo <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>
+  </DT
+><DT
+><A
+HREF="function.is-numeric.html"
+>is_numeric</A
+>&nbsp;--&nbsp;
+   Verifica se una variabile è un numero o una stringa numerica
+  </DT
+><DT
+><A
+HREF="function.is-object.html"
+>is_object</A
+>&nbsp;--&nbsp;Verifica se una variabile è di tipo object</DT
+><DT
+><A
+HREF="function.is-real.html"
+>is_real</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.is-float.html"
+><B
+CLASS="function"
+>is_float()</B
+></A
+></DT
+><DT
+><A
+HREF="function.is-resource.html"
+>is_resource</A
+>&nbsp;--&nbsp;
+   Verifica se una variabile è una risorsa
+  </DT
+><DT
+><A
+HREF="function.is-scalar.html"
+>is_scalar</A
+>&nbsp;--&nbsp;
+   Verifica se la variabile è di tipo scalare
+  </DT
+><DT
+><A
+HREF="function.is-string.html"
+>is_string</A
+>&nbsp;--&nbsp;Verifica se una variabile sia una stringa</DT
+><DT
+><A
+HREF="function.isset.html"
+>isset</A
+>&nbsp;--&nbsp;Verifica se una variabile è definita</DT
+><DT
+><A
+HREF="function.print-r.html"
+>print_r</A
+>&nbsp;--&nbsp;
+     Stampa informazioni relative al contenuto di una variabile in formato leggibile
+    </DT
+><DT
+><A
+HREF="function.serialize.html"
+>serialize</A
+>&nbsp;--&nbsp;
+     Genera una versione archiviabile del valore
+    </DT
+><DT
+><A
+HREF="function.settype.html"
+>settype</A
+>&nbsp;--&nbsp;Definisce il tipo di una variabile</DT
+><DT
+><A
+HREF="function.strval.html"
+>strval</A
+>&nbsp;--&nbsp;Restituisce il valore di una variabile interpretato come stringa</DT
+><DT
+><A
+HREF="function.unserialize.html"
+>unserialize</A
+>&nbsp;--&nbsp;
+     Crea un valore PHP a partire da una rappresentazione archiviata
+    </DT
+><DT
+><A
+HREF="function.unset.html"
+>unset</A
+>&nbsp;--&nbsp;Cancella una data variabile</DT
+><DT
+><A
+HREF="function.var-dump.html"
+>var_dump</A
+>&nbsp;--&nbsp;Stampa delle informazioni relative ad una variabile</DT
+><DT
+><A
+HREF="function.var-export.html"
+>var_export</A
+>&nbsp;--&nbsp;Visualizza o restituisce una variabile in formato stringa</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.urlencode.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.debug-zval-dump.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>urlencode</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>debug_zval_dump</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

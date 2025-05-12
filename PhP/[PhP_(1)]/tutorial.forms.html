@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Trattare con i Form</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Una semplice introduzione"
+HREF="tutorial.html"><LINK
+REL="PREVIOUS"
+TITLE="Qualcosa di utile"
+HREF="tutorial.useful.html"><LINK
+REL="NEXT"
+TITLE="L' uso di vecchi codici con le nuove versioni di PHP"
+HREF="tutorial.oldcode.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="tutorial.useful.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 2. Una semplice introduzione</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="tutorial.oldcode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="tutorial.forms"
+>Trattare con i Form</A
+></H1
+><P
+>&#13;    Una delle caratteritiche più forti di PHP è il modo in cui
+    gestisce i form. Il concetto da comprendere principalmente è che
+    qualsiasi elemento di un form sarà automaticamente disponibile per i
+    vostri script PHP. Per maggiori informazioni ed esempi relativi all'utilizzo dei
+    form consultate la sezione del manuale che si riferisce a le
+    <A
+HREF="language.variables.external.html"
+>Variabili al di fuori di PHP</A
+>.
+    A seguire un esempio di un form HTML:
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN310"
+></A
+><P
+><B
+>Esempio 2-6. Un semplice form HTML</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>&#60;form action="action.php" method="POST"&#62;
+ Il tuo Nome: &#60;input type="text" name="name" value="" /&#62;
+ La tua et&#38;agrave;: &#60;input type="text" name="age" value ="" /&#62;
+ &#60;input type="submit"&#62;
+&#60;/form&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Questo form non ha niente di speciale. È un semplice form in HTML che non presenta
+    nessun tipo di tags particolari. Quando l'utente riempie questo form
+    e preme il pulsante submit, viene richiamata la pagina <TT
+CLASS="filename"
+>action.php</TT
+>.
+    In questo file il risultato sarà qualcosa di simile:
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN316"
+></A
+><P
+><B
+>Esempio 2-7. La stampa video di dati dal nostro form</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+Ciao <font color="#0000BB">&lt;?php </font><font color="#007700">echo </font><font color="#0000BB">$_POST</font><font color="#007700">[</font><font color="#DD0000">"name"</font><font color="#007700">]; </font><font color="#0000BB">?&gt;</font>.<br />La tua età è di <font color="#0000BB">&lt;?php </font><font color="#007700">echo </font><font color="#0000BB">$_POST</font><font color="#007700">[</font><font color="#DD0000">"age"</font><font color="#007700">]; </font><font color="#0000BB">?&gt;</font> anni.</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;      Ecco un possibile output di questo script:
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="html"
+>Ciao Joe.
+La tua et&#38;agrave; &#38;egrave; di 22 anni.</PRE
+></TD
+></TR
+></TABLE
+>
+     </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;   Ciò che avviene dovrebbe risultare ovvio. Non c' è altro da aggiungere. 
+   Le variabili <VAR
+CLASS="varname"
+>$_POST["name"]</VAR
+> e <VAR
+CLASS="varname"
+>$_POST["age"]</VAR
+>
+   vengono impostate automaticamente dal PHP. Prima avevamo usato la variabile autoglobal
+     <VAR
+CLASS="varname"
+>$_SERVER</VAR
+>, ora invece abbiamo introdotto la variabile autoglobal
+     <A
+HREF="reserved.variables.html#reserved.variables.post"
+>$_POST</A
+>
+     che contiene tutti i dati di tipo POST. Notate che il <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>metodo</I
+></SPAN
+> 
+     del nostro form è il POST. Se usassimo il metodo <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>GET</I
+></SPAN
+>
+     le informazioni ricavate dal nostro form si troverebbero invece in
+     <A
+HREF="reserved.variables.html#reserved.variables.get"
+>$_GET</A
+>.
+    Si può anche usare la variabile <A
+HREF="reserved.variables.html#reserved.variables.request"
+>$_REQUEST</A
+>
+    se la provenienza dei dati richiesti non ci interessa. Questa variabile 
+    contiene un misto di dati GET, POST, COOKIE e FILE. Vedere anche la funzione  
+    <A
+HREF="function.import-request-variables.html"
+><B
+CLASS="function"
+>import_request_variables()</B
+></A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="tutorial.useful.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="tutorial.oldcode.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Qualcosa di utile</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="tutorial.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>L' uso di vecchi codici con le nuove versioni di PHP</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,456 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Magic Methods</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classes and Objects (PHP 5)"
+HREF="language.oop5.html"><LINK
+REL="PREVIOUS"
+TITLE="Patterns"
+HREF="language.oop5.patterns.html"><LINK
+REL="NEXT"
+TITLE="Final Keyword"
+HREF="language.oop5.final.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop5.patterns.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 19. Classes and Objects (PHP 5)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop5.final.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop5.magic"
+>Magic Methods</A
+></H1
+><P
+>&#13;   The function names
+   <VAR
+CLASS="literal"
+>__construct</VAR
+>,
+   <VAR
+CLASS="literal"
+>__destruct</VAR
+>
+   (see <A
+HREF="language.oop5.decon.html"
+>Constructors and Destructors</A
+>),
+   <VAR
+CLASS="literal"
+>__call</VAR
+>,
+   <VAR
+CLASS="literal"
+>__get</VAR
+>,
+   <VAR
+CLASS="literal"
+>__set</VAR
+>,
+   <VAR
+CLASS="literal"
+>__isset</VAR
+>,
+   <VAR
+CLASS="literal"
+>__unset</VAR
+>
+   (see <A
+HREF="language.oop5.overloading.html"
+>Overloading</A
+>),
+   <VAR
+CLASS="literal"
+>__sleep</VAR
+>,
+   <VAR
+CLASS="literal"
+>__wakeup</VAR
+>,
+   <VAR
+CLASS="literal"
+>__toString</VAR
+>,
+   <A
+HREF="language.oop5.cloning.html"
+>__clone</A
+> and
+   <A
+HREF="language.oop5.autoload.html"
+>__autoload</A
+>
+   are magical in PHP classes. You
+   cannot have functions with these names in any of your
+   classes unless you want the magic functionality associated
+   with them.
+  </P
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;    PHP reserves all function names starting with __ as magical.
+    It is recommended that you do not use function names with
+    __ in PHP unless you want some documented magic functionality.
+   </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.magic.sleep"
+><VAR
+CLASS="literal"
+>__sleep</VAR
+> and <VAR
+CLASS="literal"
+>__wakeup</VAR
+></A
+></H2
+><P
+>&#13;    <A
+HREF="function.serialize.html"
+><B
+CLASS="function"
+>serialize()</B
+></A
+> checks if your class has a function with
+    the magic name <VAR
+CLASS="literal"
+>__sleep</VAR
+>. If so, that function is
+    executed prior to any serialization. It can clean up the object
+    and is supposed to return an array with the names of all variables
+    of that object that should be serialized.
+   </P
+><P
+>&#13;    The intended use of <VAR
+CLASS="literal"
+>__sleep</VAR
+> is to close any
+    database connections that the object may have, commit pending
+    data or perform similar cleanup tasks. Also, the function is
+    useful if you have very large objects which do not need to be
+    saved completely.
+   </P
+><P
+>&#13;    Conversely, <A
+HREF="function.unserialize.html"
+><B
+CLASS="function"
+>unserialize()</B
+></A
+> checks for the
+    presence of a function with the magic name 
+    <VAR
+CLASS="literal"
+>__wakeup</VAR
+>. If present, this function can
+    reconstruct any resources that the object may have.
+   </P
+><P
+>&#13;    The intended use of <VAR
+CLASS="literal"
+>__wakeup</VAR
+> is to
+    reestablish any database connections that may have been lost
+    during serialization and perform other reinitialization
+    tasks.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6048"
+></A
+><P
+><B
+>Esempio 19-25. Sleep and wakeup</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Connection </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">protected $link</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private $server</font><font color="#007700">, </font><font color="#0000BB">$username</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">, </font><font color="#0000BB">$db</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">__construct</font><font color="#007700">(</font><font color="#0000BB">$server</font><font color="#007700">, </font><font color="#0000BB">$username</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">, </font><font color="#0000BB">$db</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">server </font><font color="#007700">= </font><font color="#0000BB">$server</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">username </font><font color="#007700">= </font><font color="#0000BB">$username</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">password </font><font color="#007700">= </font><font color="#0000BB">$password</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">db </font><font color="#007700">= </font><font color="#0000BB">$db</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">connect</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">private </font><font color="#007700">function </font><font color="#0000BB">connect</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">link </font><font color="#007700">= </font><font color="#0000BB">mysql_connect</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">server</font><font color="#007700">, </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">username</font><font color="#007700">, </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">password</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_select_db</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">db</font><font color="#007700">, </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">link</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">__sleep</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_close</font><font color="#007700">(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">link</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">__wakeup</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">connect</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.oop5.magic.tostring"
+><VAR
+CLASS="literal"
+>__toString</VAR
+></A
+></H2
+><P
+>&#13;    The <VAR
+CLASS="literal"
+>__toString</VAR
+> method allows a class to decide
+    how it will react when it is converted to a string.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6056"
+></A
+><P
+><B
+>Esempio 19-26. Simple example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Declare a simple class<br /></font><font color="#007700">class </font><font color="#0000BB">TestClass<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public $foo</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">__construct</font><font color="#007700">(</font><font color="#0000BB">$foo</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">foo </font><font color="#007700">= </font><font color="#0000BB">$foo</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">public </font><font color="#007700">function </font><font color="#0000BB">__toString</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">foo</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#0000BB">$class </font><font color="#007700">= new </font><font color="#0000BB">TestClass</font><font color="#007700">(</font><font color="#DD0000">'Hello'</font><font color="#007700">);<br />echo </font><font color="#0000BB">$class</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Hello</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;    It is worth noting that the <VAR
+CLASS="literal"
+>__toString</VAR
+> method
+    will only be called when it is directly combined with
+    <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+> or <A
+HREF="function.print.html"
+><B
+CLASS="function"
+>print()</B
+></A
+>.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN6065"
+></A
+><P
+><B
+>Esempio 19-27. Cases where <VAR
+CLASS="literal"
+>__toString</VAR
+> is called</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// __toString called<br /></font><font color="#007700">echo </font><font color="#0000BB">$class</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// __toString called (still a normal parameter for echo)<br /></font><font color="#007700">echo </font><font color="#DD0000">'text'</font><font color="#007700">, </font><font color="#0000BB">$class</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// __toString not called (concatenation operator used first)<br /></font><font color="#007700">echo </font><font color="#DD0000">'text' </font><font color="#007700">. </font><font color="#0000BB">$class</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// __toString not called (cast to string first)<br /></font><font color="#007700">echo (string) </font><font color="#0000BB">$class</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// __toString not called (cast to string first)<br /></font><font color="#007700">echo </font><font color="#DD0000">"text $class"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop5.patterns.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop5.final.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Patterns</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop5.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Final Keyword</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

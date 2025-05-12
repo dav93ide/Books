@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>fbsql_set_lob_mode</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FrontBase Functions"
+HREF="ref.fbsql.html"><LINK
+REL="PREVIOUS"
+TITLE="fbsql_select_db"
+HREF="function.fbsql-select-db.html"><LINK
+REL="NEXT"
+TITLE="fbsql_set_password"
+HREF="function.fbsql-set-password.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-select-db.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.fbsql-set-password.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.fbsql-set-lob-mode"
+></A
+>fbsql_set_lob_mode</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN46451"
+></A
+><P
+>    (PHP 4 &#62;= 4.2.0, PHP 5)</P
+>fbsql_set_lob_mode&nbsp;--&nbsp;
+     Imposta la modalità LOB in un set di risultati FrontBase
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN46454"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>fbsql_set_lob_mode</B
+> ( resource result, string database_name )<BR
+></BR
+><P
+> 
+     Restituisce: <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se ha successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se si verifica un errore.
+    </P
+><P
+> 
+     La funzione <B
+CLASS="function"
+>fbsql_set_lob_mode()</B
+> la modalità per il recupero
+     dei dati LOB dal database. Quando i dati BLOB e CLOB sono memorizzati in 
+     FrontBase questi possono essere memorizzati direttamente o indirettamente.
+     I dati LOB archiviati direttamente sono sempre recuperati a prescindere dell'impostazione
+     della modalità LOB. Se i dati LOB sono meno di 512 byte saranno sempre
+     archiviati direttamente.
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        FBSQL_LOB_DIRECT - I dati LOB sono recuperati direttamente. Quando i dati sono 
+        ottenuti dal database con
+        <A
+HREF="function.fbsql-fetch-row.html"
+><B
+CLASS="function"
+>fbsql_fetch_row()</B
+></A
+>, o altre funzioni per il
+        recupero dei dati, tutte le colonne BLOB saranno restituite come
+        colonne ordinarie. Questo è il valore di default
+        in un nuovo set di risultati.
+       </P
+></LI
+><LI
+><P
+>&#13;        FBSQL_LOB_HANDLE - I dati LOB sono recuperati come puntatori
+        ai dati. Quando si recupera le informazioni da un database con
+        <B
+CLASS="function"
+>fbsql_fetch_row ()</B
+>, o altre funzioni per il
+        recupero dei dati, i dati LOB saranno restituiti come handle ai dati,
+        se questi sono stati memorizzati indirettamente o saranno restituiti direttamente i dati
+        se questi sono memorizzati in modo diretto. Se la funzione restituisce un handle, questo sarà
+        una stringa di 27 byte con il formato tipo "@'000000000000000000000000'".
+       </P
+></LI
+></UL
+>     
+    </P
+><P
+> Vedere anche:
+     <A
+HREF="function.fbsql-create-blob.html"
+><B
+CLASS="function"
+>fbsql_create_blob()</B
+></A
+>, 
+     <A
+HREF="function.fbsql-create-clob.html"
+><B
+CLASS="function"
+>fbsql_create_clob()</B
+></A
+>, 
+     <A
+HREF="function.fbsql-read-blob.html"
+><B
+CLASS="function"
+>fbsql_read_blob()</B
+></A
+> e
+     <A
+HREF="function.fbsql-read-clob.html"
+><B
+CLASS="function"
+>fbsql_read_clob()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.fbsql-select-db.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.fbsql-set-password.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>fbsql_select_db</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.fbsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>fbsql_set_password</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

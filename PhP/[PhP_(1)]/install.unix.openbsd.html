@@ -1,0 +1,361 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>OpenBSD installation notes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installation on Unix systems"
+HREF="install.unix.html"><LINK
+REL="PREVIOUS"
+TITLE="HP-UX specific installation notes"
+HREF="install.unix.hpux.html"><LINK
+REL="NEXT"
+TITLE="Solaris specific installation tips"
+HREF="install.unix.solaris.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.unix.hpux.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 4. Installation on Unix systems</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.unix.solaris.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.unix.openbsd"
+>OpenBSD installation notes</A
+></H1
+><P
+>&#13; This section contains notes and hints specific to installing
+ PHP on <A
+HREF="http://www.openbsd.org/"
+TARGET="_top"
+>OpenBSD 3.6</A
+>.
+ </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.openbsd.packages"
+>Using Binary Packages</A
+></H2
+><P
+>&#13;    Using binary packages to install PHP on OpenBSD is the recommended
+    and simplest method.  The core package has been separated from the various
+    modules, and each can be installed and removed independently from the others.
+    The files you need can be found on your OpenBSD CD or on the FTP site.
+   </P
+><P
+>&#13;    The main package you need to install is <TT
+CLASS="filename"
+>php4-core-4.3.8.tgz</TT
+>,
+    which contains the basic engine (plus gettext and iconv).  Next, take a look
+    at the module packages, such as <TT
+CLASS="filename"
+>php4-mysql-4.3.8.tgz</TT
+>
+    or <TT
+CLASS="filename"
+>php4-imap-4.3.8.tgz</TT
+>.  You need to use the <B
+CLASS="command"
+>phpxs</B
+>
+    command to activate and deactivate these modules in your <TT
+CLASS="filename"
+>php.ini</TT
+>.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="install.unix.openbsd.ports.example"
+></A
+><P
+><B
+>Esempio 4-6. OpenBSD Package Install Example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+># pkg_add php4-core-4.3.8.tgz
+# /usr/local/sbin/phpxs -s
+# cp /usr/local/share/doc/php4/php.ini-recommended /var/www/conf/php.ini
+  (add in mysql)
+# pkg_add php4-mysql-4.3.8.tgz
+# /usr/local/sbin/phpxs -a mysql
+  (add in imap)
+# pkg_add php4-imap-4.3.8.tgz
+# /usr/local/sbin/phpxs -a imap
+  (remove mysql as a test)
+# pkg_delete php4-mysql-4.3.8
+# /usr/local/sbin/phpxs -r mysql
+  (install the PEAR libraries)
+# pkg_add php4-pear-4.3.8.tgz</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;   Read the <A
+HREF="http://www.openbsd.org/cgi-bin/man.cgi?query=packages"
+TARGET="_top"
+>packages(7)</A
+>
+   manual page for more information about binary packages on OpenBSD.
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.openbsd.ports"
+>Using Ports</A
+></H2
+><P
+>&#13;   You can also compile up PHP from source using the <A
+HREF="http://www.openbsd.org/ports.html"
+TARGET="_top"
+>ports tree</A
+>.
+   However, this is only recommended for users familiar with OpenBSD.  The PHP 4 port
+   is split into two sub-directories: core and extensions.  The
+   extensions directory generates sub-packages for all of the supported
+   PHP modules.  If you find you do not want to create some of these modules,
+   use the <B
+CLASS="command"
+>no_*</B
+> FLAVOR.  For example, to skip building
+   the imap module, set the FLAVOR to <B
+CLASS="command"
+>no_imap</B
+>.
+  </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.openbsd.faq"
+>Common Problems</A
+></H2
+><P
+></P
+><UL
+><LI
+><P
+>The default install of Apache runs inside a
+    <A
+HREF="http://www.openbsd.org/cgi-bin/man.cgi?query=chroot"
+TARGET="_top"
+>chroot(2) jail</A
+>, which will restrict PHP scripts to
+    accessing files under <TT
+CLASS="filename"
+>/var/www</TT
+>.  You will therefore need to create a
+    <TT
+CLASS="filename"
+>/var/www/tmp</TT
+> directory for PHP session files to be stored, or use an
+    alternative session backend.  In addition, database sockets need to be placed inside the
+    jail or listen on the <TT
+CLASS="filename"
+>localhost</TT
+> interface.  If you use network functions,
+    some files from <TT
+CLASS="filename"
+>/etc</TT
+> such as <TT
+CLASS="filename"
+>/etc/resolv.conf</TT
+> and
+    <TT
+CLASS="filename"
+>/etc/services</TT
+> will need to be moved into <TT
+CLASS="filename"
+>/var/www/etc</TT
+>.
+    The OpenBSD PEAR package automatically installs into the correct chroot directories, so 
+    no special modification is needed there.  More information on the OpenBSD Apache is available
+    in the <A
+HREF="http://www.openbsd.org/faq/faq10.html#httpdchroot"
+TARGET="_top"
+>OpenBSD FAQ</A
+>.
+    </P
+></LI
+><LI
+><P
+>&#13;    The OpenBSD 3.6 package for the <A
+HREF="http://www.boutell.com/gd/"
+TARGET="_top"
+>gd</A
+> extension requires
+    XFree86 to be installed.  If you do not wish to use some of the font features that
+    require X11, install the <TT
+CLASS="filename"
+>php4-gd-4.3.8-no_x11.tgz</TT
+> package instead.
+    </P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="install.unix.openbsd.older"
+>Older Releases</A
+></H2
+><P
+>&#13;   Older releases of OpenBSD used the FLAVORS system to compile up
+   a statically linked PHP.  Since it is hard to generate binary packages using
+   this method, it is now deprecated.  You can still use the old stable
+   ports trees if you wish, but they are unsupported by the OpenBSD team.
+   If you have any comments about this, the current maintainer for the port
+   is Anil Madhavapeddy (avsm at openbsd dot org).
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.unix.hpux.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.unix.solaris.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>HP-UX specific installation notes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.unix.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Solaris specific installation tips</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

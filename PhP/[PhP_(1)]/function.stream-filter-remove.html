@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>stream_filter_remove</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stream Functions"
+HREF="ref.stream.html"><LINK
+REL="PREVIOUS"
+TITLE="stream_filter_register"
+HREF="function.stream-filter-register.html"><LINK
+REL="NEXT"
+TITLE="stream_get_contents"
+HREF="function.stream-get-contents.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.stream-filter-register.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.stream-get-contents.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.stream-filter-remove"
+></A
+>stream_filter_remove</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN161085"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>stream_filter_remove&nbsp;--&nbsp;Remove a filter from a stream</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN161088"
+></A
+><H2
+>Description</H2
+>bool <B
+CLASS="methodname"
+>stream_filter_remove</B
+> ( resource stream_filter )<BR
+></BR
+><P
+>&#13;     Removes a stream filter previously added to a stream
+     with <A
+HREF="function.stream-filter-prepend.html"
+><B
+CLASS="function"
+>stream_filter_prepend()</B
+></A
+> or
+     <A
+HREF="function.stream-filter-append.html"
+><B
+CLASS="function"
+>stream_filter_append()</B
+></A
+>.  Any data
+     remaining in the filter's internal buffer will be flushed
+     through to the next filter before removing it.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN161100"
+></A
+><P
+><B
+>Esempio 1. Dynamicly refiltering a stream</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* Open a test file for reading and writing */<br /></font><font color="#0000BB">$fp </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#DD0000">"test.txt"</font><font color="#007700">, </font><font color="#DD0000">"rw"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$rot13_filter </font><font color="#007700">= </font><font color="#0000BB">stream_filter_append</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"string.rot13"</font><font color="#007700">, </font><font color="#0000BB">STREAM_FILTER_WRITE</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"This is "</font><font color="#007700">);<br /></font><font color="#0000BB">stream_filter_remove</font><font color="#007700">(</font><font color="#0000BB">$rot13_filter</font><font color="#007700">);<br /></font><font color="#0000BB">fwrite</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">, </font><font color="#DD0000">"a test\n"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">rewind</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#0000BB">fpassthru</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /></font><font color="#0000BB">fclose</font><font color="#007700">(</font><font color="#0000BB">$fp</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Expected Output<br />&nbsp;&nbsp;&nbsp;---------------<br /><br />Guvf vf a test<br /><br /> */<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     See also
+     <A
+HREF="function.stream-filter-register.html"
+><B
+CLASS="function"
+>stream_filter_register()</B
+></A
+>,
+     <A
+HREF="function.stream-filter-append.html"
+><B
+CLASS="function"
+>stream_filter_append()</B
+></A
+>, and
+     <A
+HREF="function.stream-filter-prepend.html"
+><B
+CLASS="function"
+>stream_filter_prepend()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.stream-filter-register.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.stream-get-contents.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>stream_filter_register</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.stream.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>stream_get_contents</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

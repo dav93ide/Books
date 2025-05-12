@@ -1,0 +1,391 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>posix_access</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni POSIX"
+HREF="ref.posix.html"><LINK
+REL="PREVIOUS"
+TITLE="Funzioni POSIX"
+HREF="ref.posix.html"><LINK
+REL="NEXT"
+TITLE="posix_ctermid"
+HREF="function.posix-ctermid.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.posix.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.posix-ctermid.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.posix-access"
+></A
+>posix_access</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN130787"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>posix_access&nbsp;--&nbsp;
+   Determine accessibility of a file
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN130790"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>posix_access</B
+> ( string file [, int mode] )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>posix_access()</B
+> checks the user's permission of a file.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Quando <A
+HREF="features.safe-mode.html"
+>safe-mode</A
+> è abilitato, PHP controlla che 
+i file o le directory sulle quali si sta andando a lavorare, abbiano lo stesso UID dello 
+script che è in esecuzione.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN130806"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>file</VAR
+></DT
+><DD
+><P
+>&#13;        The name of the file to be tested.
+       </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>mode</VAR
+></DT
+><DD
+><P
+>&#13;        A mask consisting of one or more of <TT
+CLASS="constant"
+><B
+>POSIX_F_OK</B
+></TT
+>,
+        <TT
+CLASS="constant"
+><B
+>POSIX_R_OK</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>POSIX_W_OK</B
+></TT
+> and
+        <TT
+CLASS="constant"
+><B
+>POSIX_X_OK</B
+></TT
+>. Defaults to
+        <TT
+CLASS="constant"
+><B
+>POSIX_F_OK</B
+></TT
+>.
+       </P
+><P
+>&#13;        <TT
+CLASS="constant"
+><B
+>POSIX_R_OK</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>POSIX_W_OK</B
+></TT
+> and
+        <TT
+CLASS="constant"
+><B
+>POSIX_X_OK</B
+></TT
+> request checking whether the file
+        exists and has read, write and execute permissions, respectively.
+        <TT
+CLASS="constant"
+><B
+>POSIX_F_OK</B
+></TT
+> just requests checking for the
+        existence of the file.
+       </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN130830"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN130835"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN130838"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>posix_access()</B
+> example</B
+></P
+><P
+>&#13;     This example will check if the $file is readable and writable, otherwise
+     will print an error message.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$file </font><font color="#007700">= </font><font color="#DD0000">'some_file'</font><font color="#007700">;<br /><br />if (</font><font color="#0000BB">posix_access</font><font color="#007700">(</font><font color="#0000BB">$file</font><font color="#007700">, </font><font color="#0000BB">POSIX_R_OK </font><font color="#007700">| </font><font color="#0000BB">POSIX_W_OK</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">'The file is readable and writable!'</font><font color="#007700">;<br /><br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$error </font><font color="#007700">= </font><font color="#0000BB">posix_get_last_error</font><font color="#007700">();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Error $error: " </font><font color="#007700">. </font><font color="#0000BB">posix_strerror</font><font color="#007700">(</font><font color="#0000BB">$error</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN130843"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.posix-get-last-error.html"
+><B
+CLASS="function"
+>posix_get_last_error()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.posix-strerror.html"
+><B
+CLASS="function"
+>posix_strerror()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.posix.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.posix-ctermid.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Funzioni POSIX</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.posix.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>posix_ctermid</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

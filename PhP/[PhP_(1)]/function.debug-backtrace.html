@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>debug_backtrace</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di gestione degli errori e di logging"
+HREF="ref.errorfunc.html"><LINK
+REL="PREVIOUS"
+TITLE="Funzioni di gestione degli errori e di logging"
+HREF="ref.errorfunc.html"><LINK
+REL="NEXT"
+TITLE="debug_print_backtrace"
+HREF="function.debug-print-backtrace.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.errorfunc.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.debug-print-backtrace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.debug-backtrace"
+></A
+>debug_backtrace</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN37369"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PHP 5)</P
+>debug_backtrace&nbsp;--&nbsp;
+     Genera una backtrace
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN37372"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>debug_backtrace</B
+> ( void  )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>debug_backtrace()</B
+> genera una backtrace PHP
+     e restituisce questa informazione sotto forma di <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> associativo.
+     Gli elementi che possono venire restituiti sono elencati nella seguente tabella:
+    </P
+><P
+>&#13;     <DIV
+CLASS="table"
+><A
+NAME="AEN37382"
+></A
+><P
+><B
+>Tabella 1. Elementi restituibili dalla funzione <B
+CLASS="function"
+>debug_backtrace()</B
+></B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Tipo</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>funzione</TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+><TD
+>&#13;          Il nome della funzione corrente. Vedere anche
+          <A
+HREF="language.constants.predefined.html"
+>__FUNCTION__</A
+>.
+         </TD
+></TR
+><TR
+><TD
+>riga</TD
+><TD
+><A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></TD
+><TD
+>&#13;          Il numero della linea corrente. Vedere anche
+          <A
+HREF="language.constants.predefined.html"
+>__LINE__</A
+>.
+         </TD
+></TR
+><TR
+><TD
+>file</TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+><TD
+>&#13;          Il nome del file corrente. Vedere anche
+          <A
+HREF="language.constants.predefined.html"
+>__FILE__</A
+>.
+         </TD
+></TR
+><TR
+><TD
+>classe</TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+><TD
+>&#13;          Il nome della <A
+HREF="language.oop.html"
+>class</A
+> corrente. Vedere anche
+          <A
+HREF="language.constants.predefined.html"
+>__CLASS__</A
+>
+         </TD
+></TR
+><TR
+><TD
+>tipo</TD
+><TD
+><A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></TD
+><TD
+>&#13;          Il tipo di chiamata corrente. Se chiamata di metodo, viene restituito "-&#62;" is returned. Se chiamata
+          di metodo statico, viene restituito "::". Se chiamata di funzione, non viene restituito niente.
+         </TD
+></TR
+><TR
+><TD
+>args</TD
+><TD
+><A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+></TD
+><TD
+>&#13;          Se all'interno di una funzione, elenca gli argomenti della funzione.
+          Se all'interno di un file incluso, elenca i nomi del file incluso.
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     Di seguito un semplice esempio.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN37429"
+></A
+><P
+><B
+>Esempio 1. 
+       <B
+CLASS="function"
+>debug_backtrace()</B
+> example
+      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// filename: a.php<br /><br /></font><font color="#007700">function </font><font color="#0000BB">a_test</font><font color="#007700">(</font><font color="#0000BB">$str</font><font color="#007700">) <br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"</font><font color="#007700">\n</font><font color="#DD0000">Hi: $str"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">debug_backtrace</font><font color="#007700">());<br />}<br /><br /></font><font color="#0000BB">a_test</font><font color="#007700">(</font><font color="#DD0000">'friend'</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;<br /></font><br /><font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// filename: b.php<br /></font><font color="#007700">include_once </font><font color="#DD0000">'/tmp/a.php'</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       Risultati durante l'esecuzione di <TT
+CLASS="filename"
+>/tmp/b.php</TT
+>:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Hi: friend
+array(2) {
+  [0]=&#62;
+  array(4) {
+    ["file"] =&#62; string(10) "/tmp/a.php"
+    ["line"] =&#62; int(10)
+    ["function"] =&#62; string(6) "a_test"
+    ["args"]=&#62;
+    array(1) {
+      [0] =&#62; &#38;string(6) "friend"
+    }
+  }
+  [1]=&#62;
+  array(4) {
+    ["file"] =&#62; string(10) "/tmp/b.php"
+    ["line"] =&#62; int(2)
+    ["args"] =&#62; 
+    array(1) {
+      [0] =&#62; string(10) "/tmp/a.php"
+    }
+    ["function"] =&#62; string(12) "include_once"
+  }
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.trigger-error.html"
+><B
+CLASS="function"
+>trigger_error()</B
+></A
+> and
+     <A
+HREF="function.debug-print-backtrace.html"
+><B
+CLASS="function"
+>debug_print_backtrace()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.errorfunc.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.debug-print-backtrace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Funzioni di gestione degli errori e di logging</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.errorfunc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>debug_print_backtrace</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

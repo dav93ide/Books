@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>maxdb_stmt_bind_result</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MaxDB PHP Extension"
+HREF="ref.maxdb.html"><LINK
+REL="PREVIOUS"
+TITLE="maxdb_stmt_bind_param"
+HREF="function.maxdb-stmt-bind-param.html"><LINK
+REL="NEXT"
+TITLE="maxdb_stmt_close_long_data"
+HREF="function.maxdb-stmt-close-long-data.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.maxdb-stmt-bind-param.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.maxdb-stmt-close-long-data.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.maxdb-stmt-bind-result"
+></A
+>maxdb_stmt_bind_result</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN74785"
+></A
+><P
+>    (PECL)</P
+>maxdb_stmt_bind_result<P
+>    (no version information, might be only in CVS)</P
+>stmt-&#62;bind_result&nbsp;--&nbsp;Binds variables to a prepared statement for result storage</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN74789"
+></A
+><H2
+>Description</H2
+><P
+>Procedural style:</P
+>bool <B
+CLASS="methodname"
+>maxdb_stmt_bind_result</B
+> ( resource stmt, mixed &#38;var1 [, mixed &#38;...] )<BR
+></BR
+><P
+>Object oriented style (method):</P
+>class <B
+CLASS="classname"
+>stmt</B
+> { <BR
+></BR
+>bool <B
+CLASS="methodname"
+>bind_result</B
+> ( mixed &#38;var1 [, mixed &#38;...] )<BR
+></BR
+>}<P
+>&#13;      <B
+CLASS="function"
+>maxdb_stmt_bind_result()</B
+> is used to associate (bind) columns in the result 
+      set to variables. When <A
+HREF="function.maxdb-stmt-fetch.html"
+><B
+CLASS="function"
+>maxdb_stmt_fetch()</B
+></A
+> is called to fetch data, the MaxDB
+      client/server protocol places the data for the bound columns into the specified variables
+      <VAR
+CLASS="parameter"
+>var1, ...</VAR
+>.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Note that all columns must be bound prior to calling <A
+HREF="function.maxdb-stmt-fetch.html"
+><B
+CLASS="function"
+>maxdb_stmt_fetch()</B
+></A
+>.
+       Depending on column types bound variables can silently change to the corresponding PHP type.
+      </P
+><P
+>&#13;       A column can be bound or rebound at any time, even after a result set has been partially retrieved.
+       The new binding takes effect the next time <A
+HREF="function.maxdb-stmt-fetch.html"
+><B
+CLASS="function"
+>maxdb_stmt_fetch()</B
+></A
+> is called. 
+      </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN74826"
+></A
+><H2
+>Return values</H2
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN74831"
+></A
+><H2
+>See also</H2
+><P
+>&#13;     <A
+HREF="function.maxdb-stmt-bind-param.html"
+><B
+CLASS="function"
+>maxdb_stmt_bind_param()</B
+></A
+>,
+     <A
+HREF="function.maxdb-stmt-execute.html"
+><B
+CLASS="function"
+>maxdb_stmt_execute()</B
+></A
+>,
+     <A
+HREF="function.maxdb-stmt-fetch.html"
+><B
+CLASS="function"
+>maxdb_stmt_fetch()</B
+></A
+>,
+     <A
+HREF="function.maxdb-prepare.html"
+><B
+CLASS="function"
+>maxdb_prepare()</B
+></A
+>,
+     <A
+HREF="function.maxdb-stmt-prepare.html"
+><B
+CLASS="function"
+>maxdb_stmt_prepare()</B
+></A
+>,
+     <A
+HREF="function.maxdb-stmt-init.html"
+><B
+CLASS="function"
+>maxdb_stmt_init()</B
+></A
+>,
+     <A
+HREF="function.maxdb-stmt-errno.html"
+><B
+CLASS="function"
+>maxdb_stmt_errno()</B
+></A
+>,
+     <A
+HREF="function.maxdb-stmt-error.html"
+><B
+CLASS="function"
+>maxdb_stmt_error()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN74842"
+></A
+><H2
+>Example</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN74844"
+></A
+><P
+><B
+>Esempio 1. Object oriented style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$maxdb </font><font color="#007700">= new </font><font color="#0000BB">maxdb</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"MONA"</font><font color="#007700">, </font><font color="#DD0000">"RED"</font><font color="#007700">, </font><font color="#DD0000">"DEMODB"</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">maxdb_connect_errno</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#FF8000">/* prepare statement */<br /></font><font color="#007700">if (</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">"SELECT zip, name FROM hotel.city ORDER BY name"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">execute</font><font color="#007700">();<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* bind variables to prepared statement */<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">bind_result</font><font color="#007700">(</font><font color="#0000BB">$col1</font><font color="#007700">, </font><font color="#0000BB">$col2</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* fetch values */<br />&nbsp;&nbsp;&nbsp;</font><font color="#007700">while (</font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">fetch</font><font color="#007700">()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%s %s\n"</font><font color="#007700">, </font><font color="#0000BB">$col1</font><font color="#007700">, </font><font color="#0000BB">$col2</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* close statement */<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br />}<br /></font><font color="#FF8000">/* close connection */<br /></font><font color="#0000BB">$maxdb</font><font color="#007700">-&gt;</font><font color="#0000BB">close</font><font color="#007700">();<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN74847"
+></A
+><P
+><B
+>Esempio 2. Procedural style</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$link </font><font color="#007700">= </font><font color="#0000BB">maxdb_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"MONA"</font><font color="#007700">, </font><font color="#DD0000">"RED"</font><font color="#007700">, </font><font color="#DD0000">"DEMODB"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* check connection */<br /></font><font color="#007700">if (!</font><font color="#0000BB">$link</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"Connect failed: %s\n"</font><font color="#007700">, </font><font color="#0000BB">maxdb_connect_error</font><font color="#007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></font><font color="#FF8000">/* prepare statement */<br /></font><font color="#007700">if (</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">maxdb_prepare</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">, </font><font color="#DD0000">"SELECT zip, name FROM hotel.city ORDER BY name"</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">maxdb_stmt_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* bind variables to prepared statement */<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">maxdb_stmt_bind_result</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">$col1</font><font color="#007700">, </font><font color="#0000BB">$col2</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* fetch values */<br />&nbsp;&nbsp;&nbsp;</font><font color="#007700">while (</font><font color="#0000BB">maxdb_stmt_fetch</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf</font><font color="#007700">(</font><font color="#DD0000">"%s %s\n"</font><font color="#007700">, </font><font color="#0000BB">$col1</font><font color="#007700">, </font><font color="#0000BB">$col2</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* close statement */<br />&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">maxdb_stmt_close</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">);<br />}<br /><br /></font><font color="#FF8000">/* close connection */<br /></font><font color="#0000BB">maxdb_close</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     The above examples would produce the following output:
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>12203 Albany
+60601 Chicago
+60615 Chicago
+45211 Cincinnati
+33575 Clearwater
+75243 Dallas
+32018 Daytona Beach
+33441 Deerfield Beach
+48226 Detroit
+90029 Hollywood
+92714 Irvine
+90804 Long Beach
+11788 Long Island
+90018 Los Angeles
+70112 New Orleans
+10019 New York
+10580 New York
+92262 Palm Springs
+97213 Portland
+60018 Rosemont
+95054 Santa Clara
+20903 Silver Spring
+20005 Washington
+20019 Washington
+20037 Washington</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.maxdb-stmt-bind-param.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.maxdb-stmt-close-long-data.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>maxdb_stmt_bind_param</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.maxdb.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>maxdb_stmt_close_long_data</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,361 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>gzwrite</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di compressione Zlib"
+HREF="ref.zlib.html"><LINK
+REL="PREVIOUS"
+TITLE="gzuncompress"
+HREF="function.gzuncompress.html"><LINK
+REL="NEXT"
+TITLE="readgzfile"
+HREF="function.readgzfile.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.gzuncompress.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.readgzfile.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.gzwrite"
+></A
+>gzwrite</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN183751"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>gzwrite&nbsp;--&nbsp;Binary-safe gz-file write</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183754"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>gzwrite</B
+> ( resource zp, string string [, int length] )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>gzwrite()</B
+> writes the contents of
+   <VAR
+CLASS="parameter"
+>string</VAR
+> to the given gz-file.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183771"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>zp</VAR
+></DT
+><DD
+><P
+>&#13;       The gz-file pointer. It must be valid, and must point to a file
+       successfully opened by <A
+HREF="function.gzopen.html"
+><B
+CLASS="function"
+>gzopen()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>string</VAR
+></DT
+><DD
+><P
+>&#13;       The string to write.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>length</VAR
+></DT
+><DD
+><P
+>&#13;       The number of uncompressed bytes to write. If supplied, writing will 
+       stop after <VAR
+CLASS="parameter"
+>length</VAR
+> (uncompressed) bytes have been
+       written or the end of <VAR
+CLASS="parameter"
+>string</VAR
+> is reached,
+       whichever comes first.
+      </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+        Note that if the <VAR
+CLASS="parameter"
+>length</VAR
+> argument is given,
+        then the <A
+HREF="ref.info.html#ini.magic-quotes-runtime"
+>magic_quotes_runtime</A
+>
+        configuration option will be ignored and no slashes will be
+        stripped from <VAR
+CLASS="parameter"
+>string</VAR
+>.
+       </P
+></BLOCKQUOTE
+></DIV
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183798"
+></A
+><H2
+>Valori restituiti</H2
+><P
+> 
+   Returns the number of (uncompressed) bytes written to the given gz-file 
+   stream.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183801"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN183804"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>gzwrite()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$string </font><font color="#007700">= </font><font color="#DD0000">'Some information to compress'</font><font color="#007700">;<br /></font><font color="#0000BB">$gz </font><font color="#007700">= </font><font color="#0000BB">gzopen</font><font color="#007700">(</font><font color="#DD0000">'somefile.gz'</font><font color="#007700">,</font><font color="#DD0000">'w9'</font><font color="#007700">);<br /></font><font color="#0000BB">gzwrite</font><font color="#007700">(</font><font color="#0000BB">$gz</font><font color="#007700">, </font><font color="#0000BB">$string</font><font color="#007700">);<br /></font><font color="#0000BB">gzclose</font><font color="#007700">(</font><font color="#0000BB">$gz</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN183808"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.gzread.html"
+><B
+CLASS="function"
+>gzread()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.gzopen.html"
+><B
+CLASS="function"
+>gzopen()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.gzuncompress.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.readgzfile.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>gzuncompress</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.zlib.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>readgzfile</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

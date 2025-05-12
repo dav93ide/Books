@@ -1,0 +1,2219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>SOAP Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="snmpwalkoid"
+HREF="function.snmpwalkoid.html"><LINK
+REL="NEXT"
+TITLE="is_soap_fault"
+HREF="function.is-soap-fault.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.snmpwalkoid.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.is-soap-fault.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.soap"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXXXVIII. SOAP Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN151824"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="soap.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;    The SOAP extension can be used to write SOAP Servers and Clients. It supports
+    subsets of <A
+HREF="http://www.w3.org/TR/soap11/"
+TARGET="_top"
+>SOAP 1.1</A
+>, <A
+HREF="http://www.w3.org/TR/soap12/"
+TARGET="_top"
+>SOAP 1.2</A
+> and <A
+HREF="http://www.w3.org/TR/wsdl"
+TARGET="_top"
+>WSDL 1.1</A
+> specifications.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="soap.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;    This extension makes use of the <A
+HREF="http://www.xmlsoft.org/"
+TARGET="_top"
+>GNOME xml
+    library</A
+>. Download and install this library. You will need at
+    least libxml-2.5.4.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="soap.installation"
+>Installazione</A
+></H1
+><P
+>&#13;    This extension is only available if PHP was configured with
+    <VAR
+CLASS="option"
+>--enable-soap</VAR
+>.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="soap.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN151844"
+></A
+><P
+><B
+>Tabella 1. SOAP Configuration Options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>soap.wsdl_cache_enabled</TD
+><TD
+>"1"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 5.0.0.</TD
+></TR
+><TR
+><TD
+>soap.wsdl_cache_dir</TD
+><TD
+>"/tmp"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 5.0.0.</TD
+></TR
+><TR
+><TD
+>soap.wsdl_cache_ttl</TD
+><TD
+>"86400"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>Available since PHP 5.0.0.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+</P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13; <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.soap.wsdl-cache-enabled"
+></A
+><VAR
+CLASS="parameter"
+>soap.wsdl_cache_enabled</VAR
+>
+    <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;     Enables or disables the WSDL caching feature.
+    </P
+></DD
+><DT
+><A
+NAME="ini.soap.wsdl-cache-dir"
+></A
+><VAR
+CLASS="parameter"
+>soap.wsdl_cache_dir</VAR
+>
+    <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;     Sets the directory name where the SOAP extension will put cache files.
+    </P
+></DD
+><DT
+><A
+NAME="ini.soap.wsdl-cache-ttl"
+></A
+><VAR
+CLASS="parameter"
+>soap.wsdl_cache_ttl</VAR
+>
+    <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>int</B
+></A
+></DT
+><DD
+><P
+>&#13;     Sets the number of seconds (time to live) that cached files will be used
+     instead the originals.
+    </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="soap.classes"
+>Classi predefinite</A
+></H1
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="soap.class.soapclient"
+><B
+CLASS="classname"
+>SoapClient</B
+></A
+></H2
+><P
+></P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="soap.class.soapclient.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.soap-soapclient-construct.html"
+>SoapClient-&#62;__construct()</A
+> -
+       constructs a new SoapClient object</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="soap.class.soapclient.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.soap-soapclient-call.html"
+>SoapClient-&#62;__call()</A
+> - Calls a SOAP function (deprecated)</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapclient-dorequest.html"
+>SoapClient-&#62;__doRequest()</A
+> - Performs a SOAP request</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapclient-getfunctions.html"
+>SoapClient-&#62;__getFunctions()</A
+> - Returns list of SOAP functions</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapclient-getlastrequest.html"
+>SoapClient-&#62;__getLastRequest()</A
+> - Returns last SOAP request</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapclient-getlastrequestheaders.html"
+>SoapClient-&#62;__getLastRequestHeaders()</A
+> - Returns last SOAP request headers</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapclient-getlastresponse.html"
+>SoapClient-&#62;__getLastResponse()</A
+> - Returns last SOAP response</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapclient-getlastresponseheaders.html"
+>SoapClient-&#62;__getLastResponseHeaders()</A
+> - Returns last SOAP response headers</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapclient-gettypes.html"
+>SoapClient-&#62;__getTypes()</A
+> - Returns list of SOAP types</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapclient-setcookie.html"
+>SoapClient-&#62;__setCookie()</A
+> - Sets the
+       cookie that will be sent with the SOAP request</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapclient-soapcall.html"
+>SoapClient-&#62;__soapCall()</A
+> - Calls a SOAP function</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="soap.class.soapfault"
+><B
+CLASS="classname"
+>SoapFault</B
+></A
+></H2
+><P
+></P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="soap.class.soapfault.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.soap-soapfault-construct.html"
+>SoapFault-&#62;__construct()</A
+> - construct a new SoapFault object</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="soap.class.soapheader"
+><B
+CLASS="classname"
+>SoapHeader</B
+></A
+></H2
+><P
+>&#13;     <B
+CLASS="classname"
+>SoapHeader</B
+> is a special low-level class for passing 
+     or returning SOAP headers. It's just a data holder and it does not have any 
+     special methods except its constructor. It can be used in the <A
+HREF="function.soap-soapclient-soapcall.html"
+>SoapClient-&#62;__soapCall()</A
+> method to pass a SOAP header or 
+     in a SOAP header handler to return the header in a SOAP response.
+    </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="soap.class.soapheader.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.soap-soapheader-construct.html"
+>SoapHeader-&#62;__construct()</A
+> - construct a new SoapHeader object</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="soap.class.soapparam"
+><B
+CLASS="classname"
+>SoapParam</B
+></A
+></H2
+><P
+>&#13;     <B
+CLASS="classname"
+>SoapParam</B
+> is a special low-level class for naming 
+     parameters and returning values in <VAR
+CLASS="literal"
+>non-WSDL</VAR
+> mode. 
+     It's just a data holder and it does not have any special methods except 
+     its constructor.
+    </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="soap.class.soapparam.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.soap-soapparam-construct.html"
+>SoapParam-&#62;__construct()</A
+> - construct a new SoapParam object</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="soap.class.soapserver"
+><B
+CLASS="classname"
+>SoapServer</B
+></A
+></H2
+><P
+></P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="soap.class.soapserver.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.soap-soapserver-construct.html"
+>SoapServer-&#62;__construct()</A
+> - construct a new SoapServer object</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="soap.class.soapserver.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.soap-soapserver-addfunction.html"
+>SoapServer-&#62;addFunction()</A
+> - Adds one or several functions those will handle SOAP requests</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapserver-fault.html"
+>SoapServer-&#62;fault()</A
+> - </P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapserver-getfunctions.html"
+>SoapServer-&#62;getFunctions()</A
+> - Returns list of defined functions</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapserver-handle.html"
+>SoapServer-&#62;handle()</A
+> - Handles a SOAP request</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapserver-setclass.html"
+>SoapServer-&#62;setClass()</A
+> - Sets class which will handle SOAP requests</P
+></LI
+><LI
+><P
+><A
+HREF="function.soap-soapserver-setpersistence.html"
+>SoapServer-&#62;setPersistence()</A
+> - Sets persistence mode of SoapServer</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="soap.class.soapvar"
+><B
+CLASS="classname"
+>SoapVar</B
+></A
+></H2
+><P
+>&#13;     <B
+CLASS="classname"
+>SoapVar</B
+> is a special low-level class for encoding
+     parameters and returning values in <VAR
+CLASS="literal"
+>non-WSDL</VAR
+> mode. It's
+     just a data holder and does not have any special methods except the constructor. 
+     It's useful when you want to set the type property in SOAP request or response. 
+    </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="soap.class.soapvar.constructor"
+>Costruttori</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.soap-soapvar-construct.html"
+>SoapVar-&#62;__construct()</A
+> - construct a new SoapVar object</P
+></LI
+></UL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="soap.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_1_1</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_1_2</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_PERSISTENCE_SESSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_PERSISTENCE_REQUEST</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_FUNCTIONS_ALL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_ENCODED</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_LITERAL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_RPC</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_DOCUMENT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_ACTOR_NEXT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_ACTOR_NONE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_ACTOR_UNLIMATERECEIVER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_COMPRESSION_ACCEPT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_COMPRESSION_GZIP</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_COMPRESSION_DEFLATE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>UNKNOWN_TYPE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_STRING</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_BOOLEAN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_DECIMAL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_FLOAT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_DOUBLE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_DURATION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_DATETIME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_TIME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_DATE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_GYEARMONTH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_GYEAR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_GMONTHDAY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_GDAY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_GMONTH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_HEXBINARY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_BASE64BINARY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_ANYURI</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_ANYXML</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     Added in PHP 5.1.0.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_QNAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_NOTATION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_NORMALIZEDSTRING</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_TOKEN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_LANGUAGE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_NMTOKEN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_NAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_NCNAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_ID</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_IDREF</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_IDREFS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_ENTITY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_ENTITIES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_INTEGER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_NONPOSITIVEINTEGER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_NEGATIVEINTEGER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_LONG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_INT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_SHORT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_BYTE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_NONNEGATIVEINTEGER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_UNSIGNEDLONG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_UNSIGNEDINT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_UNSIGNEDSHORT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_UNSIGNEDBYTE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_POSITIVEINTEGER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_NMTOKENS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_ANYTYPE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_ENC_OBJECT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOAP_ENC_ARRAY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_1999_TIMEINSTANT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_NAMESPACE</B
+></TT
+>
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>XSD_1999_NAMESPACE</B
+></TT
+>
+     (<A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.is-soap-fault.html"
+>is_soap_fault</A
+>&nbsp;--&nbsp;
+   Checks if SOAP call was failed
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-call.html"
+>SoapClient-&#62;__call()</A
+>&nbsp;--&nbsp;
+   Calls a SOAP function (deprecated)
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-construct.html"
+>SoapClient-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   SoapClient constructor
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-dorequest.html"
+>SoapClient-&#62;__doRequest()</A
+>&nbsp;--&nbsp;
+   Performs a SOAP request
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-getfunctions.html"
+>SoapClient-&#62;__getFunctions()</A
+>&nbsp;--&nbsp;
+   Returns list of SOAP functions
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-getlastrequest.html"
+>SoapClient-&#62;__getLastRequest()</A
+>&nbsp;--&nbsp;
+   Returns last SOAP request
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-getlastrequestheaders.html"
+>SoapClient-&#62;__getLastRequestHeaders()</A
+>&nbsp;--&nbsp;
+   Returns last SOAP request headers
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-getlastresponse.html"
+>SoapClient-&#62;__getLastResponse()</A
+>&nbsp;--&nbsp;
+   Returns last SOAP response.
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-getlastresponseheaders.html"
+>SoapClient-&#62;__getLastResponseHeaders()</A
+>&nbsp;--&nbsp;
+   Returns last SOAP response headers.
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-gettypes.html"
+>SoapClient-&#62;__getTypes()</A
+>&nbsp;--&nbsp;
+   Returns list of SOAP types
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-setcookie.html"
+>SoapClient-&#62;__setCookie()</A
+>&nbsp;--&nbsp;
+   Sets the cookie that will be sent with the SOAP request
+  </DT
+><DT
+><A
+HREF="function.soap-soapclient-soapcall.html"
+>SoapClient-&#62;__soapCall()</A
+>&nbsp;--&nbsp;
+   Calls a SOAP function
+  </DT
+><DT
+><A
+HREF="function.soap-soapfault-construct.html"
+>SoapFault-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   SoapFault constructor
+  </DT
+><DT
+><A
+HREF="function.soap-soapheader-construct.html"
+>SoapHeader-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   SoapHeader constructor
+  </DT
+><DT
+><A
+HREF="function.soap-soapparam-construct.html"
+>SoapParam-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   SoapParam constructor
+  </DT
+><DT
+><A
+HREF="function.soap-soapserver-addfunction.html"
+>SoapServer-&#62;addFunction()</A
+>&nbsp;--&nbsp;
+   Adds one or several functions those will handle SOAP requests
+  </DT
+><DT
+><A
+HREF="function.soap-soapserver-construct.html"
+>SoapServer-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   SoapServer constructor
+  </DT
+><DT
+><A
+HREF="function.soap-soapserver-fault.html"
+>SoapServer-&#62;fault()</A
+>&nbsp;--&nbsp;Issue SoapServer fault indicating an error</DT
+><DT
+><A
+HREF="function.soap-soapserver-getfunctions.html"
+>SoapServer-&#62;getFunctions()</A
+>&nbsp;--&nbsp;
+   Returns list of defined functions
+  </DT
+><DT
+><A
+HREF="function.soap-soapserver-handle.html"
+>SoapServer-&#62;handle()</A
+>&nbsp;--&nbsp;
+   Handles a SOAP request
+  </DT
+><DT
+><A
+HREF="function.soap-soapserver-setclass.html"
+>SoapServer-&#62;setClass()</A
+>&nbsp;--&nbsp;
+   Sets class which will handle SOAP requests
+  </DT
+><DT
+><A
+HREF="function.soap-soapserver-setpersistence.html"
+>SoapServer-&#62;setPersistence()</A
+>&nbsp;--&nbsp;
+   Sets persistence mode of SoapServer
+  </DT
+><DT
+><A
+HREF="function.soap-soapvar-construct.html"
+>SoapVar-&#62;__construct()</A
+>&nbsp;--&nbsp;
+   SoapVar constructor
+  </DT
+><DT
+><A
+HREF="function.use-soap-error-handler.html"
+>use_soap_error_handler</A
+>&nbsp;--&nbsp;Set whether to use the SOAP error handler and return the former value</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.snmpwalkoid.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.is-soap-fault.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>snmpwalkoid</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>is_soap_fault</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,399 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>msql_fetch_row</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="mSQL Functions"
+HREF="ref.msql.html"><LINK
+REL="PREVIOUS"
+TITLE="msql_fetch_object"
+HREF="function.msql-fetch-object.html"><LINK
+REL="NEXT"
+TITLE="msql_field_flags"
+HREF="function.msql-field-flags.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.msql-fetch-object.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.msql-field-flags.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.msql-fetch-row"
+></A
+>msql_fetch_row</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN89171"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>msql_fetch_row&nbsp;--&nbsp;Get row as enumerated array</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89174"
+></A
+><H2
+>Descrizione</H2
+>array <B
+CLASS="methodname"
+>msql_fetch_row</B
+> ( resource result )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>msql_fetch_row()</B
+> fetches one row of data from
+   the result associated with the specified query identifier.  The
+   row is returned as an array.  Each result column is stored in an
+   array offset, starting at offset 0.
+  </P
+><P
+> 
+   Subsequent call to <B
+CLASS="function"
+>msql_fetch_row()</B
+> would
+   return the next row in the result set, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if there are no
+   more rows.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89187"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>&#13;result</VAR
+></DT
+><DD
+><P
+>The result <A
+HREF="language.types.resource.html"
+><B
+CLASS="type"
+>resource</B
+></A
+> that
+is being evaluated. This result comes from a call to
+<A
+HREF="function.msql-query.html"
+><B
+CLASS="function"
+>msql_query()</B
+></A
+>.</P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89198"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns an array that corresponds to the fetched row, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if
+   there are no more rows.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89202"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN89205"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>msql_fetch_row()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$con </font><font color="#007700">= </font><font color="#0000BB">msql_connect</font><font color="#007700">();<br />if (!</font><font color="#0000BB">$con</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'Server connection problem: ' </font><font color="#007700">. </font><font color="#0000BB">msql_error</font><font color="#007700">());<br />}<br /><br />if (!</font><font color="#0000BB">msql_select_db</font><font color="#007700">(</font><font color="#DD0000">'test'</font><font color="#007700">, </font><font color="#0000BB">$con</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'Database connection problem: ' </font><font color="#007700">. </font><font color="#0000BB">msql_error</font><font color="#007700">());<br />}<br /><br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">msql_query</font><font color="#007700">(</font><font color="#DD0000">'SELECT id, name FROM people'</font><font color="#007700">, </font><font color="#0000BB">$con</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$result</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">'Query execution problem: ' </font><font color="#007700">. </font><font color="#0000BB">msql_error</font><font color="#007700">());<br />}<br /><br />while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">msql_fetch_row</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">] . </font><font color="#DD0000">': ' </font><font color="#007700">. </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">] . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /><br /></font><font color="#0000BB">msql_free_result</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89209"
+></A
+><H2
+>Log delle modifiche</H2
+><P
+>&#13;   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN89212"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Versione</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>4.3.11 and 5.0.4 </TD
+><TD
+>&#13;        A bug was fixed when retrieving data from columns containing <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> 
+        values. Such columns were not placed into the resulting array.
+       </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89223"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.msql-fetch-array.html"
+><B
+CLASS="function"
+>msql_fetch_array()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.msql-fetch-object.html"
+><B
+CLASS="function"
+>msql_fetch_object()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.msql-data-seek.html"
+><B
+CLASS="function"
+>msql_data_seek()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.msql-result.html"
+><B
+CLASS="function"
+>msql_result()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.msql-fetch-object.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.msql-field-flags.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>msql_fetch_object</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.msql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>msql_field_flags</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

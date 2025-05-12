@@ -1,0 +1,348 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_next_result</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_free_stmt"
+HREF="function.db2-free-stmt.html"><LINK
+REL="NEXT"
+TITLE="db2_num_fields"
+HREF="function.db2-num-fields.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-free-stmt.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-num-fields.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-next-result"
+></A
+>db2_next_result</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN54313"
+></A
+><P
+>    (PECL)</P
+>db2_next_result&nbsp;--&nbsp;
+   Requests the next result set from a stored procedure
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54316"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>db2_next_result</B
+> ( resource stmt )<BR
+></BR
+><P
+>&#13;   A stored procedure can return zero or more result sets. While you handle
+   the first result set in exactly the same way you would handle the results
+   returned by a simple SELECT statement, to fetch the second and subsequent
+   result sets from a stored procedure you must call the
+   <B
+CLASS="function"
+>db2_next_result()</B
+> function and return the result to a
+   uniquely named PHP variable.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54326"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>stmt</VAR
+></DT
+><DD
+><P
+>&#13;       A prepared statement returned from <A
+HREF="function.db2-exec.html"
+><B
+CLASS="function"
+>db2_exec()</B
+></A
+> or
+       <A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+>.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54337"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a new statement resource containing the next result set if the
+   stored procedure returned another result set. Returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if the stored
+   procedure did not return another result set.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54341"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN54344"
+></A
+><P
+><B
+>Esempio 1. Calling a stored procedure that returns multiple result sets</B
+></P
+><P
+>&#13;     In the following example, we call a stored procedure that returns three
+     result sets. The first result set is fetched directly from the same
+     statement resource on which we invoked the CALL statement, while the
+     second and third result sets are fetched from statement resources
+     returned from our calls to the <B
+CLASS="function"
+>db2_next_result()</B
+>
+     function.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$conn </font><font color="#007700">= </font><font color="#0000BB">db2_connect</font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /><br />if (</font><font color="#0000BB">$conn</font><font color="#007700">) {<br />&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">db2_exec</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">'CALL multiResults()'</font><font color="#007700">);<br /><br />&nbsp;&nbsp;print </font><font color="#DD0000">"Fetching first result set\n"</font><font color="#007700">;<br />&nbsp;&nbsp;while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">db2_fetch_array</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$row</font><font color="#007700">);<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;print </font><font color="#DD0000">"\nFetching second result set\n"</font><font color="#007700">;<br />&nbsp;&nbsp;</font><font color="#0000BB">$res </font><font color="#007700">= </font><font color="#0000BB">db2_next_result</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">);<br />&nbsp;&nbsp;if (</font><font color="#0000BB">$res</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">db2_fetch_array</font><font color="#007700">(</font><font color="#0000BB">$res</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$row</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;print </font><font color="#DD0000">"\nFetching third result set\n"</font><font color="#007700">;<br />&nbsp;&nbsp;</font><font color="#0000BB">$res2 </font><font color="#007700">= </font><font color="#0000BB">db2_next_result</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">);<br />&nbsp;&nbsp;if (</font><font color="#0000BB">$res2</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">db2_fetch_array</font><font color="#007700">(</font><font color="#0000BB">$res2</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$row</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;</font><font color="#0000BB">db2_close</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Fetching first result set
+array(2) {
+  [0]=&#62;
+  string(16) "Bubbles         "
+  [1]=&#62;
+  int(3)
+}
+array(2) {
+  [0]=&#62;
+  string(16) "Gizmo           "
+  [1]=&#62;
+  int(4)
+}
+
+Fetching second result set
+array(4) {
+  [0]=&#62;
+  string(16) "Sweater         "
+  [1]=&#62;
+  int(6)
+  [2]=&#62;
+  string(5) "llama"
+  [3]=&#62;
+  string(6) "150.00"
+}
+array(4) {
+  [0]=&#62;
+  string(16) "Smarty          "
+  [1]=&#62;
+  int(2)
+  [2]=&#62;
+  string(5) "horse"
+  [3]=&#62;
+  string(6) "350.00"
+}
+
+Fetching third result set
+array(1) {
+  [0]=&#62;
+  string(16) "Bubbles         "
+}
+array(1) {
+  [0]=&#62;
+  string(16) "Gizmo           "
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-free-stmt.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-num-fields.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_free_stmt</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_num_fields</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>kadm5_modify_principal</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="KADM5"
+HREF="ref.kadm5.html"><LINK
+REL="PREVIOUS"
+TITLE="kadm5_init_with_password"
+HREF="function.kadm5-init-with-password.html"><LINK
+REL="NEXT"
+TITLE="LDAP Functions"
+HREF="ref.ldap.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.kadm5-init-with-password.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.ldap.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.kadm5-modify-principal"
+></A
+>kadm5_modify_principal</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN67297"
+></A
+><P
+>    (PECL)</P
+>kadm5_modify_principal&nbsp;--&nbsp;Modifies a kerberos principal with the given parameters</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN67300"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>kadm5_modify_principal</B
+> ( resource handle, string principal, array options )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>kadm5_modify_principal()</B
+>
+   modifies a <VAR
+CLASS="parameter"
+>principal</VAR
+> according to the given
+   <VAR
+CLASS="parameter"
+>options</VAR
+>. Allowed are the following options:
+   KADM5_PRINC_EXPIRE_TIME, KADM5_PW_EXPIRATION, KADM5_ATTRIBUTES,
+   KADM5_MAX_LIFE, KADM5_KVNO, KADM5_POLICY, KADM5_CLEARPOLICY,
+   KADM5_MAX_RLIFE, KADM5_FAIL_AUTH_COUNT.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN67318"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN67323"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN67326"
+></A
+><P
+><B
+>Esempio 1. Example of modifying principal</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$handle </font><font color="#007700">= </font><font color="#0000BB">kadm5_init_with_password</font><font color="#007700">(</font><font color="#DD0000">"afs-1"</font><font color="#007700">, </font><font color="#DD0000">"GONICUS.LOCAL"</font><font color="#007700">, </font><font color="#DD0000">"admin/admin"</font><font color="#007700">, </font><font color="#DD0000">"password"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$attributes </font><font color="#007700">= </font><font color="#0000BB">KRB5_KDB_REQUIRES_PRE_AUTH</font><font color="#007700">;<br /></font><font color="#0000BB">$options </font><font color="#007700">= array(</font><font color="#0000BB">KADM5_PRINC_EXPIRE_TIME </font><font color="#007700">=&gt; </font><font color="#0000BB">3451234</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">KADM5_POLICY </font><font color="#007700">=&gt; </font><font color="#DD0000">"gonicus"</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">KADM5_ATTRIBUTES </font><font color="#007700">=&gt; </font><font color="#0000BB">$attributes</font><font color="#007700">);<br /><br /></font><font color="#0000BB">kadm5_modify_principal</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">, </font><font color="#DD0000">"burbach@GONICUS.LOCAL"</font><font color="#007700">, </font><font color="#DD0000">"password"</font><font color="#007700">, </font><font color="#0000BB">$options</font><font color="#007700">);<br /><br /></font><font color="#0000BB">kadm5_destroy</font><font color="#007700">(</font><font color="#0000BB">$handle</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.kadm5-init-with-password.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.ldap.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>kadm5_init_with_password</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.kadm5.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>LDAP Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

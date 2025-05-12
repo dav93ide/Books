@@ -1,0 +1,586 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Printing Information</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Zend API: Hacking the Core of PHP"
+HREF="zend.html"><LINK
+REL="PREVIOUS"
+TITLE="Returning Values"
+HREF="zend.returning.html"><LINK
+REL="NEXT"
+TITLE="Startup and Shutdown Functions"
+HREF="zend.startup-and-shutdown.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="zend.returning.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 46. Zend API: Hacking the Core of PHP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="zend.startup-and-shutdown.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="zend.printing"
+>Printing Information</A
+></H1
+><P
+>&#13;   Often it's necessary to print messages to the output stream from
+   your module, just as <A
+HREF="function.print.html"
+><B
+CLASS="function"
+>print()</B
+></A
+> would be used
+   within a script. PHP offers functions for most generic tasks, such
+   as printing warning messages, generating output for
+   <A
+HREF="function.phpinfo.html"
+><B
+CLASS="function"
+>phpinfo()</B
+></A
+>, and so on. The following sections
+   provide more details. Examples of these functions can be found on
+   the CD-ROM.
+  </P
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.printing.zend-printf"
+><B
+CLASS="function"
+>zend_printf()</B
+></A
+></H2
+><P
+>&#13;    <B
+CLASS="function"
+>zend_printf()</B
+> works like the
+    standard <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+>, except that it prints to Zend's
+    output stream.
+   </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.printing.zend-error"
+><A
+HREF="zend-api.zend-error.html"
+><B
+CLASS="function"
+>zend_error()</B
+></A
+></A
+></H2
+><P
+>&#13;    <A
+HREF="zend-api.zend-error.html"
+><B
+CLASS="function"
+>zend_error()</B
+></A
+> can be used to generate error messages.
+    This function accepts two arguments; the first is the error type (see
+    <TT
+CLASS="filename"
+>zend_errors.h</TT
+>), and the second is the error message. 
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>zend_error(E_WARNING, "This function has been called with empty arguments");</PRE
+></TD
+></TR
+></TABLE
+><A
+HREF="zend.printing.html#tab.error-messages"
+>Tabella 46-16</A
+> shows a list of possible values (see <A
+HREF="zend.printing.html#fig.warning-messages"
+>Figura 46-5</A
+>). These
+    values are also referred to in <TT
+CLASS="filename"
+>php.ini</TT
+>. Depending on
+    which error type you choose, your messages will be logged. 
+    <DIV
+CLASS="table"
+><A
+NAME="tab.error-messages"
+></A
+><P
+><B
+>Tabella 46-16. Zend's Predefined Error Messages.</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="col1"><COL
+WIDTH="1.36*"
+TITLE="col2"><TBODY
+><TR
+><TD
+>Error</TD
+><TD
+>Description</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>E_ERROR</VAR
+></TD
+><TD
+>&#13;          Signals an error and terminates execution of the script
+          immediately
+          .</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>E_WARNING</VAR
+></TD
+><TD
+>&#13;          Signals a generic warning. Execution continues.
+         </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>E_PARSE</VAR
+></TD
+><TD
+>&#13;          Signals a parser error. Execution continues.
+         </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>E_NOTICE</VAR
+></TD
+><TD
+>&#13;          Signals a notice. Execution continues. Note that by
+          default the display of this type of error messages is turned off in
+          <TT
+CLASS="filename"
+>php.ini</TT
+>.
+         </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>E_CORE_ERROR</VAR
+></TD
+><TD
+>&#13;          Internal error by the core; shouldn't be used by
+          user-written modules.
+         </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>E_COMPILE_ERROR</VAR
+></TD
+><TD
+>&#13;          Internal error by the compiler; shouldn't be used by
+          user-written modules.
+         </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>E_COMPILE_WARNING</VAR
+></TD
+><TD
+>&#13;          Internal warning by the compiler; shouldn't be used by
+          user-written modules.
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+> 
+    <DIV
+CLASS="figure"
+><A
+NAME="fig.warning-messages"
+></A
+><P
+><B
+>Figura 46-5. Display of warning messages in the browser.</B
+></P
+><P
+><IMG
+SRC="figures/zend.07-warning-messages.png"></P
+></DIV
+></P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.printing.phpinfo"
+>Including Output in <A
+HREF="function.phpinfo.html"
+><B
+CLASS="function"
+>phpinfo()</B
+></A
+></A
+></H2
+><P
+>&#13;    After creating a real module, you'll  want to show information
+    about the module in <A
+HREF="function.phpinfo.html"
+><B
+CLASS="function"
+>phpinfo()</B
+></A
+> (in addition to the
+    module name, which appears in the module list by default). PHP allows
+    you to create your own section in the <A
+HREF="function.phpinfo.html"
+><B
+CLASS="function"
+>phpinfo()</B
+></A
+> output with the <VAR
+CLASS="literal"
+>ZEND_MINFO()</VAR
+> function. This function
+    should be placed in the module descriptor block (discussed earlier) and is
+    always called whenever a script calls <A
+HREF="function.phpinfo.html"
+><B
+CLASS="function"
+>phpinfo()</B
+></A
+>.
+   </P
+><P
+>&#13;    PHP automatically prints a section
+    in <A
+HREF="function.phpinfo.html"
+><B
+CLASS="function"
+>phpinfo()</B
+></A
+> for you if you specify the <VAR
+CLASS="literal"
+>ZEND_MINFO</VAR
+>
+    function, including the module name in the heading. Everything else must be
+    formatted and printed by you.
+   </P
+><P
+>&#13;    Typically, you can print an HTML table header
+    using <B
+CLASS="function"
+>php_info_print_table_start()</B
+> and then use the standard
+    functions <B
+CLASS="function"
+>php_info_print_table_header()</B
+>
+    and <B
+CLASS="function"
+>php_info_print_table_row()</B
+>. As arguments, both take the number of
+    columns (as integers) and the column contents (as strings). <A
+HREF="zend.printing.html#example.phpinfo"
+>Esempio 46-13</A
+> shows a source example and its output. To print the table footer, use <B
+CLASS="function"
+>php_info_print_table_end()</B
+>.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="example.phpinfo"
+></A
+><P
+><B
+>Esempio 46-13. 
+     Source code and screenshot for output in <A
+HREF="function.phpinfo.html"
+><B
+CLASS="function"
+>phpinfo()</B
+></A
+>.
+    </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>php_info_print_table_start();
+php_info_print_table_header(2, "First column", "Second column");
+php_info_print_table_row(2, "Entry in first row", "Another entry");
+php_info_print_table_row(2, "Just to fill", "another row here");
+php_info_print_table_end();</PRE
+></TD
+></TR
+></TABLE
+><P
+><IMG
+SRC="figures/zend.08-phpinfo-output.png"></P
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.printing.execution"
+>Execution Information</A
+></H2
+><P
+>&#13;    You can also print execution information, such as the current file
+    being executed. The name of the function currently being executed
+    can be retrieved using the function
+    <B
+CLASS="function"
+>get_active_function_name()</B
+>. This function
+    returns a pointer to the function name and doesn't accept any
+    arguments. To retrieve the name of the file currently being
+    executed, use <B
+CLASS="function"
+>zend_get_executed_filename()</B
+>.
+    This function accesses the executor globals, which are passed to
+    it using the <VAR
+CLASS="literal"
+>TSRMLS_C</VAR
+> macro. The executor globals
+    are automatically available to every function that's called
+    directly by Zend (they're part of the
+    <VAR
+CLASS="literal"
+>INTERNAL_FUNCTION_PARAMETERS</VAR
+> described earlier
+    in this chapter). If you want to access the executor globals in
+    another function that doesn't have them available automatically,
+    call the macro <VAR
+CLASS="literal"
+>TSRMLS_FETCH()</VAR
+> once in that
+    function; this will introduce them to your local scope.
+   </P
+><P
+>&#13;    Finally, the line number currently being executed can be retrieved
+    using the function <B
+CLASS="function"
+>zend_get_executed_lineno()</B
+>.
+    This function also requires the executor globals as arguments. For
+    examples of these functions, see <A
+HREF="zend.printing.html#example.exec-info"
+>Esempio 46-14</A
+>.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="example.exec-info"
+></A
+><P
+><B
+>Esempio 46-14. Printing execution information.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>zend_printf("The name of the current function is %s&#60;br&#62;", get_active_function_name(TSRMLS_C));
+zend_printf("The file currently executed is %s&#60;br&#62;", zend_get_executed_filename(TSRMLS_C));
+zend_printf("The current line being executed is %i&#60;br&#62;", zend_get_executed_lineno(TSRMLS_C));</PRE
+></TD
+></TR
+></TABLE
+><P
+><IMG
+SRC="figures/zend.09-execution-info.png"></P
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="zend.returning.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="zend.startup-and-shutdown.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Returning Values</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="zend.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Startup and Shutdown Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,439 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sqlite_open</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SQLite"
+HREF="ref.sqlite.html"><LINK
+REL="PREVIOUS"
+TITLE="sqlite_num_rows"
+HREF="function.sqlite-num-rows.html"><LINK
+REL="NEXT"
+TITLE="sqlite_popen"
+HREF="function.sqlite-popen.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-num-rows.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sqlite-popen.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sqlite-open"
+></A
+>sqlite_open</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN158250"
+></A
+><P
+>    (PHP 5)</P
+>sqlite_open&nbsp;--&nbsp;Apre un database SQLite e crea il database se non esiste</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN158253"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>sqlite_open</B
+> ( string filename [, int mode [, string &#38;error_message]] )<BR
+></BR
+><P
+>Versione ad oggetti (costruttore):</P
+>class <B
+CLASS="classname"
+>SQLiteDatabase</B
+> { <BR
+></BR
+><B
+CLASS="methodname"
+>__construct</B
+> ( string filename [, int mode [, string &#38;error_message]] )<BR
+></BR
+>}<P
+>&#13;   Apre un database SQLite o lo crea se non esiste.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN158283"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>filename</VAR
+></DT
+><DD
+><P
+>&#13;       Nome del database SQLite.  Se il file non esiste, SQLite tenterà di 
+       crearlo. Il PHP deve avere i permessi di scrittura sul file se si desidera inserire dei dati o modficare 
+       lo schema del database, o creare il database
+       se non esiste.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>mode</VAR
+></DT
+><DD
+><P
+>&#13;       Specifica la modalità del file. E' inteso per essere utilizzato per l'apertura del file 
+       in modalità read-only. Attualmente questo parametro viene ignorato da SQLite. Per default la
+       modalità di apertura è il valore ottale <VAR
+CLASS="literal"
+>0666</VAR
+>, 
+       ed è questa l'impostazione raccomandata.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>error_message</VAR
+></DT
+><DD
+><P
+>&#13;       Passato per riferimento, è impostato per  contenere un messaggio descrittivo di errore 
+       nel caso non si riesca ad aprire il database a causa di un errore.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN158303"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce una risorsa (database handle) se ha successo, oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se si verifica un errore.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN158307"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN158310"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>sqlite_open()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">$db </font><font color="#007700">= </font><font color="#0000BB">sqlite_open</font><font color="#007700">(</font><font color="#DD0000">'mysqlitedb'</font><font color="#007700">, </font><font color="#0000BB">0666</font><font color="#007700">, </font><font color="#0000BB">$sqliteerror</font><font color="#007700">)) { <br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">sqlite_query</font><font color="#007700">(</font><font color="#0000BB">$db</font><font color="#007700">, </font><font color="#DD0000">'CREATE TABLE foo (bar varchar(10))'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">sqlite_query</font><font color="#007700">(</font><font color="#0000BB">$db</font><font color="#007700">, </font><font color="#DD0000">"INSERT INTO foo VALUES ('fnord')"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">sqlite_query</font><font color="#007700">(</font><font color="#0000BB">$db</font><font color="#007700">, </font><font color="#DD0000">'select bar from foo'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">sqlite_fetch_array</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">)); <br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#0000BB">$sqliteerror</font><font color="#007700">);<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN158314"
+></A
+><H2
+>Note</H2
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+    Sui sistemi Unix, SQLite è sensibile agli script che utilizzano la chiamata di sistema fork(). 
+    Se si sta utilizzando un tale script, si raccomanda di chiudere la connessione prima dell'esecuzione
+    del fork, e quindi ri-aprirlo nel processo figlio/padre.
+    Per maggiori informazioni su questo particolare vedere
+    <A
+HREF="http://sqlite.org/c_interface.html"
+TARGET="_top"
+>L'interfaccia C alla
+    libreria SQLite</A
+> nella sezione intitolata
+    <VAR
+CLASS="literal"
+>Multi-Threading e SQLite</VAR
+>. 
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+    Si raccomanda di non utilizzare database SQLite su partizioni montate via NFS.
+    Poiché è noto che NFS non è affidabile con i lock,
+    può capitare che si riesca neppure ad aprire il database, o, se ci si riesce,
+    il comportamento dei lock può essere indefinito.
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     A partire dalla versione 2.8.2 della libreria SQLite, si può specificare
+    <VAR
+CLASS="literal"
+>:memory:</VAR
+> come valore per il parametro <VAR
+CLASS="parameter"
+>filename</VAR
+> in modo
+    da creare database che risiedano soltanto in memoria.
+    Principalmente questo è utile per le elaborazioni temporanee, poiché
+    il database in memoria sarà distrutto non appena il processo termina. Può anche
+    essere utilizzato in coppia con l'istruzione SQL <VAR
+CLASS="literal"
+>ATTACH DATABASE</VAR
+> 
+    per caricare altri database in modo da potere muovere i dati tra di loro.
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    SQLite sensibile alla <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>modalità sicura</A
+> e a open_basedir.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN158330"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.sqlite-popen.html"
+><B
+CLASS="function"
+>sqlite_popen()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sqlite-close.html"
+><B
+CLASS="function"
+>sqlite_close()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.sqlite-factory.html"
+><B
+CLASS="function"
+>sqlite_factory()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sqlite-num-rows.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sqlite-popen.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sqlite_num_rows</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sqlite.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sqlite_popen</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

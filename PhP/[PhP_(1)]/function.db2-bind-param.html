@@ -1,0 +1,565 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_bind_param</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_autocommit"
+HREF="function.db2-autocommit.html"><LINK
+REL="NEXT"
+TITLE="db2_client_info"
+HREF="function.db2-client-info.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-autocommit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-client-info.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-bind-param"
+></A
+>db2_bind_param</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN52399"
+></A
+><P
+>    (PECL)</P
+>db2_bind_param&nbsp;--&nbsp;
+   Binds a PHP variable to an SQL statement parameter
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52402"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>db2_bind_param</B
+> ( resource stmt, int parameter-number, string variable-name [, int parameter-type [, int data-type [, int precision [, int scale]]]] )<BR
+></BR
+><P
+>&#13;   Binds a PHP variable to an SQL statement parameter in a statement resource
+   returned by <A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+>. This function gives you more
+   control over the parameter type, data type, precision, and scale for the
+   parameter than simply passing the variable as part of the optional input
+   array to <A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52431"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>stmt</VAR
+></DT
+><DD
+><P
+>&#13;       A prepared statement returned from <A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>parameter-number</VAR
+></DT
+><DD
+><P
+>&#13;       Specifies the 1-indexed position of the parameter in the prepared
+       statement.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>variable-name</VAR
+></DT
+><DD
+><P
+>&#13;       A string specifying the name of the PHP variable to bind to the
+       parameter specified by <VAR
+CLASS="parameter"
+>parameter-number</VAR
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>parameter-type</VAR
+></DT
+><DD
+><P
+>&#13;       A constant specifying whether the PHP variable should be bound to the
+       SQL parameter as an input parameter (<VAR
+CLASS="literal"
+>DB2_PARAM_IN</VAR
+>),
+       an output parameter (<VAR
+CLASS="literal"
+>DB2_PARAM_OUT</VAR
+>), or as a
+       parameter that accepts input and returns output
+       (<VAR
+CLASS="literal"
+>DB2_PARAM_INOUT</VAR
+>).
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>data-type</VAR
+></DT
+><DD
+><P
+>&#13;       A constant specifying the SQL data type that the PHP variable should be
+       bound as: one of <VAR
+CLASS="literal"
+>DB2_BINARY</VAR
+>,
+       <VAR
+CLASS="literal"
+>DB2_CHAR</VAR
+>, <VAR
+CLASS="literal"
+>DB2_DOUBLE</VAR
+>, or
+       <VAR
+CLASS="literal"
+>DB2_LONG</VAR
+> .
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>precision</VAR
+></DT
+><DD
+><P
+>&#13;       Specifies the precision with which the variable should be bound to the
+       database.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>scale</VAR
+></DT
+><DD
+><P
+>&#13;       Specifies the scale with which the variable should be bound to the
+       database.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52479"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52484"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN52487"
+></A
+><P
+><B
+>Esempio 1. Binding PHP variables to a prepared statement</B
+></P
+><P
+>&#13;     The SQL statement in the following example uses two input parameters in
+     the WHERE clause. We call <B
+CLASS="function"
+>db2_bind_param()</B
+> to bind two
+     PHP variables to the corresponding SQL parameters. Notice that the PHP
+     variables do not have to be declared or assigned before the call to
+     <B
+CLASS="function"
+>db2_bind_param()</B
+>; in the example,
+     <VAR
+CLASS="literal"
+>$lower_limit</VAR
+> is assigned a value before the call to
+     <B
+CLASS="function"
+>db2_bind_param()</B
+>, but <VAR
+CLASS="literal"
+>$upper_limit</VAR
+>
+     is assigned a value after the call to
+     <B
+CLASS="function"
+>db2_bind_param()</B
+>. The variables must be bound and, for
+     parameters that accept input, must have any value assigned, before calling
+     <A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+>.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$sql </font><font color="#007700">= </font><font color="#DD0000">'SELECT name, breed, weight FROM animals<br />&nbsp;&nbsp;&nbsp;&nbsp;WHERE weight &gt; ? AND weight &lt; ?'</font><font color="#007700">;<br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">db2_connect</font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">db2_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#0000BB">$sql</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// We can declare the variable before calling db2_bind_param()<br /></font><font color="#0000BB">$lower_limit </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">;<br /><br /></font><font color="#0000BB">db2_bind_param</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#DD0000">"lower_limit"</font><font color="#007700">, </font><font color="#0000BB">DB2_PARAM_IN</font><font color="#007700">);<br /></font><font color="#0000BB">db2_bind_param</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#DD0000">"upper_limit"</font><font color="#007700">, </font><font color="#0000BB">DB2_PARAM_IN</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// We can also declare the variable after calling db2_bind_param()<br /></font><font color="#0000BB">$upper_limit </font><font color="#007700">= </font><font color="#0000BB">15.0</font><font color="#007700">;<br /><br />if (</font><font color="#0000BB">db2_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">db2_fetch_array</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"</font><font color="#007700">{</font><font color="#DD0000">$row</font><font color="#007700">[</font><font color="#DD0000">0</font><font color="#007700">]}</font><font color="#DD0000">, </font><font color="#007700">{</font><font color="#DD0000">$row</font><font color="#007700">[</font><font color="#DD0000">1</font><font color="#007700">]}</font><font color="#DD0000">, </font><font color="#007700">{</font><font color="#DD0000">$row</font><font color="#007700">[</font><font color="#DD0000">2</font><font color="#007700">]}\n</font><font color="#DD0000">"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Pook, cat, 3.2
+Rickety Ride, goat, 9.7
+Peaches, dog, 12.3</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN52500"
+></A
+><P
+><B
+>Esempio 2. Calling stored procedures with IN and OUT parameters</B
+></P
+><P
+>&#13;     The stored procedure match_animal in the following example accepts
+     three different parameters:
+     <P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;        an input (IN) parameter that accepts the name of the first animal as
+        input
+       </P
+></LI
+><LI
+><P
+>&#13;        an input-output (INOUT) parameter that accepts the name of the second
+        animal as input and returns the string <VAR
+CLASS="literal"
+>TRUE</VAR
+> if an
+        animal in the database matches that name
+       </P
+></LI
+><LI
+><P
+>&#13;        an output (OUT) parameter that returns the sum of the weight of the
+        two identified animals
+       </P
+></LI
+></OL
+>
+     In addition, the stored procedure returns a result set consisting of the
+     animals listed in alphabetic order starting at the animal corresponding
+     to the input value of the first parameter and ending at the animal
+     corresponding to the input value of the second parameter.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$sql </font><font color="#007700">= </font><font color="#DD0000">'CALL match_animal(?, ?, ?)'</font><font color="#007700">;<br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">db2_connect</font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /></font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">db2_prepare</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#0000BB">$sql</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$name </font><font color="#007700">= </font><font color="#DD0000">"Peaches"</font><font color="#007700">;<br /></font><font color="#0000BB">$second_name </font><font color="#007700">= </font><font color="#DD0000">"Rickety Ride"</font><font color="#007700">;<br /></font><font color="#0000BB">db2_bind_param</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#DD0000">"name"</font><font color="#007700">, </font><font color="#0000BB">DB2_PARAM_IN</font><font color="#007700">);<br /></font><font color="#0000BB">db2_bind_param</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#DD0000">"second_name"</font><font color="#007700">, </font><font color="#0000BB">DB2_PARAM_INOUT</font><font color="#007700">);<br /></font><font color="#0000BB">db2_bind_param</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#DD0000">"weight"</font><font color="#007700">, </font><font color="#0000BB">DB2_PARAM_OUT</font><font color="#007700">);<br /><br />print </font><font color="#DD0000">"Values of bound parameters _before_ CALL:\n"</font><font color="#007700">;<br />print </font><font color="#DD0000">"&nbsp;&nbsp;1: </font><font color="#007700">{</font><font color="#DD0000">$name</font><font color="#007700">}</font><font color="#DD0000"> 2: </font><font color="#007700">{</font><font color="#DD0000">$second_name</font><font color="#007700">}</font><font color="#DD0000"> 3: </font><font color="#007700">{</font><font color="#DD0000">$weight</font><font color="#007700">}\n\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />if (</font><font color="#0000BB">db2_execute</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"Values of bound parameters _after_ CALL:\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"&nbsp;&nbsp;1: </font><font color="#007700">{</font><font color="#DD0000">$name</font><font color="#007700">}</font><font color="#DD0000"> 2: </font><font color="#007700">{</font><font color="#DD0000">$second_name</font><font color="#007700">}</font><font color="#DD0000"> 3: </font><font color="#007700">{</font><font color="#DD0000">$weight</font><font color="#007700">}\n\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"Results:\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">db2_fetch_array</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"&nbsp;&nbsp;</font><font color="#007700">{</font><font color="#DD0000">$row</font><font color="#007700">[</font><font color="#DD0000">0</font><font color="#007700">]}</font><font color="#DD0000">, </font><font color="#007700">{</font><font color="#DD0000">$row</font><font color="#007700">[</font><font color="#DD0000">1</font><font color="#007700">]}</font><font color="#DD0000">, </font><font color="#007700">{</font><font color="#DD0000">$row</font><font color="#007700">[</font><font color="#DD0000">2</font><font color="#007700">]}\n</font><font color="#DD0000">"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Values of bound parameters _before_ CALL:
+  1: Peaches 2: Rickety Ride 3:
+
+Values of bound parameters _after_ CALL:
+  1: Peaches 2: TRUE 3: 22
+
+Results:
+  Peaches, dog, 12.3
+  Pook, cat, 3.2
+  Rickety Ride, goat, 9.7</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN52514"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-autocommit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-client-info.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_autocommit</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_client_info</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

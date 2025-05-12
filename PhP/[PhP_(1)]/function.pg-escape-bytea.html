@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pg_escape_bytea</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni PostgreSQL"
+HREF="ref.pgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="pg_end_copy"
+HREF="function.pg-end-copy.html"><LINK
+REL="NEXT"
+TITLE="pg_escape_string"
+HREF="function.pg-escape-string.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pg-end-copy.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-escape-string.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pg-escape-bytea"
+></A
+>pg_escape_bytea</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN132782"
+></A
+><P
+>    (PHP 4 &#62;= 4.2.0, PHP 5)</P
+>pg_escape_bytea&nbsp;--&nbsp;
+     Aggiunge le sequenze di escape ai dati binari nel tipo bytea
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132785"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>pg_escape_bytea</B
+> ( string dati )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>pg_escape_bytea()</B
+> aggiunge le sequenze di escape
+     nei dati di tipo bytea.  Restituisce una stringa con le sequenze.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Quando si esegue una SELECT su un tipo bytea, PostgreSQL restituisce dei byte formattati in ottale 
+      e con il prefisso \ (es. \032). Agli utenti è lasciato il compito di convertire questi valori 
+      in formato binario.
+     </P
+><P
+>&#13;      Questa funzione richiede una versione di PostgreSQL pari o superiore alla 7.2. Con PostgreSQL
+      7.2.0 e 7.2.1, il tipo bytea richiede un cast quando si abilita
+      il supporto multi-byte. Es. <VAR
+CLASS="literal"
+>INSERT INTO tabella (immagine)
+      VALUES ('$immagine_con_escape'::bytea);</VAR
+> PostgreSQL 7.2.2 e
+     successivi non necessitano del cast. L'eccezione è che quando le codifiche di carattere
+     del client e del backend non corrispondono, ci possono essere errori
+     del flusso multi-byte. L'utente deve effettuare un cast a bytea per evitare questo errore.
+     </P
+><P
+>&#13;      Le nuove versioni di PostgreSQL avranno il supporto per la funzione di unescape. Il supporto per
+      la funzione unescape verrà aggiunto non appena disponibile.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also <A
+HREF="function.pg-escape-string.html"
+><B
+CLASS="function"
+>pg_escape_string()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pg-end-copy.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-escape-string.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pg_end_copy</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pgsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_escape_string</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

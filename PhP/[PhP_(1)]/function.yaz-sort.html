@@ -1,0 +1,387 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>yaz_sort</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="YAZ Functions"
+HREF="ref.yaz.html"><LINK
+REL="PREVIOUS"
+TITLE="yaz_set_option"
+HREF="function.yaz-set-option.html"><LINK
+REL="NEXT"
+TITLE="yaz_syntax"
+HREF="function.yaz-syntax.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.yaz-set-option.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.yaz-syntax.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.yaz-sort"
+></A
+>yaz_sort</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN182043"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PECL)</P
+>yaz_sort&nbsp;--&nbsp;Sets sorting criteria</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN182046"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>yaz_sort</B
+> ( resource id, string criteria )<BR
+></BR
+><P
+>&#13;   This function sets sorting criteria and enables Z39.50 Sort.
+  </P
+><P
+>&#13;   Call this function <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>before</I
+></SPAN
+> <A
+HREF="function.yaz-search.html"
+><B
+CLASS="function"
+>yaz_search()</B
+></A
+>.
+   Using this function alone does not have any effect. When used in conjunction
+   with <A
+HREF="function.yaz-search.html"
+><B
+CLASS="function"
+>yaz_search()</B
+></A
+>, a Z39.50 Sort will be sent after a
+   search response has been received and before any records are retrieved with
+   Z39.50 Present (<A
+HREF="function.yaz-present.html"
+><B
+CLASS="function"
+>yaz_present()</B
+></A
+>. 
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN182063"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>id</VAR
+></DT
+><DD
+><P
+>&#13;       The connection resource returned by <A
+HREF="function.yaz-connect.html"
+><B
+CLASS="function"
+>yaz_connect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>criteria</VAR
+></DT
+><DD
+><P
+>&#13;       A string that takes the form <VAR
+CLASS="replaceable"
+>field1 flags1 field2 
+       flags2</VAR
+> where field1 specifies the primary attributes for
+       sort, field2 seconds, etc.. 
+      </P
+><P
+>&#13;       The field specifies either a numerical attribute combinations consisting
+       of type=value pairs separated by comma (e.g. <VAR
+CLASS="literal"
+>1=4,2=1</VAR
+>)
+       ; or the field may specify a plain string criteria (e.g. 
+       <VAR
+CLASS="literal"
+>title</VAR
+>. The flags is a sequence of the following 
+       characters which may not be separated by any white space.
+      </P
+><P
+>&#13;       <P
+></P
+><DIV
+CLASS="variablelist"
+><P
+><B
+>Sort Flags</B
+></P
+><DL
+><DT
+><VAR
+CLASS="literal"
+>a</VAR
+></DT
+><DD
+><P
+>&#13;           Sort ascending
+          </P
+></DD
+><DT
+><VAR
+CLASS="literal"
+>d</VAR
+></DT
+><DD
+><P
+>&#13;           Sort descending
+          </P
+></DD
+><DT
+><VAR
+CLASS="literal"
+>i</VAR
+></DT
+><DD
+><P
+>&#13;           Case insensitive sorting
+          </P
+></DD
+><DT
+><VAR
+CLASS="literal"
+>s</VAR
+></DT
+><DD
+><P
+>&#13;           Case sensitive sorting
+          </P
+></DD
+></DL
+></DIV
+>
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN182105"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   No value is returned.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN182108"
+></A
+><H2
+>Esempi</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN182110"
+></A
+><P
+><B
+>Esempio 1. Sort Criterias</B
+></P
+><P
+>&#13;    To sort on Bib1 attribute title, case insensitive, and ascending you
+    would use the following sort criteria:
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>1=4 ia</PRE
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    If the secondary sorting criteria should be author, case sensitive and 
+    ascending you would use:
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>1=4 ia 1=1003 sa</PRE
+></TD
+></TR
+></TABLE
+>
+   </P
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.yaz-set-option.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.yaz-syntax.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>yaz_set_option</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.yaz.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>yaz_syntax</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,515 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Type Juggling</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Types"
+HREF="language.types.html"><LINK
+REL="PREVIOUS"
+TITLE="Pseudo-types used in this documentation"
+HREF="language.pseudo-types.html"><LINK
+REL="NEXT"
+TITLE="Variables"
+HREF="language.variables.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.pseudo-types.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 11. Types</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.variables.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.types.type-juggling"
+>Type Juggling</A
+></H1
+><P
+>&#13;    PHP does not require (or support) explicit type definition in
+    variable declaration; a variable's type is determined by the
+    context in which that variable is used. That is to say, if you
+    assign a string value to variable <VAR
+CLASS="parameter"
+>$var</VAR
+>,
+    <VAR
+CLASS="parameter"
+>$var</VAR
+> becomes a string. If you then assign an
+    integer value to <VAR
+CLASS="parameter"
+>$var</VAR
+>, it becomes an
+    integer.
+   </P
+><P
+>&#13;    An example of PHP's automatic type conversion is the addition
+    operator '+'. If any of the operands is a float, then all
+    operands are evaluated as floats, and the result will be a
+    float. Otherwise, the operands will be interpreted as integers,
+    and the result will also be an integer. Note that this does NOT
+    change the types of the operands themselves; the only change is in
+    how the operands are evaluated.
+    <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3533"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$foo </font><font color="#007700">= </font><font color="#DD0000">"0"</font><font color="#007700">;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is string (ASCII 48)<br /></font><font color="#0000BB">$foo </font><font color="#007700">+= </font><font color="#0000BB">2</font><font color="#007700">;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is now an integer (2)<br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#0000BB">$foo </font><font color="#007700">+ </font><font color="#0000BB">1.3</font><font color="#007700">;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is now a float (3.3)<br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#0000BB">5 </font><font color="#007700">+ </font><font color="#DD0000">"10 Little Piggies"</font><font color="#007700">; </font><font color="#FF8000">// $foo is integer (15)<br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#0000BB">5 </font><font color="#007700">+ </font><font color="#DD0000">"10 Small Pigs"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is integer (15)<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+   </P
+><P
+>&#13;    If the last two examples above seem odd, see <A
+HREF="language.types.string.html#language.types.string.conversion"
+>String
+    conversion to numbers</A
+>.
+   </P
+><P
+>&#13;    If you wish to force a variable to be evaluated as a certain type,
+    see the section on <A
+HREF="language.types.type-juggling.html#language.types.typecasting"
+>Type
+    casting</A
+>. If you wish to change the type of a variable, see
+    <A
+HREF="function.settype.html"
+><B
+CLASS="function"
+>settype()</B
+></A
+>.
+   </P
+><P
+>&#13;    If you would like to test any of the examples in this section, you
+    can use the <A
+HREF="function.var-dump.html"
+><B
+CLASS="function"
+>var_dump()</B
+></A
+> function.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     The behaviour of an automatic conversion to array is currently
+     undefined.
+    </P
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3545"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$a </font><font color="#007700">= </font><font color="#DD0000">"1"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $a is a string<br /></font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">] = </font><font color="#DD0000">"f"</font><font color="#007700">;&nbsp;&nbsp;</font><font color="#FF8000">// What about string offsets? What happens?<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Since PHP (for historical reasons) supports indexing into strings
+     via offsets using the same syntax as array indexing, the example
+     above leads to a problem: should $a become an array with its first
+     element being "f", or should "f" become the first character of the
+     string $a?
+    </P
+><P
+>&#13;     The current versions of PHP interpret the second assignment as
+     a string offset identification, so $a becomes "f", the result
+     of this automatic conversion however should be considered
+     undefined. PHP 4 introduced the new curly bracket syntax to access
+     characters in string, use this syntax instead of the one presented
+     above: 
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3549"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$a&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">"abc"</font><font color="#007700">; </font><font color="#FF8000">// $a is a string<br /></font><font color="#0000BB">$a</font><font color="#007700">{</font><font color="#0000BB">1</font><font color="#007700">} = </font><font color="#DD0000">"f"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $a is now "afc"<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     See the section titled <A
+HREF="language.types.string.html#language.types.string.substr"
+>String
+     access by character</A
+> for more information.
+    </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="language.types.typecasting"
+>Type Casting</A
+></H2
+><P
+>&#13;     Type casting in PHP works much as it does in C: the name of the
+     desired type is written in parentheses before the variable which
+     is to be cast.
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3555"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$foo </font><font color="#007700">= </font><font color="#0000BB">10</font><font color="#007700">;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is an integer<br /></font><font color="#0000BB">$bar </font><font color="#007700">= (boolean) </font><font color="#0000BB">$foo</font><font color="#007700">;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $bar is a boolean<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     The casts allowed are:
+     <P
+></P
+><UL
+><LI
+><P
+>(int), (integer) - cast to integer</P
+></LI
+><LI
+><P
+>(bool), (boolean) - cast to boolean</P
+></LI
+><LI
+><P
+>(float), (double), (real) - cast to float</P
+></LI
+><LI
+><P
+>(string) - cast to string</P
+></LI
+><LI
+><P
+>(array) - cast to array</P
+></LI
+><LI
+><P
+>(object) - cast to object</P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     Note that tabs and spaces are allowed inside the parentheses, so
+     the following are functionally equivalent:
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3572"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$foo </font><font color="#007700">= (int) </font><font color="#0000BB">$bar</font><font color="#007700">;<br /></font><font color="#0000BB">$foo </font><font color="#007700">= ( int ) </font><font color="#0000BB">$bar</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Instead of casting a variable to string, you can also enclose
+      the variable in double quotes.
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN3576"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$foo </font><font color="#007700">= </font><font color="#0000BB">10</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $foo is an integer<br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#DD0000">"$foo"</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// $str is a string<br /></font><font color="#0000BB">$fst </font><font color="#007700">= (string) </font><font color="#0000BB">$foo</font><font color="#007700">; </font><font color="#FF8000">// $fst is also a string<br /><br />// This prints out that "they are the same"<br /></font><font color="#007700">if (</font><font color="#0000BB">$fst </font><font color="#007700">=== </font><font color="#0000BB">$str</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"they are the same"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     It may not be obvious exactly what will happen when casting
+     between certain types. For more info, see these sections:
+    
+     <P
+></P
+><UL
+><LI
+><P
+><A
+HREF="language.types.boolean.html#language.types.boolean.casting"
+>Converting to 
+        boolean</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="language.types.integer.html#language.types.integer.casting"
+>Converting to 
+        integer</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="language.types.float.html#language.types.float.casting"
+>Converting to 
+        float</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="language.types.string.html#language.types.string.casting"
+>Converting to 
+        string</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="language.types.array.html#language.types.array.casting"
+>Converting to 
+        array</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="language.types.object.html#language.types.object.casting"
+>Converting to 
+        object</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="language.types.resource.html#language.types.resource.casting"
+>Converting to 
+        resource</A
+></P
+></LI
+><LI
+><P
+>&#13;        <A
+HREF="types.comparisons.html"
+>The type comparison tables</A
+>
+       </P
+></LI
+></UL
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.pseudo-types.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.variables.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Pseudo-types used in this documentation</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.types.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Variables</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

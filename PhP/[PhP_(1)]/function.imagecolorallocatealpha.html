@@ -1,0 +1,268 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>imagecolorallocatealpha</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per le immagini"
+HREF="ref.image.html"><LINK
+REL="PREVIOUS"
+TITLE="imagecolorallocate"
+HREF="function.imagecolorallocate.html"><LINK
+REL="NEXT"
+TITLE="imagecolorat"
+HREF="function.imagecolorat.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.imagecolorallocate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.imagecolorat.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.imagecolorallocatealpha"
+></A
+>imagecolorallocatealpha</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN58442"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.2, PHP 5)</P
+>imagecolorallocatealpha&nbsp;--&nbsp;Allocate a color for an image</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN58445"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>imagecolorallocatealpha</B
+> ( resource image, int red, int green, int blue, int alpha )<BR
+></BR
+><P
+>&#13;    <B
+CLASS="function"
+>imagecolorallocatealpha()</B
+> behaves identically to 
+    <A
+HREF="function.imagecolorallocate.html"
+><B
+CLASS="function"
+>imagecolorallocate()</B
+></A
+> with the addition of the transparency
+    parameter <VAR
+CLASS="parameter"
+>alpha</VAR
+> which may have a value between 
+    <VAR
+CLASS="literal"
+>0</VAR
+> and <VAR
+CLASS="literal"
+>127</VAR
+>.  <VAR
+CLASS="literal"
+>0</VAR
+>
+    indicates completely opaque while <VAR
+CLASS="literal"
+>127</VAR
+> indicates
+    completely transparent.
+   </P
+><P
+>&#13;    Returns <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if the allocation failed.
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN58476"
+></A
+><P
+><B
+>Esempio 1. Example of using <B
+CLASS="function"
+>imagecolorallocatealpha()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$size </font><font color="#007700">= </font><font color="#0000BB">300</font><font color="#007700">;<br /></font><font color="#0000BB">$image</font><font color="#007700">=</font><font color="#0000BB">imagecreatetruecolor</font><font color="#007700">(</font><font color="#0000BB">$size</font><font color="#007700">, </font><font color="#0000BB">$size</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// something to get a white background with black border<br /></font><font color="#0000BB">$back </font><font color="#007700">= </font><font color="#0000BB">imagecolorallocate</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">);<br /></font><font color="#0000BB">$border </font><font color="#007700">= </font><font color="#0000BB">imagecolorallocate</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br /></font><font color="#0000BB">imagefilledrectangle</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">$size </font><font color="#007700">- </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">$size </font><font color="#007700">- </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">$back</font><font color="#007700">);<br /></font><font color="#0000BB">imagerectangle</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">$size </font><font color="#007700">- </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">$size </font><font color="#007700">- </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#0000BB">$border</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$yellow_x </font><font color="#007700">= </font><font color="#0000BB">100</font><font color="#007700">;<br /></font><font color="#0000BB">$yellow_y </font><font color="#007700">= </font><font color="#0000BB">75</font><font color="#007700">;<br /></font><font color="#0000BB">$red_x&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">120</font><font color="#007700">;<br /></font><font color="#0000BB">$red_y&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">165</font><font color="#007700">; <br /></font><font color="#0000BB">$blue_x&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">187</font><font color="#007700">;<br /></font><font color="#0000BB">$blue_y&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">125</font><font color="#007700">; <br /></font><font color="#0000BB">$radius&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">150</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// allocate colors with alpha values<br /></font><font color="#0000BB">$yellow </font><font color="#007700">= </font><font color="#0000BB">imagecolorallocatealpha</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">75</font><font color="#007700">);<br /></font><font color="#0000BB">$red&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">imagecolorallocatealpha</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">75</font><font color="#007700">);<br /></font><font color="#0000BB">$blue&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">imagecolorallocatealpha</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">255</font><font color="#007700">, </font><font color="#0000BB">75</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// drawing 3 overlapped circle<br /></font><font color="#0000BB">imagefilledellipse</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">$yellow_x</font><font color="#007700">, </font><font color="#0000BB">$yellow_y</font><font color="#007700">, </font><font color="#0000BB">$radius</font><font color="#007700">, </font><font color="#0000BB">$radius</font><font color="#007700">, </font><font color="#0000BB">$yellow</font><font color="#007700">);<br /></font><font color="#0000BB">imagefilledellipse</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">$red_x</font><font color="#007700">, </font><font color="#0000BB">$red_y</font><font color="#007700">, </font><font color="#0000BB">$radius</font><font color="#007700">, </font><font color="#0000BB">$radius</font><font color="#007700">, </font><font color="#0000BB">$red</font><font color="#007700">);&nbsp;&nbsp;&nbsp;<br /></font><font color="#0000BB">imagefilledellipse</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">, </font><font color="#0000BB">$blue_x</font><font color="#007700">, </font><font color="#0000BB">$blue_y</font><font color="#007700">, </font><font color="#0000BB">$radius</font><font color="#007700">, </font><font color="#0000BB">$radius</font><font color="#007700">, </font><font color="#0000BB">$blue</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// don't forget to output a correct header!<br /></font><font color="#0000BB">header</font><font color="#007700">(</font><font color="#DD0000">'Content-type: image/png'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// and finally, output the result<br /></font><font color="#0000BB">imagepng</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">);<br /></font><font color="#0000BB">imagedestroy</font><font color="#007700">(</font><font color="#0000BB">$image</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>This function requires GD 2.0.1 or later.</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    See also <A
+HREF="function.imagecolorallocate.html"
+><B
+CLASS="function"
+>imagecolorallocate()</B
+></A
+> and
+    <A
+HREF="function.imagecolordeallocate.html"
+><B
+CLASS="function"
+>imagecolordeallocate()</B
+></A
+>.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.imagecolorallocate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.imagecolorat.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>imagecolorallocate</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.image.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>imagecolorat</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

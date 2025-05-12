@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>flush</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Output Control Functions"
+HREF="ref.outcontrol.html"><LINK
+REL="PREVIOUS"
+TITLE="Output Control Functions"
+HREF="ref.outcontrol.html"><LINK
+REL="NEXT"
+TITLE="ob_clean"
+HREF="function.ob-clean.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.outcontrol.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ob-clean.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.flush"
+></A
+>flush</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN119072"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>flush&nbsp;--&nbsp;Flush the output buffer</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN119075"
+></A
+><H2
+>Description</H2
+>void <B
+CLASS="methodname"
+>flush</B
+> ( void  )<BR
+></BR
+><P
+>&#13;     Flushes the output buffers of PHP and whatever backend PHP is
+     using (CGI, a web server, etc).  This effectively tries to push
+     all the output so far to the user's browser.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>flush()</B
+> has no effect on the buffering
+     scheme of your webserver or the browser on the client
+     side. 
+     Thus you need to call both <A
+HREF="function.ob-flush.html"
+><B
+CLASS="function"
+>ob_flush()</B
+></A
+> and
+     <B
+CLASS="function"
+>flush()</B
+> to flush the output buffers.
+    </P
+><P
+>&#13;     Several servers, especially on Win32, will still buffer
+     the output from your script until it terminates before
+     transmitting the results to the browser. 
+    </P
+><P
+>&#13;     Server modules for Apache like mod_gzip may do buffering of their own
+     that will cause <B
+CLASS="function"
+>flush()</B
+> to not result in data being
+     sent immediately to the client.
+    </P
+><P
+>&#13;     Even the browser may buffer its input before displaying it. 
+     Netscape, for example, buffers text until it receives an
+     end-of-line or the beginning of a tag, and it won't render
+     tables until the &#60;/table&#62; tag of the outermost table is
+     seen.
+    </P
+><P
+>&#13;     Some versions of Microsoft Internet Explorer will only start to display
+     the page after they have received 256 bytes of output, so you may need to
+     send extra whitespace before flushing to get those browsers to display the
+     page.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.outcontrol.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ob-clean.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Output Control Functions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.outcontrol.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ob_clean</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_foreign_keys</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_field_width"
+HREF="function.db2-field-width.html"><LINK
+REL="NEXT"
+TITLE="db2_free_result"
+HREF="function.db2-free-result.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-field-width.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-free-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-foreign-keys"
+></A
+>db2_foreign_keys</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN54121"
+></A
+><P
+>    (PECL)</P
+>db2_foreign_keys&nbsp;--&nbsp;
+   Returns a result set listing the foreign keys for a table
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54124"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>db2_foreign_keys</B
+> ( resource connection, string qualifier, string schema, string table-name )<BR
+></BR
+><P
+>&#13;   Returns a result set listing the foreign keys for a table.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54142"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       A valid connection to an IBM DB2, Cloudscape, or Apache Derby database.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>qualifier</VAR
+></DT
+><DD
+><P
+>&#13;       A qualifier for DB2 databases running on OS/390 or z/OS servers. For
+       other databases, pass <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> or an empty string.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>schema</VAR
+></DT
+><DD
+><P
+>&#13;       The schema which contains the tables. If <VAR
+CLASS="parameter"
+>schema</VAR
+>
+       is <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>, <B
+CLASS="function"
+>db2_foreign_keys()</B
+> matches the schema for
+       the current connection.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>table-name</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the table.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54170"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a statement resource with a result set containing rows describing
+   the foreign keys for the specified table. The result set is composed of the
+   following columns:
+   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN54173"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Column name</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>PKTABLE_CAT</TD
+><TD
+>&#13;         Name of the catalog for the table containing the primary key. The
+         value is NULL if this table does not have catalogs.
+        </TD
+></TR
+><TR
+><TD
+>PKTABLE_SCHEM</TD
+><TD
+>&#13;         Name of the schema for the table containing the primary key.
+        </TD
+></TR
+><TR
+><TD
+>PKTABLE_NAME</TD
+><TD
+>Name of the table containing the primary key.</TD
+></TR
+><TR
+><TD
+>PKCOLUMN_NAME</TD
+><TD
+>Name of the column containing the primary key.</TD
+></TR
+><TR
+><TD
+>FKTABLE_CAT</TD
+><TD
+>&#13;         Name of the catalog for the table containing the foreign key. The
+         value is NULL if this table does not have catalogs.
+        </TD
+></TR
+><TR
+><TD
+>FKTABLE_SCHEM</TD
+><TD
+>&#13;         Name of the schema for the table containing the foreign key.
+        </TD
+></TR
+><TR
+><TD
+>FKTABLE_NAME</TD
+><TD
+>Name of the table containing the foreign key.</TD
+></TR
+><TR
+><TD
+>FKCOLUMN_NAME</TD
+><TD
+>Name of the column containing the foreign key.</TD
+></TR
+><TR
+><TD
+>KEY_SEQ</TD
+><TD
+>1-indexed position of the column in the key.</TD
+></TR
+><TR
+><TD
+>UPDATE_RULE</TD
+><TD
+>&#13;         Integer value representing the action applied to the foreign key
+         when the SQL operation is UPDATE.
+        </TD
+></TR
+><TR
+><TD
+>DELETE_RULE</TD
+><TD
+>&#13;         Integer value representing the action applied to the foreign key
+         when the SQL operation is DELETE.
+        </TD
+></TR
+><TR
+><TD
+>FK_NAME</TD
+><TD
+>The name of the foreign key.</TD
+></TR
+><TR
+><TD
+>PK_NAME</TD
+><TD
+>The name of the primary key.</TD
+></TR
+><TR
+><TD
+>DEFERRABILITY</TD
+><TD
+>&#13;         An integer value representing whether the foreign key deferrability is
+         SQL_INITIALLY_DEFERRED, SQL_INITIALLY_IMMEDIATE, or
+         SQL_NOT_DEFERRABLE.
+        </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN54222"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-column-privileges.html"
+><B
+CLASS="function"
+>db2_column_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-columns.html"
+><B
+CLASS="function"
+>db2_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-primary-keys.html"
+><B
+CLASS="function"
+>db2_primary_keys()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedure-columns.html"
+><B
+CLASS="function"
+>db2_procedure_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-procedures.html"
+><B
+CLASS="function"
+>db2_procedures()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-special-columns.html"
+><B
+CLASS="function"
+>db2_special_columns()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-statistics.html"
+><B
+CLASS="function"
+>db2_statistics()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-table-privileges.html"
+><B
+CLASS="function"
+>db2_table_privileges()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-tables.html"
+><B
+CLASS="function"
+>db2_tables()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-field-width.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-free-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_field_width</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_free_result</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

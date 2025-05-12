@@ -1,0 +1,1193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>XMLReader functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="xmlrpc_set_type"
+HREF="function.xmlrpc-set-type.html"><LINK
+REL="NEXT"
+TITLE="XMLReader->close()"
+HREF="function.xmlreader-close.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xmlrpc-set-type.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.xmlreader-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.xmlreader"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CLXIII. XMLReader functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN178448"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xmlreader.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     The XMLReader extension is an XML Pull parser. The reader acts as a 
+     cursor going forward on the document stream and stopping at each node 
+     on the way.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xmlreader.installation"
+>Installazione</A
+></H1
+><P
+>&#13;   The XMLReader extension is available in PECL for PHP 5.0 and is 
+   included in PHP 5.1 by default. It and can be enabled
+   by adding the argument <VAR
+CLASS="option"
+>--with--xmlreader</VAR
+>
+   to your configure line. The libxml extension is required.
+  </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xmlreader.classes"
+>Classi predefinite</A
+></H1
+><P
+>&#13;    </P
+><DIV
+CLASS="section"
+><H2
+CLASS="section"
+><A
+NAME="xmlreader.class.xmlreader"
+><B
+CLASS="classname"
+>XMLReader</B
+></A
+></H2
+><P
+>&#13;      </P
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="xmlreader.class.xmlreader.methods"
+>Metodi</A
+></H3
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="function.xmlreader-close.html"
+>XMLReader-&#62;close()</A
+> - Close the XMLReader input</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-expand.html"
+>XMLReader-&#62;expand()</A
+> - Export current node to a DOM node</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-getattribute.html"
+>XMLReader-&#62;getAttribute()</A
+> - Get value of attribute by name</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-getattributeno.html"
+>XMLReader-&#62;getAttributeNo()</A
+> - Get value of attribute by position</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-getattributens.html"
+>XMLReader-&#62;getAttributeNS()</A
+> - Get value of attribute by name and URI</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-getparserproperty.html"
+>XMLReader-&#62;getParserProperty()</A
+> - Indicates if parser property is set or not</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-isvalid.html"
+>XMLReader-&#62;isValid()</A
+> - Indicates if document is valid</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-lookupnamespace.html"
+>XMLReader-&#62;lookupNamespace()</A
+> - Get URI for prefix in scope of node</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-movetoattribute.html"
+>XMLReader-&#62;moveToAttribute()</A
+> - Positions reader on named attribute</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-movetoattributeno.html"
+>XMLReader-&#62;moveToAttributeNo()</A
+> - Positions reader on attribute by index</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-movetoattributens.html"
+>XMLReader-&#62;moveToAttributeNs()</A
+> - Position reader on attribute by name and URI</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-movetoelement.html"
+>XMLReader-&#62;moveToElement()</A
+> - Move to parent element of current attribute node</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-movetofirstattribute.html"
+>XMLReader-&#62;moveToFirstAttribute()</A
+> - Move to first attribute of node</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-movetonextattribute.html"
+>XMLReader-&#62;moveToNextAttribute()</A
+> - Move to next attribute of node</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-next.html"
+>XMLReader-&#62;next()</A
+> - Move to next element skipping children</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-open.html"
+>XMLReader-&#62;open()</A
+> - Set URI to be parsed</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-read.html"
+>XMLReader-&#62;read()</A
+> - Move to next node in stream</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-setparserproperty.html"
+>XMLReader-&#62;setParserProperty()</A
+> - Set parser property</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-setrelaxngschema.html"
+>XMLReader-&#62;setRelaxNGSchema()</A
+> - Set URI of RelaxNG schema to validate against</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-setrelaxngschemasource.html"
+>XMLReader-&#62;setRelaxNGSchemaSource()</A
+> - Set string containing RelaxNG schema to validate against</P
+></LI
+><LI
+><P
+><A
+HREF="function.xmlreader-xml.html"
+>XMLReader-&#62;XML()</A
+> - Set string of data to be parsed</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="section"
+><H3
+CLASS="section"
+><A
+NAME="xmlreader.class.xmlreader.properties"
+>Proprietà</A
+></H3
+><DIV
+CLASS="table"
+><A
+NAME="AEN178531"
+></A
+><P
+><B
+>Tabella 1. </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Type</TH
+><TH
+>Read-only</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>attributeCount</TD
+><TD
+>int</TD
+><TD
+>yes</TD
+><TD
+>The number of attributes on the node</TD
+></TR
+><TR
+><TD
+>baseURI</TD
+><TD
+>string</TD
+><TD
+>yes</TD
+><TD
+>The base URI of the node</TD
+></TR
+><TR
+><TD
+>depth</TD
+><TD
+>int</TD
+><TD
+>yes</TD
+><TD
+>Depth of the node in the tree starting at 0</TD
+></TR
+><TR
+><TD
+>hasAttributes</TD
+><TD
+>bool</TD
+><TD
+>yes</TD
+><TD
+>Indicates if node has attributes</TD
+></TR
+><TR
+><TD
+>hasValue</TD
+><TD
+>bool</TD
+><TD
+>yes</TD
+><TD
+>Indicates if node has a text value</TD
+></TR
+><TR
+><TD
+>isDefault</TD
+><TD
+>bool</TD
+><TD
+>yes</TD
+><TD
+>Indicates if attribute is defaulted from DTD</TD
+></TR
+><TR
+><TD
+>isEmptyElement</TD
+><TD
+>bool</TD
+><TD
+>yes</TD
+><TD
+>Indicates if node is an empty element tag</TD
+></TR
+><TR
+><TD
+>localName</TD
+><TD
+>string</TD
+><TD
+>yes</TD
+><TD
+>The local name of the node</TD
+></TR
+><TR
+><TD
+>name</TD
+><TD
+>string</TD
+><TD
+>yes</TD
+><TD
+>The qualified name of the node</TD
+></TR
+><TR
+><TD
+>namespaceURI</TD
+><TD
+>string</TD
+><TD
+>yes</TD
+><TD
+>The URI of the namespace associated with the node</TD
+></TR
+><TR
+><TD
+>nodeType</TD
+><TD
+>int</TD
+><TD
+>yes</TD
+><TD
+>The node type for the node</TD
+></TR
+><TR
+><TD
+>prefix</TD
+><TD
+>string</TD
+><TD
+>yes</TD
+><TD
+>The prefix of the namespace associated with the node</TD
+></TR
+><TR
+><TD
+>value</TD
+><TD
+>string</TD
+><TD
+>yes</TD
+><TD
+>The text value of the node</TD
+></TR
+><TR
+><TD
+>xmlLang</TD
+><TD
+>string</TD
+><TD
+>yes</TD
+><TD
+>The xml:lang scope which the node resides</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="xmlreader.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><DIV
+CLASS="table"
+><A
+NAME="AEN178614"
+></A
+><P
+><B
+>Tabella 2. XMLReader Node Types</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Constant</TH
+><TH
+>Value</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_NONE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>0</TD
+><TD
+>No node type</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_ELEMENT</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>1</TD
+><TD
+>Start element</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_ATTRIBUTE</B
+></TT
+> 
+      (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>2</TD
+><TD
+>Attribute node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_TEXT</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>3</TD
+><TD
+>Text node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_CDATA</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>4</TD
+><TD
+>CDATA node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_ENTITY_REF</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>5</TD
+><TD
+>Entity Reference node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_ENTITY</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>6</TD
+><TD
+>Entity Declaration node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_PI</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>7</TD
+><TD
+>Processing Instruction node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_COMMENT</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>8</TD
+><TD
+>Comment node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_DOC</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>9</TD
+><TD
+>Document node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_DOC_TYPE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>10</TD
+><TD
+>Document Type node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_DOC_FRAGMENT</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>11</TD
+><TD
+>Document Fragment node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_NOTATION</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>12</TD
+><TD
+>Notation node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_WHITESPACE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>13</TD
+><TD
+>Whitespace node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_SIGNIFICANT_WHITESPACE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>14</TD
+><TD
+>Significant Whitespace node</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_END_ELEMENT</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>15</TD
+><TD
+>End Element</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_END_ENTITY</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>16</TD
+><TD
+>End Entity</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_XML_DECLARATION</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>17</TD
+><TD
+>XML Declaration node</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="table"
+><A
+NAME="AEN178731"
+></A
+><P
+><B
+>Tabella 3. XMLReader Parser Options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Constant</TH
+><TH
+>Value</TH
+><TH
+>Description</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_LOADDTD</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>1</TD
+><TD
+>Load DTD but do not validate</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_DEFAULTATTRS</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>2</TD
+><TD
+>Load DTD and default attributes but do not validate</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_VALIDATE</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>3</TD
+><TD
+>Load DTD and validate while parsing</TD
+></TR
+><TR
+><TD
+>&#13;       <TT
+CLASS="constant"
+><B
+>XMLREADER_SUBST_ENTITIES</B
+></TT
+>
+       (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)
+      </TD
+><TD
+>4</TD
+><TD
+>Subsitute entities and expand references</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.xmlreader-close.html"
+>XMLReader-&#62;close()</A
+>&nbsp;--&nbsp;Close the XMLReader input</DT
+><DT
+><A
+HREF="function.xmlreader-expand.html"
+>XMLReader-&#62;expand()</A
+>&nbsp;--&nbsp;Returns a copy of the current node as a DOM object</DT
+><DT
+><A
+HREF="function.xmlreader-getattribute.html"
+>XMLReader-&#62;getAttribute()</A
+>&nbsp;--&nbsp;Get the value of a named attribute</DT
+><DT
+><A
+HREF="function.xmlreader-getattributeno.html"
+>XMLReader-&#62;getAttributeNo()</A
+>&nbsp;--&nbsp;Get the value of an attribute by index</DT
+><DT
+><A
+HREF="function.xmlreader-getattributens.html"
+>XMLReader-&#62;getAttributeNS()</A
+>&nbsp;--&nbsp;Get the value of an attribute by localname and URI</DT
+><DT
+><A
+HREF="function.xmlreader-getparserproperty.html"
+>XMLReader-&#62;getParserProperty()</A
+>&nbsp;--&nbsp;
+   Indicates if specified property has been set
+  </DT
+><DT
+><A
+HREF="function.xmlreader-isvalid.html"
+>XMLReader-&#62;isValid()</A
+>&nbsp;--&nbsp;Indicates if the parsed document is valid</DT
+><DT
+><A
+HREF="function.xmlreader-lookupnamespace.html"
+>XMLReader-&#62;lookupNamespace()</A
+>&nbsp;--&nbsp;Lookup namespace for a prefix</DT
+><DT
+><A
+HREF="function.xmlreader-movetoattribute.html"
+>XMLReader-&#62;moveToAttribute()</A
+>&nbsp;--&nbsp;Move cursor to a named attribute</DT
+><DT
+><A
+HREF="function.xmlreader-movetoattributeno.html"
+>XMLReader-&#62;moveToAttributeNo()</A
+>&nbsp;--&nbsp;Move cursor to an attribute by index</DT
+><DT
+><A
+HREF="function.xmlreader-movetoattributens.html"
+>XMLReader-&#62;moveToAttributeNs()</A
+>&nbsp;--&nbsp;Move cursor to a named attribute</DT
+><DT
+><A
+HREF="function.xmlreader-movetoelement.html"
+>XMLReader-&#62;moveToElement()</A
+>&nbsp;--&nbsp;Position cursor on the parent Element of current Attribute</DT
+><DT
+><A
+HREF="function.xmlreader-movetofirstattribute.html"
+>XMLReader-&#62;moveToFirstAttribute()</A
+>&nbsp;--&nbsp;Position cursor on the first Attribute</DT
+><DT
+><A
+HREF="function.xmlreader-movetonextattribute.html"
+>XMLReader-&#62;moveToNextAttribute()</A
+>&nbsp;--&nbsp;Position cursor on the next Attribute</DT
+><DT
+><A
+HREF="function.xmlreader-next.html"
+>XMLReader-&#62;next()</A
+>&nbsp;--&nbsp;Move cursor to next node skipping all subtrees</DT
+><DT
+><A
+HREF="function.xmlreader-open.html"
+>XMLReader-&#62;open()</A
+>&nbsp;--&nbsp;Set the URI containing the XML to parse</DT
+><DT
+><A
+HREF="function.xmlreader-read.html"
+>XMLReader-&#62;read()</A
+>&nbsp;--&nbsp;Move to next node in document</DT
+><DT
+><A
+HREF="function.xmlreader-setparserproperty.html"
+>XMLReader-&#62;setParserProperty()</A
+>&nbsp;--&nbsp;Set or Unset parser options</DT
+><DT
+><A
+HREF="function.xmlreader-setrelaxngschema.html"
+>XMLReader-&#62;setRelaxNGSchema()</A
+>&nbsp;--&nbsp;Set the filename or URI for a RelaxNG Schema</DT
+><DT
+><A
+HREF="function.xmlreader-setrelaxngschemasource.html"
+>XMLReader-&#62;setRelaxNGSchemaSource()</A
+>&nbsp;--&nbsp;Set the data containing a RelaxNG Schema</DT
+><DT
+><A
+HREF="function.xmlreader-xml.html"
+>XMLReader-&#62;XML()</A
+>&nbsp;--&nbsp;Set the data containing the XML to parse</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xmlrpc-set-type.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.xmlreader-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>xmlrpc_set_type</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>XMLReader-&#62;close()</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

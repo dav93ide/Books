@@ -1,0 +1,776 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Output Control Functions</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="PDO_OCI DSN"
+HREF="ref.pdo-oci.connection.html"><LINK
+REL="NEXT"
+TITLE="flush"
+HREF="function.flush.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.pdo-oci.connection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.flush.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.outcontrol"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CIII. Output Control Functions</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN118957"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="outcontrol.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     The Output Control functions allow you to control when output is
+     sent from the script. This can be useful in several different
+     situations, especially if you need to send headers to the browser
+     after your script has began outputting data. The Output Control
+     functions do not affect headers sent using
+     <A
+HREF="function.header.html"
+><B
+CLASS="function"
+>header()</B
+></A
+> or <A
+HREF="function.setcookie.html"
+><B
+CLASS="function"
+>setcookie()</B
+></A
+>,
+     only functions such as <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+> and data between
+     blocks of PHP code.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="outcontrol.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="outcontrol.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="outcontrol.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN118975"
+></A
+><P
+><B
+>Tabella 1. Output Control configuration options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>output_buffering</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_PERDIR</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+>output_handler</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_PERDIR</TD
+><TD
+>Available since PHP 4.0.4.</TD
+></TR
+><TR
+><TD
+>implicit_flush</TD
+><TD
+>"0"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>PHP_INI_PERDIR in PHP &#60;= 4.2.3.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+   Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13; <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.output-buffering"
+></A
+><VAR
+CLASS="parameter"
+>output_buffering</VAR
+>
+    <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+>/<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;     You can enable output buffering for all files by setting this directive
+     to 'On'. If you wish to limit the size of the buffer to a certain size -
+     you can use a maximum number of bytes instead of 'On', as a value for
+     this directive (e.g., output_buffering=4096).
+     As of PHP 4.3.5, this directive is always Off in PHP-CLI.
+    </P
+></DD
+><DT
+><A
+NAME="ini.output-handler"
+></A
+><VAR
+CLASS="parameter"
+>output_handler</VAR
+>
+    <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;     You can redirect all of the output of your scripts to a function. For
+     example, if you set output_handler to
+     <A
+HREF="function.mb-output-handler.html"
+><B
+CLASS="function"
+>mb_output_handler()</B
+></A
+>, character encoding will be
+     transparently converted to the specified encoding. Setting any output
+     handler automatically turns on output buffering.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      You cannot use both <A
+HREF="function.mb-output-handler.html"
+><B
+CLASS="function"
+>mb_output_handler()</B
+></A
+> with
+      <A
+HREF="function.ob-iconv-handler.html"
+><B
+CLASS="function"
+>ob_iconv_handler()</B
+></A
+> and you cannot use both
+      <A
+HREF="function.ob-gzhandler.html"
+><B
+CLASS="function"
+>ob_gzhandler()</B
+></A
+> and
+      <A
+HREF="ref.zlib.html#ini.zlib.output-compression"
+>zlib.output_compression</A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Only built-in functions can be used with this directive. For user
+      defined functions, use <A
+HREF="function.ob-start.html"
+><B
+CLASS="function"
+>ob_start()</B
+></A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="ini.implicit-flush"
+></A
+><VAR
+CLASS="parameter"
+>implicit_flush</VAR
+>
+    <A
+HREF="language.types.boolean.html"
+><B
+CLASS="type"
+>boolean</B
+></A
+></DT
+><DD
+><P
+>&#13;     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> by default. Changing this to <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> tells PHP to tell the
+     output layer to flush itself automatically after every output block.
+     This is equivalent to calling the PHP function
+     <A
+HREF="function.flush.html"
+><B
+CLASS="function"
+>flush()</B
+></A
+> after each and every call to
+     <A
+HREF="function.print.html"
+><B
+CLASS="function"
+>print()</B
+></A
+> or <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+> and each and
+     every <VAR
+CLASS="literal"
+>HTML</VAR
+> block.
+    </P
+><P
+>&#13;     When using PHP within an web environment, turning
+     this option on has serious performance implications and is generally
+     recommended for debugging purposes only. This value defaults to
+     <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> when operating under the <VAR
+CLASS="literal"
+>CLI SAPI</VAR
+>.
+    </P
+><P
+>&#13;     See also <A
+HREF="function.ob-implicit-flush.html"
+><B
+CLASS="function"
+>ob_implicit_flush()</B
+></A
+>.
+    </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="outcontrol.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="outcontrol.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="outcontrol.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN119053"
+></A
+><P
+><B
+>Esempio 1. Output Control example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />ob_start</font><font color="#007700">();<br />echo </font><font color="#DD0000">"Hello\n"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">setcookie</font><font color="#007700">(</font><font color="#DD0000">"cookiename"</font><font color="#007700">, </font><font color="#DD0000">"cookiedata"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">ob_end_flush</font><font color="#007700">();<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     In the above example, the output from <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+>
+     would be stored in the output buffer until
+     <A
+HREF="function.ob-end-flush.html"
+><B
+CLASS="function"
+>ob_end_flush()</B
+></A
+> was called. In the mean time,
+     the call to <A
+HREF="function.setcookie.html"
+><B
+CLASS="function"
+>setcookie()</B
+></A
+> successfully stored a
+     cookie without causing an error. (You can not normally send
+     headers to the browser after data has already been sent.)
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      When upgrading from PHP 4.1 (and 4.2) to 4.3 that due to a bug in
+      earlier versions you must ensure that
+      <VAR
+CLASS="literal"
+>implict_flush</VAR
+> is <VAR
+CLASS="literal"
+>OFF</VAR
+> in
+      your <TT
+CLASS="filename"
+>php.ini</TT
+>, otherwise any output with
+      <A
+HREF="function.ob-start.html"
+><B
+CLASS="function"
+>ob_start()</B
+></A
+> will not be hidden from output.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="outcontrol.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     See also <A
+HREF="function.header.html"
+><B
+CLASS="function"
+>header()</B
+></A
+> and
+     <A
+HREF="function.setcookie.html"
+><B
+CLASS="function"
+>setcookie()</B
+></A
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.flush.html"
+>flush</A
+>&nbsp;--&nbsp;Flush the output buffer</DT
+><DT
+><A
+HREF="function.ob-clean.html"
+>ob_clean</A
+>&nbsp;--&nbsp;
+     Clean (erase) the output buffer
+    </DT
+><DT
+><A
+HREF="function.ob-end-clean.html"
+>ob_end_clean</A
+>&nbsp;--&nbsp;
+     Clean (erase) the output buffer and turn off output buffering
+    </DT
+><DT
+><A
+HREF="function.ob-end-flush.html"
+>ob_end_flush</A
+>&nbsp;--&nbsp;
+     Flush (send) the output buffer and turn off output buffering
+    </DT
+><DT
+><A
+HREF="function.ob-flush.html"
+>ob_flush</A
+>&nbsp;--&nbsp;
+     Flush (send) the output buffer
+    </DT
+><DT
+><A
+HREF="function.ob-get-clean.html"
+>ob_get_clean</A
+>&nbsp;--&nbsp;
+     Get current buffer contents and delete current output buffer
+    </DT
+><DT
+><A
+HREF="function.ob-get-contents.html"
+>ob_get_contents</A
+>&nbsp;--&nbsp;
+     Return the contents of the output buffer
+    </DT
+><DT
+><A
+HREF="function.ob-get-flush.html"
+>ob_get_flush</A
+>&nbsp;--&nbsp;
+     Flush the output buffer, return it as a string and turn off output buffering
+    </DT
+><DT
+><A
+HREF="function.ob-get-length.html"
+>ob_get_length</A
+>&nbsp;--&nbsp;
+     Return the length of the output buffer
+    </DT
+><DT
+><A
+HREF="function.ob-get-level.html"
+>ob_get_level</A
+>&nbsp;--&nbsp;
+     Return the nesting level of the output buffering mechanism
+    </DT
+><DT
+><A
+HREF="function.ob-get-status.html"
+>ob_get_status</A
+>&nbsp;--&nbsp;
+     Get status of output buffers
+    </DT
+><DT
+><A
+HREF="function.ob-gzhandler.html"
+>ob_gzhandler</A
+>&nbsp;--&nbsp;
+     ob_start callback function to gzip output buffer
+    </DT
+><DT
+><A
+HREF="function.ob-implicit-flush.html"
+>ob_implicit_flush</A
+>&nbsp;--&nbsp;
+     Turn implicit flush on/off 
+    </DT
+><DT
+><A
+HREF="function.ob-list-handlers.html"
+>ob_list_handlers</A
+>&nbsp;--&nbsp;
+     List all output handlers in use
+    </DT
+><DT
+><A
+HREF="function.ob-start.html"
+>ob_start</A
+>&nbsp;--&nbsp;Turn on output buffering</DT
+><DT
+><A
+HREF="function.output-add-rewrite-var.html"
+>output_add_rewrite_var</A
+>&nbsp;--&nbsp;
+     Add URL rewriter values
+    </DT
+><DT
+><A
+HREF="function.output-reset-rewrite-vars.html"
+>output_reset_rewrite_vars</A
+>&nbsp;--&nbsp;
+     Reset URL rewriter values
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.pdo-oci.connection.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.flush.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>PDO_OCI DSN</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>flush</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

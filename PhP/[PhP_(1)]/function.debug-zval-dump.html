@@ -1,0 +1,541 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>debug_zval_dump</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per la gestione delle variabili"
+HREF="ref.var.html"><LINK
+REL="PREVIOUS"
+TITLE="Funzioni per la gestione delle variabili"
+HREF="ref.var.html"><LINK
+REL="NEXT"
+TITLE="doubleval"
+HREF="function.doubleval.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.var.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.doubleval.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.debug-zval-dump"
+></A
+>debug_zval_dump</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN172704"
+></A
+><P
+>    (PHP 4 &#62;= 4.2.0, PHP 5)</P
+>debug_zval_dump&nbsp;--&nbsp;Dumps a string representation of an internal zend value to output</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172707"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>debug_zval_dump</B
+> ( mixed variable )<BR
+></BR
+><P
+>&#13;   Dumps a string representation of an internal zend value to output.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172716"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>variable</VAR
+></DT
+><DD
+><P
+>&#13;       The variable being evaluated.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172725"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   No value is returned.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172728"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN172731"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>debug_zval_dump()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$var1 </font><font color="#007700">= </font><font color="#DD0000">'Hello World'</font><font color="#007700">;<br /></font><font color="#0000BB">$var2 </font><font color="#007700">= </font><font color="#DD0000">''</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$var2 </font><font color="#007700">=&amp; </font><font color="#0000BB">$var1</font><font color="#007700">;<br /><br /></font><font color="#0000BB">debug_zval_dump</font><font color="#007700">(&amp;</font><font color="#0000BB">$var1</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>string(11) "Hello World" refcount(3)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Beware the <VAR
+CLASS="literal"
+>refcount</VAR
+>: </B
+>
+    The <VAR
+CLASS="literal"
+>refcount</VAR
+> value returned by this function is
+    non-obvious in certain circumstances. For example, a developer might
+    expect the above example to indicate a <VAR
+CLASS="literal"
+>refcount</VAR
+> of
+    <VAR
+CLASS="literal"
+>2</VAR
+>. The third reference is created when actually
+    calling <B
+CLASS="function"
+>debug_zval_dump()</B
+>.
+   </P
+><P
+>&#13;    This behavior is further compounded when a variable is not passed to
+    <B
+CLASS="function"
+>debug_zval_dump()</B
+> by reference. To illustrate, consider
+    a slightly modified version of the above example:
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN172748"
+></A
+><P
+><B
+>Esempio 2. </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$var1 </font><font color="#007700">= </font><font color="#DD0000">'Hello World'</font><font color="#007700">;<br /></font><font color="#0000BB">$var2 </font><font color="#007700">= </font><font color="#DD0000">''</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$var2 </font><font color="#007700">=&amp; </font><font color="#0000BB">$var1</font><font color="#007700">;<br /><br /></font><font color="#0000BB">debug_zval_dump</font><font color="#007700">(</font><font color="#0000BB">$var1</font><font color="#007700">); </font><font color="#FF8000">// not passed by reference, this time<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>string(11) "Hello World" refcount(1)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Why <VAR
+CLASS="literal"
+>refcount(1)</VAR
+>? Because a copy of <VAR
+CLASS="literal"
+>$var1</VAR
+> is
+    being made, when the function is called.
+   </P
+><P
+>&#13;    This function becomes even <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>more</I
+></SPAN
+> confusing when a
+    variable with a <VAR
+CLASS="literal"
+>refcount</VAR
+> of <VAR
+CLASS="literal"
+>1</VAR
+> is
+    passed (by copy/value):
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN172761"
+></A
+><P
+><B
+>Esempio 3. </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$var1 </font><font color="#007700">= </font><font color="#DD0000">'Hello World'</font><font color="#007700">;<br /><br /></font><font color="#0000BB">debug_zval_dump</font><font color="#007700">(</font><font color="#0000BB">$var1</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>string(11) "Hello World" refcount(2)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    A <VAR
+CLASS="literal"
+>refcount</VAR
+> of <VAR
+CLASS="literal"
+>2</VAR
+>, here, is extremely
+    non-obvious. Especially considering the above examples. So what's
+    happening?
+   </P
+><P
+>&#13;    When a variable has a single reference (as did <VAR
+CLASS="literal"
+>$var1</VAR
+>
+    before it was used as an argument to <B
+CLASS="function"
+>debug_zval_dump()</B
+>),
+    PHP's engine optimizes the manner in which it is passed to a function.
+    Internally, PHP treats <VAR
+CLASS="literal"
+>$var1</VAR
+> like a reference (in that
+    the <VAR
+CLASS="literal"
+>refcount</VAR
+> is increased for the scope of this
+    function), with the caveat that <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>if</I
+></SPAN
+> the passed reference
+    happens to be written to, a copy is made, but only at the moment of
+    writing. This is known as "copy on write."
+   </P
+><P
+>&#13;    So, if <B
+CLASS="function"
+>debug_zval_dump()</B
+> happened to write to its sole
+    parameter (and it doesn't), then a copy would be made. Until then, the
+    parameter remains a reference, causing the <VAR
+CLASS="literal"
+>refcount</VAR
+> to
+    be incremented to <VAR
+CLASS="literal"
+>2</VAR
+> for the scope of the function call.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN172779"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.var-dump.html"
+><B
+CLASS="function"
+>var_dump()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.debug-backtrace.html"
+><B
+CLASS="function"
+>debug_backtrace()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="language.references.html"
+>References Explained</A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="http://www.zend.com/zend/art/ref-count.php"
+TARGET="_top"
+>Reference Counting and Aliasing (by Andi Gutmans)</A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.var.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.doubleval.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Funzioni per la gestione delle variabili</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.var.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>doubleval</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

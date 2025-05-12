@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>MySQL Functions (PDO_MYSQL)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_unbuffered_query"
+HREF="function.mysql-unbuffered-query.html"><LINK
+REL="NEXT"
+TITLE="PDO_MYSQL DSN"
+HREF="ref.pdo-mysql.connection.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-unbuffered-query.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.pdo-mysql.connection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.pdo-mysql"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>LXXXVII. MySQL Functions (PDO_MYSQL)</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN94275"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pdo-mysql.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     PDO_MYSQL is a driver that implements the <A
+HREF="ref.pdo.html"
+>PHP
+     Data Objects (PDO) interface</A
+>
+     to enable access from PHP to MySQL 3.x and 4.x databases.
+    </P
+><P
+>&#13;     PDO_MYSQL will take advantage of native prepared statement support
+     present in MySQL 4.1 and higher.  If you're using an older version of the
+     mysql client libraries, PDO will emulate them for you.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Beware: MySQL tables do not support transactions by default.  When
+      writing transactional database code, MySQL will pretend that a
+      transaction was initiated successfully, even when no transactional
+      support is present.  In addition, any DDL queries issued will implicitly
+      commit any pending transactions.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pdo-mysql.constants"
+>Costanti predefinite</A
+></H1
+><P
+>The constants below are defined by
+this driver, and will only be available when the extension has been either
+compiled into PHP or dynamically loaded at runtime. In addition, these
+driver-specific constants should only be used if you are using this driver.
+Using mysql-specific attributes with the postgres driver may result in
+unexpected behaviour. <B
+CLASS="function"
+>PDO::getAttribute()</B
+> may be used to
+obtain the <TT
+CLASS="constant"
+><B
+>PDO_ATTR_DRIVER_NAME</B
+></TT
+> attribute to check the
+driver, if your code can run against multiple drivers.</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>PDO_MYSQL_ATTR_USE_BUFFERED_QUERY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     If this attribute is set to <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> on a
+     <B
+CLASS="classname"
+>PDOStatement</B
+>, the MySQL driver will use the
+     buffered versions of the MySQL API.  If you're writing portable code, you
+     should use <B
+CLASS="function"
+>PDOStatement::fetchAll()</B
+> instead.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN94299"
+></A
+><P
+><B
+>Esempio 1. Forcing queries to be buffered in mysql</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">if (</font><font color="#0000BB">$db</font><font color="#007700">-&gt;</font><font color="#0000BB">getAttribute</font><font color="#007700">(</font><font color="#0000BB">PDO_ATTR_DRIVERNAME</font><font color="#007700">) == </font><font color="#DD0000">'mysql'</font><font color="#007700">)) {<br /> </font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">$db</font><font color="#007700">-&gt;</font><font color="#0000BB">prepare</font><font color="#007700">(</font><font color="#DD0000">'select * from foo'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">PDO_MYSQL_ATTR_USE_UNBUFFERED_QUERY </font><font color="#007700">=&gt; </font><font color="#0000BB">true</font><font color="#007700">));<br />} else {<br /> die(</font><font color="#DD0000">"my application only works with mysql; I should use \$stmt-&gt;fetchAll() instead"</font><font color="#007700">);<br />}</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="ref.pdo-mysql.connection.html"
+>PDO_MYSQL DSN</A
+>&nbsp;--&nbsp;Connecting to MySQL databases</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-unbuffered-query.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.pdo-mysql.connection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_unbuffered_query</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDO_MYSQL DSN</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Reference: Some Configuration Macros</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Zend API: Hacking the Core of PHP"
+HREF="zend.html"><LINK
+REL="PREVIOUS"
+TITLE="Where to Go from Here"
+HREF="zend.where-to-go.html"><LINK
+REL="NEXT"
+TITLE="API Macros"
+HREF="zend.api-macros.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="zend.where-to-go.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 46. Zend API: Hacking the Core of PHP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="zend.api-macros.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="zend.configuration-macros"
+>Reference: Some Configuration Macros</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="zend.configuration-macros.config-m4"
+><TT
+CLASS="filename"
+>config.m4</TT
+></A
+></H2
+><P
+>&#13;    The file <TT
+CLASS="filename"
+>config.m4</TT
+> is processed by
+    <TT
+CLASS="filename"
+>buildconf</TT
+> and must contain all the instructions to be
+    executed during configuration. For example, these can include tests for required
+    external files, such as header files, libraries, and so on. PHP defines a set of macros
+    that can be used in this process, the most useful of which are described in
+    <A
+HREF="zend.configuration-macros.html#tab.m4-macros"
+>Tabella 46-18</A
+>.
+   </P
+><DIV
+CLASS="table"
+><A
+NAME="tab.m4-macros"
+></A
+><P
+><B
+>Tabella 46-18. M4 Macros for <TT
+CLASS="filename"
+>config.m4</TT
+></B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1.63*"
+TITLE="col1"><COL
+WIDTH="1*"
+TITLE="col2"><TBODY
+><TR
+><TD
+>Macro</TD
+><TD
+>Description</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>AC_MSG_CHECKING(message)</VAR
+></TD
+><TD
+>Prints a "checking &#60;message&#62;" text
+         during <TT
+CLASS="filename"
+>configure</TT
+>.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>AC_MSG_RESULT(value)</VAR
+></TD
+><TD
+>Gives the result to <VAR
+CLASS="literal"
+>AC_MSG_CHECKING</VAR
+>;
+         should specify either <VAR
+CLASS="literal"
+>yes</VAR
+> or <VAR
+CLASS="literal"
+>no</VAR
+> as <VAR
+CLASS="envar"
+>value</VAR
+>.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>AC_MSG_ERROR(message)</VAR
+></TD
+><TD
+>Prints <VAR
+CLASS="envar"
+>message</VAR
+> as error message
+         during <TT
+CLASS="filename"
+>configure</TT
+> and aborts the script.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>AC_DEFINE(name,value,description)</VAR
+></TD
+><TD
+>Adds
+         <VAR
+CLASS="literal"
+>#define</VAR
+> to <TT
+CLASS="filename"
+>php_config.h</TT
+> with the value of
+         <VAR
+CLASS="envar"
+>value</VAR
+> and a comment that says <VAR
+CLASS="envar"
+>description</VAR
+> (this
+         is useful for conditional compilation of your module).</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>AC_ADD_INCLUDE(path)</VAR
+></TD
+><TD
+>Adds a compiler include path; for example, used  if the
+         module needs to add search paths for header files.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>AC_ADD_LIBRARY_WITH_PATH(libraryname,librarypath)</VAR
+></TD
+><TD
+>Specifies an additional library to link.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>AC_ARG_WITH(modulename,description,unconditionaltest,conditionaltest)</VAR
+></TD
+><TD
+>Quite a powerful macro, adding the
+         module with <VAR
+CLASS="envar"
+>description</VAR
+> to the
+         <TT
+CLASS="filename"
+>configure --help</TT
+> output. PHP checks
+         whether the option
+         <VAR
+CLASS="literal"
+>--with-&#60;modulename&#62;</VAR
+> is given to the
+         <TT
+CLASS="filename"
+>configure</TT
+> script. If so, it runs the
+         script <VAR
+CLASS="literal"
+>unconditionaltest</VAR
+> (for example,
+         <VAR
+CLASS="literal"
+>--with-myext=yes</VAR
+>), in which case the value
+         of the option is contained in the variable
+         <VAR
+CLASS="envar"
+>$withval</VAR
+>. Otherwise, it executes
+         <VAR
+CLASS="literal"
+>conditionaltest</VAR
+>.
+        </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>PHP_EXTENSION(modulename,
+          [shared])</VAR
+></TD
+><TD
+>This macro is a <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>must</I
+></SPAN
+> to call for PHP
+         to configure your extension. You can supply a second argument
+         in addition to your module name, indicating whether you intend compilation as a
+         shared module. This will result in a definition at compile time for your
+         source as <VAR
+CLASS="literal"
+>COMPILE_DL_&#60;modulename&#62;</VAR
+>.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="zend.where-to-go.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="zend.api-macros.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Where to Go from Here</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="zend.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>API Macros</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

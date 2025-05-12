@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>php_stream_sock_open_host</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Streams Socket API Reference"
+HREF="streams.socket-api.html"><LINK
+REL="PREVIOUS"
+TITLE="php_stream_sock_open_from_socket"
+HREF="streams.php-stream-sock-open-from-socket.html"><LINK
+REL="NEXT"
+TITLE="php_stream_sock_open_unix"
+HREF="streams.php-stream-sock-open-unix.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="streams.php-stream-sock-open-from-socket.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="streams.php-stream-sock-open-unix.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="streams.php-stream-sock-open-host"
+></A
+>php_stream_sock_open_host</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN184952"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>php_stream_sock_open_host&nbsp;--&nbsp;Open a connection to a host and return a stream</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN184955"
+></A
+><H2
+>Description</H2
+>php_stream * <B
+CLASS="methodname"
+>php_stream_sock_open_host</B
+> ( const char * host, unsigned short port, int socktype, struct timeval * timeout, int persistent )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>php_stream_sock_open_host()</B
+> establishes a connect to the specified
+     <VAR
+CLASS="parameter"
+>host</VAR
+> and <VAR
+CLASS="parameter"
+>port</VAR
+>. <VAR
+CLASS="parameter"
+>socktype</VAR
+>
+     specifies the connection semantics that should apply to the connection. Values for
+     <VAR
+CLASS="parameter"
+>socktype</VAR
+> are system dependent, but will usually include (at a minimum)
+     <TT
+CLASS="constant"
+><B
+>SOCK_STREAM</B
+></TT
+> for sequenced, reliable, two-way connection based streams (TCP),
+     or <TT
+CLASS="constant"
+><B
+>SOCK_DGRAM</B
+></TT
+> for connectionless, unreliable messages of a fixed maximum
+     length (UDP).
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>persistent</VAR
+> is a flag the controls whether the stream is opened as a persistent
+     stream. Generally speaking, this parameter will usually be 0.
+    </P
+><P
+>&#13;     If not NULL, <VAR
+CLASS="parameter"
+>timeout</VAR
+> specifies a maximum time to allow for the connection to be made.
+     If the connection attempt takes longer than the timeout value, the connection attempt is aborted and
+     NULL is returned to indicate that the stream could not be opened.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      The timeout value does not include the time taken to perform a DNS lookup. The reason for this is
+      because there is no portable way to implement a non-blocking DNS lookup.
+     </P
+><P
+>&#13;      The timeout only applies to the connection phase; if you need to set timeouts for subsequent read
+      or write operations, you should use <B
+CLASS="function"
+>php_stream_sock_set_timeout()</B
+> to configure
+      the timeout duration for your stream once it has been opened.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     The streams API places no restrictions on the values you use for <VAR
+CLASS="parameter"
+>socktype</VAR
+>,
+     but encourages you to consider the portability of values you choose before you release your
+     extension.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="streams.php-stream-sock-open-from-socket.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="streams.php-stream-sock-open-unix.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>php_stream_sock_open_from_socket</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="streams.socket-api.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>php_stream_sock_open_unix</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

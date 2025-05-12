@@ -1,0 +1,2551 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>curl_setopt</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni CURL, Client URL Library"
+HREF="ref.curl.html"><LINK
+REL="PREVIOUS"
+TITLE="curl_multi_select"
+HREF="function.curl-multi-select.html"><LINK
+REL="NEXT"
+TITLE="curl_version"
+HREF="function.curl-version.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.curl-multi-select.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.curl-version.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.curl-setopt"
+></A
+>curl_setopt</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN22250"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.2, PHP 5)</P
+>curl_setopt&nbsp;--&nbsp;Imposta una opzione per un trasferimento CURL</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN22253"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>curl_setopt</B
+> ( resource ch, int option, mixed valore )<BR
+></BR
+><P
+>&#13;     Imposta le opzioni per una sessione CURL identificata dal parametro
+     <VAR
+CLASS="parameter"
+>ch</VAR
+>. <VAR
+CLASS="parameter"
+>opzione</VAR
+> 
+     specifica quale opzione impostare e
+     <VAR
+CLASS="parameter"
+>valore</VAR
+> specifica il valore per l'opzione data.
+    </P
+><P
+>&#13;     <VAR
+CLASS="parameter"
+>valore</VAR
+> dovrebbe essere di tipo booleano per 
+     i seguenti valori del parametro <VAR
+CLASS="parameter"
+>opzione</VAR
+>):
+     <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN22274"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Option</TH
+><TH
+>Set <VAR
+CLASS="parameter"
+>value</VAR
+> to</TH
+><TH
+>Notes</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_BINARYTRANSFER</B
+></TT
+></TD
+><TD
+>&#13;         <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> restituisce la riga di output quando      
+         <TT
+CLASS="constant"
+><B
+>CURLOPT_RETURNTRANSFER</B
+></TT
+> è usata.
+      </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_CRLF</B
+></TT
+></TD
+><TD
+>&#13;        <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per convertire la Unix newlines in CRLF newlines
+        per i trasferimenti.
+        </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_DNS_USE_GLOBAL_CACHE</B
+></TT
+></TD
+><TD
+>&#13;           <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per usare una cache gobale DNS. Questa opzione non è
+           thread-safe ed è abilitata per default.
+          </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FAILONERROR</B
+></TT
+></TD
+><TD
+>&#13;           <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per terminare in maniera silenziosa se il codice HTTP restituito
+           è maggiore di 300. Il comportamento di default è di restituire la
+           pagina normalmente, ignorando il codice.
+          </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FILETIME</B
+></TT
+></TD
+><TD
+>&#13;           <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per cercare di recuperare la data di modifica
+           del documento remoto. Si può cercare di ripristinare questo valore usando
+           l'opzione <VAR
+CLASS="parameter"
+>CURLINFO_FILETIME</VAR
+> con
+           <A
+HREF="function.curl-getinfo.html"
+><B
+CLASS="function"
+>curl_getinfo()</B
+></A
+>.
+          </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FOLLOWLOCATION</B
+></TT
+></TD
+><TD
+>&#13;           <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per seguire una qualunque
+           <VAR
+CLASS="literal"
+>"Location: "</VAR
+> intestazione inviata dal server come
+           parte dell' header HTTP (notare che è ricorsiva, PHP seguirà come molte
+     	   <VAR
+CLASS="literal"
+>"Location: "</VAR
+> intestazioni inviate,
+     	   a meno che <TT
+CLASS="constant"
+><B
+>CURLOPT_MAXREDIRS</B
+></TT
+> sia impostata).
+     	   </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FORBID_REUSE</B
+></TT
+></TD
+><TD
+>&#13;     	    <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> forza la chiusura esplicita della connessione
+     	    quando ha finito il processo e non può essere riutilizzata.
+     	   </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FRESH_CONNECT</B
+></TT
+></TD
+><TD
+>&#13;             <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> forza l'uso di una nuova connessione
+         	   invece di usarne una in cache.
+              </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FTP_USE_EPRT</B
+></TT
+></TD
+><TD
+>&#13;              <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per usare EPRT (e LPRT) quando si opera un 
+             download FTP. Usa <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> per disaibilitare EPRT e LPRT e usare PORT
+             solamente.
+             </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FTP_USE_EPSV</B
+></TT
+></TD
+><TD
+>&#13;              <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> prima cerca un comando EPSV per trasferimento
+              FTP prima di ritornare alla modalità PASV. Imposta a <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+                per disabilitare EPSV.
+       	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FTPAPPEND</B
+></TT
+></TD
+><TD
+>&#13;                   <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per accodare aò file remoto invece di
+              sovrascriverlo.
+                 </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FTPASCII</B
+></TT
+></TD
+><TD
+>&#13;                   Un alias di
+                   <TT
+CLASS="constant"
+><B
+>CURLOPT_TRANSFERTEXT</B
+></TT
+>. Usarlo al suo posto.
+                 </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FTPLISTONLY</B
+></TT
+></TD
+><TD
+>&#13;              	   <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per elencare solamente i nomi di 
+              	   una directory FTP.
+	             </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_HEADER</B
+></TT
+></TD
+><TD
+>&#13;               		<TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per includere l'intestazione in output.
+            	</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_HTTPGET</B
+></TT
+></TD
+><TD
+>&#13;                 <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per resettare la richiesta HTTP col metodo GET.
+                 Dopo che GET è il default, diventa necessario solo se il metodo
+               di richiesta è cambiato.
+           	 </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_HTTPPROXYTUNNEL</B
+></TT
+></TD
+><TD
+>&#13;                 <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per passare attraverso un proxy HTTP fornito.
+        	     </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_MUTE</B
+></TT
+></TD
+><TD
+>&#13;        		 <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per essere totalemtne silenzioso nei riguardi di
+            una funzione CURL.
+           		</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_NETRC</B
+></TT
+></TD
+><TD
+>&#13;                 <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per condurre il file <TT
+CLASS="filename"
+>~/.netrc</TT
+>
+               a trovare username e password per il sito remoto col
+               quale si stabilisce una connessione.
+          	  </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_NOBODY</B
+></TT
+></TD
+><TD
+>&#13;       			 <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> esclude il corpo dall'output.
+           	 </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_NOPROGRESS</B
+></TT
+></TD
+><TD
+>&#13;             <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per disabilitare il progress meter per trasferimetni CURL.
+             <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+                PHP automaticamente imposta questa opzione a <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> dovrebbe essere cambiata
+               solo per operazioni di debug.
+             </P
+></BLOCKQUOTE
+></DIV
+>
+            </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_NOSIGNAL</B
+></TT
+></TD
+><TD
+>&#13;                 <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per ignorare qualunque funzione CURL che causa
+             	 l'invio di un segnale a un processo PHP. Ciò è settato come default
+  	             con le multi-threaded SAPI in modo che le opzioni di timeout possano essere ancora
+  	             usate.
+  	       </TD
+><TD
+>&#13;  	          Aggiunto in CURL 7.10.
+  	         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_POST</B
+></TT
+></TD
+><TD
+>&#13;  	          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per compiere un regolare HTTP POST. Questo POST è il tipo 
+  	          normale di <VAR
+CLASS="literal"
+>application/x-www-form-urlencoded</VAR
+>,
+  	          più comunemente usata dai form HTML.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_PUT</B
+></TT
+></TD
+><TD
+>&#13;  	          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per HTTP PUT un file. Il file da  PUT deve
+  	          essere impostato con <TT
+CLASS="constant"
+><B
+>CURLOPT_INFILE</B
+></TT
+> e
+  	          <TT
+CLASS="constant"
+><B
+>CURLOPT_INFILESIZE</B
+></TT
+>.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_RETURNTRANSFER</B
+></TT
+></TD
+><TD
+>&#13;  	          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per restituire il trasferimento come una stringa del
+  	          valore restituito di <A
+HREF="function.curl-exec.html"
+><B
+CLASS="function"
+>curl_exec()</B
+></A
+> al posto di metterlo in
+  	          output direttamente.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSL_VERIFYPEER</B
+></TT
+></TD
+><TD
+>&#13;  	          <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> per fermare CURL dal verificare i certificati dei peer. 
+  	          Un certificato alternativo di verificare può essere specificato
+  	          con l'opzione <TT
+CLASS="constant"
+><B
+>CURLOPT_CAINFO</B
+></TT
+> 
+  	          o una  directory certificata può essere specificata con l'opzione
+  	          <TT
+CLASS="constant"
+><B
+>CURLOPT_CAPATH</B
+></TT
+> .
+  	          <TT
+CLASS="constant"
+><B
+>CURLOPT_SSL_VERIFYHOST</B
+></TT
+> può anche dover essere messa
+  	          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> o <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se
+  	          <TT
+CLASS="constant"
+><B
+>CURLOPT_SSL_VERIFYPEER</B
+></TT
+> è disabilitata (il
+  	          default è 2).
+  	         </TD
+><TD
+>&#13;  	          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per default nel CURL 7.10. Default bundle installed as of
+  	          CURL 7.10.
+  	         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_TRANSFERTEXT</B
+></TT
+></TD
+><TD
+>&#13;  	          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per usare la modalità ASCII per trasferimenti FTP.
+  	          Per LDAP, riporta i dati in testo iano invece che in HTML. Sui
+  	          sistemi Windows, non imposterà <VAR
+CLASS="literal"
+>STDOUT</VAR
+> alla modalità
+  	          binaria.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_UNRESTRICTED_AUTH</B
+></TT
+></TD
+><TD
+>&#13;  	          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> invia username e password
+  	          quando le seguenti locazioni (che usano
+  	          <TT
+CLASS="constant"
+><B
+>CURLOPT_FOLLOWLOCATION</B
+></TT
+>), anche quando
+  	          l'hostname è cambiato.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_UPLOAD</B
+></TT
+></TD
+><TD
+>&#13;  	          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per preparare un upload.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_VERBOSE</B
+></TT
+></TD
+><TD
+>&#13;  	          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> per inviare un'informazione di tipo verbose. Scrive
+  	          l'output su <VAR
+CLASS="literal"
+>STDERR</VAR
+>, o sul file specificato usando
+  	          <TT
+CLASS="constant"
+><B
+>CURLOPT_STDERR</B
+></TT
+>.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>  
+  	    </P
+><P
+>     
+  	    
+  	    <VAR
+CLASS="parameter"
+>value</VAR
+> dovrebbe essere un intero per i
+    	 seguenti valori del parametro <VAR
+CLASS="parameter"
+>option</VAR
+> :
+  <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN22487"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Option</TH
+><TH
+>Set <VAR
+CLASS="parameter"
+>value</VAR
+> to</TH
+><TH
+>Notes</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_BUFFERSIZE</B
+></TT
+></TD
+><TD
+>&#13;       	          La dimensione del buffer da utilizzare per ogni lettura. Non è garantito
+      	          che questa richiesta venga soddisfatta, comunque.
+             </TD
+><TD
+>&#13;     	          Aggiunto in CURL 7.10.
+      	      </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_CLOSEPOLICY</B
+></TT
+></TD
+><TD
+>&#13;     	          Anche
+             <VAR
+CLASS="parameter"
+>CURLCLOSEPOLICY_LEAST_RECENTLY_USED</VAR
+> or
+             <VAR
+CLASS="parameter"
+>CURLCLOSEPOLICY_OLDEST</VAR
+>.
+    	      Ci sono altri tre <VAR
+CLASS="literal"
+>CURLCLOSEPOLICY_</VAR
+>
+	          costanti, ma CURL non li supporta ancora.
+    	    </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_CONNECTTIMEOUT</B
+></TT
+></TD
+><TD
+>&#13;          Il numero di secondi da aspettare mentre si cerca di connettersi. Usare 0 per
+           aspettare indefinitamente.
+            </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_DNS_CACHE_TIMEOUT</B
+></TT
+></TD
+><TD
+>&#13;     	          Il numero di secondi con cui mantenere le istanze DNS in memoria.
+     	           Questa opzio è posta a 120 (2 minuti) per default.
+        	</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FTPSSLAUTH</B
+></TT
+></TD
+><TD
+>&#13;     	  Il metodo di autenticazione FTP (quando attivato):
+	          <VAR
+CLASS="literal"
+>CURLFTPAUTH_SSL</VAR
+> (cerca per primo SSL),
+       <VAR
+CLASS="literal"
+>CURLFTPAUTH_TLS</VAR
+> (cerca per primo SSL), o
+       <VAR
+CLASS="literal"
+>CURLFTPAUTH_DEFAULT</VAR
+> (lascia decidere a CURL).
+    		</TD
+><TD
+>&#13;         		 Aggiunto in CURL 7.12.2 e disponibile da PHP 5.1.0
+      	         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_HTTP_VERSION</B
+></TT
+></TD
+><TD
+>&#13;       			<VAR
+CLASS="parameter"
+>CURL_HTTP_VERSION_NONE</VAR
+> (default, lascia decidere CURL
+                 quale versione usare),
+              	<VAR
+CLASS="parameter"
+>CURL_HTTP_VERSION_1_0</VAR
+> (forza HTTP/1.0),
+              	 o <VAR
+CLASS="parameter"
+>CURL_HTTP_VERSION_1_1</VAR
+> (forza HTTP/1.1).
+              </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_HTTPAUTH</B
+></TT
+></TD
+><TD
+>&#13; 	<P
+>&#13;	           Il metodo(i) di autenticazione HTTP da usare. Le opzioni sono:
+       	            <VAR
+CLASS="parameter"
+>CURLAUTH_BASIC</VAR
+>,
+           			<VAR
+CLASS="parameter"
+>CURLAUTH_DIGEST</VAR
+>,
+       	            <VAR
+CLASS="parameter"
+>CURLAUTH_GSSNEGOTIATE</VAR
+>,
+   	          		<VAR
+CLASS="parameter"
+>CURLAUTH_NTLM</VAR
+>,
+     	            <VAR
+CLASS="parameter"
+>CURLAUTH_ANY</VAR
+>, e
+      	            <VAR
+CLASS="parameter"
+>CURLAUTH_ANYSAFE</VAR
+>.
+      </P
+>
+	  <P
+>&#13;	           Si può usre l'operatore binario <VAR
+CLASS="literal"
+>|</VAR
+> (or) per combinare
+        	   più di un metodo. In questo caso, CURL testerà il server per vedere
+               quali metodi esso supporta e sceglierà il migliore.
+       </P
+>
+       <P
+>&#13;      	           <VAR
+CLASS="parameter"
+>CURLAUTH_ANY</VAR
+> è un alias per
+        		<VAR
+CLASS="literal"
+>CURLAUTH_BASIC | CURLAUTH_DIGEST | CURLAUTH_GSSNEGOTIATE | CURLAUTH_NTLM</VAR
+>.
+       </P
+>
+       <P
+>&#13;      		   <VAR
+CLASS="parameter"
+>CURLAUTH_ANYSAFE</VAR
+> è un alias per
+                  <VAR
+CLASS="literal"
+>CURLAUTH_DIGEST | CURLAUTH_GSSNEGOTIATE | CURLAUTH_NTLM</VAR
+>.
+   	   </P
+>
+	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_INFILESIZE</B
+></TT
+></TD
+><TD
+>&#13;    			La grandezza attesa, in bytes, del file quando si invia (upload) un file a un
+    		    sito remoto.
+    		</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_LOW_SPEED_LIMIT</B
+></TT
+></TD
+><TD
+>&#13;  			    La velocità di trasferimento, in bytes al secondo, in cui la trasmissione dovrebbe stare al di sotto
+  	            durante <TT
+CLASS="constant"
+><B
+>CURLOPT_LOW_SPEED_TIME</B
+></TT
+> secondi
+  				affinchè PHP to consideri la trasmissione troppo lenta e la abortisca.
+      		</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_LOW_SPEED_TIME</B
+></TT
+></TD
+><TD
+>&#13;   				Il numero di secondi in cui il trasferimento dovrebbe stare al di sotto
+	          	<TT
+CLASS="constant"
+><B
+>CURLOPT_LOW_SPEED_LIMIT</B
+></TT
+> in modo che PHP consideri
+    			la rasmisiosne troppo lenta e la abortisca.
+	        </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_MAXCONNECTS</B
+></TT
+></TD
+><TD
+>&#13;       		  L'ammontare massimo di connessioni persistenti consentite.
+              Quando il limite è raggiunto,
+         		<TT
+CLASS="constant"
+><B
+>CURLOPT_CLOSEPOLICY</B
+></TT
+> viene usata per determinare
+            	quale connessione chiudere.
+   	        </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_MAXREDIRS</B
+></TT
+></TD
+><TD
+>&#13;      			L'ammontare massimo di redirezioni HTTP da seguire. Usare questa opzione
+       		insieme a <TT
+CLASS="constant"
+><B
+>CURLOPT_FOLLOWLOCATION</B
+></TT
+>.
+      		</TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_PORT</B
+></TT
+></TD
+><TD
+>&#13;  	          Un numero di porta alternativo a cui connettersi.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_PROXYAUTH</B
+></TT
+></TD
+><TD
+>&#13;  	         Il metodo di autenticazione HTTP da usare per la connessione al proxy.
+  	         Usare la stessa bitmask come descritto in in
+  	         <TT
+CLASS="constant"
+><B
+>CURLOPT_HTTPAUTH</B
+></TT
+>. Per l'autenticazione del proxy,
+  	         solo <VAR
+CLASS="parameter"
+>CURLAUTH_BASIC</VAR
+> e
+  	         <VAR
+CLASS="parameter"
+>CURLAUTH_NTLM</VAR
+> sono attualmente supportate.
+  	         </TD
+><TD
+>&#13;  	          Aggiunto in CURL 7.10.7 e PHP 5.1.0.
+  	         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_PROXYPORT</B
+></TT
+></TD
+><TD
+>&#13;  	          Il numero di porta del proxy alla quale connettersi. Questo numero può essere
+  	          anche impostato in <TT
+CLASS="constant"
+><B
+>CURLOPT_PROXY</B
+></TT
+>.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_PROXYTYPE</B
+></TT
+></TD
+><TD
+>&#13;  	          Anche <VAR
+CLASS="parameter"
+>CURLPROXY_HTTP</VAR
+> (default) o
+  	          <VAR
+CLASS="parameter"
+>CURLPROXY_SOCKS5</VAR
+>.
+  	         </TD
+><TD
+>&#13;  	          Aggiunto in CURL 7.10.
+  	         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_RESUME_FROM</B
+></TT
+></TD
+><TD
+>&#13;  	          L' offset, in byte, per ripristinare un trasferimento.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSL_VERIFYHOST</B
+></TT
+></TD
+><TD
+>&#13;  	          1 per verificare l'esistenza di un nome comune nel certificato 
+  	          SSL peer . 2 per verificare l'esistenza di
+  	          un nome comune e verificare inoltre che soddisfi l'hostname
+  	          fornito.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSLVERSION</B
+></TT
+></TD
+><TD
+>&#13;  	          La versione SSL (2 or 3) da usare. Per default PHP cercherà di determinare
+  	          ciò da se stesso, benchè in alcuni casi si possa impostarlo manualmente.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_TIMECONDITION</B
+></TT
+></TD
+><TD
+>&#13;  	          Come <TT
+CLASS="constant"
+><B
+>CURLOPT_TIMEVALUE</B
+></TT
+> è trattato.
+  	          Usare <VAR
+CLASS="parameter"
+>CURL_TIMECOND_IFMODSINCE</VAR
+> per restituire la
+  	          pagina solo se è stata mpdificata dalla data specificata in
+  	          <TT
+CLASS="constant"
+><B
+>CURLOPT_TIMEVALUE</B
+></TT
+>. Se non è stata modificata,
+  	          un <VAR
+CLASS="literal"
+>"304 Not Modified"</VAR
+> header sarà restituito
+  	          assumendo che <TT
+CLASS="constant"
+><B
+>CURLOPT_HEADER</B
+></TT
+> è <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>.
+  	          Usare <VAR
+CLASS="parameter"
+>CURL_TIMECOND_ISUNMODSINCE</VAR
+> per l'effetto
+  	          opposto. <VAR
+CLASS="parameter"
+>CURL_TIMECOND_IFMODSINCE</VAR
+> è il
+  	          default.
+  	         </TD
+><TD
+>&#13;  	          Aggiunto in PHP 5.1.0.
+  	         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_TIMEOUT</B
+></TT
+></TD
+><TD
+>&#13;  	          Il numero massimo di secondi per permettere alle funzioni CURL di essere eseguite.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_TIMEVALUE</B
+></TT
+></TD
+><TD
+>&#13;  	          Il tempo in secondi dal 1 Gennaio 1970. Il tempo verrà usato
+  	          da <TT
+CLASS="constant"
+><B
+>CURLOPT_TIMECONDITION</B
+></TT
+>. Per default,
+  	          <VAR
+CLASS="parameter"
+>CURL_TIMECOND_IFMODSINCE</VAR
+> è usato.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+        </P
+><P
+>&#13;	 		<VAR
+CLASS="parameter"
+>value</VAR
+> dovrebbe essere una stringa per i seguenti
+ 			valori del parametro <VAR
+CLASS="parameter"
+>option</VAR
+> :
+  	     <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN22653"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Option</TH
+><TH
+>Set <VAR
+CLASS="parameter"
+>value</VAR
+> to</TH
+><TH
+>Notes</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_CAINFO</B
+></TT
+></TD
+><TD
+>&#13;   		    Il nome di un file contenente uno o più certificati che verificano la 
+   		    parità. Ciò ha significato solo quando usato in combinazione con
+  			 <TT
+CLASS="constant"
+><B
+>CURLOPT_SSL_VERIFYPEER</B
+></TT
+>.
+  	     </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_CAPATH</B
+></TT
+></TD
+><TD
+>&#13;     		Una directory che contiene certificati multipli CA. Usare questa opzione
+            insieme a <TT
+CLASS="constant"
+><B
+>CURLOPT_SSL_VERIFYPEER</B
+></TT
+>.
+            </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_COOKIE</B
+></TT
+></TD
+><TD
+>&#13;  	          The contents of the <VAR
+CLASS="literal"
+>"Set-Cookie: "</VAR
+> header to be
+  	          used in the HTTP request.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_COOKIEFILE</B
+></TT
+></TD
+><TD
+>&#13;  	          Il nome del file che contiene i dati del cookie. Il cookie può
+  	          essere nel formato Netscape, o solo un semplice header HTTP-style allegato in un 
+  	          file.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_COOKIEJAR</B
+></TT
+></TD
+><TD
+>&#13;  	          Il nome di un file in cui salvare tutti i cookie interni finchè la 
+  	          connessione termina.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_CUSTOMREQUEST</B
+></TT
+></TD
+><TD
+>&#13;  	          Un metodo custom di richiesta da usare al posto di 
+  	          <VAR
+CLASS="literal"
+>"GET"</VAR
+> o <VAR
+CLASS="literal"
+>"HEAD"</VAR
+> quando avviene una 
+  	          richiesta HTTP. Ciò è utile per un
+  	          <VAR
+CLASS="literal"
+>"DELETE"</VAR
+> o altro, in più nasconde le richieste HTTP.
+  	          Valori validi sono termini quali <VAR
+CLASS="literal"
+>"GET"</VAR
+>,
+  	          <VAR
+CLASS="literal"
+>"POST"</VAR
+>, <VAR
+CLASS="literal"
+>"CONNECT"</VAR
+> e così via;
+  	          i.e. Non inserire un'intera riga di richieste HTTP qui. Ad esempio,
+  	          scrivere <VAR
+CLASS="literal"
+>"GET /index.html HTTP/1.0\r\n\r\n"</VAR
+>
+  	          sarebbe errato.
+  	          <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+  	            Non fare ciò senza essere sicuri che innanzitutto il vostro server supporti 
+  	            il metodo di richiesta custom.
+  	           </P
+></BLOCKQUOTE
+></DIV
+>
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_EGBSOCKET</B
+></TT
+></TD
+><TD
+>&#13;  	          Come <TT
+CLASS="constant"
+><B
+>CURLOPT_RANDOM_FILE</B
+></TT
+>, ecetto un filename
+  	          per un Entropy Gathering Daemon socket.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_ENCODING</B
+></TT
+></TD
+><TD
+>&#13;  	          I contenuti di un' <VAR
+CLASS="literal"
+>"Accept-Encoding: "</VAR
+> header.
+  	          Ciò abilita la decodifica della risposta. Termini supportati sono
+  	          <VAR
+CLASS="literal"
+>"identity"</VAR
+>, <VAR
+CLASS="literal"
+>"deflate"</VAR
+>, e
+  	          <VAR
+CLASS="literal"
+>"gzip"</VAR
+>. Se viene impostata una stringa vuota, <VAR
+CLASS="literal"
+>""</VAR
+>,
+  	          viene inviato un header contenente tutti i tipi di termini supportati.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FTPPORT</B
+></TT
+></TD
+><TD
+>&#13;  	          Il valore che verrà utilizzato per ottenere un indirizzo IP da usare
+  	          per l'istruzione FTP "POST" . L'istruzione "POST" indica
+  	          al server remoto il proprio indirizzo IP a cui connettersi. La
+  	          stringa può essere un semplice indirizzo IP, un hostname, un nome di un'interfaccia
+  	          di rete (sotto Unix), o un semplice '-' per usare l'indirizzo
+  	          Ip del sistema di default.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_INTERFACE</B
+></TT
+></TD
+><TD
+>&#13;  	          Il nome di un'interfaccia di rete di uscita da usare. Può essere
+  	          il nome di un'interfaccia, un indirizzo IP o un host name.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_KRB4LEVEL</B
+></TT
+></TD
+><TD
+>&#13;  	          Il livello di sicurezza KRB4 (Kerberos 4). Uno qualunque dei valori seguenti
+  	          (in ordine dal meno al più significativo) sono validi:
+  	          <VAR
+CLASS="literal"
+>"clear"</VAR
+>,
+  	          <VAR
+CLASS="literal"
+>"safe"</VAR
+>,
+  	          <VAR
+CLASS="literal"
+>"confidential"</VAR
+>,
+  	          <VAR
+CLASS="literal"
+>"private".</VAR
+>.
+  	          Se la stringa non corrisponde a uno di questi, si usa
+  	          <VAR
+CLASS="literal"
+>"private"</VAR
+>. Impostando questa opzione a <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>
+  	          disabilita la sicurezza KRB4. Attualmente la sicurezza KRB4 lavora solamente con 
+  	          transazioni FTP.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_POSTFIELDS</B
+></TT
+></TD
+><TD
+>&#13;  	          I dati completi da mandare in post in un'operazione HTTP "POST" .
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_PROXY</B
+></TT
+></TD
+><TD
+>&#13;  	          Il proxy HTTP in cui veicolare le richieste.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_PROXYUSERPWD</B
+></TT
+></TD
+><TD
+>&#13;  	           Username e password formattate come
+  	           <VAR
+CLASS="literal"
+>"[username]:[password]"</VAR
+> da usare per la 
+  	           connessione al proxy.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_RANDOM_FILE</B
+></TT
+></TD
+><TD
+>&#13;  	          IL nome del file da passare al generatore di numeri casuali per SSL.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_RANGE</B
+></TT
+></TD
+><TD
+>&#13;  	          Intervallo(i) di dati da ricevere nel formato
+  	          <VAR
+CLASS="literal"
+>"X-Y"</VAR
+> dove X o Y sono opzionali. I trasferimenti HTTP 
+  	          supportano inoltre svariati intervalli, separati da virgole nel formato
+  	          <VAR
+CLASS="literal"
+>"X-Y,N-M"</VAR
+>.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_REFERER</B
+></TT
+></TD
+><TD
+>&#13;  	          Il contenuto dell'header <VAR
+CLASS="literal"
+>"Referer: "</VAR
+> da usare in una
+  	          richiesta HTTP.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSL_CIPHER_LIST</B
+></TT
+></TD
+><TD
+>&#13;  	          Elenco di cifre da usare con SSL. Per esempio,
+  	          <VAR
+CLASS="literal"
+>RC4-SHA</VAR
+> e <VAR
+CLASS="literal"
+>TLSv1</VAR
+> sono elenchi 
+  	          validi di cifre.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSLCERT</B
+></TT
+></TD
+><TD
+>&#13;  	          Il nome di un file contenente un certificato PEM formattato.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSLCERTPASSWD</B
+></TT
+></TD
+><TD
+>&#13;  	          La password richiesta per usare il
+  	          <TT
+CLASS="constant"
+><B
+>CURLOPT_SSLCERT</B
+></TT
+> certificato.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSLCERTTYPE</B
+></TT
+></TD
+><TD
+>&#13;  	          Il formato del certificato. Formati ammessi sono
+  	          <VAR
+CLASS="literal"
+>"PEM"</VAR
+> (default), <VAR
+CLASS="literal"
+>"DER"</VAR
+>,
+  	          e <VAR
+CLASS="literal"
+>"ENG"</VAR
+>.
+  	         </TD
+><TD
+>&#13;  	          Aggiunto in CURL 7.9.3.
+  	         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSLENGINE</B
+></TT
+></TD
+><TD
+>&#13;  	          L' identificatore per il cripto-motore della chiave privata SSL
+  	          specificata in <TT
+CLASS="constant"
+><B
+>CURLOPT_SSLKEY</B
+></TT
+>.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSLENGINE_DEFAULT</B
+></TT
+></TD
+><TD
+>&#13;  	          L' identificatore per il motore crypto usato per cripto-operazioni 
+  	          asimmetriche.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSLKEY</B
+></TT
+></TD
+><TD
+>&#13;  	          Il nome di un file contenente una chiave privata SSL.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSLKEYPASSWD</B
+></TT
+></TD
+><TD
+>&#13;  	          La password segreta necessaria per usare la chiave privata SSL specificata in
+  	          <TT
+CLASS="constant"
+><B
+>CURLOPT_SSLKEY</B
+></TT
+>.
+  	          <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+  	            Siccome questa opzione contiene una password di tipo sensitive, bisogna ricordarsi di mantenere
+  	            lo script PHP, in cui è contenuto, sicuro.
+  	           </P
+></BLOCKQUOTE
+></DIV
+>
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_SSLKEYTYPE</B
+></TT
+></TD
+><TD
+>&#13;  	          Il tipo di chiave della chiave privata SSL specificata in
+  	          <TT
+CLASS="constant"
+><B
+>CURLOPT_SSLKEY</B
+></TT
+>. I tipi di chiavi supportate sono
+  	          <VAR
+CLASS="literal"
+>"PEM"</VAR
+> (default), <VAR
+CLASS="literal"
+>"DER"</VAR
+>,
+  	          e <VAR
+CLASS="literal"
+>"ENG"</VAR
+>.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_URL</B
+></TT
+></TD
+><TD
+>&#13;  	          L' URL da raggiungere. E' possibnile impostarla quando si inizializza
+  	          una sessione con <A
+HREF="function.curl-init.html"
+><B
+CLASS="function"
+>curl_init()</B
+></A
+>.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_USERAGENT</B
+></TT
+></TD
+><TD
+>&#13;  	          I contenuti dell'header <VAR
+CLASS="literal"
+>"User-Agent: "</VAR
+> da usare in
+  	          una richiesta HTTP.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_USERPWD</B
+></TT
+></TD
+><TD
+>&#13;  	          Username e password formattate come
+  	          <VAR
+CLASS="literal"
+>"[username]:[password]"</VAR
+> da usare per la
+  	          connessione.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  	    </P
+><P
+>&#13;  	     <VAR
+CLASS="parameter"
+>value</VAR
+> dovrebbe essere un array per i 
+  	     seguenti valori del parametro <VAR
+CLASS="parameter"
+>option</VAR
+> :
+  	     <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN22855"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Option</TH
+><TH
+>Set <VAR
+CLASS="parameter"
+>value</VAR
+> to</TH
+><TH
+>Notes</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_HTTP200ALIASES</B
+></TT
+></TD
+><TD
+>&#13;  	          Un array di 200 risposte HTTP che saranno trattate come risposte valide
+  	          e non come errori.
+  	         </TD
+><TD
+>&#13;  	          Aggiunto in CURL 7.10.3.
+  	         </TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_HTTPHEADER</B
+></TT
+></TD
+><TD
+>&#13;  	          Un array di campi di header HTTP da impostare.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_POSTQUOTE</B
+></TT
+></TD
+><TD
+>&#13;  	          Un array di comandi FTP da eseguire sul server dopo che la richiesta FTP
+  	          è stata eseguita.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_QUOTE</B
+></TT
+></TD
+><TD
+>&#13;  	          Un array di comandi FTP commands da eseguire sul server prima della richiesta
+  	          FTP.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  	    </P
+><P
+>&#13;  	     <VAR
+CLASS="parameter"
+>value</VAR
+> dovrebbe essere una risorsa di streaming (usando
+  	     <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>, per esempio) per i seguenti valori del parametro
+  	     <VAR
+CLASS="parameter"
+>option</VAR
+> :
+  	     <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN22888"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Option</TH
+><TH
+>Set <VAR
+CLASS="parameter"
+>value</VAR
+> to</TH
+><TH
+>Notes</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_FILE</B
+></TT
+></TD
+><TD
+>&#13;  	          Il file che il trasferimento dovrebbe scrivere. Il default
+  	          è <VAR
+CLASS="literal"
+>STDOUT</VAR
+> (la finestra del browser).
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_INFILE</B
+></TT
+></TD
+><TD
+>&#13;  	          Il file ce il trasferimento dovrebbe leggere quando si fa un upload.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_STDERR</B
+></TT
+></TD
+><TD
+>&#13;  	          Una locazione alternativa per gli errori di output al posto di 
+  	          <VAR
+CLASS="literal"
+>STDERR</VAR
+>.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_WRITEHEADER</B
+></TT
+></TD
+><TD
+>&#13;  	          Il file su cui viene scritto l' header parte del trasferimento.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  	    </P
+><P
+>&#13;  	     <VAR
+CLASS="parameter"
+>value</VAR
+> dovrebbe essere una stringa col nome di una funzione
+  	     di callback valida per i seguenti valori del parametro
+  	     <VAR
+CLASS="parameter"
+>option</VAR
+> :
+  	     <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN22922"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Option</TH
+><TH
+>Set <VAR
+CLASS="parameter"
+>value</VAR
+> to</TH
+><TH
+>Notes</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_HEADERFUNCTION</B
+></TT
+></TD
+><TD
+>&#13;  	          Il nome della funzione di callback la quale prende due
+  	          parametri. il primo è la risorsa CURL, il secondo è una
+  	          stringa con i dati dell'header da scrivere. Usando questa funzione di 
+  	          callback, diventa propria la responsabilità di scrivere i dati di header.
+  	          Restituisce il numero di bytes scritti.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_PASSWDFUNCTION</B
+></TT
+></TD
+><TD
+>&#13;  	          Il nome della funzione di callback che prende tre
+  	          parametri. Il primo è la risorsa CURL, il secondo è una
+  	          stringa contenente la richiesta di password e il terzo è la lunghezza
+  	          massima della password. Restituisce la stringa che contiene la password.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_READFUNCTION</B
+></TT
+></TD
+><TD
+>&#13;  	          Il nome della funzione di callback che prende due
+  	          parametri. Il primo è la risorsa CURL, e il secondo è una
+  	          stringa con i dati da leggere. Usindo questa funzione di callback, 
+  	          diventa propria la responsabilità di leggere i dati. Restituisce il numero di
+  	          bytes letti. Restituisce 0 per un segnale di <VAR
+CLASS="literal"
+>EOF</VAR
+>.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+><TR
+><TD
+><TT
+CLASS="constant"
+><B
+>CURLOPT_WRITEFUNCTION</B
+></TT
+></TD
+><TD
+>&#13;  	          Il nome della funzione di callback che prende due
+  	          parametri. Il primo è la risorsa CURL, e il secondo è una stringa
+  	          con i dati da scrivere. Usindo questa funzione di callback, 
+  	          diventa propria la responsabilità di scrivere i dati. Deve restituire l'esatto
+  	          numero di bytes scritti altrimenti fallisce.
+  	         </TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  	    </P
+><P
+>&#13;  	     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN22953"
+></A
+><P
+><B
+>Esempio 1. 
+  	       Inizializza una sessione CURL nuova e carica una pagina web
+  	      </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// crea una nuova risorsa CURL <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$ch </font><font color="#007700">= </font><font color="#0000BB">curl_init</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// imposta l'URL e altre opzioni spedifiche<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">curl_setopt</font><font color="#007700">(</font><font color="#0000BB">$ch</font><font color="#007700">, </font><font color="#0000BB">CURLOPT_URL</font><font color="#007700">, </font><font color="#DD0000">"http://www.example.com/"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">curl_setopt</font><font color="#007700">(</font><font color="#0000BB">$ch</font><font color="#007700">, </font><font color="#0000BB">CURLOPT_HEADER</font><font color="#007700">, </font><font color="#0000BB">false</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// carica l' URL e la passa al browser<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">curl_exec</font><font color="#007700">(</font><font color="#0000BB">$ch</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// chiude la risorsa CURL e rilascia le risorse di sistema<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">curl_close</font><font color="#007700">(</font><font color="#0000BB">$ch</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  	    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.curl-multi-select.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.curl-version.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>curl_multi_select</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.curl.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>curl_version</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

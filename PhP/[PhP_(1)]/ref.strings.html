@@ -1,0 +1,1275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Stringhe</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="stream_wrapper_unregister"
+HREF="function.stream-wrapper-unregister.html"><LINK
+REL="NEXT"
+TITLE="addcslashes"
+HREF="function.addcslashes.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.stream-wrapper-unregister.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.addcslashes.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.strings"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXLV. Stringhe</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN162360"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="strings.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Queste funzioni permettono di manipolare le stringhe in vari modi.
+     Ulteriori funzioni specializzate possono essere trovate nel capitolo dedicato alle espressioni regolari
+     e nel capitolo <A
+HREF="ref.url.html"
+>trattamento degli URL</A
+>.
+    </P
+><P
+>&#13;     Per dettagli su come si comportano le stringhe, in particolare a riguardo
+     l'uso degli apici singoli, doppi apici, e sequenze di escape, vedere il paragrafo
+     <A
+HREF="language.types.string.html"
+>Stringhe</A
+> nel capitolo
+     <A
+HREF="language.types.html"
+>Tipi</A
+> 
+     del manuale.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="strings.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="strings.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="string.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>CRYPT_SALT_LENGTH</B
+></TT
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CRYPT_STD_DES</B
+></TT
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CRYPT_EXT_DES</B
+></TT
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CRYPT_MD5</B
+></TT
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CRYPT_BLOWFISH</B
+></TT
+>
+     <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+></DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>HTML_SPECIALCHARS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>HTML_ENTITIES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ENT_COMPAT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ENT_QUOTES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>ENT_NOQUOTES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CHAR_MAX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LC_CTYPE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LC_NUMERIC</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LC_TIME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LC_COLLATE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LC_MONETARY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LC_ALL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>LC_MESSAGES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>STR_PAD_LEFT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>STR_PAD_RIGHT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>STR_PAD_BOTH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="strings.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     Per funzioni più potenti nel gestire e manipolare le stringhe
+     vedere anche i capitoli <A
+HREF="ref.regex.html"
+>Funzioni per espressioni regolari POSIX</A
+>
+     e <A
+HREF="ref.pcre.html"
+>Funzioni per espressioni
+     regolari compatibili Perl</A
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.addcslashes.html"
+>addcslashes</A
+>&nbsp;--&nbsp;Esegue il quoting di una stringa con gli slash nello stile del C</DT
+><DT
+><A
+HREF="function.addslashes.html"
+>addslashes</A
+>&nbsp;--&nbsp;Esegue il quoting di una stringa con gli slash '/'</DT
+><DT
+><A
+HREF="function.bin2hex.html"
+>bin2hex</A
+>&nbsp;--&nbsp;
+     Converte i dati binari nella rappresentazione esadecimale
+    </DT
+><DT
+><A
+HREF="function.chop.html"
+>chop</A
+>&nbsp;--&nbsp;Alias di di <A
+HREF="function.rtrim.html"
+><B
+CLASS="function"
+>rtrim()</B
+></A
+></DT
+><DT
+><A
+HREF="function.chr.html"
+>chr</A
+>&nbsp;--&nbsp;Restituisce un carattere specifico</DT
+><DT
+><A
+HREF="function.chunk-split.html"
+>chunk_split</A
+>&nbsp;--&nbsp;Divide una stringa in segmento più piccoli</DT
+><DT
+><A
+HREF="function.convert-cyr-string.html"
+>convert_cyr_string</A
+>&nbsp;--&nbsp;
+     Converte da un set di caratteri Cirillico ad un'altro
+    </DT
+><DT
+><A
+HREF="function.convert-uudecode.html"
+>convert_uudecode</A
+>&nbsp;--&nbsp;
+   Decodifica una stringa codificata con uuencode
+  </DT
+><DT
+><A
+HREF="function.convert-uuencode.html"
+>convert_uuencode</A
+>&nbsp;--&nbsp;
+   Codifica uuencode  di una stringa
+  </DT
+><DT
+><A
+HREF="function.count-chars.html"
+>count_chars</A
+>&nbsp;--&nbsp;
+     Restituisce informazioni sui caratteri usati in una stringa
+    </DT
+><DT
+><A
+HREF="function.crc32.html"
+>crc32</A
+>&nbsp;--&nbsp;Calcola il crc32 polinomiale di una stringa</DT
+><DT
+><A
+HREF="function.crypt.html"
+>crypt</A
+>&nbsp;--&nbsp;Criptazione di una stringa a senso unico (hashing)</DT
+><DT
+><A
+HREF="function.echo.html"
+>echo</A
+>&nbsp;--&nbsp;Visualizza una o più stringhe</DT
+><DT
+><A
+HREF="function.explode.html"
+>explode</A
+>&nbsp;--&nbsp;Suddivide una stringa</DT
+><DT
+><A
+HREF="function.fprintf.html"
+>fprintf</A
+>&nbsp;--&nbsp;Scrive una stringa formattata in uno stream</DT
+><DT
+><A
+HREF="function.get-html-translation-table.html"
+>get_html_translation_table</A
+>&nbsp;--&nbsp;
+     Restituisce la tabella di decodifica utilizzata da    
+     <A
+HREF="function.htmlspecialchars.html"
+><B
+CLASS="function"
+>htmlspecialchars()</B
+></A
+> e
+     <A
+HREF="function.htmlentities.html"
+><B
+CLASS="function"
+>htmlentities()</B
+></A
+>
+    </DT
+><DT
+><A
+HREF="function.hebrev.html"
+>hebrev</A
+>&nbsp;--&nbsp;
+     Converte il testo logico Ebraico in testo visuale
+    </DT
+><DT
+><A
+HREF="function.hebrevc.html"
+>hebrevc</A
+>&nbsp;--&nbsp;
+     Converte il testo logico Ebraico in testo visuale con conversione del carattere di 'a capo'
+    </DT
+><DT
+><A
+HREF="function.html-entity-decode.html"
+>html_entity_decode</A
+>&nbsp;--&nbsp;
+     Converte le entità HTML nei corrispondenti caratteri
+    </DT
+><DT
+><A
+HREF="function.htmlentities.html"
+>htmlentities</A
+>&nbsp;--&nbsp;
+     Converte tutti i possibili caratteri in entità HTML
+    </DT
+><DT
+><A
+HREF="function.htmlspecialchars-decode.html"
+>htmlspecialchars_decode</A
+>&nbsp;--&nbsp;
+   Convert special HTML entities back to characters
+  </DT
+><DT
+><A
+HREF="function.htmlspecialchars.html"
+>htmlspecialchars</A
+>&nbsp;--&nbsp;
+     Converte i caratteri speciali in entità HTML
+    </DT
+><DT
+><A
+HREF="function.implode.html"
+>implode</A
+>&nbsp;--&nbsp;Unisce gli elementi di una matrice in una stringa</DT
+><DT
+><A
+HREF="function.join.html"
+>join</A
+>&nbsp;--&nbsp;Alias di di <A
+HREF="function.implode.html"
+><B
+CLASS="function"
+>implode()</B
+></A
+></DT
+><DT
+><A
+HREF="function.levenshtein.html"
+>levenshtein</A
+>&nbsp;--&nbsp;
+     Calcola la distanza Levenshtein tra due stringhe
+    </DT
+><DT
+><A
+HREF="function.localeconv.html"
+>localeconv</A
+>&nbsp;--&nbsp;Ottiene informazioni sul formato numerico</DT
+><DT
+><A
+HREF="function.ltrim.html"
+>ltrim</A
+>&nbsp;--&nbsp;
+     Rimuove gli spazi (o altri caratteri) dall'inizio di una stringa
+    </DT
+><DT
+><A
+HREF="function.md5-file.html"
+>md5_file</A
+>&nbsp;--&nbsp;Calcola l'hash md5 del file dato</DT
+><DT
+><A
+HREF="function.md5.html"
+>md5</A
+>&nbsp;--&nbsp;Calcola il valore md5 di una stringa</DT
+><DT
+><A
+HREF="function.metaphone.html"
+>metaphone</A
+>&nbsp;--&nbsp;Calcola la chiave metaphone di una stringa</DT
+><DT
+><A
+HREF="function.money-format.html"
+>money_format</A
+>&nbsp;--&nbsp;Formattazione di un numero come stringa monetaria</DT
+><DT
+><A
+HREF="function.nl-langinfo.html"
+>nl_langinfo</A
+>&nbsp;--&nbsp;
+     Ricava informazioni sulla lingua e le impostazioni locali
+    </DT
+><DT
+><A
+HREF="function.nl2br.html"
+>nl2br</A
+>&nbsp;--&nbsp;
+     Inserisce il tag HTML di 'a capo' prima di tutti i caratteri di 'a capo' della stringa
+    </DT
+><DT
+><A
+HREF="function.number-format.html"
+>number_format</A
+>&nbsp;--&nbsp;Formatta un numero con i grupppi delle migliaia</DT
+><DT
+><A
+HREF="function.ord.html"
+>ord</A
+>&nbsp;--&nbsp;Restituisce il valore ASCII di un carattere</DT
+><DT
+><A
+HREF="function.parse-str.html"
+>parse_str</A
+>&nbsp;--&nbsp;Suddivide una stringa in variabili</DT
+><DT
+><A
+HREF="function.print.html"
+>print</A
+>&nbsp;--&nbsp;Visualizza una stringa</DT
+><DT
+><A
+HREF="function.printf.html"
+>printf</A
+>&nbsp;--&nbsp;Visualizza una stringa formattata</DT
+><DT
+><A
+HREF="function.quoted-printable-decode.html"
+>quoted_printable_decode</A
+>&nbsp;--&nbsp;
+     Converte una stringa 'quoted-printable' in una stringa a 8 bit
+    </DT
+><DT
+><A
+HREF="function.quotemeta.html"
+>quotemeta</A
+>&nbsp;--&nbsp;Quota i meta caratteri</DT
+><DT
+><A
+HREF="function.rtrim.html"
+>rtrim</A
+>&nbsp;--&nbsp;
+     Rimuove gli spazi (ed altri caratteri) dalla fine della stringa
+    </DT
+><DT
+><A
+HREF="function.setlocale.html"
+>setlocale</A
+>&nbsp;--&nbsp;Imposta i parametri di localizzazione</DT
+><DT
+><A
+HREF="function.sha1-file.html"
+>sha1_file</A
+>&nbsp;--&nbsp;Calcola l'hash sha1 di un file</DT
+><DT
+><A
+HREF="function.sha1.html"
+>sha1</A
+>&nbsp;--&nbsp;Calcola l'hash sha1 di una stringa</DT
+><DT
+><A
+HREF="function.similar-text.html"
+>similar_text</A
+>&nbsp;--&nbsp;
+     Calcola la similitudine tra due stringhe
+    </DT
+><DT
+><A
+HREF="function.soundex.html"
+>soundex</A
+>&nbsp;--&nbsp;Calcola la chiave soundex di una data stringa</DT
+><DT
+><A
+HREF="function.sprintf.html"
+>sprintf</A
+>&nbsp;--&nbsp;Restituisce una stringa formattata</DT
+><DT
+><A
+HREF="function.sscanf.html"
+>sscanf</A
+>&nbsp;--&nbsp;
+     Analizza l'input da una string in base al formato
+    </DT
+><DT
+><A
+HREF="function.str-ireplace.html"
+>str_ireplace</A
+>&nbsp;--&nbsp;
+     Versione insensibile alle miuscole/minuscole di <A
+HREF="function.str-replace.html"
+><B
+CLASS="function"
+>str_replace()</B
+></A
+>
+    </DT
+><DT
+><A
+HREF="function.str-pad.html"
+>str_pad</A
+>&nbsp;--&nbsp;
+     Riempie una stringa con un'altra stringa portando la prima ad una lunghezza pre-determinata
+    </DT
+><DT
+><A
+HREF="function.str-repeat.html"
+>str_repeat</A
+>&nbsp;--&nbsp;Ripete una stringa</DT
+><DT
+><A
+HREF="function.str-replace.html"
+>str_replace</A
+>&nbsp;--&nbsp;
+     Sostituisce tutte le occorrenze della stringa cercata con la stringa di sostituzione
+    </DT
+><DT
+><A
+HREF="function.str-rot13.html"
+>str_rot13</A
+>&nbsp;--&nbsp;Esegue la trasformazione rot13 di una stringa</DT
+><DT
+><A
+HREF="function.str-shuffle.html"
+>str_shuffle</A
+>&nbsp;--&nbsp;Mischia una stringa in modo casuale</DT
+><DT
+><A
+HREF="function.str-split.html"
+>str_split</A
+>&nbsp;--&nbsp;
+     Converte una stringa in una matrice
+    </DT
+><DT
+><A
+HREF="function.str-word-count.html"
+>str_word_count</A
+>&nbsp;--&nbsp;
+   Restituisce informazioni sulle parole utilizzate in una stringa
+  </DT
+><DT
+><A
+HREF="function.strcasecmp.html"
+>strcasecmp</A
+>&nbsp;--&nbsp;
+     Confronto non sensibile alle maiuscole e sicuro con i dati binari
+    </DT
+><DT
+><A
+HREF="function.strchr.html"
+>strchr</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.strstr.html"
+><B
+CLASS="function"
+>strstr()</B
+></A
+></DT
+><DT
+><A
+HREF="function.strcmp.html"
+>strcmp</A
+>&nbsp;--&nbsp;Confronto tra stringhe affidabile con dati binari</DT
+><DT
+><A
+HREF="function.strcoll.html"
+>strcoll</A
+>&nbsp;--&nbsp;Confronto tra stringhe basato sulle impostazioni locali</DT
+><DT
+><A
+HREF="function.strcspn.html"
+>strcspn</A
+>&nbsp;--&nbsp;
+     Trova la lunghezza del segmento iniziale che non soddisfa una maschera
+    </DT
+><DT
+><A
+HREF="function.strip-tags.html"
+>strip_tags</A
+>&nbsp;--&nbsp;Rimuove i tag HTML e PHP da una stringa</DT
+><DT
+><A
+HREF="function.stripcslashes.html"
+>stripcslashes</A
+>&nbsp;--&nbsp;
+     Rimuove gli slash aggiunti con <A
+HREF="function.addcslashes.html"
+><B
+CLASS="function"
+>addcslashes()</B
+></A
+>
+    </DT
+><DT
+><A
+HREF="function.stripos.html"
+>stripos</A
+>&nbsp;--&nbsp;
+     Trova la prima occorrenza in una stringa senza distinzione tra maiuscole e minuscole    
+    </DT
+><DT
+><A
+HREF="function.stripslashes.html"
+>stripslashes</A
+>&nbsp;--&nbsp;
+     Rimuove gli slash aggiunti con <A
+HREF="function.addslashes.html"
+><B
+CLASS="function"
+>addslashes()</B
+></A
+>
+    </DT
+><DT
+><A
+HREF="function.stristr.html"
+>stristr</A
+>&nbsp;--&nbsp;
+     Versione insensibile alle maiuscole/minuscole di <A
+HREF="function.strstr.html"
+><B
+CLASS="function"
+>strstr()</B
+></A
+>
+    </DT
+><DT
+><A
+HREF="function.strlen.html"
+>strlen</A
+>&nbsp;--&nbsp;Restituisce la lunghezza di una stringa</DT
+><DT
+><A
+HREF="function.strnatcasecmp.html"
+>strnatcasecmp</A
+>&nbsp;--&nbsp;
+     Versione insensibile alle maiuscole/minuscole di confronto tra stringhe tramite
+     l'algoritmo dell"ordine naturale"
+    </DT
+><DT
+><A
+HREF="function.strnatcmp.html"
+>strnatcmp</A
+>&nbsp;--&nbsp;
+     Confronto tra stringhe con l'algoritmo dell' "ordine naturale"
+    </DT
+><DT
+><A
+HREF="function.strncasecmp.html"
+>strncasecmp</A
+>&nbsp;--&nbsp;
+     Confronto sicuro con i testi binari, insensibile alle lettere
+     maiuscole/minuscole sui primi n caratteri
+    </DT
+><DT
+><A
+HREF="function.strncmp.html"
+>strncmp</A
+>&nbsp;--&nbsp;
+     Confronto tra stringhe sui primi n caratteri, sicuro con i dati binari
+    </DT
+><DT
+><A
+HREF="function.strpbrk.html"
+>strpbrk</A
+>&nbsp;--&nbsp;
+     Ricerca in una stringa uno qualsiasi dei caratteri di un dato set
+    </DT
+><DT
+><A
+HREF="function.strpos.html"
+>strpos</A
+>&nbsp;--&nbsp;
+     Trova la posizione della prima occorrenza di una stringa
+    </DT
+><DT
+><A
+HREF="function.strrchr.html"
+>strrchr</A
+>&nbsp;--&nbsp;
+     Trova l'ultima occorrenza di un carattere in una stringa
+    </DT
+><DT
+><A
+HREF="function.strrev.html"
+>strrev</A
+>&nbsp;--&nbsp;Inverte una stringa</DT
+><DT
+><A
+HREF="function.strripos.html"
+>strripos</A
+>&nbsp;--&nbsp;
+     Trova la posizione dell'ultima occorrenza di una stringa in un'altra indipendentemente dalle lettere minuscole/maiusole
+    </DT
+><DT
+><A
+HREF="function.strrpos.html"
+>strrpos</A
+>&nbsp;--&nbsp;
+     Trova la posizione dell'ultima occorrenza di un carattere in una stringa
+    </DT
+><DT
+><A
+HREF="function.strspn.html"
+>strspn</A
+>&nbsp;--&nbsp;
+     Trova la lunghezza di un testo che corrisponde alla maschera data
+    </DT
+><DT
+><A
+HREF="function.strstr.html"
+>strstr</A
+>&nbsp;--&nbsp;Trova la prima occorrenza di una stringa</DT
+><DT
+><A
+HREF="function.strtok.html"
+>strtok</A
+>&nbsp;--&nbsp;Suddivide una stringa in token</DT
+><DT
+><A
+HREF="function.strtolower.html"
+>strtolower</A
+>&nbsp;--&nbsp;Converte in minuscolo una stringa</DT
+><DT
+><A
+HREF="function.strtoupper.html"
+>strtoupper</A
+>&nbsp;--&nbsp;Converte in maiuscolo una stringa</DT
+><DT
+><A
+HREF="function.strtr.html"
+>strtr</A
+>&nbsp;--&nbsp;Traduce certi caratteri</DT
+><DT
+><A
+HREF="function.substr-compare.html"
+>substr_compare</A
+>&nbsp;--&nbsp;
+     Confronto tra due stringhe a partire da una data posizione per n caratteri, sicuro con i dati binari e, opzionalmente, senza distinguere tra lettere maiuscole e minuscole
+    </DT
+><DT
+><A
+HREF="function.substr-count.html"
+>substr_count</A
+>&nbsp;--&nbsp;Conta il numero di occorrenze di un segmento di stringa</DT
+><DT
+><A
+HREF="function.substr-replace.html"
+>substr_replace</A
+>&nbsp;--&nbsp;Sostuisce una porzione di testo</DT
+><DT
+><A
+HREF="function.substr.html"
+>substr</A
+>&nbsp;--&nbsp;Restituisce parte di una stringa</DT
+><DT
+><A
+HREF="function.trim.html"
+>trim</A
+>&nbsp;--&nbsp;Rimuove gli spazi (ed altri caratteri) all'inizio e alla fine di un testo</DT
+><DT
+><A
+HREF="function.ucfirst.html"
+>ucfirst</A
+>&nbsp;--&nbsp;Converte in maiuscolo il primo carattere del testo</DT
+><DT
+><A
+HREF="function.ucwords.html"
+>ucwords</A
+>&nbsp;--&nbsp;
+     Converte in maiuscolo il primo carattere di ogni parola di una stringa
+    </DT
+><DT
+><A
+HREF="function.vfprintf.html"
+>vfprintf</A
+>&nbsp;--&nbsp;Scrive una stringa formatta in un flusso</DT
+><DT
+><A
+HREF="function.vprintf.html"
+>vprintf</A
+>&nbsp;--&nbsp;Visualizza una stringa formattata</DT
+><DT
+><A
+HREF="function.vsprintf.html"
+>vsprintf</A
+>&nbsp;--&nbsp;Restituisce una stringa formattata</DT
+><DT
+><A
+HREF="function.wordwrap.html"
+>wordwrap</A
+>&nbsp;--&nbsp;
+     Divide una stringa ad un certo numero di caratteri utilizzando
+     il carattere di divisione
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.stream-wrapper-unregister.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.addcslashes.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>stream_wrapper_unregister</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>addcslashes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

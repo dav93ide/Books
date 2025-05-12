@@ -1,0 +1,1290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni relative ai Socket</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="use_soap_error_handler"
+HREF="function.use-soap-error-handler.html"><LINK
+REL="NEXT"
+TITLE="socket_accept"
+HREF="function.socket-accept.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.use-soap-error-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.socket-accept.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.sockets"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXXXIX. Funzioni relative ai Socket</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN153554"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sockets.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Questa estensione implementa una interfaccia a basso livello
+     verso i socket, fornendo la possibilità di agire sia come
+     server sia come client.
+    </P
+><P
+>&#13;     Per un esempio di una interfaccia generica lato client, 
+     vedere <A
+HREF="function.stream-socket-client.html"
+><B
+CLASS="function"
+>stream_socket_client()</B
+></A
+>,
+     <A
+HREF="function.stream-socket-server.html"
+><B
+CLASS="function"
+>stream_socket_server()</B
+></A
+>,
+     <A
+HREF="function.fsockopen.html"
+><B
+CLASS="function"
+>fsockopen()</B
+></A
+> e
+     <A
+HREF="function.pfsockopen.html"
+><B
+CLASS="function"
+>pfsockopen()</B
+></A
+>.
+    </P
+><P
+>&#13;     Per l'utilizzo di queste funzioni, è importante ricordare che
+     molte di esse hanno il medesimo nome della loro controparte in C,
+     ma spesso hanno dichiarazioni differenti. Ricordarsi di leggere
+     la descrizione per evitare confusione.
+    </P
+><P
+>&#13;     Per chi non ha familiarità con la programmazione dei socket, può 
+     trovare utili informazioni nelle pagine del manuale di Unix, ed inoltre
+     sul web si può trovare diversi tutorial sulla programmazione
+     dei socket in C, molti dei quali possono essere utilizzati, con
+     lievi modifiche, nella programmazione dei socket in PHP. Il link <A
+HREF="http://www.developerweb.net/sock-faq/"
+TARGET="_top"
+>Unix Socket
+     FAQ</A
+> può essere un buon punto di partenza.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questo modulo è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di queste
+funzioni, i nomi di queste funzioni, in definitiva tutto ciò 
+che è documentato qui può cambiare nei futuri rilasci 
+del PHP senza preavviso. Siete avvisati, l'uso di questo modulo 
+è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sockets.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sockets.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Le funzioni relative ai socket qui descritte sono parte di una
+  estensione del PHP che occorre abilitare durante la fase di compila 
+  usando l'opzione <VAR
+CLASS="option"
+>--enable-sockets</VAR
+>
+  del comando <B
+CLASS="command"
+>configure</B
+>.
+ </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Il supporto all'IPv6 è stato aggiunto in PHP 5.0.0.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sockets.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sockets.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sockets.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>AF_UNIX</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AF_INET</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>AF_INET6</B
+></TT
+>
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOCK_STREAM</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOCK_DGRAM</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOCK_RAW</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOCK_SEQPACKET</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOCK_RDM</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>MSG_OOB</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>MSG_WAITALL</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>MSG_PEEK</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>MSG_DONTROUTE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_DEBUG</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_REUSEADDR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_KEEPALIVE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_DONTROUTE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_LINGER</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_BROADCAST</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_OOBINLINE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_SNDBUF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_RCVBUF</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_SNDLOWAT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_RCVLOWAT</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_SNDTIMEO</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_RCVTIMEO</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_TYPE</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SO_ERROR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOL_SOCKET</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PHP_NORMAL_READ</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>PHP_BINARY_READ</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOL_TCP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SOL_UDP</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sockets.errors"
+>Errori dei socket</A
+></H1
+><P
+>&#13;     L'estensione dei socket è stata scritta per fornire una pratica interfaccia
+     ai potenti socket BSD. Si noti che le funzioni girano correttamente
+     sia su sistemi Unix sia su sistemi Win32. Quasi tutte le funzioni dei socket
+     possono fallire in certe situazioni e quindi generare un messaggio di tipo
+     <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+> per descrivere l'errore. Qualche volta 
+     ciò non accade secondo le aspettative dello sviluppatore. Ad esempio la funzione
+     <A
+HREF="function.socket-read.html"
+><B
+CLASS="function"
+>socket_read()</B
+></A
+> improvvisamente può generare un messaggio di 
+     <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+> a causa di una interruzione inaspettata della
+     connessione. E' prassi comune sopprimere i messaggi di warning con l'operatore
+     <VAR
+CLASS="literal"
+>@</VAR
+> ed intercettare il codice dell'errore utilizzando
+     la funzione <A
+HREF="function.socket-last-error.html"
+><B
+CLASS="function"
+>socket_last_error()</B
+></A
+>. Si può anche richiamare
+     la funzione <A
+HREF="function.socket-strerror.html"
+><B
+CLASS="function"
+>socket_strerror()</B
+></A
+> con questo codice di errore
+     per avere un testo descrittivo del problema. Per maggiori dettagli vedere la descrizione
+     delle funzioni.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      I messaggi <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+> generati dal modulo dei
+      socket sono in inglese, mentre i messaggi di errore recuperati dipendono
+      dalle correnti impostazioni locali (<TT
+CLASS="constant"
+><B
+>LC_MESSAGES</B
+></TT
+>):
+      <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+Warning - socket_bind() unable to bind address [98]: Die Adresse wird bereits verwendet</font>
+</code></TD
+></TR
+></TABLE
+>
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="sockets.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN153799"
+></A
+><P
+><B
+>Esempio 1. Esempio di programma con i socket: semplice server TCP/IP</B
+></P
+><P
+>&#13;       Questo esempio illustra un semplice server. Occorre modificare
+       le variabili <VAR
+CLASS="varname"
+>address</VAR
+> e <VAR
+CLASS="varname"
+>port</VAR
+>
+       per adeguarle ai parametri della macchina su cui sarà eseguito.  Ci si può
+       connettere al server con un comando simile a <B
+CLASS="command"
+>telnet 192.168.1.53
+       10000</B
+> (dove l'indirizzo e la porta devono essere uguali a quanto
+       indicato nel setup). Qualsiasi lettera sarà digitata, verrà visualizzata sul server
+       e sul client. Per disconnettersi, digitare 'quit'.
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+#!/usr/local/bin/php -q<br /><font color="#0000BB">&lt;?php<br />error_reporting</font><font color="#007700">(</font><font color="#0000BB">E_ALL</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Si indica allo script di non uscire mentre attende una connessione */<br /></font><font color="#0000BB">set_time_limit</font><font color="#007700">(</font><font color="#0000BB">0</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Abilita lo scarico dell'output così si è in grado di vedere cosa passa<br /> * non appena arrivano i dati al server. */<br /></font><font color="#0000BB">ob_implicit_flush</font><font color="#007700">();<br /><br /></font><font color="#0000BB">$address </font><font color="#007700">= </font><font color="#DD0000">'192.168.1.53'</font><font color="#007700">;<br /></font><font color="#0000BB">$port </font><font color="#007700">= </font><font color="#0000BB">10000</font><font color="#007700">;<br /><br />if ((</font><font color="#0000BB">$sock </font><font color="#007700">= </font><font color="#0000BB">socket_create</font><font color="#007700">(</font><font color="#0000BB">AF_INET</font><font color="#007700">, </font><font color="#0000BB">SOCK_STREAM</font><font color="#007700">, </font><font color="#0000BB">SOL_TCP</font><font color="#007700">)) &lt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"socket_create() fallito: motivo: " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">$sock</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /><br />if ((</font><font color="#0000BB">$ret </font><font color="#007700">= </font><font color="#0000BB">socket_bind</font><font color="#007700">(</font><font color="#0000BB">$sock</font><font color="#007700">, </font><font color="#0000BB">$address</font><font color="#007700">, </font><font color="#0000BB">$port</font><font color="#007700">)) &lt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"socket_bind() fallito: motivo: " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">$ret</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /><br />if ((</font><font color="#0000BB">$ret </font><font color="#007700">= </font><font color="#0000BB">socket_listen</font><font color="#007700">(</font><font color="#0000BB">$sock</font><font color="#007700">, </font><font color="#0000BB">5</font><font color="#007700">)) &lt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"socket_listen() fallito: motivo: " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">$ret</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />}<br /><br />do {<br />&nbsp;&nbsp;&nbsp;&nbsp;if ((</font><font color="#0000BB">$msgsock </font><font color="#007700">= </font><font color="#0000BB">socket_accept</font><font color="#007700">(</font><font color="#0000BB">$sock</font><font color="#007700">)) &lt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"socket_accept() fallito: motivo: " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror </font><font color="#007700">(</font><font color="#0000BB">$msgsock</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* Invio delle istruzioni */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$msg </font><font color="#007700">= </font><font color="#DD0000">"\nBenvenuti al server di test in PHP. \n" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"Per uscire, digitare 'quit'. Per chiudere il server digitare 'shutdown'.\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">socket_write</font><font color="#007700">(</font><font color="#0000BB">$msgsock</font><font color="#007700">, </font><font color="#0000BB">$msg</font><font color="#007700">, </font><font color="#0000BB">strlen</font><font color="#007700">(</font><font color="#0000BB">$msg</font><font color="#007700">));<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;do {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">FALSE </font><font color="#007700">=== (</font><font color="#0000BB">$buf </font><font color="#007700">= </font><font color="#0000BB">socket_read</font><font color="#007700">(</font><font color="#0000BB">$msgsock</font><font color="#007700">, </font><font color="#0000BB">2048</font><font color="#007700">, </font><font color="#0000BB">PHP_NORMAL_READ</font><font color="#007700">))) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"socket_read() fallito: motivo: " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">$ret</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break </font><font color="#0000BB">2</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">$buf </font><font color="#007700">= </font><font color="#0000BB">trim</font><font color="#007700">(</font><font color="#0000BB">$buf</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$buf </font><font color="#007700">== </font><font color="#DD0000">'quit'</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$buf </font><font color="#007700">== </font><font color="#DD0000">'shutdown'</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">socket_close</font><font color="#007700">(</font><font color="#0000BB">$msgsock</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break </font><font color="#0000BB">2</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$talkback </font><font color="#007700">= </font><font color="#DD0000">"PHP: Testo scritto '$buf'.</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">socket_write</font><font color="#007700">(</font><font color="#0000BB">$msgsock</font><font color="#007700">, </font><font color="#0000BB">$talkback</font><font color="#007700">, </font><font color="#0000BB">strlen $talkback</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"$buf</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;} while (</font><font color="#0000BB">true</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">socket_close</font><font color="#007700">(</font><font color="#0000BB">$msgsock</font><font color="#007700">);<br />} while (</font><font color="#0000BB">true</font><font color="#007700">);<br /><br /></font><font color="#0000BB">socket_close</font><font color="#007700">(</font><font color="#0000BB">$sock</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN153807"
+></A
+><P
+><B
+>Esempio 2. Esempio di programma con i socket: semplice client TCP/IP</B
+></P
+><P
+>&#13;       In questo esempio sarà illustrato un semplice client HTTP. Questo,
+       molto semplicemente, si collega ad un server, invia una richiesta HEAD,
+       visualizza la risposta ed esce.
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />error_reporting</font><font color="#007700">(</font><font color="#0000BB">E_ALL</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"&lt;h2&gt;Connessione TCP/IP &lt;/h2&gt;\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Ottiene la porta per il servizio WWW. */<br /></font><font color="#0000BB">$service_port </font><font color="#007700">= </font><font color="#0000BB">getservbyname</font><font color="#007700">(</font><font color="#DD0000">'www'</font><font color="#007700">, </font><font color="#DD0000">'tcp'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Ottiene l'indirizzo IP per il server cercato. */<br /></font><font color="#0000BB">$address </font><font color="#007700">= </font><font color="#0000BB">gethostbyname</font><font color="#007700">(</font><font color="#DD0000">'www.php.net'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">/* Crea un socket TCP/IP. */<br /></font><font color="#0000BB">$socket </font><font color="#007700">= </font><font color="#0000BB">socket_create</font><font color="#007700">(</font><font color="#0000BB">AF_INET</font><font color="#007700">, </font><font color="#0000BB">SOCK_STREAM</font><font color="#007700">, </font><font color="#0000BB">SOL_TCP</font><font color="#007700">);<br />if (</font><font color="#0000BB">$socket </font><font color="#007700">&lt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"socket_create() fallito: motivo: " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"OK.\n"</font><font color="#007700">;<br />}<br /><br />echo </font><font color="#DD0000">"Tentativo di connessione a '$address' sulla porta '$service_port'..."</font><font color="#007700">;<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">socket_connect</font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">, </font><font color="#0000BB">$address</font><font color="#007700">, </font><font color="#0000BB">$service_port</font><font color="#007700">);<br />if (</font><font color="#0000BB">$result </font><font color="#007700">&lt; </font><font color="#0000BB">0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"socket_connect() fallito.</font><font color="#007700">\n</font><font color="#DD0000">Motivo: ($result) " </font><font color="#007700">. </font><font color="#0000BB">socket_strerror</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"OK.\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">$in </font><font color="#007700">= </font><font color="#DD0000">"HEAD / HTTP/1.1\r\n"</font><font color="#007700">; <br /></font><font color="#0000BB">$in </font><font color="#007700">.= </font><font color="#DD0000">"Host: www.example.com\r\n"</font><font color="#007700">; <br /></font><font color="#0000BB">$in </font><font color="#007700">.= </font><font color="#DD0000">"Connection: Close\r\n\r\n"</font><font color="#007700">;<br /></font><font color="#0000BB">$out </font><font color="#007700">= </font><font color="#DD0000">''</font><font color="#007700">;<br /><br />echo </font><font color="#DD0000">"Invio HTTP HEAD..."</font><font color="#007700">;<br /></font><font color="#0000BB">socket_write</font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">, </font><font color="#0000BB">$in</font><font color="#007700">, </font><font color="#0000BB">strlen </font><font color="#007700">(</font><font color="#0000BB">$in</font><font color="#007700">));<br />echo </font><font color="#DD0000">"OK.\n"</font><font color="#007700">;<br /><br />echo </font><font color="#DD0000">"Lettura della risposta:\n\n"</font><font color="#007700">;<br />while (</font><font color="#0000BB">$out </font><font color="#007700">= </font><font color="#0000BB">socket_read</font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">, </font><font color="#0000BB">2048</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$out</font><font color="#007700">;<br />}<br /><br />echo </font><font color="#DD0000">"Chiusura del socket..."</font><font color="#007700">;<br /></font><font color="#0000BB">socket_close</font><font color="#007700">(</font><font color="#0000BB">$socket</font><font color="#007700">);<br />echo </font><font color="#DD0000">"OK.\n\n"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.socket-accept.html"
+>socket_accept</A
+>&nbsp;--&nbsp;Accetta una connessione su un socket</DT
+><DT
+><A
+HREF="function.socket-bind.html"
+>socket_bind</A
+>&nbsp;--&nbsp;Bind di un nome ad un socket</DT
+><DT
+><A
+HREF="function.socket-clear-error.html"
+>socket_clear_error</A
+>&nbsp;--&nbsp;Azzera gli erorri di un socket, oppure l'ultimo codice d'errore</DT
+><DT
+><A
+HREF="function.socket-close.html"
+>socket_close</A
+>&nbsp;--&nbsp;Chiude una risorsa di tipo socket</DT
+><DT
+><A
+HREF="function.socket-connect.html"
+>socket_connect</A
+>&nbsp;--&nbsp;Inizia una connessione su un socket</DT
+><DT
+><A
+HREF="function.socket-create-listen.html"
+>socket_create_listen</A
+>&nbsp;--&nbsp;Apre un socket per accettare connessioni su una porta</DT
+><DT
+><A
+HREF="function.socket-create-pair.html"
+>socket_create_pair</A
+>&nbsp;--&nbsp;Crea una coppia di socket non distinguibili e li memorizza in una matrice</DT
+><DT
+><A
+HREF="function.socket-create.html"
+>socket_create</A
+>&nbsp;--&nbsp;Crea un socket (punto terminale di una comunicazione).</DT
+><DT
+><A
+HREF="function.socket-get-option.html"
+>socket_get_option</A
+>&nbsp;--&nbsp;Ottiene le opzioni per un socket</DT
+><DT
+><A
+HREF="function.socket-getpeername.html"
+>socket_getpeername</A
+>&nbsp;--&nbsp;
+     Interroga il lato remoto di un dato socket per ottenere o la combinazione host/porta
+     od un percorso Unix, in base al tipo di socket
+    </DT
+><DT
+><A
+HREF="function.socket-getsockname.html"
+>socket_getsockname</A
+>&nbsp;--&nbsp;
+     Interroga il lato locale di un dato socket e restituisce o la combinazione host/porta
+     oppure un percorso Unix in base al tipo di socket
+    </DT
+><DT
+><A
+HREF="function.socket-last-error.html"
+>socket_last_error</A
+>&nbsp;--&nbsp;Restituisce l'ultimo errore su un socket. </DT
+><DT
+><A
+HREF="function.socket-listen.html"
+>socket_listen</A
+>&nbsp;--&nbsp;Attende una richiesta di connessione su un socket</DT
+><DT
+><A
+HREF="function.socket-read.html"
+>socket_read</A
+>&nbsp;--&nbsp;Legge fino ad un massimo di byte predefiniti da un socket</DT
+><DT
+><A
+HREF="function.socket-recv.html"
+>socket_recv</A
+>&nbsp;--&nbsp;Riceve i dati da un socket collegato </DT
+><DT
+><A
+HREF="function.socket-recvfrom.html"
+>socket_recvfrom</A
+>&nbsp;--&nbsp;Riceve i dati da un socket, che sia connesso o meno </DT
+><DT
+><A
+HREF="function.socket-select.html"
+>socket_select</A
+>&nbsp;--&nbsp;
+       Esegue la system call select() su un set di socket con un dato timeout 
+    </DT
+><DT
+><A
+HREF="function.socket-send.html"
+>socket_send</A
+>&nbsp;--&nbsp;Invia i dati ad un socket collegato </DT
+><DT
+><A
+HREF="function.socket-sendto.html"
+>socket_sendto</A
+>&nbsp;--&nbsp;Invia un messaggio ad un socket, a prescindere che sia connesso o meno </DT
+><DT
+><A
+HREF="function.socket-set-block.html"
+>socket_set_block</A
+>&nbsp;--&nbsp;
+     Sets blocking mode on a socket resource
+    </DT
+><DT
+><A
+HREF="function.socket-set-nonblock.html"
+>socket_set_nonblock</A
+>&nbsp;--&nbsp;Attiva la modalità "nonblocking" per il descrittore di file fd</DT
+><DT
+><A
+HREF="function.socket-set-option.html"
+>socket_set_option</A
+>&nbsp;--&nbsp;Valorizza le opzioni per un socket</DT
+><DT
+><A
+HREF="function.socket-shutdown.html"
+>socket_shutdown</A
+>&nbsp;--&nbsp;Chiude un socket in ricezione, in invio o in entrambi i sensi</DT
+><DT
+><A
+HREF="function.socket-strerror.html"
+>socket_strerror</A
+>&nbsp;--&nbsp;Restituisce una stringa con la descrizione dell'errore.</DT
+><DT
+><A
+HREF="function.socket-write.html"
+>socket_write</A
+>&nbsp;--&nbsp;Scrive su un socket.</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.use-soap-error-handler.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.socket-accept.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>use_soap_error_handler</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>socket_accept</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

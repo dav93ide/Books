@@ -1,0 +1,474 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni di Crack</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="variant_xor"
+HREF="function.variant-xor.html"><LINK
+REL="NEXT"
+TITLE="crack_check"
+HREF="function.crack-check.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.variant-xor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.crack-check.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.crack"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XVI. Funzioni di Crack</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN19881"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="crack.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Queste funzioni permettono di usare la libreria CrackLib per testare la 'forza'
+     di una password. La 'forza' di una password è testata attraverso un
+     controllo sulla lunghezza, sull'uso di maiuscole e minuscole ed un controllo
+     attraverso lo specifico dizionario di CrackLib. CrackLib darà anche utili messaggi
+     diagnostici che aiuteranno nel 'rafforzare' la password.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questo modulo è stato spostato nel repository <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> e non sarà più rilascio con il
+PHP dalla versione 5.0.0.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="crack.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Maggiori informazioni riguardo CrackLib possono essere trovate, insieme alla libreria, a
+     <A
+HREF="http://www.crypticide.com/users/alecm/"
+TARGET="_top"
+>http://www.crypticide.com/users/alecm/</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="crack.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  This <A
+HREF="http://pecl.php.net"
+TARGET="_top"
+>PECL</A
+> extension
+is not bundled with PHP.
+  Additional information such as new releases,
+downloads, source files, maintainer information, and a CHANGELOG, can be
+located here: 
+  <A
+HREF="http://pecl.php.net/package/crack"
+TARGET="_top"
+>http://pecl.php.net/package/crack</A
+>.
+ </P
+><P
+>&#13;  In PHP 4 this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> extensions
+source can be found in the <TT
+CLASS="filename"
+>ext/</TT
+> directory within the
+PHP source or at the <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+> link above.
+  Per potere utilizzare queste funzioni, occorre compilare il PHP con il 
+  supporto per Crack utilizzando
+  <VAR
+CLASS="option"
+>--with-crack[=DIR]</VAR
+> option.
+ </P
+><P
+>&#13;  Gli utenti di Windows dovranno abilitare <TT
+CLASS="filename"
+>php_crack.dll</TT
+> nel
+  <TT
+CLASS="filename"
+>php.ini</TT
+> per potere utilizzare queste funzioni.
+  In PHP 4 this <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> resides in
+the <TT
+CLASS="filename"
+>extensions/</TT
+> directory within the PHP Windows
+binaries download.
+  You may download this <ACRONYM
+CLASS="acronym"
+>PECL</ACRONYM
+>
+extension <ACRONYM
+CLASS="acronym"
+>DLL</ACRONYM
+> from the <A
+HREF="http://www.php.net/downloads.php"
+TARGET="_top"
+>&#13;PHP Downloads</A
+> page or at <A
+HREF="http://snaps.php.net/"
+TARGET="_top"
+>&#13;http://snaps.php.net/</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="crack.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13; <DIV
+CLASS="table"
+><A
+NAME="AEN19916"
+></A
+><P
+><B
+>Tabella 1. Opzioni di configurazione per Crack</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Default</TH
+><TH
+>Modificabile</TH
+><TH
+>Log modifiche</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>crack.default_dictionary</TD
+><TD
+>NULL</TD
+><TD
+>PHP_INI_SYSTEM</TD
+><TD
+>Disponibile da PHP 4.0.5.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+ Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="crack.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="crack.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="crack.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     Questo esempio mostra come aprire un dizionario di CrackLib, testare una
+     determinata password, recuperare ogni messaggio diagnostico e chiudere il dizionario.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN19941"
+></A
+><P
+><B
+>Esempio 1. Esempio di CrackLib</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Apre il dizionario di CrackLib<br /></font><font color="#0000BB">$dizionario </font><font color="#007700">= </font><font color="#0000BB">crack_opendict</font><font color="#007700">(</font><font color="#DD0000">'/usr/local/lib/pw_dict'</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">'Incapace di aprire il dizionario di CrackLib'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Esegue il controllo della password<br /></font><font color="#0000BB">$controllo </font><font color="#007700">= </font><font color="#0000BB">controllo_crack</font><font color="#007700">(</font><font color="#0000BB">$dizionario</font><font color="#007700">, </font><font color="#DD0000">'gx9A2s0x'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Recupera i messaggi<br /></font><font color="#0000BB">$messaggio </font><font color="#007700">= </font><font color="#0000BB">crack_getlastmessage</font><font color="#007700">();<br />echo </font><font color="#0000BB">$messaggio</font><font color="#007700">; </font><font color="#FF8000">// 'password forte'<br /><br />// Chiude il dizionario<br /></font><font color="#0000BB">crack_closedict</font><font color="#007700">(</font><font color="#0000BB">$dizionario</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Se <A
+HREF="function.crack-check.html"
+><B
+CLASS="function"
+>crack_check()</B
+></A
+> restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>,
+      <A
+HREF="function.crack-getlastmessage.html"
+><B
+CLASS="function"
+>crack_getlastmessage()</B
+></A
+> restituirà 'password forte'.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.crack-check.html"
+>crack_check</A
+>&nbsp;--&nbsp;Effettua un controllo nascosto con la password data</DT
+><DT
+><A
+HREF="function.crack-closedict.html"
+>crack_closedict</A
+>&nbsp;--&nbsp;Chiude un dizionario di CrackLib aperto </DT
+><DT
+><A
+HREF="function.crack-getlastmessage.html"
+>crack_getlastmessage</A
+>&nbsp;--&nbsp;Restituisce il messaggio dell'ultimo controllo nascosto</DT
+><DT
+><A
+HREF="function.crack-opendict.html"
+>crack_opendict</A
+>&nbsp;--&nbsp;Apre un nuovo dizionario di CrackLib</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.variant-xor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.crack-check.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>variant_xor</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>crack_check</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

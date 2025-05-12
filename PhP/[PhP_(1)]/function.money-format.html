@@ -1,0 +1,629 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>money_format</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="metaphone"
+HREF="function.metaphone.html"><LINK
+REL="NEXT"
+TITLE="nl_langinfo"
+HREF="function.nl-langinfo.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.metaphone.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.nl-langinfo.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.money-format"
+></A
+>money_format</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN163892"
+></A
+><P
+>    (PHP 4 &#62;= 4.3.0, PHP 5)</P
+>money_format&nbsp;--&nbsp;Formattazione di un numero come stringa monetaria</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN163895"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>money_format</B
+> ( string format, float number )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>money_format()</B
+> restituisce una versione formattata di 
+     <VAR
+CLASS="parameter"
+>number</VAR
+>.  Questa funzione è un'interfaccia alla funzione C
+     <B
+CLASS="function"
+>strfmon()</B
+>, con la differenza che questa funzione
+     converte un solo numero alla volta.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      La funzione <B
+CLASS="function"
+>money_format()</B
+> esiste solo se il
+      sistema suppporta strfmon. Ad esempio, Windows non lo supporta
+      perciò la funzione <B
+CLASS="function"
+>money_format()</B
+> non è definita su Windows.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     LA specifica del formato consiste nella seguente sequenza:
+     <P
+></P
+><UL
+><LI
+><P
+>un carattere <VAR
+CLASS="literal"
+>%</VAR
+></P
+></LI
+><LI
+><P
+>un flag opzionale flags</P
+></LI
+><LI
+><P
+>la lunghezza del campo, opzionale</P
+></LI
+><LI
+><P
+>la precisione a sinistra, opzionale</P
+></LI
+><LI
+><P
+>la precisione a destra, opzionale</P
+></LI
+><LI
+><P
+>un carattere di conversione, obbligatorio</P
+></LI
+></UL
+>
+    </P
+><DIV
+CLASS="formalpara"
+><P
+><B
+>Flag. </B
+>
+      Si possono utilizzare uno o più dei seguenti flag:
+      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="literal"
+>=</VAR
+><VAR
+CLASS="replaceable"
+>f</VAR
+></DT
+><DD
+><P
+>&#13;          Il carattere <VAR
+CLASS="literal"
+>=</VAR
+> seguito da un singolo carattere (singolo byte)
+          <VAR
+CLASS="replaceable"
+>f</VAR
+> è utilizzato come carattere di riempimento numerico.
+          Il carattere di default è lo spazio.
+         </P
+></DD
+><DT
+><VAR
+CLASS="literal"
+>^</VAR
+></DT
+><DD
+><P
+>&#13;          Disabilita l'utilizzo del raggruppamento dei caratetrei (come definito
+          nelle impostazioni locali).
+         </P
+></DD
+><DT
+><VAR
+CLASS="literal"
+>+</VAR
+> oppure <VAR
+CLASS="literal"
+>(</VAR
+></DT
+><DD
+><P
+>&#13;          Specifica lo stile di formattazione per i numeri positivi e negativi.
+          Se si utilizza <VAR
+CLASS="literal"
+>+</VAR
+>, sarà utilizzato l'equivalente valore locale per
+          <VAR
+CLASS="literal"
+>+</VAR
+> e <VAR
+CLASS="literal"
+>-</VAR
+>. Se si utilizza
+          <VAR
+CLASS="literal"
+>(</VAR
+>, i valori negativi saranno racchiusi tra 
+          parentesi. Se non si da specifica, il default è
+          <VAR
+CLASS="literal"
+>+</VAR
+>.
+         </P
+></DD
+><DT
+><VAR
+CLASS="literal"
+>!</VAR
+></DT
+><DD
+><P
+>&#13;          Sopprime il simbolo della moneta nella stringa di output.
+         </P
+></DD
+><DT
+><VAR
+CLASS="literal"
+>-</VAR
+></DT
+><DD
+><P
+>&#13;          Se presente, rende tutti i campi giustificati a sinistra (riempiti a
+          a destra), il default prevede i campi allineati a destra
+          (riempiti a sinistra).
+         </P
+></DD
+></DL
+></DIV
+>
+     </P
+></DIV
+><DIV
+CLASS="formalpara"
+><P
+><B
+>Dimensioni del campo. </B
+>
+      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="replaceable"
+>w</VAR
+></DT
+><DD
+><P
+>&#13;          Una stringa numerica che specifica la lunghezza minima del campo. Il campo sarà
+          allineato a destra a meno di non avere impostato il flag <VAR
+CLASS="literal"
+>-</VAR
+>.
+          Il valore di default è 0 (zero).
+         </P
+></DD
+></DL
+></DIV
+>
+     </P
+></DIV
+><DIV
+CLASS="formalpara"
+><P
+><B
+>Precisione a sinistra. </B
+>
+      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="literal"
+>#</VAR
+><VAR
+CLASS="replaceable"
+>n</VAR
+></DT
+><DD
+><P
+>&#13;          Sono attesi un numero massimo di (<VAR
+CLASS="replaceable"
+>n</VAR
+>) numeri
+          a sinistra del carattere decimale (es. il punto decimale). Solitamente si utilizza
+          per mantenere allineato l'output nella medesima colonna, utilizzando
+          il carattere di riempimento, se il numero delle cifre è inferiore a
+          <VAR
+CLASS="replaceable"
+>n</VAR
+>. Se il numero delle cifre è superiore
+          a <VAR
+CLASS="replaceable"
+>n</VAR
+>, questa specifica viene
+          ignorata.
+         </P
+><P
+>&#13;          Se il raggruppamento delle cifre non è soppresso tramite <VAR
+CLASS="literal"
+>^</VAR
+>,
+          saranno inseriti i separatori di raggruppamento prima dei caratteri
+          di riempimento (se presenti). I separatori di gruppo non saranno applicati
+          ai caratteri di riempimento, anche se il carattere di riempimento è un numero.
+         </P
+><P
+>&#13;          Per garantire l'allineamento, ogni carattere che, nella stringa formattata, appare prima o dopo 
+          il numero, tipo il simbolo della moneta o il segno,
+          viene riempito con gli spazi necessari affinché la corrispondente stringa
+          risultante da un valore positivo o negativo abbia la medesima lunghezza.
+         </P
+></DD
+></DL
+></DIV
+>
+     </P
+></DIV
+><DIV
+CLASS="formalpara"
+><P
+><B
+>&#13;      Precisione di destra
+     . </B
+>
+      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="literal"
+>.</VAR
+><VAR
+CLASS="replaceable"
+>p</VAR
+></DT
+><DD
+><P
+>&#13;          Un punto seguito da un numero di cifre
+          (<VAR
+CLASS="replaceable"
+>p</VAR
+>) dopo il carattere decimale. Se il valore di
+          <VAR
+CLASS="replaceable"
+>p</VAR
+> è 0 (zero), il carattere decimale
+          e le cifre alla sua destra saranno omesse. Se non vi
+          è indicazione della precisione a destra, il default sarà preso della impostazioni
+          locali. L'importo sarà arrontondato alle cifre
+          decimali richieste prima di essere formattato.
+         </P
+></DD
+></DL
+></DIV
+>
+     </P
+></DIV
+><DIV
+CLASS="formalpara"
+><P
+><B
+>&#13;      Caratteri di conversione
+     . </B
+>
+      <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="literal"
+>i</VAR
+></DT
+><DD
+><P
+>&#13;          Il numero sarà formattato in base alle impostazioni internazionali
+          locali (es. le impostazioni locali USA: USD 1,234.56).
+         </P
+></DD
+><DT
+><VAR
+CLASS="literal"
+>n</VAR
+></DT
+><DD
+><P
+>&#13;          Il numero sarà formattato in base alle locali impostazioni nazionali
+          di moneta (es. per de_DE: DM1.234,56).
+         </P
+></DD
+><DT
+><VAR
+CLASS="literal"
+>%</VAR
+></DT
+><DD
+><P
+>&#13;          Restituisce il carattere <VAR
+CLASS="literal"
+>%</VAR
+>.
+         </P
+></DD
+></DL
+></DIV
+>
+     </P
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      La categoria <TT
+CLASS="constant"
+><B
+>LC_MONETARY</B
+></TT
+> delle impostazioni locali
+      influisce sul comportamento di questa funzione. Utilizzare
+      <A
+HREF="function.setlocale.html"
+><B
+CLASS="function"
+>setlocale()</B
+></A
+> per impostare il default appropriato
+      prima di utilizzare questa funzione.
+     </P
+><P
+>&#13;      I caratteri prima e dopo la stringa di formattazione saranno restituiti
+      immutati.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164031"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>money_format()</B
+></B
+></P
+><P
+>&#13;      Per illustrare il funzionamento della funzione utilizzeremo
+      diversi formati di impostazioni locali.
+     </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$number </font><font color="#007700">= </font><font color="#0000BB">1234.56</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// stampa nel formato internazionale per l'impostazione&nbsp;&nbsp;en_US <br /></font><font color="#0000BB">setlocale</font><font color="#007700">(</font><font color="#0000BB">LC_MONETARY</font><font color="#007700">, </font><font color="#DD0000">'en_US'</font><font color="#007700">);<br />echo </font><font color="#0000BB">money_format</font><font color="#007700">(</font><font color="#DD0000">'%i'</font><font color="#007700">, </font><font color="#0000BB">$number</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;&nbsp;&nbsp;<br /></font><font color="#FF8000">// USD 1,234.56<br /><br />// Fromato italiano con 2 cifre decimali`<br /></font><font color="#0000BB">setlocale</font><font color="#007700">(</font><font color="#0000BB">LC_MONETARY</font><font color="#007700">, </font><font color="#DD0000">'it_IT'</font><font color="#007700">);<br />echo </font><font color="#0000BB">money_format</font><font color="#007700">(</font><font color="#DD0000">'%.2n'</font><font color="#007700">, </font><font color="#0000BB">$number</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#FF8000">// L. 1.234,56<br /><br />// Numeri negativi<br /></font><font color="#0000BB">$number </font><font color="#007700">= -</font><font color="#0000BB">1234.5672</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Formato nazionale US, Utilizzo di () per i numeri negativi<br />// e 10 cifre di precisione a sinistra<br /></font><font color="#0000BB">setlocale</font><font color="#007700">(</font><font color="#0000BB">LC_MONETARY</font><font color="#007700">, </font><font color="#DD0000">'en_US'</font><font color="#007700">);<br />echo </font><font color="#0000BB">money_format</font><font color="#007700">(</font><font color="#DD0000">'%(#10n'</font><font color="#007700">, </font><font color="#0000BB">$number</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#FF8000">// ($&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,234.57)<br /><br />// Simile al precente con 2 cifre di precisione a destra<br />// e '*' come carattere di riempimento<br /></font><font color="#007700">echo </font><font color="#0000BB">money_format</font><font color="#007700">(</font><font color="#DD0000">'%=*(#10.2n'</font><font color="#007700">, </font><font color="#0000BB">$number</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#FF8000">// ($********1,234.57)<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />// Giustificazione a sinistra, con 14 posizioni di lunghezza, 8 cifre di <br />// precisione a sinistra, 2 di precisione a destra, senza carattere di raggruppamento<br />// e utilizzando l'impostazione locale de_DE.<br /></font><font color="#0000BB">setlocale</font><font color="#007700">(</font><font color="#0000BB">LC_MONETARY</font><font color="#007700">, </font><font color="#DD0000">'de_DE'</font><font color="#007700">);<br />echo </font><font color="#0000BB">money_format</font><font color="#007700">(</font><font color="#DD0000">'%=*^-14#8.2i'</font><font color="#007700">, </font><font color="#0000BB">1234.56</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#FF8000">// DEM 1234,56****<br /><br />// Qualche carattere prima e dopo la specifica di formattazione<br /></font><font color="#0000BB">setlocale</font><font color="#007700">(</font><font color="#0000BB">LC_MONETARY</font><font color="#007700">, </font><font color="#DD0000">'en_GB'</font><font color="#007700">);<br /></font><font color="#0000BB">$fmt </font><font color="#007700">= </font><font color="#DD0000">'The final value is %i (after a 10%% discount)'</font><font color="#007700">;<br />echo </font><font color="#0000BB">money_format</font><font color="#007700">(</font><font color="#0000BB">$fmt</font><font color="#007700">, </font><font color="#0000BB">1234.56</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /></font><font color="#FF8000">// The final value is&nbsp;&nbsp;GBP 1,234.56 (after a 10% discount)<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.setlocale.html"
+><B
+CLASS="function"
+>setlocale()</B
+></A
+>,
+     <A
+HREF="function.number-format.html"
+><B
+CLASS="function"
+>number_format()</B
+></A
+>,<A
+HREF="function.sprintf.html"
+><B
+CLASS="function"
+>sprintf()</B
+></A
+>,
+     <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+> e <A
+HREF="function.sscanf.html"
+><B
+CLASS="function"
+>sscanf()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.metaphone.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.nl-langinfo.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>metaphone</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>nl_langinfo</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,359 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_affected_rows</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="NEXT"
+TITLE="mysql_change_user"
+HREF="function.mysql-change-user.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-change-user.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-affected-rows"
+></A
+>mysql_affected_rows</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN92797"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mysql_affected_rows&nbsp;--&nbsp;Ottiene il numero di righe coinvolte nelle precedenti
+     operazioni MySQL</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN92800"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>mysql_affected_rows</B
+> ( [resource identificativo_connessione] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_affected_rows()</B
+> restituisce il numero
+     di righe coinvolte nell'ultima query INSERT, UPDATE o DELETE
+     associata a <VAR
+CLASS="parameter"
+>identificativo_connessione</VAR
+>. Se l'identificativo di
+     connessione non è specificato, viene considerata l'ultima connessione aperta con
+     <A
+HREF="function.mysql-connect.html"
+><B
+CLASS="function"
+>mysql_connect()</B
+></A
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Se sono usate le transazioni, è necessario richiamare
+      <B
+CLASS="function"
+>mysql_affected_rows()</B
+> dopo le query INSERT,
+      UPDATE, o DELETE e non dopo il commit.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Se l'ultima query era una query DELETE senza clausola WHERE, tuti
+     i record saranno cancellati dalla tabella ma questa
+     funzione restituirà zero.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Usando UPDATE, MySQL non aggiornerà le colonne nelle quali il nuovo
+      valore è uguale al vecchio valore. Questo crea la possibilità
+      che <B
+CLASS="function"
+>mysql_affected_rows()</B
+> può non uguagliare realmente
+      il numero di righe corrispondenti ma solo il numero di righe
+      effettivamente coinvolte dalla query.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_affected_rows()</B
+> non funziona con
+     l'istruzione SELECT ma solo con le istruzioni che modificano i record. Per
+     ricavare il numero di righe restituite da SELECT, usare
+     <A
+HREF="function.mysql-num-rows.html"
+><B
+CLASS="function"
+>mysql_num_rows()</B
+></A
+>.
+    </P
+><P
+>&#13;     Se l'ultima query fallisce, questa funzione restituisce -1.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN92823"
+></A
+><P
+><B
+>Esempio 1. Query di eliminazione</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* connessione al database */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_pconnect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"utente_mysql"</font><font color="#007700">, </font><font color="#DD0000">"password_mysql"</font><font color="#007700">) or<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">"Connessione non riuscita: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">());<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* questo dovrebbe restituire il numero corretto di record eliminati */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"DELETE FROM mia_tabella WHERE id &lt; 10"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"Records eliminati: %d\n"</font><font color="#007700">, </font><font color="#0000BB">mysql_affected_rows</font><font color="#007700">());<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* senza la clausola WHERE nell'istruzione DELETE, dovrebbe restituire 0 */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"DELETE FROM mia_tabella"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"Record eliminati: %d\n"</font><font color="#007700">, </font><font color="#0000BB">mysql_affected_rows</font><font color="#007700">());<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;      L'esempio riportato sopra dovrebbe produrre il seguente output:
+       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Records eliminati: 10
+Records eliminati: 0</PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+></DIV
+></TD
+></TR
+></TABLE
+>
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN92828"
+></A
+><P
+><B
+>Esempio 2. Query di aggiornamento</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* connessione al to database */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_pconnect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"utente_mysql"</font><font color="#007700">, </font><font color="#DD0000">"password_mysql"</font><font color="#007700">) or<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">"Connessione non riuscita: " </font><font color="#007700">. </font><font color="#0000BB">mysql_error</font><font color="#007700">());<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">/* aggiornamento dei record */<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"UPDATE mia_tabella SET used=1 WHERE id &lt; 10"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">printf </font><font color="#007700">(</font><font color="#DD0000">"Record aggiornati: %d\n"</font><font color="#007700">, </font><font color="#0000BB">mysql_affected_rows</font><font color="#007700">());<br /></font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"COMMIT"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       L'esempio riportato sopra dovrebbe produrre il seguente output:
+       <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Record aggiornati: 10</PRE
+></TD
+></TR
+></TABLE
+>
+      </P
+></DIV
+></TD
+></TR
+></TABLE
+> 
+    </P
+><P
+>&#13;     Vedere anche: <A
+HREF="function.mysql-num-rows.html"
+><B
+CLASS="function"
+>mysql_num_rows()</B
+></A
+>,
+                   <A
+HREF="function.mysql-info.html"
+><B
+CLASS="function"
+>mysql_info()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-change-user.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>MySQL Functions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_change_user</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

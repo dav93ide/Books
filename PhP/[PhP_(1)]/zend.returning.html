@@ -1,0 +1,521 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Returning Values</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Zend API: Hacking the Core of PHP"
+HREF="zend.html"><LINK
+REL="PREVIOUS"
+TITLE="Duplicating Variable Contents: The Copy Constructor"
+HREF="zend.copy-constructor.html"><LINK
+REL="NEXT"
+TITLE="Printing Information"
+HREF="zend.printing.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="zend.copy-constructor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 46. Zend API: Hacking the Core of PHP</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="zend.printing.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="zend.returning"
+>Returning Values</A
+></H1
+><P
+>&#13;   Returning values from your functions to PHP was described briefly
+   in an earlier section; this section gives the details. Return
+   values are passed via the <VAR
+CLASS="envar"
+>return_value</VAR
+> variable,
+   which is passed to your functions as argument. The
+   <VAR
+CLASS="envar"
+>return_value</VAR
+> argument consists of a
+   <VAR
+CLASS="envar"
+>zval</VAR
+> container (see the earlier discussion of the
+   call interface) that you can freely modify. The container itself is
+   already allocated, so you don't have to run
+   <VAR
+CLASS="literal"
+>MAKE_STD_ZVAL</VAR
+> on it. Instead, you can access its
+   members directly.
+  </P
+><P
+>&#13;   To make returning values from functions easier and to prevent
+   hassles with accessing the internal structures of the
+   <VAR
+CLASS="envar"
+>zval</VAR
+> container, a set of predefined macros is
+   available (as usual). These macros automatically set the
+   correspondent type and value, as described in 
+   <A
+HREF="zend.returning.html#tab.return"
+>Tabella 46-14</A
+> and <A
+HREF="zend.returning.html#tab.retval"
+>Tabella 46-15</A
+>.
+  </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+    The macros in <A
+HREF="zend.returning.html#tab.return"
+>Tabella 46-14</A
+> automatically 
+    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>return</I
+></SPAN
+> from your function, those in 
+    <A
+HREF="zend.returning.html#tab.retval"
+>Tabella 46-15</A
+> only <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>set</I
+></SPAN
+> 
+    the return value; they don't return from your function.
+   </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="table"
+><A
+NAME="tab.return"
+></A
+><P
+><B
+>Tabella 46-14. Predefined Macros for Returning Values from a
+    Function</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="col1"><COL
+WIDTH="1*"
+TITLE="col2"><TBODY
+><TR
+><TD
+>Macro</TD
+><TD
+>Description</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETURN_RESOURCE(resource)</VAR
+></TD
+><TD
+>Returns a resource.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETURN_BOOL(bool)</VAR
+></TD
+><TD
+>Returns a Boolean.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETURN_NULL()</VAR
+></TD
+><TD
+>Returns nothing (a NULL value).</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETURN_LONG(long)</VAR
+></TD
+><TD
+>Returns a long.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETURN_DOUBLE(double)</VAR
+></TD
+><TD
+>Returns a double.</TD
+></TR
+><TR
+><TD
+>&#13;        <VAR
+CLASS="literal"
+>RETURN_STRING(string, duplicate)</VAR
+>
+       </TD
+><TD
+>&#13;        Returns a string. The <VAR
+CLASS="envar"
+>duplicate</VAR
+> flag indicates
+        whether the string should be duplicated using
+        <B
+CLASS="function"
+>estrdup()</B
+>.
+       </TD
+></TR
+><TR
+><TD
+>&#13;        <VAR
+CLASS="literal"
+>RETURN_STRINGL(string, length, duplicate)</VAR
+>
+       </TD
+><TD
+>&#13;        Returns a string of the specified length; otherwise, behaves
+        like <VAR
+CLASS="literal"
+>RETURN_STRING</VAR
+>. This macro is faster
+        and binary-safe, however.
+       </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETURN_EMPTY_STRING()</VAR
+></TD
+><TD
+>Returns an empty string.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETURN_FALSE</VAR
+></TD
+><TD
+>Returns Boolean false.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETURN_TRUE</VAR
+></TD
+><TD
+>Returns Boolean true.</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><DIV
+CLASS="table"
+><A
+NAME="tab.retval"
+></A
+><P
+><B
+>Tabella 46-15. Predefined Macros for Setting the Return Value
+    of a Function</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL
+WIDTH="1*"
+TITLE="col1"><COL
+WIDTH="1*"
+TITLE="col2"><TBODY
+><TR
+><TD
+>Macro</TD
+><TD
+>Description</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETVAL_RESOURCE(resource)</VAR
+></TD
+><TD
+>Sets the return value to the specified
+        resource.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETVAL_BOOL(bool)</VAR
+></TD
+><TD
+>Sets the return value to the specified
+        Boolean value.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETVAL_NULL</VAR
+></TD
+><TD
+>Sets the return value to NULL.</TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETVAL_LONG(long)</VAR
+></TD
+><TD
+>&#13;        Sets the return value to the specified long.
+       </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETVAL_DOUBLE(double)</VAR
+></TD
+><TD
+>&#13;        Sets the return value to the specified double.
+       </TD
+></TR
+><TR
+><TD
+>&#13;        <VAR
+CLASS="literal"
+>RETVAL_STRING(string, duplicate)</VAR
+>
+       </TD
+><TD
+>&#13;        Sets the return value to the specified string and duplicates
+        it to Zend internal memory if desired (see also
+        <VAR
+CLASS="literal"
+>RETURN_STRING</VAR
+>).
+       </TD
+></TR
+><TR
+><TD
+>&#13;        <VAR
+CLASS="literal"
+>RETVAL_STRINGL(string, length, duplicate)</VAR
+>
+       </TD
+><TD
+>&#13;        Sets the return value to the specified string and forces the
+        length to become <VAR
+CLASS="envar"
+>length</VAR
+> (see also
+        <VAR
+CLASS="literal"
+>RETVAL_STRING</VAR
+>). This macro is faster and
+        binary-safe, and should be used whenever the string length is
+        known.
+       </TD
+></TR
+><TR
+><TD
+>&#13;        <VAR
+CLASS="literal"
+>RETVAL_EMPTY_STRING</VAR
+>
+       </TD
+><TD
+>&#13;        Sets the return value to an empty string.
+       </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETVAL_FALSE</VAR
+></TD
+><TD
+>&#13;        Sets the return value to Boolean false.
+       </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>RETVAL_TRUE</VAR
+></TD
+><TD
+>&#13;        Sets the return value to Boolean true.
+       </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;   Complex types such as arrays and objects can be returned by using
+   <A
+HREF="zend-api.array-init.html"
+><B
+CLASS="function"
+>array_init()</B
+></A
+> and
+   <A
+HREF="zend-api.object-init.html"
+><B
+CLASS="function"
+>object_init()</B
+></A
+>, as well as the corresponding hash
+   functions on <VAR
+CLASS="envar"
+>return_value</VAR
+>. Since these types cannot
+   be constructed of trivial information, there are no predefined
+   macros for them.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="zend.copy-constructor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="zend.printing.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Duplicating Variable Contents: The Copy Constructor</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="zend.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Printing Information</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,895 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Installation on Unix systems</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Installazione e configurazione"
+HREF="install.html"><LINK
+REL="PREVIOUS"
+TITLE="General Installation Considerations"
+HREF="install.general.html"><LINK
+REL="NEXT"
+TITLE="Apache 2.0 on Unix systems"
+HREF="install.unix.apache2.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="install.general.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="install.unix.apache2.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="install.unix"
+>Capitolo 4. Installation on Unix systems</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="install.unix.html#install.unix.apache"
+>Apache 1.3.x on Unix systems</A
+></DT
+><DT
+><A
+HREF="install.unix.apache2.html"
+>Apache 2.0 on Unix systems</A
+></DT
+><DT
+><A
+HREF="install.unix.caudium.html"
+>Caudium</A
+></DT
+><DT
+><A
+HREF="install.unix.fhttpd.html"
+>fhttpd related notes</A
+></DT
+><DT
+><A
+HREF="install.unix.sun.html"
+>Sun, iPlanet and Netscape servers on Sun Solaris</A
+></DT
+><DT
+><A
+HREF="install.unix.commandline.html"
+>CGI and commandline setups</A
+></DT
+><DT
+><A
+HREF="install.unix.hpux.html"
+>HP-UX specific installation notes</A
+></DT
+><DT
+><A
+HREF="install.unix.openbsd.html"
+>OpenBSD installation notes</A
+></DT
+><DT
+><A
+HREF="install.unix.solaris.html"
+>Solaris specific installation tips</A
+></DT
+><DT
+><A
+HREF="install.unix.gentoo.html"
+>Gentoo installation notes</A
+></DT
+><DT
+><A
+HREF="install.unix.debian.html"
+>Debian GNU/Linux installation notes</A
+></DT
+></DL
+></DIV
+><P
+>&#13;    This section will guide you through the general configuration and
+    installation of PHP on Unix systems. Be sure to investigate any
+    sections specific to your platform or web server before you begin
+    the process.
+   </P
+><P
+>&#13;    As our manual outlines in the <A
+HREF="install.general.html"
+>General
+    Installation Considerations</A
+> section, we are mainly dealing with
+    web centric setups of PHP in this section, although we will cover
+    setting up PHP for command line usage as well.
+   </P
+><P
+> 
+    There are several ways to install PHP for the Unix platform, either
+    with a compile and configure process, or through various
+    pre-packaged methods. This documentation is mainly focused around
+    the process of compiling and configuring PHP. Many Unix like systems
+    have some sort of package installation system. This can assist in
+    setting up a standard configuration, but if you need to have a
+    different set of features (such as a secure server, or a different
+    database driver), you may need to build PHP and/or your webserver.
+    If you are unfamiliar with building and compiling your own software,
+    it is worth checking to see whether somebody has already built a
+    packaged version of PHP with the features you need.
+   </P
+><P
+>&#13;    Prerequisite knowledge and software for compiling:
+    <P
+></P
+><UL
+><LI
+><P
+>&#13;       Basic Unix skills (being able to operate "make" and a C
+       compiler)
+      </P
+></LI
+><LI
+><P
+>&#13;       An ANSI C compiler
+      </P
+></LI
+><LI
+><P
+>&#13;       flex: Version 2.5.4
+      </P
+></LI
+><LI
+><P
+>&#13;       bison: Version 1.28 (preferred), 1.35, or 1.75
+      </P
+></LI
+><LI
+><P
+>&#13;       A web server
+      </P
+></LI
+><LI
+><P
+>&#13;       Any module specific components (such as gd, pdf libs, etc.)
+      </P
+></LI
+></UL
+>
+   </P
+><P
+>&#13;    The initial PHP setup and configuration process is controlled by the
+    use of the commandline options of the <B
+CLASS="command"
+>configure</B
+>
+    script. You could get a list of all available options along with short
+    explanations running <B
+CLASS="command"
+>./configure --help</B
+>.
+    Our manual documents the different options separately. You will
+    find the <A
+HREF="configure.html"
+>core options in the appendix</A
+>,
+    while the different extension specific options are descibed on the
+    reference pages.
+   </P
+><P
+>&#13;    When PHP is configured, you are ready to build the module and/or
+    executables. The command <B
+CLASS="command"
+>make</B
+> should
+    take care of this. If it fails and you can't figure out why, see
+    the <A
+HREF="install.problems.html"
+>Problems section</A
+>.
+   </P
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="install.unix.apache"
+>Apache 1.3.x on Unix systems</A
+></H1
+><P
+>&#13;     This section contains notes and hints specific to Apache installs
+     of PHP on Unix platforms. We also have <A
+HREF="install.unix.apache2.html"
+>instructions and notes for Apache 2
+     on a separate page</A
+>.
+    </P
+><P
+>&#13;     You can select arguments to add to the
+     <B
+CLASS="command"
+>configure</B
+> on line 10 below from the <A
+HREF="configure.html"
+>list of core configure options</A
+> and
+     from extension specific options described at the respective
+     places in the manual. The version numbers have been omitted here, to
+     ensure the instructions are not incorrect. You will need to replace
+     the 'xxx' here with the correct values from your files.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="install.unix.apache.example"
+></A
+><P
+><B
+>Esempio 4-1. 
+      Installation Instructions (Apache Shared Module Version) for PHP
+     </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>1.  gunzip apache_xxx.tar.gz
+2.  tar -xvf apache_xxx.tar
+3.  gunzip php-xxx.tar.gz
+4.  tar -xvf php-xxx.tar
+5.  cd apache_xxx
+6.  ./configure --prefix=/www --enable-module=so
+7.  make
+8.  make install
+9.  cd ../php-xxx
+
+10. Now, configure your PHP.  This is where you customize your PHP
+    with various options, like which extensions will be enabled.  Do a
+    ./configure --help for a list of available options.  In our example
+    we'll do a simple configure with Apache 1 and MySQL support.  Your
+    path to apxs may differ from our example.
+
+      ./configure --with-mysql --with-apxs=/www/bin/apxs
+
+11. make
+12. make install
+
+    If you decide to change your configure options after installation,
+    you only need to repeat the last three steps. You only need to 
+    restart apache for the new module to take effect. A recompile of
+    Apache is not needed.
+  
+    Note that unless told otherwise, 'make install' will also install PEAR,
+    various PHP tools such as phpize, install the PHP CLI, and more.
+
+13. Setup your php.ini file:
+
+      cp php.ini-dist /usr/local/lib/php.ini
+
+    You may edit your .ini file to set PHP options.  If you prefer your
+    php.ini in another location, use --with-config-file-path=/some/path in
+    step 10. 
+    
+    If you instead choose php.ini-recommended, be certain to read the list
+    of changes within, as they affect how PHP behaves.
+
+14. Edit your httpd.conf to load the PHP module.  The path on the right hand
+    side of the LoadModule statement must point to the path of the PHP
+    module on your system.  The make install from above may have already
+    added this for you, but be sure to check.
+        
+    For PHP 4:
+            
+      LoadModule php4_module libexec/libphp4.so
+
+    For PHP 5:
+                      
+      LoadModule php5_module libexec/libphp5.so
+      
+15. And in the AddModule section of httpd.conf, somewhere under the
+    ClearModuleList, add this:
+    
+    For PHP 4:
+    
+      AddModule mod_php4.c
+      
+    For PHP 5:
+    
+      AddModule mod_php5.c
+
+16. Tell Apache to parse certain extensions as PHP.  For example,
+    let's have Apache parse the .php extension as PHP.  You could
+    have any extension(s) parse as PHP by simply adding more, with
+    each separated by a space.  We'll add .phtml to demonstrate.
+
+      AddType application/x-httpd-php .php .phtml
+
+    It's also common to setup the .phps extension to show highlighted PHP
+    source, this can be done with:
+    
+      AddType application/x-httpd-php-source .phps
+
+17. Use your normal procedure for starting the Apache server. (You must
+    stop and restart the server, not just cause the server to reload by
+    using a HUP or USR1 signal.)</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     Alternatively, to install PHP as a static object:
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="install.unix.apache.example-static"
+></A
+><P
+><B
+>Esempio 4-2. 
+      Installation Instructions (Static Module Installation for Apache) for PHP
+     </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>1.  gunzip -c apache_1.3.x.tar.gz | tar xf -
+2.  cd apache_1.3.x
+3.  ./configure
+4.  cd ..
+
+5.  gunzip -c php-4.x.y.tar.gz | tar xf -
+6.  cd php-4.x.y
+7.  ./configure --with-mysql --with-apache=../apache_1.3.x
+8.  make
+9.  make install
+
+10. cd ../apache_1.3.x
+
+11. ./configure --prefix=/www --activate-module=src/modules/php4/libphp4.a
+    (The above line is correct! Yes, we know libphp4.a does not exist at this
+    stage. It isn't supposed to. It will be created.)
+
+12. make
+    (you should now have an httpd binary which you can copy to your Apache bin dir if
+    it is your first install then you need to "make install" as well)
+
+13. cd ../php-4.x.y
+14. cp php.ini-dist /usr/local/lib/php.ini
+
+15. You can edit /usr/local/lib/php.ini file to set PHP options.
+    Edit your httpd.conf or srm.conf file and add:
+    AddType application/x-httpd-php .php</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Replace <VAR
+CLASS="literal"
+>php-4</VAR
+> by <VAR
+CLASS="literal"
+>php-5</VAR
+> and
+       <VAR
+CLASS="literal"
+>php4</VAR
+> by <VAR
+CLASS="literal"
+>php5</VAR
+> in PHP 5.
+      </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;      Depending on your Apache install and Unix variant, there are many
+      possible ways to stop and restart the server. Below are some typical
+      lines used in restarting the server, for different apache/unix
+      installations. You should replace <VAR
+CLASS="literal"
+>/path/to/</VAR
+> with
+      the path to these applications on your systems.
+     </P
+><P
+>&#13;      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN436"
+></A
+><P
+><B
+>Esempio 4-3. Example commands for restarting Apache</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>1. Several Linux and SysV variants:
+/etc/rc.d/init.d/httpd restart
+
+2. Using apachectl scripts:
+/path/to/apachectl stop
+/path/to/apachectl start
+
+3. httpdctl and httpsdctl (Using OpenSSL), similar to apachectl:
+/path/to/httpsdctl stop
+/path/to/httpsdctl start
+
+4. Using mod_ssl, or another SSL server, you may want to manually
+stop and start:
+/path/to/apachectl stop
+/path/to/apachectl startssl</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     </P
+><P
+>&#13;      The locations of the apachectl and http(s)dctl binaries often
+      vary. If your system has <VAR
+CLASS="literal"
+>locate</VAR
+> or
+      <VAR
+CLASS="literal"
+>whereis</VAR
+> or <VAR
+CLASS="literal"
+>which</VAR
+> commands,
+      these can assist you in finding your server control programs.
+     </P
+><P
+>&#13;      Different examples of compiling PHP for apache are as follows:
+      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN444"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>./configure --with-apxs --with-pgsql</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     </P
+><P
+>&#13;      This will create a <TT
+CLASS="filename"
+>libphp4.so</TT
+> shared
+      library that is loaded into Apache using a LoadModule line in
+      Apache's <TT
+CLASS="filename"
+>httpd.conf</TT
+> file. The PostgreSQL
+      support is embedded into this <TT
+CLASS="filename"
+>libphp4.so</TT
+>
+      library.
+     </P
+><P
+>&#13;      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN451"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>./configure --with-apxs --with-pgsql=shared</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     </P
+><P
+>&#13;      This will create a <TT
+CLASS="filename"
+>libphp4.so</TT
+> shared
+      library for Apache, but it will also create a
+      <TT
+CLASS="filename"
+>pgsql.so</TT
+> shared library that is loaded into
+      PHP either by using the extension directive in
+      <TT
+CLASS="filename"
+>php.ini</TT
+> file or by loading it explicitly in
+      a script using the <A
+HREF="function.dl.html"
+><B
+CLASS="function"
+>dl()</B
+></A
+> function.
+     </P
+><P
+>&#13;      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN459"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>./configure --with-apache=/path/to/apache_source --with-pgsql</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     </P
+><P
+>&#13;      This will create a <TT
+CLASS="filename"
+>libmodphp4.a</TT
+> library, a
+      <TT
+CLASS="filename"
+>mod_php4.c</TT
+> and some accompanying files and
+      copy this into the <VAR
+CLASS="literal"
+>src/modules/php4</VAR
+> directory
+      in the Apache source tree. Then you compile Apache using
+      <VAR
+CLASS="literal"
+>--activate-module=src/modules/php4/libphp4.a</VAR
+>
+      and the Apache build system will create
+      <TT
+CLASS="filename"
+>libphp4.a</TT
+> and link it statically into the
+      <TT
+CLASS="filename"
+>httpd</TT
+> binary (replace <VAR
+CLASS="literal"
+>php4</VAR
+> by
+      <VAR
+CLASS="literal"
+>php5</VAR
+> in PHP 5). The PostgreSQL support is
+      included directly into this <TT
+CLASS="filename"
+>httpd</TT
+> binary,
+      so the final result here is a single <TT
+CLASS="filename"
+>httpd</TT
+>
+      binary that includes all of Apache and all of PHP.
+     </P
+><P
+>&#13;      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN473"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="shell"
+>./configure --with-apache=/path/to/apache_source --with-pgsql=shared</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     </P
+><P
+>&#13;      Same as before, except instead of including PostgreSQL support
+      directly into the final <TT
+CLASS="filename"
+>httpd</TT
+> you will get
+      a <TT
+CLASS="filename"
+>pgsql.so</TT
+> shared library that you can load
+      into PHP from either the <TT
+CLASS="filename"
+>php.ini</TT
+> file or
+      directly using <A
+HREF="function.dl.html"
+><B
+CLASS="function"
+>dl()</B
+></A
+>.
+     </P
+><P
+>&#13;      When choosing to build PHP in different ways, you should consider
+      the advantages and drawbacks of each method. Building as a shared
+      object will mean that you can compile apache separately, and don't
+      have to recompile everything as you add to, or change, PHP.
+      Building PHP into apache (static method) means that PHP will
+      load and run faster. For more information, see the Apache
+      <A
+HREF="http://httpd.apache.org/docs/1.3/dso.html"
+TARGET="_top"
+>webpage on DSO support</A
+>.
+     </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Apache's default <TT
+CLASS="filename"
+>httpd.conf</TT
+> currently ships with a section that looks
+      like this:
+      <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN485"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="apache-conf"
+>User nobody
+Group "#-1"</PRE
+></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+      Unless you change that to "Group nogroup" or something like that ("Group daemon" is
+      also very common) PHP will not be able to open files.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Make sure you specify the installed version of apxs when using
+      <VAR
+CLASS="option"
+>--with-apxs=/path/to/apxs</VAR
+>.
+      You must NOT use the apxs version that is in the apache sources but the one
+      that is actually installed on your system.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.general.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install.unix.apache2.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>General Installation Considerations</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Apache 2.0 on Unix systems</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>isset</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per la gestione delle variabili"
+HREF="ref.var.html"><LINK
+REL="PREVIOUS"
+TITLE="is_string"
+HREF="function.is-string.html"><LINK
+REL="NEXT"
+TITLE="print_r"
+HREF="function.print-r.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.is-string.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.print-r.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.isset"
+></A
+>isset</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN173777"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>isset&nbsp;--&nbsp;Verifica se una variabile è definita</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN173780"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>isset</B
+> ( mixed variabile [, ...] )<BR
+></BR
+><P
+>&#13;     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se la <VAR
+CLASS="parameter"
+>variabile</VAR
+> esiste;
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso contrario.
+    </P
+><P
+>&#13;     Se una variabile è stata cancellata con <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+>,
+     non potrà essere impostata. La funzione <B
+CLASS="function"
+>isset()</B
+>
+     restituirà <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se viene utilizzata per testare una variabile valorizzata
+     a <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>. Inoltre occorre notare che il byte <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+> (<VAR
+CLASS="literal"
+>"\0"</VAR
+>)
+     non equivale alla costante PHP <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Attenzione: </B
+>
+       La funzione <B
+CLASS="function"
+>isset()</B
+> lavora soltanto con variabili, il
+       passaggio di qualsiasi altro tipo di parametro genera un errore di parsing.
+       Per verificare se le <A
+HREF="language.constants.html"
+>costanti</A
+>
+       sono definite utilizzare la funzione <A
+HREF="function.defined.html"
+><B
+CLASS="function"
+>defined()</B
+></A
+>.
+      </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN173809"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$var </font><font color="#007700">= </font><font color="#DD0000">''</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Questo test sarà TRUE pertanto sarà visualizzato il testo.<br /></font><font color="#007700">if (isset(</font><font color="#0000BB">$var</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Questa variabile è valorizzata, pertanto scrivo."</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// Nel prossimo esempio useremo var_dump per visualizzare<br />// il valore restituito da isset().<br /><br /></font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#DD0000">"test"</font><font color="#007700">;<br /></font><font color="#0000BB">$b </font><font color="#007700">= </font><font color="#DD0000">"anothertest"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$a</font><font color="#007700">));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// TRUE<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">)); </font><font color="#FF8000">// TRUE<br /><br /></font><font color="#007700">unset (</font><font color="#0000BB">$a</font><font color="#007700">);<br /><br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$a</font><font color="#007700">));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// FALSE<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$a</font><font color="#007700">, </font><font color="#0000BB">$b</font><font color="#007700">)); </font><font color="#FF8000">// FALSE<br /><br /></font><font color="#0000BB">$foo </font><font color="#007700">= </font><font color="#0000BB">NULL</font><font color="#007700">;<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$foo</font><font color="#007700">));&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// FALSE<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>  
+    </P
+><P
+>  
+     Questo esempio utilizza gli elementi di un array:  
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN173812"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php  <br /><br />$a </font><font color="#007700">= array (</font><font color="#DD0000">'test' </font><font color="#007700">=&gt; </font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#DD0000">'hello' </font><font color="#007700">=&gt; </font><font color="#0000BB">NULL</font><font color="#007700">);<br /><br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#DD0000">'test'</font><font color="#007700">]));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// TRUE<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#DD0000">'foo'</font><font color="#007700">]));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// FALSE<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(isset(</font><font color="#0000BB">$a</font><font color="#007700">[</font><font color="#DD0000">'hello'</font><font color="#007700">]));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// FALSE<br /><br />// La chiave 'hello' vale NULL pertanto viene considerata non impostata.<br />// Se si desidera verificare l'esistenza di chiavi con valore NULL, usare:<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">array_key_exists</font><font color="#007700">(</font><font color="#DD0000">'hello'</font><font color="#007700">, </font><font color="#0000BB">$a</font><font color="#007700">)); </font><font color="#FF8000">// TRUE<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Poichè questo è
+un costrutto del linguaggio e non una funzione, non può essere chiamato con le
+<A
+HREF="functions.variable-functions.html"
+>variabili funzione</A
+></P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.empty.html"
+><B
+CLASS="function"
+>empty()</B
+></A
+>,
+     <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+>, 
+     <A
+HREF="function.defined.html"
+><B
+CLASS="function"
+>defined()</B
+></A
+>,
+     <A
+HREF="types.comparisons.html"
+>la tabella di comparazione dei tipi</A
+>,
+     <A
+HREF="function.array-key-exists.html"
+><B
+CLASS="function"
+>array_key_exists()</B
+></A
+> e l'operatore di controllo 
+     degli errori <A
+HREF="language.operators.errorcontrol.html"
+>@</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.is-string.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.print-r.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>is_string</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.var.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>print_r</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

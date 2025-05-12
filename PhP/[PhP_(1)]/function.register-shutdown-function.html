@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>register_shutdown_function</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Function Handling Functions"
+HREF="ref.funchand.html"><LINK
+REL="PREVIOUS"
+TITLE="get_defined_functions"
+HREF="function.get-defined-functions.html"><LINK
+REL="NEXT"
+TITLE="register_tick_function"
+HREF="function.register-tick-function.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.get-defined-functions.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.register-tick-function.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.register-shutdown-function"
+></A
+>register_shutdown_function</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN48069"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.4, PHP 4, PHP 5)</P
+>register_shutdown_function&nbsp;--&nbsp;
+     Register a function for execution on shutdown
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN48072"
+></A
+><H2
+>Description</H2
+>void <B
+CLASS="methodname"
+>register_shutdown_function</B
+> ( callback function [, mixed parameter [, mixed ...]] )<BR
+></BR
+><P
+>&#13;     Registers the function named by <VAR
+CLASS="parameter"
+>function</VAR
+> to be
+     executed when script processing is complete.
+    </P
+><P
+>&#13;     Multiple calls to <B
+CLASS="function"
+>register_shutdown_function()</B
+> can be
+     made, and each will be called in the same order as they were registered.
+     If you call <A
+HREF="function.exit.html"
+><B
+CLASS="function"
+>exit()</B
+></A
+> within one registered shutdown
+     function, processing will stop completely and no other registered
+     shutdown functions will be called.
+    </P
+><P
+>&#13;     In PHP 4.0.6 and earlier under Apache,
+     the registered shutdown functions are called after the request has been
+     completed (including sending any output buffers), so it is not possible
+     to send output to the browser using <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+> or
+     <A
+HREF="function.print.html"
+><B
+CLASS="function"
+>print()</B
+></A
+>, or retrieve the contents of any output
+     buffers using <A
+HREF="function.ob-get-contents.html"
+><B
+CLASS="function"
+>ob_get_contents()</B
+></A
+>.
+     Since PHP 4.1, the shutdown functions are called as the part of the
+     request so that it's possible to send the output from them. There is
+     currently no way to process the data with output buffering functions in
+     the shutdown function.
+     Shutdown function is called after closing all opened output buffers thus,
+     for example, its output will not be compressed if <A
+HREF="ref.zlib.html#ini.zlib.output-compression"
+>zlib.output_compression</A
+> is
+     enabled.
+    </P
+><P
+>&#13;     As of PHP 4, it is possible to pass parameters to the shutdown function by
+     passing additional parameters to
+     <B
+CLASS="function"
+>register_shutdown_function()</B
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Typically undefined functions cause fatal errors in PHP, but when the
+      <VAR
+CLASS="parameter"
+>function</VAR
+> called with
+      <B
+CLASS="function"
+>register_shutdown_function()</B
+> is undefined, an error
+      of level <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+> is generated instead.  Also,
+      for reasons internal to PHP, this error will refer to
+      <VAR
+CLASS="literal"
+>Unknown</VAR
+> at line #0. 
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Working directory of the script can change inside the shutdown function
+      under some web servers, e.g. Apache.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Shutdown function is called during the script shutdown so headers are
+     always already sent.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also <A
+HREF="ini.core.html#ini.auto-append-file"
+>auto_append_file</A
+>,
+     <A
+HREF="function.exit.html"
+><B
+CLASS="function"
+>exit()</B
+></A
+>, and the section on
+     <A
+HREF="features.connection-handling.html"
+>connection handling</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.get-defined-functions.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.register-tick-function.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>get_defined_functions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.funchand.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>register_tick_function</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

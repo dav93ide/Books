@@ -1,0 +1,549 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Preparation and Housekeeping</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PDO Driver How-To"
+HREF="internals.pdo.html"><LINK
+REL="PREVIOUS"
+TITLE="Prerequisites"
+HREF="internals.pdo.prerequisites.html"><LINK
+REL="NEXT"
+TITLE="Fleshing out your skeleton"
+HREF="internals.pdo.implementing.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="internals.pdo.prerequisites.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 45. PDO Driver How-To</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="internals.pdo.implementing.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="internals.pdo.preparation"
+>Preparation and Housekeeping</A
+></H1
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN185200"
+>Source directory layout</A
+></H2
+><P
+>&#13;   The source directory for a typical PDO driver is laid out as follows, where
+   <VAR
+CLASS="literal"
+>SKEL</VAR
+> represents a shortened form of the name of the
+   database that the driver is going to connect to.  Even though SKEL is
+   presented here in uppercase (for clarity), the convention is to use
+   lowercase characters.
+  </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>pdo_SKEL/          
+  config.m4                  <A
+NAME="internals.pdo.layout.co.m4"
+><IMG
+SRC="../images/callouts/1.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(1)"></A
+>
+  config.w32                 <A
+NAME="internals.pdo.layout.co.w32"
+><IMG
+SRC="../images/callouts/2.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(2)"></A
+>
+  CREDITS
+  package.xml                <A
+NAME="internals.pdo.layout.co.cred"
+><IMG
+SRC="../images/callouts/3.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(3)"></A
+>
+  pdo_SKEL.c           <A
+NAME="internals.pdo.layout.co.glue"
+><IMG
+SRC="../images/callouts/4.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(4)"></A
+>
+  php_pdo_SKEL.h
+  php_pdo_SKEL_int.h   <A
+NAME="internals.pdo.layout.co.priv"
+><IMG
+SRC="../images/callouts/5.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(5)"></A
+>
+  SKEL_dbh.c           <A
+NAME="internals.pdo.layout.co.dbh"
+><IMG
+SRC="../images/callouts/6.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(6)"></A
+>
+  SKEL_stmt.c          <A
+NAME="internals.pdo.layout.co.stmt"
+><IMG
+SRC="../images/callouts/7.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(7)"></A
+></PRE
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="calloutlist"
+><DL
+COMPACT="COMPACT"
+><DT
+><A
+HREF="internals.pdo.preparation.html#internals.pdo.layout.co.m4"
+><IMG
+SRC="../images/callouts/1.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(1)"></A
+></DT
+><DD
+>unix build script</DD
+><DT
+><A
+HREF="internals.pdo.preparation.html#internals.pdo.layout.co.w32"
+><IMG
+SRC="../images/callouts/2.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(2)"></A
+></DT
+><DD
+>win32 build script</DD
+><DT
+><A
+HREF="internals.pdo.preparation.html#internals.pdo.layout.co.cred"
+><IMG
+SRC="../images/callouts/3.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(3)"></A
+></DT
+><DD
+>meta information about the package</DD
+><DT
+><A
+HREF="internals.pdo.preparation.html#internals.pdo.layout.co.glue"
+><IMG
+SRC="../images/callouts/4.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(4)"></A
+></DT
+><DD
+>standard PHP extension glue</DD
+><DT
+><A
+HREF="internals.pdo.preparation.html#internals.pdo.layout.co.priv"
+><IMG
+SRC="../images/callouts/5.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(5)"></A
+></DT
+><DD
+>driver private header</DD
+><DT
+><A
+HREF="internals.pdo.preparation.html#internals.pdo.layout.co.dbh"
+><IMG
+SRC="../images/callouts/6.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(6)"></A
+></DT
+><DD
+>contains the implementation of the PDO driver interface</DD
+><DT
+><A
+HREF="internals.pdo.preparation.html#internals.pdo.layout.co.stmt"
+><IMG
+SRC="../images/callouts/7.gif"
+HSPACE="0"
+VSPACE="0"
+BORDER="0"
+ALT="(7)"></A
+></DT
+><DD
+>contains the implementation of the PDO statement interface</DD
+></DL
+></DIV
+><P
+>The contents of these files are defined later in this document.</P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN185228"
+>Creating a skeleton</A
+></H2
+><P
+>&#13;   The easiest way to get started is to use the <B
+CLASS="command"
+>ext_skel</B
+>
+   shell script found in the PHP build tree in the <TT
+CLASS="filename"
+>ext</TT
+>
+   directory. This will build a skeleton directory containing a lot of the
+   files listed above. It can be build by executing the following command from
+   within the <TT
+CLASS="filename"
+>ext</TT
+> directory:
+  </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>./ext_skel --extname=pdo_SKEL</PRE
+></TD
+></TR
+></TABLE
+><P
+>&#13;   This will generate a directory called pdo_SKEL containing the
+   skeleton files that you can then modify. This directory should then be
+   moved out of the php extension directory . PDO is a PECL extension and
+   should not be included in the standard extension directory. As long as you
+   have PHP and PDO installed, you should be able to build from any directory.
+  </P
+></DIV
+><DIV
+CLASS="sect2"
+><H2
+CLASS="sect2"
+><A
+NAME="AEN185236"
+>Standard Includes</A
+></H2
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN185238"
+>Build Specific Headers</A
+></H3
+><P
+>&#13;    The header file config.h is generated by the configure process for the
+    platform for the which the driver is being built. If this header is
+    present, the HAVE_CONFIG_H compiler variable is set. This variable should
+    be tested for and if set, the file config.h should be included in the
+    compilation unit.
+   </P
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN185241"
+>PHP Headers</A
+></H3
+><P
+>&#13;    The following standard public php headers should be included in each
+    source module:
+   </P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>php.h</P
+></LI
+><LI
+><P
+>php_ini.h</P
+></LI
+><LI
+><P
+>ext/standard/info.h</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN185251"
+>PDO Interface Headers</A
+></H3
+><P
+>&#13;    The following standard public PDO header files are also included in each
+    source module:
+   </P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>pdo/php_pdo.h</DT
+><DD
+><P
+>&#13;       This header file contains definitions of the initialization and shutdown
+       functions in the main driver as well as definitions of global PDO
+       variables.
+      </P
+></DD
+><DT
+>pdo/php_pdo_driver.h</DT
+><DD
+><P
+>&#13;       This header contains the types and API contracts that are used to write
+       a PDO driver. It also contains method signature for calling back into
+       the PDO layer and registering/unregistering your driver with 
+       PDO. Most importantly, this header file contains the type
+       definitions for PDO database handles and statements. The two main
+       structures a driver has to deal with, pdo_dbh_t and pdo_stmt_t, are
+       described in more detail in Appendix A and B.
+      </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN185263"
+>Driver Specific Headers</A
+></H3
+><P
+>&#13;    The typical PDO driver has two header files that are specific to the
+    database implementation. This does not preclude the use of more depending
+    on the implementation. The following two headers are, by convention,
+    standard:
+   </P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>php_pdo_SKEL.h</DT
+><DD
+><P
+>&#13;       This header file is virtually an exact duplicate in functionality
+       and content of the previously defined pdo/php_pdo.h that has been
+       specifically tailored for your database. If your driver requires
+       the use of global variables they should be defined using the
+       ZEND_BEGIN_MODULE_GLOBALS and ZEND_END_MODULE_GLOBALS macros.
+       Macros are then used to access these variables. This macro is
+       usually named PDO_SKEL_G(v) where v is global variable to be
+       accessed. Consult the Zend programmer documentation for more
+       information.
+      </P
+></DD
+><DT
+>php_pdo_SKEL_int.h</DT
+><DD
+><P
+>&#13;       This header file typically contains type definitions and function
+       declarations specific to the driver implementation. It also should
+       contain the db specicfic definitions of a pdo_SKEL_handle and
+       pdo_SKEL_stmt structures. These are the names of the private
+       data structures that are then referenced by the driver_data members
+       of the handle and statement structures.
+      </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="sect3"
+><H3
+CLASS="sect3"
+><A
+NAME="AEN185275"
+>Optional Headers</A
+></H3
+><P
+>&#13;    Depending on the implementation details for a particular driver it may be
+    necessary to include the following header:
+   </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="synopsis"
+>#include &#60;zend_exceptions.h&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="internals.pdo.prerequisites.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="internals.pdo.implementing.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Prerequisites</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="internals.pdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Fleshing out your skeleton</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

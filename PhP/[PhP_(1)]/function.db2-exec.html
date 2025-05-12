@@ -1,0 +1,488 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>db2_exec</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="IBM DB2, Cloudscape and Apache Derby Functions"
+HREF="ref.ibm-db2.html"><LINK
+REL="PREVIOUS"
+TITLE="db2_cursor_type"
+HREF="function.db2-cursor-type.html"><LINK
+REL="NEXT"
+TITLE="db2_execute"
+HREF="function.db2-execute.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.db2-cursor-type.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.db2-execute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.db2-exec"
+></A
+>db2_exec</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN53252"
+></A
+><P
+>    (PECL)</P
+>db2_exec&nbsp;--&nbsp;
+   Executes an SQL statement directly
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53255"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>db2_exec</B
+> ( resource connection, string statement [, array options] )<BR
+></BR
+><P
+>&#13;   Prepares and executes an SQL statement.
+  </P
+><P
+>&#13;   If you plan to interpolate PHP variables into the SQL statement, understand
+   that this is one of the more common security exposures. Consider calling
+   <A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+> to prepare an SQL statement with parameter
+   markers for input values. Then you can call <A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+>
+   to pass in the input values and avoid SQL injection attacks.
+  </P
+><P
+>&#13;   If you plan to repeatedly issue the same SQL statement with different
+   parameters, consider calling <A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+> and
+   <A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+> to enable the database server to reuse its
+   access plan and increase the efficiency of your database access.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53276"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       A valid database connection resource variable as returned from
+       <A
+HREF="function.db2-connect.html"
+><B
+CLASS="function"
+>db2_connect()</B
+></A
+> or <A
+HREF="function.db2-pconnect.html"
+><B
+CLASS="function"
+>db2_pconnect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>statement</VAR
+></DT
+><DD
+><P
+>&#13;       An SQL statement. The statement cannot contain any parameter markers.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>options</VAR
+></DT
+><DD
+><P
+>&#13;       An associative array containing statement options. You can use this
+       parameter to request a scrollable cursor on database servers that
+       support this functionality.
+       <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>cursor</VAR
+></DT
+><DD
+><P
+>&#13;           Passing the <VAR
+CLASS="literal"
+>DB2_FORWARD_ONLY</VAR
+> value requests a
+           forward-only cursor for this SQL statement. This is the default
+           type of cursor, and it is supported by all database servers. It is
+           also much faster than a scrollable cursor.
+          </P
+><P
+>&#13;           Passing the <VAR
+CLASS="literal"
+>DB2_SCROLLABLE</VAR
+> value requests a
+           scrollable cursor for this SQL statement. This type of cursor
+           enables you to fetch rows non-sequentially from the database
+           server. However, it is only supported by DB2 servers, and is much
+           slower than forward-only cursors.
+          </P
+></DD
+></DL
+></DIV
+>
+
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53306"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a statement resource if the SQL statement was issued successfully,
+   or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> if the database failed to execute the SQL statement.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53310"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53313"
+></A
+><P
+><B
+>Esempio 1. Creating a table with <B
+CLASS="function"
+>db2_exec()</B
+></B
+></P
+><P
+>&#13;     The following example uses <B
+CLASS="function"
+>db2_exec()</B
+> to issue a set
+     of DDL statements in the process of creating a table.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$conn </font><font color="#007700">= </font><font color="#0000BB">db2_connect</font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Create the test table<br /></font><font color="#0000BB">$create </font><font color="#007700">= </font><font color="#DD0000">'CREATE TABLE animals (id INTEGER, breed VARCHAR(32),<br />&nbsp;&nbsp;&nbsp;&nbsp;name CHAR(16), weight DECIMAL(7,2))'</font><font color="#007700">;<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">db2_exec</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#0000BB">$create</font><font color="#007700">);<br />if (</font><font color="#0000BB">$result</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"Successfully created the table.\n"</font><font color="#007700">;<br />}<br /><br /></font><font color="#FF8000">// Populate the test table<br /></font><font color="#0000BB">$animals </font><font color="#007700">= array(<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#DD0000">'cat'</font><font color="#007700">, </font><font color="#DD0000">'Pook'</font><font color="#007700">, </font><font color="#0000BB">3.2</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">1</font><font color="#007700">, </font><font color="#DD0000">'dog'</font><font color="#007700">, </font><font color="#DD0000">'Peaches'</font><font color="#007700">, </font><font color="#0000BB">12.3</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">2</font><font color="#007700">, </font><font color="#DD0000">'horse'</font><font color="#007700">, </font><font color="#DD0000">'Smarty'</font><font color="#007700">, </font><font color="#0000BB">350.0</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">3</font><font color="#007700">, </font><font color="#DD0000">'gold fish'</font><font color="#007700">, </font><font color="#DD0000">'Bubbles'</font><font color="#007700">, </font><font color="#0000BB">0.1</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">4</font><font color="#007700">, </font><font color="#DD0000">'budgerigar'</font><font color="#007700">, </font><font color="#DD0000">'Gizmo'</font><font color="#007700">, </font><font color="#0000BB">0.2</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">5</font><font color="#007700">, </font><font color="#DD0000">'goat'</font><font color="#007700">, </font><font color="#DD0000">'Rickety Ride'</font><font color="#007700">, </font><font color="#0000BB">9.7</font><font color="#007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</font><font color="#0000BB">6</font><font color="#007700">, </font><font color="#DD0000">'llama'</font><font color="#007700">, </font><font color="#DD0000">'Sweater'</font><font color="#007700">, </font><font color="#0000BB">150</font><font color="#007700">)<br />);<br /><br />foreach (</font><font color="#0000BB">$animals </font><font color="#007700">as </font><font color="#0000BB">$animal</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$rc </font><font color="#007700">= </font><font color="#0000BB">db2_exec</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#DD0000">"INSERT INTO animals (id, breed, name, weight)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUES (</font><font color="#007700">{</font><font color="#DD0000">$animal</font><font color="#007700">[</font><font color="#DD0000">0</font><font color="#007700">]}</font><font color="#DD0000">, '</font><font color="#007700">{</font><font color="#DD0000">$animal</font><font color="#007700">[</font><font color="#DD0000">1</font><font color="#007700">]}</font><font color="#DD0000">', '</font><font color="#007700">{</font><font color="#DD0000">$animal</font><font color="#007700">[</font><font color="#DD0000">2</font><font color="#007700">]}</font><font color="#DD0000">', </font><font color="#007700">{</font><font color="#DD0000">$animal</font><font color="#007700">[</font><font color="#DD0000">3</font><font color="#007700">]}</font><font color="#DD0000">)"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if (</font><font color="#0000BB">$rc</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"Insert... "</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Successfully created the table.
+Insert... Insert... Insert... Insert... Insert... Insert... Insert...</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+
+   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN53321"
+></A
+><P
+><B
+>Esempio 2. Executing a SELECT statement with a scrollable cursor</B
+></P
+><P
+>&#13;     The following example demonstrates how to request a scrollable cursor for
+     an SQL statement issued by <B
+CLASS="function"
+>db2_exec()</B
+>.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$conn </font><font color="#007700">= </font><font color="#0000BB">db2_connect</font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /></font><font color="#0000BB">$sql </font><font color="#007700">= </font><font color="#DD0000">"SELECT name FROM animals<br />&nbsp;&nbsp;&nbsp;&nbsp;WHERE weight &lt; 10.0<br />&nbsp;&nbsp;&nbsp;&nbsp;ORDER BY name"</font><font color="#007700">;<br />if (</font><font color="#0000BB">$conn</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;require_once(</font><font color="#DD0000">'prepare.inc'</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$stmt </font><font color="#007700">= </font><font color="#0000BB">db2_exec</font><font color="#007700">(</font><font color="#0000BB">$conn</font><font color="#007700">, </font><font color="#0000BB">$sql</font><font color="#007700">, array(</font><font color="#DD0000">'cursor' </font><font color="#007700">=&gt; </font><font color="#0000BB">DB2_SCROLLABLE</font><font color="#007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">db2_fetch_array</font><font color="#007700">(</font><font color="#0000BB">$stmt</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print </font><font color="#DD0000">"$row</font><font color="#007700">[</font><font color="#DD0000">0</font><font color="#007700">]\n</font><font color="#DD0000">"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />} <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Bubbles
+Gizmo
+Pook
+Rickety Ride</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN53328"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.db2-execute.html"
+><B
+CLASS="function"
+>db2_execute()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.db2-prepare.html"
+><B
+CLASS="function"
+>db2_prepare()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.db2-cursor-type.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.db2-execute.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>db2_cursor_type</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ibm-db2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>db2_execute</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

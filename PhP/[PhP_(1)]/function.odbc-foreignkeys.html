@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>odbc_foreignkeys</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni ODBC (Unificate)"
+HREF="ref.uodbc.html"><LINK
+REL="PREVIOUS"
+TITLE="odbc_field_type"
+HREF="function.odbc-field-type.html"><LINK
+REL="NEXT"
+TITLE="odbc_free_result"
+HREF="function.odbc-free-result.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.odbc-field-type.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.odbc-free-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.odbc-foreignkeys"
+></A
+>odbc_foreignkeys</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN114851"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>odbc_foreignkeys&nbsp;--&nbsp;
+     Restituisce l'elenco delle chiavi esterne per la tabella indicata, 
+     oppure la lista delle chiavi esterne in altre tabelle che fanno
+     riferimento alla chiave primaria della tabella indicata.
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN114854"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>odbc_foreignkeys</B
+> ( resource id_connessione, string pk_qualifica, string pk_proprietario, string pk_tabella, string fk_qualifica, string fk_proprietario, string fk_tabella )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>odbc_foreignkeys()</B
+> ritorna informazioni sulle
+     chiavi esterne. Restituisce un identificatore di risultato oppure 
+     <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se si verifica un errore.
+    </P
+><P
+>&#13;      Le righe risultanti dall'elaborazione contengono i seguenti campi:
+     <P
+></P
+><UL
+><LI
+><P
+>PKTABLE_QUALIFIER</P
+></LI
+><LI
+><P
+>PKTABLE_OWNER</P
+></LI
+><LI
+><P
+>PKTABLE_NAME</P
+></LI
+><LI
+><P
+>PKCOLUMN_NAME</P
+></LI
+><LI
+><P
+>FKTABLE_QUALIFIER</P
+></LI
+><LI
+><P
+>FKTABLE_OWNER</P
+></LI
+><LI
+><P
+>FKTABLE_NAME</P
+></LI
+><LI
+><P
+>FKCOLUMN_NAME</P
+></LI
+><LI
+><P
+>KEY_SEQ</P
+></LI
+><LI
+><P
+>UPDATE_RULE</P
+></LI
+><LI
+><P
+>DELETE_RULE</P
+></LI
+><LI
+><P
+>FK_NAME</P
+></LI
+><LI
+><P
+>PK_NAME</P
+></LI
+></UL
+>
+    </P
+><P
+>&#13;     Se l'argomento <VAR
+CLASS="parameter"
+>pk_tabella</VAR
+> contiene il nome di una tabella,
+     la funzione <B
+CLASS="function"
+>odbc_foreignkeys()</B
+> ritorna una serie di righe
+     contenenti i dati della chiave primaria della tabella e di tutte le chiavi esterne
+     che hanno riferimenti a questa.
+    </P
+><P
+>&#13;     Se l'argomento <VAR
+CLASS="parameter"
+>fk_tabella</VAR
+> contiene il nome di una tabella,
+     la funzione <B
+CLASS="function"
+>odbc_foreignkeys()</B
+> ritorna una serie di righe
+     contenenti i dati delle chiavi esterne della tabella e delle chiavi primarie 
+     ( di altre tabelle ) a cui queste hanno riferimenti.
+    </P
+><P
+>&#13;     Se entrambi gli argomenti <VAR
+CLASS="parameter"
+>pk_tabella</VAR
+> e
+     <VAR
+CLASS="parameter"
+>fk_tabella</VAR
+> contengono nomi di tabelle,
+     <B
+CLASS="function"
+>odbc_foreignkeys()</B
+> restituisce le chiavi esterne
+     della tabella specificata in  <VAR
+CLASS="parameter"
+>fk_tabella</VAR
+> che hanno
+     riferimenti alla chiave primaria della tabella indicata in
+     <VAR
+CLASS="parameter"
+>pk_tabella</VAR
+>. La funzione dovrebbe trovare almeno una chiave.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.odbc-field-type.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.odbc-free-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>odbc_field_type</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.uodbc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>odbc_free_result</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

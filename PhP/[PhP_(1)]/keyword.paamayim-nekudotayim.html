@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Operatore Scope Resolution (::)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classi e Oggetti (PHP 4)"
+HREF="language.oop.html"><LINK
+REL="PREVIOUS"
+TITLE="Costruttori"
+HREF="language.oop.constructor.html"><LINK
+REL="NEXT"
+TITLE="parent"
+HREF="keyword.parent.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop.constructor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 18. Classi e Oggetti (PHP 4)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="keyword.parent.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="keyword.paamayim-nekudotayim"
+>Operatore Scope Resolution (<VAR
+CLASS="literal"
+>::</VAR
+>)</A
+></H1
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     Ciò che segue è valido soltanto per PHP 4.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;    A volte è utile riferirsi alle funzioni ed alle variabili 
+    di classi base o riferirsi alle funzioni di classi senza 
+    istanziarle. L'operatore :: è usato per questi scopi.
+
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5600"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">A </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">example</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Sono la funzione originale A::example().&lt;br /&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class </font><font color="#0000BB">B </font><font color="#007700">extends </font><font color="#0000BB">A </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">example</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Sono la funzione ridefinita B::example().&lt;br /&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">A</font><font color="#007700">::</font><font color="#0000BB">example</font><font color="#007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#FF8000">// non viene istanziato nessun oggetto dalla classe A.<br />// ma il codice stampa<br />//&nbsp;&nbsp;&nbsp;Sono la funzione originale A::example().&lt;br /&gt;<br /></font><font color="#0000BB">A</font><font color="#007700">::</font><font color="#0000BB">example</font><font color="#007700">();<br /><br /></font><font color="#FF8000">// crea un oggetto dalla classe B.<br /></font><font color="#0000BB">$b </font><font color="#007700">= new </font><font color="#0000BB">B</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// questo codice stampa<br />//&nbsp;&nbsp;&nbsp;Sono la funzione ridefinita B::example().&lt;br /&gt;<br />//&nbsp;&nbsp;&nbsp;Sono la funzione originale A::example().&lt;br /&gt;<br /></font><font color="#0000BB">$b</font><font color="#007700">-&gt;</font><font color="#0000BB">example</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    L'esempio chiama la funzione example() della classe A, ma 
+    senza creare un'istanza di A, di modo che la funzione non 
+    si possa richiamare con $a-&#62;example(). example() è chiamata 
+    come 'funzione della classe', e non come funzione di un 
+    oggetto della classe.
+
+   </P
+><P
+>&#13;    Si possono usare funzioni della classe, ma non le variabili 
+    della classe. Infatti, non esiste nessun oggetto nel momento 
+    della chiamata della funzione. Quindi, la funzione della classe 
+    non può usare le variabili dell'oggetto (ma può usare le variabili 
+    locali e globali) e $this non può essere usato.
+   </P
+><P
+>&#13;    Nel suddetto esempio, la classe B ridefinisce la funzione 
+    example(). La funzione originale definita nella classe A è 
+    adombrata e non più disponibile, a meno che voi non chiamiate 
+    esplicitamente con l'operatore :: scrivendo A::example() per 
+    richiamare la funzione (è possibile anche scrivere parent::example(), 
+    come mostra la sezione seguente).
+
+   </P
+><P
+>&#13;    In questo contesto, c'è un oggetto corrente che può avere 
+    determinate variabili. Una volta usate da parte di una 
+    funzione dell'oggetto, potete usare $this per le variabili dell'oggetto.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop.constructor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="keyword.parent.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>Costruttori</VAR
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>parent</VAR
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

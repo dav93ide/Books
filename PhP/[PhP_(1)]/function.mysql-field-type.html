@@ -1,0 +1,247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mysql_field_type</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="MySQL Functions"
+HREF="ref.mysql.html"><LINK
+REL="PREVIOUS"
+TITLE="mysql_field_table"
+HREF="function.mysql-field-table.html"><LINK
+REL="NEXT"
+TITLE="mysql_free_result"
+HREF="function.mysql-free-result.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.mysql-field-table.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.mysql-free-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mysql-field-type"
+></A
+>mysql_field_type</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN93558"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mysql_field_type&nbsp;--&nbsp;
+     Ottiene il tipo del campo specificato in un risultato
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN93561"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>mysql_field_type</B
+> ( resource risultato, int indice_campo )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mysql_field_type()</B
+> è simile alla funzione
+     <A
+HREF="function.mysql-field-name.html"
+><B
+CLASS="function"
+>mysql_field_name()</B
+></A
+>. Gli argomenti sono
+     identici, ma viene restituito il tipo del campo. Il tipo del campo
+     sarà uno dei seguenti: "int", "real", "string", "blob" ed altri come
+     dettagliati nella <A
+HREF="http://dev.mysql.com/doc/"
+TARGET="_top"
+>Documentazione di
+	 MySQL</A
+>.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN93576"
+></A
+><P
+><B
+>Esempio 1. Tipi di campo MySQL</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;mysql_connect</font><font color="#007700">(</font><font color="#DD0000">"localhost"</font><font color="#007700">, </font><font color="#DD0000">"utente_mysql"</font><font color="#007700">, </font><font color="#DD0000">"password_mysql"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_select_db</font><font color="#007700">(</font><font color="#DD0000">"mysql"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$risultato </font><font color="#007700">= </font><font color="#0000BB">mysql_query</font><font color="#007700">(</font><font color="#DD0000">"SELECT * FROM func"</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$campi </font><font color="#007700">= </font><font color="#0000BB">mysql_num_fields</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$righe&nbsp;&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#0000BB">mysql_num_rows</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$tabella </font><font color="#007700">= </font><font color="#0000BB">mysql_field_table</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"La tabella'"</font><font color="#007700">.</font><font color="#0000BB">$table</font><font color="#007700">.</font><font color="#DD0000">"' ha "</font><font color="#007700">.</font><font color="#0000BB">$fields</font><font color="#007700">.</font><font color="#DD0000">" campi e "</font><font color="#007700">.</font><font color="#0000BB">$righe</font><font color="#007700">.</font><font color="#DD0000">" record\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"La tabella ha i seguenti campi:\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;for (</font><font color="#0000BB">$i</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$i </font><font color="#007700">&lt; </font><font color="#0000BB">$campi</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$tipo </font><font color="#007700">= </font><font color="#0000BB">mysql_field_type</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$nome </font><font color="#007700">= </font><font color="#0000BB">mysql_field_name</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$lung </font><font color="#007700">= </font><font color="#0000BB">mysql_field_len</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$flag </font><font color="#007700">= </font><font color="#0000BB">mysql_field_flags</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">, </font><font color="#0000BB">$i</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$tipo</font><font color="#007700">.</font><font color="#DD0000">" "</font><font color="#007700">.</font><font color="#0000BB">$nome</font><font color="#007700">.</font><font color="#DD0000">" "</font><font color="#007700">.</font><font color="#0000BB">$lung</font><font color="#007700">.</font><font color="#DD0000">" "</font><font color="#007700">.</font><font color="#0000BB">$flag</font><font color="#007700">.</font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_free_result</font><font color="#007700">(</font><font color="#0000BB">$risultato</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">mysql_close</font><font color="#007700">();<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       L'esempio riportato sopra dovrebbe produrre il seguente output:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>La tabella 'func' ha 4 campi e 1 record
+La tabella ha i seguenti campi:
+string name 64 not_null primary_key binary
+int ret 1 not_null
+string dl 128 not_null
+string type 9 not_null enum</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Per motivi di compatibilità con il passato, anche <B
+CLASS="function"
+>mysql_fieldtype()</B
+>
+     può essere usata. Questo comunque è sconsigliato.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.mysql-field-table.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.mysql-free-result.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>mysql_field_table</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mysql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mysql_free_result</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

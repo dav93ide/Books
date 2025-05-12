@@ -1,0 +1,377 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni API CCVS [deprecate]</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="unixtojd"
+HREF="function.unixtojd.html"><LINK
+REL="NEXT"
+TITLE="ccvs_add"
+HREF="function.ccvs-add.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.unixtojd.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ccvs-add.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.ccvs"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XI. Funzioni API CCVS [deprecate]</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN14676"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ccvs.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Queste funzioni si interfacciano con le API CCVS, permettendo di 
+     lavorare direttamente con CCVS dagli script PHP.  CCVS è la soluzione di <A
+HREF="http://www.redhat.com/"
+TARGET="_top"
+>RedHat</A
+> per il  "mediatore"
+     nella gestione dei pagamenti con carta di credito. Permette di comunicare direttamente
+     con le società di autorizzazione di transazione attraverso una *nix box e un modem. Usando
+     il modulo CCVS per PHP, è possibile procesare direttamente le carte di credito
+     attraverso gli script PHP. Le seguenti informazioni
+     esemplificheranno il processo.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      CCVS è stato abbandonato da Red Hat e non c'è l'intenzione
+      di fornire altre chiavi o contratti di assistenza. Chi cerca un
+      sostituto può considerare
+      <A
+HREF="http://www.mainstreetsoftworks.com/"
+TARGET="_top"
+>MCVE della Main Street Softworks</A
+>
+      come una possibile alternativa. Il prodotto è simile nella struttura ed ha
+      un supporto documentato per PHP!
+     </P
+><P
+>&#13;      Questa estensione è stata rimossa dal <VAR
+CLASS="literal"
+>PHP</VAR
+> e non è
+      più disponibile dal PHP 4.3.0. Se si vogliono utilizzare delle funzioni
+      di processamento delle carte di credito, utilizzare piuttosto 
+      <A
+HREF="ref.mcve.html"
+>MCVE</A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ccvs.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  To enable CCVS Support in PHP, first verify your CCVS installation
+  directory.  You will then need to configure PHP with the <VAR
+CLASS="option"
+>--with-ccvs</VAR
+> option. If you use this
+  option without specifying the path to your CCVS installation, PHP
+  will attempt to look in the default CCVS Install location
+  (<TT
+CLASS="filename"
+>/usr/local/ccvs</TT
+>). If CCVS is in a non-standard location,
+  run configure with: <VAR
+CLASS="option"
+>--with-ccvs=[DIR]</VAR
+>, where
+  DIR is the path to your CCVS installation. Please note that CCVS support
+  requires that DIR/lib and DIR/include exist, and include
+  <TT
+CLASS="filename"
+>cv_api.h</TT
+> under the include directory and
+  <TT
+CLASS="filename"
+>libccvs.a</TT
+> under the lib directory.
+ </P
+><P
+>&#13;  Additionally, a ccvsd process will need to be running for the configurations
+  you intend to use in your PHP scripts. You will also need to make sure the PHP
+  Processes are running under the same user as your CCVS was installed as (e.g.
+  if you installed CCVS as user 'ccvs', your PHP processes must run as 'ccvs' as
+  well.)
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ccvs.seealso"
+>Vedere anche:</A
+></H1
+><P
+>&#13;     RedHat non supporta più CCVS; comunque una documentazione
+     leggermente datata è ancora disponibile presso
+     <A
+HREF="http://www.redhat.com/docs/manuals/ccvs/"
+TARGET="_top"
+>http://www.redhat.com/docs/manuals/ccvs/</A
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.ccvs-add.html"
+>ccvs_add</A
+>&nbsp;--&nbsp;Aggiunge dati ad una transazione</DT
+><DT
+><A
+HREF="function.ccvs-auth.html"
+>ccvs_auth</A
+>&nbsp;--&nbsp; 
+     Esegue un test di autorizzazione al credito su una transazione
+    </DT
+><DT
+><A
+HREF="function.ccvs-command.html"
+>ccvs_command</A
+>&nbsp;--&nbsp;
+     Esegue un comando caratteristico di un particolare protocollo, 
+     quindi non disponibile nelle API di CCVS
+    </DT
+><DT
+><A
+HREF="function.ccvs-count.html"
+>ccvs_count</A
+>&nbsp;--&nbsp;
+     Conta quante transazioni di un dato tipo sono archiviate nel sistema 
+    </DT
+><DT
+><A
+HREF="function.ccvs-delete.html"
+>ccvs_delete</A
+>&nbsp;--&nbsp;Cancella una transazione</DT
+><DT
+><A
+HREF="function.ccvs-done.html"
+>ccvs_done</A
+>&nbsp;--&nbsp;Ferma il processo CCVS e ripulisce gli oggetti creati</DT
+><DT
+><A
+HREF="function.ccvs-init.html"
+>ccvs_init</A
+>&nbsp;--&nbsp;Inizializza CCVS per il successivo utilizzo</DT
+><DT
+><A
+HREF="function.ccvs-lookup.html"
+>ccvs_lookup</A
+>&nbsp;--&nbsp;
+     Cerca una voce di un determinato tipo nel database #
+    </DT
+><DT
+><A
+HREF="function.ccvs-new.html"
+>ccvs_new</A
+>&nbsp;--&nbsp;Crea una nuova transazione, vuota</DT
+><DT
+><A
+HREF="function.ccvs-report.html"
+>ccvs_report</A
+>&nbsp;--&nbsp;Restituisce lo stato del processo di comunicazione </DT
+><DT
+><A
+HREF="function.ccvs-return.html"
+>ccvs_return</A
+>&nbsp;--&nbsp;
+     Trasferisce fondi dal merchant al titolare della carta di credito 
+    </DT
+><DT
+><A
+HREF="function.ccvs-reverse.html"
+>ccvs_reverse</A
+>&nbsp;--&nbsp;
+     Esegue uno storno su un'autorizzazione già processata 
+    </DT
+><DT
+><A
+HREF="function.ccvs-sale.html"
+>ccvs_sale</A
+>&nbsp;--&nbsp;
+     Trasferisce fondi dal titolare della carta di credito al merchant
+    </DT
+><DT
+><A
+HREF="function.ccvs-status.html"
+>ccvs_status</A
+>&nbsp;--&nbsp;Controlla lo stato di una fattura</DT
+><DT
+><A
+HREF="function.ccvs-textvalue.html"
+>ccvs_textvalue</A
+>&nbsp;--&nbsp;Restuisce il valore testuale reso dalla precedente chiamata di funzione</DT
+><DT
+><A
+HREF="function.ccvs-void.html"
+>ccvs_void</A
+>&nbsp;--&nbsp;
+     Esegue uno storno su una transazione già completata 
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.unixtojd.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ccvs-add.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>unixtojd</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ccvs_add</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

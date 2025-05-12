@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni di compressione Bzip2</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="bcompiler_write_header"
+HREF="function.bcompiler-write-header.html"><LINK
+REL="NEXT"
+TITLE="bzclose"
+HREF="function.bzclose.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.bcompiler-write-header.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.bzclose.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.bzip2"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>IX. Funzioni di compressione Bzip2</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN13783"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="bzip2.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Le funzioni bzip2 sono utilizzate per leggere e scrivere in modo trasparente i file 
+     compressi con bzip2 (.bz2).
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="bzip2.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     Questo modulo tuilizza le funzioni della libreria <A
+HREF="http://www.bzip.org/"
+TARGET="_top"
+>bzip2
+     </A
+> di Julian Seward. Questo modulo richiede che la versione di bzip2/libbzip2
+     sia &#62;= 1.0.x.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="bzip2.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Il supporto di bzip2 in <VAR
+CLASS="literal"
+>PHP</VAR
+> non è abilitato di default. Si deve
+  utilizzare l'opzione <VAR
+CLASS="option"
+>--with-bz2[=DIR]</VAR
+>
+  quando si compila PHP, per abilitare il supporto bzip2.
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="bzip2.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="bzip2.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;     Questa estensione definisce un tipo di risorsa: un puntatore a file che identifica
+     il file bz2 su cui lavorare.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="bzip2.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="bzip2.examples"
+>Esempi</A
+></H1
+><P
+>&#13;     Questo esempio apre un file temporaneo e scrive una stringa di prova su
+     di esso, quindi stampa il contenuto del file.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN13809"
+></A
+><P
+><B
+>Esempio 1. breve esempio di bzip2</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$nomefile </font><font color="#007700">= </font><font color="#DD0000">"/tmp/filediprova.bz2"</font><font color="#007700">;<br /></font><font color="#0000BB">$str </font><font color="#007700">= </font><font color="#DD0000">"Questa è una stringa di prova.\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// apre il file in lettura<br /></font><font color="#0000BB">$bz </font><font color="#007700">= </font><font color="#0000BB">bzopen</font><font color="#007700">(</font><font color="#0000BB">$nomefile</font><font color="#007700">, </font><font color="#DD0000">"w"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// scrive la stringa sul file<br /></font><font color="#0000BB">bzwrite</font><font color="#007700">(</font><font color="#0000BB">$bz</font><font color="#007700">, </font><font color="#0000BB">$str</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// chiude il file<br /></font><font color="#0000BB">bzclose</font><font color="#007700">(</font><font color="#0000BB">$bz</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// apre il file in lettura<br /></font><font color="#0000BB">$bz </font><font color="#007700">= </font><font color="#0000BB">bzopen</font><font color="#007700">(</font><font color="#0000BB">$nomefile</font><font color="#007700">, </font><font color="#DD0000">"r"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// legge 10 caratteri<br /></font><font color="#007700">echo </font><font color="#0000BB">bzread</font><font color="#007700">(</font><font color="#0000BB">$bz</font><font color="#007700">, </font><font color="#0000BB">10</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// stampa fino alla fine del file (o fino ai prossimi 1024 caratteri) e chiude il file.<br /></font><font color="#007700">echo </font><font color="#0000BB">bzread</font><font color="#007700">(</font><font color="#0000BB">$bz</font><font color="#007700">);<br /><br /></font><font color="#0000BB">bzclose</font><font color="#007700">(</font><font color="#0000BB">$bz</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.bzclose.html"
+>bzclose</A
+>&nbsp;--&nbsp;Chiude un puntatore a un file bzip2</DT
+><DT
+><A
+HREF="function.bzcompress.html"
+>bzcompress</A
+>&nbsp;--&nbsp;Comprime una stringa nel formato bzip2</DT
+><DT
+><A
+HREF="function.bzdecompress.html"
+>bzdecompress</A
+>&nbsp;--&nbsp;Decomprime dati codificati con bzip2</DT
+><DT
+><A
+HREF="function.bzerrno.html"
+>bzerrno</A
+>&nbsp;--&nbsp;Restituisce il codice d'errore bzip2</DT
+><DT
+><A
+HREF="function.bzerror.html"
+>bzerror</A
+>&nbsp;--&nbsp;Restituisce il codice d'errore bzip2 e la stringa corrispondente in un array</DT
+><DT
+><A
+HREF="function.bzerrstr.html"
+>bzerrstr</A
+>&nbsp;--&nbsp;restituisce la stringa di errore bzip2</DT
+><DT
+><A
+HREF="function.bzflush.html"
+>bzflush</A
+>&nbsp;--&nbsp;Forza la scrittura di tutti i dati nel buffer</DT
+><DT
+><A
+HREF="function.bzopen.html"
+>bzopen</A
+>&nbsp;--&nbsp;Apre un file compresso bzip2</DT
+><DT
+><A
+HREF="function.bzread.html"
+>bzread</A
+>&nbsp;--&nbsp;Esegue la lettura binaria di un file bzip2</DT
+><DT
+><A
+HREF="function.bzwrite.html"
+>bzwrite</A
+>&nbsp;--&nbsp;Esegue la scrittura binaria di un file bzip2</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.bcompiler-write-header.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.bzclose.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>bcompiler_write_header</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>bzclose</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

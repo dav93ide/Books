@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>is_subclass_of</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per Classi/Oggetti "
+HREF="ref.classobj.html"><LINK
+REL="PREVIOUS"
+TITLE="is_a"
+HREF="function.is-a.html"><LINK
+REL="NEXT"
+TITLE="method_exists"
+HREF="function.method-exists.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.is-a.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.method-exists.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.is-subclass-of"
+></A
+>is_subclass_of</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN15404"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>is_subclass_of&nbsp;--&nbsp;
+     Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se l'oggetto ha questa classe come uno dei suoi genitori
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN15408"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>is_subclass_of</B
+> ( mixed oggetto, string nome_classe )<BR
+></BR
+><P
+>&#13;     Questa funzione restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se <VAR
+CLASS="parameter"
+>obj</VAR
+>, appartiene ad una 
+     sottoclasse di <VAR
+CLASS="parameter"
+>nome_classe</VAR
+>, altrimenti <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Dal PHP 5.0.3 si può specificare il parametro <VAR
+CLASS="parameter"
+>oggetto</VAR
+>
+      come stringa (il nome della classe).
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;      <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN15428"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>is_subclass_of()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// definisce una classe<br /></font><font color="#007700">class </font><font color="#0000BB">WidgetFactory<br /></font><font color="#007700">{<br />&nbsp;&nbsp;var </font><font color="#0000BB">$oink </font><font color="#007700">= </font><font color="#DD0000">'moo'</font><font color="#007700">;<br />}<br /> <br /></font><font color="#FF8000">// definisce una classe figlio<br /></font><font color="#007700">class </font><font color="#0000BB">WidgetFactory_Child </font><font color="#007700">extends </font><font color="#0000BB">WidgetFactory<br /></font><font color="#007700">{<br />&nbsp;&nbsp;var </font><font color="#0000BB">$oink </font><font color="#007700">= </font><font color="#DD0000">'oink'</font><font color="#007700">;<br />}<br /> <br /></font><font color="#FF8000">// crea un nuovo oggetto<br /></font><font color="#0000BB">$WF </font><font color="#007700">= new </font><font color="#0000BB">WidgetFactory</font><font color="#007700">();<br /></font><font color="#0000BB">$WFC </font><font color="#007700">= new </font><font color="#0000BB">WidgetFactory_Child</font><font color="#007700">();<br /> <br />if (</font><font color="#0000BB">is_subclass_of</font><font color="#007700">(</font><font color="#0000BB">$WFC</font><font color="#007700">, </font><font color="#DD0000">'WidgetFactory'</font><font color="#007700">)) {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"yes, \$WFC is a subclass of WidgetFactory\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"no, \$WFC is not a subclass of WidgetFactory\n"</font><font color="#007700">;<br />}<br /> <br />if (</font><font color="#0000BB">is_subclass_of</font><font color="#007700">(</font><font color="#0000BB">$WF</font><font color="#007700">, </font><font color="#DD0000">'WidgetFactory'</font><font color="#007700">)) {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"yes, \$WF is a subclass of WidgetFactory\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"no, \$WF is not a subclass of WidgetFactory\n"</font><font color="#007700">;<br />}<br /></font><font color="#FF8000">// utilizzabile dal PHP 5.0.3<br /></font><font color="#007700">if (</font><font color="#0000BB">is_subclass_of</font><font color="#007700">(</font><font color="#DD0000">'WidgetFactory_Child'</font><font color="#007700">, </font><font color="#DD0000">'WidgetFactory'</font><font color="#007700">)) {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"yes, WidgetFactory_Child is a subclass of WidgetFactory\n"</font><font color="#007700">;<br />} else {<br />&nbsp;&nbsp;echo </font><font color="#DD0000">"no, WidgetFactory_Child is not a subclass of WidgetFactory\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>yes, $WFC is a subclass of WidgetFactory
+no, $WF is not a subclass of WidgetFactory
+yes, WidgetFactory_Child is a subclass of WidgetFactory</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.get-class.html"
+><B
+CLASS="function"
+>get_class()</B
+></A
+>,
+     <A
+HREF="function.get-parent-class.html"
+><B
+CLASS="function"
+>get_parent_class()</B
+></A
+> e
+     <A
+HREF="function.is-a.html"
+><B
+CLASS="function"
+>is_a()</B
+></A
+>. 
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.is-a.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.method-exists.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>is_a</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.classobj.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>method_exists</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

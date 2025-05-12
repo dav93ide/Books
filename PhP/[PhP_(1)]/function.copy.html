@@ -1,0 +1,314 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>copy</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="clearstatcache"
+HREF="function.clearstatcache.html"><LINK
+REL="NEXT"
+TITLE="delete"
+HREF="function.delete.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.clearstatcache.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.delete.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.copy"
+></A
+>copy</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN40516"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>copy&nbsp;--&nbsp;Copia un file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN40519"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>copy</B
+> ( string source, string dest )<BR
+></BR
+><P
+>&#13;     Copia il file <VAR
+CLASS="parameter"
+>source</VAR
+> in
+     <VAR
+CLASS="parameter"
+>dest</VAR
+>. Restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in caso di successo, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di fallimento.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN40535"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>copy()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$file </font><font color="#007700">= </font><font color="#DD0000">'example.txt'</font><font color="#007700">;<br /></font><font color="#0000BB">$newfile </font><font color="#007700">= </font><font color="#DD0000">'example.txt.bak'</font><font color="#007700">;<br /><br /></font><font color="#0000BB">$file </font><font color="#007700">= </font><font color="#DD0000">'example.txt'</font><font color="#007700">;<br /></font><font color="#0000BB">$newfile </font><font color="#007700">= </font><font color="#DD0000">'example.txt.bak'</font><font color="#007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if (!</font><font color="#0000BB">copy</font><font color="#007700">(</font><font color="#0000BB">$file</font><font color="#007700">, </font><font color="#0000BB">$newfile</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Copia di $file non riuscita ...</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Come da PHP 4.3.0, sia <VAR
+CLASS="parameter"
+>source</VAR
+> che
+      <VAR
+CLASS="parameter"
+>dest</VAR
+> potrebbero essere URL se "fopen wrappers"
+      è stato abilitato. Vedere <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+> per ulteriori dettagli.
+      Se il parametro <VAR
+CLASS="parameter"
+>dest</VAR
+> punta ad un URL, l'operazione di copia
+      potrebbe fallire se il wrapper non supporta la sovrascrittura di file esistenti.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Se il file di destinazione già esiste, esso verrà sovrascritto.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+> 
+        Nota di compatibilità con Windows: se viene copiato un file vuoto, 
+        <B
+CLASS="function"
+>copy()</B
+> restituisce falso, ma il file sarà copiato 
+        correttamente. 
+       </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.move-uploaded-file.html"
+><B
+CLASS="function"
+>move_uploaded_file()</B
+></A
+>,
+     <A
+HREF="function.rename.html"
+><B
+CLASS="function"
+>rename()</B
+></A
+>, e la sezione del manuale
+     riguardo <A
+HREF="features.file-upload.html"
+>handling file
+     uploads</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.clearstatcache.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.delete.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>clearstatcache</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>delete</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

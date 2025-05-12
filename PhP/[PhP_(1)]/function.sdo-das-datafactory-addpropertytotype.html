@@ -1,0 +1,461 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>SDO_DAS_DataFactory::addPropertyToType</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SDO Functions"
+HREF="ref.sdo.html"><LINK
+REL="PREVIOUS"
+TITLE="SDO_DAS_ChangeSummary::isLogging"
+HREF="function.sdo-das-changesummary-islogging.html"><LINK
+REL="NEXT"
+TITLE="SDO_DAS_DataFactory::addType"
+HREF="function.sdo-das-datafactory-addtype.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sdo-das-changesummary-islogging.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sdo-das-datafactory-addtype.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.SDO-DAS-DataFactory-addPropertyToType"
+></A
+>SDO_DAS_DataFactory::addPropertyToType</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN146107"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>SDO_DAS_DataFactory::addPropertyToType&nbsp;--&nbsp;
+    Adds a property to a type.
+  </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN146110"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>SDO_DAS_DataFactory::addPropertyToType</B
+> ( string parentNamespaceURI, string parentTypeName, string propertyName, string propertyNamespaceURI, string propertyTypeName [, array options] )<BR
+></BR
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questa funzione è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di questa funzione,
+il nome di questa funzione, in definitiva tutto ciò che è documentato qui 
+può cambiare nei futuri rilasci del PHP senza preavviso. Siete avvisati, l'uso di questa
+funzione è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;   Adds a property to a type. The type must already be known to the
+   SDO_DAS_DataFactory (i.e. have been added using addType()). The property
+   becomes a property of the type. This is how the graph model for the
+   structure of an SDO_DataObject is built.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN146137"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>parentNamespaceURI</VAR
+></DT
+><DD
+><P
+>&#13;       The namespace URI for the parent type.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>parentTypeName</VAR
+></DT
+><DD
+><P
+>&#13;       The type name for the parent type.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>propertyName</VAR
+></DT
+><DD
+><P
+>&#13;       The name by which the property will be known in the parent type.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>propertyNamespaceURI</VAR
+></DT
+><DD
+><P
+>&#13;       The namespace URI for the type of the property.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>propertyTypeName</VAR
+></DT
+><DD
+><P
+>&#13;       The type name for the type of the property
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>options</VAR
+></DT
+><DD
+><P
+> This array holds one or more key=&#62;value pairs to set attribute
+      values for the property. The optional keywords are:</P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>many</VAR
+></DT
+><DD
+><P
+>A flag to say whether the property is many-valued. A value of 'true' adds the
+          property as a many-valued property (default is 'false').
+         </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>readOnly</VAR
+></DT
+><DD
+><P
+> A flag to say whether the property is read-only. A value of 'true' means the
+          property value cannot be modified through the SDO application APIs (default is
+          'false').
+         </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>containment</VAR
+></DT
+><DD
+><P
+> A flag to say whether the property is contained by the parent. A value of
+          'true' means the property is contained by the parent. A value of 'false' results
+          in a non-containment reference (default is 'true'). This flag is only
+          interpreted when adding properties which are data object types, otherwise it is
+          ignored.
+         </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>default</VAR
+></DT
+><DD
+><P
+> A default value for the property. Omitting this key means that the property
+          does not have a default value. A property can only have a default value if it is a
+          single-valued data type (primitive).
+         </P
+></DD
+></DL
+></DIV
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN146192"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   None.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN146195"
+></A
+><H2
+>Log delle modifiche</H2
+><P
+>&#13;   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN146198"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Versione</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>0.5.2</TD
+><TD
+>Optional parameters <VAR
+CLASS="varname"
+>many</VAR
+>, 
+        <VAR
+CLASS="varname"
+>readOnly</VAR
+>, and <VAR
+CLASS="varname"
+>containment</VAR
+>
+        deprecated in favour of the <VAR
+CLASS="varname"
+>options</VAR
+> array.
+        </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN146212"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN146215"
+></A
+><P
+><B
+>Esempio 1. A
+     <B
+CLASS="function"
+>SDO_DAS_DataFactory::addPropertyToType()</B
+>
+     example</B
+></P
+><P
+> The following adds an 'addressline' property to a Person type. The person type is
+     identified by its namespace, 'PersonNS', and type name, 'PersonType'. The type of the
+     'addressline' property is a many-valued SDO data type (primitive) with namespace
+     'commonj.sdo' and type name 'String'.
+    </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />&nbsp;&nbsp;$df</font><font color="#007700">-&gt;</font><font color="#0000BB">addPropertyToType</font><font color="#007700">(</font><font color="#DD0000">'PersonNS'</font><font color="#007700">, </font><font color="#DD0000">'PersonType'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">'addressline'</font><font color="#007700">, </font><font color="#DD0000">'commonj.sdo'</font><font color="#007700">, </font><font color="#DD0000">'String'</font><font color="#007700">, array(</font><font color="#DD0000">'many'</font><font color="#007700">=&gt;</font><font color="#0000BB">true</font><font color="#007700">));<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sdo-das-changesummary-islogging.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sdo-das-datafactory-addtype.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>SDO_DAS_ChangeSummary::isLogging</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sdo.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>SDO_DAS_DataFactory::addType</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

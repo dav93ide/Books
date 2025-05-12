@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Costruttori</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classi e Oggetti (PHP 4)"
+HREF="language.oop.html"><LINK
+REL="PREVIOUS"
+TITLE="extends"
+HREF="keyword.extends.html"><LINK
+REL="NEXT"
+TITLE="Operatore Scope Resolution (::)"
+HREF="keyword.paamayim-nekudotayim.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="keyword.extends.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 18. Classi e Oggetti (PHP 4)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="keyword.paamayim-nekudotayim.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="language.oop.constructor"
+><VAR
+CLASS="literal"
+>Costruttori</VAR
+></A
+></H1
+><P
+>&#13;    I costruttori sono funzioni che esistono in una classe e che 
+    sono chiamate automaticamente quando si crea una nuova istanza 
+    di una classe con <VAR
+CLASS="literal"
+>new</VAR
+>.  In PHP 4, una funzione diventa un costruttore, 
+    quando ha lo stesso nome della classe. Se una classe non ha
+    costruttore, allora si richiama il costruttore della
+    classe base, se esiste.
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5577"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Auto_Cart </font><font color="#007700">extends </font><font color="#0000BB">Cart </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">Auto_Cart</font><font color="#007700">() {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">add_item </font><font color="#007700">(</font><font color="#DD0000">"10"</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    Questo codice definisce una classe Auto_Cart, che non è altro che 
+    Cart più un costruttore che inizializza il carrello con una occorrenza 
+    dell'articolo numero "10" ogni volta che un nuovo Auto_Cart è creato con
+    "new". I costruttori possono avere degli argomenti, e gli argomenti possono 
+    essere facoltativi, questo li rende molto versatili. Per poter usare una classe 
+    senza specificare parametri, tutti i parametri del costruttore devono essere resi
+    facoltativi con valori di default.
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5580"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Constructor_Cart </font><font color="#007700">extends </font><font color="#0000BB">Cart </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">Constructor_Cart</font><font color="#007700">(</font><font color="#0000BB">$item </font><font color="#007700">= </font><font color="#DD0000">"10"</font><font color="#007700">, </font><font color="#0000BB">$num </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">add_item </font><font color="#007700">(</font><font color="#0000BB">$item</font><font color="#007700">, </font><font color="#0000BB">$num</font><font color="#007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /> <br /></font><font color="#FF8000">// Istanzia il vecchio e noioso carrello.<br /></font><font color="#0000BB">$default_cart </font><font color="#007700">= new </font><font color="#0000BB">Constructor_Cart</font><font color="#007700">;<br /> <br /></font><font color="#FF8000">// Un carrello nuovo ...<br /></font><font color="#0000BB">$different_cart </font><font color="#007700">= new </font><font color="#0000BB">Constructor_Cart</font><font color="#007700">(</font><font color="#DD0000">"20"</font><font color="#007700">, </font><font color="#0000BB">17</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    E possibile utilizzare l'operatore <VAR
+CLASS="literal"
+>@</VAR
+> per
+    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>inibire</I
+></SPAN
+> gli errori provocati dal costruttore, es:
+    <VAR
+CLASS="literal"
+>@new</VAR
+>.
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5586"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">A<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">A</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Sono il costtruttore di A.&lt;br /&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">B</font><font color="#007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Sono una normale funzione di nome B della classe A.&lt;br&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Non sono il costruttore di A.&lt;br&gt;\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class </font><font color="#0000BB">B </font><font color="#007700">extends </font><font color="#0000BB">A<br /></font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;<br />}<br /><br /></font><font color="#FF8000">// This will call B() as a constructor.<br /></font><font color="#0000BB">$b </font><font color="#007700">= new </font><font color="#0000BB">B</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    La funzione B() della classe A si transformerà 
+    improvvisamente in un costruttore per la classe B, anche se 
+    questo non era previsto. PHP 4 non 
+    si preoccupa se la funzione è stata definita nella classe B o se è stata ereditata.
+   </P
+><DIV
+CLASS="caution"
+><P
+></P
+><TABLE
+CLASS="caution"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Attenzione</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;     Il PHP 4 non richiama i costruttori di una classe base 
+     automaticamente da un costruttore di una classe derivata. 
+     È responsabilità del programmatore propagare la chiamata ai 
+     costruttori dove è necessario.
+    </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;    I distruttori sono funzioni che sono chiamate automaticamente 
+    quando una variabile è distrutta con <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+>
+    o semplicemente uscendo dal suo ambito. Non ci sono distruttori
+    in PHP. Si può utilizzare <A
+HREF="function.register-shutdown-function.html"
+><B
+CLASS="function"
+>register_shutdown_function()</B
+></A
+>
+    per simulare gli effetti del distruttore.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="keyword.extends.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="keyword.paamayim-nekudotayim.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>extends</VAR
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Operatore Scope Resolution (<VAR
+CLASS="literal"
+>::</VAR
+>)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ocifetchstatement</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Oracle 8"
+HREF="ref.oci8.html"><LINK
+REL="PREVIOUS"
+TITLE="ocifetchinto"
+HREF="function.ocifetchinto.html"><LINK
+REL="NEXT"
+TITLE="ocifreecollection"
+HREF="function.ocifreecollection.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ocifetchinto.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ocifreecollection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ocifetchstatement"
+></A
+>ocifetchstatement</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN112978"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.8, PHP 4, PHP 5)</P
+>ocifetchstatement&nbsp;--&nbsp;Estrae tutte le tuple in un array</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN112981"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>ocifetchstatement</B
+> ( resource stmt, array &#38; variable )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>ocifetchstatement()</B
+> estrae tutte le tuple da un risultato 
+     ponendole in un array definito dall'utente. 
+     <B
+CLASS="function"
+>ocifetchstatement()</B
+> restituisce il numero di tuple 
+     estratte. 
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN112995"
+></A
+><P
+><B
+>Esempio 1. Esempio di <B
+CLASS="function"
+>ocifetchstatement()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php
+/* OCIFetchStatement example mbritton@verinet.com (990624) */
+
+$conn = OCILogon("scott","tiger");
+
+$stmt = OCIParse($conn,"select * from emp");
+
+OCIExecute($stmt);
+
+$nrows = OCIFetchStatement($stmt,$results);
+if ( $nrows &#62; 0 ) {
+   print "&#60;TABLE BORDER=\"1\"&#62;\n";
+   print "&#60;TR&#62;\n";
+   while ( list( $key, $val ) = each( $results ) ) {
+      print "&#60;TH&#62;$key&#60;/TH&#62;\n";
+   }
+   print "&#60;/TR&#62;\n";
+   
+   for ( $i = 0; $i &#60; $nrows; $i++ ) {
+      reset($results);
+      print "&#60;TR&#62;\n";
+      while ( $column = each($results) ) {   
+         $data = $column['value'];
+         print "&#60;TD&#62;$data[$i]&#60;/TD&#62;\n";
+      }
+      print "&#60;/TR&#62;\n";
+   }
+   print "&#60;/TABLE&#62;\n";
+} else {
+   echo "No data found&#60;BR&#62;\n";
+}      
+print "$nrows Records Selected&#60;BR&#62;\n";
+ 
+OCIFreeStatement($stmt);
+OCILogoff($conn);
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ocifetchinto.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ocifreecollection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ocifetchinto</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.oci8.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ocifreecollection</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

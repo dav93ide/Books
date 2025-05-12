@@ -1,0 +1,337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Altre incompatibilità</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Migrazione da PHP/FI 2 a PHP 3"
+HREF="migration.html"><LINK
+REL="PREVIOUS"
+TITLE="TRUE/FALSE valori ritornati dalle funzioni"
+HREF="migration.truefalse.html"><LINK
+REL="NEXT"
+TITLE="Debugging PHP"
+HREF="debugger.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="section"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="migration.truefalse.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Appendice D. Migrazione da PHP/FI 2 a PHP 3</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="debugger.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="migration.other"
+>Altre incompatibilità</A
+></H1
+><P
+></P
+><UL
+><LI
+><P
+>&#13;    Il modulo  Apache per PHP 3.0 non supporta più le versioni Apache 
+    inferiori a 1.2.  Apache 1.2 e superiore è necessario.
+   </P
+></LI
+><LI
+><P
+>&#13;    <A
+HREF="function.echo.html"
+><B
+CLASS="function"
+>echo()</B
+></A
+> non supporta più una stringa formattata.
+    Usa per questo la funzione <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+>.
+   </P
+></LI
+><LI
+><P
+>&#13;    In PHP/FI 2.0, un implementazione collateranea causava
+    <VAR
+CLASS="literal"
+>$foo[0]</VAR
+> di avere lo stesso effetto di
+    <VAR
+CLASS="literal"
+>$foo</VAR
+>. Questo non è più cosi in PHP 3.0.
+   </P
+></LI
+><LI
+><P
+>&#13;     Leggere gli array con <VAR
+CLASS="literal"
+>$array[]</VAR
+> non è piu supportato
+    </P
+><P
+>&#13;     Cioè, non si puo aprire un array con un ciclo che fà
+     <VAR
+CLASS="literal"
+>$data = $array[]</VAR
+>.  Usa <A
+HREF="function.current.html"
+><B
+CLASS="function"
+>current()</B
+></A
+>
+     e <A
+HREF="function.next.html"
+><B
+CLASS="function"
+>next()</B
+></A
+> per avere questo effetto.
+    </P
+><P
+>&#13;     Inoltre, <VAR
+CLASS="literal"
+>$array1[] = $array2</VAR
+> non
+     aggiunge i valori di <VAR
+CLASS="literal"
+>$array2</VAR
+> a
+     <VAR
+CLASS="literal"
+>$array1</VAR
+>, ma invece aggiunge
+     <VAR
+CLASS="literal"
+>$array2</VAR
+> come làultima entrata di
+     <VAR
+CLASS="literal"
+>$array1</VAR
+>. Vedi anche il supporto di array multidimensionali.
+    </P
+></LI
+><LI
+><P
+>&#13;     <VAR
+CLASS="literal"
+>"+"</VAR
+> non è più usato come un operatore
+	 di concatenazione per le stringhe, invece converte i suoi argumenti
+	 in numeri e realizza l'aggiunta numerica. Usa <VAR
+CLASS="literal"
+>"."</VAR
+> al posto suo.
+    </P
+></LI
+></UL
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN199913"
+></A
+><P
+><B
+>Esempio D-11. Migrazione da 2.0: concatenazione delle stringhe</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+echo "1" + "1";</font>
+</code></TD
+></TR
+></TABLE
+><P
+> 
+    In PHP 2.0 avrebbe emettesso 11, in PHP 3.0 invece emetterebbe 2.
+	Perciò si usa:
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+echo "1"."1";</font>
+</code></TD
+></TR
+></TABLE
+>
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$a = 1;<br />$b = 1;<br />echo $a + $b;</font>
+</code></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    Emette 2 in entrambi PHP 2.0 e 3.0.
+    <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+$a = 1;<br />$b = 1;<br />echo $a.$b;</font>
+</code></TD
+></TR
+></TABLE
+>
+    Questo emettera 11 in PHP 3.0.
+   </P
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="migration.truefalse.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="debugger.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>/<TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> valori ritornati dalle funzioni</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="migration.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Debugging PHP</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

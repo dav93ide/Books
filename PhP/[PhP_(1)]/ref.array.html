@@ -1,0 +1,1213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Funzioni di Array</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="rename_function"
+HREF="function.rename-function.html"><LINK
+REL="NEXT"
+TITLE="array_change_key_case"
+HREF="function.array-change-key-case.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.rename-function.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.array-change-key-case.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.array"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>V. Funzioni di Array</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN9663"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="array.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Queste funzioni permettono di manipolare e interagire con gli
+     array in vari modi. Gli array sono indispensabili per immagazzinare,
+     mantenere e operare su gruppi di variabili.
+    </P
+><P
+>&#13;     Sono supportati sia array semplici che multi-dimensionali, che possono
+     essere sia creati dall'utente che da funzioni.
+     Ci sono specifiche funzioni di database per riempire
+     gli array a partire da interrogazioni sui dati, e parecchie funzioni restituiscono array.
+    </P
+><P
+>&#13;     Vedere la sezione <A
+HREF="language.types.array.html"
+>Array</A
+>
+     del manuale per una spiegazione dettagliata di come gli array siano
+     implementati ed usati in PHP.
+     Vedere anche <A
+HREF="language.operators.array.html"
+></A
+>
+     per altri modi di manipolazione degli array.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="array.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="array.installation"
+>Installazione</A
+></H1
+><P
+>Non è necessaria nessuna installazione per usare queste
+funzioni, esse fanno parte del core di PHP.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="array.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="array.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="array.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Le costanti qui elencate sono sempre disponibili in quanto parte del core di PHP.
+</P
+><P
+>&#13; <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>CASE_LOWER</B
+></TT
+>
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <TT
+CLASS="constant"
+><B
+>CASE_LOWER</B
+></TT
+> è usata con
+     <A
+HREF="function.array-change-key-case.html"
+><B
+CLASS="function"
+>array_change_key_case()</B
+></A
+> per convertire le chiavi
+     degli array in minuscolo. Questo è il valore di default per
+     <A
+HREF="function.array-change-key-case.html"
+><B
+CLASS="function"
+>array_change_key_case()</B
+></A
+>.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>CASE_UPPER</B
+></TT
+>
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <TT
+CLASS="constant"
+><B
+>CASE_UPPER</B
+></TT
+> è usata con
+     <A
+HREF="function.array-change-key-case.html"
+><B
+CLASS="function"
+>array_change_key_case()</B
+></A
+> per convertire le chiavi
+     degli array in maiuscolo.
+    </P
+></DD
+></DL
+></DIV
+>
+ </P
+><P
+> flag per l'ordinamento:
+ <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>SORT_ASC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <TT
+CLASS="constant"
+><B
+>SORT_ASC</B
+></TT
+> è usata con
+     <A
+HREF="function.array-multisort.html"
+><B
+CLASS="function"
+>array_multisort()</B
+></A
+> per ordinare in senso crescente.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SORT_DESC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <TT
+CLASS="constant"
+><B
+>SORT_DESC</B
+></TT
+> è usata con
+     <A
+HREF="function.array-multisort.html"
+><B
+CLASS="function"
+>array_multisort()</B
+></A
+> per ordinare in senso decrescente.
+    </P
+></DD
+></DL
+></DIV
+>
+ </P
+><P
+> flag per il tipo di ordinamento: usati da varie funzioni di ordinamento
+ <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>SORT_REGULAR</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <TT
+CLASS="constant"
+><B
+>SORT_REGULAR</B
+></TT
+> è usata per comparare gli oggetti in modo normale.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SORT_NUMERIC</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <TT
+CLASS="constant"
+><B
+>SORT_NUMERIC</B
+></TT
+> è usata per comparare gli oggetti in modo numerico.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SORT_STRING</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     <TT
+CLASS="constant"
+><B
+>SORT_STRING</B
+></TT
+> è usata per comparare gli oggetti come se fossero stringhe.
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>SORT_LOCALE_STRING</B
+></TT
+> 
+    (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;    <TT
+CLASS="constant"
+><B
+>SORT_LOCALE_STRING</B
+></TT
+> è utilizzata per confrontare gli oggetti come
+    stringhe, basandosi sul locale corrente. Aggiunto nel PHP 4.3.12 e 5.0.2.
+    </P
+></DD
+></DL
+></DIV
+>
+ </P
+><P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>COUNT_NORMAL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>COUNT_RECURSIVE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_OVERWRITE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_SKIP</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_SAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_ALL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_INVALID</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_PREFIX_IF_EXISTS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_IF_EXISTS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>EXTR_REFS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;
+    </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="array.seealso"
+>Vedere anche</A
+></H1
+><P
+>&#13;     Vedere anche <A
+HREF="function.is-array.html"
+><B
+CLASS="function"
+>is_array()</B
+></A
+>, <A
+HREF="function.explode.html"
+><B
+CLASS="function"
+>explode()</B
+></A
+>,
+     <A
+HREF="function.implode.html"
+><B
+CLASS="function"
+>implode()</B
+></A
+>, <A
+HREF="function.split.html"
+><B
+CLASS="function"
+>split()</B
+></A
+>,
+     <A
+HREF="function.preg-split.html"
+><B
+CLASS="function"
+>preg_split()</B
+></A
+> e <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+>.
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.array-change-key-case.html"
+>array_change_key_case</A
+>&nbsp;--&nbsp;Restituisce un array con tutte le chiavi cambiate in maiuscolo o in minuscolo</DT
+><DT
+><A
+HREF="function.array-chunk.html"
+>array_chunk</A
+>&nbsp;--&nbsp;Spezza un array in tronconi</DT
+><DT
+><A
+HREF="function.array-combine.html"
+>array_combine</A
+>&nbsp;--&nbsp;
+     Crea un'array utilizzando un'array per le chiavi e un'altro per i suoi valori
+    </DT
+><DT
+><A
+HREF="function.array-count-values.html"
+>array_count_values</A
+>&nbsp;--&nbsp;Conta tutti i valori di un array</DT
+><DT
+><A
+HREF="function.array-diff-assoc.html"
+>array_diff_assoc</A
+>&nbsp;--&nbsp;Calcola la differenza tra due o più array con un ulteriore controllo sull'indice</DT
+><DT
+><A
+HREF="function.array-diff-key.html"
+>array_diff_key</A
+>&nbsp;--&nbsp;Computes the difference of arrays using keys for comparison</DT
+><DT
+><A
+HREF="function.array-diff-uassoc.html"
+>array_diff_uassoc</A
+>&nbsp;--&nbsp;
+     Computes the difference of arrays with additional index check
+     which is performed by a user supplied callback function
+    </DT
+><DT
+><A
+HREF="function.array-diff-ukey.html"
+>array_diff_ukey</A
+>&nbsp;--&nbsp;Computes the difference of arrays using a callback function on the keys for comparison</DT
+><DT
+><A
+HREF="function.array-diff.html"
+>array_diff</A
+>&nbsp;--&nbsp;Calcola la differenza di due o più array</DT
+><DT
+><A
+HREF="function.array-fill.html"
+>array_fill</A
+>&nbsp;--&nbsp;Riempie un array con i valori specificati</DT
+><DT
+><A
+HREF="function.array-filter.html"
+>array_filter</A
+>&nbsp;--&nbsp;
+      Filtra gli elementi di un array usando una funzione callback
+    </DT
+><DT
+><A
+HREF="function.array-flip.html"
+>array_flip</A
+>&nbsp;--&nbsp;Scambia tutte le chiavi di un array con i loro valori associati</DT
+><DT
+><A
+HREF="function.array-intersect-assoc.html"
+>array_intersect_assoc</A
+>&nbsp;--&nbsp;Calcola l'intersezione degli array con un ulteriore controllo sugli indici</DT
+><DT
+><A
+HREF="function.array-intersect-key.html"
+>array_intersect_key</A
+>&nbsp;--&nbsp;Computes the intersection of arrays using keys for comparison</DT
+><DT
+><A
+HREF="function.array-intersect-uassoc.html"
+>array_intersect_uassoc</A
+>&nbsp;--&nbsp;Computes the intersection of arrays with additional index check, compares indexes by a callback function</DT
+><DT
+><A
+HREF="function.array-intersect-ukey.html"
+>array_intersect_ukey</A
+>&nbsp;--&nbsp;Computes the intersection of arrays using a callback function on the keys for comparison</DT
+><DT
+><A
+HREF="function.array-intersect.html"
+>array_intersect</A
+>&nbsp;--&nbsp;Calcola l'intersezione degli arrays</DT
+><DT
+><A
+HREF="function.array-key-exists.html"
+>array_key_exists</A
+>&nbsp;--&nbsp;Controlla se l'indice (o chiave) specificato esiste nell'array</DT
+><DT
+><A
+HREF="function.array-keys.html"
+>array_keys</A
+>&nbsp;--&nbsp;Restituisce tutte le chiavi di un array</DT
+><DT
+><A
+HREF="function.array-map.html"
+>array_map</A
+>&nbsp;--&nbsp;
+     Applica la funzione callback a tutti gli elementi dell'array dato
+    </DT
+><DT
+><A
+HREF="function.array-merge-recursive.html"
+>array_merge_recursive</A
+>&nbsp;--&nbsp;Fonde due o più array in modo ricorsivo</DT
+><DT
+><A
+HREF="function.array-merge.html"
+>array_merge</A
+>&nbsp;--&nbsp;Fonde uno o più array</DT
+><DT
+><A
+HREF="function.array-multisort.html"
+>array_multisort</A
+>&nbsp;--&nbsp;Ordina array multipli o multidimensionali</DT
+><DT
+><A
+HREF="function.array-pad.html"
+>array_pad</A
+>&nbsp;--&nbsp;
+     Riempie con un valore un array fino alla lunghezza specificata
+    </DT
+><DT
+><A
+HREF="function.array-pop.html"
+>array_pop</A
+>&nbsp;--&nbsp;Estrae l'elemento alla fine dell'array</DT
+><DT
+><A
+HREF="function.array-product.html"
+>array_product</A
+>&nbsp;--&nbsp;
+     Calculate the product of values in an array
+    </DT
+><DT
+><A
+HREF="function.array-push.html"
+>array_push</A
+>&nbsp;--&nbsp;
+     Accoda uno o più elementi ad un array
+    </DT
+><DT
+><A
+HREF="function.array-rand.html"
+>array_rand</A
+>&nbsp;--&nbsp;
+     Estrae a caso uno o più elementi da un array
+    </DT
+><DT
+><A
+HREF="function.array-reduce.html"
+>array_reduce</A
+>&nbsp;--&nbsp;
+     Riduce iterativamente l'array a un singolo valore utilizzando una funzione
+     callback
+    </DT
+><DT
+><A
+HREF="function.array-reverse.html"
+>array_reverse</A
+>&nbsp;--&nbsp;
+     Restituisce un array con gli elementi in ordine invertito
+    </DT
+><DT
+><A
+HREF="function.array-search.html"
+>array_search</A
+>&nbsp;--&nbsp;
+     Ricerca un dato valore in un array e ne restituisce la 
+     chiave corrispondente, se la ricerca ha successo.
+    </DT
+><DT
+><A
+HREF="function.array-shift.html"
+>array_shift</A
+>&nbsp;--&nbsp;
+     Estrae l'elemento alla testa dell'array
+    </DT
+><DT
+><A
+HREF="function.array-slice.html"
+>array_slice</A
+>&nbsp;--&nbsp;Estrae un sottoinsieme da un array</DT
+><DT
+><A
+HREF="function.array-splice.html"
+>array_splice</A
+>&nbsp;--&nbsp;
+     Rimuove una porzione dell'array e la sostituisce con
+     altro
+    </DT
+><DT
+><A
+HREF="function.array-sum.html"
+>array_sum</A
+>&nbsp;--&nbsp;
+     Calcola la somma dei valori di un array
+    </DT
+><DT
+><A
+HREF="function.array-udiff-assoc.html"
+>array_udiff_assoc</A
+>&nbsp;--&nbsp;Computes the difference of arrays with additional index check, compares data by a callback function</DT
+><DT
+><A
+HREF="function.array-udiff-uassoc.html"
+>array_udiff_uassoc</A
+>&nbsp;--&nbsp;Computes the difference of arrays with additional index check, compares data and indexes by a callback function</DT
+><DT
+><A
+HREF="function.array-udiff.html"
+>array_udiff</A
+>&nbsp;--&nbsp;Computes the difference of arrays by using a callback function for data comparison</DT
+><DT
+><A
+HREF="function.array-uintersect-assoc.html"
+>array_uintersect_assoc</A
+>&nbsp;--&nbsp;Computes the intersection of arrays with additional index check, compares data by a callback function</DT
+><DT
+><A
+HREF="function.array-uintersect-uassoc.html"
+>array_uintersect_uassoc</A
+>&nbsp;--&nbsp;Computes the intersection of arrays with additional index check, compares data and indexes by a callback functions</DT
+><DT
+><A
+HREF="function.array-uintersect.html"
+>array_uintersect</A
+>&nbsp;--&nbsp;Computes the intersection of arrays, compares data by a callback function</DT
+><DT
+><A
+HREF="function.array-unique.html"
+>array_unique</A
+>&nbsp;--&nbsp;Rimuove i valori duplicati di un array</DT
+><DT
+><A
+HREF="function.array-unshift.html"
+>array_unshift</A
+>&nbsp;--&nbsp;
+     Inserisce uno o più elementi all'inizio dell'array
+    </DT
+><DT
+><A
+HREF="function.array-values.html"
+>array_values</A
+>&nbsp;--&nbsp;Restituisce tutti i valori di un array</DT
+><DT
+><A
+HREF="function.array-walk-recursive.html"
+>array_walk_recursive</A
+>&nbsp;--&nbsp;
+   Apply a user function recursively to every member of an array
+  </DT
+><DT
+><A
+HREF="function.array-walk.html"
+>array_walk</A
+>&nbsp;--&nbsp;
+     Esegue una funzione su ogni elemento dell'array
+    </DT
+><DT
+><A
+HREF="function.array.html"
+>array</A
+>&nbsp;--&nbsp;
+     Crea un array
+    </DT
+><DT
+><A
+HREF="function.arsort.html"
+>arsort</A
+>&nbsp;--&nbsp;
+     Ordina un array in ordine decrescente e mantiene le associazioni degli indici
+    </DT
+><DT
+><A
+HREF="function.asort.html"
+>asort</A
+>&nbsp;--&nbsp;Ordina un array e mantiene le associazioni degli indici</DT
+><DT
+><A
+HREF="function.compact.html"
+>compact</A
+>&nbsp;--&nbsp;
+     Crea un array contenente variabili e il loro valore
+    </DT
+><DT
+><A
+HREF="function.count.html"
+>count</A
+>&nbsp;--&nbsp;Conta gli elementi in una variabile, o le proprietà in un oggetto</DT
+><DT
+><A
+HREF="function.current.html"
+>current</A
+>&nbsp;--&nbsp;Restituisce l'elemento corrente di un array</DT
+><DT
+><A
+HREF="function.each.html"
+>each</A
+>&nbsp;--&nbsp;
+     Restituisce la corrente coppia chiave/valore di un array e incrementa
+     il puntatore dell'array
+    </DT
+><DT
+><A
+HREF="function.end.html"
+>end</A
+>&nbsp;--&nbsp;
+     Sposta il puntatore interno dell'array all'ultimo elemento
+    </DT
+><DT
+><A
+HREF="function.extract.html"
+>extract</A
+>&nbsp;--&nbsp;
+     Importa le variabili nella tabella dei simboli
+    </DT
+><DT
+><A
+HREF="function.in-array.html"
+>in_array</A
+>&nbsp;--&nbsp;Controlla se un valore è presente in un array</DT
+><DT
+><A
+HREF="function.key.html"
+>key</A
+>&nbsp;--&nbsp;Estrae la chiave corrente da un array associativo</DT
+><DT
+><A
+HREF="function.krsort.html"
+>krsort</A
+>&nbsp;--&nbsp;Ordina rispetto alle chiavi di un array in ordine inverso</DT
+><DT
+><A
+HREF="function.ksort.html"
+>ksort</A
+>&nbsp;--&nbsp;Ordina rispetto alle chiavi di un array</DT
+><DT
+><A
+HREF="function.list.html"
+>list</A
+>&nbsp;--&nbsp;
+     Assegna valori a delle variabili come se fossero un array
+    </DT
+><DT
+><A
+HREF="function.natcasesort.html"
+>natcasesort</A
+>&nbsp;--&nbsp;
+     Ordina un array usando un algoritmo di "ordine naturale" non sensibile alle maiuscole/minuscole
+    </DT
+><DT
+><A
+HREF="function.natsort.html"
+>natsort</A
+>&nbsp;--&nbsp;
+     Ordina un array usando un algoritmo di "ordine naturale"
+    </DT
+><DT
+><A
+HREF="function.next.html"
+>next</A
+>&nbsp;--&nbsp;
+     Incrementa il puntatore interno dell'array
+    </DT
+><DT
+><A
+HREF="function.pos.html"
+>pos</A
+>&nbsp;--&nbsp;Restituisce l'elemento corrente di un array</DT
+><DT
+><A
+HREF="function.prev.html"
+>prev</A
+>&nbsp;--&nbsp;Decrementa il puntatore interno dell'array</DT
+><DT
+><A
+HREF="function.range.html"
+>range</A
+>&nbsp;--&nbsp;
+     Crea un array contenente una serie di elementi
+    </DT
+><DT
+><A
+HREF="function.reset.html"
+>reset</A
+>&nbsp;--&nbsp;
+     Reimposta il puntatore interno di un array sulla posizione iniziale
+    </DT
+><DT
+><A
+HREF="function.rsort.html"
+>rsort</A
+>&nbsp;--&nbsp;Ordina un array in ordine decrescente</DT
+><DT
+><A
+HREF="function.shuffle.html"
+>shuffle</A
+>&nbsp;--&nbsp;Mescola un array</DT
+><DT
+><A
+HREF="function.sizeof.html"
+>sizeof</A
+>&nbsp;--&nbsp;Alias di <A
+HREF="function.count.html"
+><B
+CLASS="function"
+>count()</B
+></A
+></DT
+><DT
+><A
+HREF="function.sort.html"
+>sort</A
+>&nbsp;--&nbsp;Ordina un array</DT
+><DT
+><A
+HREF="function.uasort.html"
+>uasort</A
+>&nbsp;--&nbsp;
+     Ordina un array mediante una funzione definita dall'utente e
+     mantiene le associazioni
+    </DT
+><DT
+><A
+HREF="function.uksort.html"
+>uksort</A
+>&nbsp;--&nbsp;
+     Ordina rispetto alle chiavi di un array mediante una funzione definita dall'utente
+    </DT
+><DT
+><A
+HREF="function.usort.html"
+>usort</A
+>&nbsp;--&nbsp;
+     Ordina un array mediante una funzione definita dall'utente
+    </DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.rename-function.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.array-change-key-case.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>rename_function</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>array_change_key_case</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

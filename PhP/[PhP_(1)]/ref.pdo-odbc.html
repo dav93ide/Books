@@ -1,0 +1,516 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ODBC and DB2 functions (PDO_ODBC)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="odbc_tables"
+HREF="function.odbc-tables.html"><LINK
+REL="NEXT"
+TITLE="PDO_ODBC DSN"
+HREF="ref.pdo-odbc.connection.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.odbc-tables.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.pdo-odbc.connection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.pdo-odbc"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XCVII. ODBC and DB2 functions (PDO_ODBC)</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN115592"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pdo-odbc.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     PDO_ODBC is a driver that implements the <A
+HREF="ref.pdo.html"
+>PHP Data
+     Objects (PDO) interface</A
+>
+     to enable access from PHP to databases through ODBC drivers or through the
+     IBM DB2 Call Level Interface (DB2 CLI) library. PDO_ODBC currently supports
+     three different "flavours" of database drivers:
+     <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>ibm-db2</DT
+><DD
+><P
+>&#13;         Supports access to IBM DB2 Universal Database, Cloudscape, and Apache
+         Derby servers through the free DB2 client.
+        </P
+></DD
+><DT
+>unixODBC</DT
+><DD
+><P
+>&#13;         Supports access to database servers through the unixODBC driver
+         manager and the database's own ODBC drivers. 
+        </P
+></DD
+><DT
+>generic</DT
+><DD
+><P
+>&#13;         Offers a compile option for ODBC driver managers that are not
+         explicitly supported by PDO_ODBC.
+        </P
+></DD
+></DL
+></DIV
+>
+    </P
+><P
+>&#13;     On Windows, PDO_ODBC is built into the PHP core by default. It is linked
+     against the Windows ODBC Driver Manager so that PHP can connect to any
+     database cataloged as a System DSN, and is the recommended driver for
+     connecting to Microsoft SQL Server databases.
+    </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="ref.pdo-odbc.installation"
+>Installazione</A
+></H1
+><DIV
+CLASS="procedure"
+><P
+><B
+><A
+NAME="ref.pdo-odbc.install.unix"
+></A
+>PDO_ODBC on UNIX systems</B
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>&#13;    As of PHP 5.1, PDO_ODBC is included in the PHP source. You can compile the
+    PDO_ODBC extension as either a static or shared module using the following
+    <B
+CLASS="command"
+>configure</B
+> commands.
+    <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>ibm_db2</DT
+><DD
+><P
+>&#13;        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>./configure --enable-pdo_odbc=ibm-db2,/opt/IBM/db2/V8.1/</PRE
+></TD
+></TR
+></TABLE
+>
+        To build PDO_ODBC with the ibm-db2 flavour, you have to have
+        previously installed the DB2 application development headers on the
+        same machine on which you are compiling PDO_ODBC. The DB2 application
+        development headers are an installable option in the DB2 servers, and
+        are also available as part of the DB2 Application Development Client
+        freely available for download from the IBM DB2 Universal Database
+        <A
+HREF="http://www-306.ibm.com/software/data/db2/udb/support/downloadv8.html"
+TARGET="_top"
+>support site</A
+>.
+       </P
+><P
+>&#13;        If you do not supply a location for the DB2 libraries and headers to
+        the <B
+CLASS="command"
+>configure</B
+> command, PDO_ODBC defaults to
+        <TT
+CLASS="filename"
+>/home/db2inst1/sqllib</TT
+>.
+       </P
+></DD
+><DT
+>unixODBC</DT
+><DD
+><P
+>&#13;        <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>./configure --enable-pdo_odbc=unixODBC,/usr/local</PRE
+></TD
+></TR
+></TABLE
+>
+        If you do not supply a location for the unixODBC libraries and
+        headers to the <B
+CLASS="command"
+>configure</B
+> command, PDO_ODBC
+        defaults to <TT
+CLASS="filename"
+>/usr/local</TT
+>.
+       </P
+></DD
+><DT
+>generic</DT
+><DD
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>./configure --enable-pdo_odbc=generic,/usr/local,libname,ldflags,cflags</PRE
+></TD
+></TR
+></TABLE
+></DD
+></DL
+></DIV
+>
+   </P
+></LI
+></OL
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="pdo_odbc.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>&#13;Il comportamento di queste funzioni è influenzato dalle impostazioni di <TT
+CLASS="filename"
+>php.ini</TT
+>.
+</P
+><P
+>&#13;  <DIV
+CLASS="table"
+><A
+NAME="AEN115644"
+></A
+><P
+><B
+>Tabella 1. PDO_ODBC Configuration Options</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><COL><THEAD
+><TR
+><TH
+>Name</TH
+><TH
+>Default</TH
+><TH
+>Changeable</TH
+><TH
+>Changelog</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>pdo_odbc.connection_pooling</TD
+><TD
+>"strict"</TD
+><TD
+>PHP_INI_ALL</TD
+><TD
+>&nbsp;</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+  Per maggiori dettagli sulle costanti PHP_INI_* vedere
+ <A
+HREF="ini.html"
+>Appendice G</A
+>.
+</P
+><P
+>Breve descrizione dei parametri
+di configurazione.</P
+><P
+>&#13; <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><A
+NAME="ini.pdo-odbc.connection-pooling"
+></A
+><VAR
+CLASS="parameter"
+>pdo_odbc.connection_pooling</VAR
+>
+    <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+></DT
+><DD
+><P
+>&#13;     Whether to pool ODBC connections. Can be one of "strict", "relaxed" or
+     "off" (equals to "").  The parameter describes how strict the connection
+     manager should be when matching connection parameters to existing pooled
+     connections.  <KBD
+CLASS="userinput"
+>strict</KBD
+> is the recommend default, and
+     will result in the use of cached connections only when all the connection
+     parameters match exactly.  <KBD
+CLASS="userinput"
+>relaxed</KBD
+> will result in
+     the use of cached connections when similar connection parameters are
+     used.  This can result in increased use of the cache, at the risk of
+     bleeding connection information between (for example) virtual hosts.
+    </P
+><P
+>&#13;     This setting can only be changed from the <TT
+CLASS="filename"
+>php.ini</TT
+>
+     file, and affects the entire process; any other modules loaded into the
+     process that use the same ODBC libraries will be affected too, including
+     the <A
+HREF="ref.uodbc.html"
+>Unified ODBC extension</A
+>.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      <KBD
+CLASS="userinput"
+>relaxed</KBD
+> matching should not be used on a shared
+      server, for security reasons.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>
+      Leave this setting at the default <KBD
+CLASS="userinput"
+>strict</KBD
+> setting
+      unless you have good reason to change it.
+     </P
+></BLOCKQUOTE
+></DIV
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="ref.pdo-odbc.connection.html"
+>PDO_ODBC DSN</A
+>&nbsp;--&nbsp;Connecting to ODBC or DB2 databases</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.odbc-tables.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.pdo-odbc.connection.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>odbc_tables</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PDO_ODBC DSN</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

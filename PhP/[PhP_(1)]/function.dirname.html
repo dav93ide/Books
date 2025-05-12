@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>dirname</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="delete"
+HREF="function.delete.html"><LINK
+REL="NEXT"
+TITLE="disk_free_space"
+HREF="function.disk-free-space.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.delete.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.disk-free-space.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.dirname"
+></A
+>dirname</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN40575"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>dirname&nbsp;--&nbsp;Restituisce il nome della directory dal percorso indicato</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN40578"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>dirname</B
+> ( string path )<BR
+></BR
+><P
+>&#13;     Data una stringa contenente il percorso di un file, questa funzione
+     restituirà il nome della directory.
+    </P
+><P
+>&#13;     Su windows sia gli slash (<VAR
+CLASS="literal"
+>/</VAR
+>) che i backslash
+     (<VAR
+CLASS="literal"
+>\</VAR
+>) vengono utilizzati come caratteri di separazione nei
+     percorsi. In altri ambienti, c'è solo lo slash in avanti
+     (<VAR
+CLASS="literal"
+>/</VAR
+>).
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN40592"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>dirname()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$path </font><font color="#007700">= </font><font color="#DD0000">"/etc/passwd"</font><font color="#007700">;<br /></font><font color="#0000BB">$file </font><font color="#007700">= </font><font color="#0000BB">dirname</font><font color="#007700">(</font><font color="#0000BB">$path</font><font color="#007700">); </font><font color="#FF8000">// $file contiene "/etc"<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      In PHP 4.0.3, la funzione <B
+CLASS="function"
+>dirname()</B
+> è stata modificata per essere conforme alle specifiche
+      POSIX. Essenzialmente ciò significa che non ci sono slash
+      nel parametro <VAR
+CLASS="parameter"
+>path</VAR
+> , viene restituito un punto
+      ('<VAR
+CLASS="literal"
+>.</VAR
+>') per indicare la directory
+      corrente. In altro modo, la stringa restituita è
+      <VAR
+CLASS="parameter"
+>path</VAR
+> senza alcun
+      <VAR
+CLASS="literal"
+>/component</VAR
+>. Occorre notare che ciò implica che spesso
+      dalla funzione <B
+CLASS="function"
+>dirname()</B
+> si ottiene uno slash od un punto nei casi
+      in cui la vecchia versione avrebbe restituito una
+      stringa vuota.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <B
+CLASS="function"
+>dirname()</B
+> ha modificato il suo comportamento dal PHP 4.3.0.
+     Controllare l'esempio:
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN40606"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> <br /></font><font color="#FF8000">//prima del PHP 4.3.0<br /></font><font color="#0000BB">dirname</font><font color="#007700">(</font><font color="#DD0000">'c:/'</font><font color="#007700">); </font><font color="#FF8000">// restituisce '.'<br /> <br />//dopo il PHP 4.3.0<br /></font><font color="#0000BB">dirname</font><font color="#007700">(</font><font color="#DD0000">'c:/'</font><font color="#007700">); </font><font color="#FF8000">// restituisce 'c:'<br /> <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>dirname()</B
+> è sicura con i dati binari dal PHP 5.0.0
+    </P
+><P
+>&#13;     Vedere anche: <A
+HREF="function.basename.html"
+><B
+CLASS="function"
+>basename()</B
+></A
+>, <A
+HREF="function.pathinfo.html"
+><B
+CLASS="function"
+>pathinfo()</B
+></A
+> e
+     <A
+HREF="function.realpath.html"
+><B
+CLASS="function"
+>realpath()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.delete.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.disk-free-space.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>delete</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>disk_free_space</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

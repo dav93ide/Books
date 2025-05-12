@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>odbc_binmode</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni ODBC (Unificate)"
+HREF="ref.uodbc.html"><LINK
+REL="PREVIOUS"
+TITLE="odbc_autocommit"
+HREF="function.odbc-autocommit.html"><LINK
+REL="NEXT"
+TITLE="odbc_close_all"
+HREF="function.odbc-close-all.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.odbc-autocommit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.odbc-close-all.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.odbc-binmode"
+></A
+>odbc_binmode</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN114095"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.6, PHP 4, PHP 5)</P
+>odbc_binmode&nbsp;--&nbsp;Gestione delle colonne di dati binari</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN114098"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>odbc_binmode</B
+> ( resource id_risultato, int modalità )<BR
+></BR
+><P
+>&#13;     (Tipi di campi ODBC SQL coinvolti: BINARY, VARBINARY, LONGVARBINARY)
+    </P
+><P
+></P
+><UL
+><LI
+><P
+>&#13;       ODBC_BINMODE_PASSTHRU: Restituzione del dato binario direttamente al client
+      </P
+></LI
+><LI
+><P
+>&#13;       ODBC_BINMODE_RETURN: restituisce il dato inalterato
+      </P
+></LI
+><LI
+><P
+>&#13;       ODBC_BINMODE_CONVERT: Conversione in char
+      </P
+></LI
+></UL
+><P
+>&#13;     Quando si esegue la conversione da dati binari SQL a dati di tipo char del C,
+     ciascun byte ( 8 bits) dei dati sorgenti vengono rappresentati da 2 caratteri ASCII.
+     Questi caratteri sono la rappresentazione ASCII dei numeri nella
+     loro forma esadecimale. Ad esempio, il valore binario 00000001 è 
+     convertito in <VAR
+CLASS="literal"
+>"01"</VAR
+> e il valore binario 11111111 è 
+     convertito come <VAR
+CLASS="literal"
+>"FF"</VAR
+>.
+     <DIV
+CLASS="table"
+><A
+NAME="AEN114120"
+></A
+><P
+><B
+>Tabella 1. Gestione del tipo LONGVARBINARY </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>Modalità</TH
+><TH
+>Impostazione di longreadlen</TH
+><TH
+>Comportamento</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>ODBC_BINMODE_PASSTHRU</TD
+><TD
+>0</TD
+><TD
+>direttamente al client</TD
+></TR
+><TR
+><TD
+>ODBC_BINMODE_RETURN</TD
+><TD
+>0</TD
+><TD
+>direttamente al client</TD
+></TR
+><TR
+><TD
+>ODBC_BINMODE_CONVERT</TD
+><TD
+>0</TD
+><TD
+>direttamente al client</TD
+></TR
+><TR
+><TD
+>ODBC_BINMODE_PASSTHRU</TD
+><TD
+>0</TD
+><TD
+>passthru</TD
+></TR
+><TR
+><TD
+>ODBC_BINMODE_PASSTHRU</TD
+><TD
+>&#62;0</TD
+><TD
+>direttamente al client</TD
+></TR
+><TR
+><TD
+>ODBC_BINMODE_RETURN</TD
+><TD
+>&#62;0</TD
+><TD
+>restituito inalterato</TD
+></TR
+><TR
+><TD
+>ODBC_BINMODE_CONVERT</TD
+><TD
+>&#62;0</TD
+><TD
+>restituito come char</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     Se viene utilizzata <A
+HREF="function.odbc-fetch-into.html"
+><B
+CLASS="function"
+>odbc_fetch_into()</B
+></A
+>, nei casi in cui il dato viene inviato direttamente al client, quest'ultima 
+     restituisce una stringa vuota per le colonne binarie.
+    </P
+><P
+>&#13;     Se l'argomento <VAR
+CLASS="parameter"
+>id_risultato</VAR
+> è valorizzato a <VAR
+CLASS="literal"
+>0</VAR
+>, 
+     il settaggio viene applicato come default per i nuovi risultati.
+     <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+> 
+       I valori di default per longreadlen è <VAR
+CLASS="literal"
+>4096</VAR
+>, mentre la modalità di 
+       default è <VAR
+CLASS="literal"
+>ODBC_BINMODE_RETURN</VAR
+>.  La gestione delle colonne
+       di campi long binary, è anche gestita dalla funzione
+       <A
+HREF="function.odbc-longreadlen.html"
+><B
+CLASS="function"
+>odbc_longreadlen()</B
+></A
+>
+      </P
+></BLOCKQUOTE
+></DIV
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.odbc-autocommit.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.odbc-close-all.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>odbc_autocommit</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.uodbc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>odbc_close_all</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>odbc_tables</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni ODBC (Unificate)"
+HREF="ref.uodbc.html"><LINK
+REL="PREVIOUS"
+TITLE="odbc_tableprivileges"
+HREF="function.odbc-tableprivileges.html"><LINK
+REL="NEXT"
+TITLE="ODBC and DB2 functions (PDO_ODBC)"
+HREF="ref.pdo-odbc.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.odbc-tableprivileges.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.pdo-odbc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.odbc-tables"
+></A
+>odbc_tables</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN115521"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.17, PHP 4, PHP 5)</P
+>odbc_tables&nbsp;--&nbsp;
+     Restituisce l'elenco delle tabelle presenti in una specifica
+     sorgente di dati
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN115524"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>odbc_tables</B
+> ( resource Id_connessione [, string qualifica [, string proprietario [, string nome [, string tipo]]]] )<BR
+></BR
+><P
+>&#13;     La funzione elenca tutte le tabelle presenti nei limiti richiesti.  Restituisce un identificatore
+     di risultato in cui vi sono i dati oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> se si verifica un errore.
+    </P
+><P
+>&#13;     Le righe risultanti hanno i seguenti campi:
+     <P
+></P
+><UL
+><LI
+><P
+>TABLE_QUALIFIER</P
+></LI
+><LI
+><P
+>TABLE_OWNER</P
+></LI
+><LI
+><P
+>TABLE_NAME</P
+></LI
+><LI
+><P
+>TABLE_TYPE</P
+></LI
+><LI
+><P
+>REMARKS</P
+></LI
+></UL
+> 
+    </P
+><P
+>&#13;     I campi di ordinamento delle righe risultanti sono TABLE_TYPE, TABLE_QUALIFIER,
+     TABLE_OWNER e TABLE_NAME.
+    </P
+><P
+>&#13;     Gli argomenti <VAR
+CLASS="parameter"
+>proprietario</VAR
+> e <VAR
+CLASS="parameter"
+>nome</VAR
+>
+     accettano dei criteri di ricerca ('%' per indicare zero o più
+     caratteri e  '_' per indicare un singolo carattere).
+    </P
+><P
+>&#13;     Per supportare l'enumerazione delle qualifiche, dei proprietari e dei tipi tabelle, 
+     è stata predisposta la seguente semantica per i campi 
+     <VAR
+CLASS="parameter"
+>qualifica</VAR
+>, <VAR
+CLASS="parameter"
+>proprietario</VAR
+>,
+     <VAR
+CLASS="parameter"
+>nome</VAR
+>, e 
+     <VAR
+CLASS="parameter"
+>tipo</VAR
+>:
+     <P
+></P
+><UL
+><LI
+><P
+>&#13;        Se l'argomento <VAR
+CLASS="parameter"
+>qualifica</VAR
+> è valorizzato
+        con il carattere percento (%) e i parametri <VAR
+CLASS="parameter"
+>proprietario</VAR
+> 
+        e <VAR
+CLASS="parameter"
+>nome</VAR
+> sono delle stringhe vuote, il risultato sarà
+        un set di righe contenente la lista delle qualifiche previste per
+        la sorgente di dati. (Tutte le colonne tranne TABLE_QUALIFIER conterranno
+        NULL.)
+       </P
+></LI
+><LI
+><P
+>&#13;        Se l'argomento <VAR
+CLASS="parameter"
+>proprietario</VAR
+> è valorizzato
+        con il carattere percento (%) e i parametri <VAR
+CLASS="parameter"
+>qualifica</VAR
+>
+        e <VAR
+CLASS="parameter"
+>nome</VAR
+> sono delle stringhe vuote, il risultato sarà
+        un set di righe contenente la lista dei proprietari previsti per
+        la sorgente di dati. (Tutte le colonne tranne TABLE_OWNER conterranno
+        NULL.) 
+       </P
+></LI
+><LI
+><P
+>&#13;        Se l'argomento <VAR
+CLASS="parameter"
+>tipo</VAR
+> è valorizzato
+        con il carattere percento (%) e i parametri <VAR
+CLASS="parameter"
+>qualifica</VAR
+>,
+        <VAR
+CLASS="parameter"
+>proprietario</VAR
+> e <VAR
+CLASS="parameter"
+>nome</VAR
+>
+        sono delle stringhe vuote, il risultato sarà un set di righe contenente la lista dei tipi di tabella 
+        previsti per la sorgente di dati. (Tutte le colonne tranne TABLE_TYPE conterranno
+        NULL.) 
+       </P
+></LI
+></UL
+> 
+    </P
+><P
+>&#13;     Se l'argomento <VAR
+CLASS="parameter"
+>tipo</VAR
+> non è una stinga vuota, deve
+     contenere l'elenco dei tipi interessati separati dalla virgola;
+     ogni singolo valore può essere, o meno, racchiuso tra apici singoli (').
+     Ad esempio: "'TABLE','VIEW'" o "TABLE, VIEW" sono valori validi.
+     Se la sorgente di dati non supporta alcuni dei tipi di tabelle specificati,
+     per questi, la funzione <B
+CLASS="function"
+>odbc_tables()</B
+> non riporta alcuna
+     informazione.
+    </P
+><P
+>&#13;     Vedere inoltre <A
+HREF="function.odbc-tableprivileges.html"
+><B
+CLASS="function"
+>odbc_tableprivileges()</B
+></A
+> per ottenere i
+     privilegi associati alla tabella.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.odbc-tableprivileges.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.pdo-odbc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>odbc_tableprivileges</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.uodbc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ODBC and DB2 functions (PDO_ODBC)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

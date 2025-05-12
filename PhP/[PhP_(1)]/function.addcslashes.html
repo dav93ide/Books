@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>addcslashes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="NEXT"
+TITLE="addslashes"
+HREF="function.addslashes.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.addslashes.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.addcslashes"
+></A
+>addcslashes</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN162510"
+></A
+><P
+>    (PHP 4, PHP 5)</P
+>addcslashes&nbsp;--&nbsp;Esegue il quoting di una stringa con gli slash nello stile del C</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN162513"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>addcslashes</B
+> ( string str, string charlist )<BR
+></BR
+><P
+>&#13;     La funzione restituisce una stringa con il carattere di backslash '\' anteposto
+     ai caratteri che sono indicati nel parametro <VAR
+CLASS="parameter"
+>charlist</VAR
+>. La funzione
+     inserisce il carattere di escape nello stile C in caso di <VAR
+CLASS="literal"
+>\n</VAR
+>, <VAR
+CLASS="literal"
+>\r</VAR
+> ecc.,
+     in caso di caratteri con codifica ASCII minore di 32 o superiore a 126
+     si applica la conversione nella rappresentazione ottale.
+    </P
+><P
+>&#13;     Occorre prestare attenzione se si imposta di anteporre il carattere di escape ai caratteri
+     0, a, b, f, n, r, t e v. Questi saranno convertiti in \0, \a, \b, \f, \n, \r, \t 
+     e \v. 
+     In PHP \0 (NULL), \r (carriage return), \n (newline) e \t (tab) 
+     sono sequenze di escape predefinite, anche in C tutte queste sono
+     sequenze di escape predefinite.
+    </P
+><P
+>&#13;     Valorizzare il parametro <VAR
+CLASS="parameter"
+>charlist</VAR
+> con "\0..\37", 
+     significa che si vuole inserire il carattere di escape davanti ai caratteri la cui codifica ASCII
+     è comprese tra 0 e 31.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN162531"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>addcslashes()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$escaped </font><font color="#007700">= </font><font color="#0000BB">addcslashes</font><font color="#007700">(</font><font color="#0000BB">$not_escaped</font><font color="#007700">, </font><font color="#DD0000">"\0..\37!@\177..\377"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Quando si definisca una sequenza di caratteri nel parametro <VAR
+CLASS="parameter"
+>charlist</VAR
+> 
+     occorre essere consapevoli di quali caratteri sono compresi
+     nel range.
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN162537"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo </font><font color="#0000BB">addcslashes</font><font color="#007700">(</font><font color="#DD0000">'foo[ ]'</font><font color="#007700">, </font><font color="#DD0000">'A..z'</font><font color="#007700">);<br /></font><font color="#FF8000">// output:&nbsp;&nbsp;\f\o\o\[ \]<br />// Inserisce l'escape davanti a tutti i caratteri maiuscoli e minuscoli<br />// ... ma anche [\]^_` i tab, line<br />// feeds, carriage returns, etc.<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+     Inoltre, se il primo carattere di un range ha una codifica ASCII maggiore del secondo,
+     il range non sarà applicato.
+     Soltanto il primo, i punti, e l'ultimo carattere avrà la sequenza di escape.
+     Utilizzare la funzione <A
+HREF="function.ord.html"
+><B
+CLASS="function"
+>ord()</B
+></A
+> per ottenere la
+     codifica ASCII di un carattere.
+     <DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN162540"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">echo </font><font color="#0000BB">addcslashes</font><font color="#007700">(</font><font color="#DD0000">"zoo['.']"</font><font color="#007700">, </font><font color="#DD0000">'z..A'</font><font color="#007700">);<br /></font><font color="#FF8000">// output:&nbsp;&nbsp;\zoo['\.']<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.stripcslashes.html"
+><B
+CLASS="function"
+>stripcslashes()</B
+></A
+>, 
+     <A
+HREF="function.stripslashes.html"
+><B
+CLASS="function"
+>stripslashes()</B
+></A
+>, 
+     <A
+HREF="function.htmlspecialchars.html"
+><B
+CLASS="function"
+>htmlspecialchars()</B
+></A
+> e
+     <A
+HREF="function.quotemeta.html"
+><B
+CLASS="function"
+>quotemeta()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.addslashes.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Stringhe</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>addslashes</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

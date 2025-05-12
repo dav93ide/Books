@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ocinewdescriptor</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni Oracle 8"
+HREF="ref.oci8.html"><LINK
+REL="PREVIOUS"
+TITLE="ocinewcursor"
+HREF="function.ocinewcursor.html"><LINK
+REL="NEXT"
+TITLE="ocinlogon"
+HREF="function.ocinlogon.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ocinewcursor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ocinlogon.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ocinewdescriptor"
+></A
+>ocinewdescriptor</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN113187"
+></A
+><P
+>    (PHP 3 &#62;= 3.0.7, PHP 4, PHP 5)</P
+>ocinewdescriptor&nbsp;--&nbsp;
+     Inizializza un nuovo descrittore LOB/FILE vuoto
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN113190"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>ocinewdescriptor</B
+> ( int connection [, int type] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>ocinewdescriptor()</B
+> alloca memoria per accogliere 
+     descrittori o locatori LOB. I valori validi per il parametro 
+     <VAR
+CLASS="parameter"
+>type</VAR
+> sono <TT
+CLASS="constant"
+><B
+>OCI_D_FILE</B
+></TT
+>,
+     <TT
+CLASS="constant"
+><B
+>OCI_D_LOB</B
+></TT
+> e <TT
+CLASS="constant"
+><B
+>OCI_D_ROWID</B
+></TT
+>.
+     Per i descrittori LOB, i metodi load, save, e savefile sono 
+     associati al descrittore, per i BFILE esiste solo il 
+     metodo load. Vedere i suggerimenti nel secondo esempio.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN113207"
+></A
+><P
+><B
+>Esempio 1. esempio di <B
+CLASS="function"
+>ocinewdescriptor()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php   
+    /* Questo codice deve essere richiamato da un form HTML.
+     * Richiede che $user, $password, $table, $where, e $commitsize
+     * siano passati dalla form.  Il codice quindi cancella
+     * le tuple selezionate usando ROWID ed esegue un commit ogni
+     * $commitsize righe. (Usare con attenzione, non si può fare rollback)
+     */
+    $conn = OCILogon($user, $password);
+    $stmt = OCIParse($conn,"select rowid from $table $where");
+    $rowid = OCINewDescriptor($conn,OCI_D_ROWID);
+    OCIDefineByName($stmt,"ROWID",&#38;$rowid);   
+    OCIExecute($stmt);
+    while ( OCIFetch($stmt) ) {      
+       $nrows = OCIRowCount($stmt);
+       $delete = OCIParse($conn,"delete from $table where ROWID = :rid");
+       OCIBindByName($delete,":rid",&#38;$rowid,-1,OCI_B_ROWID);
+       OCIExecute($delete);      
+       print "$nrows\n";
+       if ( ($nrows % $commitsize) == 0 ) {
+           OCICommit($conn);      
+       }   
+    }
+    $nrows = OCIRowCount($stmt);   
+    print "$nrows deleted...\n";
+    OCIFreeStatement($stmt);  
+    OCILogoff($conn);
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php
+    /* Questo codice dimostra l'upload di file verso campi LOB.
+     * Il form usato per questo esempio è del tipo seguente:
+     * &#60;form action="upload.php" method="post" enctype="multipart/form-data"&#62;
+     * &#60;input type="file" name="lob_upload"&#62;
+     * ...
+     */
+  if(!isset($lob_upload) || $lob_upload == 'none'){
+?&#62;
+&#60;form action="upload.php" method="post" enctype="multipart/form-data"&#62;
+Upload file: &#60;input type="file" name="lob_upload"&#62;&#60;br&#62;
+&#60;input type="submit" value="Upload"&#62; - &#60;input type="reset"&#62;
+&#60;/form&#62;
+&#60;?php
+} else {
+
+     // $lob_upload contiene il nome del file temporaneo
+
+     // vedere anche la sezione delle funzionalita' di upload dei file,
+     // se si vogliono usare gli upload sicuri
+     
+     $conn = OCILogon($user, $password);
+     $lob = OCINewDescriptor($conn, OCI_D_LOB);
+     $stmt = OCIParse($conn,"insert into $table (id, the_blob) 
+               values(my_seq.NEXTVAL, EMPTY_BLOB()) returning the_blob into :the_blob");
+     OCIBindByName($stmt, ':the_blob', &#38;$lob, -1, OCI_B_BLOB);
+     OCIExecute($stmt, OCI_DEFAULT);
+     if($lob-&#62;savefile($lob_upload)){
+        OCICommit($conn);
+        echo "Blob successfully uploaded\n";
+     }else{
+        echo "Couldn't upload Blob\n";
+     }
+     OCIFreeDesc($lob);
+     OCIFreeStatement($stmt);
+     OCILogoff($conn);
+  }
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN113212"
+></A
+><P
+><B
+>Esempio 2. OCINewDescriptor</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="programlisting"
+>&#60;?php   
+    /* Chiamata di una stored procedure PL/SQLs che contiene clobs come parametri
+    * di input (PHP 4 &#62;= 4.0.6). 
+    * La signature della stored prodedure PL/SQL d'esempio è:
+     *
+     * PROCEDURE save_data
+     *   Argument Name                  Type                    In/Out Default?
+     *   ------------------------------ ----------------------- ------ --------
+     *   KEY                            NUMBER(38)              IN
+     *   DATA                           CLOB                    IN
+     *
+     */
+
+    $conn = OCILogon($user, $password);
+    $stmt = OCIParse($conn, "begin save_data(:key, :data); end;");
+    $clob = OCINewDescriptor($conn, OCI_D_LOB);
+	OCIBindByName($stmt, ':key', $key);
+	OCIBindByName($stmt, ':data', $clob, -1, OCI_B_CLOB);
+	$clob-&#62;WriteTemporary($data);
+	OCIExecute($stmt, OCI_DEFAULT);
+	OCICommit($conn);
+	$clob-&#62;close();
+	$clob-&#62;free();
+	OCIFreeStatement($stmt);
+?&#62;</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ocinewcursor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ocinlogon.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ocinewcursor</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.oci8.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ocinlogon</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

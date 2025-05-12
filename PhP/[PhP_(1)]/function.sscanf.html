@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sscanf</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Stringhe"
+HREF="ref.strings.html"><LINK
+REL="PREVIOUS"
+TITLE="sprintf"
+HREF="function.sprintf.html"><LINK
+REL="NEXT"
+TITLE="str_ireplace"
+HREF="function.str-ireplace.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sprintf.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.str-ireplace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sscanf"
+></A
+>sscanf</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN164900"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.1, PHP 5)</P
+>sscanf&nbsp;--&nbsp;
+     Analizza l'input da una string in base al formato
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN164903"
+></A
+><H2
+>Descrizione</H2
+>mixed <B
+CLASS="methodname"
+>sscanf</B
+> ( string str, string format [, mixed &#38;...] )<BR
+></BR
+><P
+>&#13;     La funzione <B
+CLASS="function"
+>sscanf()</B
+> è la versione di input di
+     <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+>. <B
+CLASS="function"
+>sscanf()</B
+> legge
+     dalla stringa <VAR
+CLASS="parameter"
+>str</VAR
+> e ne interpreta il contenuto
+     basandosi sul parametro <VAR
+CLASS="parameter"
+>format</VAR
+>, che viene descritto
+     nella documentazione di <A
+HREF="function.sprintf.html"
+><B
+CLASS="function"
+>sprintf()</B
+></A
+>. Se vengono passati soltanto
+     due parametri, i valori ricavati sono restituiti
+     in una matrice. Altrimenti, se viene fornito il terzo parametro,
+     la funzione restituire il numero dei valori assegnati. Il terzo parametro
+     deve essere passato per riferimento.
+    </P
+><P
+>&#13;     Qualsiasi tipo di spazio nella stringa di formato identifica il corrispondente spazio
+     nella stringa di input. Ciò significa che anche i tab \t nella stringa di formato possono
+     identificare un carattere di spazio nella stringa di input.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164926"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>sscanf()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// getting the serial number<br /></font><font color="#0000BB">$serial </font><font color="#007700">= </font><font color="#0000BB">sscanf</font><font color="#007700">(</font><font color="#DD0000">"SN/2350001"</font><font color="#007700">, </font><font color="#DD0000">"SN/%d"</font><font color="#007700">);<br /></font><font color="#FF8000">// and the date of manufacturing<br /></font><font color="#0000BB">$mandate </font><font color="#007700">= </font><font color="#DD0000">"January 01 2000"</font><font color="#007700">;<br />list(</font><font color="#0000BB">$month</font><font color="#007700">, </font><font color="#0000BB">$day</font><font color="#007700">, </font><font color="#0000BB">$year</font><font color="#007700">) = </font><font color="#0000BB">sscanf</font><font color="#007700">(</font><font color="#0000BB">$mandate</font><font color="#007700">, </font><font color="#DD0000">"%s %d %d"</font><font color="#007700">);<br />echo </font><font color="#DD0000">"Item $serial was manufactured on: $year-" </font><font color="#007700">. </font><font color="#0000BB">substr</font><font color="#007700">(</font><font color="#0000BB">$month</font><font color="#007700">, </font><font color="#0000BB">0</font><font color="#007700">, </font><font color="#0000BB">3</font><font color="#007700">) . </font><font color="#DD0000">"-$day</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+     Se viene fornito il terzo parametro,
+     la funzione restituire il numero dei valori assegnati.
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN164930"
+></A
+><P
+><B
+>Esempio 2. <B
+CLASS="function"
+>sscanf()</B
+> - utilizzo del parametro opzionale</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// get author info and generate DocBook entry<br /></font><font color="#0000BB">$auth </font><font color="#007700">= </font><font color="#DD0000">"24\tLewis Carroll"</font><font color="#007700">;<br /></font><font color="#0000BB">$n </font><font color="#007700">= </font><font color="#0000BB">sscanf</font><font color="#007700">(</font><font color="#0000BB">$auth</font><font color="#007700">, </font><font color="#DD0000">"%d\t%s %s"</font><font color="#007700">, </font><font color="#0000BB">$id</font><font color="#007700">, </font><font color="#0000BB">$first</font><font color="#007700">, </font><font color="#0000BB">$last</font><font color="#007700">);<br />echo </font><font color="#DD0000">"&lt;author id='$id'&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;firstname&gt;$first&lt;/firstname&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;surname&gt;$last&lt;/surname&gt;<br />&lt;/author&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Vedere anche <A
+HREF="function.fscanf.html"
+><B
+CLASS="function"
+>fscanf()</B
+></A
+>, <A
+HREF="function.printf.html"
+><B
+CLASS="function"
+>printf()</B
+></A
+>
+     e <A
+HREF="function.sprintf.html"
+><B
+CLASS="function"
+>sprintf()</B
+></A
+>. 
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sprintf.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.str-ireplace.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sprintf</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.strings.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>str_ireplace</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

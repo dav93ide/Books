@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>id3_get_version</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="ID3 Functions"
+HREF="ref.id3.html"><LINK
+REL="PREVIOUS"
+TITLE="id3_get_tag"
+HREF="function.id3-get-tag.html"><LINK
+REL="NEXT"
+TITLE="id3_remove_tag"
+HREF="function.id3-remove-tag.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.id3-get-tag.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.id3-remove-tag.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.id3-get-version"
+></A
+>id3_get_version</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN57182"
+></A
+><P
+>    (PECL)</P
+>id3_get_version&nbsp;--&nbsp;Get version of an ID3 tag</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN57185"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>id3_get_version</B
+> ( string filename )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>id3_get_version()</B
+> retrieves the version(s) of the ID3 tag(s) in
+     the MP3 file. As a tag can contain ID3 v1.x and v2.x tags, the return value of this
+     function should be bitwise compared with the predefined constants <TT
+CLASS="constant"
+><B
+>ID3_V1_0</B
+></TT
+>,
+     <TT
+CLASS="constant"
+><B
+>ID3_V1_1</B
+></TT
+> and  <TT
+CLASS="constant"
+><B
+>ID3_V2</B
+></TT
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Instead of a filename you may also pass a valid stream resource.</P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN57201"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>id3_get_version()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$version </font><font color="#007700">= </font><font color="#0000BB">id3_get_version</font><font color="#007700">( </font><font color="#DD0000">"path/to/example.mp3" </font><font color="#007700">);<br />if (</font><font color="#0000BB">$version </font><font color="#007700">&amp; </font><font color="#0000BB">ID3_V1_0</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Contains a 1.x tag\n"</font><font color="#007700">;<br />}<br />if (</font><font color="#0000BB">$version </font><font color="#007700">&amp; </font><font color="#0000BB">ID3_V1_1</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Contains a 1.1 tag\n"</font><font color="#007700">;<br />}<br />if (</font><font color="#0000BB">$version </font><font color="#007700">&amp; </font><font color="#0000BB">ID3_V2</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"Contains a 2.x tag\n"</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>&#13;       This will output something like:
+      </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>Contains a 1.x tag
+Contains a 1.1 tag</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;      If a file contains an ID3 v1.1 tag, it always contains
+      a 1.0 tag, as version 1.1 is just an extension of 1.0.
+    </P
+><P
+>&#13;     See also <A
+HREF="function.id3-get-tag.html"
+><B
+CLASS="function"
+>id3_get_tag()</B
+></A
+>, <A
+HREF="function.id3-set-tag.html"
+><B
+CLASS="function"
+>id3_set_tag()</B
+></A
+> and
+     <A
+HREF="function.id3-remove-tag.html"
+><B
+CLASS="function"
+>id3_remove_tag()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.id3-get-tag.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.id3-remove-tag.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>id3_get_tag</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.id3.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>id3_remove_tag</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

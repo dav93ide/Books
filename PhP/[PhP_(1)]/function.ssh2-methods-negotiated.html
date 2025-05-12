@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ssh2_methods_negotiated</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Secure Shell2 Functions"
+HREF="ref.ssh2.html"><LINK
+REL="PREVIOUS"
+TITLE="ssh2_fingerprint"
+HREF="function.ssh2-fingerprint.html"><LINK
+REL="NEXT"
+TITLE="ssh2_publickey_add"
+HREF="function.ssh2-publickey-add.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-fingerprint.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ssh2-publickey-add.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ssh2-methods-negotiated"
+></A
+>ssh2_methods_negotiated</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN159602"
+></A
+><P
+>    (PECL)</P
+>ssh2_methods_negotiated&nbsp;--&nbsp;
+     Return list of negotiated methods
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN159605"
+></A
+><H2
+>Description</H2
+>array <B
+CLASS="methodname"
+>ssh2_methods_negotiated</B
+> ( resource session )<BR
+></BR
+><P
+>&#13;     Returns list of negotiated methods.
+    </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN159614"
+></A
+><P
+><B
+>Esempio 1. Determining what methods were negotiated</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$connection </font><font color="#007700">= </font><font color="#0000BB">ssh2_connect</font><font color="#007700">(</font><font color="#DD0000">'shell.example.com'</font><font color="#007700">, </font><font color="#0000BB">22</font><font color="#007700">);<br /></font><font color="#0000BB">$methods </font><font color="#007700">= </font><font color="#0000BB">ssh2_methods_negotiated</font><font color="#007700">(</font><font color="#0000BB">$connection</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"Encryption keys were negotiated using: </font><font color="#007700">{</font><font color="#DD0000">$methods</font><font color="#007700">[</font><font color="#DD0000">'kex'</font><font color="#007700">]}\n</font><font color="#DD0000">"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"Server identified using an </font><font color="#007700">{</font><font color="#DD0000">$methods</font><font color="#007700">[</font><font color="#DD0000">'hostkey'</font><font color="#007700">]}</font><font color="#DD0000"> with "</font><font color="#007700">;<br />echo </font><font color="#DD0000">"fingerprint: " </font><font color="#007700">. </font><font color="#0000BB">ssh2_fingerprint</font><font color="#007700">(</font><font color="#0000BB">$connection</font><font color="#007700">) . </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br />echo </font><font color="#DD0000">"Client to Server packets will use methods:\n"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"</font><font color="#007700">\t</font><font color="#DD0000">Crypt: </font><font color="#007700">{</font><font color="#DD0000">$methods</font><font color="#007700">[</font><font color="#DD0000">'client_to_server'</font><font color="#007700">][</font><font color="#DD0000">'crypt'</font><font color="#007700">]}\n</font><font color="#DD0000">"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"</font><font color="#007700">\t</font><font color="#DD0000">Comp: </font><font color="#007700">{</font><font color="#DD0000">$methods</font><font color="#007700">[</font><font color="#DD0000">'client_to_server'</font><font color="#007700">][</font><font color="#DD0000">'comp'</font><font color="#007700">]}\n</font><font color="#DD0000">"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"</font><font color="#007700">\t</font><font color="#DD0000">MAC: </font><font color="#007700">{</font><font color="#DD0000">$methods</font><font color="#007700">[</font><font color="#DD0000">'client_to_server'</font><font color="#007700">][</font><font color="#DD0000">'mac'</font><font color="#007700">]}\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br />echo </font><font color="#DD0000">"Server to Client packets will use methods:\n"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"</font><font color="#007700">\t</font><font color="#DD0000">Crypt: </font><font color="#007700">{</font><font color="#DD0000">$methods</font><font color="#007700">[</font><font color="#DD0000">'server_to_client'</font><font color="#007700">][</font><font color="#DD0000">'crypt'</font><font color="#007700">]}\n</font><font color="#DD0000">"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"</font><font color="#007700">\t</font><font color="#DD0000">Comp: </font><font color="#007700">{</font><font color="#DD0000">$methods</font><font color="#007700">[</font><font color="#DD0000">'server_to_client'</font><font color="#007700">][</font><font color="#DD0000">'comp'</font><font color="#007700">]}\n</font><font color="#DD0000">"</font><font color="#007700">;<br />echo </font><font color="#DD0000">"</font><font color="#007700">\t</font><font color="#DD0000">MAC: </font><font color="#007700">{</font><font color="#DD0000">$methods</font><font color="#007700">[</font><font color="#DD0000">'server_to_client'</font><font color="#007700">][</font><font color="#DD0000">'mac'</font><font color="#007700">]}\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     See Also:
+     <A
+HREF="function.ssh2-connect.html"
+><B
+CLASS="function"
+>ssh2_connect()</B
+></A
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ssh2-fingerprint.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ssh2-publickey-add.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ssh2_fingerprint</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ssh2.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ssh2_publickey_add</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,410 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>exec</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni per l'esecuzione di programmi"
+HREF="ref.exec.html"><LINK
+REL="PREVIOUS"
+TITLE="escapeshellcmd"
+HREF="function.escapeshellcmd.html"><LINK
+REL="NEXT"
+TITLE="passthru"
+HREF="function.passthru.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.escapeshellcmd.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.passthru.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.exec"
+></A
+>exec</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN136356"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>exec&nbsp;--&nbsp;Esegue un programma esterno</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN136359"
+></A
+><H2
+>Descrizione</H2
+>string <B
+CLASS="methodname"
+>exec</B
+> ( string command [, array &#38;output [, int &#38;return_var]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>exec()</B
+> esegue il comando passato da 
+     <VAR
+CLASS="parameter"
+>command</VAR
+>, la funzione non invia nessun output.
+     Restituisce semplicemente l'ultima linea dal risultato del comando.
+     Se si ha bisogno di eseguire un comando ed avere tutti i dati passati
+     direttamente indietro senza alcuna interferenza, usare la funzione <A
+HREF="function.passthru.html"
+><B
+CLASS="function"
+>passthru()</B
+></A
+>.
+    </P
+><P
+>&#13;     Se l'argomento <VAR
+CLASS="parameter"
+>output</VAR
+> è presente, allora tale vettore specificato
+     verrà riempito con ogni linea del output del comando.  
+     I fine riga, come <VAR
+CLASS="literal"
+>\n</VAR
+>non sono inclusi 
+     in questo array. Notare che se il vettore contiene già degli elementi,
+     <B
+CLASS="function"
+>exec()</B
+> li aggiungerà in coda al vettore.
+     Se non si vuole che la funzione aggiunga elementi, eseguire un 
+     <A
+HREF="function.unset.html"
+><B
+CLASS="function"
+>unset()</B
+></A
+> sul vettore prima di passarlo ad
+     <B
+CLASS="function"
+>exec()</B
+>.
+    </P
+><P
+>&#13;     Se viene passato l'argomento <VAR
+CLASS="parameter"
+>return_var</VAR
+>
+     assieme all'argomento <VAR
+CLASS="parameter"
+>output</VAR
+>, allora lo stato
+     del comando eseguito verrà scritto in questa variabile.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN136387"
+></A
+><P
+><B
+>Esempio 1. Un <B
+CLASS="function"
+>exec()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> </font><font color="#FF8000">// restituisce la username del proprietario del processo php/httpd attivo<br /> // (su um sistema con l'eseguibile "whoami" nel path)<br /> </font><font color="#007700">echo </font><font color="#0000BB">exec</font><font color="#007700">(</font><font color="#DD0000">'whoami'</font><font color="#007700">);<br /> </font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Se si permette di passare a questa funzione i dati
+provenineti dagli input utente, si dovrebbe utilizzare la funzione
+<A
+HREF="function.escapeshellarg.html"
+><B
+CLASS="function"
+>escapeshellarg()</B
+></A
+> oppure <A
+HREF="function.escapeshellcmd.html"
+><B
+CLASS="function"
+>escapeshellcmd()</B
+></A
+>
+in modo da essere sicuri che gli utenti non possano compromettere il sistema eseguendo 
+comandi arbitrari.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Se si vuole avviare un programma tramite questa funzione
+e lasciarlo girare in background, occorre essere certi che l output
+del programma sia rediretto su un file o qualche altro flusso di output
+altrimenti il PHP sarà sospenderà fino a quando il programma non termina.</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Quando si abilita la 
+<A
+HREF="features.safe-mode.html"
+>modalità sicura</A
+>, si può eseguire
+soltanto gli eseguibili presenti nella directory <A
+HREF="features.safe-mode.html#ini.safe-mode-exec-dir"
+>safe_mode_exec_dir</A
+>.
+Per motivi pratici, attualmente, non ` permesso avere <VAR
+CLASS="literal"
+>..</VAR
+>
+come componente del percorso di un eseguibile. </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Con la <A
+HREF="features.safe-mode.html"
+>modalità sicura</A
+> attivata,
+tutte le parole che seguono il comando iniziale sono trattate come argomenti. Quindi,
+<VAR
+CLASS="literal"
+>echo y | echo x</VAR
+> diventa <VAR
+CLASS="literal"
+>echo "y | echo x"</VAR
+>.</P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.system.html"
+><B
+CLASS="function"
+>system()</B
+></A
+>,
+     <A
+HREF="function.passthru.html"
+><B
+CLASS="function"
+>passthru()</B
+></A
+>, <A
+HREF="function.popen.html"
+><B
+CLASS="function"
+>popen()</B
+></A
+>,
+     <A
+HREF="function.escapeshellcmd.html"
+><B
+CLASS="function"
+>escapeshellcmd()</B
+></A
+>
+     <A
+HREF="function.pcntl-exec.html"
+><B
+CLASS="function"
+>pcntl_exec()</B
+></A
+> e <A
+HREF="language.operators.execution.html"
+>l'operatore backtick</A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.escapeshellcmd.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.passthru.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>escapeshellcmd</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.exec.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>passthru</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

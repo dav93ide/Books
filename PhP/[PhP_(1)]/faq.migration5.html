@@ -1,0 +1,371 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Migrating from PHP 4 to PHP 5</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="FAQ: Frequently Asked Questions (domande e risposte ricorrenti)"
+HREF="faq.html"><LINK
+REL="PREVIOUS"
+TITLE="Migrazione da PHP3 a PHP4"
+HREF="faq.migration4.html"><LINK
+REL="NEXT"
+TITLE="Domande varie"
+HREF="faq.misc.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="chapter"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="faq.migration4.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="faq.misc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="chapter"
+><H1
+><A
+NAME="faq.migration5"
+>Capitolo 60. Migrating from PHP 4 to PHP 5</A
+></H1
+><P
+>&#13;   This faq section will help you migrate from PHP 4 to PHP 5.
+  </P
+><DIV
+CLASS="qandaset"
+><DL
+><DT
+>1. <A
+HREF="faq.migration5.html#faq.migration5.php45"
+>&#13;      Migrating from PHP 4 to PHP 5
+     </A
+></DT
+><DT
+>2. <A
+HREF="faq.migration5.html#faq.migration5.mysql"
+>&#13;      Does MySQL work in PHP 5?  It seemed to have disappeared.
+     </A
+></DT
+><DT
+>3. <A
+HREF="faq.migration5.html#faq.migration5.oop"
+>&#13;      I hear PHP 5 has an entirely new OOP model, will my existing OOP code
+      work?  Where do I find information on these new OOP features? 
+     </A
+></DT
+><DT
+>4. <A
+HREF="faq.migration5.html#faq.migration5.changes"
+>&#13;      So besides the new OOP model, what else has changed in PHP 5?  Also, is
+      there a PHP 5 specific version of the PHP manual?
+     </A
+></DT
+></DL
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.migration5.php45"
+></A
+><B
+>1. </B
+>
+      Migrating from PHP 4 to PHP 5
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      Although PHP 5 offers many new features, it's designed to be as
+      compatible with earlier versions of PHP as possible with little
+      functionality being broken in the process.
+     </P
+><P
+>&#13;      Be sure to read the appropriate <A
+HREF="migration5.html"
+>PHP 5
+      migration appendix</A
+> of this manual as it contains even more
+      information on the topic of migrating to PHP 5.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.migration5.mysql"
+></A
+><B
+>2. </B
+>
+      Does MySQL work in PHP 5?  It seemed to have disappeared.
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      <A
+HREF="ref.mysql.html"
+>MySQL</A
+> is supported with the only
+      change being that MySQL support is no longer enabled by 
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>default</I
+></SPAN
+> in PHP 5.  This essentially means that
+      PHP doesn't include the <VAR
+CLASS="option"
+>--with-mysql</VAR
+>
+      option in the <A
+HREF="configuration.html"
+>configure</A
+> line so 
+      that you must now manually do this when compiling PHP. Windows users will 
+      edit <TT
+CLASS="filename"
+>php.ini</TT
+> and enable the <TT
+CLASS="filename"
+>php_mysql.dll</TT
+> DLL as
+      in PHP 4 no such DLL existed, it was simply built into your Windows
+      PHP binaries.
+     </P
+><P
+>&#13;      Also, the MySQL client libraries are no longer bundled with PHP.  More
+      details on this topic are covered in 
+      <A
+HREF="faq.databases.html#faq.databases.mysql.php5"
+>the following FAQ</A
+> and
+      be sure to read the <A
+HREF="ref.mysql.html"
+>MySQL section</A
+>
+      for details on installing MySQL.  An example configure line would be 
+      <VAR
+CLASS="option"
+>--with-mysql=/usr</VAR
+> while Windows users
+      will need the <TT
+CLASS="filename"
+>libmySQL.dll</TT
+> available to the system.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.migration5.oop"
+></A
+><B
+>3. </B
+>
+      I hear PHP 5 has an entirely new OOP model, will my existing OOP code
+      work?  Where do I find information on these new OOP features? 
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      The main change in PHP 5 is to the OOP model as PHP 5 now uses
+      the <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>Zend Engine 2.0</I
+></SPAN
+>.  The <A
+HREF="ini.core.html#ini.zend.ze1-compatibility-mode"
+>&#13;      zend.ze1_compatibility_mode</A
+> directive enables compatability
+      with the Zend Engine 1.0 (PHP 4).
+     </P
+><P
+>&#13;      The new OOP model is documented in the <A
+HREF="language.oop5.html"
+>&#13;      OOP language reference</A
+> and <A
+HREF="migration5.oop.html"
+>OOP
+      migration appendix</A
+> sections.
+     </P
+></DIV
+></DIV
+><DIV
+CLASS="qandaentry"
+><B
+><DIV
+CLASS="question"
+><P
+><A
+NAME="faq.migration5.changes"
+></A
+><B
+>4. </B
+>
+      So besides the new OOP model, what else has changed in PHP 5?  Also, is
+      there a PHP 5 specific version of the PHP manual?
+     </P
+></DIV
+></B
+><DIV
+CLASS="answer"
+><P
+><B
+> </B
+>
+      Few other changes exist, see the <A
+HREF="migration5.html"
+>migration
+      5 appendix</A
+> for details.  There won't be a PHP 5 specific
+      version of the manual as the bulk of PHP remains the same.
+     </P
+></DIV
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="faq.migration4.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="faq.misc.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Migrazione da PHP3 a PHP4</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="faq.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Domande varie</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

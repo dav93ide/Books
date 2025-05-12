@@ -1,0 +1,489 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>file_put_contents</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Filesystem Functions"
+HREF="ref.filesystem.html"><LINK
+REL="PREVIOUS"
+TITLE="file_get_contents"
+HREF="function.file-get-contents.html"><LINK
+REL="NEXT"
+TITLE="file"
+HREF="function.file.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.file-get-contents.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.file.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.file-put-contents"
+></A
+>file_put_contents</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN41037"
+></A
+><P
+>    (PHP 5)</P
+>file_put_contents&nbsp;--&nbsp;Write a string to a file</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41040"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>file_put_contents</B
+> ( string filename, mixed data [, int flags [, resource context]] )<BR
+></BR
+><P
+> 
+   Identical to calling <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>, <A
+HREF="function.fwrite.html"
+><B
+CLASS="function"
+>fwrite()</B
+></A
+>,
+   and <A
+HREF="function.fclose.html"
+><B
+CLASS="function"
+>fclose()</B
+></A
+> successively.
+  </P
+><P
+>&#13;   You can also specify the <VAR
+CLASS="parameter"
+>data</VAR
+> parameter as an array
+   (not multi-dimension arrays). This is equivalent to
+   <VAR
+CLASS="literal"
+>file_put_contents($filename, join('', $array))</VAR
+>.
+  </P
+><P
+>&#13;   As of PHP 5.1.0, you may also pass a stream resource to the
+   <VAR
+CLASS="parameter"
+>data</VAR
+> parameter. In result, the remaining buffer of
+   that stream will be copied to the specified file. This is similar with
+   using <A
+HREF="function.stream-copy-to-stream.html"
+><B
+CLASS="function"
+>stream_copy_to_stream()</B
+></A
+>.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41067"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>filename</VAR
+></DT
+><DD
+><P
+>&#13;       The file name where to write the data
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>data</VAR
+></DT
+><DD
+><P
+>&#13;       The data to write. Can be either a <A
+HREF="language.types.string.html"
+><B
+CLASS="type"
+>string</B
+></A
+>, an
+       <A
+HREF="language.types.array.html"
+><B
+CLASS="type"
+>array</B
+></A
+> or a stream resource (explained above).
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>flags</VAR
+></DT
+><DD
+><P
+>&#13;       <VAR
+CLASS="parameter"
+>flags</VAR
+> can take
+       <TT
+CLASS="constant"
+><B
+>FILE_USE_INCLUDE_PATH</B
+></TT
+>,
+       <TT
+CLASS="constant"
+><B
+>FILE_APPEND</B
+></TT
+> and/or <TT
+CLASS="constant"
+><B
+>LOCK_EX</B
+></TT
+>
+       (acquire an exclusive lock), however the
+       <TT
+CLASS="constant"
+><B
+>FILE_USE_INCLUDE_PATH</B
+></TT
+> option should be used with
+       caution.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>context</VAR
+></DT
+><DD
+><P
+>&#13;       A context resource
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41099"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   The function returns the amount of bytes that were written to the file.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41102"
+></A
+><H2
+>Log delle modifiche</H2
+><P
+>&#13;   <DIV
+CLASS="informaltable"
+><P
+></P
+><A
+NAME="AEN41105"
+></A
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Versione</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>5.1.0</TD
+><TD
+>&#13;        Added support for <TT
+CLASS="constant"
+><B
+>LOCK_EX</B
+></TT
+> and the ability to pass
+        a stream resource to the <VAR
+CLASS="parameter"
+>data</VAR
+> parameter
+       </TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41117"
+></A
+><H2
+>Note</H2
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Questa funzione è
+ binary-safe (gestisce correttamente i file binari)</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>Il supporto per il contesto è stato
+aggiunto in PHP 5.0.0. Per la descrizione del <VAR
+CLASS="literal"
+>contesto</VAR
+>, fare riferimento a
+<A
+HREF="ref.stream.html"
+>Riferimento CXLIV, <I
+>Stream Functions</I
+></A
+>.
+</P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="tip"
+><BLOCKQUOTE
+CLASS="tip"
+><P
+><B
+>Suggerimento: </B
+>È possibile utilizzare una URL come un
+nome di file con questa funzione se <A
+HREF="ref.filesystem.html#ini.allow-url-fopen"
+>fopen wrappers</A
+> è stata abilitata.
+Per maggiori informazioni su come specificare i nomi di file vedere <A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+>
+e <A
+HREF="wrappers.html"
+>Appendice M</A
+> per avere la lista dei protocolli URL
+supportati.</P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN41130"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.fopen.html"
+><B
+CLASS="function"
+>fopen()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.fwrite.html"
+><B
+CLASS="function"
+>fwrite()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.file-get-contents.html"
+><B
+CLASS="function"
+>file_get_contents()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.file-get-contents.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.file.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>file_get_contents</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.filesystem.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>file</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

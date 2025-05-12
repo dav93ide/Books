@@ -1,0 +1,571 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>mail</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di Mail"
+HREF="ref.mail.html"><LINK
+REL="PREVIOUS"
+TITLE="ezmlm_hash"
+HREF="function.ezmlm-hash.html"><LINK
+REL="NEXT"
+TITLE="mailparse Functions"
+HREF="ref.mailparse.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ezmlm-hash.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="ref.mailparse.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.mail"
+></A
+>mail</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN69552"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>mail&nbsp;--&nbsp;Invio mail</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN69555"
+></A
+><H2
+>Descrizione</H2
+>bool <B
+CLASS="methodname"
+>mail</B
+> ( string a, string oggetto, string messaggio [, string header_addizionali [, string parametri_addizionali]] )<BR
+></BR
+><P
+>&#13;     <B
+CLASS="function"
+>mail()</B
+> invia automaticamente il messaggio specificato
+     in <VAR
+CLASS="parameter"
+>messaggio</VAR
+> al destinatario specificato in
+     <VAR
+CLASS="parameter"
+>a</VAR
+>. Destinatari multipli possono essere specificati
+     mettendo una virgola tra ogni indirizzo in <VAR
+CLASS="parameter"
+>a</VAR
+>. 
+     Email con allegati e tipi speciali di
+     contenuto possono essere spedite usando questa funzione. Questo è
+     possibile tramite la codifica MIME. Per maggiori informazioni, fare riferimento a
+     <A
+HREF="http://www.zend.com/zend/spotlight/sendmimeemailpart1.php"
+TARGET="_top"
+>&#13;     un articolo Zend</A
+> o alle <A
+HREF="http://pear.php.net/package/Mail_Mime"
+TARGET="_top"
+>&#13;     Classi Mime del PEAR</A
+>.
+    </P
+><P
+>&#13;     Le seguenti RFC possono essere di aiuto:
+     <A
+HREF="http://www.faqs.org/rfcs/rfc1896"
+TARGET="_top"
+>RFC 1896</A
+>,
+     <A
+HREF="http://www.faqs.org/rfcs/rfc2045"
+TARGET="_top"
+>RFC 2045</A
+>,
+     <A
+HREF="http://www.faqs.org/rfcs/rfc2046"
+TARGET="_top"
+>RFC 2046</A
+>,
+     <A
+HREF="http://www.faqs.org/rfcs/rfc2047"
+TARGET="_top"
+>RFC 2047</A
+>,
+     <A
+HREF="http://www.faqs.org/rfcs/rfc2048"
+TARGET="_top"
+>RFC 2048</A
+> e
+     <A
+HREF="http://www.faqs.org/rfcs/rfc2049"
+TARGET="_top"
+>RFC 2049</A
+>.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>mail()</B
+> restituisce <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> se la mail è stata accettata per
+     la spedizione con successo, altrimenti restituisce <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      L'implementazione Windows della funzione <B
+CLASS="function"
+>mail()</B
+> differisce sotto molti
+      aspetti dall'implementazione Unix. Primo, non usa una un programma in locale
+      per comporre i messaggi, ma opera soltanto direttamente sui socket, il che significa che deve 
+      essere presente in ascolto un <VAR
+CLASS="literal"
+>MTA</VAR
+> su un socket di rete (che può
+      essere su localhost o su una macchina remota). Secondo, gli header custom
+      quali <VAR
+CLASS="literal"
+>From:</VAR
+>, <VAR
+CLASS="literal"
+>Cc:</VAR
+>,
+      <VAR
+CLASS="literal"
+>Bcc:</VAR
+> e <VAR
+CLASS="literal"
+>Date:</VAR
+> <SPAN
+CLASS="strong"
+><B
+CLASS="emphasis"
+>non</B
+></SPAN
+> vengono interpretati subito dal 
+      <VAR
+CLASS="literal"
+>MTA</VAR
+>, ma ne viene fatto prima il parsing da parte di PHP.
+      PHP &#60; 4.3 supportava solo gli header <VAR
+CLASS="literal"
+>Cc:</VAR
+>
+      (ed era case-sensitive). PHP &#62;= 4.3
+      supporta tutti gli header e non è più
+      case-sensitive.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN69605"
+></A
+><P
+><B
+>Esempio 1. Inviare mail.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />mail</font><font color="#007700">(</font><font color="#DD0000">"pippo@example.com"</font><font color="#007700">, </font><font color="#DD0000">"Oggetto"</font><font color="#007700">, </font><font color="#DD0000">"Linea 1\nLinea 2\nLinea 3"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Se viene passata come parametro una quarta stringa, questa stringa viene inserita
+     alla fine dell'intestazione (header).  Ciò viene tipicamente usato per aggiungere intestazioni
+     supplementari. Intestazioni multiple supplementari sono separate da un carattere 
+     di "a capo" (sia newline che carriage return).
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     È necessario usare <VAR
+CLASS="literal"
+>\r\n</VAR
+> per separare le intestazioni,
+     alcuni mail transfer agent sotto Unix potrebbero funzionare anche solo con un singolo newline
+     (<VAR
+CLASS="literal"
+>\n</VAR
+>).
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN69614"
+></A
+><P
+><B
+>Esempio 2. Invio di mail con intestazioni supplementari.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />mail</font><font color="#007700">(</font><font color="#DD0000">"nessuno@example.com"</font><font color="#007700">, </font><font color="#DD0000">"oggetto"</font><font color="#007700">, </font><font color="#0000BB">$messaggio</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"From: webmaster@</font><font color="#007700">{</font><font color="#DD0000">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'SERVER_NAME'</font><font color="#007700">]}\r\n</font><font color="#DD0000">" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"Reply-To: webmaster@</font><font color="#007700">{</font><font color="#DD0000">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'SERVER_NAME'</font><font color="#007700">]}\r\n</font><font color="#DD0000">" </font><font color="#007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"X-Mailer: PHP/" </font><font color="#007700">. </font><font color="#0000BB">phpversion</font><font color="#007700">());<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     Con il parametro <VAR
+CLASS="parameter"
+>parametri_addizionali</VAR
+> 
+     è possibile impostare un parametro addizionale a linea di comando per 
+     il programma configurato per inviare mail usando <VAR
+CLASS="literal"
+>sendmail_path</VAR
+>. 
+     Per esempio si può impostare il corretto valore per envelope sender di
+     sendmail con l'opzione <VAR
+CLASS="literal"
+>-f</VAR
+> di sendmail. Potrebbe essere necessario aggiungere l'utente che ha in esecuzione il server web
+     alla configurazione di sendmail per prevenire l'aggiunta
+     dell'intestazione 'X-Warning' quando si imposta envelope sender
+     in questo modo. 
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN69621"
+></A
+><P
+><B
+>Esempio 3. Invio di mail con intestazioni supplementari e impostazione dei parametri addizionali a linea di comando.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />mail</font><font color="#007700">(</font><font color="#DD0000">"nessuno@example.com"</font><font color="#007700">, </font><font color="#DD0000">"oggetto"</font><font color="#007700">, </font><font color="#0000BB">$messaggio</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#DD0000">"From: webmaster@</font><font color="#007700">{</font><font color="#DD0000">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'SERVER_NAME'</font><font color="#007700">]}</font><font color="#DD0000">"</font><font color="#007700">, </font><font color="#DD0000">"-fwebmaster@</font><font color="#007700">{</font><font color="#DD0000">$_SERVER</font><font color="#007700">[</font><font color="#DD0000">'SERVER_NAME'</font><font color="#007700">]}</font><font color="#DD0000">"</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Questo quinto parametro è stato aggiunto in PHP 4.0.5. A partire da PHP 4.2.3, 
+      questo parametro è disabilitato in modalità <A
+HREF="features.safe-mode.html#ini.safe-mode"
+>safe_mode</A
+>,
+      se si cerca di usarlo comunque, la funzione <B
+CLASS="function"
+>mail()</B
+> darà un 
+      messaggio di errore e restituirà <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     È possibile costruire messaggi complessi utilizzando la tecnica di 
+     concatenazione delle stringhe. 
+     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN69630"
+></A
+><P
+><B
+>Esempio 4. Invio di mail complessa.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">/* destinatari */<br /></font><font color="#0000BB">$destinatari&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">"Maria &lt;maria@example.com&gt;" </font><font color="#007700">. </font><font color="#DD0000">", " </font><font color="#007700">; </font><font color="#FF8000">// notare la virgola<br /></font><font color="#0000BB">$destinatari </font><font color="#007700">.= </font><font color="#DD0000">"Enrica &lt;enrica@example.com&gt;"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* oggetto */<br /></font><font color="#0000BB">$oggetto </font><font color="#007700">= </font><font color="#DD0000">"Promemoria compleanni di Agosto"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* messaggio */<br /></font><font color="#0000BB">$messaggio </font><font color="#007700">= </font><font color="#DD0000">'<br />&lt;html&gt;<br />&lt;head&gt;<br /> &lt;title&gt;Promemoria compleanni di Agosto&lt;/title&gt;<br />&lt;/head&gt;<br />&lt;body&gt;<br />&lt;p&gt;Questi sono i compleanni di Agosto!&lt;/p&gt;<br />&lt;table&gt;<br /> &lt;tr&gt;<br />&nbsp;&nbsp;&lt;th&gt;Persona&lt;/th&gt;&lt;th&gt;Giorno&lt;/th&gt;&lt;th&gt;Mese&lt;/th&gt;&lt;th&gt;Anno&lt;/th&gt;<br /> &lt;/tr&gt;<br /> &lt;tr&gt;<br />&nbsp;&nbsp;&lt;td&gt;Walter&lt;/td&gt;&lt;td&gt;11&lt;/td&gt;&lt;td&gt;Agosto&lt;/td&gt;&lt;td&gt;1946&lt;/td&gt;<br /> &lt;/tr&gt;<br /> &lt;tr&gt;<br />&nbsp;&nbsp;&lt;td&gt;Sara&lt;/td&gt;&lt;td&gt;14&lt;/td&gt;&lt;td&gt;Agosto&lt;/td&gt;&lt;td&gt;1985&lt;/td&gt;<br /> &lt;/tr&gt;<br />&lt;/table&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;<br />'</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* Per inviare email in formato HTML, si deve impostare l'intestazione Content-type. */<br /></font><font color="#0000BB">$intestazioni&nbsp;&nbsp;</font><font color="#007700">= </font><font color="#DD0000">"MIME-Version: 1.0\r\n"</font><font color="#007700">;<br /></font><font color="#0000BB">$intestazioni </font><font color="#007700">.= </font><font color="#DD0000">"Content-type: text/html; charset=iso-8859-1\r\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* intestazioni addizionali */<br /></font><font color="#0000BB">$intestazioni </font><font color="#007700">.= </font><font color="#DD0000">"To: Mary &lt;mary@example.com&gt;, Kelly &lt;kelly@example.com&gt;\r\n"</font><font color="#007700">;<br /></font><font color="#0000BB">$intestazioni </font><font color="#007700">.= </font><font color="#DD0000">"From: Promemoria Compleanni &lt;compleanni@example.com&gt;\r\n"</font><font color="#007700">;<br /></font><font color="#0000BB">$intestazioni </font><font color="#007700">.= </font><font color="#DD0000">"Cc: archiviocompleanni@example.com\r\n"</font><font color="#007700">;<br /></font><font color="#0000BB">$intestazioni </font><font color="#007700">.= </font><font color="#DD0000">"Bcc: controllocompleanni@example.com\r\n"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">/* ed infine l'invio */<br /></font><font color="#0000BB">mail</font><font color="#007700">(</font><font color="#0000BB">$destinatari</font><font color="#007700">, </font><font color="#0000BB">$oggetto</font><font color="#007700">, </font><font color="#0000BB">$messaggio</font><font color="#007700">, </font><font color="#0000BB">$intestazioni</font><font color="#007700">);<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       Assicurarsi di non avere nessun carattere di newline nei parametri
+       <VAR
+CLASS="parameter"
+>a</VAR
+> o <VAR
+CLASS="parameter"
+>oggetto</VAR
+>,
+       o la mail non verrà spedita correttamente.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      Il parametro <VAR
+CLASS="parameter"
+>a</VAR
+> non può essere un indirizzo nella
+      forma "Qualcosa &#60;qualcuno@example.com&#62;". Il comando di 
+      mail non sarebbe in grado di effettuare correttamente il parsing mentre dialoga
+      con il MTA (in particolare sotto Windows).
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche <A
+HREF="function.imap-mail.html"
+><B
+CLASS="function"
+>imap_mail()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ezmlm-hash.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ref.mailparse.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ezmlm_hash</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.mail.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>mailparse Functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

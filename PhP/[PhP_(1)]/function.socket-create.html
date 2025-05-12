@@ -1,0 +1,495 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>socket_create</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni relative ai Socket"
+HREF="ref.sockets.html"><LINK
+REL="PREVIOUS"
+TITLE="socket_create_pair"
+HREF="function.socket-create-pair.html"><LINK
+REL="NEXT"
+TITLE="socket_get_option"
+HREF="function.socket-get-option.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.socket-create-pair.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.socket-get-option.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.socket-create"
+></A
+>socket_create</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN154181"
+></A
+><P
+>    (PHP 4 &#62;= 4.1.0, PHP 5)</P
+>socket_create&nbsp;--&nbsp;Crea un socket (punto terminale di una comunicazione).</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN154184"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>socket_create</B
+> ( int dominio, int tipo, int protocollo )<BR
+></BR
+><P
+>&#13;     La funzione crea un punto terminale di una comunicazione (un socket)
+     e restituisce una risorsa di tipo socket. In una tipica connessione di rete
+     si hanno 2 sockets, uno con il ruolo di client
+     e l'altro con il ruolo di server.
+    </P
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>dominio</VAR
+> indica il dominio (famiglia di 
+     protocolli da usarsi per la comunicazione tra i sockets). 
+    </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN154201"
+></A
+><P
+><B
+>Tabella 1. Famiglie di indirizzi/protocolli disponibili</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Dominio</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>AF_INET</TD
+><TD
+>&#13;         Protocollo Internet basato su IPv4. TCP e UDP sono i protocolli
+         più comuni di questa famiglia.
+       </TD
+></TR
+><TR
+><TD
+>AF_INET6</TD
+><TD
+>&#13;        Protocolli basati su IPv6. TCP ed UDP sono i protocolli più comuni
+        di questa famiglia. Il supporto a questa famiglia è stato aggiunto in PHP 5.0.0.
+       </TD
+></TR
+><TR
+><TD
+>AF_UNIX</TD
+><TD
+>&#13;         Famiglia di protocolli per le comunicazioni locali. L'alta efficenza
+         ed il basso overhead ne fanno una buona forma di IPC (comunicazione inter-processo).
+        </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>tipo</VAR
+> indica il tipo di comunicazione
+     da usare con il socket.
+    </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN154220"
+></A
+><P
+><B
+>Tabella 2. Tipi di socket disponibili</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Tipo</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>SOCK_STREAM</TD
+><TD
+>&#13;         Fornisce una connessione sequenziale, affidabile e full-duplex. Può 
+         essere supportato un meccanismo di trasmissione fuori-banda.
+         Il protocollo TCP è basato su questo tipo di socket.
+       </TD
+></TR
+><TR
+><TD
+>SOCK_DGRAM</TD
+><TD
+>&#13;         Supporta i datagrammi (privo di connessione, messaggi inaffidabili di una lunghezza massima prefissata).
+         Il protocollo UDP è basato su questo tipo di socket.
+       </TD
+></TR
+><TR
+><TD
+>SOCK_SEQPACKET</TD
+><TD
+>&#13;         Fornisce una trasmissione di dati sequenziale, affidabile, bi-direzionale per i 
+         datagrammi di lunghezza massima prefissata; all'utilizzatore è richiesto di 
+         leggere l'intero pacchetto in ogni esecuzione della funzione di lettura dal socket.
+       </TD
+></TR
+><TR
+><TD
+>SOCK_RAW</TD
+><TD
+>&#13;         Fornisce un'accesso raw al protocollo di rete. Questo tipo di socket può essere
+         utilizzato per costruire manualmente qualsiasi tipo di protocollo. Un comune utilizzo
+         di questa tipologia di socket è la realizzazione di richieste ICMP (tipo
+         il ping o traceroute).
+       </TD
+></TR
+><TR
+><TD
+>SOCK_RDM</TD
+><TD
+>&#13;         Fornisce un'interfaccia affidabile per i datagrammi ma non ne garantisce l'ordine.
+         Probabilmente questo non è implementato nel vostro sistema operativo.
+       </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;     Il parametro <VAR
+CLASS="parameter"
+>protocollo</VAR
+> indica 
+     lo specifico protocollo nel <VAR
+CLASS="parameter"
+>dominio</VAR
+> indicato da usarsi
+     con il socket restituito. Il valore opportuno può essere recuperato
+     utilizzando <A
+HREF="function.getprotobyname.html"
+><B
+CLASS="function"
+>getprotobyname()</B
+></A
+>. Se il protocollo 
+     desiderato è il TCP o l'UDP, si possono utilizzare le corrispondenti costanti
+     <TT
+CLASS="constant"
+><B
+>SOL_UDP</B
+></TT
+> e <TT
+CLASS="constant"
+><B
+>SOL_TCP</B
+></TT
+>. 
+    </P
+><DIV
+CLASS="table"
+><A
+NAME="AEN154249"
+></A
+><P
+><B
+>Tabella 3. Protocolli comuni</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Nome</TH
+><TH
+>Descrizione</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>icmp</TD
+><TD
+>&#13;        L'Internet Control Message Protocol viene utilizzato principalmente dai gateway
+        e dagli host per riportare errori nelle comunicazioni con datagrammi. Il 
+        comando "ping" (presente in quasi tutti i moderni sistemi operativi) è un esempio
+        dell'applicazione di ICMP.
+       </TD
+></TR
+><TR
+><TD
+>udp</TD
+><TD
+>&#13;        Lo User Datagram Protocol è un protocollo privo di connessione,
+        inaffidabile con record di lunghezza fissa. Per questo l'UDP
+        richiede poco overhead di protocollo.
+       </TD
+></TR
+><TR
+><TD
+>tcp</TD
+><TD
+>&#13;        Il Transmission Control Protocol è un procotollo affidabile, basato sulla connessione,
+        orientato al flusso, full duplex. Il TCP garantisce che tutti i pacchetti 
+        siano ricevuti nel medesimo ordine in cui siano stati inviati. Se un pacchetto
+        viene perso durante la trasmissione, il TCP provvederà automaticamente alla ritrasmissione
+        fino a quando l'host remoto non conferma la ricezione dello stesso. Per ragioni
+        di affidabilità e di prestazioni, è il TCP stesso a decidere l'appropriata dimensione 
+        dei pacchetti del sottostante livello di datagrammi. Pertanto le applicazioni TCP devono
+        permettere la parziale ritrasmissione di un record.
+       </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>&#13;     La funzione restituisce una risorsa di tipo socket se ha successo, oppure <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> in caso di errore. 
+     In quest'ultimo caso si può ottenere il codice di errore tramite 
+     <A
+HREF="function.socket-last-error.html"
+><B
+CLASS="function"
+>socket_last_error()</B
+></A
+>. Tale codice può essere
+     passato alla funzione <A
+HREF="function.socket-strerror.html"
+><B
+CLASS="function"
+>socket_strerror()</B
+></A
+>
+     per ottenere una descrizione dell'errore.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+> 
+      Se si forniscono valori non validi per 
+      <VAR
+CLASS="parameter"
+>dominio</VAR
+> o <VAR
+CLASS="parameter"
+>tipo</VAR
+>,
+      la funzione <B
+CLASS="function"
+>socket_create()</B
+> imposta i parametri
+      rispettivamente a <TT
+CLASS="constant"
+><B
+>AF_INET</B
+></TT
+> e <TT
+CLASS="constant"
+><B
+>SOCK_STREAM</B
+></TT
+>
+      ed emette un messaggio di tipo <TT
+CLASS="constant"
+><B
+>E_WARNING</B
+></TT
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     Vedere anche
+     <A
+HREF="function.socket-accept.html"
+><B
+CLASS="function"
+>socket_accept()</B
+></A
+>,
+     <A
+HREF="function.socket-bind.html"
+><B
+CLASS="function"
+>socket_bind()</B
+></A
+>,
+     <A
+HREF="function.socket-connect.html"
+><B
+CLASS="function"
+>socket_connect()</B
+></A
+>,
+     <A
+HREF="function.socket-listen.html"
+><B
+CLASS="function"
+>socket_listen()</B
+></A
+>,
+     <A
+HREF="function.socket-last-error.html"
+><B
+CLASS="function"
+>socket_last_error()</B
+></A
+> e
+     <A
+HREF="function.socket-strerror.html"
+><B
+CLASS="function"
+>socket_strerror()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.socket-create-pair.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.socket-get-option.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>socket_create_pair</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sockets.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>socket_get_option</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

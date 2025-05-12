@@ -1,0 +1,349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>error_log</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di gestione degli errori e di logging"
+HREF="ref.errorfunc.html"><LINK
+REL="PREVIOUS"
+TITLE="debug_print_backtrace"
+HREF="function.debug-print-backtrace.html"><LINK
+REL="NEXT"
+TITLE="error_reporting"
+HREF="function.error-reporting.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.debug-print-backtrace.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.error-reporting.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.error-log"
+></A
+>error_log</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN37474"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>error_log&nbsp;--&nbsp;invia un messaggio di errore</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN37477"
+></A
+><H2
+>Descrizione</H2
+>int <B
+CLASS="methodname"
+>error_log</B
+> ( string messaggio [, int tipo_messaggio [, string destinazione [, string header_extra]]] )<BR
+></BR
+><P
+>&#13;     Invia un messaggio di errore la log del server web, ad una porta
+     <ACRONYM
+CLASS="acronym"
+>TCP</ACRONYM
+> o ad un file.  Il primo parametro,
+     <VAR
+CLASS="parameter"
+>messaggio</VAR
+>, è il messaggio di errore che deve
+     essere registrato.  Il secondo parametro, 
+     <VAR
+CLASS="parameter"
+>tipo_messaggio</VAR
+> indica la destinazione del
+     messaggio:
+     <DIV
+CLASS="table"
+><A
+NAME="AEN37498"
+></A
+><P
+><B
+>Tabella 1. <B
+CLASS="function"
+>error_log()</B
+> tipi di log</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+>0</TD
+><TD
+>&#13;      <VAR
+CLASS="parameter"
+>messaggio</VAR
+> è inviato al log di sistema
+      di PHP, utilizzando il sistema di log del Sistema Operativo o un file,
+      a seconda di come sia impostata la direttiva di configurazione <A
+HREF="ref.errorfunc.html#ini.error-log"
+>error_log</A
+>.
+     </TD
+></TR
+><TR
+><TD
+>1</TD
+><TD
+>&#13;      <VAR
+CLASS="parameter"
+>messaggio</VAR
+> è inviato via posta elettronica
+      all'indirizzo indicato nel parametro <VAR
+CLASS="parameter"
+>destinazione</VAR
+> 
+      parameter.
+      Questo  è l'unico tipo di messaggio nel quale viene usato il quarto
+      parametro, <VAR
+CLASS="parameter"
+>headers_extra</VAR
+>.  Questo tipo di
+      messaggio utilizza la stessa funzione interna di 
+      <A
+HREF="function.mail.html"
+><B
+CLASS="function"
+>mail()</B
+></A
+>.
+     </TD
+></TR
+><TR
+><TD
+>2</TD
+><TD
+>&#13;      <VAR
+CLASS="parameter"
+>messaggio</VAR
+> viene inviato attraverso la connessione
+      di debug di PHP.  Questa opzione è disponibile solo nel caso che il
+      <A
+HREF="missing-stuff.html#install.configure.enable-debugger"
+>debug remoto sia stato
+      abilitato</A
+>.  In questo caso, il parametro
+      <VAR
+CLASS="parameter"
+>destinazione</VAR
+> specifica il nome dell'host o
+      l'indirizzo IP e opzionalmente, numero di porta, del socket che riceverà
+      l'informazione di debug.
+     </TD
+></TR
+><TR
+><TD
+>3</TD
+><TD
+>&#13;      <VAR
+CLASS="parameter"
+>messaggio</VAR
+> è aggiunto al file 
+      <VAR
+CLASS="parameter"
+>destinazione</VAR
+>.
+     </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Il debug remoto via TCP/IP è una caratteristica di PHP 3
+      <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>non</I
+></SPAN
+> disponibile in PHP 4.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN37530"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>error_log()</B
+> esempi</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+// Invia notifica via log del server se non è possibile <br />// connettersi al database.<br />if (!Ora_Logon ($username, $password)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;error_log ("Database Oracle non disponibile!", 0);<br />}<br /><br />// Notifica via posta elettronica all'amministratore se esauriscono i FOO<br />if (!($foo = allocate_new_foo()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;error_log ("Problemi seri, FOO esauriti!", 1,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"operator@mydomain.com");<br />}<br /><br />// altri modi per chiamare error_log():<br />error_log ("Problema!", 2, "127.0.0.1:7000");<br />error_log ("Problema!", 2, "loghost");<br />error_log ("Problema!", 3, "/var/tmp/my-errors.log");</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.debug-print-backtrace.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.error-reporting.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>debug_print_backtrace</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.errorfunc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>error_reporting</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

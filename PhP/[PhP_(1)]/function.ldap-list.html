@@ -1,0 +1,293 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ldap_list</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="LDAP Functions"
+HREF="ref.ldap.html"><LINK
+REL="PREVIOUS"
+TITLE="ldap_get_values"
+HREF="function.ldap-get-values.html"><LINK
+REL="NEXT"
+TITLE="ldap_mod_add"
+HREF="function.ldap-mod-add.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ldap-get-values.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ldap-mod-add.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ldap-list"
+></A
+>ldap_list</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN68106"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>ldap_list&nbsp;--&nbsp;Single-level search</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN68109"
+></A
+><H2
+>Description</H2
+>resource <B
+CLASS="methodname"
+>ldap_list</B
+> ( resource link_identifier, string base_dn, string filter [, array attributes [, int attrsonly [, int sizelimit [, int timelimit [, int deref]]]]] )<BR
+></BR
+><P
+>&#13;     Returns a search result identifier or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on error.</P
+><P
+>&#13;     <B
+CLASS="function"
+>ldap_list()</B
+> performs the search for a specified
+     <VAR
+CLASS="parameter"
+>filter</VAR
+> on the directory with the scope
+     LDAP_SCOPE_ONELEVEL.</P
+><P
+>&#13;     LDAP_SCOPE_ONELEVEL means that the search should only return
+     information that is at the level immediately below the
+     <VAR
+CLASS="parameter"
+>base_dn</VAR
+> given in the call.
+     (Equivalent to typing "ls" and getting a list
+     of files and folders in the current working directory.)</P
+><P
+>&#13;     This call takes 5 optional parameters. See <A
+HREF="function.ldap-search.html"
+><B
+CLASS="function"
+>ldap_search()</B
+></A
+>
+     notes.
+    <DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+       These optional parameters were added in 4.0.2:
+      <VAR
+CLASS="parameter"
+>attrsonly</VAR
+>,
+      <VAR
+CLASS="parameter"
+>sizelimit</VAR
+>,
+      <VAR
+CLASS="parameter"
+>timelimit</VAR
+>,
+      <VAR
+CLASS="parameter"
+>deref</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+>
+
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN68153"
+></A
+><P
+><B
+>Esempio 1. Produce a list of all organizational units of an organization 
+       </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="php3"
+>// $ds is a valid link identifier for a directory server
+
+$basedn = "o=My Company, c=US";
+$justthese = array("ou");
+
+$sr=ldap_list($ds, $basedn, "ou=*", $justthese);
+
+$info = ldap_get_entries($ds, $sr);
+
+for ($i=0; $i&#60;$info["count"]; $i++) {
+    echo $info[$i]["ou"][0] ;
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      From 4.0.5 on it's also possible to do parallel searches. See
+      <A
+HREF="function.ldap-search.html"
+><B
+CLASS="function"
+>ldap_search()</B
+></A
+> for details.
+     </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ldap-get-values.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ldap-mod-add.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ldap_get_values</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ldap.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ldap_mod_add</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

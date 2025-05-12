@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>extends</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Classi e Oggetti (PHP 4)"
+HREF="language.oop.html"><LINK
+REL="PREVIOUS"
+TITLE="Classi e Oggetti (PHP 4)"
+HREF="language.oop.html"><LINK
+REL="NEXT"
+TITLE="Costruttori"
+HREF="language.oop.constructor.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="sect1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="language.oop.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Capitolo 18. Classi e Oggetti (PHP 4)</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="language.oop.constructor.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="sect1"
+><H1
+CLASS="sect1"
+><A
+NAME="keyword.extends"
+><VAR
+CLASS="literal"
+>extends</VAR
+></A
+></H1
+><P
+>&#13;    Spesso si ha bisogno di avere classi con variabili e funzioni
+    simili ad altre classi. É buona norma definire una classe in modo 
+    generico, sia per poterla riutilizzare spesso, sia per poterla 
+    adattare a scopi specifici.Per facilitare questa operazione, è possibile
+    generare classi per estensione di altre classi. Una classe estesa o derivata
+    ha tutte le variabili e le funzioni della classe di base (questo fenomeno 
+    è chiamato 'eredità', anche se non muore nessuno) più tutto ciò che viene
+    aggiunto dall'estensione. Non è possibile che una sottoclasse, ridefinisca
+    variabili e funzioni di una classe madre. Una classe estesa dipende sempre
+    da una singola classe di base: l'eredità multipla non è supportata. Le classi
+    si estendono usando la parola chiave 'extends'.
+
+
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5556"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#007700">class </font><font color="#0000BB">Named_Cart </font><font color="#007700">extends </font><font color="#0000BB">Cart </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$owner</font><font color="#007700">;<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;function </font><font color="#0000BB">set_owner </font><font color="#007700">(</font><font color="#0000BB">$name</font><font color="#007700">)&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">owner </font><font color="#007700">= </font><font color="#0000BB">$name</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    Qui viene definita una classe Named_Cart che ha tutte le funzioni 
+    e variabili di Cart più la variabile $owner e la funzione set_owner(). 
+    Viene creato un carrello con nome con il metodo usato in precedenza, 
+    in più la classe estesa permette di settare o leggere il nome del carrello. 
+    Si possono usare variabili e funzioni sia di Cart che della sua estensione:
+   </P
+><DIV
+CLASS="informalexample"
+><P
+></P
+><A
+NAME="AEN5559"
+></A
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$ncart </font><font color="#007700">= new </font><font color="#0000BB">Named_Cart</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Crea un carrello con nome<br /></font><font color="#0000BB">$ncart</font><font color="#007700">-&gt;</font><font color="#0000BB">set_owner</font><font color="#007700">(</font><font color="#DD0000">"kris"</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// Assegna il nome al carrello<br /></font><font color="#007700">print </font><font color="#0000BB">$ncart</font><font color="#007700">-&gt;</font><font color="#0000BB">owner</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// stampa il nome del proprietario<br /></font><font color="#0000BB">$ncart</font><font color="#007700">-&gt;</font><font color="#0000BB">add_item</font><font color="#007700">(</font><font color="#DD0000">"10"</font><font color="#007700">, </font><font color="#0000BB">1</font><font color="#007700">);&nbsp;&nbsp;</font><font color="#FF8000">// (funzionalità ereditata da Cart)<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+></P
+></DIV
+><P
+>&#13;    La relazione mostrata è chiamata relazione "genitore-figlio". Si crea una classe
+    di base, poi utilizzando <VAR
+CLASS="literal"
+>extends</VAR
+> si crea una nuova classe
+    <SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>basata</I
+></SPAN
+> sulla classe genitore: la classe figlia. Successivamente
+    si può usare la classe figlia come classe base per un'altra
+    classe.
+   </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+     Una classe deve essere definita prima di essere utilizzata! Se si vuole la classe
+     <VAR
+CLASS="literal"
+>Named_Cart</VAR
+> che estende la classe
+     <VAR
+CLASS="literal"
+>Cart</VAR
+>, bisogna definire una classe
+     <VAR
+CLASS="literal"
+>Cart</VAR
+> prima. Se si vuole creare un'altra classe chiamata
+     <VAR
+CLASS="literal"
+>Yellow_named_cart</VAR
+> basata sulla classe
+     <VAR
+CLASS="literal"
+>Named_Cart</VAR
+> bisogna definire la classe
+     <VAR
+CLASS="literal"
+>Named_Cart</VAR
+> prima. Per farla breve: l'ordine di
+     definizione delle classi è importante.
+    </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="language.oop.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="language.oop.constructor.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Classi e Oggetti (PHP 4)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="language.oop.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><VAR
+CLASS="literal"
+>Costruttori</VAR
+></TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

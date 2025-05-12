@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>exit</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Miscellaneous Functions"
+HREF="ref.misc.html"><LINK
+REL="PREVIOUS"
+TITLE="eval"
+HREF="function.eval.html"><LINK
+REL="NEXT"
+TITLE="get_browser"
+HREF="function.get-browser.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.eval.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.get-browser.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.exit"
+></A
+>exit</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN85289"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>exit&nbsp;--&nbsp;Output a message and terminate the current script</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN85292"
+></A
+><H2
+>Description</H2
+>void <B
+CLASS="methodname"
+>exit</B
+> ( [string status] )<BR
+></BR
+>void <B
+CLASS="methodname"
+>exit</B
+> ( int status )<BR
+></BR
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      This is not a real function, but a language construct.
+     </P
+></BLOCKQUOTE
+></DIV
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      PHP &#62;= 4.2.0 does NOT print the <VAR
+CLASS="parameter"
+>status</VAR
+>
+      if it is an <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     The <B
+CLASS="function"
+>exit()</B
+> function terminates execution of
+     the script. It prints <VAR
+CLASS="parameter"
+>status</VAR
+> just before exiting.
+    </P
+><P
+>&#13;     If <VAR
+CLASS="parameter"
+>status</VAR
+> is an <A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>, that value
+     will also be used as the exit status. Exit statuses should be in the
+     range 0 to 254, the exit status 255 is reserved by PHP and shall not be
+     used. The status 0 is used to terminate the program successfully.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN85319"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>exit()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$filename </font><font color="#007700">= </font><font color="#DD0000">'/path/to/data-file'</font><font color="#007700">;<br /></font><font color="#0000BB">$file </font><font color="#007700">= </font><font color="#0000BB">fopen</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">, </font><font color="#DD0000">'r'</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or exit(</font><font color="#DD0000">"unable to open file ($filename)"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN85324"
+></A
+><P
+><B
+>Esempio 2. <B
+CLASS="function"
+>exit()</B
+> status example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">//exit program normally<br /></font><font color="#007700">exit;<br />exit();<br />exit(</font><font color="#0000BB">0</font><font color="#007700">);<br /><br /></font><font color="#FF8000">//exit with an error code<br /></font><font color="#007700">exit(</font><font color="#0000BB">1</font><font color="#007700">);<br />exit(</font><font color="#0000BB">0376</font><font color="#007700">); </font><font color="#FF8000">//octal<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      The <A
+HREF="function.die.html"
+><B
+CLASS="function"
+>die()</B
+></A
+> function is an alias for
+      <B
+CLASS="function"
+>exit()</B
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also: <A
+HREF="function.register-shutdown-function.html"
+><B
+CLASS="function"
+>register_shutdown_function()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.eval.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.get-browser.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>eval</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.misc.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>get_browser</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

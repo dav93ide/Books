@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ingres_errno</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Ingres II Functions"
+HREF="ref.ingres.html"><LINK
+REL="PREVIOUS"
+TITLE="ingres_cursor"
+HREF="function.ingres-cursor.html"><LINK
+REL="NEXT"
+TITLE="ingres_error"
+HREF="function.ingres-error.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ingres-cursor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ingres-error.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ingres-errno"
+></A
+>ingres_errno</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN65397"
+></A
+><P
+>    (PECL)</P
+>ingres_errno&nbsp;--&nbsp;Gets the last ingres error number generated</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN65400"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>ingres_errno</B
+> ( [resource link] )<BR
+></BR
+><P
+>&#13;     Returns an integer containing the last error number. If no error was
+     reported 0 is returned.
+    </P
+><P
+>&#13;     If a <VAR
+CLASS="parameter"
+>link</VAR
+> resource is passed to
+     <B
+CLASS="function"
+>ingres_errno()</B
+> it returns the last error recorded for
+     the link. If no link is passed then <B
+CLASS="function"
+>ingres_errno()</B
+>
+     returns the last error reported using the default link.
+    </P
+><P
+>&#13;     The function, <B
+CLASS="function"
+>ingres_errno()</B
+>, should always be called
+     after executing a database query.  Calling another function before 
+     <B
+CLASS="function"
+>ingres_errno()</B
+> is called, will reset or change any
+     error code from the last Ingres function call.
+    </P
+><P
+>&#13;     <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN65417"
+></A
+><P
+><B
+>Esempio 1. <A
+HREF="function.ingres-error.html"
+><B
+CLASS="function"
+>ingres_error()</B
+></A
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br />$link </font><font color="#007700">= </font><font color="#0000BB">ingres_connect</font><font color="#007700">(</font><font color="#0000BB">$database</font><font color="#007700">, </font><font color="#0000BB">$user</font><font color="#007700">, </font><font color="#0000BB">$password</font><font color="#007700">);<br /><br /></font><font color="#0000BB">ingres_query</font><font color="#007700">(</font><font color="#DD0000">"select * from table"</font><font color="#007700">, </font><font color="#0000BB">$link</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$error_code </font><font color="#007700">= </font><font color="#0000BB">ingres_errno</font><font color="#007700">(</font><font color="#0000BB">$link</font><font color="#007700">);<br /><br />if ( </font><font color="#0000BB">$error_code </font><font color="#007700">!= </font><font color="#0000BB">0 </font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"An error occured - " </font><font color="#007700">. </font><font color="#0000BB">$error_code</font><font color="#007700">;<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+    </P
+><P
+>&#13;     See also
+     <A
+HREF="function.ingres-error.html"
+><B
+CLASS="function"
+>ingres_error()</B
+></A
+> and
+     <A
+HREF="function.ingres-errsqlstate.html"
+><B
+CLASS="function"
+>ingres_errsqlstate()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ingres-cursor.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ingres-error.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ingres_cursor</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ingres.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ingres_error</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

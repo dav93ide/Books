@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>sesam_fetch_result</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="SESAM Database Functions"
+HREF="ref.sesam.html"><LINK
+REL="PREVIOUS"
+TITLE="sesam_fetch_array"
+HREF="function.sesam-fetch-array.html"><LINK
+REL="NEXT"
+TITLE="sesam_fetch_row"
+HREF="function.sesam-fetch-row.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.sesam-fetch-array.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.sesam-fetch-row.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.sesam-fetch-result"
+></A
+>sesam_fetch_result</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN149404"
+></A
+><P
+>    (PHP 3 CVS only)</P
+>sesam_fetch_result&nbsp;--&nbsp;Return all or part of a query result</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN149407"
+></A
+><H2
+>Description</H2
+>mixed <B
+CLASS="methodname"
+>sesam_fetch_result</B
+> ( string result_id [, int max_rows] )<BR
+></BR
+><P
+>&#13;     Returns a mixed array with the query result entries, optionally
+     limited to a maximum of <VAR
+CLASS="parameter"
+>max_rows</VAR
+> rows.
+     Note that both row and column indexes are zero-based.
+     <DIV
+CLASS="table"
+><A
+NAME="AEN149420"
+></A
+><P
+><B
+>Tabella 1. 
+       Mixed result set returned by <B
+CLASS="function"
+>sesam_fetch_result()</B
+>
+      </B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><THEAD
+><TR
+><TH
+>Array Element</TH
+><TH
+>Contents</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+>int $arr["count"]</TD
+><TD
+>&#13;          number of columns in result set (or zero if this was an
+          "immediate" query)
+         </TD
+></TR
+><TR
+><TD
+>int $arr["rows"]</TD
+><TD
+>&#13;          number of rows in result set (between zero and
+          <VAR
+CLASS="parameter"
+>max_rows</VAR
+>)
+         </TD
+></TR
+><TR
+><TD
+>bool $arr["truncated"]</TD
+><TD
+>&#13;          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> if the number of rows was at least
+          <VAR
+CLASS="parameter"
+>max_rows</VAR
+>, <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+>
+          otherwise. Note that even when this is
+          <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+>, the next
+          <B
+CLASS="function"
+>sesam_fetch_result()</B
+> call may return zero
+          rows because there are no more result entries.
+         </TD
+></TR
+><TR
+><TD
+>mixed $arr[col][row]</TD
+><TD
+>&#13;          result data for all the fields at
+          row(<VAR
+CLASS="literal"
+>row</VAR
+>) and
+          column(<VAR
+CLASS="literal"
+>col</VAR
+>), (where the integer index
+          <VAR
+CLASS="literal"
+>row</VAR
+> is between 0 and
+          <VAR
+CLASS="literal"
+>$arr["rows"]-1</VAR
+>, and
+          <VAR
+CLASS="literal"
+>col</VAR
+> is between 0 and
+          <VAR
+CLASS="literal"
+>$arr["count"]-1</VAR
+>). Fields may be empty, so
+          you must check for the existence of a field by using the php
+          <A
+HREF="function.isset.html"
+><B
+CLASS="function"
+>isset()</B
+></A
+> function. The type of the
+          returned fields depend on the respective SQL type declared
+          for its column (see <A
+HREF="ref.sesam.html"
+>SESAM
+          overview</A
+> for the conversions applied). SESAM
+          "multiple fields" are "inlined" and treated like a sequence
+          of columns.
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+     Note that the amount of memory used up by a large query may be
+     gigantic. Use the <VAR
+CLASS="parameter"
+>max_rows</VAR
+> parameter to
+     limit the maximum number of rows returned, unless you are
+     absolutely sure that your result will not use up all available
+     memory.
+    </P
+><P
+>&#13;     See also: <A
+HREF="function.sesam-fetch-row.html"
+><B
+CLASS="function"
+>sesam_fetch_row()</B
+></A
+>, and
+     <A
+HREF="function.sesam-field-array.html"
+><B
+CLASS="function"
+>sesam_field_array()</B
+></A
+> to check for "multiple
+     fields". See the description of the
+     <A
+HREF="function.sesam-query.html"
+><B
+CLASS="function"
+>sesam_query()</B
+></A
+> function for a complete example
+     using <B
+CLASS="function"
+>sesam_fetch_result()</B
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.sesam-fetch-array.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.sesam-fetch-row.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>sesam_fetch_array</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.sesam.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>sesam_fetch_row</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

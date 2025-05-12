@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>COM</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni di supporto COM per Windows"
+HREF="ref.com.html"><LINK
+REL="PREVIOUS"
+TITLE="Funzioni di supporto COM per Windows"
+HREF="ref.com.html"><LINK
+REL="NEXT"
+TITLE="DOTNET"
+HREF="class.dotnet.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="ref.com.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="class.dotnet.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="class.com"
+></A
+>COM</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN18320"
+></A
+><P
+>    (no version information, might be only in CVS)</P
+>COM&nbsp;--&nbsp;classe COM</DIV
+><DIV
+CLASS="refsynopsisdiv"
+><A
+NAME="AEN18323"
+></A
+><H2
+>Sinossi</H2
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="synopsis"
+>$obj = new COM("server.object")</PRE
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="class.com.class"
+></A
+><H2
+>Descrizione</H2
+><P
+>&#13;    La classe COM fornisce un ambiente per integrare i componenti (D)COM
+    negli script PHP.
+   </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="class.com.constructor"
+></A
+><H2
+>Metodi</H2
+>string <B
+CLASS="methodname"
+>COM::COM</B
+> ( string nome_modulo [, string nome_server [, int codepage]] )<BR
+></BR
+><P
+>&#13;    costruttore della classe COM. Parametri:
+    <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+>nome_modulo</DT
+><DD
+><P
+>&#13;      nome o class-id del componente desiderato.
+     </P
+></DD
+><DT
+>nome_server</DT
+><DD
+><P
+>&#13;      nome del server DCOM dal quale deve essere richiamato il componente.
+      Se <TT
+CLASS="constant"
+><B
+>NULL</B
+></TT
+>, si assume <VAR
+CLASS="literal"
+>localhost</VAR
+>.
+      Per permettere l'uso di DCOM il parametro <TT
+CLASS="constant"
+><B
+>com.allow_dcom</B
+></TT
+> deve essere impostato a 
+      <TT
+CLASS="constant"
+><B
+>TRUE</B
+></TT
+> in <TT
+CLASS="filename"
+>php.ini</TT
+>.
+     </P
+></DD
+><DT
+>codepage</DT
+><DD
+><P
+>&#13;      specifica la codepage che verrà usata per convertire le stringhe di PHP in
+      stringhe Unicode e viceversa. I valori possibili sono 
+      <TT
+CLASS="constant"
+><B
+>CP_ACP</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>CP_MACCP</B
+></TT
+>,
+      <TT
+CLASS="constant"
+><B
+>CP_OEMCP</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>CP_SYMBOL</B
+></TT
+>,
+      <TT
+CLASS="constant"
+><B
+>CP_THREAD_ACP</B
+></TT
+>, <TT
+CLASS="constant"
+><B
+>CP_UTF7</B
+></TT
+>
+      e <TT
+CLASS="constant"
+><B
+>CP_UTF8</B
+></TT
+>.
+     </P
+></DD
+></DL
+></DIV
+>
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="example.com1"
+></A
+><P
+><B
+>Esempio 1. esempio di COM (1)</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// esecuzione di Word<br /></font><font color="#0000BB">$word </font><font color="#007700">= new </font><font color="#0000BB">COM</font><font color="#007700">(</font><font color="#DD0000">"word.application"</font><font color="#007700">) or die(</font><font color="#DD0000">"Non sono riuscito ad eseguire Word"</font><font color="#007700">);<br />echo </font><font color="#DD0000">"Word caricato, versione </font><font color="#007700">{</font><font color="#DD0000">$word</font><font color="#007700">-&gt;</font><font color="#DD0000">Version</font><font color="#007700">}\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">//lo porta in primo piano<br /></font><font color="#0000BB">$word</font><font color="#007700">-&gt;</font><font color="#0000BB">Visible </font><font color="#007700">= </font><font color="#0000BB">1</font><font color="#007700">;<br /><br /></font><font color="#FF8000">//apre un documento vuoto<br /></font><font color="#0000BB">$word</font><font color="#007700">-&gt;</font><font color="#0000BB">Documents</font><font color="#007700">-&gt;</font><font color="#0000BB">Add</font><font color="#007700">();<br /><br /></font><font color="#FF8000">//esegue un po' di operazioni inutili<br /></font><font color="#0000BB">$word</font><font color="#007700">-&gt;</font><font color="#0000BB">Selection</font><font color="#007700">-&gt;</font><font color="#0000BB">TypeText</font><font color="#007700">(</font><font color="#DD0000">"Questa è una prova..."</font><font color="#007700">);<br /></font><font color="#0000BB">$word</font><font color="#007700">-&gt;</font><font color="#0000BB">Documents</font><font color="#007700">[</font><font color="#0000BB">1</font><font color="#007700">]-&gt;</font><font color="#0000BB">SaveAs</font><font color="#007700">(</font><font color="#DD0000">"Prova inutile.doc"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">//chiude Word<br /></font><font color="#0000BB">$word</font><font color="#007700">-&gt;</font><font color="#0000BB">Quit</font><font color="#007700">();<br /><br /></font><font color="#FF8000">//libera l'oggetto<br /></font><font color="#0000BB">$word</font><font color="#007700">-&gt;</font><font color="#0000BB">Release</font><font color="#007700">();<br /></font><font color="#0000BB">$word </font><font color="#007700">= </font><font color="#0000BB">null</font><font color="#007700">;<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+><P
+>&#13;    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="example.com2"
+></A
+><P
+><B
+>Esempio 2. esempio di COM (2)</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$conn </font><font color="#007700">= new </font><font color="#0000BB">COM</font><font color="#007700">(</font><font color="#DD0000">"ADODB.Connection"</font><font color="#007700">) or die(</font><font color="#DD0000">"non riesco ad attivare ADO"</font><font color="#007700">);<br /></font><font color="#0000BB">$conn</font><font color="#007700">-&gt;</font><font color="#0000BB">Open</font><font color="#007700">(</font><font color="#DD0000">"Provider=SQLOLEDB; Data Source=localhost;<br />Initial Catalog=database; User ID=user; Password=password"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$rs </font><font color="#007700">= </font><font color="#0000BB">$conn</font><font color="#007700">-&gt;</font><font color="#0000BB">Execute</font><font color="#007700">(</font><font color="#DD0000">"SELECT * FROM unatabella"</font><font color="#007700">);&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Recordset<br /><br /></font><font color="#0000BB">$num_colonne </font><font color="#007700">= </font><font color="#0000BB">$rs</font><font color="#007700">-&gt;</font><font color="#0000BB">Fields</font><font color="#007700">-&gt;</font><font color="#0000BB">Count</font><font color="#007700">();<br />echo </font><font color="#0000BB">$num_columns </font><font color="#007700">. </font><font color="#DD0000">"\n"</font><font color="#007700">;<br /><br />for (</font><font color="#0000BB">$i</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$i </font><font color="#007700">&lt; </font><font color="#0000BB">$num_colonne</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$campi</font><font color="#007700">[</font><font color="#0000BB">$i</font><font color="#007700">] = </font><font color="#0000BB">$rs</font><font color="#007700">-&gt;</font><font color="#0000BB">Fields</font><font color="#007700">(</font><font color="#0000BB">$i</font><font color="#007700">);<br />}<br /><br /></font><font color="#0000BB">$contorighe </font><font color="#007700">= </font><font color="#0000BB">0</font><font color="#007700">;<br />while (!</font><font color="#0000BB">$rs</font><font color="#007700">-&gt;</font><font color="#0000BB">EOF</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;&nbsp;for (</font><font color="#0000BB">$i</font><font color="#007700">=</font><font color="#0000BB">0</font><font color="#007700">; </font><font color="#0000BB">$i </font><font color="#007700">&lt; </font><font color="#0000BB">$num_colonne</font><font color="#007700">; </font><font color="#0000BB">$i</font><font color="#007700">++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$campi</font><font color="#007700">[</font><font color="#0000BB">$i</font><font color="#007700">]-&gt;</font><font color="#0000BB">value </font><font color="#007700">. </font><font color="#DD0000">"\t"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#DD0000">"\n"</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$contorighe</font><font color="#007700">++;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// incrementa contorighe<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$rs</font><font color="#007700">-&gt;</font><font color="#0000BB">MoveNext</font><font color="#007700">();<br />}<br /><br /></font><font color="#0000BB">$rs</font><font color="#007700">-&gt;</font><font color="#0000BB">Close</font><font color="#007700">();<br /></font><font color="#0000BB">$conn</font><font color="#007700">-&gt;</font><font color="#0000BB">Close</font><font color="#007700">();<br /><br /></font><font color="#0000BB">$rs</font><font color="#007700">-&gt;</font><font color="#0000BB">Release</font><font color="#007700">();<br /></font><font color="#0000BB">$conn</font><font color="#007700">-&gt;</font><font color="#0000BB">Release</font><font color="#007700">();<br /><br /></font><font color="#0000BB">$rs </font><font color="#007700">= </font><font color="#0000BB">null</font><font color="#007700">;<br /></font><font color="#0000BB">$conn </font><font color="#007700">= </font><font color="#0000BB">null</font><font color="#007700">;<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ref.com.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="class.dotnet.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Funzioni di supporto COM per Windows</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.com.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>DOTNET</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

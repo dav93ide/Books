@@ -1,0 +1,419 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Proprietà object e method call overloading</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="deaggregate"
+HREF="function.deaggregate.html"><LINK
+REL="NEXT"
+TITLE="overload"
+HREF="function.overload.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.deaggregate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.overload.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.overload"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>XCIV. Proprietà object e method call overloading</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN109774"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="overload.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     Lo scopo di questa estensione è di permettere l'overloading delle proprietà
+     di accesso agli oggetti e dei metodi di chiamata. Solo una funzione è definita
+     in questa estensione, <A
+HREF="function.overload.html"
+><B
+CLASS="function"
+>overload()</B
+></A
+> che prende il
+     nome dalla classe che ha questa funzionalità abilitata.
+     La classe nominata ha da definire metodi appropriati se
+     vuole avere questa funzionalità: <VAR
+CLASS="literal"
+>__get()</VAR
+>,
+     <VAR
+CLASS="literal"
+>__set()</VAR
+> and <VAR
+CLASS="literal"
+>__call()</VAR
+>
+     rispettivamente per ricevere/impostare una proprietà, o chiamare un metodo.
+     Questa strada del sovraccarico può essere selettiva. Dentro queste
+     funzioni handler l'overloading è disabilitato così si può accedere
+     alle proprietà dell'oggetto normalmente.
+    </P
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>Questo modulo è
+<SPAN
+CLASS="emphasis"
+><I
+CLASS="emphasis"
+>SPERIMENTALE</I
+></SPAN
+>. Ovvero, il comportamento di queste
+funzioni, i nomi di queste funzioni, in definitiva tutto ciò 
+che è documentato qui può cambiare nei futuri rilasci 
+del PHP senza preavviso. Siete avvisati, l'uso di questo modulo 
+è a vostro rischio.</P
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="warning"
+><P
+></P
+><TABLE
+CLASS="warning"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>Avvertimento</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>&#13;      Questo modulo non è parte di PHP 5. Php 5 gestisce le chiamate  <VAR
+CLASS="literal"
+>__get()</VAR
+>, <VAR
+CLASS="literal"
+>__set()</VAR
+> and
+      <VAR
+CLASS="literal"
+>__call()</VAR
+> in modo nativo. Vedere la pagina <A
+HREF="language.oop5.overloading.html"
+>l'overload in PHP 5</A
+> 
+      per maggiori dettagli.
+     </P
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="overload.requirements"
+>Requisiti</A
+></H1
+><P
+>Non sono necessarie librerie esterne per utilizzare questo modulo.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="overload.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  Per potere utilizzare queste funzioni occorre compilare
+  il PHP con <VAR
+CLASS="option"
+>--enable-overload</VAR
+>.
+  A partire dal PHP 4.3.0 questo modulo è abilitato per default. Si può
+  disabilitare il supporto overload tramite
+  <VAR
+CLASS="option"
+>--disable--overload</VAR
+>.
+ </P
+><P
+> La versione per Windows di PHP
+ha già compilato il supporto per questo modulo. Non occorre caricare alcun modulo
+addizionale per potere utilizzare queste funzioni.</P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+   Il supporto per questo modulo è compilato per default a partire dal PHP 4.3.0.
+  </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="overload.configuration"
+>Configurazione di Runtime</A
+></H1
+><P
+>Questa estensione non definisce
+alcuna direttiva di configurazione in <TT
+CLASS="filename"
+>php.ini</TT
+></P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="overload.resources"
+>Tipi di risorse</A
+></H1
+><P
+>Questa estensione non definisce alcun tipo di risorsa.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="overload.constants"
+>Costanti predefinite</A
+></H1
+><P
+>Questa estensione non definisce alcuna costante.</P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="overload.examples"
+>Esempi</A
+></H1
+><P
+>&#13;    Alcuni semplici esempi sull'uso della funzione 
+    <A
+HREF="function.overload.html"
+><B
+CLASS="function"
+>overload()</B
+></A
+>
+    <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN109816"
+></A
+><P
+><B
+>Esempio 1. Overloading di una classe PHP</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#007700">class </font><font color="#0000BB">OO </font><font color="#007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$a </font><font color="#007700">= </font><font color="#0000BB">111</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var </font><font color="#0000BB">$elem </font><font color="#007700">= array(</font><font color="#DD0000">'b' </font><font color="#007700">=&gt; </font><font color="#0000BB">9</font><font color="#007700">, </font><font color="#DD0000">'c' </font><font color="#007700">=&gt; </font><font color="#0000BB">42</font><font color="#007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Callback method for getting a property<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">function </font><font color="#0000BB">__get</font><font color="#007700">(</font><font color="#0000BB">$prop_name</font><font color="#007700">, &amp;</font><font color="#0000BB">$prop_value</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (isset(</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">elem</font><font color="#007700">[</font><font color="#0000BB">$prop_name</font><font color="#007700">])) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$prop_value </font><font color="#007700">= </font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">elem</font><font color="#007700">[</font><font color="#0000BB">$prop_name</font><font color="#007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">true</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">false</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// Callback method for setting a property<br />&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#007700">function </font><font color="#0000BB">__set</font><font color="#007700">(</font><font color="#0000BB">$prop_name</font><font color="#007700">, </font><font color="#0000BB">$prop_value</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">$this</font><font color="#007700">-&gt;</font><font color="#0000BB">elem</font><font color="#007700">[</font><font color="#0000BB">$prop_name</font><font color="#007700">] = </font><font color="#0000BB">$prop_value</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return </font><font color="#0000BB">true</font><font color="#007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></font><font color="#FF8000">// Here we overload the OO object<br /></font><font color="#0000BB">overload</font><font color="#007700">(</font><font color="#DD0000">'OO'</font><font color="#007700">);<br /><br /></font><font color="#0000BB">$o </font><font color="#007700">= new </font><font color="#0000BB">OO</font><font color="#007700">;<br />echo </font><font color="#DD0000">"</font><font color="#007700">\$</font><font color="#DD0000">o</font><font color="#007700">-&gt;</font><font color="#DD0000">a: $o</font><font color="#007700">-&gt;</font><font color="#DD0000">a</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">; </font><font color="#FF8000">// print: $o-&gt;a:<br /></font><font color="#007700">echo </font><font color="#DD0000">"</font><font color="#007700">\$</font><font color="#DD0000">o</font><font color="#007700">-&gt;</font><font color="#DD0000">b: $o</font><font color="#007700">-&gt;</font><font color="#DD0000">b</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">; </font><font color="#FF8000">// print: $o-&gt;b: 9<br /></font><font color="#007700">echo </font><font color="#DD0000">"</font><font color="#007700">\$</font><font color="#DD0000">o</font><font color="#007700">-&gt;</font><font color="#DD0000">c: $o</font><font color="#007700">-&gt;</font><font color="#DD0000">c</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">; </font><font color="#FF8000">// print: $o-&gt;c: 42<br /></font><font color="#007700">echo </font><font color="#DD0000">"</font><font color="#007700">\$</font><font color="#DD0000">o</font><font color="#007700">-&gt;</font><font color="#DD0000">d: $o</font><font color="#007700">-&gt;</font><font color="#DD0000">d</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">; </font><font color="#FF8000">// print: $o-&gt;d:<br /><br />// add a new item to the $elem array in OO<br /></font><font color="#0000BB">$o</font><font color="#007700">-&gt;</font><font color="#0000BB">x </font><font color="#007700">= </font><font color="#0000BB">56</font><font color="#007700">; <br /><br /></font><font color="#FF8000">// instantiate stdclass (it is built-in in PHP 4)<br />// $val is not overloaded!<br /></font><font color="#0000BB">$val </font><font color="#007700">= new </font><font color="#0000BB">stdclass</font><font color="#007700">;<br /></font><font color="#0000BB">$val</font><font color="#007700">-&gt;</font><font color="#0000BB">prop </font><font color="#007700">= </font><font color="#0000BB">555</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Set "a" to be an array with the $val object in it<br />// But __set() will put this in the $elem array<br /></font><font color="#0000BB">$o</font><font color="#007700">-&gt;</font><font color="#0000BB">a </font><font color="#007700">= array(</font><font color="#0000BB">$val</font><font color="#007700">);<br /></font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">$o</font><font color="#007700">-&gt;</font><font color="#0000BB">a</font><font color="#007700">[</font><font color="#0000BB">0</font><font color="#007700">]-&gt;</font><font color="#0000BB">prop</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>  
+    </P
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.overload.html"
+>overload</A
+>&nbsp;--&nbsp;Abilita le proprietà e il method call overloading per una classe</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.deaggregate.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.overload.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>deaggregate</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>overload</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

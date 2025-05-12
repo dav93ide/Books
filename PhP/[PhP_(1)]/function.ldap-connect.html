@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ldap_connect</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="LDAP Functions"
+HREF="ref.ldap.html"><LINK
+REL="PREVIOUS"
+TITLE="ldap_compare"
+HREF="function.ldap-compare.html"><LINK
+REL="NEXT"
+TITLE="ldap_count_entries"
+HREF="function.ldap-count-entries.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.ldap-compare.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.ldap-count-entries.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.ldap-connect"
+></A
+>ldap_connect</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN67669"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>ldap_connect&nbsp;--&nbsp;Connect to an LDAP server</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN67672"
+></A
+><H2
+>Description</H2
+>resource <B
+CLASS="methodname"
+>ldap_connect</B
+> ( [string hostname [, int port]] )<BR
+></BR
+><P
+>&#13;     Returns a positive LDAP link identifier on success, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on
+     error.  When OpenLDAP 2.x.x is used, <B
+CLASS="function"
+>ldap_connect()</B
+> 
+     will always return a <A
+HREF="language.types.resource.html"
+><B
+CLASS="type"
+>resource</B
+></A
+> as it does not actually 
+     connect but just initializes the connecting parameters.  The actual 
+     connect happens with the next calls to ldap_* funcs, usually with 
+     <A
+HREF="function.ldap-bind.html"
+><B
+CLASS="function"
+>ldap_bind()</B
+></A
+>.
+    </P
+><P
+> 
+     <B
+CLASS="function"
+>ldap_connect()</B
+> establishes a connection to a
+     LDAP server on a specified <VAR
+CLASS="parameter"
+>hostname</VAR
+> and
+     <VAR
+CLASS="parameter"
+>port</VAR
+>.  Both the arguments are optional. If
+     no arguments are specified then the link identifier of the
+     already opened link will be returned. If only
+     <VAR
+CLASS="parameter"
+>hostname</VAR
+> is specified, then the port
+     defaults to 389.</P
+><P
+>&#13;     If you are using OpenLDAP 2.x.x you can specify a URL instead of the
+     hostname. To use LDAP with SSL, compile OpenLDAP 2.x.x with SSL
+     support, configure PHP with SSL, and use ldaps://hostname/ as
+     host parameter. The port parameter is not used when using URLs.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      URL and SSL support were added in 4.0.4.
+     </P
+></BLOCKQUOTE
+></DIV
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN67696"
+></A
+><P
+><B
+>Esempio 1. Example of connecting to LDAP server.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">// LDAP variables<br /></font><font color="#0000BB">$ldaphost </font><font color="#007700">= </font><font color="#DD0000">"ldap.example.com"</font><font color="#007700">;&nbsp;&nbsp;</font><font color="#FF8000">// your ldap servers<br /></font><font color="#0000BB">$ldapport </font><font color="#007700">= </font><font color="#0000BB">389</font><font color="#007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#FF8000">// your ldap server's port number<br /><br />// Connecting to LDAP<br /></font><font color="#0000BB">$ldapconn </font><font color="#007700">= </font><font color="#0000BB">ldap_connect</font><font color="#007700">(</font><font color="#0000BB">$ldaphost</font><font color="#007700">, </font><font color="#0000BB">$ldapport</font><font color="#007700">) <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Could not connect to $ldaphost"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN67699"
+></A
+><P
+><B
+>Esempio 2. Example of connecting securely to LDAP server.</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br /></font><font color="#FF8000">// make sure your host is the correct one<br />// that you issued your secure certificate to<br /></font><font color="#0000BB">$ldaphost </font><font color="#007700">= </font><font color="#DD0000">"ldaps://ldap.example.com/"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// Connecting to LDAP<br /></font><font color="#0000BB">$ldapconn </font><font color="#007700">= </font><font color="#0000BB">ldap_connect</font><font color="#007700">(</font><font color="#0000BB">$ldaphost</font><font color="#007700">) <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"Could not connect to </font><font color="#007700">{</font><font color="#DD0000">$ldaphost</font><font color="#007700">}</font><font color="#DD0000">"</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+><P
+>&#13;     See also
+     <A
+HREF="function.ldap-bind.html"
+><B
+CLASS="function"
+>ldap_bind()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.ldap-compare.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.ldap-count-entries.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>ldap_compare</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.ldap.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>ldap_count_entries</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

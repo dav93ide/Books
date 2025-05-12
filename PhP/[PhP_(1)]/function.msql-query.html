@@ -1,0 +1,338 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>msql_query</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="mSQL Functions"
+HREF="ref.msql.html"><LINK
+REL="PREVIOUS"
+TITLE="msql_pconnect"
+HREF="function.msql-pconnect.html"><LINK
+REL="NEXT"
+TITLE="msql_regcase"
+HREF="function.msql-regcase.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.msql-pconnect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.msql-regcase.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.msql-query"
+></A
+>msql_query</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN89843"
+></A
+><P
+>    (PHP 3, PHP 4, PHP 5)</P
+>msql_query&nbsp;--&nbsp;Send mSQL query</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89846"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>msql_query</B
+> ( string query [, resource link_identifier] )<BR
+></BR
+><P
+>&#13;   <B
+CLASS="function"
+>msql_query()</B
+> sends a query to the currently active 
+   database on the server that's associated with the specified link 
+   identifier.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89859"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>query</VAR
+></DT
+><DD
+><P
+>&#13;       The SQL query.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>&#13;link_identifier</VAR
+></DT
+><DD
+><P
+>The mSQL connection.
+If not specified, the last link opened by <A
+HREF="function.msql-connect.html"
+><B
+CLASS="function"
+>msql_connect()</B
+></A
+>
+is assumed. If no such link is found, the function will try to establish a
+link as if <A
+HREF="function.msql-connect.html"
+><B
+CLASS="function"
+>msql_connect()</B
+></A
+> was called, and use it.
+</P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89875"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;   Returns a positive mSQL query identifier on success, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on
+   error.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89879"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN89882"
+></A
+><P
+><B
+>Esempio 1. <B
+CLASS="function"
+>msql_query()</B
+> example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php <br />$link </font><font color="#007700">= </font><font color="#0000BB">msql_connect</font><font color="#007700">(</font><font color="#DD0000">"dbserver"</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"unable to connect to msql server: " </font><font color="#007700">. </font><font color="#0000BB">msql_error</font><font color="#007700">());<br /></font><font color="#0000BB">msql_select_db</font><font color="#007700">(</font><font color="#DD0000">"db"</font><font color="#007700">, </font><font color="#0000BB">$link</font><font color="#007700">)<br />&nbsp;&nbsp;&nbsp;or die(</font><font color="#DD0000">"unable to select database 'db': " </font><font color="#007700">. </font><font color="#0000BB">msql_error</font><font color="#007700">());<br /><br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">msql_query</font><font color="#007700">(</font><font color="#DD0000">"SELECT * FROM table WHERE id=1"</font><font color="#007700">, </font><font color="#0000BB">$link</font><font color="#007700">);<br />if (!</font><font color="#0000BB">$result</font><font color="#007700">) {<br />&nbsp;&nbsp;&nbsp;die(</font><font color="#DD0000">"query failed: " </font><font color="#007700">. </font><font color="#0000BB">msql_error</font><font color="#007700">());<br />}<br /><br />while (</font><font color="#0000BB">$row </font><font color="#007700">= </font><font color="#0000BB">msql_fetch_array</font><font color="#007700">(</font><font color="#0000BB">$result</font><font color="#007700">)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;echo </font><font color="#0000BB">$row</font><font color="#007700">[</font><font color="#DD0000">"id"</font><font color="#007700">];<br />}<br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN89886"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.msql-db-query.html"
+><B
+CLASS="function"
+>msql_db_query()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.msql-select-db.html"
+><B
+CLASS="function"
+>msql_select_db()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.msql-connect.html"
+><B
+CLASS="function"
+>msql_connect()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.msql-pconnect.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.msql-regcase.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>msql_pconnect</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.msql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>msql_regcase</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

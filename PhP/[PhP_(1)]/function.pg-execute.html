@@ -1,0 +1,403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pg_execute</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni PostgreSQL"
+HREF="ref.pgsql.html"><LINK
+REL="PREVIOUS"
+TITLE="pg_escape_string"
+HREF="function.pg-escape-string.html"><LINK
+REL="NEXT"
+TITLE="pg_fetch_all_columns"
+HREF="function.pg-fetch-all-columns.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pg-escape-string.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pg-fetch-all-columns.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pg-execute"
+></A
+>pg_execute</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN132822"
+></A
+><P
+>    (PHP 5 &#62;= 5.1.0RC1)</P
+>pg_execute&nbsp;--&nbsp;Sends a request to execute a prepared statement with given parameters, and waits for the result.</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132825"
+></A
+><H2
+>Descrizione</H2
+>resource <B
+CLASS="methodname"
+>pg_execute</B
+> ( resource connection, string stmtname, array params )<BR
+></BR
+>resource <B
+CLASS="methodname"
+>pg_execute</B
+> ( string stmtname, array params )<BR
+></BR
+><P
+>&#13;    Sends a request to execute a prepared statement with given parameters, and 
+    waits for the result.
+  </P
+><P
+>&#13;    <B
+CLASS="function"
+>pg_execute()</B
+> is like <A
+HREF="function.pg-query-params.html"
+><B
+CLASS="function"
+>pg_query_params()</B
+></A
+>, 
+    but the command to be executed is 
+    specified by naming a previously-prepared statement, instead of giving a 
+    query string. This feature allows commands that will be used repeatedly to 
+    be parsed and planned just once, rather than each time they are executed. 
+    The statement must have been prepared previously in the current session. 
+    <B
+CLASS="function"
+>pg_execute()</B
+> is supported only against PostgreSQL 7.4 or
+    higher connections; it will fail when using earlier versions.
+  </P
+><P
+>&#13;    The parameters are identical to <A
+HREF="function.pg-query-params.html"
+><B
+CLASS="function"
+>pg_query_params()</B
+></A
+>, except that the name of a 
+    prepared statement is given instead of a query string.
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132855"
+></A
+><H2
+>Elenco dei parametri</H2
+><P
+>&#13;   <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><VAR
+CLASS="parameter"
+>connection</VAR
+></DT
+><DD
+><P
+>&#13;       PostgreSQL database connection resource.  When 
+       <VAR
+CLASS="parameter"
+>connection</VAR
+> is not present, the default connection 
+       is used. The default connection is the last connection made by 
+       <A
+HREF="function.pg-connect.html"
+><B
+CLASS="function"
+>pg_connect()</B
+></A
+> or <A
+HREF="function.pg-pconnect.html"
+><B
+CLASS="function"
+>pg_pconnect()</B
+></A
+>.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>stmtname</VAR
+></DT
+><DD
+><P
+>&#13;       The name of the prepared statement to execute.  if
+       "" is specified, then the unnamed statement is executed.  The name must have
+       been previously prepared using <A
+HREF="function.pg-prepare.html"
+><B
+CLASS="function"
+>pg_prepare()</B
+></A
+>, 
+       <A
+HREF="function.pg-send-prepare.html"
+><B
+CLASS="function"
+>pg_send_prepare()</B
+></A
+> or a <VAR
+CLASS="literal"
+>PREPARE</VAR
+> SQL
+       command.
+      </P
+></DD
+><DT
+><VAR
+CLASS="parameter"
+>params</VAR
+></DT
+><DD
+><P
+>&#13;        An array of parameter values to substitute for the $1, $2, etc. placeholders
+        in the original prepared query string.  The number of elements in the array
+        must match the number of placeholders.
+      </P
+></DD
+></DL
+></DIV
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132880"
+></A
+><H2
+>Valori restituiti</H2
+><P
+>&#13;    A query result resource on success, or <TT
+CLASS="constant"
+><B
+>FALSE</B
+></TT
+> on failure.</P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132884"
+></A
+><H2
+>Esempi</H2
+><P
+>&#13;   <TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN132887"
+></A
+><P
+><B
+>Esempio 1. Using <B
+CLASS="function"
+>pg_execute()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /></font><font color="#FF8000">// Connect to a database named "mary"<br /></font><font color="#0000BB">$dbconn </font><font color="#007700">= </font><font color="#0000BB">pg_connect</font><font color="#007700">(</font><font color="#DD0000">"dbname=mary"</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Prepare a query for execution<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_prepare</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"my_query"</font><font color="#007700">, </font><font color="#DD0000">'SELECT * FROM shops WHERE name = $1'</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// Execute the prepared query.&nbsp;&nbsp;Note that it is not necessary to escape<br />// the string "Joe's Widgets" in any way<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_execute</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"my_query"</font><font color="#007700">, array(</font><font color="#DD0000">"Joe's Widgets"</font><font color="#007700">));<br /><br /></font><font color="#FF8000">// Execute the same prepared query, this time with a different parameter<br /></font><font color="#0000BB">$result </font><font color="#007700">= </font><font color="#0000BB">pg_execute</font><font color="#007700">(</font><font color="#0000BB">$dbconn</font><font color="#007700">, </font><font color="#DD0000">"my_query"</font><font color="#007700">, array(</font><font color="#DD0000">"Clothes Clothes Clothes"</font><font color="#007700">));<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+>
+  </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN132891"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;   <P
+></P
+><TABLE
+BORDER="0"
+><TBODY
+><TR
+><TD
+><A
+HREF="function.pg-prepare.html"
+><B
+CLASS="function"
+>pg_prepare()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.pg-send-prepare.html"
+><B
+CLASS="function"
+>pg_send_prepare()</B
+></A
+></TD
+></TR
+><TR
+><TD
+><A
+HREF="function.pg-query-params.html"
+><B
+CLASS="function"
+>pg_query_params()</B
+></A
+></TD
+></TR
+></TBODY
+></TABLE
+><P
+></P
+>
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pg-escape-string.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pg-fetch-all-columns.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pg_escape_string</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pgsql.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pg_fetch_all_columns</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>xslt_set_error_handler</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Funzioni XSLT"
+HREF="ref.xslt.html"><LINK
+REL="PREVIOUS"
+TITLE="xslt_set_encoding"
+HREF="function.xslt-set-encoding.html"><LINK
+REL="NEXT"
+TITLE="xslt_set_log"
+HREF="function.xslt-set-log.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.xslt-set-encoding.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.xslt-set-log.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.xslt-set-error-handler"
+></A
+>xslt_set_error_handler</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN180430"
+></A
+><P
+>    (PHP 4 &#62;= 4.0.4, PECL)</P
+>xslt_set_error_handler&nbsp;--&nbsp;Imposta un error handler per un processore XSLT</DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180433"
+></A
+><H2
+>Descrizione</H2
+>void <B
+CLASS="methodname"
+>xslt_set_error_handler</B
+> ( resource xh, mixed handler )<BR
+></BR
+><P
+>&#13;     Imposta una funzione di error handler per il processore XSLT dato da <VAR
+CLASS="parameter"
+>xh</VAR
+>,
+     questa funzione sarà richiamata quando ha luogo un errore nella trasformazione XSLT
+     (questa funzione è anche richiamata 
+     per le nuove notizie dallo script).
+    </P
+><P
+>&#13;     La funzione utente deve ricevere quattro parametri: il processore XSLT,
+     il livello di errore, il codice di errore ed una matrice di messaggi. La funzione
+     potrebbe essere rappresentata come:
+     <B
+CLASS="methodname"
+><VAR
+CLASS="replaceable"
+>error_handler</VAR
+></B
+> ( resource xh, int error_level, int error_code, array messages )<BR
+></BR
+>
+    </P
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180462"
+></A
+><H2
+>Esempi</H2
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN180464"
+></A
+><P
+><B
+>Esempio 1. Esempio di uso di <B
+CLASS="function"
+>xslt_set_error_handler()</B
+></B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /> <br /></font><font color="#FF8000">// Il nostro gestore degli errori XSLT<br /></font><font color="#007700">function </font><font color="#0000BB">xslt_error_handler</font><font color="#007700">(</font><font color="#0000BB">$handler</font><font color="#007700">, </font><font color="#0000BB">$errno</font><font color="#007700">, </font><font color="#0000BB">$level</font><font color="#007700">, </font><font color="#0000BB">$info</font><font color="#007700">)<br />{<br />&nbsp;&nbsp;</font><font color="#FF8000">// Per ora visualizza i parametri<br />&nbsp;&nbsp;</font><font color="#0000BB">var_dump</font><font color="#007700">(</font><font color="#0000BB">func_get_args</font><font color="#007700">());<br />}<br /> <br /></font><font color="#FF8000">// contenuto XML:<br /></font><font color="#0000BB">$xml</font><font color="#007700">=</font><font color="#DD0000">'&lt;?xml version="1.0"?&gt;<br />&lt;para&gt;<br /> oops, I misspelled the closing tag<br />&lt;/pata&gt;'</font><font color="#007700">;<br /> <br /></font><font color="#FF8000">// Contenuto XSL:<br /></font><font color="#0000BB">$xsl</font><font color="#007700">=</font><font color="#DD0000">'&lt;?xml version="1.0"?&gt;<br />&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;<br />&lt;xsl:template match="/"&gt;<br />&nbsp;&nbsp;&nbsp;&lt;strong&gt;&lt;xsl:value-of select="para"/&gt;&lt;/strong&gt;<br />&lt;/xsl:template&gt;<br />&lt;/xsl:stylesheet&gt;'</font><font color="#007700">;<br /> <br /></font><font color="#0000BB">$xh </font><font color="#007700">= </font><font color="#0000BB">xslt_create</font><font color="#007700">();<br /> <br /></font><font color="#0000BB">xslt_set_error_handler</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#DD0000">"xslt_error_handler"</font><font color="#007700">);<br /> <br />echo </font><font color="#0000BB">xslt_process</font><font color="#007700">(</font><font color="#0000BB">$xh</font><font color="#007700">, </font><font color="#DD0000">'arg:/_xml'</font><font color="#007700">, </font><font color="#DD0000">'arg:/_xsl'</font><font color="#007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#0000BB">NULL</font><font color="#007700">, array(</font><font color="#DD0000">"/_xml" </font><font color="#007700">=&gt; </font><font color="#0000BB">$xml</font><font color="#007700">, </font><font color="#DD0000">"/_xsl" </font><font color="#007700">=&gt; </font><font color="#0000BB">$xsl</font><font color="#007700">));<br /> <br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+><P
+>Il precedente esempio visualizzerà
+qualcosa simile a:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><PRE
+CLASS="screen"
+>array(4) {
+  [0]=&#62;
+  resource(1) of type (XSLT Processor)
+  [1]=&#62;
+  int(3)
+  [2]=&#62;
+  int(0)
+  [3]=&#62;
+  array(6) {
+    ["msgtype"]=&#62;
+    string(5) "error"
+    ["code"]=&#62;
+    string(1) "2"
+    ["module"]=&#62;
+    string(9) "Sablotron"
+    ["URI"]=&#62;
+    string(9) "arg:/_xml"
+    ["line"]=&#62;
+    string(1) "4"
+    ["msg"]=&#62;
+    string(34) "XML parser error 7: mismatched tag"
+  }
+}</PRE
+></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN180470"
+></A
+><H2
+>Vedere anche:</H2
+><P
+>&#13;     Vedere <A
+HREF="function.xslt-set-object.html"
+><B
+CLASS="function"
+>xslt_set_object()</B
+></A
+> se si desidera utilizzare come handler
+     un medoto di un oggetto.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.xslt-set-encoding.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.xslt-set-log.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>xslt_set_encoding</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.xslt.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>xslt_set_log</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

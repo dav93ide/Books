@@ -1,0 +1,391 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>pcntl_wait</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Process Control Functions"
+HREF="ref.pcntl.html"><LINK
+REL="PREVIOUS"
+TITLE="pcntl_signal"
+HREF="function.pcntl-signal.html"><LINK
+REL="NEXT"
+TITLE="pcntl_waitpid"
+HREF="function.pcntl-waitpid.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="refentry"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.pcntl-signal.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.pcntl-waitpid.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><H1
+><A
+NAME="function.pcntl-wait"
+></A
+>pcntl_wait</H1
+><DIV
+CLASS="refnamediv"
+><A
+NAME="AEN122487"
+></A
+><P
+>    (PHP 5)</P
+>pcntl_wait&nbsp;--&nbsp;
+     Waits on or returns the status of a forked child
+    </DIV
+><DIV
+CLASS="refsect1"
+><A
+NAME="AEN122490"
+></A
+><H2
+>Description</H2
+>int <B
+CLASS="methodname"
+>pcntl_wait</B
+> ( int &#38;status [, int options] )<BR
+></BR
+><P
+>&#13;     The wait function suspends execution of the current process until a
+     child has exited, or until a signal is delivered whose action is to
+     terminate the current process or to call a signal handling function.  If a
+     child has already exited by the time of the call (a so-called "zombie"
+     process), the function returns immediately.  Any system resources used by
+     the child are freed.  Please see your system's wait(2) man page for
+     specific details as to how wait works on your system.
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>pcntl_wait()</B
+> returns the process ID of the
+     child which exited, -1 on error or zero if WNOHANG was provided as an
+     option (on wait3-available systems) and no child was available.
+    </P
+><P
+>&#13;     If wait3 is available on your system (mostly BSD-style systems), you can
+     provide the optional <VAR
+CLASS="parameter"
+>options</VAR
+> parameter.  If this
+     parameter is not provided, wait will be used for the system call.  If
+     wait3 is not available, providing a value for <VAR
+CLASS="parameter"
+>options
+     </VAR
+> will have no effect. The value of <VAR
+CLASS="parameter"
+>options
+     </VAR
+> is the value of zero or more of the following two constants
+     <VAR
+CLASS="literal"
+>OR</VAR
+>'ed together:
+     <DIV
+CLASS="table"
+><A
+NAME="AEN122509"
+></A
+><P
+><B
+>Tabella 1. Possible values for <VAR
+CLASS="parameter"
+>options</VAR
+> if wait3 is available</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><TBODY
+><TR
+><TD
+><VAR
+CLASS="literal"
+>WNOHANG</VAR
+></TD
+><TD
+>&#13;          Return immediately if no child has exited.
+         </TD
+></TR
+><TR
+><TD
+><VAR
+CLASS="literal"
+>WUNTRACED</VAR
+></TD
+><TD
+>&#13;          Return for children which are stopped, and whose status has
+          not been reported.
+         </TD
+></TR
+></TBODY
+></TABLE
+></DIV
+>
+    </P
+><P
+>&#13;     <B
+CLASS="function"
+>pcntl_wait()</B
+> will store status information
+     in the <VAR
+CLASS="parameter"
+>status</VAR
+> parameter which can be
+     evaluated using the following functions:
+     <A
+HREF="function.pcntl-wifexited.html"
+><B
+CLASS="function"
+>pcntl_wifexited()</B
+></A
+>,
+     <A
+HREF="function.pcntl-wifstopped.html"
+><B
+CLASS="function"
+>pcntl_wifstopped()</B
+></A
+>,
+     <A
+HREF="function.pcntl-wifsignaled.html"
+><B
+CLASS="function"
+>pcntl_wifsignaled()</B
+></A
+>,
+     <A
+HREF="function.pcntl-wexitstatus.html"
+><B
+CLASS="function"
+>pcntl_wexitstatus()</B
+></A
+>,
+     <A
+HREF="function.pcntl-wtermsig.html"
+><B
+CLASS="function"
+>pcntl_wtermsig()</B
+></A
+> and
+     <A
+HREF="function.pcntl-wstopsig.html"
+><B
+CLASS="function"
+>pcntl_wstopsig()</B
+></A
+>.
+    </P
+><DIV
+CLASS="note"
+><BLOCKQUOTE
+CLASS="note"
+><P
+><B
+>Nota: </B
+>
+      This function is equivalent to calling <A
+HREF="function.pcntl-waitpid.html"
+><B
+CLASS="function"
+>pcntl_waitpid()</B
+></A
+>
+      with a <VAR
+CLASS="literal"
+>-1</VAR
+> <VAR
+CLASS="parameter"
+>pid</VAR
+> and no
+      <VAR
+CLASS="parameter"
+>options</VAR
+>.
+     </P
+></BLOCKQUOTE
+></DIV
+><P
+>&#13;     See also <A
+HREF="function.pcntl-fork.html"
+><B
+CLASS="function"
+>pcntl_fork()</B
+></A
+>,
+     <A
+HREF="function.pcntl-signal.html"
+><B
+CLASS="function"
+>pcntl_signal()</B
+></A
+>,
+     <A
+HREF="function.pcntl-wifexited.html"
+><B
+CLASS="function"
+>pcntl_wifexited()</B
+></A
+>,
+     <A
+HREF="function.pcntl-wifstopped.html"
+><B
+CLASS="function"
+>pcntl_wifstopped()</B
+></A
+>,
+     <A
+HREF="function.pcntl-wifsignaled.html"
+><B
+CLASS="function"
+>pcntl_wifsignaled()</B
+></A
+>,
+     <A
+HREF="function.pcntl-wexitstatus.html"
+><B
+CLASS="function"
+>pcntl_wexitstatus()</B
+></A
+>,
+     <A
+HREF="function.pcntl-wtermsig.html"
+><B
+CLASS="function"
+>pcntl_wtermsig()</B
+></A
+>,
+     <A
+HREF="function.pcntl-wstopsig.html"
+><B
+CLASS="function"
+>pcntl_wstopsig()</B
+></A
+> and
+     <A
+HREF="function.pcntl-waitpid.html"
+><B
+CLASS="function"
+>pcntl_waitpid()</B
+></A
+>.
+    </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.pcntl-signal.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.pcntl-waitpid.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>pcntl_signal</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="ref.pcntl.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>pcntl_waitpid</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

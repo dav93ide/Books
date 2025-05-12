@@ -1,0 +1,2485 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>RPM Header Reading Funzioni</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Manuale PHP"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Guida Funzioni"
+HREF="funcref.html"><LINK
+REL="PREVIOUS"
+TITLE="recode"
+HREF="function.recode.html"><LINK
+REL="NEXT"
+TITLE="rpm_close"
+HREF="function.rpm-close.html"><META
+HTTP-EQUIV="Content-type"
+CONTENT="text/html; charset=UTF-8"></HEAD
+><BODY
+CLASS="reference"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Manuale PHP</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="function.recode.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="function.rpm-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="reference"
+><A
+NAME="ref.rpmreader"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="title"
+>CXXV. RPM Header Reading Funzioni</H1
+><DIV
+CLASS="PARTINTRO"
+><A
+NAME="AEN142782"
+></A
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rpmreader.intro"
+>Introduzione</A
+></H1
+><P
+>&#13;     This module allows you to read the meta information stored in the
+     headers of a <A
+HREF="http://www.redhat.com/"
+TARGET="_top"
+>RedHat</A
+>
+     Package Manager (<A
+HREF="http://www.rpm.org/"
+TARGET="_top"
+>RPM</A
+>)
+     file.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rpmreader.requirements"
+>Requisiti</A
+></H1
+><P
+>&#13;     The RPMReader extension requires PHP 5.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rpmreader.installation"
+>Installazione</A
+></H1
+><P
+>&#13;  RPMReader is not bundled with PHP.  It is a <A
+HREF="http://pecl.php.net/"
+TARGET="_top"
+>PECL</A
+> extension and can be located here:
+  <A
+HREF="http://pecl.php.net/package/rpmreader"
+TARGET="_top"
+>http://pecl.php.net/package/rpmreader</A
+>.
+ </P
+><P
+>&#13;  To enable extname support, configure PHP with 
+  <VAR
+CLASS="option"
+>--with-rpmreader</VAR
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rpmreader.resources"
+>Tipi di risorse</A
+></H1
+><P
+>&#13;     There is one resource type used by the RPMReader module.  The
+     resource is a file pointer which identifies the RPM file with
+     which to work.
+   </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="extname.constants"
+>Costanti predefinite</A
+></H1
+><P
+>&#13;Queste costanti sono definite da questa estensione e 
+sono disponibili solo se l'estensione è stata compilata
+nel PHP o se è stata caricata dinamicamente a runtime.
+</P
+><P
+>&#13;  The following list of constants are used to obtain information using
+  the <A
+HREF="function.rpm-get-tag.html"
+><B
+CLASS="function"
+>rpm_get_tag()</B
+></A
+> function.  These constants
+  represent the tag number to be retrieved from the RPM file's header
+  section.  Descriptions are given below as to what data the tag
+  number constants reference.
+ </P
+><P
+>&#13;  <P
+></P
+><DIV
+CLASS="variablelist"
+><DL
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_MINIMUM</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The minimum valid value of any RPM tag number.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_NAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The name of the RPM package.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_VERSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The version of the RPM package.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_RELEASE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The release of the RPM package.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_EPOCH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_SERIAL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_SUMMARY</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The summary text of the RPM package.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_DESCRIPTION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The full description text of the RPM package.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_BUILDTIME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The date and time when the RPM package was built.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_BUILDHOST</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The name of the host on which the RPM package was built.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_INSTALLTIME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_SIZE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The size of the RPM package.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_DISTRIBUTION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_VENDOR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_GIF</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_XPM</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_LICENSE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_COPYRIGHT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PACKAGER</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_GROUP</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_SOURCE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PATCH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_URL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_OS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_ARCH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PREIN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_POSTIN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PREUN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_POSTUN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_OLDFILENAMES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The list of files in an RPM package (deprecated format).  The
+       correct way is now to use a combination of 3 tags
+       (RPMREADER_BASENAMES, RPMREADER_DIRINDEXES, RPMREADER_DIRNAMES)
+       in what RPM now calls "CompressedFileNames".  This tag is still
+       used in older RPM files that did not use the
+       "CompressedFileNames" method and is maintained for backward
+       compatibility.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILESIZES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILESTATES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEMODES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILERDEVS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEMTIMES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEMD5S</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILELINKTOS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEFLAGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEUSERNAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEGROUPNAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_ICON</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_SOURCERPM</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEVERIFYFLAGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_ARCHIVESIZE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PROVIDENAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PROVIDES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_REQUIREFLAGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_REQUIRENAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_REQUIREVERSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CONFLICTFLAGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CONFLICTNAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CONFLICTVERSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_EXCLUDEARCH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_EXCLUDEOS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_EXCLUSIVEARCH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_EXCLUSIVEOS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_RPMVERSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_TRIGGERSCRIPTS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_TRIGGERNAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_TRIGGERVERSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_TRIGGERFLAGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_TRIGGERINDEX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_VERIFYSCRIPT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CHANGELOGTIME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The list of dates from changelog entries.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CHANGELOGNAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The list of changelog entry names.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CHANGELOGTEXT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The list of the text from changelog entries.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PREINPROG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_POSTINPROG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PREUNPROG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_POSTUNPROG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_BUILDARCHS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_OBSOLETENAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_OBSOLETES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_VERIFYSCRIPTPROG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_TRIGGERSCRIPTPROG</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_COOKIE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEDEVICES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEINODES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILELANGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PREFIXES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_INSTPREFIXES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PROVIDEFLAGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PROVIDEVERSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_OBSOLETEFLAGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_OBSOLETEVERSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_DIRINDEXES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The list of indices that relate directory names to files in the
+       RPM package.  This tag is used in conjunction with
+       RPMREADER_BASENAMES and RPMREADER_DIRNAMES to reconstruct
+       filenames in the RPM package stored with the new
+       "CompressedFileNames" method in RPM.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_BASENAMES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The list of the names of files in the RPM package without path
+       information.  This tag is used in conjunction with
+       RPMREADER_DIRINDEXES and RPMREADER_DIRNAMES to reconstruct
+       filenames in the RPM package stored with the new
+       "CompressedFileNames" method in RPM.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_DIRNAMES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The list of directory names used by files in the RPM package.
+       This tag is used in conjunction with RPMREADER_BASENAMES and
+       RPMREADER_DIRINDEXES to reconstruct filenames in the RPM
+       package stored with the new "CompressedFileNames" method in
+       RPM.
+     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_OPTFLAGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_DISTURL</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PAYLOADFORMAT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PAYLOADCOMPRESSOR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PAYLOADFLAGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_INSTALLCOLOR</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_INSTALLTID</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_REMOVETID</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_RHNPLATFORM</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PLATFORM</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PATCHESNAME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PATCHESFLAGS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_PATCHESVERSION</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CACHECTIME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CACHEPKGPATH</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CACHEPKGSIZE</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CACHEPKGMTIME</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILECOLORS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILECLASS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_CLASSDICT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEDEPENDSX</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILEDEPENDSN</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_DEPENDSDICT</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_SOURCEPKGID</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FILECONTEXTS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_FSCONTEXTS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_RECONTEXTS</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_POLICIES</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;     </P
+></DD
+><DT
+><TT
+CLASS="constant"
+><B
+>RPMREADER_MAXIMUM</B
+></TT
+>
+     (<A
+HREF="language.types.integer.html"
+><B
+CLASS="type"
+>integer</B
+></A
+>)</DT
+><DD
+><P
+>&#13;       The maximum valid value of any RPM tag number.
+     </P
+></DD
+></DL
+></DIV
+>
+ </P
+></DIV
+><DIV
+CLASS="section"
+><H1
+CLASS="section"
+><A
+NAME="rpmreader.examples"
+>Esempi</A
+></H1
+><P
+>&#13;    This example will open an RPM file and read the name, version, and
+    release from the RPM file, echo the results, and close the RPM file.
+   </P
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+CLASS="EXAMPLE"
+><TR
+><TD
+><DIV
+CLASS="example"
+><A
+NAME="AEN143513"
+></A
+><P
+><B
+>Esempio 1. Basic RPMReader Example</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+CELLPADDING="5"
+><TR
+><TD
+><code><font color="#000000">
+<font color="#0000BB">&lt;?php<br /><br />$filename </font><font color="#007700">= </font><font color="#DD0000">"/path/to/file.rpm"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// open file<br /></font><font color="#0000BB">$rpmr </font><font color="#007700">= </font><font color="#0000BB">rpm_open</font><font color="#007700">(</font><font color="#0000BB">$filename</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// get "Name" tag<br /></font><font color="#0000BB">$name </font><font color="#007700">= </font><font color="#0000BB">rpm_get_tag</font><font color="#007700">(</font><font color="#0000BB">$rpmr</font><font color="#007700">, </font><font color="#0000BB">RPMREADER_NAME</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// get "Version" tag<br /></font><font color="#0000BB">$ver </font><font color="#007700">= </font><font color="#0000BB">rpm_get_tag</font><font color="#007700">(</font><font color="#0000BB">$rpmr</font><font color="#007700">, </font><font color="#0000BB">RPMREADER_VERSION</font><font color="#007700">);<br /><br /></font><font color="#FF8000">// get "Release" tag<br /></font><font color="#0000BB">$rel </font><font color="#007700">= </font><font color="#0000BB">rpm_get_tag</font><font color="#007700">(</font><font color="#0000BB">$rpmr</font><font color="#007700">, </font><font color="#0000BB">RPMREADER_RELEASE</font><font color="#007700">);<br /><br />echo </font><font color="#DD0000">"$name-$ver-$rel&lt;br&gt;</font><font color="#007700">\n</font><font color="#DD0000">"</font><font color="#007700">;<br /><br /></font><font color="#FF8000">// close file<br /></font><font color="#0000BB">rpm_close</font><font color="#007700">(</font><font color="#0000BB">$rpmr</font><font color="#007700">);<br /><br /></font><font color="#0000BB">?&gt;</font>
+</font>
+</code></TD
+></TR
+></TABLE
+></DIV
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Sommario</B
+></DT
+><DT
+><A
+HREF="function.rpm-close.html"
+>rpm_close</A
+>&nbsp;--&nbsp;Closes an RPM file</DT
+><DT
+><A
+HREF="function.rpm-get-tag.html"
+>rpm_get_tag</A
+>&nbsp;--&nbsp;Retrieves a header tag from an RPM file</DT
+><DT
+><A
+HREF="function.rpm-is-valid.html"
+>rpm_is_valid</A
+>&nbsp;--&nbsp;Tests a filename for validity as an RPM file</DT
+><DT
+><A
+HREF="function.rpm-open.html"
+>rpm_open</A
+>&nbsp;--&nbsp;Opens an RPM file</DT
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="function.recode.html"
+ACCESSKEY="P"
+>Indietro</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Partenza</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="function.rpm-close.html"
+ACCESSKEY="N"
+>Avanti</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>recode</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="funcref.html"
+ACCESSKEY="U"
+>Risali</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>rpm_close</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
