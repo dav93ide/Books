@@ -1,0 +1,2367 @@
+Autore: cod/e-ViP
+Titolo: Il linguaggio Assembler iAPX86 x l'aspirante cracker
+  Data: 13 11 1999
+
+Premessa
+
+    Spero che la lettura di questo tutorial vi possa tornare utile per la
+strada che avrete scelto. Innanzitutto il documento sarÖ rivolto a chi
+desidera imparare a crackare i software (non che spiegherï qui come crackare
+un software... ma vi darï consigli) e anche a chi sarebbe interessato a
+imparare il linguaggio Assembler! Se vi state domandando cosa sia quella
+sigla iAPX86 sappiate che ä il set di istruzioni creato da INTEL per la
+famiglia di processori 86 (8086, 8088, 80286, 80186, 80386, 80486, Pentium,
+Pentium Pro, Pentium MMX, Pentium II, Pentium Xeon, Pentium III) e che oggi
+viene adottato anche da altri concorrenti che in questi ultimi anni hanno
+finalmente deciso di introdurre delle novitÖ tutte loro (leggesi set
+3DNow e 3DNow II introdotto nella famiglia K6 e K7 dalla AMD, le varie
+stronzate inserite nei processori della famiglia Cyrix oramai assorbita
+da altre societÖ, Nexgen, WinChip e altre societÖ... oramai si perde il
+conto!!).
+
+DISCLAIMER:
+
+    L'autore non si assume nessuna responsabilitÖ per quanto ä stato scritto
+o sarÖ scritto in questo tutorial, ne per i mancati profitti o eventuali
+danni celebrali arrecateVi. Quanto scritto in questo documento ä da conside_
+rarsi per scopo educativo!
+
+Potete contattare il sottoscritto al seguente indirizzo di posta elettronica:
+cod@antisocial.com o tramite ICQ all'UIN XXXXXXXX (l'UIN vi sarÖ dato
+solamente quando mi sarï accertato che non fate parte di qualche organizzazione
+che si batte contro la pirateria, a favore dei diritti d'autore o che non
+lavoriate per organi governativi di questo Stato!)
+
+Bibliografia:
+ Titolo: Linguaggio Assembly Avanzato
+ Autore: The Peter Norton Programming Library
+Editore: Brady/Gruppo Editoriale Jackson
+   Anno: 1991/1992-96
+   Lire: 80.000
+
+ Titolo: Il manuale 80386 per il programmatore
+ Autore: Intel Corporation
+Editore: Intel Corporation/Gruppo Editoriale Jackson
+   Anno: 1986/1989
+   Lire: 55.000
+
+ Titolo: Vol. 1 Basic Architecture
+ Autore: Intel Corporation
+Editore: Intel Corporation
+   Anno: SCONOSCIUTO
+   Lire: Carta ed inchiostro per stamparlo!
+   NOTE: Questo libro ä scaricabile dall'URL http://www.intel.com nella
+         sezione per i programmatori.
+
+ Titolo: Vol. 3 Architecture and Programming Manual
+ Autore: Intel Corporation
+Editore: Intel Corporation
+   Anno: SCONOSCIUTO
+   Lire: Carta ed inchiostro per stamparlo! (> 1200 pagine circa!!!)
+   NOTE: http://www.intel.com sezione per i programmatori
+
+ Titolo: Assembly Language Master Class
+ Autore: Igor Chebotko, Peter Kalatchin, Yuri Kiselev, Kiril Malakhov,
+         Yuri Petrenko, Efim Podvoisky, Mike Scmit, Sergei Shkredov,
+         Gennady Soudlenkov, Dan Wronski
+Editore: Wrox Press Ltd.
+   Anno: 1997 presumo!
+   Lire: $49.95 USA $69.95 CANADA ú46.99 UK ú109.000 (l'ho pagato!!)
+
+ Titolo: Developing Your Own 32Bit Operating System
+ Autore: Richard A. Burgess
+Editore: Sams Publishing
+   Anno: 1995
+   Lire: $49.99 USA $67.99 CAN ú39.50 UK ú109.000 se non pió!
+
+
+Capitolo 1 - Introduzione ai linguaggi di programmazione
+
+    Finalmente dopo le stronzate iniziali (compreso il disclaimer) finalmente
+si incomincia a leggere qualche cosa di serio! Allora cosa ä il linguaggio
+Assembler ? Bene incominciamo col dire che Assembler significa Assemblare
+(questo l'avrete giÖ capito!). Come ben saprete i sistemi informatici
+qualunque sia la loro dimensione, potenza di calcolo o costo, non comprendono
+il linguaggio umano ma bensç solo il linguaggio binario, ovvero solo 0 ed 1.
+Queste cifre binarie si riferiscono al passaggio di corrente nel sistema e
+combinazioni di 0 ed 1 rappresentano per la macchina un determinato significato.
+Come ben saprete nel mondo animale qualsiasi specie e razza ha un linguaggio
+usato per comprendersi tra i propri simili (solo la razza umana ha dovuto
+inventare una quantitÖ di lingue per dire 4 cazzate). Sarebbe abbastanza
+stupefacente scrivere una cosa del genere:
+
+PROGRAMMA PRINCIPALE
+ DICHIARA 2 VARIABILI X e Y ED ASSEGNA AD X IL VALORE 3 ED A Y IL VALORE 2
+ FAI LA SOMMA DI X ED Y E MEMORIZZALA IN X
+ STAMPA IL VALORE DI X SUL MONITOR
+FINE PROGRAMMA PRINCIPALE
+
+Se andremmo a mandare in esecuzione un programmino del genere solo il buon
+DIO saprebbe quale sarebbe il risultato ammenocchä voi non vi mettiate col
+vostro buon DEBUGGER o con il vostro DECOMPILATORE preferito per analizzare
+le varie istruzioni.
+
+Ma neanche una cosa del genere sarebbe comprensibile:
+00011100 11001101 10101010 11110000 00001111 011101111
+
+L'uomo si rincoglionirebbe prima di incominciare (andate a leggere un
+listato con qualche centinaio di queste combinazione, il vostro piccolo
+cervello segnalerebbe Errore: Impossibile allocare i dati nella memoria!
+o Attenzione: La memoria a disposizione ä esaurita!) quindi ä stato ben
+pensato di facilitare il lavoro degli uomoni, creando il linguaggio Assembler.
+Il linguaggio Assembler non ä altro che l'assegnazione a queste sequenze
+di cifre binarie di particolare sigle che spesso non sono altro che
+l'abbreviazione del significato delle istruzioni.
+
+Perï bisogna anche considerare che questo linguaggio non ä molto idoneo a
+scrivere software molto vasto (non credo che SCO sia tanto pazza a scrivere
+il suo sistema operativo Unix in linguaggio assembler, vi immaginate la fatica
+dei programmatori a convertire il s.o. per tutte le diverse piattaforme dove
+questo potente e robusto sistema ä presente ?). Infatti ä strettamente legato
+alla macchina, e quindi viene utilizzato o per ottimizzare parti di codice
+molto pesanti o per dialogare con periferiche hardware o quando si ha il
+bisogno di scrivere porzioni di codice abbastanza ridotte come dimensione!
+
+Un'altra domanda che molti di voi si porranno ä cosa significa che Windows ä
+a 32BIT ? Innanzitutto i BIT rappresentano una cifra binaria, 8BIT
+rappresentano 1 byte, 1024 byte un Kilobyte, 1024Kb un Megabyte, 1024Mb un
+Gigabyte, 1024Gb un Terabyte. Oltre il Terabyte troveremo il Petabyte
+l'Exabyte e qualcos'altro (non ricordo con precisione l'ordine dei multipli
+del Terabyte, ma giÖ dovete pensare che quando parliamo di terabyte stiamo
+parlando di una quantitÖ stratosferica di memoria... pensate che in un
+terabyte di memoria si possono memorizzare 1613 CD in formato Modo1 da 74')
+Ora ritorniamo a Windows, cosa significa che Windows ä a 4 byte (4*8 32bit)?
+Bene quei 32bit non si riferiscono che al tipo di architettura del processore
+cioä alla dimensione dei registri del processore.
+
+Oltre al linguaggio Assembler molti di voi avranno sentito parlare di
+linguaggi ad alto livello quali C, C++, Pascal, Cobol, Fortran, Clipper,
+Java, Basic, Modula, Eiffel, Oberon, Smalltalk, Logo, Lisp ecc.
+A cosa servono questi linguaggi ad alto livello ? Semplicemente ad avvicinare
+il pió possibile al linguaggio umano il linguaggio della macchina, anche
+se i software scritti utilizzando questi linguaggi devono essere compilati
+prima di essere mandati in esecuzione. Alcuni di questi linguaggi perï
+sono interpretati, ovvero non esistono dei compilatori, ma soltanto degli
+ambienti che traducono durante l'esecuzione il codice in istruzioni per la
+macchina (vedi Basic e Java di cui quest'ultimo non ä dotato neanche di
+un processore nativo!!). La presenza di un interprete purtroppo genera una
+lentezza esasperata durante l'esecuzione di questi software ma comunque
+oggi con la potenza di calcolo raggiunta dai processori questa lentezza
+non ä visibile... se il software non ä di proporzioni bibliche!
+
+Una nota che dovrete sapere si da adesso... evitate di scontrarvi con i
+software interpretati... evitate di tentare di crackare software scritto
+in Basic o in Clipper... dove andrete a crackare ben altro che il programma
+originale... crackerete l'interprete con conseguenze disastrose per
+l'applicativo... o nel peggiore dei casi vi ritroverete ad eseguire il
+trace o lo step dell'interprete senza capire un tubo!
+
+Sappiate un'ultima cosa prima che si incominci a parlare di assembler...
+Se decidete di scrivere un software che dovrete trasferire successivamente
+su altre piattaforme o sistemi operativi optate per il C, il C++ in quanto
+esistono apposite commissioni per apportare modifiche a questi linguaggi
+e offrono la stessa potenza di controllo del linguaggi assembler!
+
+Capitolo 2 - I registri del processore
+
+Studieremo qui il linguaggio Assembler, le varie istruzioni pió comuni,
+le meno comuni, quelle che devono interessare il programmatore del sistema
+operativo, quelle che devono interessare voi per sproteggere il software,
+quelle che interesserebbero me per scrivere virus... insomma tutte quelle
+istruzioni che esistono e che mi vengono in mente!!!
+
+Innanzitutto incominciamo a parlare dei registri del processore!
+I registri non sono altro che locazioni interne al processore in cui esso
+stesso memorizza variabili e a cui puï accedere in modo istantaneo senza
+dover dialogare con il bus, il microcontroller, con la ram, o con la cache
+di 1st, 2nd, 3th livello per ottenere tale informazioni!
+
+Quali sono i registri ? Bene ecco un elenco dei registri del processore...
+
+Registri generali (lunghezza di 32bit)
+
+EAX - Registro accumulatore, usato per la maggior parte delle operazioni
+      E' composto in due parti, la word alta e la word bassa. Per mantenere
+      la compatibilitÖ con i vecchi applicativi esistenti in commercio
+      quando il processore 80386 - il primo ad aver introdotto tale registro - 
+      ä possibile accedere alla word bassa del registro semplicemente
+      usando il registro AX. Il registro AX ä successivamente scomposto
+      in AH ed AL, il primo il byte alto e il secondo il byte passo che
+      compongono tale registro.
+
+EBX - Registro base, utilizzato in modo spesso e volentieri. In modo identico
+      al registro EAX e al registro ECX ed EDX di cui andremo a parlare ä
+      composto dal registro BX che successivamente si divide in BH e BL.
+
+ECX - Registro contatore, come dice il nome stesso viene utilizzato come
+      contatore ovvero nei cicli e nelle operazioni di stringa o addirittura
+      nelle operazioni di moltiplicazione con EAX ed EDX, o nelle divisioni.
+      Composto da CX (CH e CL)
+
+EDX - Registro dati, usato principalmente per estendere la capacitÖ di EAX
+      nelle moltiplicazioni o per tenere il resto delle divisioni.
+      Composto da DX (DH e DL)
+
+ESI - Questi due registri vengono spesso usati in coppia ed hanno la stessa
+EDI - medesima funziona... servono per manipolare le stringhe! Il registro
+      ESI ä il registro di origine (Source Index) e il registro EDI ä il
+      registro di destinazione (Destination Index). Come avrete occasione
+      di leggere pió avanti vengono utilizzati da talune tipi di istruzioni.
+      A differenza dei 4 registri sopra elencati questi due registri sono
+      composti da SI e DI e non hanno ulteriori scomposizioni!
+
+EBP - Base Pointer ... puntatore di base, viene spesso utilizzato dai
+      compilatori per la gestione del passaggio dei parametri nello stack
+      o per la gestione delle variabili... ä composto dal registro BP.
+
+ESP - Stack Pointer, questo registro ä utilizzato in coppia al registro
+      di segmento SS per gestire lo stack... ovvero la memorizzazione
+      di valori in modo temporaneo. Nell'architettura iAPX86 lo stack viene
+      gestito in modo LIFO ovvero Last In First Out, cioä l'ultimo valore
+      che sarÖ memorizzato sarÖ il primo valore ad uscire dallo stack!
+      Oltre a questo tipo di gestione esiste il modo FIFO (First In First Out)
+      il primo ad entrare sarÖ il primo ad uscire, che ä adoperato in
+      architetture Motorola (per quel che ne sappia.. non so quali altri
+      processori lo utilizzano!). Da notare che l'uscita di un elemento
+      dallo stack non ne comporta la cancellazione dallo stesso, ma bensç
+      l'incremento del registro ESP (4 byte se si tratta di una DWORD o
+      32bit, 2 byte se si tratta di una WORD o 16bit). Avremo modo di
+      esaminare pió avanti lo stack.
+
+EIP - Istruction pointer... questo ä un registro di cui non potrete mai
+      conoscere il valore!!! Infatti ä inviolabile, nessuna istruzione
+      vi permette di usarlo, ma ä modificabile in modo indiretto.
+      Il suo valore indica l'offset dell'istruzione da eseguire.
+
+CS  - Segmento codice, viene utilizzato in coppia al registro EIP per
+      puntare all'istruzione successiva da eseguire. Il valore del registro
+      CS non puï essere cambiato in modo diretto, ma soltanto tramite
+      alcune istruzioni per eseguire porzioni di codice al di fuori del
+      segmento in cui si sta lavorando.
+
+DS  - Segmento dati, utilizzato per gestire i dati, usato in coppia con
+      ESI DS:ESI costituiscono il punto di origine nelle manipolazioni di
+      stringhe di dati.
+
+ES  - Segmento EXTRA, utilizzato per gestire dati, usato in coppia con
+      EDI ES:EDI costituiscono il punto di destinazione nella manipolazione
+      di stringhe di dati.
+
+SS  - Segmento STACK, usato insieme ad ESP SS:ESP vengono utilizzate
+      per la gestione dello stack.
+
+FS  - Segmento aggiunto con l'architettura 80386 in poi, vengono utilizzate
+GS  - per gestire i segmenti o per la manipolazione dei task.
+
+EFLAGS
+    - Registro dei FLAG ovvero di bit di controllo. Serve a stabilire alcuni
+      comportamenti del processore, o semplicemente ad influenzare l'esecuzione
+      degli applicativi. Solo il registro FLAG ä disponibile con i processori
+      precedenti al 80386
+
+CR0 - Registri di controllo. Usati solamente dai programmatori di sistemi
+CR2 - operativi. Non vi dovrete scontrare con essi amenocchä non siate
+CR3 - decisi a scrivere un vostro sistema operativo.                                                                
+
+DR0 - Registri d'indirizzo di debugging.
+DR1 - Usati per facilitare il debugging su questa architettura.
+DR2 -
+DR3 -
+
+DR7 - Registro di controllo di debugging
+
+DR6 - Registro di stato di debugging
+
+Registri di test - Usati per controllo.... quasi impossibile usarli! Non
+                   conosco nemmeno i nomi!!!
+
+GDTR - Global Descriptor Table Register
+LDTR - Local Descriptor Table Register
+IDTR - Interrupt Descriptor Table Register
+TR   - Task Register
+
+Ammenocchä non siate programmatori di sistema operativo questi ve li scordate!
+Sono utilizzati nella modalitÖ protetta... pió avanti vi accennerï!
+
+Registri FLOATING POINT - I registri del coprocessore matematico. Non
+                          farï nessun accenno a questo set... equivale
+                          quasi ad un'altro processore affiancato a quello
+                          che avrete... dotato di un proprio set di istruzioni
+                          ( e non sono poche!!! Poi ve li elenco!!!) per
+                          l'esecuzione di operazioni in virgola mobile
+                          (ovvero quelli dove ci sta la parte decimale!)
+
+Registri MMX - Registri per le istruzioni MMX, praticamente sono gli stessi
+               registri della FLOATING POINT infatti non ä possibile usare
+               istruzioni MMX insieme ad istruzioni F.P. in quanto succede
+               un macello e la translazione da MMX a F.P. richiede uno
+               spreco di cicli. E come se non bastasse le istruzioni F.P.
+               sono a dir poco lunghette come quantitÖ di tempo richiesto
+               per l'esecuzione.
+
+Qui i registri sono finiti... almeno per quanto ne sappia io (sono rimasto
+al Pentium MMX, non ho avuto il piacere di documentarmi, e come se non
+bastasse ci fosse un compilatore decente che implementi queste istruzioni!)
+
+IL REGISTRO EFLAGS 
+
+       E             FLAGS
+31              |              0
+00000000000000000000000000000000
+||||||||||||||||||||||||||||||||
+\\\\\\\\\\\\\\||\|||||||||\|\|\| Da definire
+              \| ||||||||| | | | Modo virtuale 8086
+               \ ||||||||| | | | Flag ripristino
+                 \|||||||| | | | Flag task annidato
+                  \\|||||| | | | Livello privilegio I/O
+                    \||||| | | | Overflow
+                     \|||| | | | DF
+                      \||| | | | Ablitazione interruzione
+                       \|| | | | Trap Flag
+                        \| | | | SF
+                         \ | | | Zero Flag
+                           \ | | AF
+                             \ | PF
+                               \ Carry Flag
+
+
+Capitolo 3 - I vari modelli di memoria
+
+Che cosa ä un modello di memoria ? Bella domanda... e non vi so dare
+una risposta precisa... ma da quanto vi spiegherï potrete capirlo da voi!
+
+Modello TINY
+
+Questo ä il modello pió semplice di memoria. E' sfruttato per i file inferiori
+a 64Kb. Tipicamente utilizzato nei file con estensione .COM, non da la
+possibilitÖ di avere uno segmento stack, che si riduce a pochi byte. Tutti
+i registri segmento puntano allo stesso valore, in quanto dati, stack e codice
+si ritrovano nella stessa locazione di memoria.
+
+Modello SMALL
+Un modello un pï pió avanzato! Questo vi permette di avere ben 2 segmenti!
+Codice e dati in un unico segmento, per un massimo di 64Kb ma vi permette
+di avere un segmento di stack con una massima dimensione di 64Kb!
+
+Modello COMPACT
+Pió complesso, qui abbiamo diversi segmenti! Segmento codice, dati e stack!
+Viene di solito usato per quei programmi dove si ritrovano meno dati e maggior
+codice. 
+
+Modello LARGE
+A differenza del precedente ä implementato per programmi in cui vi sono pió
+dati e meno codice... Tipico di quei piccoli applicativi che si limitano
+ad offrire un output elaborando una quantitÖ enorme di dati!
+
+Modello HUGE
+Qui potrete avere quanto codice e quanti dati vi pare! Lo stack puï essere
+presenti in un pió segmenti, del resto come in compact e large.
+
+Modello FLAT
+Questo ä un modello TINY rivisto. Se nel precedente modello TINY avevate la
+bellezza di 64Kb a disposizione, qui il discorso si complica un pochettino.
+Ne avete a disposizione ben 4Giga byte, utilizzato esclusivamente in quegli
+applicativi che sfruttano un sistema operativo in modalitÖ protetta o un
+ambiente protetto.
+In questo segmento ritroviamo tutti i moderni sistemi operativi a partire
+Os/2 per arrivare a Windows NT, BeOS, Linux, Windows 9x (... la bestia!
+piuttosto che un o.s. io lo considero un ambiente operativo...) SCO Unix,
+Minix e chi ne ha ne metta (per esempio io ho MMURTL e voi non l'avete!!)
+Tra gli ambienti operativi ritroviamo quello che si fa chiamare o.s. ovvero
+Windows 9x, Win32, Win31 e i potentissimi DOS Extender tra cui il
+mitico DOS4GW, Pharlap e tutti quei compilatori che sfruttano extender
+proprietari...
+
+Capitolo 4 - Programmazione in modalitÖ reale
+
+La programmazione in modalitÖ reale ä la pió vecchia! La massima quantitÖ
+di memoria disponibile in modalitÖ reale sarÖ ben 1Mb. Una quantitÖ che
+qualche persona definç pió che sufficiente per qualsiasi tipo di applicazione,
+la stessa persona che oggi dice che per fare girare correttamente il suo
+sistema operativo sono sufficienti un 80386DX con 4Mb di RAM ( e io col
+mio P100 e 16Mb di RAM vedevo piano... oggi vedo girarlo buono su un
+AMD K6 233 con 80Mb ma con qualche rallentamente... fottiti Bill Gates!!!).
+All'avvio il processore si trova costretto a girare in modalitÖ reale.
+Qui ogni segmento ha una dimensione massima di 64Kb ... i registri segmento
+(CS DS ES SS FS GS) possono assumere un valore compreso tra 0 e 65535.
+Per ricavare l'indirizzo effettivo il processore possiede un registro
+interno di 20 bit non accessibile al programmatore nel quale viene
+effettuato il seguente calcolo:
+Valore del segmento * 16 + Offset che va da 0 a 16 anche se i registri
+potrebbero assumere un valore tra 0 e 65535. La modalitÖ reale ä abbastanza
+semplice... potete eseguire qualsiasi tipo di operazione, potrete accedere
+ovunque nella memoria, modificare tutto, ma in una piccola quantitÖ di
+memoria! Nel caso vi trovereste a crackare un software a 16bit o anche a
+32bit che abbia per vostra sfortuna il glorioso compito di girare su
+una piattoforma come il DOS o anche Windows 3.0 o 3.1 vedrete cosa significa!
+SarÖ il vostro incubo peggiore crackare un software del genere... Infatti
+l'applicazione ad ogni avvio non si troverÖ nella stessa parte di memoria
+amenocchä non riproduciate le stesse condizioni. Oggi la modalitÖ reale
+viene utilizzata da pochi programmatori, che spesso ricorrono a Device Driver
+per allocare memoria XMS o EMS. Questa memoria non ä altro che la memoria
+effettivamente presente sul vostro PC e superiore all'indirizzamento dei
+20 bit. Per un errore dell'architettura 80286 ä infatti possibile indirizzare
+oltre a un Mb anche un altro segmento di 64Kb in modalitÖ reale, ma le
+condizioni per poter utilizzare questo blocco di memoria (detta UMB)
+sono le seguenti:
+Sulla macchina devono essere effettivamente presenti pió di un megabyte
+di memoria e deve essere abilitata la linea di indirizzamente A20. Per
+ulteriori informazioni vi rimando alla Interrupt List, una fantastica
+raccolta di informazioni a dir poco straordinarie (l'ultima versione
+che ho in casa credo che sia la 61... ma in ogni caso potete scaricare
+un aggiornamento da volftp.tin.it nella sezione Programmazione/Documentazione
+o potrete scaricarla direttamente alla fonte perï passando per il sito
+di Z0MBIE, uno dei pió attivi programmatori di virus esistenti sulla terra,
+membro del gruppo 29A. z0mbie.cjb.net! buon divertimento e attenti a non
+scaricare qualche sua creatura!!! Non sono tante buone ;)).
+Non credo che ci sia molto da dire sulla programmazione reale, tranne
+alcune piccole aggiunte:
+All'indirizzo assolute 0 ä presente una tabella di puntatori di tipo
+FAR (... 32bit, 16bit di segmento e 16 di offset... comunque tanto per
+darvi qualche informazione in pió... per l'architettura iAPX86 i dati
+vengono memorizzati in ordine di importanza... ovvero i primi saranno
+gli ultimi e gli ultimi saranno i primi. Cioä prima sarÖ memorizzato
+l'offset e poi il segmento) costituita da ben 256 elementi che sono
+gli indirizzi degli INTERRUPT. Gli INTERRUPT non sono altro che delle
+eccezzioni che potrete sollevare voi (... nel senso che li potrete
+invocare direttamente voi!) o che vengono generati dall'hardware...
+tipo io sto digitando tutto questo testo, ad ogni pressione di un tasto
+sulla tastiera un segnale parte attraverso il filo che la collega alla
+scheda madre, qui il segnale raggiunge il PIC8259 (credo non ne sono
+sicuro.... non sono Gesó Cristo anche se sono un aspirante suicida
+a parlarvi dell'Assembler in lungo e in largo!!!! Ma siccome ä un
+lavoro che va fatto una sola volta nella vita, tanto vale la pena
+scrivere tutto e farvelo leggere... piuttosto che dare delle lezioni
+ad ogni persona!!!) il quale comunica tramite gli IRQ alla CPU di eseguire
+l'INT 09 al quale sono agganciati di sicuro il programmino KEYB per
+permettervi di avere come risultato le lettere che voi avrete premuto...
+provate a fare CTRL+ALT+F1 e vedrete cosa significa scrivere senza KEYB in DOS!
+Gli interrupt come vi ho detto sono 256, ma bisogna sapere che i primi
+16 sono inviolabili!! Ovvero non potete andare a farci quello che vi pare
+perchä sono strettamente collegati agli IRQ e quindi quando arriva una
+eccezzione di tipo hardware o c'e' attaccato un programmino che sappia
+quello che fa o il vostro PC incomincia a fare le istruzioni pió assurde
+che ci siano al mondo!
+
+Successivamente a questa tabella di vettori troviamo un'area chiamata
+BIOS DATA AREA, in questo piccolo segmento di memoria che ha inizio
+in 0040:0000 troviamo memorizzate particolari informazioni, quali la
+presenza o meno di un coprocessore matematico, il numero di floppy disk
+drive, la quantitÖ di memoria convenzionale disponibile (qui i virus da
+boot incominciano a tagliare per assicurarsi una buona quantitÖ di memoria!),
+in poche parole valori che vi vengono restituite da talune funzioni del
+BIOS. A queste informazioni in via del tutto eccezzionale possono essere
+inseriti anche altre informazioni, quindi per ulteriori delucidazioni vi
+rimando al file MEMORY.TXT della Interrupt List.
+
+Bene ora avremo una quantitÖ di spazio di memoria vuota! Qui per circa
+637Kb troveremo il kernel del sistema operativo, i TSR ecc.
+Ricordo comunque che stiamo parlando di modalitÖ reale... il che significa
+come sistemi operativi il DOS in tutte le sue forme ed espressioni. I moderni
+sistemi operativi usano la modalitÖ reale solo per l'inizializzazione in
+quanto sono disponibili numerose funzioni che ne permettono il caricamento
+corretto del sistema operativo.
+
+Arrivati al segmento A000:0000 incominciamo a trovare la cosiddetta memoria
+video, non quella presente sulla scheda video ma bensç un'area che viene
+utilizzata dalla scheda video per reperire informazioni sulle immagini da
+disegnare. Questa area ha una dimensione di 64Kb, e viene utilizzata per
+le modalitÖ grafiche (320x200x256 , 640x480x16 ecc...). Risoluzioni pió
+alte o con una quantitÖ maggiore di colori vengono garantite dalle funzioni
+dello standard VESA e qui vi rimando a qualche altra lettura, magari di
+qualche libro di programmazione per chi vuole scrivere video giochi...
+
+Segmento B000:0000 Utilizzato per le modalitÖ testuali... ä suddiviso in
+2 parti. In ogni caso la risoluzione 80x25x16 colori comunque ha inizio
+all'indirizzo B800:0000
+
+Successivamente troveremo la cosiddettÖ memoria SHARE ... ovvero condivisa!
+Condivisa per due semplici motivi... 1. perchä un qualsiasi componente
+hardware la potrebbe utilizzare per allocare il proprio BIOS che gli
+permetta di dialogare con il resto del sistema in modo trasparente... leggesi
+schede video e controller scsi.
+Nel caso in cui nessun BIOS ä caricato in questi paragrafi da 32Kb (massima
+quantitÖ disponibile per ciascun BIOS) esso viene occupato dai software di
+gestione della memoria.
+Infine troviamo il segmento F000:0000, dove risiede la vera anima del sistema.
+I fatidici 64Kb del BIOS. Anche se oggi i nuovi BIOS hanno dimensioni
+esasperate (tipo 2Mb quelli di Asus) qui risiede solo quella parte di codice
+contenente le funzioni in grado di garantire il dialogo con il floppy disk
+driver, il gestore del timer, il disco fisso, la tastiera, le seriali.
+Comunque questi INTERRUPT possono essere anche gestiti direttamente dal
+vostro programma... ma dovrete saper bene cosa fate, pena il crash del sistema!
+Credo che quanto ho detto per la modalitÖ reale sia pió che sufficiente.
+Nel caso abbiate qualche altra cosa da chiedere o altri dubbi vi rimando
+a qualche libro giÖ citato anche se sinceramente non ci sia molto da dire
+e ne tantomeno di difficile da capire.
+
+Capitolo 5 - Programmazione in modalitÖ protetta
+
+La modalitÖ protetta viene considerata come la modalitÖ nativa dei processori
+appartenenti alla categoria 80386 in su. Fu introdotta con questo processore
+dalla INTEL, all'epoca l'unica produttrice di processori basati sul set
+iAPX86, anche se giÖ il predecessore 80286 era dotato di alcune istruzioni
+simili a quelle del 386 per poter gestire in modo corretto 16Mb di memoria.
+Programmare in modalitÖ protetta sembrerebbe come scrivere software per
+il modello di memoria TINY senza perï doversi preoccupare della memoria che
+potrebbe terminare. Infatti in modalitÖ protetta ogni applicativo ha a sua
+disposizione la bellezza di 4Gb di memoria virtuale. Perï a differenza del
+modello TINY nel modello FLAT (utilizzato nella modalitÖ protetta) non potete
+andare a utilizzare porzioni di memoria che pió vi piacciono, altrimenti
+il sistema operativo incomincierÖ a dare i numeri... tipo Windows che ogni
+tanto senza motivo apparente ci avverte che il programma ha generato un
+errore generale. Perchä questi messaggi ? Per poter capire l'origine di tali
+messaggi bisogna conoscere almeno in teoria la modalitÖ protetta e ciï che
+sta alla sua base.
+
+Bisogna incominciare a sapere che per poter utilizzare la modalitÖ protetta
+bisogna prepare una tabella di descrittori globali... la quale viene chiamata
+GLOBAL DESCRIPTOR TABLE. Cosa ä questa tabella ? E' costituita da un massimo
+di 8192 descrittori, che contengono informazioni quali i privilegi di
+esecuzione di un task, in che modo deve essere indirizzata la memoria ed
+altre informazioni sul task. In modalitÖ protetta i registri di segmento
+non serviranno pió per sapere dove si trovano in memoria i dati ma conterrano
+il valore del descrittore che si deve usare. In tale modalitÖ inoltre non
+avrete a disposizione tutto il set di istruzioni disponibili... ecco i famosi
+RING3 RING2 RING1 RING0 di cui si sente tanto parlare tra i virus writer ed
+i programmatori. Al RING3 troveremo sempre la nostra bella applicazione...
+a cui viene consetito l'yso di un set vasto ma ristretto di istruzioni.
+Per poter modificare il RING di esecuzione bisogna mettere le mani sulla
+GDT! Solo lç potremmo stabilire cosa possiamo fare e cosa non possiamo fare.
+Successiva analisi... la memoria disponibile. Prendiamo il caso del PC che
+sto usando per scrivere questo documento, dotato di 80Mb di RAM e in alcuni
+casi di un file di swap di qualche centinaio di mega, a secondo dei programmi
+che uso. O anche il caso di Linux che richiede almeno una partizione swap
+per l'installazione! A cosa serve ?
+
+Un programma richiede al sistema per poter funzionare in modo corretto
+per esempio 128Mb di RAM, ma sulla scatola c'ä scritto.. richiede 32Mb di
+RAM minima. Cosa significa ? Se ne vuole 128 come fa a stare anche in 32Mb
+o addirittura in 16Mb e perchä tutti quei continui accessi al disco fisso ?
+Quando un applicativo richiede una zona di memoria che non risulta presente
+nella memoria ram il processore genera un'eccezzione... e a tale eccezzione
+ci sta attaccato il sistema operativo, qualsiasi esso sia! Il sistema
+carica cosç in memoria i dati richiesti prelevandoli dal disco fisso e
+immagazzina altri dati dalla memoria sul disco per poter utilizzare sempre
+la stessa area di memoria... segnalando al processore quale area di memoria
+o quale descrittore ä disponibile nella memoria ram.
+
+Inoltre assieme a questa particolare gestione della memoria con il processore
+80386 Intel introdusse un meccanismo di tasking, per garantire l'esecuzione
+di pió programmi contemporaneamente! Teoricamente... in quanto viene suddiviso
+il tempo macchina tra i vari processi... con un solo processore ve lo potrete
+dimenticare per sempre il multitasking reale qualsiasi sia il sistema operativo.
+Linux, Windows 9x o NT, OS/2, BeOS e qualsiasi altro sistema operativo puï
+andare a raccontare favole quali il multitasking reale quando vi ä presente
+un solo processore.
+
+Perï dobbiamo anche ricordare che Windows 9x non ä stato implementato per
+gestire pió di un processore, e quindi quando si confronta Linux con Windows
+non lo si deve mai confrontare con il 95 o il 98 ma bensç con quell'altra bestia
+di NT. Io qui non sto difendendo Microsoft ne sto criticando Linux ma non mi
+si venga a dire che Linux ä un sistema operativo multitasking quando ci sta
+un solo processore e ne tantomeno che ä pió robusto come KERNEL in quanto lo
+si deve confrontare con NT e solo con quello. Del resto io stesso reputo
+Windows 95 e 98 delle semplici shell e nient'altro di pió anche se sono
+shell un pochettino complesse, ma conoscendo l'architettura del sistema
+vi assicuro che non ä che siano tanto complesse. In fin dei conti io riesco
+a far crashare qualsiasi sistema uso... in particolare modo se poi ci sta
+SoftICE caricato!
+
+A differenza della modalitÖ reale in cui abbiamo a disposizione le routine
+del BIOS, in modalitÖ protetta ci possiamo dimenticare gli INTERRUPT per
+chiamare servizi. La totalitÖ dei sistemi operativi scritti per funzionare
+in tale modalitÖ devono essere dotati di routine per dialogare con tutti
+i componenti hardware che possono essere presenti su una macchina. Alcune
+di queste routine, quali quelle per gestire la scheda video, la tastiera,
+il floppy disk drive, il controller e-ide, le porte seriali, la parallela,
+la scheda audio ed i controller scsi sono inserite sotto forma generica
+nei sistemi operativi. Per questo motivo i produttori di hardware spesso
+allegano al loro prodotto un floppy disk contenente il driver, che partendo
+da comandi standard per tutti i componenti appartenenti alla stessa categoria
+dialogono in modo ottimale con l'hardware per offrire il massimo delle
+prestazioni. Comunque vi sono anche presenti gli INTERRUPT ma non avremo
+pió la solita tabella di vettori come nella modalitÖ reale ma bensç la
+INTERRUPT DESCRIPTOR TABLE situata in un punto qualsiasi della memoria puntata
+dal registro IDT dove saranno assegnati agli interrupt il selettore e l'offset
+in cui si trova la routine.
+
+Per mantenere la compatibilitÖ con i vecchi applicativi che girano in
+modalitÖ reale ä stata introdotta la cosidetta modalitÖ V86 o Virtual 86.
+All'apparenza all'applicativo la macchina compare come un processore
+iAPX86 piuttosto veloce ma al quale vengono segate alcune istruzioni!
+
+Altra novitÖ introdotta col 386 sono stati i meccanismi che permettevano
+l'integrazione su una sola scheda madre di pió processori... che naturalmente
+sono sfruttati solo dai sistemi operativi e non da Windows 95 e 98!
+Purtroppo per questioni di tempo non posso dirvi molto altro sulla modalitÖ
+protetta anche se qui non c'ä da scherzare ma poichä qui non dobbiamo fare
+altro che trattare dell'assembler per poter crackare software ä inutile
+soffermarci su quest'argomento... non dobbiamo fare un sistema operativo!!!
+
+Capitolo 6 - Le istruzioni della CPU
+
+Siamo finalmente arrivati all'agoniata sezione delle istruzioni della CPU.
+Per i registri di FLAG vi rimando ad ulteriori approfondimenti.
+
+Nota: Quando parlo di cifre BCD intendo Binary Convert Decimal ovvero che
+      il valore ASCII espresso dal numero binario equivale a quello decimale.
+      Ipotesi: Prendiamo il carattere '0' il cui valore decimale ä 48.
+      La cifra BCD 0 equivale allo 0 decimale.
+
+      Il primo operando a sinistra dopo il codice operativo rappresenta
+      sempre la destinazione quando questa non ä definita dalla stessa
+      istruzione.
+
+AAA - Correzione ASCII dopo l'addizione
+
+Questa operazione va eseguita dopo l'istruzione ADD nel caso in cui abbiamo
+come risultato un solo byte in AL. Ipotizzando di avere il carattere 9
+espresso sottoforma di cifra BCD (ovvero il carattere 9) eseguendo AAA
+avremo direttamente il valore binario. Cioä 9 decimale.
+Flag modificati AF CF
+
+AAD - Correzione ASCII prima della devisione
+
+Va eseguita prima di effettuara una moltiplicazione nel caso abbiamo dei
+numeri espressi sottoforma di cifre BCD convertendolo in cifre decimali.
+
+AAM - Correzione ASCII dopo la moltiplicazione
+
+Da eseguire dopo una moltiplicazione tra due cifre BCD. Converte il risultato
+in valore decimale.
+
+AAS - Correzione ASCII dopo la sottrazione
+
+Da eseguire dopo una sottrazione tra cifre BCD. Converte il risultato in valore
+decimale.
+
+ADC - Somma con riporto
+
+Conoscendo i registri del processore che hanno un limite di 32bit nel caso
+di processori 386 o maggiori o di 16bit con processori 80286 in gió nel
+caso sommiamo due numeri che dovrebbero generare un errore di overflow
+ovvero numero troppo grande e quindi ci sarebbe un riporto l'operazione
+ADC destinazione,origine non fa altro che sommare a destinazione il
+valore origine ed il riporto. Ipotizziamo una situazione del genere.
+
+EAX = 80000000h
+EBX = 80000000h
+
+EAX + EBX = 100000000h
+Questo valore ha una lunghezza di 33 bit ed in un registro a 32bit non
+puï entrare ma solo i 32bit inferiori! Il che significa che EAX che
+conterrÖ la somma avrÖ come valore 0 ed il riporto sarÖ inserito
+nel registro eflags al bit CF. Quindi eseguendo
+
+ADC EDX, 0
+
+Noi sommiamo ad EDX (una qword o un intero a 64 bit va inserito in EDX:EAX)
+il valore 0 per non cambiare EDX + il riporto nel caso sia presente o
+non presente. Quindi in questo caso EDX incrementerÖ di 1 unitÖ. Comunque
+ä un ben usare ADC dopo le addizioni quando non si ä sicuri del risultato.
+Nel caso in cui il riporto sia assente non sarÖ incrementato il registro
+EDX.
+
+ADD - Somma
+
+Questa esegue la pió semplici delle operazioni, somma due valori, destinazione
+ed origine.
+
+AND - AND logico
+
+Esegue l'AND tra due operandi. Ovvero se entrambi i bit dei due operandi sono
+settati ad 1 in destinazione viene lasciato 1 mentre se sono diversi viene
+inserito 0.
+
+Esempio:
+
+11101100 AND
+00100100 =
+-------------
+00100100
+
+ARPL - Correzione del campo RPL del selettore
+Processore 286+
+
+Usato per assicurarsi che una subroutine di un software non richieda un livello
+di esecuzione maggiore. Tipo siamo a RING3 e chiamiamo una CALL in un altro
+selettore. Con ARPL il s.o. verifica che tale routine non richieda un RING2
+1 o 0.
+
+BOUND - Confronto che l'indice di array non superi i limiti
+Processore 386+
+
+Garantisce che un indice di array con segno rientri nei limiti specificati
+da un blocco di memoria consistente da un limite superiore e da un inferiore.
+
+BSF - Scansione di bit in avanti
+Processore 386+
+
+Scandisce il bit nel secondo operando di word o doppia word a partire dal
+bit 0
+
+BSR - Scansione di bit in indietro
+Processore 386+
+
+Scandisce il bit nel secondo operando di word o doppia word a partire
+dall'ultimo bit dell'operando.
+
+BSWAP - Scambio BIT
+Processore 586+
+
+Scambia la word pió alta di un registro con la word pió piccola del medesimo
+registro.
+
+Ipotizziamo di avere in EAX i seguenti valori ASCII:
+
+31    23   15   7   0
+   C    A    S    A
+
+Dopo tale istruzione avremo 
+
+31    23   15   7   0
+   S    A    C    A
+
+BT - Test di bit
+Processore 386+
+
+Testa il bit n di un registro o di una locazione di memoria. Il risultato
+viene settato in CF.
+
+Ipotesi: dobbiamo conoscere il 5 bit di EAX
+
+BT EAX, 5
+JNC nonsettato
+settato:
+bla bla bla
+nonsettato:
+continua come se niente fosse accaduto
+
+BTC - Test di bit e complemento
+Processore 386+
+
+Identica a BT ma il valore del bit richiesto viene invertito
+
+BTR - Test di bit e reset
+Processore 386+
+
+Identica a BT ma il valore del bit viene settato a 0
+
+BTS - Test di bit e attivazione
+Processore 386+
+
+Identica a BT ma il valore del bit viene settato a 1
+
+CALL - Chiamata di procedura
+
+Esegue una sottoprocedura che puï trovarsi nello stesso segmento (NEAR CALL)
+o in un segmento diverso (FAR CALL).
+L'indirizzo della NEAR CALL puï anche essere specificato in un registro.
+Nello stack viene salvato il valore di CS:(E)IP prima che la CALL venga
+eseguita. Il ritorno da una CALL avviene tramite l'istruzione RET assicurandosi
+che l'indirizzo SS:(E)SP punti al valore effettivo di ritorno.
+
+CBW / CWDE - Conversione byte in word e word in dword
+Processore 386+ x CWDE
+
+Istruzione con parametro implicito. Viene usato il registro (E)AX.
+Il valore di AL nel caso di CBW non viene modificato mentre AH
+viene azzerato, stessa cosa con CWDE ma in tal caso AX non viene toccato
+mentre dal 16 al 31 bit di EAX vengono azzerati
+
+CDQ - Conversione di dword in qword
+Processore 586+
+
+Parametro implicito, ma stavolta EAX non viene modificato ed EDX viene
+azzerato
+
+CLC - Azzeramento del flag di riporto
+
+Il bit CF del registro EFLAGS viene settato a 0
+
+
+CLD - Azzeramento del flag di direzione
+
+Il bit DF del registro EFLAGS viene settato a 0
+
+CLI - Azzeramento del flag di interrupt
+
+Il bit di Interrupt del registro EFLAGS viene settato a 0
+
+CLTS - Azzeramento del flag di task commutato in CR0
+Processore 386+
+
+Azzera il flag di task commutato (TS) nel registro CR0. Viene attivato dal 386
+quando si presenta una commutazione di task. Per sistema operativo.
+
+CMC - Complementazione del flag di riporto
+
+Viene invertito il valore CF del registro EFLAGS
+
+CMP - Confronto di due operandi
+
+Confronta due operandi e cambia i bit OF, SF, ZF, AF, PF e CF del registro
+EFLAGS. Tutti questi bit sono modificati per via dei salti condizionali.
+
+CMPS/CMPSB/CMPSW/CMPSD - Confronto di operandi di stringa
+
+Confronta due stringhe puntate da DS:ESI e ES:EDI Il valore di ESI ed EDI
+viene aumentato o decrementato in base al bit DF del registro EFLAGS.
+Se DF ä 1 allora aumentano altrimenti decrementano.
+
+Possono essere usati con le varienti di REP per n volte in base al valore
+di (E)CX.
+
+CMPXCHG - Confronto e scambio
+Processore 486+
+
+Confronto tra due operandi e scambio degli operandi. Destinazione assume
+il valore di origine e viceversa.
+
+CMPXCHG8 - Confronto e scambio con 8 bytes
+Processore 586+
+
+Identica a CMPXCHG ma i byte stavolta diventano 8.
+
+CPUID - Identificazione CPU
+Processore 586+
+
+L'unica istruzione che da risultati diversi sui processori. Il risultato
+ä protetto da Copyright in quanto praticamente inserisce nei registri
+la classe e il nome del fabbricatore. AuthenticAMD per AMD GenuineINTEL
+per Intel, per Ciryx e gli altri non lo so! Provate per credere!!!
+
+DAA - Correzione decimale dopo l'addizione
+
+Va eseguitadopo un'istruzione ADD che lascia un risultato di un byte di due
+cifre BCD in AL. L'istruzione corregge AL per contenere il risultato decimale
+corretto di due cifre impaccate (ovvero in un solo byte!)
+
+DAS - Correzione decimale dopo la sottrazione
+
+Identica a DAA ma va eseguita dopo la sottrazione
+
+DEC - Decremento di una unitÖ
+
+Decrementa di una unitÖ un operando. Ovvero se EAX contiene 128 DEC EAX
+farÖ si che EAX conterrÖ 127.
+
+DIV - Divisione tra interi senza segno
+
+Effettua una divisione tra interi senza segno.
+                 Dividendo   Quoziente     Resto
+Divisione byte       AX        AL           AH   
+Divisione word      DX:AX      AX           DX
+Divisione dword    EDX:EAX     EAX          EDX
+
+
+ENTER - Creazione del frame di stack - per i parametri di procedura
+Processore 386+
+
+Alloca una certÖ quantitÖ di stack per assicurare l'esatto passaggio
+dei parametri ad una routine. Richiede 2 operandi:
+1¯ operando - QuantitÖ di memoria da allocare max 65536
+2¯ operando - Livello di annidamento lessicale della procedura nel codice
+              sorgente del linguaggio ad alto livello
+
+HLT - Alt
+
+Pone il processore in uno stato di HALT. Si risveglia quando sarÖ provocata
+un'eccezione NMI o un RESET. Ovvero quando un evento hardware lo risveglia!!
+
+IDIV - Divisione con segno
+
+Si veda l'istruzione DIV ma questa volte il bit pió alto degli operandi
+specifica il segno stesso (0 + 1 -)
+
+IMUL - Moltiplicazione con segno
+
+Si veda l'istruzione MUL ma il bit pió alto degli operando specifica il segno
+stesso (0 + 1 -)
+
+IN - Input da porta
+
+Dialoga con una porta logica per prelevare l'input. Il valore che puï essere
+prelevato ä un byte, word o una dword e viene usato come destinazione
+il registro (E)AX. Le porte del PC sono 65536 e fanno di tutto! Dall'hd
+al fd, al video a tutto ciï che ci sta di ferro vecchio nel PC!!!
+Le prime 256 porte possono essere specificate immediatamente altrimenti si
+deve usare per forza il registro DX!
+
+INC - Incremento di una unitÖ
+
+Somma 1 all'operando specificato
+
+INS/INSB/INSW/INSD - Input da porta a stringa
+
+Preleva un byte, word o dword da una porta specificata in DX. Il valore
+sarÖ immagazzinato in ES:EDI che a secondo del bit DR sarÖ incrementato
+o decrementato. Puï essere usato con l'istruzione REPxx inserendo in (E)CX
+il numero di volte da eseguire l'istruzione, utile per leggere i byte
+provenienti da un componente hardware quali il controller e-ide o scsi.
+
+INT/INTO - Chiamata ad un interrupt
+
+Allora vi ho giÖ spiegato gli interrupt, ora qui faremo una ulteriore
+distinzione. INT numerointerrupttra0e256 chiama l'interrupt desiderato.
+Perï esistono due interrupt speciali che hanno un'istruzione a parte.
+INT 3 che ä codificabile con CC (mentre tutti gli altri INT si codificano
+con CD xx dove xx esprime il numero dell'int.) e viene eseguito da un
+debugger per bloccare il programma in un dato punto. INTO codificabile
+con CC o CE viene eseguito qualora il bit OF sia settato... ovvero
+nel caso in cui si sia verificato un overflow. Attenzione INTO non viene
+chiamato esplicitamente dal processore ma bensç deve essere l'istruzione
+inserita ed un gestore collegato.
+
+Prima dell'esecuzione viene salvato nello stack CS, (E)IP e i flags
+
+INVD - Cache non valida
+Processore 486+
+
+Serve per annullare il contenuto della cache e renderlo non utilizzabile.
+Usato da o.s. e non da software vostro! Rischiate di fare un macello!!
+
+INVLPG - Inizio TLB non valido
+Processore 586 + ?
+
+Annulla l'inizio di TLB ... non mi chiedete che sia!!! Eseguibile a ring0
+
+IRET/IRETD
+
+Esce da una interruzione, anche se si puï terminare l'interruzione con un
+RETF ma in tal caso bisogna prima inserire un POPF o POPFD.
+
+IRET o IRETD ripristina i flags, CS e (E)IP
+
+Jcc - Salti condizionali e non
+
+JA       Salto breve se sopra                              CF=0 ZF=0
+JAE      Salto breve se sopra o uguale                     CF=0
+JB       Salto breve se sotto                              CF=1
+JBE      Salto breve se sotto o uguale                     CF=1 ZF=1
+JC       Salto breve se riporto                            CF=1
+JCXZ     Salto breve se reg. CX ä 0
+JECXZ    Salto breve se reg. ECX ä 0
+JE       Salto breve se uguale                             ZF=1
+JG       Salto breve se maggiore                           ZF=0 SF=OF
+JGE      Salto breve se maggiore o uguale                  SF=OF
+JL       Salto breve se minore                             SF<>OF
+JLE      Salto breve se minore o uguale                    ZF=1 SF=0
+JNA      Salto breve se non sopra                          CF=1 o ZF=1
+JNAE     Salto breve se non sopra o uguale                 CF=1
+JNB      Salto breve se non sotto                          CF=0
+JNBE     Salto breve se non sotto o uguale                 CF=0 ZF=0
+JNC      Salto breve se non riporto                        CF=0
+JNE      Salto breve se non uguale                         ZF=0
+JNG      Salto breve se non maggiore                       ZF1 o SF<<OF
+JNGE     Salto breve se non maggiore o uguale              SF<>OF
+JNL      Salto breve se non minore                         SF=OF
+JNLE     Salto breve se non minore o uguale                ZF=0 SF=OF
+JNO      Salto breve se non overflow                       OF=0
+JNP      Salto breve se non paritÖ                         PF=0
+JNS      Salto breve se non segno                          SF=0
+JNZ      Salto breve se non zero                           ZF=0
+JO       Salto breve se overlow                            OF=1
+JP       Salto breve se paritÖ                             PF=1
+JPE      Salto breve se paritÖ pari                        PF=1
+JPO      Salto breve se paritÖ dispari                     PF=0
+JS       Salto breve se segno                              SF=1
+JZ       Salto breve se sopra                              ZF=1
+
+Accanto a questa bella lista di salti brevi esistono le stesse ed identiche
+funzioni per i salti di tipo near, ma a quanto pare nessuno dei compilatori
+assembler oggi le implementa.. almeno quello che uso io! Provate con il
+PASS32 ... forse li accetta!!!!!! In ogni caso i salti condizionali di tipo
+near hanno una ulteriore codifica tuta diversa, e vengono introdotti
+dal codice operativo override 0F
+
+JMP - Salto non condizionale
+
+Effettua un salto alla locazione specificata. A differenza delle precedenti
+puï saltare ad una locazione short (+ o - 128 byte di distanza) a near
+( + o - 32kb di distanza) o ad una far ( modalitÖ reale + o - 1mb e in
+protetta + o - 2gb!)
+
+LAHF - Caricamento dei flag nel registro AH
+
+Carica in AH il byte basso della word dei flag
+
+LAR - Caricamento del byte dei diritti d'accesso
+Processore 386+
+
+Memorizza una forma contrassegnata della seconda dword del descrittore per il
+selettore di provenienza se il selettore ä visibile al CPL ed il tipo di
+descrittore ä valido.
+
+LDS/LES/LFS/LGS/LSS - Carica un puntatore in un registro ed in un selettore
+                      o segmento
+386+ LFS e LGS
+
+Ipotizziamo di dover caricare l'indirizzo di una stringa in un registro
+e anche il suo segmento o selettore.... cosa fare ? Semplice
+Lxx nomeregistro, indirizzo:offset
+
+dove xx si sostituisce con uno dei registri DS ES FS GS SS e nomeregistro
+uno dei registri validi, e indirizzo:offset l'indirizzo dei valori da
+caricare!
+
+LEA - Carica l'indirizzo effettivo in un registro
+
+Carica l'indirizzo effettivo in un registro... ä una forma abbastanza
+veloce e sostituisce l'istruzione pió blasonata:
+
+MOV nomeregistro, OFFSET quellochevipare
+
+LEA nomeregistro, quellochevipare
+
+Se in MOV non specificate la scritta OFFSET ed avete la fortuna o sfortuna
+di possedere un assemblatore inteligente o deficente vi potrebbe caricare
+al posto dell'indirizzo il contenuto.
+
+LEAVE - Uscita da procedura ad alto livello
+Processore 386+
+
+Ricordate l'istruzione ENTER ? Allocava della memoria... ebbene questa non
+fa altro che l'opposto dell'ultima ENTER eseguita. Infatti ne troverete
+una ad ogni propabile uscita di una funzione se ä presente ENTER!
+
+LGDT/LIDT - Caricamento del registro della tabella di descrittori globale
+            o d'interruzione
+Processore 386+
+
+Carica nel registro GDT o IDT il puntatore alla tabella GDT o IDT. Questa
+istruzione viene usata dai programmatori di o.s. prima di entrare in modalitÖ
+protetta per preparare la tabella dei descrittori. Non ä un'istruzione
+eseguibile a RING3
+
+LLDT - Caricamento del registro della tabella di descrittori locale
+Processore 386+
+
+Carica il registro della tabella di descrittori locali. Utilizzata nel
+o.s. e non nei programmi... niente ring3 o modo virtuale 86
+
+LMSW - Caricamento della word di stato macchina
+Processore 286+
+
+Questa word contiene alcune particolari informazioni che sono contenute nella
+parte bassa del registro CR0. Questa le carica, puï anche essere usata per
+accedere in modo protetto usando SMSW, settando a 1 il bit 0 del registro
+e poi usando LMSW.
+
+LOCK - Dichiarazione del prefisso del segnale LOCK#
+
+Questa istruzione ä utilizzata in ambienti multiprocessore dove deve essere
+garantita la condivisione della memoria. Il processore in cui viene attivato
+il segnale LOCK# eseguendo talune istruzioni si congela. Ovvero non prosegue
+finchä il segnale LOCK# non viene disattivato. Tale segnale LOCK# equivale
+ad un piedino del processore.
+
+Le istruzioni che bloccano il processore sono:
+BTS BTR BTC
+XCHG
+ADD OR ADC SBB AND SUB XOR
+NOT NEG INC DEC
+CMPXCHG XADD
+
+LODS/LODSB/LODSW/LODSD - Caricamento di operando di stringa
+Processore 386+ per LODSD
+
+Queste operazioni ( a secondo del loro nome come avrete ben capito manipolano
+un byte, una word, una dword) caricano nel registro AL, AX, EAX i dati puntati
+dalla coppia DS:(E)SI. E' utile per fare una scansione dati alla ricerca
+di un byte, di una word o di una dword, ed ä sempre collegata al flag DF
+(direzione)
+
+LOOP/LOOPcond - Controllo del ciclo con contatore (E)CX
+
+Salta all'indirizzo specificato dopo l'istruzione LOOP (max 128 byte di
+distanza dal LOOP) finchä (E)CX non ä uguale a 0 o non si verifica la
+condizione
+
+LSL - Carica il limite del segmento
+Processore 386+
+
+Carica un registro con un segmento limite decodificato, e pone ZF ad 1,
+purchä il selettore di provenienza sia visibile al CPL 'indebolito' da RPL,
+e che il descrittore sia di un tipo accettato da LSL. Altrimenti il registro
+non viene modificato e ZF viene posto a 0
+
+LTR - Carica registro di task
+Processore 386+
+
+LTR carica il registro di task dal registro o dalla locazione di memoria
+di provenienza specificata dall'operando. Non avviene nessuna commutazione
+di task
+
+
+MOV - Trasferimento di dati
+
+L'istruzione pió usata in assoluto. Copia i dati dalla sorgente alla
+destinazione. Sia ben chiaro che questa architettura prevede che la
+destinazione sia l'operando pió vicino all'istruzione, ovvero in tal caso
+avremo MOV dest, src
+
+Possiamo avere le seguenti combinazioni:
+MOV reg8, reg8
+MOV reg8, mem8
+MOV reg8, imm8
+MOV reg16, reg16
+MOV reg16, mem16
+MOV reg16, imm16
+MOV reg32, reg32
+MOV reg32, mem32
+MOV reg32, imm32
+MOV mem8, reg8
+MOV mem16, reg16
+MOV mem32, reg32
+
+Non possiamo avere istruzioni del genere:
+MOV mem8, mem8
+MOV mem16, mem16
+MOV mem32, mem32
+
+E ricordate che la dimensione dell'operando src deve essere sempre uguale
+a quella di dest altrimenti il compilatore segnalerÖ un errore!
+
+MOVS/MOVSB/MOVSW/MOVSD - Trasferimento di dati da stringa a stringa
+Processore 386+ per MOVSD
+
+Queste istruzioni di solito vengono utilizzate con l'istruzione REP o REPcond
+che vedremo pió avanti, e ci permettono di copiare i dati puntati dalla
+coppia DS:(E)SI a ES:(E)DI.
+
+La dimensione dei dati viene specificata dal prefisso inserito dopo MOVS!
+
+MOVSX - Trasferimento con estensione di segno
+Processore 386+
+
+Copia un byte o una word estendendo il bit pió alto nell'altro registro
+per mantenere il segno.
+
+MOVZX - Trasferimento con estensione di zero
+Processore 386+
+
+Copia un byte o una word azzerando i bit dell'intero registro non utilizzati
+(tutti i bit non utilizzati vengono contrassegnati da 0) e azzerando anche
+l'altro registro.
+
+MUL - Moltiplicazione senza segno
+
+Esegue una moltiplicazione senza segno.
+
+Operando    Risultato     Dimensione altro operando
+AL          AX            8bit
+AX          DX:AX         16bit
+EAX         EDX:EAX       32bit
+
+
+NEG - Negazione in complemento a due
+
+Restituisce il valore di un registro o di un operando in memoria col suo
+complemento a due, ovvero sottrae da 0 l'operando e ne memorizza il risultato.
+
+NOP - Nessuna operazione
+
+Non esegue nessuna operazione, l'unico registro che viene modificato ä il
+registro (E)IP. Il resto dei registri rimane invariato.
+Questa operazione se sembrerebbe inutile ä da prendere in considerazione
+qualora si deve dialogare con componenti hardware che richiedano un piccolo
+lasso di tempo per elaborare le informazioni. E' inoltre vivamente consigliato
+prenderla in considerazione quando si deve crackare qualche programma ;)
+
+NOT - Negazione in complemento a uno
+
+Inverte l'operando, inserendo al posto di 1 lo 0 e viceversa per tutti i bit
+dell'operando stesso.
+
+OR - OR inclusivo logico
+
+OR calcola l'OR inclusivo dei due operandi e pone il risultato nel primo
+operando. Ogni bit del risultato ä 0 se entrambi i bit corrispondenti
+sono 0, altrimenti, ogni bit ä 1.
+
+Esempio
+
+10 01 00 01 OR
+01 00 10 10 =
+
+11 01 10 11
+
+OUT - Output a porta
+
+Trasferisce un byte o una word di dati dal registro aritmetico ad una porta
+specificata immediatamente o nel registro DX.
+
+OUTS/OUTSB/OUTSW/OUTSD - Output di stringa a porta
+
+Trasferisce un dato dal byte, word o dword di memoria presente in DS:(E)SI
+alla porta specificata in DX. Esegue il contrario di INS/INSB/INSW/INSD.
+Utile per trasferire enormi quantitÖ di dati ad una determinata porta
+(tipo controller ide, scsi ecc...)
+
+
+Istruzioni per la manipolazione dello stack
+
+POP  - POPA/POPAD   - POPF/POPFD
+PUSH - PUSHA/PUSHAD - PUSHF/PUSHFD
+
+Queste istruzioni le raggruppo in una sezione unica in quanto hanno come
+obiettivo principale la manipolazione dei dati dallo stack.
+Cosa ä uno stack ? Esso ä un'area di memoria in cui vengono memorizzati
+i valori dei registri ed altri dati temporanei affinchä possano essere
+riutilizzati i registri stessi effettuando una eventuale copia in caso
+di ripristino. Lo stack dei processori INTEL come giÖ spiegato ä di tipo
+LIFO, ovvero l'ultimo dato ad entrare ä il primo ad uscire!
+
+Le istruzioni nella 1. riga, contrassegnata dall'istruzione POP sono tutte
+usate per prelevare dei dati dallo stack mentre quelle sulla 2. riga
+invece servono per inserire i dati nello stack.
+
+Incominciamo a spiegare le varie istruzioni
+
+PUSH - Inserimento di dati nello stack
+Immagazzina il valore del registro o dell'operando immediato o in memoria
+nello stack. Il registro (E)SP viene decrementato a seconda della lunghezza
+dell'operando, ovvero 2 o 4 byte in quanto non si possono memorizzare singoli
+byte ma solo word o dword.
+
+(E)SP = 1000h
+PUSH valoredi4byte
+(E)SP = 1000h - 0004h = 0FFCh
+
+POP - Preleva i dati dallo stack
+Ripristina il valore nell'operando specificato prelevando il valore dallo
+stack. Il registro (E)SP viene incrementato a seconda della lunghezza
+dell'operando, 2 o 4 byte.
+
+(E)SP = 0FFCh
+POP nomeoperandodi4byte
+(E)SP = 0FFCh + 0004h = 1000h
+
+PUSHA / PUSHAD - Memorizzazione dei registri nello stack
+Abbiamo queste due operazioni nella stessa riga in quanto hanno entrambe
+lo stesso significato, ma la dimensione degli operandi coinvolti ä diversa!
+Questa differenza viene fatta in quanto un compilatore Assembler non ä in
+grado di capire se l'istruzione che si desidera eseguire sia quella su word
+o su dword, pertanto ä stato inserito il codice mnemonico PUSHAD proprio
+per fare tale differenza.
+I registri che vengono memorizzati nello stack sono i seguenti
+(E)AX
+(E)CX
+(E)DX
+(E)BX
+(E)SP
+(E)BP
+(E)SI
+(E)DI
+
+Nel caso usiate il codice PUSHA salverete solo il contenuto della word pió
+bassa del registro (ovvero il registro che ä fuori dalla parentesi ;)) mentre
+se userete PUSHAD salverete tutto il contenuto del registro. L'ordine inserito
+ä quello rispettato dal processore
+
+PUSHF/PUSHFD
+Inserisce nello stack il contenuto del registro (E)FLAGS, anche qui notate
+due istruzioni quasi simili, e quindi tale differenza ä stata fatta per
+i compilatori. PUSHF salva solo i primi 16bit dei FLAGS mentre PUSHFD i 32bit
+dei FLAGS
+
+POPA/POPAD
+Ripristina i dati dallo stack seguendo quest'ordine
+(E)DI
+(E)SI
+(E)BP
+(E)SP
+(E)BX
+(E)DX
+(E)CX
+(E)AX
+
+La differenza tra POPA e POPAD ä data dalla dimensione dei registri...
+per ulteriori informazioni date un'occhiata a PUSHA/PUSHAD
+
+POPF/POPFD
+Ripristina dallo stack il contenuto del registro (E)FLAGS. Ulteriori
+informazioni li trovate in PUSHF/PUSHFD
+
+Nota finale:
+Qualora eseguiate la seguente istruzione:
+PUSH EAX e poi POP EBX tanto per fare un esempio il valore immagazzinato
+con PUSH EAX non sarÖ mai cancellato dallo stack finchä non verrÖ sovrascritto.
+Infatti nel caso facciate MOV EAX, DWORD PTR SS:[ESP]-4 voi avrete sempre in
+EAX lo stesso valore salvato con PUSH. Questo ä dato dal fatto che la cpu
+si limita soltanto ad incrementare e decrementare il registro (E)SP e non
+eventualmente a rimuovere i dati presenti in essa. Inoltre lo stack viene
+oggi gestito dai compilatori per il passaggio tra le varie funzioni.
+
+Avendo una funzione del genere in linguaggio C
+
+int somma(int p(0), int p(1), .... int p(n))
+
+disassemblando il codice potrete notare che viene salvato prima
+p(n) e man man si scende fino a p(0) prima di effettuare la call all'istruzione.
+Infatti i dati nello stack nei moderni compilatori e sistemi operativi
+vengono passati dall'ultimo parametro al primo. Ricordatevelo sempre!
+
+RCL/RCR/ROL/ROR - Rotazione
+
+Queste operazioni fanno ruotare i bit a sinistra (RCL-ROL) e a destra
+(RCR-ROR).
+
+Cosa significa ruotare i bit ? Farli scivolare di n posizioni nel senso
+indicato.
+
+Esempio:
+
+1000 1000 ROL 0001 0001 
+1000 1000 ROR 0100 0100
+
+La differenza tra questi due gruppi di istruzioni sta nel fatto che quelle
+in cui ä specificata nell'operando la lettera C (RCL ed RCR) il bit 0
+alla fine della rotazione va a costituire il bit del CARRY FLAG mentre con
+ROL e ROR il bit CF rimane invariato.
+
+RDMSR - Legge dal registro dei modelli specifici
+Processore 586+
+
+Questa istruzione carica uno dei registri a 64bit della famiglia Pentium
+nella coppia dei registri EDX:EAX. Il registro da caricare viene specificato
+nel registro ECX
+
+RDTSC - Legge dal Time Stamp Counter
+Processore 586+
+
+Il processore Pentium ä dotato di un registro a 64bit che conteggia il numero
+di cicli di clock eseguiti dal RESET in poi. Tale registro viene caricato
+nella coppia EDX:EAX ed ä utile per stabilire quante cicli assegnare ad ogni
+processo ;) Solo al livello CPL 0 ä possibile modificare il contenuto di tale
+registro.
+
+REP/REPE/REPZ/REPNE/REPNZ - Ripetizione della successiva operazione di stringa
+
+Questa categoria di istruzioni va sempre accompagnata da una delle operazioni
+che servono per manipolare le stringhe, ovvero SCAS?, LODS?, INS?, OUTS?,
+MOVS? e tale istruzione viene ripetuta per n volte quanto specificato nel
+registro contatore (E)CX o finchä non si verifica una condizione.
+
+RET - Ritorna da procedura
+
+Questa istruzione serve per ritornare da una procedura di tipo near in modalitÖ
+reale o in modalitÖ protetta. Puï anche essere utilizzata per effettuare il
+ritorno da una procedura di tipo FAR utilizzando perï l'opcode RETF.
+Perï bisogna fare attenzione in quanto la word o la dword puntata dalla
+coppia SS:[ESP] sarÖ il valore che assumerÖ il registro puntatore (E)IP e
+pertanto bisogna assicurarsi che il valore puntato nello stack sia il
+valore esatto. Puï essere anche accompagnata da un numero che specifica
+la quantitÖ di byte da sottrarre dallo stack prima di prelevare l'indirizzo
+del registro (E)IP.
+
+RSM - Ripristino dalla modalitÖ System Management
+Processore 586+
+
+Questa istruzione serve per uscire dalla modalitÖ System Management introdotta
+con la famiglia Pentium. Tale operazione serve per uscire da tale modalitÖ
+e ritornare il controllo al sistema operativo o all'applicazione interrota.
+Per maggiori informazioni su tale modalitÖ ä vivamente consigliato leggere
+uno dei libri della Intel presenti nella bibliografia.
+
+SAHF - Memorizza AH nei flag
+
+Carica nel registro dei flag il contenuto di AH e precisamente al bit 7, 6,
+4, 2, 0 ovvero vengono modificati SF, ZF, AF, PF e CF.
+
+SAL/SAR/SHL/SHR - Istruzioni di scorrimento
+
+Ecco altre istruzioni per la manipolazione dei bit. Stavolta perï i bit non
+vengono rotati, ma bensç shiftati, ovvero i bit che andranno oltre la
+dimensione dell'operando non saranno ripristinati dall'altro lato del
+registro ma bensç eliminati.
+
+Esempio:
+
+1000 1000 SAL (Shift aritmetico a sinistra) di un bit
+
+0001 0000 - Risultato: 1 scivolato a sinistra viene eliminato e viene caricato
+                       uno 0 per coprire il bit0
+
+L'unica differenza tra la coppia SAL/SAR e SHL/SHR ä che in quest'ultima
+coppia il bit OF viene memorizzato con il contenuto del bit pió alto.
+La quantitÖ di bit da shiftare puï essere specificata immediatamente oppure
+puï essere specificata nel registro CL, ma in ogni caso per questioni di
+ottimizzazione e velocitÖ di esecuzione la quantitÖ di bit non puï essere
+maggiore di 31!
+
+SBB - Sottrazione con riporto negativo
+
+Aggiunge il secondo operando (DEST) al flag di riporto (CF) e sottrae il
+risultato dal primo operando (PROV). Il risultato della sottrazione viene
+assegnato al primo operando (DEST) ed i flag sono impostati di conseguenza.
+
+Per farla breve questa sottrazione tiene conto del segno ;)
+
+SCAS/SCASB/SCASW/SCASD - Confronto tra dati di stringa
+
+Sottrae dal registro AL, AX o EAX il byte, la word, la dword di memoria
+alla locazione puntata da ES:(E)DI. Il risultato viene scartato e solo
+i flag sono impostati.
+
+SETcc - Impostazione di byte su condizione
+
+Imposta l'operando se ä vera la condizione:
+
+Istruzione         Condizioni di veritÖ
+SETA               CF=0 ZF=0
+SETAE              CF=0
+SETB               CF=1
+SETBE              CF=1 ZF=1
+SETC               CF=1
+SETE               ZF=1
+SETG               ZF=0 SF=OF
+SETGE              SF=OF
+SETL               SF<>OF
+SETLE              ZF=1 SF=OF
+SETNA              CF=1 ZF=1
+SETNAE             CF=1
+SETNB              CF=0
+SETNBE             CF=0 ZF=0
+SETNC              CF=0
+SETNE              ZF=0
+SETNG              ZF=1 SF<>OF
+SETNGE             SF<>OF
+SETNL              SF=OF
+SETNLE             ZF=0 SF=OF
+SETNO              OF=0
+SETNP              PF=0
+SETNS              SF=0
+SETNZ              ZF=0
+SETO               OF=1
+SETP               PF=1
+SETPE              PF=1
+SETPO              PF=0
+SETS               SF=1
+SETZ               ZF=1
+
+SGDT/SIDT - Memorizzazione del registro della tabella di descrittori globali
+            o di interruzione
+Processore 386+
+
+Copia il contenuto del registro della tabella dei descrittori nei 6 byte
+indicati dall'operando. In poche parole copia il seg:offset dove seg ä
+di 16bit (modalitÖ protetta, max 8192 descrittore) e l'offset l'indirizzo
+(spero che non abbiate dimenticate queste cose!).
+
+SHLD - Scorrimento a sinistra in doppia precisione
+Processore 386+
+
+Fa scorrere il primo operando fornito dal campo r/m a sinistra di tanti
+bit quanti sono specificati dall'operando contatore. Il secondo operando
+(reg16 o reg32) specifica i bit da far scorrere all'interno da destra.
+Il risultato viene memorizzato nell'operando r/m ovvero il primo operano.
+
+SHRD - Scorrimento a destra in doppia precisione
+Processore 386+
+
+Fa scorrere il primo operando fornito dal campo r/m a destra di tanti bit
+quanti sono specificati dall'operando contatore. Il secondo operando (reg16
+o reg32) specifica i bit da far scorrere all'interno da sinistra. Il risultato
+viene memorizzato in r/m.
+
+SLDT - Memorizzazione del registro della tabella di descrittori locale
+Processore 386+
+
+Memorizza la tabella di descrittori locale nei due byte di un registro o di
+una locazione di memoria indicata dall'operando d'indirizzo effettivo.
+
+Solo per sistemi operativi!
+
+SMSW - Memorizzazione della word di stato della macchina
+Processore 286+
+
+Memorizza la Machine status word ( o i primi 16 bit di CR0 nel 386) nei
+2 byte di un registro o di una locazione di memoria specificata.
+
+ST? - Attivazione del flag specificato
+
+STC - Attivazione flag carry
+STD - Attivazione flag direzione
+STI - Attivazione flag d'interruzione
+
+STOS/STOSB/STOSW/STOSD - Memorizzazione di dati di stringa
+
+Trasferisce il contenuto di AL, AX o EAX nel byte, word o dword puntata
+dalla coppia ES:(E)DI. Puï essere utilizzata con REP o REPcond.
+
+STR - Memorizzazione del registro di task
+Processore 386+
+Il registro di task viene copiato nel registro o nei 2 byte di memoria
+specificata.
+Impiegato nei sistemi operativi.
+
+SUB - Sottrazione tra interi
+
+Effettua la sottrazione tra due numeri interi ponendo il risultato in
+dest che ä anche il primo parametro.
+
+SUB dest, orig ;)
+
+TEST - Confronto logico
+
+Esegue l'and logico tra i due operandi senza perï memorizzare il risultato
+in nessuno dei due operandi a differenza di AND. L'AND viene eseguito tra
+ogni bit, ovvero se 1 e 1 viene impostato 1 altrimenti 0.
+
+VERR/VERW - Verifica di un segmento per la lettura o scrittura
+Processore 386+
+
+Verifica che il segmento specificato sia disponibile per una eventuale
+lettura o scrittura. La disponibilitÖ viene anche influenzata dal CPL
+corrente. In poche parole se siete al CPL 0 ok altrimenti vi arrangiate! ;)
+
+WAIT - Attesa fino a che il piedino BUSY# non diventi inattivo
+
+Sospende l'esecuzione delle istruzioni della cpu finchä la NPU non disattivi
+il segnale BUSY# che viene pilotato da quest'ultima. Utile per capire
+se la NPU ha terminato le operazioni assegnatele!
+
+WBINVD - Write-Back and Invalidate Cache
+Processore 486+ ?
+
+Svuota il contenuto della cache scrivendolo nella memoria ram.
+
+WRMSR - Write to Model Specific Register
+Processore 486+ ?
+
+Il registro ECX specifica uno dei registri interni da 64bit del Pentium
+e la coppia EDX:EAX contiene la qword da caricare.
+
+
+XADD - Scambio e addizione
+Processore 586+
+
+L'istruzione XADD richiede come parametro due operandi, di cui il 2nd
+operando o origine deve essere sempre un registro da 8, 16 o 32bit.
+Prima di effettuare la somma XADD cambia i valori, copiando origine in
+destinazione e viceversa e successivamente esegue la somma.
+
+XCHG - Scambio di registro/memoria con registro
+Processore 386+
+
+Scambia i due operandi. Il primo operando o dest viene copiato in orig
+e orig in dest. orig deve essere un registro da 8, 16 o 32bit.
+
+XLAT/XLATB - Conversione di ricerca in tabella
+Processore 386+
+
+Modifica il registro AL dall'indice di tabella all'entrata di tabella.
+AL deve essere l'indice senza segno in una tabella indirizzata da DS:(E)BX
+XLAT ä utilizzata quando la tabella risiede nel segmento DS:(E)BX
+
+XOR - OR esclusivo logico
+
+Calcola l'OR esclusivo dei suoi due operandi e pone il risultato nel primo
+operando. L'OR esclusivo ä vero quando i bit dei due operandi sono diversi.
+
+Esempio:
+1000 1000 XOR
+0101 1001 =
+0010 1110
+
+Bene con questa istruzione ho terminato il capitolo pió lungo di questo
+piccolo tutorial. Non ne posso pió di scrivere istruzione e di guardare
+la tabella degli opcode del processore. All'appello mancheranno qualche
+istruzione e chiedo scusa per questa loro assenza, ma sinceramente credo
+che troviate maggiori informazioni recandovi direttamente alle fonti...
+ovvero INTEL, AMD, Ciryx ed altri produttori di processori che usano questo
+set di istruzioni.
+
+Capitolo 7 - Le istruzioni della NPU
+
+Per farla breve le istruzioni della NPU saranno riportate solo sottoforma di
+sigla e significato. Le spiegazioni non le faccio altrimenti non finirï mai!
+Chi fosse interessato vada a leggersi un libro della INTEL (consiglio il
+vol. 1 della Bibliografia!)
+
+F2XM1 - Computa 2^x - 1
+FABS - Valore assoluto
+FADD/FADDP/FIADD - Addizione tra numeri in virgola mobile
+FBLD - Carica il codice binario codificandolo in decimale (???)
+FBSTP - Store Binary Coded Decimal and POP
+FCHS - Inverte il segno
+FCLEX/FNCLEX - Cancella l'eccezioni
+FCOM/FCOMP/FCOMPP - Confronto tra numeri reali
+FCOS - Coseno
+FDECSTP - Decrementa il puntatore dello stack ?
+
+FDIV/FDIVP/FIDIV - Divisione
+
+Qui vorrei fare un breve commento... forse qualcuno di voi che ä alle prese
+con un compilatore ad alto livello avrÖ sicuramente notato l'opzione nella
+sezione della virgola mobile della capacitÖ di emulare il coprocessore o
+quello sull'istruzione FDIV Pentium Check ?
+Cosa significa ? Bene la prima parte significa che l'architettura della Intel
+prevede di poter emulare via software le funzioni di un coprocessore matematico
+che potrebbe essere assente, quest'argomento non riguarda pió la CPU dal
+famigerato 486DX in quanto la NPU fu assorbita con quella categoria dentro
+la CPU stessa, dotandola di una logica interna per gestire la virgola mobile.
+Dovete perï sapere che nelle prime settimane che il Pentium venne introdotto
+qualcosa successe sul mercato dei processori... un professore universitario
+usando i Pentium per effettuare i suoi calcolini matematici incominciï a notare
+un errore di precisione mi pare dopo la ventunesima cifra dopo la virgola..
+si hai voglia!!! 21 cifre dopo, che cazzo va a controllare tutte le divisioni?
+Questo fatto potrebbe passare inosservato ... ma nel peggiore dei casi la
+divisione puï causare un errore dopo la 7 cifra dalla virgola... la mia
+calcolatrice stessa arriva a malappena a 8 cifre!! Questo grave fatto
+(pensate ai Pentium introdotti per gestire i satelliti meteorologici, le
+centrali nucleari, gli studi di finanza, i studi di ricerca) causï un grande
+scalpore sul mercato internazionale, e la Intel si vide costretta a ritirare
+dal mercato tutti i Pentium in circolazione, reimmentendo in mercato una
+nuova categoria di processori affidabili, e promettendo agli utilizzatori
+dei processori che qualora essi ne avrebbero fatto richiesta in un futuro
+pió o meno prossimo (anche dopo 5 o 50 anni!) la Intel avrebbe provveduto
+a sostituire in un centro di Assistenza o recapitando direttamente a casa
+il processore con uno nuovo e privo di questo errore... Quindi se avete
+un vecchio P100 in casa o un modello pió vecchio verificate che non abbia
+qualche errore e magari contattate INTEL... che in cambio vi dovrÖ fornire
+un processore nuovo.... magari un bel PIII a 500MHz ;)
+
+FDIVR/FDIVRP/FIDIVR - Divisione ma da come risultato il resto
+FFREE - Cancella i registri della NPU (ha i suoi registri!!!)
+FICOM/FICOMP - Confronta due numeri interi
+FILD - Carica un intero
+FINCSTP - Incrementa il puntatore dello stack
+FINIT/FNINIT - Inizializza la NPU o FPU
+FIST/FISTP - Immagazzina un intero
+FLD - Carica un numero reale
+FLD1/FLDL2T/FLDL2E/FLDPI/FLDLG2/FLDLN2/FLDZ - Carica una costante
+FLDCW - Carica la word di controllo
+FLDENV - Carica l'ambiente FPU
+FMUL/FMULP/FIMUL - Moltiplicazione
+FNOP - Nessuna operazione!!! LA MIGLIORE ISTRUZIONE CHE ESISTA!!!!!!!
+FPATAN - Arcotangente parziale
+FPREM - Rimanenza parziale ???
+FPREM1 - Rimanenza parziale ???
+FPTAN - Tangente parziale
+FRNDINT - Giro a intero ???
+FRSTOR - Ripristina lo stato della NPU o FPU
+FSAVE/FNSAVE - Immagazzina lo stato della NPU o FPU
+FSCALE - Scala ? IL DETERSIVO SCALA ???
+FSIN - Seno
+FSINCOS - Seno e coseno
+FSQRT - Radice quadrata
+FST/FSTP - Immagazzina un reale
+FSTCW/FNSTCW - Immagazzina una word di controllo
+FSTENV/FSTENV - Immagazzina l'ambiente della NPU o FPU
+FSTSW/FNSTSW - Immagazzina la word di controllo
+FSUB/FSUBP/FISUB - Sottrazione
+FSUBR/FSUBRP/FISUBR - Sottrazione inversa
+FTST - Test
+FUCOM/FUCOMP/FUCOMPP - Confronto di reali senza ordine
+FWAIT - Attesa
+FXAM - Esamina
+FXCH - Scambia il contenuto dei registri
+FXTRACT - Estrae gli esponenti e il segno
+FYL2X - Computa y * log(2)x
+FYL2XP1 - Computa y * log(2)(x+1)
+
+Sono poche non ä vero ? Se vi va di studiarle accomodatevi pure!!!!!!!
+
+Capitolo 8 - Le istruzioni MMX
+
+Estensioni multimediali, istruzioni aggiunte per migliorare l'esecuzione dei
+software che lavorano in ambito grafico o nel campo videoludico.
+L'introduzione di questa categoria di istruzioni ha dato il via a due correnti
+diverse. Intel nel 1997 introdusse questo set di istruzioni, successivamente
+supportato da AMD nel suo K6, da Ciryx e da altri produttori. L'introduzione
+del processore K6 da parte da AMD ha incominciato a rosicchiare buona parte
+del mercato dei processori nella fascia medio-bassa alla INTEL. Oggi infatti
+se andiamo a comprare un nuovo processore abbiamo diverse opzioni. Abbiamo
+infatti INTEL che ha introdotto il suo set MMX2 e AMD che ha introdotto
+il 3DNow per incominciare a contrastare INTEL. L'introduzione del set di
+istruzioni 3DNow ä stato il primo passo di AMD per liberarsi del monopolio
+di Intel. Oggi infatti AMD mira a creare processori ben pió potenti della
+INTEL la quale ancora non ha rilasciato sul mercato il suo gioiellino annunciato
+da molto tempo, il processore Merced dotato di un'architettura a 64bit.
+Cosa centra tutto questo ? Semplicemente per dirvi che dopo le istruzioni
+MMX supportate da tutti i produttori, sono state introdotte istruzioni
+proprietarie che la concorrenza non ha introdotto nella propria architettura.
+A livello di programmazione assembly questo sarÖ un bella rottura, infatti
+chi programma in assembly dovrÖ porsi la fatidica domanda... per cosa scrivo
+questo software ? Facciamo un pï di passi indietro, ritornando al 1997, quando
+INTEL introdusse i Pentium MMX e AMD il K6. Erano entrambe dotate di un set
+di istruzioni chiamate MMX, ma a cosa servivano di preciso ? Le istruzioni
+MMX volute da INTEL non erano che altro istruzioni a livello hardware di
+alcuni algoritmi o funzioni che erano ancora scritte dai programmatori,
+funzioni per l'ambito grafico. Ma non ä stato detto solo questo su queste
+istruzioni. Infatti si sentç parlare che i processori MMX erano in grado
+di svolgere lo stesso compito di un modem, e quindi il prezzo del computer
+sarebbe diminuito in quanto grazie al nuovo software si potevano eliminare
+alcuni componenti hardware. Bene, sarÖ per questo motivo che non ho mai
+visto nessun software in grado di sostituire un componente hardware tranne
+che il vecchio EM87 ed EM387, due software che emulavano il coprocessore
+matematico ? L'introduzione delle istruzioni MMX non ha apportato nessuna
+miglioria al software esistente, in quanto i software dovevano essere
+riscritti e ricompilati per supportare queste nuove istruzioni. Ora perï
+se non erro, nessuno dei compilatori di linguaggi ad alto livello che posseggo
+in casa ä dotato di ottimizzazione per istruzioni MMX!! Questo set di
+istruzioni ä molto utilizzato solo nel campo dei videogiochi, dove sicuramente
+hanno apportato delle migliorie di non poco conto. Il primo videogioco
+rilasciato per il set MMX ä stato il gettonato POD, ma che sinceramente
+fa un pï schifo, poi Adobe con il suo Photoshop e in seguito solo videogiochi.
+Quindi se non avrete a che fare con videogiochi non avrete mai il piacere
+di utilizzare queste istruzioni, che tra l'altro non sono neanche supportate
+dai compilatori assembler commerciali, rimasti al Pentium!
+
+Ora passiamo all'elenco delle istruzioni:
+
+Capitolo 9 - Ottimizzazione di codice
+
+Capitolo 10 - Il debugging
+
+Cosa ä il debugging ? A cosa serve ? Innanzitutto un bug ä un errore che
+si manifesta su una o pió macchine se non su tutte. Da cosa puï dipendere
+un bug ? Da diversi motivi... spesso puï dipendere da un errore di
+programmazione, da un conflitto con altro software presente sulla vostra
+macchina, con periferiche hardware.
+Come si puï correggere un bug ? Bene abbiamo diverse soluzioni... attendere
+il rilascio di un eventuale aggiornamento, rimuovere il software incriminato
+o rimuovere il bug!!
+
+Di cosa abbiamo bisogno per poter rimuovere un bug ?
+Principalmente di un DEBUG... ossia un ambiente di lavoro che ci permetta di
+osservare a livello assembly cosa succede durante l'esecuzione di un software
+ed apportare eventuale modifiche in modo temporaneo o permanenti per aggirare
+il problema. Spesso perï scoperto un bug lo si dovrebbe comunicare alla casa
+produttrice del software per una correzione del problema in via definitiva.
+Infatti un errore si puï annidare dove meno te lo aspetti e si puï anche non
+manifestare mai! Dipende dove si trova!!
+
+Gli strumenti per fare debugging variano da piattaforma a piattaforma...
+quindi cercheremo di elencarli ed indicare eventuali pregi e difetti.
+
+Ambiente Unix/Linux:
+Gnu Debugger - E' l'unico di cui sappia l'esistenza. Non ho notizie da darvi
+               in merito in quanto finchä non ci sarÖ software da crackare
+               sotto linux non mi ci metto a fare debugging, perchä che razza
+               di sistema operativo gratis sarebbe sennï ? ;)
+
+Ambiente OS/2:
+Ecco qui ho un grosso buco!! Esiste ancora codesto sistema operativo ? BOOO
+NON LO SO!!! E tantomeno di eventuali debugger presenti qui!!
+
+Ambiente DOS:
+Qui ne abbiamo a bizzeffe... qualsiasi ambiente dedicato al cracking contiene
+un maledetto link per scaricare un debugger per DOS.
+Il primo debugger presente su questa macchina ä quello stesso allegato al
+sistema operativo!
+
+DEBUG .... un vero schianto... con questo strumento vi potreste suicidare...
+ non ci capirete mai un niente! Non ho ancora capito se l'istruzione che
+ compare ogni volta che eseguo lo STEP o il TRACE ä quella che ha eseguito
+ o quella che deve eseguire... comunque quelli presenti nei sistemi DOS
+ sono spesso debugger a 16bit, l'unico DEBUG a 32bit che ho visto ä stato
+ quello allegato al Caldera Open Dos
+
+AVPUTIL - Bene questo non ä proprio un debugger, ma ä ottimo come facilitÖ
+ d'uso! Io qui mi sono formato!! Grazie a lui non crackerete nessun software
+ ma per tracciare l'esecuzione di una routine ä sicuramente buono! Io l'ho
+ usato e lo continuo ad usare spesso quando ho necessitÖ di vedere quali sono
+ le conseguenze di una eventuale istruzione con alcuni dati! E' presente
+ insieme al pacchetto antivirale AVP
+
+Codeview - Microsoft ... non ä un gran che... spesso sono strumenti che
+ si interfacciano molto volentieri al codice sorgente piuttosto che al
+ programma che dovete debuggare, da considerare che ä per principiante!
+
+Turbo Debugger - Altro debugger del cazzo! Se fosse per codesto software
+ non riuscirete a crackare un bel niente! Sotto l'aspetto grafico ä
+ a dir poco ben curato... niente in contrario da dire, ma non potete settare
+ breakpoint hardware... o per lo meno non lo fa da me! Una nota a suo favore
+ ä la possibilitÖ di eseguire il debug di software in remoto (non col
+ modem ma con una seriale!) utile spesso quando operate in software
+ che ricorre ad un ambiente grafico ed una palette specifica!
+
+G3X - Non conosco tale ambiente ma ne ho sentito ben parlare! Purtroppo
+ ho girato in lungo e in largo per cercare tale strumento ma non lo trovo!
+
+D86/386 - Pió che un debugger ve lo consiglio per provare le istruzioni...
+Infatti qui potete battere direttamente le istruzioni per vedere i risultati!
+Es:
+XOR AX, AX
+MOV AX, 2
+MOV CX, 3
+ADD AX, CX
+Ottimo non credete ? ;)
+
+Fino ad adesso ho trattato di debugger che funzionano esclusivamente in
+modalitÖ reale! Non conoscendo il G3X quanto sto per dire non lo riguarda
+minimamente: Se dovete usare uno di questi debugger fate pena!!! Sono
+strumenti a dir poco stupidi!! E come se non bastasse basta fregarli
+cambiando la routine dell'INT 09!! Spesso infatti i videogiochi o molti
+applicativi necessitano il controllo assoluto della tastiera e questi poveri
+strumenti del cacchio si vanno a far benedire. Ovvero loro si agganciano
+alla tastiera in attesa che voi eseguiate un break point o che premiate i
+tasti per eseguire lo step o il trace e appena incapperete nel codice del
+programma o bloccate la macchina e siete costretti a riavviare o vi
+ritroverete con il software in esecuzione e voi che non potrete fare niente!!
+
+SOFT ICE - La massima espressione del debugging!!! Difficilmente vi tradirÖ
+e sopratutto con questo strumento potrete fare danni piuttosto che togliere
+i bug!
+
+ModalitÖ protetta:
+E bene... siamo arrivati ai fanatici DOS/Extender... debuggare un software
+in modalitÖ protetta ä un incubo! Nessuno dei debugger fino adesso elencati
+puï funzionare in tale modalitÖ. Quali strumenti allora utilizzare ?
+Bene allora dovete sapere che spesso un Extender viene affiancato da un
+compilatore e da un linker! Perchä questo motivo ? Beh in quanto il software
+che gira in modalitÖ protetta necessita di una struttura molto diversa del
+solito formato eseguibile per dos e soprattutto all'avvio deve caricare
+l'extender per poter girare! Ma una caratteristica dei debugger in modalitÖ
+protetta e la loro scarsa professionalitÖ... vi daranno a disposizione si o
+no pochi comandi quanto per tracciare il codice ed eseguire lo step!
+
+L'extender pió usato di tutti ä il DOS4GW, di cui avrete ben sentito parlare
+o perlomeno avrete visto la famosa scritta
+
+DOS4G Extender .... bla bla bla
+bla bla bla
+
+all'avvio di un videogioco per dos ? Da chi ä prodotto questo extender ?
+Non lo so... ma viene utilizzato dal Watcom C++, credo il pió potente 
+compilatore C++ commerciale per dos!
+Codesta bestia di compilatore viene affiancata dal Watcom Debugger... che
+non ä di sicuro di piacevole uso!!!
+Provare per credere ;)
+
+Windows 9x/NT:
+
+Ce ne sono a bizzeffe e quindi vi parlo dell'unico e pió strepitoso!
+SOFTICE - Bene... potete fare quello che vi pare sotto windows.... tanto ä lui
+ che comanda.. non windows! Praticamente potete settare break point su
+ qualsiasi evento, all'esecuzione di una determinata API o di un punto
+ di codice... potrete visionare tutto! Ma per ulteriori dettagli di questo
+ debugger vi rimando alla guida della NUMEGA oppure all'ottimo tutorial
+ di Genius all'indirizzo http://ringzer0.cjb.net
+
+Abbiamo finito con i debugger, ma resta un elenco infinito di disassemblatori!
+Cosa sono ? Software che vi disassemblano e salvano su file il codice di un
+programma... i pió usati in circolazione sono il Windows Disassembler 8.9x
+e IDA!
+
+Windows Disassembler ä veloce, facilitÖ d'uso ma non di grande aiuto certe
+volte! Praticamente disassembla tutto! Non fa la distinzione tra librerie
+del compilatore e dell'autore, per questo si ricorre ad IDA! Tale prodotto
+richiede un buon periodo di tempo per disassemblare un software a secondo
+della sua dimensione, ma non ha nessun problema. Riconosce il compilatore
+usato e pertanto vi inserisce i nomi delle funzioni piuttosto che il solito
+indirizzo! E' ottimo in quanto ä aggiornato spesso! La versione che io
+posseggo supporta il K6 II ma ä giÖ uscita la versione 4.0 che credo supporti
+anche il Pentium III!
+Provare per credere..... se prenderete IDA non lo lascierete mai ! E come
+se non bastasse decompila anche il software di altri processori!!
+
+Terminata questa sezione di debugger/disassembler vediamo come funziona
+in pratica il debugging!
+
+STEP o TRACE ?
+
+Cosa consiste lo step ? Step significa eseguire passo passo, ottimo come
+strumento ma con un piccolo difetto! Infatti qualora dovrete incontrare
+una CALL o un ciclo LOOP o qualsiasi altra cosa vi eseguirÖ l'intero codice
+senza che voi interveniate! Sinceramente puï essere ottima ma qualora in
+tale codice ä presente quello che ci serve ? Cosa fare ? Ricorriamo al
+TRACE ovvero tracciare ogni singola istruzione! Ma state attenti, il trace
+va eseguito ponendo un limite... non avrete intenzione di eseguire il trace
+anche del KERNEL di Windows o magari delle API del DOS ? In fin dei conti
+sono giÖ documentate tali funzioni quindi non c'ä nessun motivo di vedere
+cosa fanno!!
+
+Ora vediamo come funziona il debugging e cosa sono i break point!
+Un debugger ä il software che vi permette di fare debugging, ma come ve lo
+permette ? Il debugger si occupa di caricare il file da voi specificato e
+di settare il flag TF appena si incomincia! Cosa ä il flag TF ? TRAP FLAG
+ovvero trappole! Ogni qualvolta che il bit TF del registro dei flag ä settato
+il processore ad istruzione eseguita chiama l'INT 01! Una volta chiamato
+l'int 01 il processore stesso si preoccupa di salvare CS (E)IP, i FLAG e
+di settare a 0 TF.
+
+All'interrupt 01 ci sono le routine del debugger, che vi mostra il codice
+assembly sul monitor, lo stack, i registri e quanto altro vi permette!
+Potrete intervenire su tutti questi valori, magari apportare modifiche per
+crackare il programma (vi sarete dimenticati che questo ä l'obiettivo da
+realizzare ?? O NOOOO) ed i soliti comandi per spaziare un pï ovunque,
+visionare il contenuto della memoria, magari salvarlo e soprattutto
+continuare l'esecuzione del codice ;))
+
+Cosa ä un break point ? Bene un break point ä un'interruzzione al verificarsi
+di una data istruzione! Dove posso settare un break point ? Principalmente
+sul codice da eseguire, magari se pensate che ad un dato punto vi possa
+essere qualcosa di interessante settare l'interruzione (fosse la volta buona
+che il registro EAX contenga il numero seriale di registrazione ? MAGARI!!),
+settare un'interruzione su una porta hardware (c'ä una chiave hardware
+collegata alla parallela ? ... cosa faccio ? Semplice setto il breakpoint
+sulla porta logica e sto in attesa!!! ;) all'accesso in una locazione di
+memoria (a 0044DA21 c'ä il mio nome! Quando lo controlla ? ??) o
+sull'esecuzione di un interrupt. O su qualsiasi caso vi pare ! Un messaggio
+di Windows ad un thread... quello che vi passa per la mente!!
+
+Come funziona il break point ? Se non siete smemorati abbiamo visto nella
+sezione in cui trattavo le istruzioni assembler della variante dell'istruzione
+INT, INT 3 ed INTO. INT 3 ä codificato con un solo byte e non fa altro che
+chiamare l'interrupt 3 dove vi ä agganciato il debugger che ripristina le
+vecchie istruzioni e vi permette di analizzare il codice e tutto ciï che
+vi pare, che ä stato detto e che sarÖ detto!
+
+Comunque ricordate una cosa... per fare il debugging ä necessaria una
+conoscenza del linguaggio assembler o assembly, del sistema operativo in cui
+operate e magari anche qualcos'altro ?
+
+Capitolo 11 - Le protezioni software
+
+Cosa ä una protezione ? Un semplice meccanismo ideato dagli autori di un
+software con lo scopo di limitare od evitare la diffusione di copie pirata
+del proprio software. Innumerevoli sono le tecniche di protezione oggi
+adottate... dalle vecchie richieste di password sino alla generazione di
+codici chiavi da comunicare agli autori per ottenere una contro-chiave.
+Qual ä il punto debole di queste protezioni ? Ne esistono molti di punti
+deboli ma ä importante sapere qual ä il pió grande punto debole di un
+software... esso viene scritto da esseri umani, e come si sa l'uomo ä un
+essere imperfetto e poi il software non viene scritto per essere sprotetto,
+ma bensç per assolvere un determinato compito, perchä gli unici software
+scritti per essere sprotetti sono i CRACKME presenti su un qualsiasi
+corso di cracking. Da dove nasce l'esigenza di proteggere un software ?
+Dal semplice fatto di proteggere i propri profitti non il proprio lavoro!
+Avete mai visto un software FREEWARE che vi chiede un numero seriale ?
+L'unica eccezione a questa regola ä data da Microsoft, il colosso
+dell'informatica, si proprio lei la casa autrice del schifosissimo Windows!
+Questa con tutti i soldi che si ritrova ä l'unica che protegge i propri
+software con un semplice codice di registrazione, che puï essere facilmente
+copiato su un foglietto di carta! Ma la piccola casa sviluppatrice di soldi
+si deve pur tutelare, infin dei conti in un modo o nell'altro si deve tirare
+avanti, a fine mese ci devono arrivare pure loro! Perï ciï che non comprendo
+sono le esagerate richieste di denaro per del software che spesso non ä di
+grande utilitÖ! Qualcuno mi puï semplicemente spiegare perchä la suite
+Office 2000 Premium ha un costo di oltre 2.000.000 di lire ? E perchä
+un sistema operativo che ä pió importante costa assai meno ? Facciamo un pï
+di conti... acquistati il personal computer sostenendo una spesa non
+indifferente ci ritroveremmo a sostenere ulteriori spese per poter usare
+quella scatola di latta! Il sottoscritto ä in possesso di una buona quantitÖ
+di software illegalmente duplicato, ma molto di questo non ä mai stato
+utilizzato! Gli unici software che ho usato li ho regolarmente acquistati!!
+Sono felicemente titolare delle licenze di uso di Borland Turbo C++ 3.0,
+Borland Turbo Vision for C++ e Borland Turbo Assembler 5.0!
+Ma per acquistare questi 3 pacchetti di software ho dovuto sborsare circa
+500.000 lire! Credete che sia bello dover separarsi da somme del genere
+periodicamente ? NO! Ma non ä nemmeno giusto lucrare sul software pirata...
+In che modo si inserisce un cracker in questo scenario ? Semplicemente
+superando quella parte di codice che ci obbligherebbe ad acquistare il
+software originale! Molti crack usciti in circolazione non sono stati
+scritti per il semplice motivo di studio... ma per diffondere in modo
+illegale il software, e questo non ä giusto.
+
+Se decidete di continuare per questa strada sappiate che quanto voi fate
+ä punibile dall'ordinamento giuridico (bell'ordinamento giuridico, dove
+un virus writer, un cracker, un hacker si beccano pió multe e anni di
+galera di uno che va a rubare in banca!! Questa ä la realtÖ!).
+
+Incominciamo a dare qualche delucidazione sulle protezioni software.
+
+Il circuito shareware ä un buon esempio di questo tipo di protezioni...
+se prelevate da qualche sito un software o semplicemente acquistate
+in edicola una qualsiasi rivista con allegato dei CD avrete sicuramente
+del materiale su cui lavorare, ma semplicemente per aumentare le vostre
+conoscenze!
+
+Il primo software protetto che mi ricordi ä stato un video-gioco!!
+Dylan Dog - La regina delle tenebri (il titolo dell'episodio non ricordo
+se era proprio questo esattamente!!!)
+
+Ad un determinato punto gentilmente ci richiedeva di inserire un codice
+presente sul manuale delle istruzioni... questa protezione era facilmente
+superabile senza nemmeno ricorrere al cracking, usando una benedetta
+fotocopiatrice! Non mi hanno nemmeno chiesto i soldi per le fotocopie! ;)
+Ma anche gli autori si sono evoluti... ricordo di aver letto su una rivista
+di video giochi parecchi anni fa (sto parlando di Dicembre 1993, forse era
+PC-Game Parade ed il gioco di cui si trattava era recensito alla fine...
+un gioco tattico/strategico!! Quanti ricordi!) che gli autori temendo
+che il loro software fosse illegalmente duplicato avevano avuto la bella
+idea di inserire i codici con un particolare inchiostro che spesso nemmeno
+si vedeva! Ma non hanno mai sentito parlare di cracking ?
+
+Questo tipo di protezioni, quelle dove viene semplicemente richiesta
+una password presente su un libro di istruzioni ä troppo facile! Troverete
+il codice che vi interesserÖ molto vicino alla routine che vi chiede la
+password.
+
+Andiamo avanti, seconda protezione... il numero seriale.
+Adattati oggi giorno dalla maggior parte dei software shareware ed anche
+commerciali (Microsoft in testa!) sono basati sull'immissione di una
+particolare sequenza di codici alfanumerici che superano i controlli del
+programma. Spesso dovete sapere perï che il software si limita a fare il
+controllo solo all'immissione, ovvero una volta che vi ringrazierÖ per
+l'acquisto del software o per aver scelto la strada della legalitÖ non
+se ne fregheranno ben minimamente di verificare successivamente se tale
+codice ä valido... e come esempio di questa categoria di software house
+ritroviamo sempre Microsoft!! Si sa che chi ha i soldi non se ne puï fregar
+di meno che perda una parte dei guadagni... quanto sono buoni alla Microsoft!
+Non crediate comunque che con questo tipo di protezioni potrete avere
+vita facile! Spesso avrete raggiunto il mitico messaggio che gentilmente
+vi ringrazia per la registrazione... ma al riavvio vi comparirÖ un brutto
+messaggio che vi dice... giovanotto vedi che qui c'e' qualcosa che non va...
+vedi cosa devi fare!!! O crackate questo ulteriore controllo o incominciate
+a porvi qualche domanda... dove viene controllato il codice ? Le routine
+di controllo sono state riutilizzate in pió punti dal programmatore ?
+Come sa il programma se il codice inserito ä pió o meno valido ?
+In questo genere di protezioni non comparirÖ mai un codice esatto, ma bensç
+solo controlli e salti condizionali, sui quali voi dovrete interagire e
+quando dico interagire mi riferisco alla mitica istruzione NOP o ai JMP
+forzati!
+
+L'evoluzione del numero seriale, il programma che ci chiede di inserire
+anche un nome e altri dati fittizi! Il pió diffuso meccanismo di protezione!
+Voi comunicate i vostri dati agli autori e quelli nel breve periodo vi
+contatteranno comunicandovi il vostro seriale di registrazione, ovviamente
+previo versamente di una somma pattuita unilateralmente dall'autore il quale
+stabilisce il prezzo del proprio prodotto (ma ho studiato a scuola che il
+prezzo si deve stabilire tra i due contraenti... strano... eppure nella vita
+queste cazzate di economia e diritto commerciale non sono valide!!). Questo
+ä il paradiso dei cosidetti keymaker! La comprensione di questi meccanismi
+di protezione ä teoricamente semplice... step e trace affinchä non compare
+il codice esatto di registrazione! Ma dove cavolo compare ? I novelli
+cracker spesso utilizzano il Windows Disassembler sperando di trovare la
+bella frase "The registration key is invalid" e di poter risalire al jump
+che manda a quel paese la protezione... ma la vita ä dura e non funziona
+cosç! In questa categoria di software dovrete procurarvi un codice esatto,
+pena dover crackare in molti punti il programma, infatti non si limita
+ad eseguire il controllo alla registrazione, ma all'avvio pure e chissÖ
+se in ogni routine del programma! Spesso molti software ci chiedono di
+registrarci inserendo un numero, quindi ci aspetteremo di trovare il codice
+di registrazione esatto prima o poi confrontato con il nostro codice!
+Punto debole di questa forma di registrazione ä infatti la routine che
+obbliga l'autore a ricalcolare sulla nostra macchina il codice legato ai
+dati forniti al software... e quindi questo significa che prima o poi
+in qualche frammento di codice, anche se per un piccolo istante (diciamo
+un 4 o 5 istruzioni al massimo...) ci sarÖ il codice esatto che verrÖ
+gentilmente confrontato con il nostro!! Ma in taluni casi non viene chiesto
+un codice numerico ma bensç una sequenza alfanumerica di dati... che
+comunque troveremo puntata da qualche registro (magari ESI o EDI chi lo
+sa!! Tutto sta nel compilatore!!!) e bella decifrata nella nostra memoria!
+Come fare perï il keymaker del programma ? Sembrerebbe una operazione
+difficile, ma se avete capito il meccanismo di generazione del codice
+non vi basta altro che riprodurre esternamente tale ciclo. Ma come si fa
+a comprendere il ciclo ? Certo ä pió facile capire un segmento di codice
+del genere:
+
+i=i+1;
+
+piuttosto che
+INC EAX
+
+o ADD EAX, 1
+
+o PUSH EAX
+INC DWORD PTR SS:[ESP+0]
+POP EAX
+
+o chissÖ quante altre combinazioni! Magari usando altri registri! o altre
+locazioni di memoria al posto dello stack!
+
+Dovrete prendere appunti durante l'esecuzione passo passo o il trace del
+programma, per capire cosa faccia e soprattutto con che cosa interagisca
+i dati passategli! Credete a me, scrivere un keymaker spesso ä pió semplice
+di quanto si creda... io stesso fino a Luglio del 1999 stavo alla larga
+dai programmi che usavano questo meccanismo... ma poi invecchiando si
+capisce molto di pió!! Spero che riuscirete a fare il primo keymaker
+nell'arco di poco tempo!!!
+
+Capitolo 12 - Le protezioni hardware
+
+La prima forma di protezione hardware utilizzata nel mercato del software
+ä stato il floppy disk induplicabile. Non che il floppy era induplicabile,
+ma i settori del floppy venivano realmente danneggiati e a menocchä non
+si disponeva di un meccanismo per distruggerli il programma era in grado
+di leggerli correttamente all'avvio e pertanto rifiutava l'esecuzione.
+Questo meccanismo di protezione purtroppo ä poco efficace, infatti il software
+si limita solo a verificare la presenza di tale floppy e spesso la routine
+che fa questo lavoro si viene a ritrovare in una sub-routine dell'applicativo
+stesso, col risultato che ben potrete immaginare, all'uscita di tale
+sub-routine troveremo nel codice principale qualche istruzione CMP, che ci
+porterÖ tramite salti condizionali all'uscita in caso di fallimento o
+all'esecuzione del programma vero e proprio. Ciï che oggi invece sta
+incominciando a diventare fastidioso ä il fatto che molto spesso e volentieri
+gli eseguibili degli applicativi protetti vengono spesso criptati o compressi
+con uno dei tanti software esistenti in commercio. Il problema diventa
+irrelevante se tale sistema viene applicato a software scritto per
+l'architettura Win32 e successivi, dove questi strumenti per garantire la
+compatibilitÖ con il sistema possono al massimo accorporare il nome delle
+funzioni, ma sono tuttavia costrette a rendere ben visibili al loader
+le nomi delle API utilizzate dal software originale per un corretto
+funzionamento ;), ma bisogna sempre ricostruire l'eseguibile aggiungendo
+il codice decompresso o decriptato e annullare gli effetti devastatori
+del crypter o del compresso stesso. Abbiamo numerosi esempi sulla rete di
+queste tecniche di programmazione avanzata, anche in lingua italiana ne
+troverete parecchie, sul sito dei Ringz3r0 all'url http://ringzer0.cjb.net
+ma il problema principale resta l'ambiente DOS, dove purtroppo non abbiamo
+un grande aiuto, dove infatti accedere alla memoria e fare quello che ci
+pare e piace non diventa un problema! Qui se avrete a che fare con eseguibili
+di questo genere, incrociate le dita affinchä riusciate a trovare un software
+che si occupi di riportarli alla forma originale, altrimenti sarete costretti
+ad inventare stratagemmi per poter patchare il software. Io stesso ho dovuto
+scrivere un software TSR per eliminare una schifosa protezione di floppy
+disk, ma tutto questo ä stato possibile in quanti in prossimitÖ di questa
+protezione veniva eseguito una funzione specifica dell'INT 21, dove ho
+sistemato la mia patch. Questa premessa ä stata solo fatta per darvi
+un'idea di cosa vi toccherÖ affrontare quando avrete a che fare con
+del software protetto. Avrete a che fare con software che non ne vorrÖ di
+saper partire se non trova un CD nel lettore, software in grado di distinguere
+se un CD ä originale o meno (Securom, Safedisc, Laserlock, CD COPS), software
+che ricorre a chiavi hardware collegate in locale o in remoto, software
+che andrÖ a verificare la data e l'ora del sistema! Questo genere di
+protezioni purtroppo oggi sono usate in molti software, dato il basso
+prezzo che oggi viene chiesto ai programmatori per proteggere il proprio
+software! :(
+
+I CD-ROM
+
+Chi di voi non ha in casa un videogioco su CD-Rom ? Se ä originale perchä
+non provate a duplicarlo ? E perchä non provate successivamente ad avviare
+tale videogioco col disco duplicato ? Nel migliore dei casi vi informerÖ
+che non troverÖ il disco o nel peggiore dei casi non rilasciarÖ nessun
+messaggio. In tal caso non resta che crackare il software, o tentare di
+annullare l'effetto del CD-Check. Ma il controllo del CD non serve altro
+che ad avviare un'altra sezione della protezione, quella che ripristinerÖ
+in memoria il file originale, del quale voi dovrete salvare il codice su
+disco e aggiungerlo nell'eseguibile, riaggiornare tutte le informazioni
+contenute negli header e successivamente potrete intervenire sulla protezione
+vera e propria. Oggi neanche questo ä possibile fare se non siete in
+possesso di una copia originale del software... ma non ä questo il tutorial
+che vi deve imparare ad eliminare questo tipo di protezioni, in quanto
+il sottoscritto ä ancora alla ricerca di un titolo originale su cui poter
+fare un pï di esperienza (che colpa ne ho io se ho solo materiale duplicato
+in casa ??).
+
+LE CHIAVI HARDWARE
+
+Un'altro gioiello... un'altro genere di battaglia. La potenza di una chiave
+hardware dipende in modo direttamente proporzionale alla stupiditÖ dell'autore
+del software ! Infatti se l'autore ä uno stupido, per voi sarÖ semplice
+rimuovere un controllo del genere o bypassare tale tipo di operazione!
+Ma se l'autore non ä stupido... siamo messi in una brutta situazione. Tantopió
+che oggi societÖ quali Aladdin, Eutron e chi ne abbia ne metta hanno avuto
+la magnifica idea di immettere in commercio chiavi a basso costo per non
+influenzare il costo dell'applicativo finale (sto parlando di un massimo costo
+di 20.000 lire per chiave hardware su cui vengono memorizzate parecchie
+informazioni che saranno richieste dal software a run-time). Anche se queste
+chiavi hanno un costo decisamente basso (infatti ve la recapitano a casa
+gratis completa di toolkit per la maggior parte dei compilatori e linguaggi
+diffusi se pagate le sole spese di spedizione!!!) vi daranno parecchio filo
+da torcere. Infatti se il programmatore sfrutterÖ il toolkit di cui viene
+fornito esso avrÖ a disposizione strumenti che controllerano in modo casuale
+la chiave, e quindi voi non saprete dove mettere le mani :(
+Ora vi faccio un esempio pratico di questo tipo di protezione. Sono in
+possesso di un software il cui costo nel nostro paese non passa certamente
+indifferente, sto parlando di Archicad 6 il cui prezzo finale si aggira
+intorno ai 14milioni + IVA 20%. Questo software ä affiancato da una chiave
+HASP v4 da collegare sulla porta parallela, e tanto per incominciare il
+programma ä stato convertito dall'ambiente MAC, ed usa una propria libreria
+per disegnare le finestre e tutto ciï che compare a video... prima gran
+rottura di palle! L'eseguibile non ä di dimensioni piccole, circa 7mb di
+codice che sul mio computer ha richiesto circa 3 ore per essere disassemblato
+da IDA 3.8!!
+Ora come procedereste per crackare questo software ?
+Bene... dato che la chiave ä montata su una porta parallela io imposterei
+con SoftICE un bel breakpoint sull'I/O di questa porta... non funziona
+niente.. solita box d'errore indicante l'assenza della chiave! Come fare ?
+Dato che i tempi di controllo sono un pï lunghetti... circa 3 secondi io
+interrompo l'esecuzione del software con SoftICE decidendo di eseguire
+passo passo il software... finchä mi ritrovo con una benedetta api di Windows
+che viene chiamata per interagire con questa porta! DeviceIOControl...
+dopo circa mezzora riesco ad uscire eseguendo trace e step di molto codice
+dalla sub-routine che si occupa di dialogare con la chiave e mi ritrovo
+in uno dei tanti segmenti giÖ visti di codice, cmp eax, 01 seguito dal
+solito jz o jnz che in caso di assenza vi catapulta fuori dal programma!
+Rimosso questo controllo mando in esecuzione il programma, e mentre ci disegno
+un pochettino SoftICE si brekka di nuovo, ancora maledettamente su quella
+benedetta API DeviceIOControl ma stavolta tutte le prove effettuate nel
+tentativo di arginare gli effetti devastanti di questo controllo sono falliti!
+Mi ritrovo con box contenenti messaggi d'errore che mi chiedono di salvare
+il lavoro in quanto si ä verificato un maledetto errore interno e quindi si
+deve riavviare il software! Box che mi indicano che il software non sa cosa
+fare, box che mi indicano chiaro e tondo che manca la chiave e nel peggiore
+dei casi blocchi dell'applicativo in quanto non sa cosa deve farsene di
+quell'evento inserito nella pila dei comandi!! ;( Ho tentato di rintracciare
+le routine che si servono della maledetta routine contenente DeviceIOControl
+ma con scarso successo... L'eseguibile ä vasto, il file disassemblato non ä
+di meno... circa 56megabyte di codice assembly compresso!!! Dove ho sbagliato?
+Semplice... nel metodo usato per effettuare il cracking di questo applicativo!
+Io mi sono ostinato a trovare una soluzione dopo che ä stato effettuato il
+dialogo con la chiave ma non ho mai pensato ( e successivamente mai avuto
+tempo ) di rintracciare la funzione che decideva se era l'ora o meno di
+interrogare la chiave!! Posseggo due diversi crack, uno di questi che
+va a patchare 3 soli byte, credo il migliore! mentre l'altro ne va a modificare
+un bel pï!! Siamo forse sull'ordine dei 200byte.
+
+Questo ä solo un esempio... ma come avrete ben capito esistono 1000 modi
+diversi per ottenere un solo risultato... ed il fine giustifica i mezzi,
+il fatto sta che entrambi i crack permettono di usare quel software!!
+
+Capitolo 13 - Struttura di un sistema operativo
+
+Cosa ä un sistema operativo ? Si definisce sistema operativo un ambiente
+che interagisce tra l'utente e la macchina, il quale si occupa di dialogare
+con l'hardware, di assicurarsi che questo sia utilizzabile dall'utente
+e sopratutto quello di fornire un insieme di funzioni per lo sviluppatore
+di software in modo che non si debba preoccupare delle caratteristiche
+della macchina. Il primo sistema operativo che ebbe un certo successo ä
+stato il CP/M, creato per poter funzionare su una macchina e per far
+girare un solo applicativo alla volta. Da questo sistema operativo si
+sono evoluti tutti quei sistemi operativi che vengono contrassegnati con
+la sigla di DOS (sistema operativo a dischi). Accanto a questa categoria
+di sistemi operativi troviamo un sistema abbastanza robusto, giÖ sin dalla
+sua nascita pensato e sviluppato per poter funzionare in ambienti di rete,
+Unix. All'inizio della storia dei Personal Computer la IBM che introdusse
+il primo PC sul mercato ebbe la bella idea di assumere una societÖ perchä
+dotasse quella macchina di un sistema operativo e di un ambiente per la
+programmazione BASIC e guarda caso la scelta cadde su una societÖ che oggi
+ä diventata la pió ricca e che rischia in queste ore di perdere tutto per
+uno stupido applicativo... stiamo parlando naturalmente di Microsoft!
+Microsoft acquistï per la popolare cifra di 40.000 dollari tra la fine
+degli anni 70 e i primi anni 80 un sistema operativo chiamato QDOS da una
+societÖ di Seattle, e successivamente ricorretto il sistema operativo
+garantendo una compatibilitÖ col CP/M che giÖ a quei tempi aveva ottenuto
+un discreto successo lo rivendette a IBM! Successivamente come ben sapete
+il personal computer pensato da IBM rilasciï la documentazione tecnica
+sull'architettura della macchina e questo permise a terze societÖ di
+produrre un loro PC-compatibile che chiesero alla stessa Microsoft di
+fornire un sistema operativo per questi processori. Ecco perchä abbiamo
+avuto anche il Compaq DOS e altre scemenze. Uno dei primi DOS abbastanza
+stabili ä stato MS-DOS 3.3, il primo ad avere un supporto per i dischi
+di un massimo di 32Mb (il limite imposto dalla FAT12 usata a quei tempi).
+Il destino volle che a quei tempi la INTEL decise di introdurre sul mercato
+un processore dalle caratteristiche innovative, ma pur restando all'architettura
+a 16bit, le cpu 80286 che garantivano un supporto fino a 16mb di ram!!!
+A quei tempi i rapporti tra IBM e Microsoft erano ottimi e le due societÖ
+si riunirono per creare un nuovo sistema operativo, l'OS/2, ma che ben presto
+fu motivo di discordia tra IBM e Microsoft perchä quest'ultima non voleva
+abbandonare il mercato del DOS. Infatti come la storia ci insegna IBM continuï
+a produrre il suo OS/2 sino alla Warp 4.0 (l'ultima versione del quale io
+abbia notizia!! 1995 circa...) e Microsoft incominciï a introdurre sul mercato
+un ambiente nuovo... il Windows. Fino al Windows 3.0 non era un gran che...
+offriva poca memoria e sopratutto faceva pena!! Le caratteristiche del Windows 3.1
+che richiedeva almeno 2mb di ram per poter girare, il supporto per la memoria
+virtuale, o meglio per la pió gettonata modalitÖ protetta, decretarono per
+questo ambiente un ottimo successo. La quantitÖ di compilatori e di software
+scritto usando come piattaforma Windows era diventata enorme, fino ad arrivare
+alla fine del 1993, quando la Microsoft incominciï a parlare di un nuovo s.o.
+dotato di interfaccia grafica che doveva vedere la luce per il 1995. Il nuovo
+s.o. giunto sul mercato statunitense alla fine di agosto e in quello europeo
+a inizio settembre ebbe un immediato successo. Infatti oggi quasi tutti le
+macchine vendute vengono dotate di questo sistema operativo o della versione
+fixata dagli errori (la 98... che di sicuro non ne ä priva!).
+Analizziamo come si deve comportare un sistema operativo da quando il bios
+passa il controllo.
+Innanzitutto l'inizio del sistema operativo si ha nel BOOT SECTOR il quale
+ha come compito quello di caricare dalla partizione o dal disco i file di
+sistema, ovvero quei file che si devono preoccupare di inizializzare il
+sistema e di fornire un'interfaccia di API comune a tutte le applicazione.
+Dobbiamo perï sapere che il BOOT SECTOR non ricerca i file di sistema, bensç
+si limita a leggere dei settori assoluti nel quale presume che vi siano questi
+file e a cui trasferisce il controllo ultimato il caricamento. Nel caso in cui
+questi file dovrebbero essere cancellati.. ma non sovrascritti il s.o.
+parte lo stesso... anche se vi dirÖ che i file sono assenti. I file di sistema
+contengono le API per dialogare con l'hardware pió comune, floppy disk driver,
+controller eide, controller scsi, scheda grafica, controller lpt e rcs232,
+timer, gestione della memoria, supporto alla memoria virtuale, e una cosa
+importante... preparazione all'esecuzione in modalitÖ protetta del software.
+A priori escludiamo il DOS, che non offriva nessun supporto per la modalitÖ
+protetta se non tramite dei DOS Extender, e tantomeno per la gestione della
+memoria (HIMEM.SYS ed EMM386.EXE vi dicono qualcosa ? no.. sono questi che
+si preoccupano di gestire la memoria!). Un'altra caratteristica di un sistema
+operativo moderno ä quello di offrire un MULTITASKING reale. Ma come ben
+sappiamo il MULTITASKING reale puï essere offerto soltanto in presenza di
+pió microprocessori. Quindi ficcatevi bene in testa che qualsiasi O.S.
+sia Win9x, WinNT, BeOS, Linux, Unix, MMURTL non possono eseguire contemporaneamente
+pió processi (anche se nella lista dei TASK loro vi diranno che sono in
+esecuzione pió programmi... ma vadano a quel paese!!) con un solo processore!!
+Abbiamo un vero MULTITASKING se abbiamo schede madri con pió processori, ma
+in tal caso scordatevi Win9x che puï gestire un solo processore!!! Quindi
+se dovete installare un solido s.o. scegliete un qualsiasi altro sistema...
+Altra caratteristica di un s.o. ä data dalla portatilitÖ.. ovvero la capacitÖ
+di essere riadattato ad un'altra architettura con minime modifiche di codice
+(solo quelle legate strettamente all'architettura e alla gestione della memoria
+e di alcuni componenti hardware). Quindi se un giorno dovreste scegliere di
+scrivere un s.o. andate sul sicuro se scegliete il C o il C++ in quanto esiste
+praticamente un compilatore per ogni s.o. esistente. Un'altra cosa di cui
+dobbiamo parlare ä lo scheduler, ovvero quel codice che si occupa di gestire
+in una architettura i processi che devono essere eseguiti. Si puï determinare
+di eseguire per un n periodo di tempo un task, dopodichä passare per n tempo
+il controllo ad un'altra applicazione. Questo sempre in presenza di un solo
+processore, ma anche di pió processori. Lo scheduler deve rendersi conto quando
+un'applicazione ä in attesa affinchä si verifichi un determinato evento e in
+quel caso deve passare il controllo alle altre applicazioni. Bisogna perï
+ricordarsi di non far si che lo scheduler monipolizzi l'intero sistema...
+lo scheduler deve essere piccolo, efficace e sopratutto non deve rompere i
+coglioni ogni 100 cicli di macchina... Vi immaginate uno scheduler che
+si riprendere il controllo ogni millisecondo?? Per dare un'impressione di
+multitasking... darebbe invece l'impressione di un vecchio 86!! Per qualsiasi
+approfondimento vi rimando ad un qualche buon libro... quello che ä presente
+all'inizio di questo documento ä un esempio di programmazione di un sistema
+operativo per 386 di tipo testuale... assai pió complicato di LINUX. In ogni
+caso se siete interessati ad un sistema operativo... e sopratutto a come ä
+composto... provate a cercare sulla rete le seguenti parole:
+ReactOS, POSIX, FREEDOS e anche linux... perï un vecchio codice sorgente...
+non il nuovo che ä troppo vasto.
+
+Capitolo 14 - Windows 9x ed NT
+
+Come funzionano ? Escluso il fatto che sono entrambi dotati di una interfaccia
+grafica... come funziona il nucleo del sistema ? Codesti sistemi operativi
+mettono a disposizione dell'utente/programmatore una serie pió che sufficiente
+di funzioni... tutte dichiarate in stile C e dotate di un bel nome!
+Innanzitutto per programmare in linguaggio assembly in ambiente Windows dovrete
+procurarvi il Win32 API... una piccola guida di circa 12mb contenenti tutte
+le api e i parametri in linguaggio C. Dobbiamo sapere perï che in linguaggio
+C i parametri alle funzioni vengono passate dall'ultimo al primo...
+Esempio:
+
+printf("SEGMENT:OFFSET %4X:%8X", FP_SEG(data), FP_OFF(data));
+
+viene tradotto dal compilatore in una forma seguente
+
+CALL FP_OFF      ; Ottiene l'offset
+PUSH EAX         ; 1. Passaggio OFFSET ... ultimo parametro
+CALL FP_SEG      ; Ottiene il segmento
+PUSH EAX         ; 2. Passaggio SEGMENTO, secondo parametro
+PUSH blablabla   ; 3. Passaggio stringa formattazione, primo parametro
+CALL _printf     ; Chiama la funzione
+
+quindi, se implementate un programmino, e per il passaggio dei parametri
+usate lo stack piuttosto che INVOKE nomefunzione,parametri come fa Microsoft
+con il suo compilatore MASM ricordatevi di partire da destra!
+
+Quali sono le api che Windows ci mette a disposizione ? Le pió importanti
+e basilari API sono contenuti nel KERNEL32, e principalmente servono per
+la gestione dei file, per la memoria, per i task... poi abbiamo USER32 che
+si occupa dell'interfaccia grafica, GDI32 e tutto il resto.
+Per programmare... io vi rimando al sito di Iczelion, che di sicuro ne sa pió
+di me e di voi messi assieme. 
+
+Conclusioni
+Bene sono arrivato alle conclusioni, dopo ben 17 giorni! Non crediate che ci
+abbia passato chissÖ cosa su questo tutorial, alcune sezioni forse non sono
+implementate a dovere, ho tagliato molto di quello che dovevo scrivere...
+avevo previsto una dimensione del tutorial sui 200kb o molto di pió... ma non
+ho tempo e voglia di scrivere! Alcuni capitoli sono stati rimossi... infatti
+ho preso una decisione! Questo ä il primo ed ultimo tutorial che scrivo per
+principianti!!! Semmai scriverï qualche altro tutorial (come a volte faccio
+per Newbies) mi limiterï solo all'argomento trattato e quelli che lo dovranno
+leggere dovranno sapere pió di quanto io ho scritto qui.
+Ringrazio Ritz che si era offerto di leggerlo... credo che gli sia passata la
+voglia! Lo consegno a voi cosç come ä... non mi assumo nessuna responsabilitÖ,
+non ne voglio pió sentire di questo maledetto file!!! Del resto io ho avuto
+come maestro un vecchio file di testo che trattava di OPCODE e ASSEMBLY...
+il resto l'ho imparato da me.
+
+
+
