@@ -1,0 +1,2840 @@
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  LINGUAGGIO C
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       33
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                                  LINGUAGGIO C
+
+
+        Vediamo  ora  di trattare la sintassi del  linguaggio  includendo 
+        alcune  funzioni  che ritroviamo nelle librerie  del  compilatore 
+        Microsoft.
+        Il  discorso,  se  sono stati seguiti i capitoli  riguardanti  la 
+        programmazione  strutturata,  sara' abbastanza semplice in quanto 
+        gran  parte di quello che verra' trattato e' gia' stato visto  in 
+        questi ultimi. 
+        Il  linguaggio  C,   come  gia'  accennato  precedentemente,  non 
+        possiede  funzioni di I/O e quindi qualsiasi compito svolto  deve 
+        essere  eseguito  mediante routine scritte con  le  poche  parole 
+        chiave del linguaggio stesso.
+        Fortunatamente  molte funzioni che assolvono compiti  particolari 
+        le   ritroviamo  universalmente  implementate  all'interno  delle 
+        librerie fornite con i vari compilatori.
+        I  compilatori come il Microsoft ne possiedono centinaia anche se 
+        molte  hanno  lo  svantaggio di  rendere  il  programma  hardware 
+        dipendente.
+        Nelle  ultime versioni del compilatore sono state inserite  molte 
+        funzioni comuni a quelle del sistema operativo Xenix.
+        Infatti  anche in quest'ultimo ritroviamo un sistema di  sviluppo 
+        per software in linguaggio C per ambiente MS DOS.
+        Per  la creazione di alcune funzioni quali quelle riguardanti  la 
+        gestione degli attributi video,  il posizionamento del cursore  e 
+        altre  di  questo tipo,  possiamo utilizzare sequenze tipiche  di 
+        escape.
+        Purtroppo  anche  queste rendono incompatibile il  programma  con 
+        altri sistemi non MS DOS.
+        D'altra parte lo scopo di questo volume non e' quello di mostrare 
+        la via per la scrittura di software portatile ma,  al  contrario, 
+        quello di insegnare il metodo di utilizzo e di sfruttamento delle 
+        risorse  hardware  del  sistema MS DOS mediante l'utilizzo  e  la 
+        modifica di vettori di interruzione particolari di quest'ultimo.
+        E'  questo particolarmente dedicato alle persone  che  sviluppano 
+        gia'  software  in ambiente Dos e che vogliono  per  motivi  vari 
+        avvicinarsi alle tecniche di programmazione a basso livello senza 
+        necessariamente utilizzare linguaggi come l'assembler.
+        Il   linguaggio  C  possiede  in  questo  settore  una   notevole 
+        potenzialita'  dimostrata  dai  numerosi  pacchetti  commerciali, 
+        quali Wordstar (tm), presenti in circolazione.
+        Nato dall'esigenza di essere utilizzato dai soli ideatori, Dennis 
+        M.   Ritchie  e  Brian  W.   Kernigham,  non  possiede  rigidezze 
+        sintattiche o semantiche.
+        Visto  che  siamo  in  argomento  vi  ricordo  che  la  guida  di 
+        riferimento del linguaggio e' quella scritta appunto da Kernigham 
+        e Ritchie intitolata "Linguaggio C" ed edita in Italia dal gruppo 
+        editoriale Jackson.
+
+
+
+
+
+
+                                       34
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                         Organizzazione del compilatore
+
+
+        Una   parte  molto  importante  per  acquisire  le  tecniche   di 
+        programmazione  in  un certo linguaggio e' quella di disporre  di 
+        una macchina e di un compilatore adatto per abituarsi a "parlare" 
+        con questo.
+        La  cosa  da  fare  prima di iniziare a compilare  e'  quella  di 
+        organizzare  i  programmi  e i files  che  compongono  il  vostro 
+        compilatore.
+        Il settaggio che vi proporro' e' relativo al Microsoft C Compiler 
+        che,  come ho gia' detto,  e' quello a cui mi riferiro' in questo 
+        testo.
+        Il  sorgente  del  vostro  programma verra'  redato  mediante  un 
+        wordprocessor  del  tipo  di Wordstar e verra'  salvato  come  un 
+        normale testo ASCII.
+        Personalmente  consiglio l'uso di una versione per MS DOS  di  un 
+        editor  di  Unix  e precisamente VI in quanto  possiede  funzioni 
+        abbastanza   utili  per  i  controlli  dei  bilanciamenti   delle 
+        parentesi e altre funzioni utili per la redazione di programmi in 
+        linguaggio C.
+        Una  volta redato il programma in sorgente ASCII  bisogna  creare 
+        mediante il compilatore il codice rilocabile.
+        Questo si esegue mediante MSC.EXE oppure con CL.EXE.
+        Vedremo  avanti gli switch che potremo utilizzare con questi  per 
+        ottenere  funzioni quali l'ottimizzazione del codice in  funzione 
+        dello  spazio oppure del tempo di esecuzione e per altre opzioni.
+        Il  compilatore viene fornito con molte funzioni in libreria  che 
+        noi potremo richiamare dai nostri programmi.
+        Il  codice  oggetto  (file  .OBJ) non  e'  eseguibile  in  quanto 
+        necessita  per  esserlo  del  collegamento  con  le  funzioni  in 
+        libreria che esso richiama.
+        Questa funzione viene svolta dal linker.
+        Se  nella  compilazione  abbiamo  utilizzato CL  questa  fase  e' 
+        eseguita automaticamente da questo.
+        L'unico comando che dovremo dare e'
+
+                                C> CL NOMEFILE.C
+
+        Nel caso invece che abbiamo utilizzato MSC con il comando
+
+                                C> MSC NOMEFILE.C
+
+        dovremo ancora eseguire la fase di link con
+
+                              C> LINK NOMEFILE.OBJ;
+
+        La  disposizione  dei  vari files  dipende  dalla  configurazione 
+        hardware di cui disponete.
+        Potreste avere due floppy da 360Kbytes oppure un hard disk.
+        Vediamo ora il primo caso.
+
+
+
+
+                                       35
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Dischetto 1
+
+        Create una directory con un nome qualsiasi con il comando DOS  md 
+        ad esempio \BIN e disponetegli dentro i seguenti files.
+
+                MSC.EXE     P0.EXE     P1.EXE    P2.EXE    P3.EXE
+
+        Se   preferite   utilizzare  CL  al  posto  di   MSC   sostituite 
+        quest'ultimo con il primo.
+        Ora  create  un'  altra directory con il nome  che  preferite  ad 
+        esempio \HEADER.
+        All'interno di questa andranno i files che seguono.
+
+             ASSERT.H         CONIO.H        CTYPE.H       DIRECT.H
+                DOS.H         ERRNO.H        FCNTL.H           IO.H
+             MALLOC.H          MATH.H       MEMORY.H      PROCESS.H
+             SEARCH.H        SETJMP.H        SHARE.H       SIGNAL.H
+              STDIO.H        STDLIB.H       STRING.H         TIME.H
+
+        Ora  internamente alla directory \HEADER o come l'avete  chiamata 
+        createne un'altra con nome \SYS.
+        In questa metteteci
+
+            LOCKING.H          STAT.H        TIMEB.H        TYPES.H
+
+
+
+        Dischetto 2
+
+        Create anche in questo una directory con lo stesso nome di quella 
+        presente  sul dischetto 1 in cui avete inserito i file eseguibili 
+        del compilatore.
+        Inserite in questa
+
+                                    LINK.EXE
+
+        Un' altra directory in questo dischetto dovra' contenere i  files 
+        della libreria che intendete utilizzare in funzione al modello di 
+        memoria che desiderate, ad esempio \LIB.
+        Per ora supponiamo che vogliate quello definito SMALL.
+        Inserite i files relativi alle librerie di quest' ultimo e cioe'
+
+                         SLIBC.LIB   SLIBFP.LIB   EM.LIB
+
+        Dopo  aver  eseguito questa sistemazione dovrete creare  un  file 
+        batch in cui inserirete le seguenti istruzioni che hanno lo scopo 
+        ,  mediante  il  settaggio  del  path e di  alcune  variabili  di 
+        sistema,  di informare il compilatore sul percorso da seguire per 
+        trovare i files necessari all'esecuzione del suo compito.
+        Potete  utilizzare per la redazione del .BAT il comando DOS  copy 
+        con nel seguente modo.
+
+
+
+
+                                       36
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                                B>COPY CON START.BAT
+
+                                PATH A:\BIN
+                                SET INCLUDE=A:\HEADER
+                                SET LIB=A:\LIB
+                                SET TMP=B:\
+                                
+                                tasto F6 e Return
+
+        Ora avendo eseguito tutto questo il vostro disco di lavoro  sara' 
+        il B: e dovrete solo inserire il dischetto 1 nel drive A: in fase 
+        di compilazione e il dischetto 2 in fase di link.
+        Nel   caso  che  possediate  invece  un  sistema  a  disco  fisso 
+        l'installazione  sara'  identica  solo che non  avverra'  su  due 
+        dischetti ma solo sull' hard.
+        Createvi  anche una directory per i files temporanei chiamata  ad 
+        esempio \TMP e scrivete il batch precedente nel seguente modo.
+
+                                PATH C:\BIN
+                                SET INCLUDE=C:\HEADER
+                                SET LIB=C:\LIB
+                                SET TMP=C:\TMP
+
+        Prima di compilare lanciatelo.
+        Se disponete di una versione di DOS a partire dalla versione 3.00 
+        potrete  mediante  l'utilizzo  di  VDISK.SYS  crearvi  un   disco 
+        virtuale  in  memoria  e  settare  la  variabile  TMP  su  questo 
+        sveltendo la procedura di compilazione. 
+
+
+                        Errori riportati dal compilatore
+
+
+        Precedentemente  ho  parlato  di VI in quanto  dispone  di  molte 
+        caratteristiche utili per lo sviluppo di programmi C.
+        Una di queste, ed e' importante che il vostro editor la possieda, 
+        e'  la  possibilita' di arrivare ad un certo numero di linea  del 
+        source semplicemente specificandola.
+        Non  per  scoraggiarvi ma difficilmente riuscirete  a  redare  un 
+        programma che in fase di compilazione non dia errori.
+        Questi   possono   essere  di  qualsiasi  tipo,   da  quelli   di 
+        disattenzione come parentesi non bilanciate a quelli derivati dal 
+        cattivo uso di funzioni, variabili e puntatori.
+        Il compilatore Microsoft segnala errori nel seguente modo.
+
+                      main.c(23):Error 45:missing semicolon
+
+        dove   main.c   e'  il  programma  in  cui  ha   riscontrato   un 
+        irregolarita',  (23) e' il numero di linea, 45 il codice d'errore 
+        e l'ultima parte il commento all'errore.
+        Oltre agli errori che costringono il compilatore ad  interrompere 
+        il suo lavoro il Microsoft C emette anche messaggi di Warning.
+
+
+
+                                       37
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Spesso  non  influiscono sul risultato del programma  ma  possono 
+        anche, nel caso opposto, dare luogo a grossi pasticci.
+        Se  durante  la compilazione vi capitera' di veder comparire  una 
+        lunga  fila  di  errori non demoralizzatevi  in  quanto  c'e'  la 
+        possibilita' che dipendano tutti dal primo.
+        In   altre   parole  se  per  caso  esiste  uno   scompenso   nel 
+        bilanciamento  di una parantesi tutto quello che segue sara' agli 
+        occhi del compilatore inesatto.
+        Correggete il primo errore e controllate se il resto e' a posto.
+
+
+                               Sequenze di Escape
+
+
+        Prima  di proseguire con la trattazione del linguaggio vediamo il 
+        significato  di  alcune sequenze di escape tipicamente  usate  in 
+        stringhe  e costanti per rappresentare spazi  bianchi,  caratteri 
+        che possiedono particolari significati e per eseguire dei ritorni 
+        a capo.
+        Queste  sequenze  sono  rappresentate da un backslash  '\'  e  da 
+        sequenze di caratteri.
+
+
+                   Sequenza Escape        Significato
+                   ------------------------------------------
+                         \n               New line
+                         \t               Tab orizzontale
+                         \v               Tab verticale
+                         \b               Backspace
+                         \r               Carriage Return
+                         \f               Form feed
+                         \\               Backslash
+                         \nnn             Carattere ASCII
+                                          in notazione ottale
+                         \xnn             Carattere ASCII
+                                          in notazione esad.
+                         \"               Virgolette
+                         \'               Apostrofo
+
+        Essendo   backslash,   apostrofo  e  virgolette  utilizzati   dal 
+        linguaggio per svariate funzioni,  la possibilita' di utilizzare, 
+        ad  esempio in stampe,  questi caratteri e' data proprio dall'uso 
+        di sequenze di escape.
+        Ad esempio per stampare la stringa 
+                              
+                              questa e' una "prova"
+
+        si dovrebbe utilizzare un comando di stampa nel seguente modo
+
+                       printf("questa e' una \"prova\"");
+
+
+
+
+
+                                       38
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        facendo si che le virgolette in cui e' racchiusa la scritta prova 
+        non  vengano considerati come quelle che segnalano la fine  della 
+        stringa.
+        Altre  sequenze di ESC per la gestione del video e della tastiera 
+        le  vedremo  piu' avanti quando avremo parlato  del  concetto  di 
+        macro.
+        Queste ultime possono essere utilizzate con il supporto dell'ANSI 
+        e  sono  una  valida  alternativa alla  gestione  dell'output  su 
+        schermo  mediante l'utilizzo di interrupt del BIOS o mediante  la 
+        scrittura diretta in memoria.
+
+
+                                    Commenti
+
+
+        Una delle caratteristiche migliori di un programma strutturato e' 
+        in  genere  la  comprensibilita' caratteristica che  puo'  essere 
+        notevolmente  migliorata mediante l'inserimento nel programma  di 
+        linee di commento.
+        Nel  linguaggio C un commento viene considerato una  sequenza  di 
+        caratteri racchiusa tra i simboli /*  e  */.
+        Sull'argomento  abbiamo gia' accennato qualche cosa nei  capitoli 
+        riguardanti la programmazione strutturata.
+        Un esempio di commento e' il seguente
+
+        printf("1 .. Inizializzazione disco");   /* Prima opzione menu */
+
+        Sono anche commenti validi i seguenti
+
+                       /*
+                        * MAIN.C  -  Funzione principale
+                        */
+
+        oppure
+
+                        /******************************
+                         MAIN.C  -  Funzione principale
+                         ******************************/
+
+        Non e' invece valido un commento del genere
+
+                     /* MAIN.C /* programma */ principale */
+
+        Tutti i commenti vengono ignorati dal compilatore.
+
+
+
+
+
+
+
+
+
+
+
+                                       39
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+                                    
+
+                                    Operatori
+
+
+        Possiamo considerare gli operatori come caratteri che specificano 
+        le azioni da compiere sui dati di un programma.
+        I   concetti  sono  uguali  a  quelli  matematici  e  difatti  si 
+        definiscono operandi quelli su cui agiscono gli operatori.
+        Questi   ultimi  possiedono  una  priorita'  che  stabilisce   la 
+        precedenza sul modo in cui vengono valutate le espressioni.
+        Le parentesi garantiscono la valutazione nell'ordine desiderato.
+        Ad esempio:
+
+                     2 * 8 + 2   e' diverso da  2 * (8 + 2)
+
+        Gli  operatori che abbiamo a disposizione in linguaggio C sono  i 
+        seguenti.
+
+        Operatore              Nome
+        -----------------------------------------------------------------
+        !                      NOT o negazione
+        +                      Addizione
+        -                      Sottrazione
+        *                      Moltiplicazione
+        /                      Divisione
+        %                      Modulo
+        ~                      Complemento ad uno
+        <<                     Shift a sinistra
+        >>                     Shift a destra
+        <                      Minore di
+        >                      Maggiore di
+        <=                     Minore uguale di
+        >=                     Maggiore uguale di
+        ==                     Uguaglianza
+        !=                     Diverso
+        &                      AND  su bit, indirizzo di
+        |                      OR  su bit
+        &&                     AND logico
+        ||                     OR logico
+        ++                     Incremento
+        --                     Decremento
+        =                      Assegnazione
+
+        Oltre  a  questi vengono considerati tra gli  operatori  anche  i 
+        seguenti  del  cui significato abbiamo gia' parlato nei  capitoli 
+        riguardanti la programmazione strutturata.
+
+                  +=   -=   *=   /=   %=   <<=   >>=   &=   |=
+
+        Riporto  solo  un  esempio d'uso di quest'ultimi  allo  scopo  di 
+        rinfrescare la memoria.
+
+                          A += B  equivale a  A = A + B      
+         
+
+
+                                       40
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                                  Parole chiave
+
+
+        Vediamo  un elenco delle parole chiave del linguaggio C  mediante 
+        le quali possono essere create le varie funzioni.
+        Queste conservano per il linguaggio significati particolari e non 
+        possono essere utilizzate in altro modo.
+
+                   int               char               float
+                   double            struct             union
+                   long              short              unsigned
+                   auto              extern             register
+                   typedef           static             goto
+                   return            sizeof             break
+                   continue          if                 else
+                   for               do                 while
+                   switch            case               default
+         
+
+                                    Variabili
+
+
+        Alcune  delle  parole chiave viste corrispondono ai vari tipi  di 
+        variabili  ammesse dal linguaggio C.
+        Abbiamo gia' parlato precedentemente sul significato di "tipo".
+        Le variabili dichiarate con int,  ossia come  interi,  contengono 
+        valori numerici contenuti in due byte.
+        Di  questi  due byte,  16 bit,  15 bit sono riservati  al  valore 
+        mentre il sedicesimo rappresenta il segno.
+        Questo fa si che il valore memorizzabile in una variabile int sia 
+        compreso tra -32768 e 32767.
+        Per  superare  questa  limitazione e'  possibile  dichiarare  una 
+        variabile intera come long int .
+        Il  valore assegnabile e' in questo caso compreso tra -2147483648 
+        e 2147483647.
+        Difatti  il  long occupa 4 byte in memoria e quindi il valore  e' 
+        dato da   2^(num bit -1). 
+        Le  variabili char,  int e long int (interi long) non  contengono 
+        parti frazionarie. 
+
+        Es:                      int      alpha;
+                                 long int beta; 
+
+                                 alpha = 127;
+                                 beta  = 64532;
+
+        Il tipo char occupa un solo byte e quindi puo' memorizzare valori 
+        compresi tra -128 e 127.
+        Nel  caso  che  non siamo interessati alla  rappresentazione  dei 
+        valori  negativi,   possiamo  dichiarare  unsigned  il  tipo   di 
+        variabile avendo cosi a disposizione tutti i bit del tipo.
+
+
+
+
+                                       41
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        In questo caso i valori assegnabili diventano i seguenti.
+
+        unsigned char    -   da 0 a 255
+        unsigned int     -   da 0 a 65535
+        unsigned short   -   da 0 a 65535
+        unsigned long    -   da 0 a 4294967295
+
+        Se  nei  nostri programmi dobbiamo fare uso di numeri  frazionari 
+        abbiamo a disposizione due tipi di variabili in virgola mobile  e 
+        precisamente il float e il double.
+        L'occupazione in byte e il valore assegnabile a ciscun tipo  sono 
+        precisamente :
+
+        float  -   4 bytes  da +- 1.701411E-38   a  +- 1.701411E38
+        double -   8 bytes  da +-      1.0E-307  a  +-      1.0E307
+
+        Un tipo particolare di cui non avevamo fatto accenno nei capitoli 
+        precedenti sono i bitfield.
+        Una dichiarazione di un bitfield e' costituita da 
+
+                  specificatore_tipo [identificatore]:costante
+
+        dove lo specificatore e' unsigned e la costante,  che esprime  il 
+        numero di bit, e' un valore non negativo.
+        In alcune funzione spesso occorre eseguire un cast (forzatura) di 
+        un tipo di dato.
+        In  altre  parole  se  un' espressione e' preceduta  da  un  tipo 
+        semplice racchiuso tra parentesi questo viene convertito nel tipo 
+        specificato all'interno di queste.
+        Supponiamo che funzione() richieda un argomento long : 
+
+        int numero;
+        long funzione();
+
+        funzione((long)numero);
+
+        Tra  parentesi  ritroviamo infatti specificato il tipo  long  che 
+        forza il tipo originale di numero.
+        Un  altro  esempio  potrebbe  essere,  nel  caso  che  funzione() 
+        pretenda come argomento un puntatore :
+
+        int numero;
+        long funzione();
+
+        funzione((long *)numero);
+          
+
+
+
+
+
+
+
+
+
+                                       42
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                          Identificatori di variabile
+
+
+        Il  compilatore  accetta  come  nomi  di  variabili  sequenze  di 
+        caratteri composte mediante le seguenti regole.
+        1 .. L'identificatore inizia con una lettera o con un underscore
+        2 .. Puo' contenere solo lettere, numeri e underscore (_)
+        3 .. Le  lettere  maiuscole sono considerate da compilatore  come 
+             diverse da quelle minuscole
+        4 .. Non  possono  essere  uguali  alle parole  chiave  (char  ad 
+             esempio e' una parola chiave)
+        Benche'  siano  accettati come primi caratteri gli underscore  e' 
+        bene  non utilizzarli per non creare confusione con  i  risultati 
+        del compilatore.
+        Come   per   i   commenti,   le  variabili   giocano   un   ruolo 
+        importantissimo  nella  chiarezza  del  programma  ed  e'  quindi 
+        una buona regola utilizzare dei nomi che abbiano attinenza con lo 
+        scopo di queste.
+        Tra due variabili e' buona regola differenziare  l'identificatore 
+        entro  i primi otto caratteri in quanto il compilatore in  genere 
+        pur  accettando  come  nomi di variabile  stringhe  di  qualsiasi 
+        lunghezza, ne considera soltanto i primi otto .
+        Il compilatore Microsoft C ne considera fino a 31.
+        Sono nomi validi di variabili i seguenti:
+
+                       nome      str_per_ctrl     riga_321
+
+
+
+                                    Costanti
+
+
+        Una  costante  e'  un  numero,  un carattere  o  una  stringa  di 
+        caratteri che puo' essere usata come un valore nel programma.
+        Una  costante  non cambia di valore da un esecuzione ad un  altra 
+        del programma.
+        Il  compilatore  sostituira' tutte le occorrenze del  nome  della 
+        costante con il valore ad essa assegnata.
+        Normalmente   delle  costanti  simboliche  vengono  scritte   con 
+        caratteri maiuscoli allo scopo di differenziarle dalle variabili.
+        La direttiva #define si utilizza per definire una costante.
+        Normalmente  sono  poste in testa al programma con  le  direttive 
+        #include di cui parleremo tra poco.
+        Esempi di definizioni di costanti :
+
+                             #define LENBUFFER   512
+                             #define PASSWORD    "programma"
+
+        Come  si sara' notato,  essendo queste direttive al  compilatore, 
+        non necessitano di ; finale.
+        Se  questo  fosse  inserito  allora  verrebbe  incorporato  nella 
+        costante.
+
+
+
+                                       43
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        ATTENZIONE:   non   e'  possibile  all'interno  di  un  programma 
+                      modificare il valore di una costante mediante   una
+                      semplice assegnazione.
+
+        Dopo   le   precedenti  definizioni  risulterebbe   illegale   un 
+        istruzione del genere.
+
+                                 LENBUFFER = 23;
+
+        Nel  caso  che  la definizione di costante sia  relativa  ad  una 
+        stringa, quest'ultima viene racchiusa tra virgolette.
+        Nel  caso  invece  che si tratti di  un  solo  carattere  vengono 
+        utilizzati gli apici '.
+
+                               #define AFFERM  'Y'
+                               #define NEGATO  'N'
+
+              
+
+                            Direttive al compilatore
+
+
+        I  programmi che utilizzano funzioni implementate nelle  librerie 
+        normalmente necessitano di dichiarazioni di funzioni, di costanti 
+        e di macro contenute  nei file di header contrassegnati da .H .
+        Questi   vengono  anche  chiamati  con  il  nome  di  "files   di 
+        intestazione".
+        Un  file  di  inclusione  e'  associato  al  programma   mediante 
+        l'istruzione :
+
+                                    #include
+
+        Le direttive al compilatore devono essere precedute dal carattere 
+        #  e  non  devono  essere  messe  sulla  stessa  linea  di  altre 
+        istruzioni.
+        Ci sono due metodi per includere un file di header nel programma.
+
+                               #include <stdio.h>
+                               #include "stdio.h"
+
+        Il  primo  tipo  specifica che il file di  intestazione  potrebbe 
+        non  essere  presente  nella stessa directory dove  si  trova  il 
+        programma   per  cui  la  ricerca  avviene  in  altre  ubicazioni 
+        standard.
+        In  questo caso il compilatore utilizzerebbe per cercare il  file 
+        di intestazione la variabile INCLUDE che abbiamo settato nel file 
+        visto nel paragrafo relativo all'organizzazione del compilatore.
+        Gli  include  possono  essere nidificati e cioe' in  un  file  di 
+        intestazione potrebbe comparire il richiamo ad un altro.
+        Molte funzioni richiedono piu' files di intestazione.
+        In  questo  caso  potrebbero verificarsi degli errori  dovuti  al 
+        fatto di includere prima uno e poi l'altro non nel dovuto ordine.
+
+
+                                       44
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Infatti se un file di header si allaccia a dichiarazioni presenti 
+        in  un  altro e questo non e' stato  precedentemente  incluso  si 
+        ottengono degli errori di "indefinito".
+        Uno  dei  file  che viene incluso sempre e' appunto  stdio.h  che 
+        contiene  le  definizioni  delle costanti,  macro  e  tipi  delle 
+        routine di IO (input/output).
+        Le parti di programma precedute dal simbolo # sono anche chiamate 
+        direttive al preprocessore.
+        Oltre  alla  dichiarazione  di inclusione e alla  definizione  di 
+        costanti e di macro (#define) ne esistono altre che permettono ad 
+        esempio  di definire tipi particolari di dati o di  eseguire  una 
+        compilazione condizionale.
+        Vediamo la prima.
+
+                            #typedef int double_char
+
+        definisce double_char come sinonimo del tipo int.
+        Una dichiarazione 
+
+                                double_char var;
+
+        e' a questo punto l'equivalente di 
+
+                                    int var;
+
+        Uno  potrebbe  chiedersi il motivo per cui ci si dovrebbe  creare 
+        dei sinonimi a dei tipi che di fatto esistono gia'.
+        Una delle risposte potrebbe essere la leggibilita' del programma, 
+        argomento gia' discusso parlando dei nomi degli identificatori di 
+        variabile e dello scopo dei commenti.
+
+        Qualvolta  esistono  circostanze  per  cui  il  software   creato 
+        potrebbe  girare  su  vari  sistemi  o  sotto  molti  compilatori 
+        esclusivamente cambiando alcune definizioni.
+        Gli enunciati #ifdef e #ifndef permettono di creare "zone" in cui 
+        inserire  codice   vagliato dal compilatore solo in  presenza  di 
+        altre definizioni.
+        Supponiamo  che un programma compilato sotto Microsoft  necessiti 
+        della   dichiarazione   di  una  struttura  stat   mentre   sotto 
+        compilatore Echo 88 di un altra p_stat.
+        La scrittura del programma potrebbe essere :
+
+        #define ???          /* Sostituire con ECH per Echo 88
+                                o con          MSC per Microsoft  */
+
+        #ifdef MSC
+        struct stat m_sca;
+        #endif
+
+        #ifdef ECH
+        struct p_stat m_sca;
+        #endif
+
+
+                                       45
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Il compilatore prenderebbe in considerazione la dichiarazione  di 
+        struttura in base alla definizione effettuata inizialmente.
+        Lo  stesso discorso,  per portare un altro esempio,  e' quello in 
+        cui  alcune parti di codice devono essere utilizzate al posto  di 
+        altre in funzione della macchina sulla quale verra' compilato  il 
+        programma.
+        In questo caso sara' possibile utilizzare :
+
+        #define ???          /* Sostituire con IBM per PC
+                                o con          VAX per VAX 11/780 */
+
+        #ifdef IBM
+        #endif
+
+        #ifdef VAX
+        #endif
+
+        Potrebbe  essere  utilizzata  anche  la  forma  #ifndef  (se  non 
+        definito) per la stesura di costrutti del tipo di quelli visti.
+        Parlando  precedentemente dell'istruzione condizionale if avevamo 
+        visto  che  era possibile fare eseguire una parte  di  codice  in 
+        funzione  dello  stato  di  vero  o di  falso  che  assumeva  una 
+        determinata espressione o variabile.
+        La  parola  else  fatta seguire a una  condizione  if  comportava 
+        l'esecuzione del codice specificato a seguito di questa nel  caso 
+        che la prima risultasse falsa.
+        Tra le direttive al compilatore ritroviamo l'if nella forma :
+
+                                 #if espressione
+
+        e cioe', se e' vera l'espressione allora .......
+        Per tutte e tre le forme viste e' valida la direttiva 
+
+                                      #else
+
+        che  deve essere specificata prima dell' #endif e che mantiene le 
+        stesse caratteristiche di utilizzo viste nei capitoli riguardanti 
+        la programmazione strutturata.        
+        Il  compilatore  Microsoft  C contempla  alcune  estensioni  alla 
+        compilazione condizionale.
+
+                                #if defined(xxx)
+
+        compila le righe seguenti solo se xxx e' definito come simbolo  o 
+        come macro.
+        E' equivalente a #ifdef.
+
+                                #elif espressione
+
+        come dire "else if".
+        In  altre  parole  le  righe seguenti  vengono  compilate  se  la 
+        condizione  di  if precedente risulta falsa e vera  l'espressione 
+        abbinata a #elif.
+
+
+                                       46
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+                               #elif defined(xxx)
+
+        Piu'  o meno risulta simile a #elif solo che qui  la  valutazione 
+        viene  fatta  in  base  al  fatto  che  xxx  sia  stato  definito 
+        precedentemente.
+          
+
+                           Struttura di un programma C
+
+
+        Abbiamo  parlato  abbondantemente  nei  capitoli  riguardanti  la 
+        programmazione   strutturata   sull'  anatomia  di  un  file   di 
+        programma.
+        Sperando  che sia stata abbastanza chiara non perdero'  ulteriore 
+        tempo  se  non  quello  di riportare uno schema  di  un  classico 
+        programma C.
+
+
+                       Files di intestazione e definizioni
+         
+                       Dichiarazione delle variabili
+
+                       Funzione 1
+                       Funzione 2
+                       ........ .
+
+        I  files  di  intestazione  e le definizioni  sono  quelli  visti 
+        precedentemente parlando delle direttive al compilatore.
+        Lo  scopo  delle  dichiarazioni  delle  variabili  esterne   alle 
+        funzioni  lo  approfondiremo  nel paragrafo  successivo  parlando 
+        delle regole di visibilita' di queste.
+        Una funzione in linguaggio C e' da considerarsi come un  capitolo 
+        di un testo in cui si affronta un determinato argomento.
+        In  altre parole e' un unita' di programma che svolge  una  certo 
+        compito.
+        I nomi delle funzioni seguono come regola quella delle variabili. 
+        Una funzione fondamentale che deve esistere in tutti i  programmi 
+        e' quella chiamata main .
+        Un  discorso particolare,  visto gia' nei capitoli riguardanti la 
+        programmazione  strutturata,  sta nel fatto di poter  inserire  o 
+        meno delle determinate funzioni in libreria.
+        In  ogni  caso  il  discorso relativo alla  struttura  ,  che  la 
+        funzione  sia fisicamente scritta nel nostro programma o  che  in 
+        questo compaia solo una chiamata, non cambia.
+        La  convenienza  ad inserire o meno una funzione in libreria  sta 
+        solo  nel  fatto di valutare se questa e'  riutilizzabile  in  un 
+        ambito diverso da quello per cui e' stata scritta inizialmente.
+        Chiaramente  se  la  funzione e' talmente  particolare  da  poter 
+        essere utilizzata solo nel programma che stiamo scrivendo diventa 
+        inutile un suo inserimento in libreria.
+        Un esempio di programma che utilizza due funzioni per gestire due 
+        opzioni presentate da menu e' il seguente.
+
+
+                                       47
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        /*Intestaz.*/  #include <stdio.h>
+
+        /*Fun. main*/  main()
+                       {
+                            int scelta;
+                            printf("1 .. Ordinamento\n");
+                            printf("2 .. Stampa\n");
+                            printf("Scelta : ");
+                                  scelta = getchar();
+                                  if(scelta==1)  ordina();
+                                  if(scelta==2)  stampa();
+                                  .............
+                       }
+
+        /*Fun. 1   */  ordina()
+                       {
+                            .............
+                       }
+
+        /*Fun. 2   */  stampa()
+                       {
+                            .............
+                       }
+
+        Anche  getchar() e printf() sono funzioni che vengono  utilizzate 
+        per  inputare  un carattere e per stampare ma  sono  implementate 
+        nelle librerie del compilatore.
+
+         
+                          Visibilita' di una variabile
+
+
+        Una   variabile  nel  contesto  del  linguaggio  C  puo'   essere 
+        dichiarata esterna oppure interna a una funzione.
+        Una  variabile dichiarata esternamente sara' visibile a tutte  le 
+        funzioni che potranno utilizzarla e modificarla.
+        Nel caso invece di variabili dichiarate interne a una funzione la 
+        visibilita' rimarra' solo nell'ambito di quest' ultima.
+        Il  valore,  delle  variabili interne,  viene resettato tutte  le 
+        volte  che il programma esce dalla funzione stessa e deve  essere 
+        quindi riassegnato al momento del richiamo di quest' ultima.
+        Le  variabili  interne vengono puntate e mantenute per  tutta  la 
+        durata della funzione nello stack.
+        Il  compilatore mantiene di default una certa  dimensione,  circa 
+        2 Kbytes, per questo.
+        Nel  caso  di  utilizzo  di matrici  dichiarate  internamente  di 
+        dimensioni  superiori a tale spazio occorre utilizzare  l'opzione 
+        /STACK del linker per aumentare le dimensioni di questo.
+        In  caso  contrario al momento dell'esecuzione  il  programma  si 
+        blocchera'  segnalando l'errore di stack overflow nell'istante in 
+        cui,  richiamata  la funzione,  tentera' di dimensionare  per  un 
+        vettore o per una matrice uno spazio che non esiste. 
+
+
+                                       48
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Eseguendo  una  dichiarazione di una variabile esterna si  dovra' 
+        porre  attenzione  a  non  dichiarare  con  lo  stesso  nome   di 
+        identificatore una variabile interna magari di tipo diverso.
+        Il  discorso  in  ogni  caso  si evolve nel  momento  in  cui  si 
+        incomincia a parlare di classi di memorizzazione.
+
+
+                                Classe di memoria
+
+
+        Una  variabile  possiede oltre all'identificatore ed  a  un  tipo 
+        anche una classe di memorizzazione.
+        Le variabili,  se non dichiarate altrimenti,  vengono considerate 
+        come automatiche e valgono per queste le regole appena viste.
+        Un  ulteriore  classe di memorizzazione e' costituita  da  quelle 
+        definite  come  statiche per le quali viene allocata una  memoria 
+        privata  nella funzione in cui viene dichiarata.
+        Mentre  una  variabile  auto perde  il  valore  all'uscita  dalla 
+        funzione, la variabile statica lo mantiene inalterato.      
+        Un esempio di dichiarazione
+
+                               static char alpha;
+
+        Nel  caso  in  cui  si  faccia un  ampio  uso  di  una  variabile 
+        automatica esiste la classe di memorizzazione definita register.
+        Questa classe non accetta tutti i tipi ma solo i char,  gli int e 
+        i puntatori che vedremo a suo tempo.
+        Una  dichiarazione di questo tipo fa si che l'allocazione avvenga 
+        in un registro,  ottenendo in questo modo un codice  estremamente 
+        veloce e compatto. 
+        Per  le  variabili register esiste la possibilita' di  richiedere 
+        l'allocazione per sole due variabili per ogni funzione.
+        Richiedere non significa in ogni caso ottenere.
+        Nel  caso  che  non  sia  possibile  ottenere  questa  classe  di 
+        memorizzazione  la  variabile viene trasformata in  una  semplice 
+        variabile automatica.
+        Fate  attenzione che comunque la classe register appartiene  alle 
+        variabili automatiche.
+        Esempio
+
+                             register int variabile;
+
+        L'ultima  classe di memorizzazione e' costituita dalle  variabili 
+        dichiarate come extern.
+        Una  variabile  dichiarata internamente  ad  una  funzione,  come 
+        abbiamo visto precedentemente, viene considerata locale.
+        E'  possibile renderla visibile all'esterno della stessa mediante 
+        una dichiarazione extern.
+
+                              extern char pippo[];
+
+
+
+
+                                       49
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Di  default le variabili dichiarate fuori dalle funzioni  vengono 
+        considerate extern.
+
+
+
+                                    Funzioni
+
+
+        Nei  capitoli  riguardanti la programmazione strutturata  abbiamo 
+        parlato,   a  riguardo  della  modularita'di  un  programma,   di 
+        procedure ovvero di funzioni.
+        Un  altro  accenno  al  concetto di  funzione  lo  abbiamo  visto 
+        parlando della struttura di un programma in C.
+        Vediamo ora di aggiungere qualche cosa a tutto questo.
+        Possiamo intendere come funzione una parte di programma  composta 
+        da   un  nome  identificatore  della  funzione  stessa,   da  una 
+        dichiarazione degli argomenti, se ce ne sono, dalla dichiarazione 
+        delle  variabili  locali  ed infine  dalle  istruzioni  il  tutto 
+        racchiuso  tra  parentesi graffe aperte all'inizio e chiuse  alla 
+        fine che hanno lo stesso significato, per quelli che conoscono il 
+        pascal, del begin e dell' end.
+        La chiamata avverra' per nome o per indirizzo.
+        In  altre parole possiamo concepire una funzione come un'  unita' 
+        elementare  di  programma  a  cui  e'  data  la  possibilita'  di 
+        restituire o meno un valore.    
+
+        Esempio
+                      main(argc,argv)          /* Identificatore       */
+                      int argc;                /* Dichiarazione        */
+                      char *argv[];            /* argomenti passati    */   
+                      {
+                           int flag;           /* Dichiarazione var.   */
+              
+                           if(argc < 2)  ....  /* Istruzioni           */
+                           ..................
+                      }
+
+        Come  dicevamo prima una funzione potrebbe svolgere un compito  a 
+        se' stante come ad esempio stampare una lista di nomi ma potrebbe 
+        ritornare un valore alla funzione chiamante.
+        Una  funzione  che  non restituisce alcun  valore  e'  dichiarata 
+        all'interno del programma come void.
+        Nel  caso  in cui il valore sia diverso da un int  allora  saremo 
+        costretti  a  dichiarare  la  funzione con  il  tipo  del  valore 
+        restituito.
+        Chiaramente   la  funzione  chiamante  ha  anche  il  compito  di 
+        dichiarare   dello  stesso  tipo la variabile che  accettera'  il 
+        valore di ritorno dalla funzione.
+        Un esempio di chiamata con restituzione di valore e' il seguente:
+
+
+
+
+
+                                       50
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        /*Funzione main */ main()
+                           {
+                               int x, y, risultato;
+                               x=y=2;
+                               risultato = somma(x,y); /*Passaggio val.*/
+                               printf("%d", risultato);
+                           }
+
+        /*Funzione somma*/ somma(val1,val2)
+                           int val1,val2;
+                           {
+                               return(val1+val2); /*Ritorna somma      */   
+                           }
+
+        Vedremo  come  e'  possibile restituire piu' di  un  valore  alla 
+        funzione chiamante nel paragrafo relativo ai puntatori.
+        In  ogni  caso  nell'esempio  precedente  abbiamo  utilizzato  la 
+        funzione return per ritornare un valore al main.
+        Si sarebbe potuto anche dichiarare l'intero risultato esterno  in 
+        modo  da  renderlo  visibile  anche al di  fuori  della  funzione 
+        principale.
+        L'esempio precedente si sarebbe tramutato nel seguente:
+
+                          int risultato;
+
+                          main()
+                          {
+                              int x, y;
+                              x=y=2;
+                              somma(x,y);
+                              printf("%d",risultato);
+                          }
+                          somma(val1,val2)
+                          int val1,val2;
+                          {
+                              risultato=val1+val2;
+                          }
+
+        anche  se  in  questo caso la funzione  somma  diventa  banale  e 
+        inutile  in quanto la somma avremmo potuto eseguirla direttamente 
+        nel main.
+
+
+                                Matrici e arrays
+
+
+        Anche  questo  argomento lo abbiamo gia' affrontato nei  capitoli 
+        sulla programmazione strutturata.
+        Ripetiamo brevemente i concetti fondamentali.
+        Una variabile dichiarata ad esempio come char potra' contenere un 
+        valore  compreso  tra  -128  e +127  e  quindi  rappresentare  un 
+        carttere ASCII.
+
+
+                                       51
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Nel  caso  in  cui dovessimo memorizzare  una  stringa  intera  o 
+        piu'stringhe  dovremmo  dichiarare la variabile come un arrays  o 
+        una matrice di char.
+        Una stringa e' considerata nel linguaggio C come una sequenza  di 
+        caratteri finalizzata da '\0' (carattere di fine stringa).
+        Supponiamo di dichiarare la variabile 'nome' come
+
+                                  char nome[5];
+
+        e di assegnarle la stringa "Ciao".
+        Avremo come risultato 
+
+                            +---+---+---+---+---+---+
+              nome[5] =     | C | i | a | o |\0 |   |
+                            +---+---+---+---+---+---+
+              nome     [      0 , 1 , 2 , 3 , 4 , 5 ]
+
+        L'indice  dell'array  incomincia la numerazione da 0 e quindi  la 
+        dichiarazione precedente riserva 6 bytes.
+        Nel  caso  invece di matrici utilizzeremo  due  indici,  uno  per 
+        indicare la riga e uno per la colonna.
+        Molte  funzioni  inseriscono  automaticamente il  carattere  '\0' 
+        automaticamente ma esistono alcune situazioni in cui saremo noi a 
+        doverlo mettere.
+        Supponiamo  ad esempio di voler estrarre da una stringa  inputata 
+        da tastiera quale "Oggi ho visto Franco" la parola "Oggi".
+        Dovremo eseguire una funzione del tipo di quella che segue :
+
+                              main()
+                              {
+        /* Massimo 20 car. */    char stringa[20];                         
+                                 int indice, input;
+                                 indice=0;
+        /* Finche'!= spazio*/    while((input=getchar()) != ' ')
+                                 {    
+                                      stringa[indice]=input;
+                                      ++indice;
+                                 }
+                                 stringa[indice] = '\0';
+                              } 
+
+
+        Avremmo potuto codificare il tutto anche nel seguente modo
+
+                        main()
+                        {
+                            char stringa[20];
+                            int indice=0;
+                            while((stringa[indice]=getchar())!=' ')
+                                 ++indice;
+                                   stringa[indice]='\0';
+                        }
+
+
+                                       52
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        oppure ancora
+
+                        main()
+                        {
+                            char stringa[20];
+                            int indice=0;
+                            while((stringa[indice++]=getchar())!=' ');
+                                 stringa[indice]='\0';
+                        }
+                   
+        In  questo caso siamo stati noi mediante un opportuna  operazione 
+        di assegnazione a inserire il carattere di fine stringa.
+        Prendiamo ad esempio una matrice del tipo che segue.
+
+                               char matrice[2][3];
+
+        Supponiamo di averle assegnato le stringhe "Uno", "Due" e "Tre".
+        La rappresentazione avra' la seguente forma. 
+
+                                +---+---+---+---+
+                                | U | n | o |\0 |
+                                +---+---+---+---+
+                      matrice[0][ 0 , 1 , 2 , 3 ]
+                                +---+---+---+---+
+                                | D | u | e |\0 |
+                                +---+---+---+---+
+                      matrice[1][ 0 , 1 , 2 , 3 ]
+                                +---+---+---+---+
+                                | T | r | e |\0 |
+                                +---+---+---+---+
+                      matrice[2][ 0 , 1 , 2 , 3 ]
+
+
+        Come  e'  possibile notare esiste una somiglianza  con  l'esempio 
+        fatto per un array monodimensionale.
+        Per  ora  trattiamo  i vettori e le matrici mediante  gli  indici 
+        anche  se  posso  preannunciare  che  non  e'  l'unico  modo  per 
+        riferirsi a queste.
+        Un altro metodo e' quello di accedere a ogni casella di ogni riga 
+        specificando l'indirizzo di questa.
+        L'argomento verra' trattato con i puntatori.
+
+
+
+                            Input e output formattato
+
+
+        Negli  esempi precedenti abbiamo utilizzato la funzione C  printf 
+        per eseguire la stampa di un risultato.
+        Printf   e  scanf  costituiscono  due  funzioni  che   permettono 
+        rispettivamente di eseguire un output ed un input formattato.
+        Vediamo la forma di utilizzo del primo.
+
+
+                                       53
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Printf  e'  costituito  da una stringa racchiusa  tra  virgolette 
+        composta da caratteri che dovranno essere stampati  letteralmente 
+        e  da  simboli  "formattatori" o specifiche  di  conversione  che 
+        indicano  il  tipo  di  dato che dovra' essere  stampato  in  una 
+        determinata posizione.
+
+           printf("Ciao %s. Questo e' il collegamento %d", nome, num);
+                         ^                             ^     ^    ^
+                         +-----------------------------|-----+    |
+                                                       +----------+
+
+        Nell'  esempio  precedente  il primo argomento  (nome)  sara'  un 
+        vettore,  ovvero una stringa,  che conterra' un nome e il secondo 
+        argomento (num) un intero.
+        I  simboli  % seguiti da caratteri indicano il tipo di  dato  che 
+        deve essere stampato in quella posizione.
+        Supponendo che alla variabile nome sia stato assegnato "Franco" e 
+        a quella num il valore 34 avremmo come risultato
+
+                    Ciao Franco. Questo e' il collegamento 34
+
+        Al   fine  di  evitare  pasticci  gli  argomenti  devono   essere 
+        accoppiati  ai rispettivi simboli % in ordine di  comparsa  (vedi 
+        tratteggio nell'esempio precedente).
+        La funzione printf non esegue automaticamente un ritorno a capo e 
+        quindi  se  si desidera che dopo la stampa della  stringa  questo 
+        avvenga bisogna aggiungere un '\n'.
+        L'esempio precedente diventa in questo caso
+
+         printf("Ciao %s. Questo e' il collegamento %d \n", nome, num);
+
+        L'utilizzo di '\n' non e' necessariamente destinato al fine  riga 
+        ma  al  contrario puo' essere inserito in qualsiasi  punto  della 
+        stringa ove si voglia eseguire un ritorno di carrello.
+        Una lista incolonnata potrebbe essere stampata in questo modo.
+        Supponendo  che var1,  var2 e var3 siano tre variabili  numeriche 
+        intere che valgono rispettivamente 1, 2 e 3 avremo
+
+                  printf("%d \n%d \n%d \n", var1, var2, var3);
+
+        e il risultato sara'
+
+                                        1
+                                        2
+                                        3
+
+
+        Prima  di proseguire parlando della funzione di input vediamo  il 
+        significato   dei   caratteri  che  formano  le   specifiche   di 
+        conversione.
+        Chiameremo  d'ora in poi stringa di formato quella costituita  da 
+        queste ultime.
+
+
+                                       54
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+               Specificatore                Descrizione
+               --------------------------------------------------- 
+                    %d                      Intero decimale
+                    %ld                     Interi decimale long
+                    %u                      Intero unsigned
+                    %f                      Float
+                    %e                      Notazione esponenziale
+                    %c                      Un carattere singolo
+                    %s                      Una stringa
+                    %x                      Valore in esadecimale
+                    %o                      Valore ottale
+
+        I  caratteri  che abbiamo visto abbinati al simbolo %  dichiarano 
+        soltanto il tipo del dato che deve essere trattato.
+        E'  possibile mediante cifre interposte tra % e lo  specificatore 
+        stabilire  anche  altri  parametri  quali lo  spazio  che  dovra' 
+        occupare,  il numero di valori prima e dopo del punto decimale.
+        Ad esempio
+
+                          printf(" %5.2f ", var_float);
+
+        stampera'  un  valore in virgola mobile con 5 cifre  prima  della 
+        virgola e 2 dopo.
+        Inserendo  anche lo 0 si ottiene che nel caso non si raggiunga il 
+        numero di cifre specificate le rimanenti siano completate con 0.
+
+                           printf(" %03d ", var_int);
+
+        stampera'  la  variabile decimale intera var_int  mantenendo  per 
+        questa  tre  spazi  e inserira' degli 0 se questa  non  occupera' 
+        tutto lo spazio a disposizione.
+
+                Ad esempio :        022       se  var_int vale 22 
+
+        Scanf  e'  simile  a  printf in  quanto  offre  facilitazioni  di 
+        conversione sul tipo di dati inputati.
+        L'operatore  unario  & fatto precedere ad  un  identificatore  di 
+        variabile  fornisce l'indirizzo di questa.
+        Nella  funzione  scanf dovremo fornire infatti l'indirizzo  delle 
+        variabili  in  cui   dovra'  allocare  i  valori  inputati  fatta 
+        eccezione  per  gli  array di char che gia'  di  default  vengono 
+        trattati dal C come indirizzi.
+        In  altre  parole  scanf  pretende  che  gli  vengano  forniti  i 
+        puntatori.
+        Scanf  accetta come separatori dei valori inseriti spazi bianchi, 
+        tab  e  ritorni a capo essendo questi ultimi considerati  come  i 
+        primi.
+        La  funzione termina esclusivamente dopo aver  ricevuto  l'ultimo 
+        valore che si aspettava.
+        In  molte applicazioni e' conveniente utilizzare altre forme  per 
+        inputare  i  dati  in  quanto la funzione scanf  in  alcuni  casi 
+        procura dei problemi.
+
+
+                                       55
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Ad esempio non permette di saltare un input mediante la  semplice 
+        battitura del tasto return (CR).
+        Vediamo  ora  due  esempi di utilizzo  della  funzione  di  input 
+        formattato, il primo errato  mentre il secondo giusto.
+
+                                 int var1;
+        /* ERRATO */             char sigla[10];
+                                 scanf("%d %s", var1, sigla);
+                                                ^ Errore
+
+
+                                 int var1;
+        /* ESATTO */             char sigla[10];
+                                 scanf("%d %s", &var1, sigla);
+
+        La  funzione  ,  nel  caso di un array di  char,  sostituisce  il 
+        carattere di \n con il carattere di fine stringa \0.
+        Valgono  per  scanf le stesse specifiche di formato  che  abbiamo 
+        visto per printf. 
+
+
+                            Altre funzioni per l' I/O 
+
+
+        Alcune  funzioni di I/O pretendono la conoscenza del concetto  di 
+        stream e quindi le tratteremo piu' avanti.
+        Vediamo ora quelle di uso piu' comune.
+
+        putchar(var);     : Stampa il carattere contenuto nella variabile 
+                            var sullo standard di output.
+
+        var=getchar();    : Inputa dallo standard di input un carattere e
+                            lo salva in var.
+                            Var normalmente viene dichiarato come int  in
+                            quanto la funzione getchar restituisce  anche
+                            codici  di  errore  che  non  possono  essere 
+                            salvati in un char.
+
+        puts(var);        : Stampa sullo standard d'output la stringa var
+                            e aggiunge un \n alla fine di questa.
+
+        gets(var);        : Inputa una stringa dallo standard di input  e
+                            ritorna un argomento per indicare ad  esempio
+                            un errore di fine file.
+
+        var=getch();      : Inputa     un     singolo   carattere   senza 
+                            visualizzarlo sullo schermo e lo colloca   in
+                            var.
+
+
+
+
+
+
+                                       56
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+             Stream predefiniti (stdout, stdin, stdprn, stdaux, stderr)
+
+
+        Quando  un  programma  viene  eseguito  questi  streams   vengono 
+        automaticamente aperti.
+        Stdout  equivale  normalmente  allo  schermo  video,  stdin  alla 
+        tastiera,  stdprn alla stampante ed stdaux a una porta ausiliaria 
+        tipo COM1.
+        Ho  omesso stderr in quanto ha un significato  particolare  sotto 
+        Unix ma non e' differenziato da stdout in ambiente MS DOS.
+        Sotto  Unix infatti,  oltre allo standard di output (stdout) e  a 
+        quello di input (stdin) esiste lo standard di errore (stderr).
+        Lo  scopo di quest'ultimo e' dovuto dal fatto che essendo Unix un 
+        sistema   operativo   multiutente  e   multitasking   esiste   la 
+        possibilita'   di  eseguire  piu'lavori   conteporaneamente    in 
+        background,  ad esempio compilazioni, mentre l'utente si dedica a 
+        qualche cosa d'altro.
+        Nel  caso di compilazioni,  ad esempio,  si potrebbero avere  dei 
+        messaggi  di  errore  che in caso di  mancata  redirezione  dello 
+        standard  di  errore raggiungerebbero la  console  dell'operatore 
+        disturbando, magari, il lavoro che stava svolgendo.
+        Nel  compilatore Microsoft questo viene incluso come  uno  stream 
+        separato per compatibilita' con l'ambiente Xenix.
+
+
+                                     Stream
+
+
+        L'utilizzo  degli  streams  e'  uno dei metodi  che  permette  di 
+        eseguire delle funzioni di I/O su files.
+        Come  vedremo successivamente esiste anche il modo  di  riferirsi 
+        all'handle di un file ovvero un valore int associato allo stesso.
+        In   italiano  handle  indica il gestore del file. 
+        L'apertura di uno stream si esegue dichiarando un  identificatore 
+        come di tipo FILE.
+        FILE  e'  il  nome  di  un  tipo  definito  come  una  struttura, 
+        dichiarata  nell'header  stdio.h,  che contiene  le  informazioni 
+        basilari sul file aperto.
+        L'apertura di uno stream ritorna un puntatore alla struttura FILE 
+        che verra' utilizzato come riferimento per tutte le operazioni di 
+        I/O su files.
+
+                                  FILE *files;
+
+        Dopo  aver  fatto  una  dichiarazione  di  questo  tipo   potremo 
+        utilizzare  la  funzione  standard  di libreria  fopen  per  fare 
+        ritornare un puntatore ad un FILE.
+
+                         files = fopen("nome_file","r");
+
+        Fopen  pretende  due argomenti ed esattamente il path del file  a 
+        cui uno vuole riferirsi e il modo di apertura di quest'ultimo.
+
+
+
+                                       57
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Sono validi i seguenti modi.
+
+                      "r"  -  Apre un file in sola lettura.
+                              Il file deve esistere. (vedi ritorno NULL)
+                      
+                      "w"  -  Apre il file in scrittura.
+                              Se  il  file  esiste  il  contenuto   viene 
+                              distrutto.
+
+                      "a"  -  Apre  il  file  per scrivere alla  fine  di 
+                              questo.
+                              Se il file non esiste viene creato.   
+
+                      "r+" -  Apre  il  file  sia  per  lettura  che  per 
+                              scrittura.
+                              Anche in questo caso il file deve esistere.
+
+                      "w+" -  Apre  il file in lettura e scrittura.
+                              Distrugge  il  contenuto se  questo  esiste 
+                              gia'.
+
+                      "a+" -  Apre il file per leggere e aggiungere.
+                              Se il file non esiste viene creato.
+
+        A   questi  modi  puo'  essere  aggiunto  uno  specificatore   di 
+        translazione ed esattamente
+
+                       t      Esegue l'apertura in modo testo.
+                              Le   combinazioni  linefeed   (LF)/carriage 
+                              return (CR) sono translate in input in   un
+                              solo carattere di LF.
+                              In output invece un carattere di LF   viene
+                              translato in una sequenza CR/LF.
+
+                       b      Esegue l'apertura in modo binario.
+                              Le translazioni precedenti sono soppresse.
+         
+        Se  il  file  specificato dall'argomento path  non  esiste  fopen 
+        ritorna un NULL, definito anche quest'ultimo nell'header stdio.h.
+        NULL puo' essere utilizzato per verificare l'esistenza di un file 
+        prima di procedere nell'esecuzione di un programma.
+
+        FILE *files;
+        funz()
+        {
+            if((files=fopen("fil.ext","r")) == NULL)
+            {
+               printf("ERRORE: Non trovo il file");
+               exit(0);
+            }
+            ..............
+            ..............
+        }
+
+
+                                       58
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Se  il  puntatore restituito non e' un NULL potremo  riferirci  a 
+        questo  per le nostre operazioni sul file mediante le funzioni di 
+        libreria che ora vedremo.
+
+        ** fprintf(stream,stringa formato,argomenti);
+
+        Mentre printf si riferiva esclusivamente a stdout, fprintf esegue 
+        una stampa formattata sullo stream di output aperto.
+        La  stringa  di formato ha le stesse  caratteristiche  di  quella 
+        utilizzata con printf.
+
+        Esempio:
+
+        funz()
+        {
+            FILE *files;
+            char nome[20];
+
+               files = fopen("dati.arc","a");
+               printf("Inserisci il nome : ");
+               scanf("%s", nome);
+
+                    fprintf(files," %s ", nome);
+                    .............
+        }
+
+        Come  fprintf  esegue l'output formattato  sullo  stream,  fscanf 
+        esegue l'input formattato da questo.
+
+        ** fscanf(stream,stringa formato,argomenti);
+
+        Il  puntatore  al file viene incrementato man  mano  che  vengono 
+        eseguite  funzioni  di lettura da questo in modo che  ogni  scanf 
+        avvenga dalla posizione successiva a quella precedente.
+        Viene  restituito  l'intero EOF se la funzione tenta  di  leggere 
+        oltre la fine del file.
+
+        ** fgets(stringa,num_car,stream);
+
+        fgets  legge  dallo stream associato aperto un numero num_car  di 
+        caratteri e li salva nella stringa specificata.
+
+        ** fputs(stringa,stream);
+
+        Mentre la funzione precedente leggeva ,  fputs stampa una stringa 
+        sullo stream di output.
+
+        ** var = getc(files);
+
+        Questa funzione salva in var un carattere letto dallo stream.
+
+
+
+
+
+                                       59
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Un esempio di uso di getc.
+
+        #include <stdio.h>
+
+        main()
+        {
+            FILE *files;
+            int var;
+
+               files = fopen("data.txt","r");
+               while((var=getc(files)) != EOF)
+                    putchar(var);
+        }
+
+        Il programma legge ad uno ad uno i caratteri dal files  data.txt, 
+        fino a che non incontra la fine del file (EOF = -1),  e li stampa 
+        sullo standard di output.
+        getc(stdin) e' l'equivalente di getchar().
+
+        ** putc(var,stream);
+
+        scrive un carattere sullo stream.
+        Esempio di programma che esegue la copia di un file.
+
+        #include <stdio.h>
+
+        main()
+        {
+            FILE *infile, *outfile;
+            int var;
+
+            infile =fopen("data1,txt","r");
+            outfile=fopen("data2.txt","w");
+            while((var=getc(infile)) != EOF)
+                 putc(var,outfile);
+            ............
+        }
+
+        Quelle  che  abbiamo  appena  visto sono  alcune  delle  funzioni 
+        principali  di libreria che ci permettono di manipolare dati  sui 
+        files associati agli streams.
+
+
+                          Funzioni di controllo stream
+
+
+        Esistono  nella  libreria standard del  compilatore  Microsoft  C 
+        alcune  funzioni che ci permettono di controllare un  determinato 
+        stream  ad esempio per chiuderlo o per riposizionare il puntatore 
+        a questo.
+
+
+
+
+
+                                       60
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        La funzione fopen ci permette di aprire un determinato files e di 
+        associarlo ad uno stream.
+        fclose ci permette invece di chiuderlo e quindi di rilasciare  il 
+        buffer di sistema.
+        La sintassi di utilizzo di fclose e' la seguente
+
+                                 fclose(stream);
+
+        Nel  caso  che  si voglia chiudere  conteporaneamente  tutti  gli 
+        streams  aperti fino a quel punto e' possibile usare la  funzione 
+        fcloseall.
+        fcloseall  restituisce  il numero di streams chiusi e  quindi  il 
+        modo di utilizzarla e'
+
+                             int num_stream;
+                             num_stream=fcloseall();
+
+        Le funzioni come fscanf,  getc ecc. ad ogni chiamata incrementano 
+        il  puntatore  al  file  associato in modo che  questo  punti  al 
+        carattere successivo.
+        La  funzione fseek permette di riposizionare il puntatore al file 
+        associato a uno stream.
+
+                       var=fseek(stream,distanza,origine);
+
+        dove distanza e' un intero lungo.
+        Per origine si intende una delle seguenti costanti.
+
+                              0     Inizio del file
+                              1     Posizione corrente
+                              2     Fine del file
+
+        La distanza e' relativa all'origine.
+        Il  manuale del compilatore Microsoft avvisa che se  la  funzione 
+        fseek  viene  utilizzata  con  uno stream aperto  in  modo  testo 
+        potrebbe dare luogo a risultati non aspettati.
+        L'unica  operazione garantita in questo caso e' con un valore  di 
+        distanza di 0 da qualsiasi punto specificato come origine.
+        fseek  ritorna un valore 0 se l'operazione di  posizionamento  ha 
+        avuto  successo mentre un valore diverso indica una condizione di 
+        errore.
+        Il  valore puo' essere testato nella variabile var (vedi  esempio 
+        precedente).
+        Una  funzione  che riposiziona all'inizio del file  un  puntatore 
+        associato ad uno stream e' rewind.
+
+                              var = rewind(stream);
+
+        e' l'equivalente di
+
+                            var = fseek(stream,0L,0);
+
+
+
+                                       61
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Come  nel caso di fseek,  rewind restituisce 0 se l'operazione ha 
+        avuto successo.
+
+
+                                      Macro 
+
+
+        Il  concetto  di  macro  e' simile a  quello  di  definizione  di 
+        costante  solo  che  in  questo  caso  la  sostituzione  ad  ogni 
+        ricorrenza del nome della macro non e' statica ma attiva.
+        Esempio:
+
+                          #define SOMMA(x,y)       x+y
+
+        La macro verra' chiamata nel seguente modo
+
+                                   SOMMA(5,5);
+
+        e  il  compilatore  sostituira' il valore dato  dalla  somma,  in 
+        questo caso, degli argomenti passati.
+        Un altro esempio
+
+                          #define BELL putchar('\007')
+
+        dove  \007 e' il codice ascii del beep  emesso  dall'altoparlante 
+        del computer.
+        Quando nel programma verra' incontrato 
+
+                                      BELL;
+
+        il  computer  emettera' un suono in quanto eseguira' la  funzione 
+        associata al nome della macro e cioe' "stampa il carattere  ascii 
+        7".
+        Il  linguaggio  C al contrario dei linguaggi come il Basic  o  il 
+        Turbo   Pascal   non  possiede  funzioni  di  utilita'   per   la 
+        cancellazione dello schermo, di una linea, per lo spostamento del 
+        cursore, per la selezione degli attributi video.
+        Per ovviare a questa mancanza diventano particolarmente utili  le 
+        definizioni  di  particolari  macro che  utilizzano  sequenze  di 
+        escape per eseguire funzioni quali quelle precedenti.
+        Il codice di ESC per la costruzione di queste macro e'
+
+                                      \33[
+
+        Vedrete  qui  a  seguito le varie  funzioni  ottenibili  mediante 
+        queste sequenze.
+        Per  ora  vediamo come utilizzarle nel caso che  siano  necessari 
+        argomenti  e nel caso che invece sia solo sufficente la  sequenza 
+        stessa.
+        Supponiamo ad esempio di dover scrivere una macro che cancelli lo 
+        schermo.
+
+
+
+                                       62
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Questa  non  necessita del passaggio di alcun parametro e  quindi 
+        sara' sufficente definirla nel seguente modo.
+
+
+                         #define CLEAR   puts("\33[2J")
+
+        Un caso ben differente e' invece quello relativo ad una macro per 
+        il posizionamento del cursore a certe coordinate dello schermo.
+        In  questo  caso  dovremo fornire i valori  della  riga  e  della 
+        colonna.
+        Non  potendo  stampare  dei  valori contenuti  in  una  variabile 
+        mediante la funzione puts dovremo utilizzare  printf che permette 
+        di  specificare la posizione di stampa mediante la sua stringa di 
+        formato.
+
+                  #define AT(x,y)   printf("\33[%d;%dH", x, y)
+
+        La macro verra' richiamata con
+
+                                    AT(x,y);
+
+        dove x e' la riga e y la colonna.
+        Per comodita' nell'elenco seguente ho sostituito \33[ con ESC.   
+               
+
+                        Sequenze ESC per controllo video
+
+
+        Attenzione : nelle sintassi descritte successivamente '#' e'  un
+                   : valore numerico. Se non espresso vengono utilizzati
+                   : i valori di default.
+
+
+                           ESC[#,#H (Cursor Position)
+
+        Muove il cursore alla posizione specificata nei parametri.
+        Il primo specifica la riga mentre il secondo la colonna.
+        Il valore di default e' uno.
+
+                               ESC[#A (Cursor Up)
+
+        Posiziona il cursore su di una o piu' righe.
+        # specifica il numero di righe.
+        Il valore di default e'uno.
+
+                              ESC[#B (Cursor Down)
+
+        Come il precedente ma verso il basso.
+
+                             ESC[#C (Cursor Forward)
+
+        Muove il cursore avanti di una o piu' colonne.
+
+
+
+                                       63
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                            ESC[#D (Cursor Backward)
+
+        Muove il cursore indietro di una o piu' colonne.
+
+                        ESC[#;#R (Cursor Position Report)
+
+        Riporta attraverso lo standard d'input la corrente posizione  del
+        cursore.
+
+                          ESC[s (Save Cursor Position)
+
+        Salva la corrente posizione del cursore.
+
+                         ESC[u (Restore Cursor Position)
+
+        Riprende la posizione del cursore precedentemente salvata.
+
+                                     ESC[2J
+
+        Cancella tutto lo schermo e mette il cursore in alto a sinistra.
+
+                                      ESC[K
+
+        Cancella dal cursore alla fine della linea
+
+                                  ESC[#;....;#m
+
+        Seleziona gli attributi dei caratteri specificati
+        Parametri:
+                           0 Tutti gli attributi a Off
+                           1 Chiaro ON (alta intensita')
+                           4 Sottolineatura ON (solo per monocromatico)
+                           5 Lampeggio ON
+                           7 Reverse ON
+                           8 Annullato ON (invisibile)
+
+                          30 Foreground nero
+                          31     "      rosso
+                          32     "      verde
+                          33     "      giallo
+                          34     "      blu
+                          35     "      magenta
+                          36     "      azzurro
+                          37     "      bianco
+
+                          40 Background nero
+                          41     "      rosso                
+                          42     "      verde
+                          43     "      giallo
+                          44     "      blu
+                          45     "      magenta
+                          46     "      azzurro
+                          47     "      bianco
+
+
+                                       64
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+                      ESC[=#h o ESC[=h o ESC[=0h o ESC[?7h
+
+        Richiama lo schermo specificato dai parametri.
+
+                             0 40 x 25 bianco e nero
+                             1 40 x 25 colore
+                             2 80 x 25 bianco e nero
+                             3 80 x 25 colore
+                             4 320 x 200 colore
+                             5 320 x 200 bianco e nero
+                             6 640 x 200 bianco e nero
+                             7 Avvolge a fine linea
+
+        ESC[#;#;..#p o ESC["stringa"p o ESC[#;"stringa";#;#;"stringa";#p
+
+        Il  valore  iniziale  definisce  da  quale codice ASCII inizia il
+        codice da mappare.
+        I rimanenti valori definiscono la sequenza dei codici ASCII  gen-
+        erati quando questo tasto e' intercettato.
+
+
+                        Esempi : ESC[65;81p   A diventa Q
+                                 ESC[81;65p   Q diventa A
+
+        Quest'ultima    e'  particolarmente  utile  nel  momento  in  cui 
+        vogliamo ridefinire i tasti funzione.
+        L'utilizzo  di  queste sequenze in un programma in  linguaggio  C 
+        pretende  che  il  device  ANSI.SYS  venga  installato  nel  file 
+        config.sys del disco da cui si fa' il boot del sistema.
+        Se questo non e' presente il programma lanciato stampera' a video 
+        letteralmente  le  sequenze di ESC senza che queste  svolgano  il 
+        loro compito di gestione video.
+        Un  alternativa per la gestione del video e' quella  di  scrivere 
+        apposite funzioni utilizzando l'interrupt di gestione schermo.
+        In  ogni caso per ora tralasciamo l'argomento per poi riprenderlo 
+        piu' avanti.
+        A questo punto dovremmo essere in grado di scrivere un  programma 
+        che anche esteticamente possieda buone caratteristiche.
+        Vediamo  un  esempio che racchiude un po' tutti i discorsi  fatti 
+        fino ad ora.
+        Il programma esegue la copia di un file su un altro.
+        I  nomi dei files sorgente e destinazione verranno  richiesti  da 
+        programma  anche  se,  come  vedremo tra  breve,  avremmo  potuto 
+        passarli  come argomenti alla funzione main specificandoli  sulla 
+        linea di comando.
+        Nel  caso  che il file di origine non sia presente  il  programma 
+        esce avvisando dell'errore di file non trovato.
+
+
+
+
+
+
+
+                                       65
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        #include <stdio.h>
+
+        /* Definizione Macro per cancellare screen e posizionare curs. */
+
+        #define  CLS      puts("\33[2J")  
+        #define  AT(y,x)  printf("\33[%d;%dH", y, x) 
+        #define  BELL     putchar('\007')
+
+        main()
+        {
+            FILE *infile, *outfile; /* Streams files input e output    */
+            char file_in[12];       /* File in input                   */
+            char file_ou[12];       /* File di output                  */
+            int  carattere;         /* Carattere letto da infile       */
+
+            CLS;                    /* Cancella lo schermo             */
+            AT(3,1);                /* Posiziona il cursore            */
+            printf("Source : ");    /* Richiede nome file source       */
+            gets(file_in);          /* Inputa il nome in file_in       */
+            AT(5,1);                /* Posiziona il cursore            */
+            printf("Target : ");    /* Richiede nome file target       */
+            gets(file_ou);          /* Inputa il nome in file_ou       */
+            
+            /* Apre in lettura file_in e se non esiste .....           */
+
+              if((infile=fopen(file_in,"r")) == NULL)          
+              {
+                   BELL;            /* Emette uno squillo              */
+                   AT(7,1);         /* Posiziona il cursore            */
+                                    /* Stampa che file_in non e' stato */
+                                    /* trovato ed esce a DOS           */
+
+                   printf("ERRORE: file %s non trovato", file_in);
+                   exit(0);
+              }   
+
+            outfile=fopen(file_ou,"w");  /* Apre file_ou in scrittura  */
+            
+            /* Finche' il carattere letto da infile e' diverso  da EOF */
+            /* lo scrive su outfile                                    */
+
+            while((carattere=getc(infile)) != EOF)
+                 putc(carattere,outfile); 
+
+            /* Uscito dal ciclo chiude i files aperti                  */
+
+            fcloseall();
+        }
+
+        Per i nostalgici delle comodita' di linguaggi quali il Basic e il 
+        Turbo  Pascal  dotati  di comandi utili alla gestione  del  video 
+        quali locate,  gotoxy ecc.  il problema non e' grave in quanto la 
+
+
+                                       66
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        possibilita'  di includere nei nostri programmi dei file  esterni 
+        ci  permette  di scrivere le nostre macro di gestione in  uno  di 
+        questi e di utilizzarlo con qualsiasi programma che faremo.
+        Se  nel programma precedente avessimo avuto all'interno del  file 
+        screen.h le definizioni di macro nel seguente modo
+
+        screen.h
+
+        #define CLS      puts("\33[2J")
+        #define AT(y,x)  printf("\33[%d;%dH", y, x)
+        #define BELL     putchar('\007')
+
+        avremmo potuto,  senza doverle riscrivere,  includere il file nel 
+        nostro programma 
+
+        #include <stdio.h>
+        #include "screen.h"
+
+
+                         Passaggio di argomenti al main
+
+
+        Parlando  delle funzioni avevamo visto che era possibile  passare 
+        dei valori da una ad un altra.
+        Anche  la  funzione  main ha la possibilita'  di  ricevere  degli 
+        argomenti passati, mediante la linea di comando, dall'esterno.
+        Questa  possibilita'  avremmo  potuto  sfruttarla  nel  programma 
+        precedente  per  passare  i  nomi  dei  file  di  sorgente  e  di 
+        destinazione, anche se utilizzando questo metodo il controllo non 
+        avrebbe  solo riguardato la presenza del file source ma anche  il 
+        numero degli argomenti specificati.
+        In  questo  caso  la  funzione  main  viene  richiamata  con  due 
+        argomenti per convenzione chiamati argc e argv.
+        Argc e' il numero degli argomenti passati compreso il nome stesso 
+        del programma mentre argv e' un puntatore ad un array di stringhe 
+        di caratteri che contiene i nomi degli argomenti.
+        Per  portare  un esempio supponiamo che il  nostro  programma  si 
+        chiami FCOPY e che debba copiare il file DATA.TXT in DATA2.TXT.
+        La chiamata del programma sara' 
+
+                            fcopy data.txt data2.txt
+
+        In  questo  caso argc vale tre in quanto fcopy e'  l'argomento  1 
+        contenuto  in  argv[0],  data.txt  il 2 contenuto  in  argv[1]  e 
+        data2.txt il 3  contenuto in argv[2].  (Ricordatevi che in C  gli 
+        array e le matrici partono come indice da 0)
+        Fate   anche  attenzione  che  nelle  versioni  del   compilatore 
+        precedenti alla 3.00 argv[0] e' la stringa "C".
+        In  ogni  caso,  anche se non specificato alcun  parametro,  argc 
+        varra'  sempre  1  in  quanto lo stesso  nome  del  programma  da 
+        lanciare viene considerato un argomento. 
+
+
+
+                                       67
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Il  nostro  programma  di copia si sarebbe  dovuto  scrivere  nel 
+        seguente modo:
+
+        main(argc,argv)
+        int argc;
+        char *argv[];
+        {
+            ............
+            ............
+         
+            if(argc < 3)
+            {
+               BELL;
+               puts("ERRORE: Numero parametri errati");
+               exit(0);
+            }
+            if((infile=fopen(argv[1],"r")) == NULL)
+            {
+               ................
+               ................
+            }
+            outfile=fopen(argv[2],"w");
+            
+               ................
+               ................
+        }
+
+
+
+                                    Puntatori
+
+
+        E'  finalmente giunto il momento di approfondire il  concetto  di 
+        puntatori  dei  quali  abbiamo gia' accennato  qualche  cosa  nei 
+        capitoli precedenti.
+        Parlando  degli operatori avevamo detto che & riporta l'indirizzo 
+        di una variabile.
+        Ad esempio
+
+                                 int var_1;
+                                 int *var_2;
+                                 var_1 = 130;
+                                 var_2 = &var_1;
+
+        assegna l'indirizzo di  var_1 a var_2.
+        L'operatore * dice a var_2 di puntare a quell'indirizzo in  altre 
+        parole di vedere il contenuto di quella locazione.
+
+
+
+
+
+
+
+
+                                       68
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Facendo un esempio grafico :
+
+                                     +-----+ 1050 (indirizzo di var_1)
+                             var_1   | 130 |
+                                     +-----+
+
+                                 var_2 = &var_1
+
+                                     +-----+ 1300 (indirizzo di var_2)
+                             var_2   |1050 |
+                                     +-----+
+
+        quindi  dicendo *var_2 si fara' si' che questa punti al contenuto 
+        dell'indirizzo 1050.                       
+        Nel  linguaggio C esiste anche una stretta relazione tra array  e 
+        puntatori.
+        Al  contrario di un array o di una matrice che occupa in  memoria 
+        lo spazio necessario per tutti gli elementi,  un puntatore occupa 
+        solo lo spazio atto a contenere l'indirizzo.
+        Gli  indirizzi occupano sempre lo stesso spazio indipendentemente 
+        dal tipo.
+        Ad esempio un array
+
+                                  int var[100];
+
+        occupa in memoria 100 volte lo spazio di un int (2 byte per  100) 
+        mentre
+
+                                   int *var_1;
+
+        occupa solo lo spazio per un indirizzo ovvero pochi byte.
+        Eseguendo ora 
+
+                                var_1 = &var[0];
+
+        si ottiene che var_1 conterra' l'indirizzo del primo elemento del 
+        vettore var.
+        Incrementando var_1 faremo in modo che questo punti al successivo 
+        elemento.
+        var_1 + 1 e' l'indirizzo di var[1],  var_1 + 2 quello di var[2] e 
+        cosi' via, mentre  *(var_1 + 1) e' il contenuto di var[1].
+        Una  cosa  da tenere bene a mente e' il sistema che  utilizza  il 
+        linguaggio  C  nel  momento  in  cui si somma  un  intero  ad  un 
+        puntatore.
+        Il  valore  prima  di essere sommato viene  moltiplicato  per  la 
+        lunghezza di memoria che occupa l'oggetto a cui punta.
+        Facciamo  l'esempio  di un puntatore ad interi  ricordandosi  che 
+        l'occupazione per ciascuno di questi e' di 2 bytes.
+        Supponendo che l'indirizzo del primo elemento del vettore sia 700 
+        e  che  il  puntatore  punti  appunto  a  questo,   incrementando 
+        quest'ultimo  per  farlo  riferire  all'elemento  successivo   si 
+        otterra' che questo puntera' alla locazione 702.
+
+
+
+                                       69
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Infatti sarebbe 
+
+                                 700 + ( 1 * 2 )
+
+        D'altra  parte  dovrebbe risultare chiaro in quanto se  il  primo 
+        elemento e' posizionato in una certa locazione e questo occupa un 
+        certo  numero  di bytes,  l'elemento successivo  sara'  spiazzato 
+        rispetto   a  quello  precedente  proprio  della  dimensione   di 
+        quest'ultimo.
+        Il  valore  di un vettore senza indice corrisponde  all'indirizzo 
+        iniziale del vettore stesso e quindi un assegnazione del genere
+
+                                var_1 = &var[0];
+
+        corrisponde a
+
+                                  var_1 = &var;
+
+        L'utilizzo  di puntatori porta alla scrittura di un  codice  piu' 
+        veloce  anche  se  nessuno  ci vieta di riferirci ad  array  e  a 
+        matrici mediante l'utilizzo di indici.
+        Ad esempio
+
+                            var[]   equivale  a  *var
+                      var[][]  equivale a *var[] o a **var
+
+        Il  discorso  delle matrici e dei puntatori  puo'  essere  esteso 
+        anche alle strutture ed alle funzioni.
+        Come  avevamo gia' detto una struttura e' un insieme di variabili 
+        anche di tipo diverso raggruppate insieme.
+        Il metodo per utilizzare una struttura e' quello di introdurre la 
+        dichiarazione mediante la parola chiave struct 
+
+                             struct archivio {
+                                    char nome[30];
+                                    char via[20];
+                                    long stipendio;
+                             };
+
+        Successivamente   l'etichetta   della   struttura   puo'   essere 
+        utilizzata per definizioni di istanze della struttura stessa.
+        Infatti  archivio  e'  a questo punto un nuovo tipo di  dato  che 
+        potra' servire  per altre dichiarazioni come
+
+                             struct archivio var_1;
+
+        La precedente dichiarazione specifica che var_1 e' una  struttura 
+        di tipo archivio.
+        Sara'  possibile ora accedere ai membri della struttura  mediante 
+        l'utilizzo dell'operatore '.'.
+
+
+
+
+                                       70
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Questo  operatore  ha  la  precedenza piu'  alta  tra  tutti  gli 
+        operatori. 
+
+                                   var_1.nome
+
+        L'assegnazione di un membro di una struttura avviene  normalmente 
+        Ad esempio :
+
+                            var_1.stipendio = 780000;
+
+        E' anche possibile nidificare le strutture.
+
+                              struct assunzioni {
+                                    struct archivio var_1;
+                                    char  data_assunz[10];
+                                    int   anni_lavoro;
+                              };
+
+                              struct assunzioni  var_2;
+
+        Nel  caso  precedente  si puo' accedere al  membro  'nome'  della 
+        struttura archivio con
+
+                                var_2.var_1.nome
+
+           
+        L'utilizzo dei puntatori puo' coinvolgere anche le strutture.
+
+                            struct assunzioni *var_2;
+
+        specifica che var_2 punta ad una struttura di tipo assunzioni.
+        L'accesso  ad  uno dei membri della struttura avviene  in  questo 
+        caso mediante un nuovo operatore e precisamente
+
+                      ->  (segno meno seguito da maggiore)
+
+        Mantenendo valida la prima dichiarazione di struttura fatta negli 
+        esempi precedenti,  l'accesso al membro 'nome' di questa verrebbe 
+        eseguito mediante
+
+                                   var_2->nome
+
+        L'equivalente con il vecchio operatore '.' sarebbe
+
+                                  (*var_2).nome
+
+        E'  anche  possibile eseguire delle dichiarazioni di  matrici  di 
+        strutture.
+
+                          struct assunzioni var_2[20];
+
+        dichiara come una matrice di strutture var_2.
+
+
+                                       71
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        L'accesso  ai  membri avviene in questo caso  specificando  anche 
+        l'indice.
+
+                                   var[2].nome
+
+        Mentre    molti   compilatori non possiedono la  possibilita'  di 
+        passare come argomenti delle strutture,  il compilatore Microsoft 
+        ha anche questa capacita'.
+        E'  possibile  fare  questo passando soltanto  l'indirizzo  della 
+        struttura.
+
+        Esempio:
+
+        struct parametri {
+               int data_bit;
+               int stop_bit;
+               int bauds;
+               char parity[7];
+        };
+
+        main()
+        {
+               struct parametri var_1;
+               var_1.data_bit = 0x08;
+               var_1.stop_bit = 0x01;
+               ......................
+               ......................
+               setta(&var_1);
+        }
+
+        setta(par)
+        struct parametri par;
+        {
+               ......................
+               ......................
+        }
+
+        Ci  si trova spesso davanti a circostanze in cui e' necessario un 
+        uso ricorsivo delle strutture stesse.
+        Una dichiarazione del tipo
+
+        struct nodi {
+                char *stringa;
+                char *pointer;
+                struct nodi *precedente;
+                struct nodi *prossimo;
+        };
+
+        utilizza appunto in modo ricorsivo la struttura stessa.
+        Non  e'  permesso  che una struttura contenga un  istanza  di  se 
+        stessa.
+        In questo caso pero' si parla di un puntatore a alla struttura  e 
+
+
+                                       72
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        non di una struttura vera e propria.
+        Un   utilizzo  di  una  struttura  ricorsiva  potrebbe  rivelarsi 
+        particolarmente utile nel caso di creazioni di alberi binari.
+        Un  classico esempio di utilizzo e' portato da un word  processor 
+        in   cui  l'organizzazione  logica  del  testo  potrebbe   essere 
+        supportata su strutture del tipo appena visto.
+        Per ogni riga memorizzata dovrebbe apparire un puntatore al testo 
+        della  riga  stessa,  uno  alla riga precedente e  uno  a  quella 
+        successiva.
+        Un  organizzazione  di questo tipo eliminerebbe gran parte  delle 
+        problematiche   relative   alle  funzioni  di   cancellazione   e 
+        inserimento.
+        Supponendo  di voler inserire una nuova riga  sarebbe  sufficente 
+        assegnare il nuovo testo e modificare i puntatori delle due righe 
+        tra le quali si vuole eseguire l'inserimento.
+        Con  questo  non  voglio dire che una  gestione  in  questo  modo 
+        renderebbe  semplicissima la cosa ma sicuramente la faciliterebbe 
+        notevolmente  almeno per quanto riguarda l'organizzazione  logica 
+        della progettazione.
+        Prima  di concludere il discorso relativo alle  strutture  voglio 
+        riportare   un  metodo  che  permettera'  di  evitare  di   diver 
+        riscrivere  tutta la trafila (xxxxx.yyyyy.  ecc.) tutte le  volte 
+        che si vuole accedere a un membro.
+        Dopo una dichiarazione
+
+        struct archivio {
+                 char nome_cliente[15];
+                 char cogn_cliente[15];
+                 int  codice;
+        } arc_clienti;
+
+        si potrebbe definire
+
+        #define cod   (arc_clienti.codice)        ecc. ecc.
+
+        e quindi accedere al membro codice, ad esempio, mediante
+
+             cod = 123;        invece di   arc_clienti.codice = 123;   
+                    
+                                     Unioni
+
+
+        Parlando  dei  puntatori ho preso la palla a balzo per  includere 
+        nel  paragrafo  anche  le strutture anche se  si  sarebbe  potuto 
+        dedicargli uno spazio loro.
+        In ogni caso i concetti fondamentali sono stati trattati anche se 
+        poi,  come  per  tutto  il resto,  la pratica e  gli  errori  che 
+        scaturiranno da questa saranno i migliori maestri.
+        Dedico  ancora  un  po' di spazio ad un tipo  molto  simile  alle 
+        strutture e cioe' alle unioni.
+        La  differenza  tra un unione e una struttura e' che  la  seconda 
+        alloca una memoria sufficente a contenere tutti campi indicati in 
+        questa  mentre  la prima lo fa' per contenere un solo campo  alla 
+
+
+                                       73
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        volta, in genere quanta ne richiede il campo maggiore.
+        Le unioni non possono contenere come campi i bitfields che invece 
+        sono accettati all'interno di una struttura.
+        Il  metodo di accesso ai membri di un unione e' uguale  a  quello 
+        utilizzato  per le strutture ovvero mediante gli operatori '.'  e 
+        '->'.
+
+
+        Un esempio
+
+                             struct WREGS {
+                                    unsigned ax;
+                                    unsigned bx;
+                                    unsigned cx;
+                             };
+
+                             struct BREGS {
+                                    unsigned char al;
+                                    unsigned char ah;
+                                    unsigned char bl;
+                                    unsigned char bh;
+                                    unsigned char cl;
+                                    unsigned char ch;
+                             };
+
+                             union regs {
+                                    struct WREGS x;
+                                    struct BREGS h;
+                             };
+
+        Dopo la dichiarazione 
+
+                               union regs inregs;
+
+        potremo accedere ai membri mediante
+
+                                   inregs.x.cx
+
+        ad esempio
+
+                               inregs.h.bh = 0x02;
+
+
+
+             Funzioni  che  ritornano  array e  puntatori  a funzioni
+
+            
+        La stessa tecnica usata per passare una struttura da una funzione 
+        ad  un  altra  mediante un puntatore e'  applicabile  anche  alle 
+        funzioni stesse.
+        Queste  ultime  infatti  possono ritornare valori  di  ogni  tipo 
+        eccetto  arrays  anche  se  possono in  ogni  caso  ritornare  un 
+
+
+                                       74
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        puntatore ad un vettore o ad una funzione.
+        In questo caso la funzione deve essere dichiarata con il tipo che 
+        ritornera'.
+        Non bisogna confondere la dichiarazione del tipo ritornato con la 
+        dichiarazione di un puntatore a funzione.
+        Ogni  funzione,  come  nel caso delle  variabili,  possiedono  un 
+        indirizzo  ed  e' quindi permesso usare dei  puntatori  a  queste 
+        anche  se  in questo caso non sara' possibile alterare  l'oggetto 
+        puntato.
+
+
+        Una dischiarazione del tipo
+
+                                 char (*funz)()
+
+        e' diversa da 
+
+                                  char *funz()
+
+        che  e'  quella  che interessa a noi per la  restituzione  di  un 
+        puntatore a char.
+        Infatti  nel  primo caso la dichiarazione afferma che funz e'  un 
+        puntatore ad una funzione che ritorna un char mentre nel  secondo 
+        caso funz e' una funzione che ritorna un puntatore ad un char.
+        Un  esempio di dichiarazione di puntatore a funzione che  ritorna 
+        un puntatore a char e' il seguente
+
+                                char *((*funz)())
+
+        Molte  volte una funzione potrebbe servire ad elaborare  dati  di 
+        tipi diversi.
+        Utilizzando  un puntatore ad una funzione facciamo in modo che il 
+        programma   chiamante   non  si  preoccupi  di   nulla   se   non 
+        dell'indirizzo della funzione stessa.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       75
+
+
+

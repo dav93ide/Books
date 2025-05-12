@@ -1,0 +1,995 @@
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                         I N D I C E   G E N E R A L E 
+
+          1. Nota sul Copyright.........................................2
+
+          2. Lo scopo di questa sfacchinata.............................3
+
+          3. Introduzione...............................................4
+
+          4. Programmazione strutturata.................................6
+             4.1. Metodo di analisi informatico.........................6
+             4.2. Tipologia dei dati....................................7
+             4.3. Tipo BOOLEANO.........................................8
+             4.4. Il tipo carattere.....................................8
+             4.5. Il tipo intero........................................9
+             4.6. Il tipo reale (float).................................9
+             4.7. Tabelle..............................................10
+             4.8. Rappresentazione d'un algoritmo......................10
+             4.9. L'assegnazione.......................................12
+             4.10. La scelta...........................................13
+             4.11. L'iterazione........................................18
+             4.12. Analisi discendente e ascendente....................20
+             4.13. Modelli informatici.................................21
+                   4.13.1. Algoritmo di Euclide........................21
+                   4.13.2. Algoritmo di fusione........................21
+                   4.13.3. Algoritmi di ordinamento....................22
+                   4.13.4. Algoritmi di visita grafi...................24
+                   4.13.5. Algoritmo di ricerca a ventaglio............24
+                   4.13.6. Algoritmo di ricerca a scandaglio...........25
+                   4.13.7. Aspetto modulare e sottoprogrammi...........26
+             4.14. Variabili locali e globali..........................28
+             4.15. Biblioteche o librerie..............................29
+             4.16. Strutture di dati...................................29
+             4.17. Ricorsivita'........................................32
+
+          5. Linguaggio C..............................................34
+             5.1. Organizzazione del compilatore.......................35
+             5.2. Errori riportati dal compilatore.....................37
+             5.3. Sequenze di Escape...................................38
+             5.4. Commenti.............................................39
+             5.5. Operatori............................................40
+             5.6. Parole chiave........................................41
+             5.7. Variabili............................................41
+             5.8. Identificatori di variabile..........................43
+             5.9. Costanti.............................................43
+             5.10. Direttive al compilatore............................44
+             5.11. Struttura di un programma C.........................47
+             5.12. Visibilita' di una variabile........................48
+             5.13. Classe di memoria...................................49
+             5.14. Funzioni............................................50
+             5.15. Matrici e arrays....................................51
+             5.16. Input e output formattato...........................53
+
+
+
+
+                                       344
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+          6. Stream predefiniti........................................56
+             6.1. Stream...............................................57
+             6.2. Funzioni di controllo stream.........................60
+             6.3. Macro ...............................................61
+             6.4. Sequenze ESC per controllo video.....................63
+             6.5. Passaggio di argomenti al main.......................67
+             6.6. Puntatori............................................68
+             6.7. Unioni...............................................73
+             6.8. Funzioni  che  ritornano  array e  puntatori a funz..74
+
+          7. Funzioni di libreria......................................76
+             7.1. Funzioni di libreria del compilatore Microsoft.......77
+             7.2. Errori ritornati da funzioni.........................77
+             7.3. Funzioni per la classificazione e conversione di car.78
+             7.4. Conversione di data..................................80
+             7.5. Controllo delle directory............................81
+             7.6. Funzioni che agiscono sui files......................82
+             7.7. Funzioni di I/O......................................90
+             7.8. Handles predefiniti..................................94
+             7.9. Funzioni di orologio.................................94
+             7.10. Funzioni di I/O da console..........................96
+             7.11. Funzioni per la manipolazione delle stringhe........99
+             7.12. Funzioni matematiche...............................104
+             7.13. Funzioni per il controllo di processi..............105
+             7.14. Funzioni per l'allocazione di memoria..............112
+             7.15. Funzioni per la manipolazione di buffers...........113
+             7.16. Interfaccia MS DOS.................................116
+
+          8. Accenni hardware 8088/86.................................126
+             8.1. Accenni all' hardware del sistema 8088/86...........127
+             8.2. Architettura di sistema.............................127
+             8.3. Gestione memoria in linguaggio C....................134
+             8.4. Interrupts hardware ................................139
+             8.5. 8253 Timer Chip.....................................142
+             8.6. Interrupts BIOS.....................................149
+             8.7. Interrupt 14H (RS_232 I/O)..........................154
+                  8.7.1. AH = 0  Setta i parametri relativi alla COM..154
+                  8.7.2. AH = 1  Trasmette il carattere in AL.........155
+                  8.7.3. AH = 2  Riceve un carattere dalla porta......156
+                  8.7.4. AH = 3  Riporta lo stato della linea e modem.156
+             8.8. Interrupt di tastiera (16H).........................169
+                  8.8.1. AH = 0  Legge un carattere dalla tastiera....170
+                  8.8.2. AH = 1  Guarda se c'e' un carattere nel buf..171
+                  8.8.3. AH = 2  Acquisisce lo stato dello Shift......171
+             8.9. Gestione dischi (13H)...............................174
+                  8.9.1. AH = 0  Resetta il disco.....................175
+                  8.9.2. AH = 1  Acquisisce lo stato del dischetto....175
+                  8.9.3. AH = 2  Lettura settori disco................175
+                  8.9.4. AH = 3  Scrive un settore o piu' su disco....177
+                  8.9.5. AH = 4  Verifica i settori del dischetto.....177
+                  8.9.6. AH = 5  Formatta una traccia.................178
+
+
+                                       345
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+             8.10. Gestione stampante (INT 17H).......................191
+                   8.10.1. AH  = 0  Stampa il carattere...............191
+             8.11. Gestione MOUSE (INT 33H)...........................195
+             8.12. Gestione Memoria Estesa (EMM INT 67H)..............198
+             8.13. Gestione video (INT 10H)...........................202
+                   8.13.1. AH = 0  Setta il modo video................205
+                   8.13.2. AH = 1  Setta il tipo di cursore...........205
+                   8.13.3. AH = 2  Setta la posizione del cursore.....206
+                   8.13.4. AH = 3  Legge la posizione del cursore.....207
+                   8.13.5. AH = 4  Riporta la posizione della penna...207
+                   8.13.6. AH = 5  Seleziona la pagina attiva.........207
+                   8.13.7. AH = 6  Esegue lo scroll in alto...........207
+                   8.13.8. AH = 7  Esegue lo scroll in basso..........208
+                   8.13.9. AH = 8  Riporta il carattere...............210
+                   8.13.10. AH = 9  Scrive un carattere...............220
+                   8.13.11. AH = 0AH  Scrive un carattere.............221
+                   8.13.12. AH = 0BH  Setta la tavolozza dei colori...221
+                   8.13.13. AH = 0CH  Scrive un punto (pixel).........221
+                   8.13.14. AH = 0DH  Legge la posizione di un pixel..221
+                   8.13.15. AH = 0EH  Scrive un carattere in modo tel.221
+                   8.13.16. AH = 0FH  Riporta il settaggio corrente...222
+             8.14. Determina dimensione memoria (INT 12H).............228
+             8.15. Determinazione dei dispositivi installati (11H.)...229
+             8.16. Setta e legge l'orologio di sistema (INT 1AH)......231
+                   8.16.1. AH = 0  Legge l'orologio...................231
+                   8.16.2. AH = 1  Setta il conteggio del clock.......232
+             8.17. Stampa dello schermo (INT 5H)......................233
+             8.18. Boot strap loader (INT 19H)........................233
+
+          9. Interrupts DOS...........................................233
+             9.1. Servizi interrupt 21H...............................234
+                  9.1.1. 00H - Program terminate......................234
+                  9.1.2. 01H - Keyboard input.........................235
+                  9.1.3. 02H - Display output.........................235
+                  9.1.4. 03H - Auxiliary Input........................235
+                  9.1.5. 04H - Auxiliary Output.......................235
+                  9.1.6. 05H - Printer Output.........................235
+                  9.1.7. 06H - Direct console I/O.....................235
+                  9.1.8. 07H - Direct Console Input Without Echo......236
+                  9.1.9. 08H - Console Input Without Echo.............236
+                  9.1.10. 09H - Print String..........................236
+                  9.1.11. 0AH - Buffered Keyboard Input...............237
+                  9.1.12. 0BH - Check Standard Input Status...........237
+                  9.1.13. 0CH - Clear Keyboard Buffer.................237
+                  9.1.14. 0DH - Disk Reset............................237
+                  9.1.15. 0EH - Select Disk...........................237
+                  9.1.16. 0FH - Open File.............................238
+                  9.1.17. 10H - Close File............................240
+                  9.1.18. 11H - Search for First Entry................240
+                  9.1.19. 12H - Search for Next Entry.................248
+
+
+
+
+                                       346
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                  9.1.20. 13H - Delete File...........................248
+                  9.1.21. 14H - Sequential Read ......................249
+                  9.1.22. 15H - Sequential Write......................249
+                  9.1.23. 16H - Create File...........................249
+                  9.1.24. 17H - Rename File...........................249
+                  9.1.25. 19H - Current Disk..........................250
+                  9.1.26. 1AH - Set Disk Transfer Address (DTA)  .....250
+                  9.1.27. 1BH - Allocation Table Information..........250
+                  9.1.28. 1CH - Allocation Table Information..........255
+                  9.1.29. 21H - Random Read...........................256
+                  9.1.30. 22H - Random Write..........................256
+                  9.1.31. 23H - File Size.............................256
+                  9.1.32. 24H - Set Realtive Record Field.............256
+                  9.1.33. 25H - Set Interrupt Vector..................257
+                  9.1.34. 26H - Create New Program Segment............258
+                  9.1.35. 27H - Random Block Read.....................261
+                  9.1.36. 28H - Random Block Write....................261
+                  9.1.37. 29H - Parse Filename........................261
+                  9.1.38. 2AH - Get Date..............................262
+                  9.1.39. 2BH = Set Date..............................263
+                  9.1.40. 2CH - Get Time..............................264
+                  9.1.41. 2DH - Set Time..............................264
+                  9.1.42. 2EH - Set/Reset Verify Switch...............265
+                  9.1.43. 2FH - Get Disk Transfer Address (DTA).......265
+                  9.1.44. 30H - Get DOS Version Number................265
+                  9.1.45. 31H - Terminate Process and Remain Resident.266
+                  9.1.46. 32H - Get Disk Information..................266
+                  9.1.47. 33H - Ctrl-Break Check......................267
+                  9.1.48. 34H - Find Active Byte......................267
+                  9.1.49. 35H - Get Vector............................267
+                  9.1.50. 36H - Get Disk Free Space...................268
+                  9.1.51. 37H - Determine or set DOS switch character.268
+                  9.1.52. 38H - Get or Set Country Dependent..........269
+                  9.1.53. 39H - Create Subdirectory (MKDIR)...........270
+                  9.1.54. 3AH - Remove Subdirectory (RMDIR)...........271
+                  9.1.55. 3BH - Change the Currebt Directory (CHDIR)..271
+                  9.1.56. 3CH - Create a File.........................271
+                  9.1.57. 3DH - Open a File...........................271
+                  9.1.58. 3EH - Close a File Handle...................272
+                  9.1.59. 3FH - Read from a File or Device............272
+                  9.1.60. 40H - Write to a File or Device.............273
+                  9.1.61. 41H - Delete a File from a Specified Dir....273
+                  9.1.62. 42H - Move File Read/Write Pointer..........273
+                  9.1.63. 43H - Change File Mode (CHMOD)..............273
+                  9.1.64. 44H - I/O Control for Devices (IOCTL).......275
+                  9.1.65. 45H - Duplicate a File Handle (DUP).........278
+                  9.1.66. 46H - Force a Duplicate of a Handle (CDUP)..278
+                  9.1.67. 47H - Get Current Directory.................278
+                  9.1.68. 48H - Allocate memory.......................279
+                  9.1.69. 49H - Free Allocated Memory.................280
+                  9.1.70. 4AH - Modify Allocated Memory Blocks........280
+
+
+
+
+                                       347
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                  9.1.71. 4BH - Load or Execute a Program (EXEC)......280
+                  9.1.72. 4CH - Terminate a Process (EXIT)............281
+                  9.1.73. 4DH - Get Return Code of a Sub-process......282
+                  9.1.74. 4EH - Find First Matching File (FIND FIRST..283
+                  9.1.75. 4FH - Find Next Matching File...............283
+                  9.1.76. 50H - Set address of PSP....................283
+                  9.1.77. 51H - Get Address of PSP....................284
+                  9.1.78. 54H - Get Verify Setting....................284
+                  9.1.79. 56H - Rename a File.........................284
+                  9.1.80. 57H - Get/Set a File's Date and Time........285
+                  9.1.81. 59H - Get Extended Error....................286
+                  9.1.82. 5AH - Create Temporary File.................289
+                  9.1.83. 5BH - Create New File.......................290
+                  9.1.84. 5CH - Lock/Unlock File Access...............290
+                  9.1.85. 62H - Get Program Segment Prefix Address....290
+             9.2. Mappatura della memoria.............................291
+             9.3. Altri Interrupts....................................294
+                  9.3.1. 20H -  Program Terminate.....................294
+                  9.3.2. 22H -  Terminate Address.....................294
+                  9.3.3. 23H -  Ctrl Break Exit Address...............294
+                  9.3.4. 24H -  Critical Error Handler Vector.........295
+                  9.3.5. 25H -  Absolute Disk Read....................295
+                  9.3.6. 26H -  Absolute Disk Write...................295
+                  9.3.7. 27H -  Terminate but Stay Resident...........295
+                  9.3.8. 28H -  Call when DOS is free.................297
+                  9.3.9. 2FH -  Printer...............................297
+             9.4. Device Driver.......................................299
+                  9.4.1. INIT.........................................304
+                  9.4.2. MEDIA CHECK..................................304
+                  9.4.3. BUILD BPB....................................304
+                  9.4.4. INPUT or OUTPUT..............................305
+                  9.4.5. Non Destructive Input........................306
+                  9.4.6. STATUS.......................................306
+                  9.4.7. FLUSH........................................306
+                  9.4.8. OPEN or CLOSE................................306
+
+         10. Programmi residenti in memoria...........................307
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       348
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+                        I N D I C E     A N A L I T I C O
+
+
+        #
+        #define, 43
+        #elif, 46
+        #elif defined, 47
+        #else, 46
+        #if, 46
+        #if defined, 46
+        #ifdef, 46
+        #include, 44
+        #typedef, 45
+
+        A
+        Abort, 109
+        Access, 83
+        Acos, 104
+        Addizione, 40
+        ADDRESS BUS, 129
+        AND, 40
+        Area parametri BIOS, 291
+        Argc, 67
+        Argv, 67
+        Arrays, 51
+        Asin, 104
+        Assegnazione, 40
+        Atan, 104
+        Atan2, 104
+        Atof, 80
+        Atoi, 80
+        Atol, 80
+        Attributi di un file, 239
+        Attributi video, 204
+        Attributo del device, 300
+        AUX, 235
+
+        B
+        Baud rate, 158
+        Bdos, 121
+        BIOS, 149
+        Bootstrap, 233
+        BPB, 277, 305
+        Break, 294
+        Buffer del video, 203, 293
+        Buffer di tastiera, 237, 292
+        Buffers, 113
+        BUILD BPB, 302
+        Byte attivo, 267
+        Byte ausiliario, 170
+
+
+
+
+                                       349
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+        C
+        Calloc, 112
+        Campo del FCB, 238
+        Canali del DMA, 190
+        Caratteristiche video, 223
+        Catena del file, 251
+        CGA, 202, 292
+        Cgets, 97
+        Char far, 124
+        Chdir, 82
+        Chip 8237, 189
+        Chip 8253, 142
+        CHIP SELECT, 132
+        Chmod, 83
+        Chsize, 86
+        Cluster, 253
+        Codice del carattere, 170, 204
+        Codice di comando, 302
+        Codici d'errore EMM, 200
+        Codici secondari, 170
+        Colonne del video, 293
+        COM1, 235
+        COM2, 235
+        Commenti, 39
+        Complemento ad uno, 40
+        CONST, 136
+        CONTROLL BUS, 130
+        Controllo del controllore, 187
+        Controllo della stampante, 192
+        Controllo delle directory, 81
+        Cos, 104
+        Cosh, 105
+        Costante, 43
+        Cprintf, 97
+        CPU, 127
+        Cputs, 97
+        CRC, 293
+        Creat, 91
+        Cscanf, 99
+        Ctime, 95
+        Cursore, 220
+        C_common, 135
+
+
+        D
+        Data, 262, 263, 285
+        DATA BUS, 129
+        DataSegment, 136
+        Decoder, 131
+        Decremento, 40
+        DEVICE CLOSE, 302
+
+
+                                       350
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+        DEVICE OPEN, 302
+        Devices, 300
+        DGROUP, 136
+        Dimensione del file, 256
+        Dimensioni del buffer video, 293
+        Dischi, 174
+        Dispositivo ausiliario, 235
+        Diverso, 40
+        Divisione, 40
+        Divisori del baud rate, 158
+        DMA, 188
+        DTA, 283
+        Dup, 94
+        Dup2, 94
+
+
+        E
+        E2BIG, 106, 109
+        EACCES, 83, 84, 85, 86, 90, 91, 106
+        EBADF, 86, 87, 89, 90, 92
+        EDEADLOCK, 90
+        EGA, 202, 292
+        EINVAL, 89, 90, 92, 108
+        Elenco dei principali interrupts, 150
+        EMFILE, 91, 106
+        ENOENT, 82, 83, 84, 85, 91, 106, 109
+        ENOEXEC, 106, 109
+        ENOMEM, 81, 106, 109
+        ENOSPC, 86
+        ERANGE, 81
+        Errno, 77
+        Errori hardware, 145
+        ESC, 63
+        EXDEV, 84
+        Execl, 105
+        Execle, 105
+        Execv, 105
+        Execve, 105
+        Exit, 108
+        Exp, 105
+        Expanded memory, 198
+        Extern, 49
+
+
+        F
+        Fabs, 105
+        FAT (File Allocation Table), 250
+        FCB (File Control Block), 238
+        Fclose, 60
+        Fcloseall, 61
+        Fgets, 59
+
+
+                                       351
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+        FILE, 57
+        File temporaneo, 289
+        Filelength, 85
+        Fileno, 85
+        Flag, 140
+        Flag di direzione, 140
+        Flag di interruzione, 140
+        Flag di overflow, 140
+        Flag di parita', 141
+        Flag di riporto, 141
+        Flag di riporto aux, 141
+        Flag di segno, 140
+        Flag di trappola, 140
+        Flag di zero, 140
+        Fopen, 57
+        Formattatori, 53
+        Fprintf, 58
+        Fputs, 59
+        FP_OFF, 124
+        FP_SEG, 124
+        Free, 112
+        Fscanf, 59
+        Fseek, 61
+        Fstat, 87
+        Ftime, 95
+        Funzioni, 50
+        Funzioni di I/O, 90
+        Funzioni matematiche, 104
+
+
+        G
+        Gestione delle porte di comunicazione, 154
+        Getc, 59
+        Getch, 56, 97
+        Getchar, 56
+        Getche, 98
+        Getcwd, 81
+        Gets, 56
+
+
+        H
+        Handle, 278
+        Hardware, 127
+        Head Pointer, 293
+
+
+        I
+        Identificatore, 43
+        Identificazione interruzione, 165
+        Incremento, 40
+        Indirizzamento di memoria, 129
+
+
+                                       352
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+        Indirizzo relativo, 150
+        Indirizzo segmento, 150
+        INIT, 302
+        Inp, 116
+        INPUT, 302
+        INPUT FLUSH, 302
+        INPUT STATUS, 302
+        Insert, 171
+        Int 08H, 144
+        Int 1CH, 142
+        Int86, 125
+        Int86x, 125
+        Intdos, 122
+        Intdosx, 123
+        Integrato 8250, 157
+        Integrato 8259, 139
+        Interrupt del DOS, 234
+        Interrupts software del BIOS, 149
+        Interruzione mascherabile, 141
+        IOCTL, 302
+        IP (istruction pointer), 128
+        Isalnum, 78
+        Isalpha, 78
+        Isascii, 78
+        Iscntrl, 78
+        Isdigit, 78
+        Isgraph, 78
+        Islower, 78
+        Isprint, 78
+        Ispunct, 78
+        Isspace, 78
+        Isupper, 78
+        Isxdigit, 78
+        Itoa, 80
+
+
+        K
+        Kbhit, 98
+
+
+        L
+        Lettura diretta della memoria, 218
+        LK_LOCK, 90
+        LK_NBLCK, 90
+        LK_UNLCK, 90
+        Localtime, 96
+        Locking, 90
+        Log, 105
+        Log10, 105
+        Lseek, 92
+        Ltoa, 80
+
+
+                                       353
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+        M
+        Macro, 61
+        Maggiore di, 40
+        Maggiore uguale di, 40
+        Malloc, 113
+        Manipolazione delle stringhe, 99
+        Matrice, 51
+        MEDIA CHECK, 302
+        Memccpy, 114
+        Memchr, 114
+        Memcmp, 115
+        Memcpy, 115
+        Memoria, 280, 291
+        Memset, 115
+        Minore di, 40
+        Minore uguale di, 40
+        Mkdir, 82
+        Modalita' CRT, 222
+        Modalita' del cursore, 293
+        Modalita' del video, 293
+        Modulo, 40
+        Moltiplicazione, 40
+        Monocromatico, 202, 292
+        Mouse, 195
+        Movedata, 116
+
+
+        N
+        NO DESTRUCTIVE INPUT NO WAIT, 302
+        NOT, 40
+        NULL, 136
+        Numero del lettore, 250
+
+
+        O
+        Open, 93
+        Operatori, 40
+        OR, 40
+        Ora, 264
+        Orologio di sistema, 231
+        Outp, 118
+        OUTPUT, 302
+        OUTPUT FLUSH, 302
+        OUTPUT STATUS, 302
+        OUTPUT WITH VERIFY, 302
+        O_APPEND, 93
+        O_BINARY, 89, 93
+        O_CREAT, 93
+        O_EXCL, 93
+        O_RDONLY, 93
+        O_RDWR, 93
+
+
+                                       354
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+        O_TEXT, 89, 94
+        O_TRUNC, 93
+        O_WRONLY, 93
+
+
+        P
+        Pagina attiva, 293
+        Parametri del disco, 176
+        Parole chiave, 41
+        Periferiche collegate, 292
+        Periferiche installate, 229
+        Perror, 77
+        Pixel, 221
+        Porte di sistema da 40H a 43H, 142
+        Porte legate alle comunicazioni seriali, 157
+        Posizione del cursore, 293
+        Pow, 105
+        Printf, 53
+        Programmazione di una routine d'interrupt, 165
+        PSP, 291
+        PSP (Program Segment Prefix), 258
+        Puntatore a funzione, 74
+        Puntatori, 68
+        Putc, 60
+        Putch, 98
+        Putchar, 56
+        Puts, 56
+        P_NOWAIT, 107
+        P_OVERLAY, 107
+        P_WAIT, 107
+
+
+        R
+        RAM, 133
+        Read, 91
+        Realloc, 113
+        Record di boot, 186
+        Refresh di memoria, 189
+        Register, 49
+        Registri del processore 8088/86, 118
+        Registro  controllo  modem, 160
+        Registro abilitazione interruzioni, 165
+        Registro di controllo della linea, 157
+        Registro di modalita', 190
+        Registro di stato, 192
+        Registro di stato e di comando, 189
+        REMOVABLE MEDIA, 302
+        Rename, 84
+        Request header, 300, 305
+        Rewind, 61
+        Rinfresco di memoria, 189
+
+
+                                       355
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+        Rmdir, 82
+        ROM, 133
+
+
+        S
+        Scanf, 53
+        SEEK, 273
+        Segmentazione, 133
+        Segmenti, 129
+        Segnale di R/W, 130
+        Servizi relativi all'interrupt 33H, 195
+        Setmode, 89
+        Shift a destra, 40
+        Shift a sinistra, 40
+        SIGINT, 110
+        Signal, 110
+        SIG_DFL, 111
+        SIG_IGN, 111
+        Sin, 105
+        Sinh, 105
+        Sottrazione, 40
+        Spawnl, 107
+        Spawnle, 107
+        Spawnv, 107
+        Spawnve, 107
+        Specifiche di conversione, 53
+        Sqrt, 105
+        Stack, 128, 135
+        Stampante, 235
+        Stampante parallela, 191
+        Stat, 87
+        Static, 49
+        Stato del controllore, 187
+        Stato del dischetto, 175, 293
+        Stato del modem, 156, 160
+        Stato della linea, 156, 159
+        Stato del motore, 293
+        Stato di shift, 171
+        Stdaux, 89, 94
+        Stderr, 89, 94
+        Stdin, 94
+        Stdout, 89, 94
+        Stdprn, 89, 94
+        Strategy routine, 300
+        Strcat, 99
+        Strchr, 101
+        Strcmp, 100
+        Strcpy, 100
+        Strdup, 101
+        Stream, 57
+        Strlen, 102
+
+
+                                       356
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+        Strlwr, 103
+        Strncat, 102
+        Strncmp, 102
+        Strncpy, 103
+        Strnset, 103
+        Struct, 70
+        Struct SREGS, 119
+        Strupr, 104
+        Struttura, 127
+        St_atime, 87
+        St_ctime, 87
+        St_dev, 87
+        St_mode, 87
+        St_mtime, 87
+        St_nlink, 87
+        St_rdev, 87
+        St_size, 87
+        System, 109
+        S_IEXEC, 88
+        S_IFCHR, 88
+        S_IFDIR, 88
+        S_IFMT, 88
+        S_IFREG, 88
+        S_IREAD, 83, 84, 88, 92, 94
+        S_IWRITE, 83, 84, 88, 92, 94
+
+
+        T
+        Tail Pointer, 293
+        Tan, 105
+        Tanh, 105
+        Tastiera, 169
+        Tavola vettori interrupts, 150
+        Tavolozza dei colori, 221
+        Tavolozza del colore, 293
+        Tell, 92
+        Time, 95
+        Timezone, 95
+        Tipi di errore, 286
+        Toascii, 79
+        Tolower, 79
+        Toupper, 79
+        Trattazione dell'interrupt 10H, 202
+        Tzset, 96
+
+
+        U
+        Uguaglianza, 40
+        Ultoa, 80
+        Umask, 84
+        Union REGS, 119
+
+
+                                       357
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+        Unioni, 73
+        Unlink, 85
+        Uso ricorsivo delle strutture, 72
+
+
+        V
+        Valori di timeout, 294
+        Variabile auto, 49
+        Variabile statica, 49
+        Verifica, 284
+        Versione Dos, 265
+        Video, 202
+
+
+        W
+        Write, 91
+
+
+        \
+        \b, 38
+        \f, 38
+        \n, 38
+        \r, 38
+        \t, 38
+        \v, 38
+        \\, 38
+
+
+        _
+        _BSS, 135
+        _DATA, 136
+        _exit, 108
+        _TEXT, 136
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       358
+
+
+
+
+
+

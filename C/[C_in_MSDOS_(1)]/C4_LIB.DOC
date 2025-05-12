@@ -1,0 +1,3301 @@
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+        -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                              FUNZIONI DI LIBRERIA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       76
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+                 Funzioni di libreria del compilatore Microsoft
+
+
+        A  questo punto abbiamo concluso la parte teorica sul  linguaggio 
+        C anche se alcuni argomenti potremo riprenderli piu'avanti.
+        La  teoria  non  e'  che  una piccola  parte  di  quello  che  ci 
+        prefiggiamo di fare.
+        Solo  un costante uso di cio' che abbiamo detto potra' servire ad 
+        ottenere risultati decenti.
+        In altre parole e' proprio vero che si impara sbagliando !
+        Dovremmmo ora essere in grado di fare un qualche programma  anche 
+        non necessariamente semplice.
+        La  potenzialita'  del  linguaggio  C sta'  anche  nel  fatto  di 
+        conoscere  le librerie di funzioni che abbiamo a disposizione con 
+        il  compilatore che utilizziamo per poterle poterle applicare  ai 
+        nostri programmi senza avere la necessita' di riscriverle.
+        Nelle  librerie del compilatore Microsoft C abbiamo funzioni  per 
+        gli   scopi  piu'  svariati  quali  manipolazione  di   stringhe, 
+        ricerche,   ordinamenti,   controllo   dei   processi,   funzioni 
+        matematiche e molte altre. 
+        Per  l'utilizzo  di  queste bisogna conoscere  il  modo  con  cui 
+        richiamarle  e in particolar modo le dichiarazioni dei tipi degli 
+        argomenti a queste passati.
+        Piuttosto  di una trattazione alfabetica ne preferisco una  fatta 
+        per argomenti.
+        Molte  di  queste  routine  utilizzano  macro,  tipi  e  costanti 
+        dichiarati  nei  file  di header (.h) che  sara'  nostro  compito 
+        includere mediante la direttiva al preprocessore #include .
+        Se non specificato nessun tipo davanti alla funzione si intendono 
+        int. 
+
+
+                          Errori ritornati da funzioni
+
+
+        Molte  funzioni  della  libreria del  compilatore  ritornano  dei 
+        valori  per avvertire se durante l'esecuzione di queste  si  sono 
+        verificati errori.
+        Il  valore  riportato  dalla funzione non specifica  il  tipo  di 
+        errore verificatosi.
+        Per poterlo testare esistono due metodi.
+        Il  primo  consiste  nel dichiarare extern la  variabile  globale 
+        'errno'  e testarla nel caso che il valore ritornato  segnali  un 
+        irregolarita'.
+        Per  ogni  funzione  che  potrebbe ritornare  un  errore  saranno 
+        riportate  le  costanti  con  cui  sara'  possibile  eseguire  il 
+        confronto con errno per conoscere la natura degli inconvenienti.
+        Il  secondo metodo e' quello di utilizzare la  funzione  perror() 
+        che stampa sullo standard di errore il messaggio appropriato.
+        In perror() e' possibile anche specificare una stringa che verra' 
+        stampata con il messaggio d'errore stesso.
+
+
+
+                                       77
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        I  valori degli errori sono definiti nel file di header errno.h e 
+        nel  caso  che si voglia seguire il primo  metodo  dovra'  questo 
+        essere incluso nel nostro file.
+        Tenete  a mente che errno in genere e' settato sull'ultimo errore 
+        verificato nell'esecuzione e che quindi il controllo e la  stampa 
+        dell'errore  dovra'  essere  fatta solo nel caso in  cui  si  sia 
+        verificato effettivamente un errore.
+        In  altre  parole se voi mettete un istruzione di  stampa  errore 
+        incontrollata, questa potrebbe stampare un messaggio  determinato 
+        da un'altra funzione eseguita precedentemente.
+        Una  funzione che serve ad ovviare all'inconveniente e'  clearerr 
+        che resetta l'indicatore di errore.
+
+
+             Funzioni per la classificazione e conversione di caratteri
+
+
+        Le  seguenti funzioni eseguono dei test per verificare la  natura 
+        del carattere passato come argomento.
+        Restituiscono  un  valore  diverso  da  0  se  la  condizione  e' 
+        soddisfatta, 0 invece se no.
+        Un esempio di utilizzo
+
+                                 int var_2;
+                                 var = 'A';
+                                 var_2 = isalnum(var);
+
+
+        #include <ctype>
+
+        isalnum(var); /* Testa se var e' 'A'-'Z', 'a'-'z' o '0'-'9'    */    
+        isalpha(var); /* Testa se var e' 'A'-'Z' o 'a'-'z'             */  
+        isascii(var); /* Testa se var e' un carattere ascii 0-127      */
+        iscntrl(var); /* Testa se var e' un carattere di controllo     */
+        isdigit(var); /* Testa se var e' cifra '0'-'9'                 */
+        isgraph(var); /* Testa se var e' un carattere stampabile 33-126*/
+        islower(var); /* Testa se var e' un carattere minuscolo        */
+        isprint(var); /* Testa se var e' un carattere stampabile 32-126*/
+        ispunct(var); /* Testa se var e' un carattere di punteggiatura */
+        isspace(var); /* Testa se var e' un withespace 9-13 o 32       */
+        isupper(var); /* Testa se var e' un carattere maiuscolo        */
+        isxdigit(var);/* Testa se var e' una cifra esadecimale         */
+
+        int var;
+
+        Supponendo   di  dover  eseguire  un  input  controllando  che  i 
+        caratteri  battuti siano o lettere o numeri  potremo,  tanto  per 
+        portare un esempio pratico di utilizzo,  scrivere una routine del 
+        tipo:
+
+
+
+
+
+                                       78
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        int var_1, var_2;
+
+        for(;;)
+        {
+           var_1 = getchar();
+           if((var_2 = isalnum(var_1)) != 0)
+              printf("%c ", var_1);
+         
+        };
+
+
+        Le  funzioni che abbiamo visto servono solo per il riconoscimento 
+        di certi caratteri.
+
+        Quelle che seguono servono invece alla loro conversione.
+
+
+        #include <ctype.h>
+
+        toascii(var);   /* Converte var in un carattere ASCII          */
+        tolower(var);   /* Converte var in carattere minuscolo         */
+        toupper(var);   /* Converte var in carattere maiuscolo         */
+        int var;
+
+        Chiaramente tolower e toupper svolgono il loro compito solo se il 
+        carattere passato come argomento e' approppriato e cioe' se ha un 
+        corrispondente maiuscolo o minuscolo.
+        A  parte  le  innumerevoli  applicazioni in  cui  possono  essere 
+        utilizzate  queste  funzioni,  un  esempio  potrebbe  essere  nel 
+        momento  in  cui  vogliamo eseguire dei  controlli  su  input  di 
+        selezione da menu.
+        Il file che segue stampa un menu e inputa una scelta.
+
+        int var;
+        printf(" a ... Ordinamento file(s)\n");
+        printf(" b ... Stampa file(s)\n");
+        printf(" Scelta : ");
+        var = getchar();     
+
+        A  questo  punto il nostro programma dovrebbe agire in base  alla 
+        selezione fatta dall'utente.
+        Per vari motivi questo potrebbe inserire l'opzione desiderata  si 
+        con un carattere maiuscolo che minuscolo.
+        Prevvedendo cio' dovremmo eseguire un doppio controllo
+
+                     if(var == 'a' || var == 'A') ordina();
+
+        Potremmo anche,  appena eseguito l'input, convertire mediante una 
+        delle  precedenti  funzioni  il carattere  inputato  in  modo  da 
+        eseguire il controllo solo sui caratteri maiuscoli o minuscoli.
+
+
+
+
+                                       79
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+                            var = tolower(var);
+                            if(var == 'a') ordina();
+
+        oppure potremmo usare un case
+
+                             switch(var)
+                             {
+                                    case 'a':
+                                    .........
+                             }
+
+        invece di
+                             switch(var)
+                             {
+                                    case 'A':
+                                    case 'a':
+                                    .........
+
+                             }
+
+
+         
+                               Conversione di data
+
+
+        Mentre  le  funzioni  precedenti  convertivano  un  carattere  le 
+        seguenti eseguono conversioni di numeri in stringhe e viceversa.
+
+        #include <stdlib.h>
+        #include <math.h>
+
+        double atof(stringa); /* Converte stringa in un double         */
+        atoi(stringa);        /* Converte stringa in un int            */
+        atol(stringa);        /* Converte stringa in un long           */
+        char *stringa;
+
+        Queste funzioni fermano la lettura della stringa da convertire al 
+        primo carattere non riconosciuto come una parte di un numero.
+        Le  funzioni  precedenti  convertivano una stringa in  un  numero 
+        mentre  quelle  che  vedremo  ora  fanno  il  contrario  e  cioe' 
+        convertono un numero in una stringa.
+
+        #include <stdlib.h>
+
+        char *itoa(var,stringa,base);  /* Converte un int in stringa   */
+        int var;
+        char *ltoa(var,stringa,base);  /* Converte un long in stringa  */
+        long var;
+        char *ultoa(var,stringa,base); /* Converte unsigned in stringa */
+        unsigned long var;
+
+
+
+
+                                       80
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Queste  dichiarazioni  sono  comuni  a tutte e  tre  le  funzioni 
+        precedenti.
+
+        char *stringa;
+        int base;
+
+        Un esempio :
+
+        int var_1;
+        char 
+
+
+                            Controllo delle directory
+
+
+        In  alcuni casi si rivela molto utile disporre di funzioni adatte 
+        al controllo delle directory, ad esempio per poter sapere il path 
+        in  cui  ci  troviamo  con il programma,  per  poter  creare  una 
+        directory o cambiarla.
+        Piu'  avanti vedremo,  parlando della gestione  degli  interrupt, 
+        come crearci alcune funzioni simili senza supportarci su funzioni 
+        di libreria gia' esistenti.
+        La libreria del compilatore Microsoft ci mette a disposizione  le 
+        seguenti funzioni.
+
+        #include <direct.h>
+
+        char *getcwd(stringa,n);
+        char *stringa;
+        int  n;
+
+        Stringa e' l'array di char che conterra' il path riportato  dalla 
+        funzione  getcwd,  mentre n e' il numero massimo di caratteri che 
+        puo' costituire il percorso.
+        Getcwd  potrebbe riportare un errore testabile con errno  settato 
+        sui seguenti valori :
+
+        ENOMEM    -   Non c'e' memoria sufficente per allocare n bytes
+        ERANGE    -   Il path e' maggiore di n caratteri
+
+        Un esempio di utilizzo
+
+        char path_name[60];
+
+        getcwd(path_name,60);
+        printf("Corrente path : %s", path_name);
+         
+        La  funzione  appena  vista  ci  permetteva  solo  di  venire   a 
+        conoscenza   del  posizionamento  in  directory  senza  darci  la 
+        possibilita' di cambiarlo o di modificarlo.
+        Vediamo ora tre funzioni che ci permettono di creare,  cancellare 
+        e cambiare directory.
+
+
+                                       81
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        #include <direct.h>
+
+        chdir(stringa); /* Entra nel path specificato da stringa       */
+        mkdir(stringa); /* Crea la directory specificata in stringa    */
+        rmdir(stringa); /* Rimuove la directory specificata in stringa */
+        char *stringa;
+
+        Queste  funzioni  riportano come valore 0 se il lavoro  ha  avuto 
+        successo e -1 se no.
+        Un  errore ricorrente facilmente anche sotto MS DOS e' quello  di 
+        sbagliare  a specificare il path della directory in cui si  vuole 
+        entrare.
+        Il  ritorno  di  -1 e' il mezzo con cui accorgerci  se  tutto  e' 
+        andato per il verso giusto.
+        Esempio:
+
+        char path[50];
+        int  var;
+
+        printf("Directory o <CR> per ritornare : ");
+        gets(path);
+        var = chdir(path);
+
+        Come  dicevamo prima se il valore restituito e' -1 significa  che 
+        c'e' stato un errore.
+        Le prime due funzioni,  chdir e mkdir,  potrebbero in questo caso 
+        settare  il  valore di errno su ENOENT che significa che il  path 
+        non e' stato trovato.
+        Un ulteriore codice d'errore viene restituito con rmdir.
+        In questo caso potrebbe capitare, oltre a specificare un percorso 
+        inesistente,  che  il  path corrisponda ad un file e  non  a  una 
+        directory oppure che questa non sia vuota.
+        Errno sarebbe in questo caso settato su EACCES.
+
+
+                         Funzioni che agiscono sui files
+
+
+        Molte  di  queste  funzioni  sono  implementate  dal  compilatore 
+        Microsoft  C  per  mantenere una compatibilita' software  con  il 
+        sistema  operativo  Unix  anche se il lavoro da  loro  svolto  in 
+        ambiente Dos non corrisponde effettivamente a quello dichiarato.
+        Ad  esempio  la  funzione chmod dovrebbe cambiare  i  diritti  di 
+        accesso  ai  files  permettendo tutte le funzioni  di  lettura  e 
+        scrittura o solo una di queste.
+        Difatto  sotto Dos un file con permesso di sola  scrittura  sara' 
+        perfettamente leggibile in ugual modo.
+        Un file con permesso di sola lettura risultera' incancellabile.
+
+
+
+
+
+
+                                       82
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Ad ogni modo vediamo le funzioni.
+
+        #include <sys\types.h>
+        #include <sys\stat.h>
+        #include  <io.h>          /* Richiesto solo per dichiarazione  di 
+                                     funzioni                          */
+
+        chmod(path,modo);
+        char *path;
+        int  modo;
+
+        Modo e' uno dei seguenti valori
+
+                        S_IWRITE   Permesso di scrittura
+                        S_IREAD    Permesso di lettura
+
+        Questi  possono essere uniti dall'operatore OR (|) per  concedere 
+        sia il permesso di lettura che quello di scrittura.
+
+                           chmod("file.txt",S_IWRITE);
+
+        concede il permesso di scrittura sul file denominato file.txt.
+
+                       chmod("file.txt",S_IWRITE|S_IREAD);
+
+        permette sia la lettura che la scrittura.
+
+        La  funzione  che ci permette di testare quali diritti abbiamo  a 
+        disposizione su un file e' access.
+
+        #include <io.h>
+
+        access(path,modo);
+        char *path;
+        int  modo;
+
+        L'intero  modo puo' assumere,  a seconda di quello  che  vogliamo 
+        testare, i seguenti valori
+
+                  06  testa per permesso di scrittura e lettura
+                  04  testa per permesso in lettura
+                  02  testa per permesso in scrittura
+                  00  testa solo l'esistenza del file
+
+        La funzione ritorna 0 se il file dispone del permesso specificato 
+        come argomento.
+        In  caso  negativo il valore restituito e' -1 e errno e'  settato 
+        sui seguenti valori dipendenti dai vari casi :
+
+        EACCES   L'accesso  e' negato.  Il file non possiede  i  permessi 
+                 specificati.
+
+
+
+                                       83
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        ENOENT   Il path del file specificato non e' esatto.  Il file non 
+                 e' stato trovato.
+
+        Le  funzioni appena viste permettevano di testare e di settare  i 
+        permessi  riguardanti  i file gia' presenti nelle direttorie  dei 
+        nostri dischi.
+        Sempre  per  compatibilita'  con Unix  il  compilatore  Microsoft 
+        riporta  un ulteriore funzione che agisce sui permessi dei  files 
+        creati con le funzioni creat, open e sopen dal processo corrente.
+
+        #include <sys\types.h>
+        #include <sys\stat.h>
+        #include  <io.h>          /* Richiesto solo per la  dichiarazione 
+                                     di funzioni                       */
+
+        umask(modo);
+        int modo;
+
+        Modo e' una costante dichiarata in sys\stat.h che puo' assumere i 
+        seguenti valori.
+        Come  nel  caso  della  funzione  chmod  questi  possono   essere 
+        collegati mediante l'operatore OR (|).
+
+                        S_IWRITE    Permesso in scrittura
+                        S_IREAD     Permesso in lettura
+
+        Il  seguente  esempio  concede ai file creati  dal  programma  in 
+        esecuzione sia il permesso di lettura che di scrittura.
+
+                            umask(S_IWRITE|S_IREAD);
+
+        Vediamo  ora alcune funzioni che permettono di agire sul file per 
+        cambiargli il nome,  cancellarlo e per conoscere la lunghezza  di 
+        questo.
+
+        #include <io.h>
+
+        rename(nuovo_nome,vecchio_nome);
+        char *nuovo_nome;
+        char *vecchio_nome;
+
+        Rename cambia il nome di un file esistente.
+        Come  per altre funzioni rename restituisce un valore pari a 0 se 
+        l'operazione ha avuto successo mentre -1 se si e' verificato  uno 
+        dei  seguenti errori testabili nella variabile errno o stampabili 
+        mediante perror().
+
+        EACCES    Il  nuovo nome del file esiste gia' o non  puo'  essere 
+                  creato. Potrebbe anche dipendere dal fatto che il  file
+                  specificato corrisponda ad una directory.
+
+        ENOENT    Il file specificato non esiste
+
+
+                                       84
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        EXDEV     Si  e'  cercato  di   muovere  un  file  su  un  device 
+                  differente.
+
+        Per cancellare un file e'possibile utilizzare la funzione  unlink 
+        anche  se ha la limitazione di poter cancellare un solo file  per 
+        volta.
+        Vedremo  parlando  della  funzione  system()  come  sfruttare  il 
+        comando   interno   Dos   'del'   per   cancellare   piu'   files 
+        conteporaneamente.
+
+        #include <io.h>     /* Richiesto solo per la dichiarazione  delle 
+                               funzioni                                */
+
+        unlink(path);
+        char *path;
+
+        Anche  in  questo caso un valore di ritorno uguale a 0 indica  la 
+        riuscita dell'operazione e -1 l'insuccesso.
+        I codici di errore testabili sono
+
+        EACCES    Il path specificato corrisponde a una directory o a  un
+                  file con solo permesso in lettura.
+
+        ENOENT    Il file specificato non esiste.
+
+
+        Un esempio di utilizzo :
+
+        int var;
+
+        var = unlink("prova.txt");
+        if(var == -1)
+          perror("Non e' possibile rimuovere il file");
+
+         
+        filelength e' la funzione che ci permette di sapere le dimensioni 
+        di un file.
+
+        #include <io.h>      /* Richiesto solo per la dichiarazione delle
+                                funzioni                               */
+
+        long filelength(handle);
+        int handle;
+
+        L'argomento specificato in questo caso non e' il nome del file ma 
+        bensi' il numero di handle associato.
+        E'  possibile  avere  il numero di handle  mediante  la  funzione 
+        fileno()   utilizzata  specificando  come  argomento  lo   stream 
+        associato all'apertura di un file.
+        Prima  di  portare  un esempio d'uso  della  funzione  filelength 
+        vediamo l'utilizzo di fileno.
+
+
+
+                                       85
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        #include <stdio.h>
+
+        fileno(stream);
+        FILE *stream;
+
+        Esempio :
+
+        int var;
+        FILE *infile;
+        long lunghezza;
+
+              infile    = fopen("data.txt","r");
+              var       = fileno(infile);
+              lunghezza = filelength(var);
+
+        filelength  riporta  un valore uguale a -1L (long) se handle  del 
+        file specificato non e' valido.
+        errno e' settato sul codice d'errore della costante EBADF.
+
+        La  modifica delle dimensioni di un file e' resa possibile  dalla 
+        funzione chsize che e' sempre riferita al handle di un certo file 
+        precedentemente aperto.
+
+        #include <io.h>     /* Richiesto solo per la dichiarazione  delle
+                               funzioni                                */
+
+        chsize(handle,dimensioni);
+        int handle;
+        long dimensioni;
+
+        chsize  puo'  estendere  o  ridurre  le  dimensioni  di  un  file 
+        associato al handle specificato come argomento.
+        Nel  caso che le dimensioni vengano ridotte il  contenuto  finale 
+        del file viene perso.
+        Il  carattere  \0 viene appeso invece nel caso che il file  venga 
+        esteso come dimensioni.
+        Un valore di ritorno di -1 indica che si e' verificato un errore.
+        I valori testabili in errno per scoprire la natura di questo sono 
+        i seguenti :
+
+        EACCES     Il file collegato al handle possiede solo permesso  di 
+                   lettura.
+
+        EBADF      L'handle specificato non e' valido.
+
+        ENOSPC     Nel caso si estenda il file significa che lo spazio  a
+                   disposizione non e' sufficente.
+
+        Nel  caso  in  cui sia necessario ottenere un maggior  numero  di 
+        informazioni riguardanti un determinato file o directory possiamo 
+        utilizzare le funzioni stat e fstat.
+        La prima si riferisce ad un path mentre la seconda utilizza  come 
+
+
+                                       86
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        argomento l'handle di un file aperto precedentemente.
+        Vediamole singolarmente.
+
+        #include <sys\types.h>
+        #include <sys\stat.h>
+
+        stat(path, buffer);
+        char *path;
+        struct stat *buffer;
+
+        Nel caso di fstat abbiamo :
+
+        #include <sys\types.h>
+        #include <sys\stat.h>
+
+        fstat(handle, buffer);
+        int handle;
+        struct stat *buffer;
+
+        Le  due  funzioni  riportano  0 se  le  informazioni  sono  state 
+        ottenute e -1 in caso contrario.
+        La variabile errno e' settata su EBADF ed indica un handle o path 
+        errato.
+        Come  e' possibile notare tutte e due le funzioni utilizzano come 
+        argomento  un puntatore ad una struttura di tipo stat  dichiarata 
+        nel file di header stat.h in cui i membri conterranno i valori di 
+        ritorno.
+
+        st_mode        Questo   membro  della   struttura   permette   di 
+                       identificare se l'handle o il path  sono  riferiti
+                       a un device a una directory o a un file.
+                       E'  anche possibile avere informazioni riguardanti 
+                       i permessi abbinati.
+                       Vedremo tra un po' il metodo di utilizzo.
+
+        st_dev         Riporta il numero del drive del disco che contiene
+                       il file oppure l'handle nel caso di un device.
+
+        st_rdev        Lo stesso di st_dev
+
+        st_nlink       E' sempre  1.
+
+        st_size        Riporta   le   dimensioni  in  bytes   del   file. 
+                       Chiaramente questo membro non e' settato se ci  si
+                       riferisce ad un device.
+
+        st_atime      
+        st_mtime
+        st_ctime       Tutti e tre i membri riportano la data dell'ultima 
+                       modifica che e' stata fatta al file.
+                       Come  nel  caso  di st_size i campi  non  sono   a  
+                       disposizione se ci si riferisce a un device.
+
+
+                                       87
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        All'interno  dell'header stat.h sono definite anche  le  costanti 
+        che ci permettono di conoscere la natura dell'handle o del file a 
+        cui ci riferiamo.
+        Le costanti dichiarate sono le seguenti :
+
+        S_IFMT     maschera per testare il tipo di file
+        S_IFDIR    specifica una directory
+        S_IFCHR    specifica un device
+        S_IFREG    specifica un file normale
+        S_IREAD    possiede permesso in lettura
+        S_IWRITE   possiede permesso in scrittura
+        S_IEXEC    possiede permesso di esecuzione
+
+        Per  capire l'utilizzo della prima costante vediamo un esempio di 
+        utilizzo.
+
+        #include <sys\types.h>
+        #include <sys\stat.h>
+
+        struct stat buffer;
+        int var;
+
+        main()
+        {
+             char path[12];
+             
+             printf("Specifica il nome del file o della directory : ");
+             gets(path);
+                 var = stat(path,&buffer);
+                 if(var == -1)
+                 {
+                     perror("Non posso avere informazioni del file");
+                     exit(0);
+                 }
+                 if((buffer.st_mode & S_IFMT) == S_IFDIR)
+                 {
+                     chdir(path);
+                     printf("Sono entrato nella dir %s", path);
+                     exit(0);
+                 }
+                 if((buffer.st_mode & S_IFMT) == S_IFREG)
+                 {
+                     printf("Dimensioni del file : %ld", buffer.st_size);
+                     exit(0);
+                 }
+                 if((buffer.st_mode & S_IFMT) == S_IFCHR)
+                 {
+                     printf("Si tratta di un device");
+                     exit(0);
+                 }
+        }  
+
+
+
+                                       88
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Per poter eseguire il confronto con le costanti che abbiamo visto 
+        bisogna  eseguire un operazione di AND del membro st_mode con  la 
+        maschera di tipo file S_IFMT.
+        Il  programma  precedente  chiede  in  input  un  nome  di  file, 
+        directory o device ed esegue una stat.
+        Nel  caso  che risulti essere una directory ci  entra  dentro  ed 
+        esce a sistema operativo.
+        Nel  caso  di un file riporta le dimensioni in bytes di questo  e 
+        nel caso di un device ci avverte.
+         
+        In uno dei capitoli precedenti,  precisamente in quello in cui si 
+        parlava degli stream, avevamo accennato al modo di apertura di un 
+        file.
+        La  differenza di aprire in modo testo o in modo binario un  file 
+        si ripercuoteva sulla translazione dei caratteri CR/LF.
+        La  seguente funzione permette di settare questo modo riferendosi 
+        al handle di un file o di un device.
+        Viene  utilizzata  tipicamente  con  stdout,  stdprn,  stderr  ed 
+        stdaux.
+
+        #include <fcntl.h>
+        #include <io.h>      /* Richiesto solo per la dichiarazione delle
+                                funzioni                               */
+
+        setmode(handle,modo);
+        int handle;
+        int modo;
+
+        Il modo puo' essere una delle seguenti costanti :
+
+        O_TEXT         Setta il modo testo.  Le sequenze CR/LF  in  input 
+                       vengono convertite in un singolo LF. In output  il
+                       carattere LF viene tradotto in una sequenza CR/LF.
+
+        O_BINARY       Le translazioni precedenti vengono soppresse.
+
+        Il  ritorno  dalla  funzione di un valore pari a  -1  segnala  un 
+        errore.
+        errno e' settato su
+
+        EBADF          Se l'handle del file non e' valido
+
+        EINVAL         L'argomento che specifica il modo non e' valido.
+
+        Nelle  versioni  di Dos successive alla relase 3.00 e'  possibile 
+        chiudere  gli  accessi in lettura e scrittura a un  file  durante 
+        l'esecuzione di un processo mediante la funzione locking().
+
+
+
+
+
+
+
+                                       89
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        #include <sys\locking.h>
+        #include  <io.h>          /* Richiesto solo per la  dichiarazione 
+                                     delle funzioni                    */
+
+        locking(handle,modo,num_byte);
+        int handle;
+        int mode;
+        long num_byte;
+
+        Il modo puo' valere una delle costanti qui riportate :
+
+        LK_LOCK         Chiude  il  numero di bytes specificati.  Se  non 
+                        possono essere chiusi riprova dopo un secondo.
+                        Ripete  il tentativo 10 volte prima di  ritornare 
+                        un errore.
+
+        LK_NBLCK        Chiude il numero di bytes specificati.  Se non ci 
+                        riesce ritorna un errore.
+
+        LK_UNLCK        Apre   il numero di bytes  specificato.  I  bytes 
+                        devono essere stati precedentamente chiusi.
+
+
+        La funzione ritorna 0 se ha avuto successo.
+        Nel caso di -1 errno e' settato su uno dei seguenti valori :
+
+        EACCES          In caso di tentativo di apertura significa che il 
+                        file  era gia' aperto.  Il contrario in  caso  di 
+                        tentativo di chiusura.
+
+        EBADF           Handle non valido
+
+        EDEADLOCK       Ritorna dopo il tentativo di 10 volte di chiudere 
+                        un file con il modo LK_LOCK.
+
+        EINVAL          share.com non installato.
+
+        Le  versioni  di Dos oltre la 3.00 possiedono un comando  esterno 
+        chiamato  share.com  che  altro non e' che  un  supporto  per  la 
+        condivisione dei file.
+        Per   l'utilizzo  di  questa  funzione  e'  necessario  caricarlo 
+        precedentemente.
+        La funzione e' particolarmente utile in ambiente multiutente,  ad 
+        esempio per lo sviluppo di applicazioni per Multilink (tm).
+             
+
+                                 
+                                 Funzioni di I/O
+
+
+        Alcune  di queste funzioni non ci risulteranno nuove in quanto ne 
+        avevamo gia' parlato precedentamente.
+
+
+                                       90
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Ora  la panoramica si espande trattando tutte le funzioni di  I/O 
+        sia riferite a uno stream che ad un handle di un file.
+        Fondamentalmente  a  basso  livello  il  C  non  possiede  alcuna 
+        funzione di I/O bufferizzato.
+        A  questo  livello  l'  input/output  viene  eseguito  dalle  due 
+        funzioni read e write medianti le quali possono essere  costruite 
+        delle funzioni come getchar e altre.
+        Vediamo il metodo di utilizzo di read e write.
+
+        int bytes_letti, bytes_scritti;
+        char buffer[512];
+
+        bytes_letti   = read(des_fi,buffer,length);
+        bytes_scritti = write(des_fi,buffer,length);
+
+        dove  des_fi e' il descrittore del file e length e' il numero  di 
+        bytes da leggere o da scrivere.
+        Sia  read  che  write riportano come valore il  numero  di  bytes 
+        effettivamente letti o scritti.
+        Il  descrittore di un file e' quello che abbiamo sempre  chiamato 
+        handle e che viene ottenuto mediante l'apertura o la creazione di 
+        un file con routines a basso livello.
+        Quando  abbiamo  parlato di stream avevamo visto come  aprire  un 
+        file ed associarlo a una struttura di tipo FILE.
+        Le  funzioni  che seguiranno sono a basso livello e associano  ai 
+        file o ai device specificati un handle.
+        Ricordo che stdin ha come handle 0, stdout 1 e stderr 2.
+        Nel  caso che ad esempio si voglia utilizzare la  funzione  write 
+        con stdout bastera' specificare come descrittore file 1.
+        Alcune  di  queste sono praticamente uguali a quelle  gia'  viste 
+        solo  che a differenza da quelle si riferiscono all'handle e  non 
+        allo stream.
+
+        #include <sys\types.h>
+        #include <sys\stat.h>
+        #include <io.h>            /* Richiesto solo per la dichiarazione 
+                                      di funzioni                      */
+
+        creat(path,modo);
+        char *path;
+        int modo;
+
+        La  funzione creat crea un nuovo file con il nome specificato  in 
+        path oppure tronca il file esistente con quel nome a lunghezza 0.
+        Il ritorno di un valore pari a -1 indica un errore testabile come 
+        al solito in errno.
+
+        EACCES       Il  file  specificato ha solo  permesso  di  lettura 
+                     oppure corrisponde ad una directory.
+
+        EMFILE       Ci   sono  troppi  files   aperti  e  non   c'e'   a 
+                     disposizione nessun handle.
+
+
+                                       91
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        ENOENT       Il file specificato non e' reperibile.
+
+        Il  modo specificato come argomento della funzione puo'  assumere 
+        uno  dei seguenti valori,  gli stessi gia' visti con  le funzioni 
+        chmod e umask.
+
+        S_IWRITE     Permesso di scrittura
+
+        S_IREAD      Permesso di lettura
+
+        Anche in questo caso e' possibile fare uso dell'operatore OR  (|) 
+        per concedere sia il permesso in lettura che in scrittura.
+
+        L'  I/O  su file generalmente e' sequenziale in  quanto  funzioni 
+        quali  getc(stream) viste in precedenza incrementano il puntatore 
+        ad ogni lettura eseguita.
+        Sempre nel paragrafo relativo agli stream avevamo parlato di come 
+        era possibile riposizionare il puntatore mediante l'uso di  fseek 
+        il quale si riferiva ad un stream aperto.
+        La  funzione  lseek()  e' in tutto simile a  questa  con  l'unica 
+        diversita' che si riferisce ad un handle.
+
+        #include  <io.h>         /* Richiesto per la dichiarazione  delle 
+                                    funzioni                           */
+
+
+        long lseek(handle,offset,origine);
+        int handle;
+        long offset;
+        int origine;
+
+        Anche  in  questo  caso origine puo' assumere  uno  dei  seguenti 
+        valori  a seconda del posizionamento iniziale da cui fare partire 
+        l'offset che si vuole ottenere.
+
+                           0    dall'inizio del file
+                           1    dalla corrente posizione
+                           2    dalla fine file
+
+        L'offset e' da considerarsi come la distanza dall'origine.
+        In  caso  di  ritorno di un valore pari a -1L (long)  gli  errori 
+        possibili testabili in errno sono :
+
+        EBADF        Handle non valido
+
+        EINVAL       Posizione origine non valida o offset piazzato prima
+                     dell'inizio del file.
+
+        Per  risalire  alla  posizione corrente  del  cursore  abbiamo  a 
+        disposizione la funzione tell().
+        Difatti  questa  riporta il numero di bytes che intercorrono  tra 
+        l'inizio del file e la  posizione attuale del puntatore .
+
+
+                                       92
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        #include  <io.h>       /* Richiesto solo per dichiarazione  delle 
+                                  funzioni                             */
+
+        long tell(handle);
+        int handle;
+
+        L'unico errore che tell puo' riportare e' dovuto al fatto di aver 
+        specificato un handle non valido.
+        In questo caso il valore restituito e' -1L e errno e' settato  su 
+        EBADF.
+
+        Precedentemente avevamo visto,  parlando della funzione fileno(), 
+        come  avere  l'handle  di un determinato file  associato  ad  uno 
+        stream.
+        Mentre la funzione fopen associava uno stream al file aperto open 
+        gli associa l'handle.
+        Vediamola   attentamente   in  quanto  e'  una   funzione   molto 
+        importante.
+
+        #include <fcntl.h>
+        #include <sys\types.h>
+        #include <sys\stat.h>
+        #include  <io.h>             /* Richiesto solo per  dichiarazione 
+                                        di funzioni                    */
+
+        open(path,flag,modo);
+        char *path;
+        int flag;
+        int modo;
+
+        Path e' il file o il device che si intende aprire.
+        Flag invece assume i seguenti significati.
+
+        O_APPEND     Riposiziona il puntatore alla fine del file prima di 
+                     ogni operazione di scrittura. 
+
+        O_CREAT      Crea e apre un nuovo file. Non ha effetto se il file 
+                     esiste gia'.
+
+        O_EXCL       Ritorna un errore se il file esiste gia'.
+
+        O_RDONLY     Apre il file solo per la lettura.
+                     Con questo flag O_RDWR e O_WRONLY non possono essere
+                     specificati.
+
+        O_RDWR       Apre il file sia in lettura che in scrittura.
+                     Non  possono  essere  aggiunti al  flag  O_RDONLY  e 
+                     O_WRONLY.
+
+        O_TRUNC      Apre   un  file  troncando il suo  contenuto  a  una 
+                     lunghezza 0.
+
+
+
+                                       93
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        O_WRONLY     Apre un file solo per scrittura.  Non possono essere 
+                     specificati i flag O_RDONLY e O_RDWR.
+
+        O_BINARY     Apre un file in modo binario.
+
+        O_TEXT       Apre un file in modo testo
+
+        Questi flags possono essere infatti abbinati,  se non specificato 
+        diversamente, mediante l'operatore OR (|).
+        L'ultimo  argomento,  modo,  e' il solito specificatore  di  modo 
+        apertura file e cioe' :
+
+                         S_IWRITE    Permesso scrittura
+                         S_IREAD     Permesso lettura
+
+        Anche per l'argomento modo e' possibile utilizzare l'operatore OR 
+        per concedere ambedue i permessi.
+        Sempre  in  argomento  con  gli handle di  un  file  vediamo  due 
+        funzioni che servono a dupplicarli e ad associarli.
+
+        #include  <io.h>          /* Richiesto solo per la  dichiarazione 
+                                     delle  funzioni                   */
+
+        dup(handle);
+        int handle;
+
+        dup2(handle1,handle2);
+        int handle1;
+        int handle2;
+
+        La  prima  delle due crea un seconde handle per il file aperto  a 
+        cui appartiene il primo specificato come argomento.
+        La seconda forza handle2 a riferirsi ad handle1.
+          
+
+                               Handles predefiniti
+
+
+        Abbiamo  gia' accennato agli handles relativi a stdout,  stdin  e 
+        stderr.
+        Prima  di  continuare  riporto l'elenco  completo  degli  handles 
+        predefiniti ai quali possiamo riferirci con le nostre funzioni di 
+        input/output.
+
+                            Stream             Handle
+                            -------------------------
+                
+                            stdin                0
+                            stdout               1
+                            stderr               2
+                            stdaux               3
+                            stdprn               4
+
+
+
+                                       94
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Sotto   sistema   operativo  Unix  abbiamo  la  possibilita'   di 
+        ridirigere anche stderr cosa non possibile in ambiente MS DOS.
+
+
+
+                              Funzioni di orologio
+
+
+        Sotto  compilatore  Microsoft C abbiamo alcune  funzioni  che  ci 
+        permettono  di  venire  a  conoscenza dell'ora e  della  data  di 
+        sistema e di manipolarle.
+        Sia  l'ora  che  la  data sono  riferiti  a  quella  del  sistema 
+        operativo.
+
+        #include  <time.h>        /* Richiesto solo per la  dichiarazione 
+                                     delle funzioni                    */
+
+        long time(tempo);
+        long *tempo;
+
+        La funzione appena vista riporta sotto forma di valore long l'ora 
+        e la data presa dal clock di sistema.
+        Il  valore long riportato indica il numero di secondi  intercorso 
+        tra  le  ore 00:00:00 del 1 gennaio 1970 e la  data  corrente  di 
+        sistema.
+        La  conversione  in  stringa  puo' essere  eseguita  mediante  la 
+        funzione 
+
+        #include <time.h>         /* Richiesto solo per la  dichiarazione 
+                                     delle funzioni                    */
+
+        char *ctime(tempo);
+        long *tempo;
+
+        Un esempio di stringa riportato dalla funzione
+
+                          Sat  Feb  03  12:34:09  1987
+
+        Vedremo  con  la  funzione kbhit() un esempio di  utilizzo  delle 
+        precedenti.
+        Esiste un altra funzione che preleva la data e l'ora di sistema e 
+        la  salva  in una struttura di tipo timeb definita  nel  file  di 
+        header sys\timeb.h.
+
+        #include <sys\timeb.h>
+
+        ftime(tempo);
+        struct timeb tempo;
+
+        I  membri  della  struttura sono  quattro  e  precisamente  time, 
+        millitm, timezone e dstflag.
+
+
+
+                                       95
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Il significato dei due membri principali e' il seguente :
+
+        time      tempo in secondi a partire dalle 00:00:00 del 1 gennaio 
+                  1970 riferita a Greenwich.
+
+        timezone  mantiene  la differenza in secondi tra l'ora relativa a 
+                  quella  del  meridiano  di  Greenwich  e  l'ora  locale 
+                  settata mediante la variabile di sistema TZ.
+                  Questo membro viene settato mediante la funzione tzset.
+
+        Tzset  infatti  viene utilizzata per eseguire la  correzione  del 
+        tempo  da  quello  relativo al meridiano di  Greenwich  a  quello 
+        locale.
+
+        #include  <time.h>       /* Richiesto solo per  la  dichiarazione 
+                                    delle funzioni                     */
+
+        void tzset();
+
+        int daylight;
+        long timezone;
+        char *tzname;
+
+
+        La  dichiarazione  void della funzione sta' ad indicare  che  non 
+        restituisce alcun valore.
+        Tzset  difatti  setta esclusivamente,  utilizzando per  farlo  la 
+        variabile di sistema TZ,  tre variabili utilizzate dalle funzioni 
+        ftime, vista precedentamente, e localtime.
+
+
+        #include <time.h>
+
+        struct tm *localtime(tempo);
+        long *tempo;
+
+        Localtime  converte  il valore in secondi (long) riportato  dalla 
+        funzione time e lo salva in una struttura.
+        Ritorna un puntatore alla struttura.
+
+
+
+                           Funzioni di I/O da console
+
+
+        Nel  manuale  del compilatore Microsoft queste  funzioni  vengono 
+        abbinate e presentate con le funzioni che gestiscono le  porte di 
+        I/O.
+        Preferisco queste ultime riportarle alla fine con le funzioni che 
+        ci serviranno per gestire le interruzioni in quanto l'elenco e la 
+        descrizione di ogni singola porta verra' trattata appunto in quei 
+        capitoli.
+
+
+                                       96
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Nelle  librerie del compilatore C esistono molte funzioni di  I/O 
+        oltre a quelle principali viste precedentemente.
+        Queste  funzioni utilizzano delle chiamate ai servizi del Dos per 
+        la scrittura e la lettura dei caratteri (vedi parte relativa alla 
+        gestione degli interrupt del Dos).
+        Vediamole singolarmente.
+
+        #include <conio.h>        /* Richiesto solo per la  dichiarazione 
+                                     delle funzioni                    */
+
+        char *cgets(stringa);
+        char *stringa;
+
+        *stringa  punta ad un array di caratteri dove il primo elemento e 
+        cioe' stringa[0] deve contenere il massimo numero di caratteri da 
+        leggere.
+        cgets  accetta  caratteri fino a che non viene premuto  CR  e  lo 
+        sostituisce con \0.
+        Il  secondo  elemento di stringa e cioe' stringa[1] conterra'  il 
+        numero dei caratteri letti.
+
+        La funzione cprintf() esegue una stampa formattata sulla  console 
+        allo  stesso  modo di printf solo che non esegue la  translazione 
+        del carattere LF in una sequenza CR/LF.
+        Utilizza una stringa di formato uguale a quella che abbiamo visto 
+
+
+        con printf.
+
+        #include  <conio.h>       /* Richiesto solo per la  dichiarazione 
+                                     delle funzioni                    */
+
+        cprintf("stringa di formato", argomenti);
+
+        cputs stampa invece una stringa di caratteri sulla console.
+        Aggiunge automaticamente alla fine una sequenza CR/LF.
+
+        #include <conio.h>        /* Richiesto solo per la  dichiarazione 
+                                     delle funzioni                    */
+
+        cputs(stringa);
+        char *stringa;
+
+        La funzione getch inputa un singolo carattere dalla console senza 
+        visualizzarlo sul monitor.
+
+        #include  <conio.h>        /* Richiesto solo per la dichiarazione 
+                                      delle funzioni                   */
+
+        getch();
+
+
+
+
+                                       97
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Esempio :
+
+        int var;
+        var = getch();
+
+        Come getch inputava un carattere dalla console putch lo scrive.
+
+        #include <conio.h>         /* Richiesto solo per la dichiarazione 
+                                      delle funzioni                   */ 
+
+        putch(carattere);
+        int carattere;
+
+        Mentre  getch inputava un carattere senza  visualizzarlo,  getche 
+        esegue  la stessa funzione ma stampando anche il carattere  letto 
+        sulla console.
+
+        #include <conio.h>         /* Richiesto solo per la dichiarazione 
+                                      delle funzioni                   */
+
+        getche();
+
+        Una funzione particolarmente utile a mio avviso e' kbhit.
+        Questa  controlla se e' stato premuto qualche tasto e ritorna  un 
+        valore  diverso  da 0 in caso affermativo,  uguale a  0  in  caso 
+        negativo.
+        I casi in cui e' possibile utilizzare questa funzione sono i piu' 
+        svariati.
+        Vediamo un attimo la sintassi.
+
+        #include <conio.h>         /* Richiesto solo per la dichiarazione 
+                                      delle funzioni                   */
+
+        kbhit();
+
+        Per  fare un esempio pratico supponiamo che ci serva scrivere una 
+        funzione che mentre attende che sia premuto qualche tasto  stampi 
+        la data e l'ora in un certo punto dello schermo.
+        Supponiamo  anche che le macro per il posizionamento cursore  sia 
+        gia' stata definita e che venga richiamata con AT(x,y).
+
+        #include <stdio.h>
+        #include <time.h>
+
+        main()   /* Stampa menu e richiama la funzione inchar          */
+        {
+            int var_1;
+            AT(5,10);
+            printf(" 1 .. Opzione A");
+            AT(7,10);
+            
+                                                               Segue ...
+
+
+                                       98
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+            printf(" 2 .. Opzione B");
+            AT(9,10);
+            printf("Scelta : ");
+            var_1 = inchar();
+            if(var_1 == 1)  .........
+            ..............  .........
+        }
+
+        inchar()  /* Finche' non e' premuto nessun tasto stampa data   */
+        {
+            long ltime;
+            int var_3;
+            while(!kbhit())
+            {
+                time(&ltime);
+                AT(1,1);
+                printf(" %s", ctime(&ltime));
+            }
+            var_3 = getche();
+            return(var_3);
+        }
+
+        Il  programma  appena visto non e' che un piccolo  esempio  delle 
+        possibilita' della funzione.
+
+        L'ultima  funzione che vediamo appartenente a questa categoria e' 
+        cscanf che come la sorella scanf esegue un input formattato dalla 
+        console.
+        La  stringa  di formato ha le stesse  caratteristiche  di  quella 
+        vista in precedenza con scanf.
+
+        #include <conio.h>      /* Richiesto solo per dichiarazione delle 
+                                   funzioni                            */
+
+        cscanf("stringa di formato", argomenti);
+
+        Viene riportato dalla funzione il numero dei campi che sono stati 
+        inputati e convertiti con successo.
+        Se il valore e' 0 significa che non e' stato assegnato niente.
+
+
+
+                  Funzioni per la manipolazione delle stringhe.
+
+
+        La  libreria  del C compiler possiede molte funzioni adatte  alla 
+        manipolazione delle stringhe.
+        Le  funzioni  svolte vanno dal concatenamento  alla  copia  dalla 
+        ricerca di caratteri al confronto con un altra stringa.
+
+        Tutte le funzioni sono dichiarate nel file di include string.h.
+
+
+
+
+                                       99
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        #include <string.h>
+
+        char *strcat(stringa_1,stringa_2);
+        char *stringa_1, *stringa_2;
+
+        Questa  funzione  esegue il concatenamento della seconda  stringa 
+        specificata come argomento alla fine della prima.
+        Un esempio :
+
+        char stringa[20], stringa_2[3];
+
+        printf("Inserisci il nome del file : ");
+        gets(stringa);
+        strcat(stringa,".");
+        printf("Inserisci l'estensione     : ");
+        gets(stringa_2);
+        strcat(stringa,stringa_2);
+        printf("Il nome del file e'        : %s", stringa);
+
+        Se  nell'esempio  il nome del file e' prova  e  l'estensione  bas 
+        allora il risultato sara'
+
+                                    prova.bas
+
+        #include <string.h>
+
+        char *strcpy(stringa_1,stringa_2);
+        char *stringa_1, *stringa_2;
+
+        strcpy esegue la copia della seconda stringa sulla prima.
+        La  stringa  puo'  essere anche specificata in  questi  casi  tra 
+        virgolette, ad esempio :
+
+                   strcpy(stringa_1,"E' una bella giornata");
+
+
+        Vediamo  ora  come  e' possibile eseguire un  confronto  tra  due 
+        stringhe.
+
+        #include <string.h>
+
+        strcmp(stringa_1,stringa_2);
+        char *stringa_1, *stringa_2;
+
+        I valori restituiti da strcmp sono i seguenti :
+
+         < 0      Significa che la stringa 1 e' minore della stringa 2.
+           0      La stringa 1 e' uguale alla stringa 2.
+         > 0      In questo caso la stringa 1 e' maggiore della 2.
+
+
+
+
+
+                                       100
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        La  funzione strcmp diventa utile nel momento in cui si  vogliono 
+        creare delle funzioni di ordinamento,  benche', come vedremo piu' 
+        avanti,  la  libreria  del compilatore C  ne  possiede  gia'  una 
+        implementata.
+        Riprendiamo  uno degli algoritmi di ordinamento che avevamo visto 
+        nei   capitoli  riguardanti  la  programmazione   strutturata   , 
+        esattamente un algoritmo bubble, e traduciamolo con l'aiuto della 
+        funzione appena vista in linguaggio C.
+        Per fare questo supponiamo di avere gia' una matrice con caricate 
+        cinquanta stringhe chiamata matrix.
+
+        *matrix[tot] /*     Matrice con le stringhe dove tot = 50      */
+
+        char tempor[30];   /* Variabile temporanea per lo scambio      */
+        int s,flag,r;
+        flag = s = 1;
+
+        while(flag == 1)
+        {
+             flag = 0;
+             for(r = 0;r != tot-s;r++)
+                if(strcmp(matrix[r],matrix[r+1]) > 0)
+                {
+                   strcpy(tempor, matrix[r]);
+                   strcpy(matrix[r],matrix[r+1]);
+                   strcpy(matrix[r+1],tempor);
+                   flag = 1;
+                }
+             ++s;
+        }
+
+        Anche  la  funzione  strcpy e' stata utilizzata per  eseguire  lo 
+        scambio di variabili nel caso che nel confronto una sia risultata 
+        maggiore dell'altra.
+
+        Esistono  della  stessa famiglia alcune  funzioni  dedicate  alla 
+        ricerca  di  caratteri o gruppi di caratteri all'interno  di  una 
+        stringa.
+
+        #include <string.h>
+
+        char *strchr(stringa,carat);
+        char *stringa;
+        char carat;
+
+        La  funzione  riporta  un  puntatore alla  prima  occorrenza  del 
+        carattere  contenuto  in  carat nella  stringa  specificata  come 
+        argomento.
+        E' incluso nella ricerca il carattere \0 di fine stringa.
+        Ritorna NULL se non e' stato trovato nessun carattere uguale.
+
+
+
+
+                                       101
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Strdup esegue la duplicazione di una stringa.
+
+        #include <string.h>
+
+        char *strdup(stringa);
+        char *stringa;
+
+        Il modo di uso e' il seguente.
+
+        char *stringa_2;
+           
+        stringa_2 = strdup(stringa);
+
+        Per  venire a conoscenza della lunghezza in bytes di una  stringa 
+        possiamo utilizzare la funzione strlen.
+        Questa conteggia tutti i caratteri non includendo pero' quello di 
+        fine stringa '\0'.
+
+        #include <string.h>
+
+        strlen(stringa);
+        char *stringa;
+
+        Un esempio :
+
+        #include <string.h>
+
+        char *stringa;
+        int  lunghezza;
+
+        printf("Digita la stringa di cui vuoi la lunghezza : ");
+        scanf("%s", stringa);
+        lunghezza = strlen(stringa);
+        printf("Lunghezza = %d caratteri", lunghezza);
+
+        Le  funzioni  appena  viste  permettevano  di  manipolare  intere 
+        stringhe senza tenere in considerazione il numero di caratteri di 
+        queste interessate nell'operazione.
+        Quelle  che seguiranno sono del tutto simili a queste  ultime  ma 
+        con la possibilita' di specificare come argomento anche il numero 
+        dei caratteri sui quali le funzioni devono agire.
+
+
+        Il file di inclusione e' anche per queste string.h.
+
+        #include <string.h>
+
+        char *strncat(stringa_1,stringa_2,car);
+        char *stringa_1,*stringa_2;
+        unsigned car;
+
+
+
+
+                                       102
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        In  questa  funzione  il numero di caratteri specificato  in  car 
+        della seconda stringa viene appeso alla prima.
+        Lo stesso discorso vale per la funzione per eseguire il confronto 
+        tra due stringhe.
+
+        #include <string.h>
+
+        char *strncmp(stringa_1,stringa_2,car);
+        char *stringa_1,*stringa_2;
+        unsigned car;
+
+        Infatti  la funzione esegue il confronto del numero di  caratteri 
+        specificato in car della prima stringa con la seconda.
+        I valori riportati dalla funzione di confronto sono gli stessi di 
+        strcmp (vedi 2 pagine prima).
+
+        #include <string.h>
+
+        char *strncpy(stringa_1,stringa_2,car);
+        char *stringa_1,*stringa_2;
+        unsigned car;
+
+        strncpy  esegue  la copia dei primi car caratteri  della  seconda 
+        stringa nella prima.
+        Una  funzione di cui non avevamo visto nessun ononimo e'  strnset 
+        che  esegue  l'inizializzazione  dei primi  car  caratteri  della 
+        stringa passata come argomento.
+
+        #include <string.h>
+
+        char *strnset(stringa,carat,car);
+        char *stringa;
+        char carat;
+        unsigned car;
+
+        In  altre  parole la funzione esegue la copia per car  volte  del 
+        carattere  specificato in carat nella stringa  anch'essa  passata 
+        come argomento.
+
+        Avevamo visto nei capitoli precedenti il metodo per convertire un 
+        carattere da minuscolo a maiuscolo e viceversa.
+        Le due funzioni che seguono eseguono la conversine non piu' di un 
+        singolo carattere ma di un intera stringa.
+
+        #include <string.h>
+
+        char *strlwr(stringa);
+        char *stringa;
+
+        La  precedente  funzione serve a eseguire la conversione  di  una 
+        stringa maiuscola in minuscola.
+
+
+
+                                       103
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Sono interessati solamente i caratteri maiuscoli mentre tutti gli 
+        altri sono ignorati.
+        Un esempio di utilizzo :
+
+        char *stringa_2;
+        char *stringa_1 = "Opzione di Default";
+
+        strcpy(stringa_2,strlwr(stringa_1));
+
+        La  funzione  contraria e cioe' la conversione di una stringa  da 
+        minuscolo a maiuscolo viene eseguita da
+
+        #include <string.h>
+
+        char *strupr(stringa);
+        char *stringa;
+
+        Il modo di utilizzo e' lo stesso visto con strlwr.
+
+
+                              Funzioni matematiche.
+
+
+        La  libreria del compilatore Microsoft e' anche ricca di funzioni 
+        matematiche   che  possono  essere  utilizzate  per   le   nostre 
+        necessita' di calcolo.
+        Quasi  tutte  queste  lavorano  con valori in  virgola  mobile  e 
+        necessitano  quindi  del supporto delle  librerie  foating  point 
+        incluse nel compilatore.
+        La libreria fp e' denominata SLIBFP.LIB e deve essere  utilizzata 
+        quando vengono utilizzate le due librerie seguenti.
+        EM.LIB e 87.LIB sono infatti presenti e possono essere utilizzate 
+        con le altre indipendentemente dal modello di memoria utilizzato.
+        EM.LIB  e'  un emulatore di virgola mobile mentre  87.LIB  e'  la 
+        libreria floating point da utilizzare soltanto nel caso che sulla 
+        scheda  madre del sistema sia presente un coprocessore matematico 
+        8087 o 80287.
+        Chiaramente  la  presenza  di  uno  di  questi  ultimi  sveltira' 
+        notevolmente le funzioni di calcolo.
+        La libreria alternativa fp e' SLIBFA.LIB utilizzabile al posto di 
+        EM.LIB  e  SLIBFP.LIB  quando la velocita'  e'  preferibile  alla 
+        precisione.
+        Compilando  un  sorgente  con  MSC o CL  i  nomi  della  libreria 
+        standard  (SLIBC.LIB)  e delle librerie foating point  (EM.LIB  e 
+        SLIBFP.LIB) vengono incluse automaticamente nel modulo oggetto in 
+        modo che il link le colleghi al programma.
+        Sfruttando  l'opzione del compilatore /FP si puo'  controllare  i 
+        nomi delle librerie ed eventualmente modificarli.
+        In  ogni  caso  vediamo  ora le  funzioni  matematiche  a  nostra 
+        disposizione.
+
+
+
+
+                                       104
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Il file comune di header e' math.h .
+
+        #include <math.h>
+
+        double acos()      -   arco coseno
+        double asin()      -   arco seno
+        double atan()      -   arco tangente  x
+        double atan2()     -   arco tangente  y/x
+        double cos()       -   coseno
+        double cosh()      -   coseno iperbolico
+        double exp()       -   funzione esponenziale
+        double fabs()      -   valore assoluto di un double
+        double log()       -   logaritmo naturale
+        double log10()     -   logaritmo base 10
+        double pow()       -   potenza
+        double sin()       -   seno
+        double sinh()      -   seno iperbolico
+        double sqrt()      -   radice quadrata
+        double tan()       -   tangente
+        double tanh()      -   tangente iperbolica
+
+        Un esempio di utilizzo.
+
+        #include <math.h>
+
+        double val_1, val_2;
+
+        val_1 = 0.1;
+        val_2 = acos(val_1);
+
+
+
+                     Funzioni per il controllo di processi.
+
+
+        Molto di frequente ci si ritrova nella necessita' di eseguire dei 
+        processi o delle funzioni del DOS esterni al nostro programma.
+        Le funzioni che vedremo ora servono appunto a questo scopo.
+        Fondamentalmente    possiamo   suddividere   le   funzioni    per 
+        l'esecuzione di processi in due famiglie.
+        La prima e' quella  exec.
+        Qesta, quando chiamata, ricerca il programma specificato dal path 
+        passato come argomento.
+        Nel  caso  che venga omessa l'estensione allora le funzioni  exec 
+        eseguono delle prove appendendo prima l'estensione .COM e poi  la 
+        Chiaramente  deve  esserci memoria sufficente perche il  processo 
+        specificato possa essere caricato ed eseguito.
+        Vediamole.
+
+
+
+
+
+
+                                       105
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        #include <process.h>
+
+        execl(path, arg0, arg1, ...., NULL);
+        execle(path, arg0, arg2, ...., NULL, envp);
+
+        execv(path, argv);
+        execve(path, argv, envp);
+
+        char *path;
+        char *arg0, *arg1, ....;
+        char *argv[];
+        char *envp[];
+
+        Ho  suddiviso  a  gruppi  di due le precedenti  funzioni  per  il 
+        seguente motivo.
+        Ad  ogni funzione passiamo come parametri il path con il nome del 
+        file che intendiamo eseguire e una lista di argomenti.
+        Nel  primo gruppo gli argomenti sono salvati ciascuno dentro a un 
+        array e quindi l'utilizzo di questo tipo di funzioni e'  indicato 
+        nel  caso  in  cui  si conosca gia' in precedenza  il  numero  di 
+        questi.
+        Nel  secondo tipo di gli argomenti sono invece specificati in  un 
+        array  di  puntatori rendendo in questo modo il tipo di  funzione 
+        adatta  al caso contrario a quello precedente e cioe'  quando  il 
+        numero degli argomenti da passare non puo' essere noto prima.
+        In  ambedue i casi si utilizza un NULL per indicare la fine della 
+        lista degli argomenti.
+        Nel caso del primo tipo di funzioni,  quelle che utilizzano degli 
+        array, l'ultimo argomento deve essere NULL mentre lo deve essere, 
+        nel secondo caso, l'elemento argv[n + 1].
+        Si sara' notato che altri due argomenti utilizzati dalle funzioni 
+        appena viste sono costituiti dalla variabile envp.
+        Mediante  questa  la funzione accede alle  variabili  di  sistema 
+        settate precedentemente.
+        Vi ricordate che parlando della struttura del compilatore avevamo 
+        settato le variabili LIB, TMP e INCLUDE mediante un file batch ?
+        Le  funzioni exec ritornano come valore -1 se si e' verificato un 
+        errore.
+        In questo caso la variabile errno e' settata sui seguenti  valori 
+        dipendenti dal tipo di errore :
+
+        E2BIG     -   La  lista  degli  argomenti  eccede  i  128   bytes 
+                      consentiti o lo spazio richiesto dalle informazioni
+                      di sistema supera i 32 Kbytes.
+        EACCES    -   Il  file  e'  prenotato.   Nelle  versioni  di  Dos 
+                      successive  alla 3.00 e' possibile la  condivisione 
+                      dei file.
+        EMFILE    -   Troppi files aperti.
+        ENOENT    -   Il file non e' stato trovato.
+        ENOEXEC   -   Il file non e' eseguibile.
+        ENOMEM    -   Non c'e' memoria per eseguire il processo.
+
+
+
+                                       106
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Normalmente sia in un caso che nell'altro gli argomenti 0 (arg0 o 
+        argv[0]) costituiscono il path del programma.   
+        Molti  conoscono il programma Public Domain ARC51 che compatta ed 
+        inserisce o estrae da file archivio altri file.
+        Per  poterlo utilizzare bisogna battere una linea di comando  del 
+        tipo :
+
+                            arc a file.arc prova.txt
+                             ^  ^    ^         ^
+             +---------------+  :    :         +--------------+
+             :                  :    +----+                   :
+         programma          opzione   file archivio    file da archiviare
+
+        Quelli indicati sono gli argomenti da passare ad ARC.
+        Avremmo potuto richiamarlo dal nostro programma nel seguente modo 
+
+          var = execl("arc.exe","arc","a","file.arc","prova.txt",NULL);
+           ^              ^       ^    ^      ^          ^        ^
+           :              :       :    :      :          :        :
+        -1 = errore     path    arg0 arg1   arg2       arg3     NULL
+
+        Le  funzioni della serie exec leggono il programma sulla  memoria 
+        precedentemente occupata dal programma chiamante.
+        Un  metodo  per  lanciare un programma  secondario  senza  uscire 
+        dall'esecuzione  del programma che esegue la chiamata e'  offerta 
+        dalle funzioni che vedremo ora.
+
+        #include <stdio.h>
+        #include <process.h>
+
+        spawnl(flag,path,arg0,arg1,...,NULL);
+        spawnle(flag,path,arg0,arg1,...,NULL,envp);
+
+        spawnv(flag,path,argv);
+        spawnve(flag,path,argv,envp);
+
+        int flag;
+        char *path;
+        char *arg0, *arg1, ...
+        char *argv[];
+        char *envp[];
+
+        Anche  in  questo caso per gli argomenti vale lo stesso  discorso 
+        fatto con le funzioni exec.
+        Qui  ritroviamo  un  parametro  in  piu'  e  precisamente  quello 
+        indicato dalla variabile int flag.
+        Questo  puo'  assumere  i seguenti valori definiti  nel  file  di 
+        header process.h.
+        Il  secondo  valore  ha e' inserito solo per  compatibilita'  con 
+        Xenix ma di fatto in ambiente MS DOS non ha nessuna funzione.
+
+
+
+
+                                       107
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+         
+
+
+        P_WAIT     Sospende il programma finche' il processo chiamato non 
+                   e' terminato.
+        P_NOWAIT   Esegue  il processo in modo concorrente  al  programma 
+                   chiamante
+        P_OVERLAY  Finisce   il programma chiamante ed  esegue  il  nuovo 
+                   processo. Ha la stessa funzione di una chiamata EXEC.
+
+        Il  ritorno di un valore pari a -1 indica che si e' verificato un 
+        errore nella chiamata al programma.
+        I  codici  di errore verificabili in errno sono uguali  a  quelli 
+        segnalati  per  le  funzioni  exec a parte  il  seguente  che  e' 
+        relativo ai flag specificati come argomento in una chiamata spawn 
+        ed esattamente :
+
+                           EINVAL     Flag non valido
+
+        Sempre in tema di funzioni relative all'esecuzione e al controllo 
+        di processi ritroviamo la funzione exit().
+
+        exit(stato);
+        _exit(stato);
+
+        int stato;
+
+        Tipicamente  stato  e'  un valore pari a 0 per  indicare  che  il 
+        rpocesso si e' concluso correttamente mentre diverso per indicare 
+        un  evento  particolare o il verificatosi di  una  condizione  di 
+        errore.
+        La differenza tra exit e _exit sta' nel fatto che la prima svuota 
+        i buffers mentre la seconda no.
+        La funzione exit e' stata gia' utilizzata in alcuni degli  esempi 
+        precedenti.
+        In ogni caso un ulteriore esempio e' il seguente :
+
+        #include <stdio.h>
+
+        main(argc,argv)
+        int argc;
+        char *argv[];
+        {
+            FILE *infile;
+            if(argc > 1)
+              if((infile=fopen(argv[1],"r")) == NULL)
+              {
+                    printf("Non trovo il file %s", argv[1]);
+                    printf("\n\nRitorno a DOS");
+                    exit(-1);
+              }
+            ........
+            ........
+        }
+         
+
+
+                                       108
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        L'esempio  precedente controlla se sono stati specificati piu' di 
+        un  argomento sulla linea di comando (ricordate che l'argomento 1 
+        contenuto in argv[0] e' il nome stesso del programma) e se questo 
+        e'  affermativo  controlla  se il file  specificato  nel  secondo 
+        argomento (argv[1]) e' il nome di un file esistente.
+        Il test viene eseguito aprendo il file in lettura. 
+        Un  valore NULL significa che il file non e' stato reperito e  di 
+        conseguenza  la  funzione  exit e' utilizzata  per  terminare  il 
+        programma e ritornare a sistema operativo.
+        Si  rivela  anche utile in un caso simile la  funzione  abort  in 
+        quanto  oltre  a terminare il processo stampa anche il  messaggio 
+        "Abnormal program termination".
+
+        #include  <process.h>    /* Richiesto solo per  dichiarazione  di 
+                                    funzioni                           */
+
+        void abort();
+
+
+        L'esecuzione  di  un  processo o di un comando  DOS  puo'  essere 
+        eseguita   anche  mediante  la  funzione  system  che  passa   al 
+        command.com  il comando specificato come argomento alla  chiamata 
+        della funzione.
+        Il  processore  di  comandi  command.com deve  trovarsi  o  nella 
+        directory corrente oppure deve essere settato nel path.
+        In caso negativo il comando o il programma lanciato non  verranno 
+        eseguiti e il valore riportato dalla funzione stessa sara' -1.
+        In  caso  di errore la variabile errno potra' essere  confrontata 
+        con i seguenti valori :
+
+
+        E2BIG    La lista degli argomenti supera i 128 bytes o lo  spazio 
+                 richiesto dalle informazioni di environment supera i 32K
+        ENOENT   Il file COMMAND.COM non e' stato trovato.
+        ENOEXEC  Il  file COMMAND.COM ha un formato non valido e non puo' 
+                 essere eseguito.
+        ENOMEM   Non c'e' memoria sufficente per eseguire il comando o il
+                 processo.
+
+
+        In ogni caso la sintassi della della funzione e' la seguente :
+
+
+        #include  <process.h>    /* Richiesto solo per  la  dichiarazione 
+                                    delle funzioni                     */
+
+        system(stringa);
+
+        char *stringa;
+
+
+
+
+
+                                       109
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Un esempio di utilizzo.
+
+        #include <stdio.h>
+
+        main()
+        {
+            int sel;
+            puts("1 .. Directory");
+            puts("2 .. Versione DOS");
+            puts("Scelta : ");
+            sel = getch();
+            switch(sel)
+            {
+                 case 1:
+                      system("dir");
+                      break;
+                 case 2:
+                      system("ver");
+                      break;
+                 default:
+                      puts("\n\nScelta errata");
+                      exit(0);
+                      break;
+            }
+        }    
+
+        Come si sara' potuto notare la stringa del comando o del processo 
+        da   eseguire  puo'  essere  specificato  anche  utilizzando   le 
+        virgolette.
+        Sempre   nel  paragrafo  relativo  alla  gestione  dei   processi 
+        ritroviamo  una funzione particolare che abilita il programma  ad 
+        intercettare  una  chiamata di interrupt relativa al 23H e  cioe' 
+        quella corrispondente al CTRL C.
+        La  funzione si rivela utile in molti casi ,  in particolar  modo 
+        quando  si  desidera disabilitare  l'interruzione  del  programma 
+        dovuta per l'appunto al control - c.
+        E'  un  caso abbastanza drastico in quanto  mediante  la  tecnica 
+        offerta  dai comandi di ESC visti precedentemente si puo'  optare 
+        per  la  ridefinizione dei tasti relativi al CTRL C nel  seguente 
+        modo :
+
+                                puts("\33[3;7p");
+
+        \33[  e' l'ESC mentre 3 e' il codice del carattere CTRL C  a  cui 
+        viene assegnato il codice 7 relativo al BEEP (cicalino).
+        Eseguendo  un comando del genere dal nostro programma si fara' in 
+        modo che tutte le volte che viene premuto control c il  programma 
+        emette un suono invece di eseguire la classica interruzione.
+        In ogni caso quella vista era solo una delle vie a cui ci si puo' 
+        indirizzare  mediante la funzione signal.
+        Prima  di parlare delle altre vediamo la sintassi della  funzione 
+        stessa.
+
+
+                                       110
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        #include <signal.h>
+
+        (*signal(sig, funzion))();
+
+        int sig;
+        int (*func)();
+
+        sig  puo'  assumere il valore della costante SIGINT  definita  in 
+        signal.h  mentre  funzion puo' essere o una  delle  costanti  che 
+        vedremo  oppure  un  indirizzo di una funzione  che  deve  essere 
+        eseguita   nel  caso  che  venga  intercettata  una  chiamata  di 
+        interrupt 23H.
+        Le costanti sono :
+
+        SIG_IGN      Il segnale di interrupt e' ignorato.
+        SIG_DFL      Il  segnale di interrupt e' rilevato e  il  processo 
+                     termina ritornando il controllo al MS DOS.
+
+        Vediamo due esempi.
+
+        #include <signal.h>
+
+        main()
+        {
+            signal(SIGINT,SIG_IGN);
+            menu();
+            ...........
+            ...........
+        }
+
+        menu()
+        {
+            puts("1 .. Stampa tabulati");
+            puts("2 .. Riordino archivi");
+            ...........
+            ...........
+        }
+
+        In  questo caso la funzione di CTRL C viene disabilitata e quindi 
+        non sara' piu' possibile uscire dal programma mediante questa.
+
+        #include <signal.h>
+
+        int menu();          /* Dichiarazione funzione                 */
+
+        main()
+        {
+            signal(SIGINT,menu);
+            menu();
+            ...........
+            ...........
+        }
+                                                             Segue ...
+
+
+                                       111
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        menu()
+        {
+           puts("1 .. Stampa tabulati");
+           puts("2 .. Riordino archivi");
+           ...........
+           ........... 
+        }
+
+        In questo secondo esempio battendo CTRL C da qualsiasi parte  del 
+        programma si fara' si che si vada alla funzione menu().
+        Nel  caso  che  la funzione esegua un  ritorno  l'esecuzione  del 
+        programma riprende esattamente da dove era stata interrotta.
+        Questo  si  rivela  utile  nel caso che si  voglia  inserire  una 
+        funzione,  ad esempio,  per avvertire di uscire dal programma con 
+        le apposite opzioni.
+
+
+
+                     Funzioni per l'allocazione di memoria.
+
+
+        Questa  serie di funzioni permettono do allocare,  liberare o  di 
+        riallocare dei blocchi di memoria.
+
+        #include <malloc.h>
+
+        char *calloc(n, size);
+
+        unsigned n;
+        unsigned size;
+
+        calloc  alloca  uno  spazio per salvare un numero n  di  elementi 
+        della dimensione specificata da size.
+        Infatto  calloc  ritorna  un puntatore  allo  spazio  specificato 
+        oppure NULL se la richiesta non puo' essere soddisfatta.
+        Il  puntatore ritornato deve essere forzato al tipo  dell'oggetto 
+        per cui si richiede l'allocazione.
+        Un esempio potrebbe chiarire il concetto.
+
+        #include <malloc.h>
+
+        main()
+        {
+            long *var;
+            var = (long *)calloc(10, sizeof(long));
+            ...........
+            ...........
+        }
+
+        Il (long *) costituisce la forzatura al tipo specificato  infatti 
+        calloc diversamente restituisce un puntatore a char.         
+        Sizeof  vi  ricordo  che non e' un  istruzione  ma  soltanto,  ne 
+        abbiamo gia' parlato, una direttiva al preprocessore.
+
+
+                                       112
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        In  altre  parole  l'esempio appena visto alloca  uno  spazio  di 
+        memoria pari alle dimensioni di 10 long.
+        La funzione contraria e cioe' quella utilizzata per rilasciare lo 
+        spazio di memoria occupato da una precedente funzione calloc e' :
+
+        #include <malloc.h>
+
+        void free(punt);
+        char *punt;
+
+
+        Allo  scopo  di modificare le dimensioni di una parte di  memoria 
+        precedentemente allocata e' a disposizione la funzione realloc.
+        Questa ritorna un puntatore a char nello stesso modo di calloc.
+
+        #include <malloc.h>
+
+        char *realloc(punt,size);
+        char *punt;
+        unsigned size;
+
+        Il  ritorno  di  un NULL indica che non c'e'  memoria  sufficente 
+        perche' la funzione abbia successo.
+        L'ultima  funzione  di questo tipo e' malloc  che  funziona  come 
+        calloc solo che alloca un solo blocco di memoria della dimensione 
+        specificata.
+
+        #include <malloc.h>
+
+        char *malloc(size);
+        unsigned size;
+
+        Un esempio :
+
+        int *var;
+
+        var = (int *)malloc(10*sizeof(int));
+
+        Anche  qui  e' necessario forzare l'allineamento della  variabile  
+        nel caso che non corrisponda a char.
+        Il ritorno di un NULL,  come nei tre casi precedenti,  indica  un 
+        insufficenza della memoria.
+
+
+
+                    Funzioni per la manipolazione di buffers
+
+
+        I  buffers  sono  da  considerarsi come  delle  aree  di  memoria 
+        destinate a contenere informazioni di transito e che eseguono una 
+        funzione  di  compensazione tra l'arrivo dei dati e il  tempo  di 
+        effettivo utilizzo di questi da parte del programma.
+
+
+                                       113
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Potrebbe  essere  un esempio un buffer abbinato ad una  porta  di 
+        comunicazione asincrona RS 232.
+        Eseguendo  dei  trasferimenti  di dati ad alta  velocita'  se  il 
+        programma   eseguisse  un  elaborazione  diretta  dei   caratteri 
+        ricevuti  potrebbe  capitare che quest'ultimo non risulti  essere  
+        in  grado  di seguire il ritmo con cui i dati stessi  arrivano  e 
+        quindi il rischio di sovvrapposizione sarebbe elevato.
+        Una funzione di bufferizzazione potrebbe risolvere in questo caso 
+        il problema in quanto il salvataggio di quanto ricevuto avverebbe 
+        all'interno  del buffer stesso e il programma potrebbe ripescarli 
+        da questo successivamente.
+        Vedremo  nei  capitoli successivi alcuni esempi  di  utilizzo  di 
+        buffers  parlando delle funzioni di lettura da disco e di  alcuni 
+        protocolli di comunicazione.
+        Un  buffer  puo'  essere  paragonato ad una  stringa  ma  con  la 
+        differenza   che  non  deve  necessariamente  terminare  con   un 
+        carattere '\0'.
+        Il conrollo su questi viene eseguito memorizzando la lunghezza  o 
+        mantenendo un conto degli elementi.
+        Un esempio di dichiarazione di buffer e' la seguente :
+
+                                 #define LEN   128
+                                 char buff[LEN];
+
+        All'interno  di stdio.h viene definita la costante BUFSIZ pari  a 
+        512 e quindi una dichiarazione del tipo
+
+                               char buff[BUFSIZ];
+
+        riserverebbe per il buffer buff 512 elementi. 
+        Il  linguaggio  C possiede funzioni adatte alla manipolazione  di 
+        questi.
+
+        #include <memory.h>        /* Richiesto solo per la dichiarazione 
+                                      delle funzioni                   */
+
+        char *memccpy(dest,sorg,car,num);
+
+        char *dest;
+        char *sorg;
+        char car;
+        unsigned num;
+
+        La funzione copia dal buffer sorg a quello dest fino al carattere 
+        successivo  a quello specificato da car o fino al numero di bytes 
+        specificati da num.
+        Viene  restituito  un puntatore al carattere  seguente  a  quello 
+        indicato, se copiato, o NULL se questo non e' stato reperito.
+
+
+
+
+
+
+
+                                       114
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Una  funzione  simile  ma  con lo scopo  di  ricercare  la  prima 
+        occorenza  di un carattere  all'interno del buffer entro un certo 
+        numero di bytes e' :
+
+        #include <memory.h>        /* Richiesto solo per la dichiarazione 
+                                      delle  funzioni                  */
+
+        char *memchr(buff,car,num);
+
+        char *buf;
+        char car;
+        unsigned num;
+
+        Difatti  la funzione esegue la ricerca del carattere  specificato 
+        in car entro il numero di bytes indicato da num  restituendo,  in 
+        caso  di  esito positivo,  un puntatore alla posizione in cui  e' 
+        stato reperito oppure NULL in caso contrario.
+        La  comparazione  tra  due  buffer  puo'  essere  eseguita  dalla 
+        funzione 
+
+        #include <memory.h>        /* Richiesto solo per la dichiarazione
+                                      delle funzioni                   */
+
+        memcmp(buf1,buf2,num);
+
+        char *buf1, *buf2;
+        unsigned num;
+
+        Vengono comparati i bytes specificati in num del buffer uno e del 
+        buffer due.
+        A seconda dell'esito vengono restituiti i seguenti valori :
+
+        < 0       -     Il buffer 1 e' minore del buffer 2
+          0       -     I due buffer sono uguali
+        > 0       -     Il buffer 1 e' maggiore del buffer 2
+
+        La seguente funzione   svolge un compito di copia tra un buffer e 
+        un altro.
+
+        #include <memory.h>        /* Richiesto solo per la dichiarazione 
+                                      delle funzioni                   */
+
+        char *memcpy(dest,sorg,num);
+
+        char *dest, *sorg;
+        unsigned num;
+
+        Il numero di bytes da copiare viene specificato in num.
+
+
+
+
+
+
+                                       115
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Nel  caso che si desideri inizializzare un certo numero di  bytes 
+        di un buffer con un carattere e' possibile utilizzare la funzione
+
+
+        #include   <memory.h>      /* Richiesto solo per la dichiarazione
+                                      delle funzioni                   */
+
+        char *memset(buff,car,num);
+
+        char *buff;
+        char car;
+        unsigned num;
+
+        Il   carattere  contenuto  in  car  verra'  copiato   num   volte 
+        all'interno del buffer.
+
+        Per   poter   discutere  della  funzione  movedata   bisognerebbe 
+        essere  a conoscenza del concetto di segmentazione in  quanto  lo 
+        scopo  della  funzione  e' quello di copiare un certo  numero  di 
+        bytes  da  un  buffer ad un altro quando  questi  si  trovano  in 
+        differenti segmenti.
+        Parleremo   trattando  l'hardware  del  sistema  dell'utilizzo  e 
+        dell'indirizzamento di memoria.
+        Per ora tralasciamo il discorso accennando solo alla sintassi  di 
+        utilizzo della funzione.
+
+        #include <memory.h>        /* Richiesto solo per la dichiarazione 
+                                      delle funzioni                   */
+
+        void movedata(sorgseg,sorgoff,destseg,destoff,num);
+
+        int sorgseg, sorgoff;
+        int destseg, destoff;
+        unsigned num;
+
+        sorgseg  stabilisce l'indirizzo del segmento del sorgente  mentre 
+        sorgoff il suo offset.
+        destseg   e  destoff  sono  la  stessa  cosa  ma  riferiti   alla 
+        destinazione.
+        num come al solito e' il numero di bytes da copiare.
+
+
+                               Interfaccia MS DOS
+
+
+
+        Ho  lasciato questo gruppo di funzioni per ultimo in quanto  sono 
+        quelle che utilizzeremo d' ora in poi per la gestione dei vettori 
+        di   interruzione   del   sistema  operativo   MS   DOS   e   per 
+        l'indirizzamento delle porte di I/O.
+        Vediamo  prima le due istruzioni che ci permettono di settare  le 
+        porte di I/O del PC.
+
+
+                                       116
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Come  vedremo,  parlando  dell'hardware,  il sistema possiede  un 
+        certo  numero  di porte di I/O che servono a  comunicare  con  le 
+        periferiche e con il mondo esterno.
+        Supportarsi  per  il  controllo di queste  sulla  gestione  degli 
+        interrupts  non e' che un metodo in quanto  un'alternativa  viene 
+        offerta  dalla possibilita' di scrivere e di leggere direttamente 
+        su e da queste.
+        Il linguaggio C possiede due istruzioni per potergli accedere  in 
+        scrittura e in lettura.
+
+        #include  <conio.h>       /* Richiesto solo per la  dichiarazione 
+                                     delle funzioni                    */
+
+        inp(porta);
+
+        unsigned port;
+
+        Pur  non avendo ancora trattato l'elenco delle porte disponibili, 
+        al  fine  di portare un esempio pratico,  anticipo che  la  porta 
+        0x3FE  e'  quella relativa allo stato del modem  collegato  sulla 
+        porta COM1.
+        Il settimo bit di questa viene messo a 1 nel caso che arrivi  una 
+        chiamata telefonica.
+        Supponendo  di  voler  implementare in un  nostro  programma  una 
+        funzione  che  avvisi nell'istante in cui si verifica  un  simile 
+        caso dovremmo utilizzare la funzione inp nel seguente modo :
+
+        #include <stdio.h>
+
+        #define STM   0x3FE
+
+        main()
+        {
+            char risp;
+            for(;;)
+            {
+                if((risp=inp(STM)) & 64) == 64)
+                {    
+                     printf("\nRING !");
+                     funz_ring();
+                }
+            }
+        }
+
+        La  funzione funz_ring() chiamata dal modulo precedente  potrebbe 
+        avere  lo  scopo  di  rilevare il carrier prima  di  iniziare  la 
+        trasmissione.
+        Il  rivelamento  del carrier,  sempre  per  completare  l'esempio 
+        precedente,  puo'  essere eseguito sempre testando la porta 0x3FE 
+        in  quanto  l'ultimo  bit ovvero il numero 8 se  a  1  indica  la 
+        presenza di questo.
+
+
+
+
+                                       117
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Le  operazioni di AND hanno lo scopo di isolare i singoli bit che 
+        ci interessano ignorando tutti gli altri.
+
+
+
+        funz_ring()
+        {
+            long timeout;
+            timeout = 100000;
+            while((risp=inp(STM)) & 128) != 128) && timeout)
+                 --timeout;
+            if(!timeout) 
+            {
+                 puts("Non rilevato carrier");
+                 main();
+            }
+            puts("Connesso ");
+            ..................
+            ..................
+        }  
+
+        Il ciclo di decremento della variabile timeout serve a far si che 
+        se  entro  un certo periodo di tempo il carrier non  e'  rilevato 
+        la  funzione finisca richiamando nuovamente il main per  mettersi 
+        in stato di attesa di un altra chiamata.
+        Nel  caso  che le funzioni precedenti fossero servite ad  esempio 
+        per  rilevare  l'inizio di una comunicazione in un  programma  di 
+        comunicazione del tipo BBS allora al posto dei puntini si sarebbe 
+        potuto inserire la chiamata ad altri servizi.
+        La funzione per scrivere su una determinata porta e' invece :
+
+        #include  <conio.h>       /* Richiesto solo per la  dichiarazione 
+                                     delle funzioni                    */
+
+        outp(porta,val);
+
+        unsigned porta;
+        int val;
+
+        In  questo  caso il valore assegnato a val  sara'  scritto  sulla 
+        porta specificata.
+        In  ambedue  le  funzioni il valore della porta  puo'  essere  un 
+        numero  compreso tra 0 e 65.535 mentre,  in caso di scrittura  su 
+        questa, i valori ammessi sono tra 0 e 255.
+        Per   la  definizione  di  quest'ultimi  si  deve  consultare  il 
+        significato di ogni singolo bit della porta interessata.
+        Ovviamente un tipo di programmazione come questo  va' a discapito 
+        della  portabilita'  del software in quanto gli  indirizzi  delle 
+        varie porte cambiano da sistema a sistema.
+          
+        Molti  sistemi operativi eseguono i loro compiti supportandosi  a 
+        una gestione definita ad interrupts.
+
+
+                                       118
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Anche  se l'argomento lo tratteremo tra breve possiamo  dire  che 
+        esiste  una  distinzione tra i servizi offerti dal BIOS e  quelli 
+        relativi al DOS.
+        Tutti i servizi del DOS sono eseguiti dall'interrupt 21H.
+        Vediamo  quello  che  ci offre il compilatore  Microsoft  per  la 
+        gestione di questi.
+        Se   alcuni   particolari  non  li  capirete   sull'istante   non 
+        preoccupatevi  in quanto in seguito,  nei capitoli relativi  alla 
+        descrizione dei vari servizi, portero' un gran numero di esempi.
+        Riservatevi  al limite di consultare questa parte solo dopo  aver 
+        letto i successivi capitoli.
+        All'interno  del file di header dos.h troviamo la definizione  di 
+        alcune  strutture  in  cui  vengono  dichiarati  i  registri  del 
+        processore 8088/86.
+        Come  alcuni  di  voi sapranno i registri del processore  sono  a 
+        16 bit e sono AX, BX, CX, DX a parte altri di uso particolare.
+        Questi a sua volta possono essere trattati come due registri da 8 
+        bit.
+        AX  puo'  essere considerato come AH e AL (parte  alta  e  bassa) 
+        cosi' BX, CX e DX (BX = BH,BL - CX = CH,CL - DX = DH,DL).
+        Sedici bit equivalgono a 2 bytes normalmente definiti come WORD o 
+        parola.
+        La struttura seguente definisce i registri di una parola.  
+
+        struct WORDREGS {
+                unsigned int ax;
+                unsigned int bx;
+                unsigned int cx;
+                unsigned int dx;
+                unsigned int si;
+                unsigned int di;
+                unsigned int cflag;
+                };
+
+        A   sua   volta  la  struttura  BYTEREGS  definisce  i   registri 
+         considerati come parte alta e parte bassa dei precedenti.
+
+        struct BYTEREGS {
+                unsigned char al, ah;
+                unsigned char bl, bh;
+                unsigned char cl, ch;
+                unsigned char dl, dh;
+                };
+
+        Una  volta definite le due strutture precedenti vengono unificate 
+        in un unione.
+
+        union REGS {
+                struct WORDREGS x;
+                struct BYTEREGS h;
+                };
+
+
+
+                                       119
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Altri  registri  del  processore sono  relativi  ai  registri  di 
+        segmento.
+        Anche  in questo caso sarebbe necessario avere la conoscenza  del 
+        concetto di segmentazione.
+        I  registri visti in precedenza possiamo sia testarli in  lettura 
+        che scriverci dentro dei valori.
+        Nel  caso dei registri di segmento alcuni saranno solo  leggibili 
+        (segmento di codice) e non scrivibili altri invece potranno anche 
+        essere settati con opportuni valori.
+        La struttura relativa ai registri di segmento e' la seguente.
+
+        struct SREGS {
+                unsigned int es;
+                unsigned int cs;
+                unsigned int ss;
+                unsigned int ds;
+                };
+
+        Per poter accedere ai vari registri dovremo dichiarare nel nostro 
+        programma l' opportuna unione REGS e, se eventualmente utilizzati 
+        anche i registri di segmento, la struttura di tipo SREGS.
+        Prima  era stata fatta una suddivisione tra i servizi offerti dal 
+        BIOS da quelli del DOS.
+        L'interrupt 21H, in quest'ultimo caso, fa' da sovrano.
+        Cosa significa questo ?
+        Semplicemente  che  tutte le funzioni del  DOS  vengono  eseguite 
+        settando  all'interno del registro AH l'opportuno valore relativo 
+        alla funzione che desideriamo che sia eseguita e  successivamente 
+        chiamando l'interrupt 21H.
+        Alcune funzioni oltre alla specifica del servizio necessitano del 
+        passaggio di altri argomenti.
+        Facciamo un esempio in notazione.
+        Supponiamo  di voler sfruttare una funzione del DOS per  cambiare 
+        il disco attivo.
+        Guardando  l'elenco  dei servizi offerti  dall'interrupt  21H  ci 
+        accorgiamo che la call 0EH fa' al caso nostro.
+        La prima cosa che dovremo fare e' quella di inserire nel registro 
+        AH il valore indentificatore del servizio stesso.
+
+                                    AH <- 0EH
+
+        A questo punto la lista degli argomenti non e' completa in quanto 
+        noi  abbiamo  selezionato  la funzione "seleziona disco"  ma  non 
+        abbiamo specificato quale disco vogliamo.
+        Continuando  a leggere la parte dove viene descritto il  servizio 
+        vediamo che il numero del disco deve essere inserito  all'interno 
+        del registro DL.
+        Allora 
+
+                                     DL <- 0
+
+        Faccio notare che 0 equivale ad A:, 1 a B:, 2 a C: ecc.
+
+
+
+                                       120
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Ora,   dopo  aver  settato  questo  valore,  possiamo  richiamare 
+        l'interrupt.
+        La procedura completa e' 
+
+                                    AH <- 0EH
+                                    DL <- 00H
+                                    INT   21H
+
+        Altre   funzioni  del  DOS  richiedono  invece  il  passaggio  di 
+        argomenti all'interno dei registri DX e DL.
+        La  funzione  che  vedremo ora permette  sfruttare  una  chiamata 
+        all'interrupt  21H quando gli argomenti devono essere passati nei 
+        registri suddetti.
+
+        #include <dos.h>
+
+        bdos(dosfunz,dosdx,dosal);
+
+        int dosfunz;
+        unsigned dosdx, dosal;  
+
+        Sempre sfogliando il Technical Reference del DOS  vediamo,  tanto 
+        per  riportare un altro esempio,  che il servizio 09H stampa  una 
+        stringa sullo schermo.
+        Il parametro preteso, a parte il numero del servizio nel registro 
+        AH,  e'  costituito dall'indirizzo della stringa da stampare  che 
+        va' inserito nel registro DX.
+        Supponendo  di  voler  stampare la stringa  "Benvenuto  al  CBBS" 
+        dovremmo scrivere una routine come segue.
+
+        #include <dos.h>
+
+        char *string = "Benvenuto al CBBS$";
+        bdos(0x09,(unsigned)string,0x00);
+
+        Notate il simbolo $ a fine stringa.
+        Come  in linguaggio C il carattere di fine stringa e' considerato 
+        il '\0' in assembler e' '$'.
+        Voi vi chiederete che cosa centra l'assembler ?
+        Un  metodo  di  programmazione in questo modo  si  aggancia  alla 
+        gestione delle risorse macchina a basso livello.
+        Una routine di questo tipo sarebbe tradotta in modo indicativo in  
+        assembler come segue.
+
+        DSEG     SEGMENT  PARA 'DATA'
+        STRING   DB     'Benvenuto al CBBS$'
+        DSEG     ENDS
+        ;
+        CSEG     SEGMENT  PARA 'CODE'
+                 LEA    DX,STRING
+                 MOV    AH,09H
+                 INT    21H
+        CSEG     ENS 
+
+
+                                       121
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Come avrete anche notato nell'esempio precedente la stringa viene 
+        assegnata ad un puntatore.
+        In  questo modo string senza l'operatore unario * e'  considerato 
+        l'indirizzo del primo carattere.
+        Il  cast  (forzatura)  ad  unsigned  permette  di  passare  nella 
+        funzione  bdos  l'indirizzo  del primo  carattere  dell'array  al 
+        registro DX.
+        A  questo  punto,  dopo la chiamata dell'interrupt,  la  gestione 
+        della funzione da svolgere,  in questo caso la stampa, e' passata 
+        sulle spalle della routine di servizio dell'interrupt stesso.
+        Questo   e'   il  motivo  per  cui  bisogna  seguire  la   regola 
+        dell'assembler  per  la specifica del tipo di carattere  di  fine 
+        stringa.
+        Nel caso in cui desideriamo passare dei valori ad altri  registri 
+        che  non  siano  necessariamente DX e AL possiamo  utilizzare  la 
+        funzione intdos.
+
+        #include <dos.h>
+
+        intdos(inregs, outregs);
+
+        union REGS *inregs, *outregs;
+
+        Come  potete  notare  qui si utilizza la dichiarazione di  unione 
+        del tipo REGS.
+        Questo  ci permette di accedere ai vari registri dichiarati  come 
+        membri  delle strutture dichiarate all'interno dell' unione  REGS 
+        che abbiamo visto precedentemente.
+        Con  la  funzione intdos possiamo accedere ai  vari  registri  ma 
+        sempre nell'ambito di una chiamata all'interrupt 21H.
+        L'esempio che avevamo fatto in notazione possiamo ora tradurlo in 
+        linguaggio C.
+        Il programma permette di cambiare il disco attivo.
+        #include <stdio.h>
+        #include <dos.h>
+
+        union REGS inregs, outregs;
+
+        main()
+        {
+            int scelta;
+            int disk;
+            printf("Inserisci la lettera del disco (A - D) :");
+            scelta = getch();
+            switch(scelta)
+            {
+                 case 'a':
+                 case 'A':
+                         disk = 0x00;
+                         break;
+                 case 'b':
+                 case 'B':
+                                                              Segue ..                 
+
+
+                                       122
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+                         disk = 0x01;
+                         break;
+                 case 'c':
+                 case 'C':
+                         disk = 0x02;
+                         break;
+                 case 'd':
+                 case 'D':
+                         disk = 0x03;
+                         break;
+                 default:
+                        puts("\n\nDisco errato");
+                        abort();
+                        break;
+             }
+             
+             inregs.h.ah = 0x0E;    /* Codice funzione            */
+             inregs.h.dl = disk;    /* Disco selezionato          */
+             intdos(&inregs, &outregs);
+        }
+
+        Ci sara' chi non capisce la funzione di outregs.
+        Outregs  permette  di  accedere  ai  registri  dopo  la  chiamata 
+        dell'interrupt nel qual caso che questo ritorni qualche valore.  
+        Infatti  la  call  0x0E del Dos restituisce nel  registro  AL  il 
+        numero dei drives presenti.
+        Avremmo  potuto,  dopo  la  chiamata  di  intdos,  aggiungere  la 
+        seguente linea di programma
+
+                   printf("Dischi presenti %d", outregs.h.al);
+
+        Ridate un occhiata alla definizione dell'unione REGS contenuta in 
+        dos.h  nel  caso  che non abbiate capito quando  utilizzare  come 
+        membro x o h (inregs.h.al, intregs.x.ax).
+        Il primo,  x,  e' utilizzato nella dichiarazione della  struttura 
+        dei registri a 16 bit mentre la seconda, h, in quella a 8 bit.  
+        Le  due  funzioni  precedenti  permettono  di  settare  indirizzi 
+        relativi allo stesso segmento.
+        La  funzione  intdosx  mediante la struttura  SREGS  permette  di 
+        accedere  anche  ai  registri di segmento DS ed ES  e  quindi  di 
+        passarli come argomento alla chiamata della funzione stessa.
+
+        #include <dos.h>
+
+        intdosx(inregs,outregs,seregs);
+
+        union REGS *inregs, *outregs;
+        struct SREGS *seregs;
+
+        La  chiamata  eseguita  dalla funzione anche in  questo  caso  e' 
+        relativa all'interrupt 21H.
+        Supponiamo  di  voler  creare una nuova directory  sfruttando  la 
+
+
+                                       123
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        funzione  39H.
+
+        #include <dos.h>
+
+        union REGS inregs, outregs;
+        struct SREGS segregs;
+
+        char far *dir = "c:\\bin";
+
+        main()
+        {
+              inregs.h.ah = 0x39;
+              inregs.x.dx = FP_OFF(dir);
+              segregs.ds  = FP_SEG(dir);
+              intdosx(&inregs, &outregs, &segregs);
+        }
+
+        L'esempio ci da' la possibilita' di discutere su alcune cose  mai 
+        viste prima d'ora.
+        Risultera' nuova la dichiarazione 
+
+                                  char far *dir
+
+        In  ogni caso penso che questa non risultera' solo nuova a chi ha 
+        seguito  questo testo senza aver mai visto prima il linguaggio  C 
+        ma anche a tutti coloro che non hanno mai avuto niente a che fare 
+        con il compilatore Microsoft C.
+        Il  significato di far e' uguale al concetto assunto dalla parola 
+        in assembler.
+        L'attributo  far (lontano) indica che l'indirizzo e'  considerato 
+        intersegmentale e cioe' che non necessariamente e' allocata nello 
+        stesso segmento di lavoro.
+        near  (vicino),  al  contrario,  indica che  l'allocazione  della 
+        variabile  e'  intrasegmentale e cioe' nello stesso  segmento.
+        far  e near vengono considerati dal linguaggio C del  compilatore 
+        Microsoft  ma  non  sono universalmente riconosciute da  tutti  i 
+        compilatori.
+        In altre parole, l'argomento lo affronteremo parlando dei modelli 
+        di memoria, un puntatore senza l'attributo far occupa 16 bit.
+        Un  puntatore  con attributo far invece e' a 32 bit in quanto  16 
+        bit indicano l'offset mentre gli altri 16 il segmento.
+        L'utilizzo  di  un modello di memoria large lo rende  inutile  in 
+        quanto in questo ogni puntatore e' gia a 32 bit. 
+        Non  mi stanco di ripetere che se eventualmente ci fosse  qualche 
+        cosa  che  non  capite di non  demoralizzarvi  in  quanto  alcuni 
+        concetti  sono qui inseriti proforma ma che la discussione vera e 
+        propria  avverra' solo piu' avanti nei capitoli  riguardanti  gli 
+        interrupt.
+        Un'  altra novita riguarda l'utilizzo delle macro FP_OFF e FP_SEG 
+        dichiarate sempre nel file di header dos.h .
+
+                  #define FP_SEG(fp) (*((unsigned *)&(fp) + 1))
+                  #define FP_OFF(fp) (*((unsigned *)&(fp)))
+
+
+                                       124
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        La  loro  funzione  e' quella  di  riportare  rispettivamente  il 
+        segmento e l'offset di un puntatore.
+        Ora , dato che la funzione 39H pretende l'indirizzo della stringa 
+        che  contiene  il path della directory da creare,  le  due  macro 
+        svolgono appunto questo compito.
+        Utilizzando  il  Bios il discorso cambia in quanto i servizi  non 
+        sono  piu' svolti in generale da un solo interrupt ma da piu'  di 
+        uno  che  a sua volta mediante l'opportuno  settaggio  di  valori 
+        all'interno dei registri svolge piu' funzioni. 
+        int86  e  int86x  come struttura sono equivalenti a  intdos  e  a 
+        intdosx ma solo che in piu' e' possibile specificare il numero di 
+        interrupt desiderato.
+
+        #include <dos.h>
+
+        int86(interr,inregs,outregs);
+
+        int interr;
+        union REGS *inregs, *outregs;
+
+        #include <dos.h>
+
+        int86x(interr,inregs,outregs,segregs);
+        union REGS *intregs, *outregs;
+        struct SREGS *segregs;
+
+        Anche nel caso dell'ultima funzione i registri di segmento in cui 
+        e' possibile settare dei valori sono solo DS ed ES.
+        A  questo  punto  abbiamo concluso la panoramica  sulle  funzioni 
+        offerte dal compilatore Microsoft C.
+        Come   avrete   notato  un  gran  spazio  e'  stato  dedicato   a 
+        quest'ultimo paragrafo.
+        La  prima  parte  riguardante  il linguaggio  C  ha  trattato  la 
+        sintassi generale del linguaggio offrendo una base per la stesura 
+        di programmi trasportabili.
+        L'utilizzo  delle  funzioni  appena viste fa' si  che  il  codice 
+        generato   non  sia  piu'  utilizzabile sotto  un  altro  sistema 
+        operativo che non sia l' MS DOS.
+        Ho  tralasciato  alcune  funzioni in quanto  indirizzate  ad  usi 
+        specializzati.
+        In  particolar  modo ho tralasciato alcune  funzioni  matematiche 
+        tipo,  ad esempio,   bessel (funzione di bessel) che pretende  la 
+        conoscenza  della  teoria riguardante l' equazione  differenziale 
+        del secondo ordine dello stesso.
+        Per  la  sintassi  e il metodo di  utilizzo  delle  funzioni  non 
+        accennate rimando alla consultazione del manuale del compilatore.
+        In  ogni caso sono convinto che per i nostri scopi e in  generale 
+        per  quelli di un qualsiasi utente del linguaggio questa mancanza 
+        non costituisca una lacuna.
+        Ora siamo a circa meta' strada in quanto non ci resta che parlare 
+        un  po'  dell'hardware  di  sistema  prima  di  inoltrarci  nella 
+        trattazione degli interrupt.
+
+
+                                       125
+
+
+

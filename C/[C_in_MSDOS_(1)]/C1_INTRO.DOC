@@ -1,0 +1,266 @@
+
+
+
+          
+        -----------------------------------------------------------------   
+        -- Autorizzato  per il pubblico dominio a fini non commerciali --
+        -----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  LINGUAGGIO  C
+
+                               per ambiente MS DOS
+
+                  Include Undocomented Interrupts and Dos calls
+
+
+
+
+
+
+
+             A favore dell' Associazione Italiana Ricerca sul Cancro
+
+                           --------------------------
+                           Conto Corrente N.o. 307272
+                           --------------------------
+
+                                 Via Corridoni 7
+                                     MILANO
+
+
+
+
+
+
+
+
+
+
+
+
+                               1987 F. Bernardotti
+                               Montecastello (Al.)
+                          (C) Copyright Opus Free Soft.
+                      Tel. 0131 - 35.55.06 BBS (Opus 33/3)
+                           Tel. 0131 - 35.55.29 (Voce)
+
+
+                                        1
+
+
+
+
+
+
+
+
+
+
+                               Nota sul Copyrigth.
+
+
+        Il  seguente  testo  e'  frutto di moltissime ore  di  lavoro  in 
+        particolar modo notturne.
+        Penso   che  non  sia  difficile  immaginare  quanto  tempo   sia 
+        necessario  per  scrivere  piu'  di  300 pagine  di  testo  e  in 
+        particolar  modo  con  la scrittura e la  verifica  dei  numerosi 
+        esempi riportati.
+        Gli  argomenti qui trattati sono molti a partire dai concetti  di 
+        programmazione  strutturata,  alla  sintassi  del  linguaggio  C, 
+        all'utilizzo delle funzioni di libreria del compilatore Microsoft 
+        C (tm) per arrivare alla gestione degli interrupts.
+        Questo  testo  dovrebbe  permettere  di  usare  decentemente   il 
+        compilatore  e sfruttare le risorse macchina mediante  l'utilizzo 
+        e la modifica dei vettori di interruzione.
+        Non  pretende  il  possesso  del Technical  Reference  in  quanto 
+        vengono riportate tutte le descrizioni dei servizi del BIOS e del 
+        DOS.
+        Peccando di presunzione oserei dire che le notizie riportate sono 
+        superiori a quelle contenute nello stesso Technical Reference.
+        Se  avete la possibilita' di averne uno sottomano vi  accorgerete 
+        che  molte  calls  ed  interrupts  sono  documentati  come  "Used 
+        Internally  by  Dos" oppure che ad alcune non viene  fatto  alcun 
+        riferimento.
+        In questo testo troverete spiegate tutte queste !!!
+
+        >>>>>>>  Nulla e' richiesto finanziariamente per questo  <<<<<<<<
+
+        L'unico invito che vi posso fare e' il seguente.
+        Se pensate che il testo vi sia potuto servire ed aiutare eseguite 
+        un  versamento di importo libero a favore del centro regionale  a 
+        voi piu' vicino per la lotta contro il Cancro (AIDS inclusa).
+        Solo  una  partecipazione  attiva da  parte  di  chiunque  potra' 
+        condurre a risultati apprezzabili.
+        Questo  testo  fa  parte di un' iniziativa mondiale lanciata  dai 
+        softwaristi che hanno scritto il programma di BBS Opus.
+        Bisogna  considerare che negli altri paesi la ricerca scientifica 
+        e' finanziata in gran parte dai governi.
+        In Italia una situazione del genere non esiste ed e' un  classico 
+        esempio il Centro Nazionale per la ricerca sul Cancro.
+        Questo  e'  costretto  a  richiedere fondi per  la  ricerca  alla 
+        popolazione in quanto i 200 milioni passati dallo Stato risultano 
+        una cifra ridicola.
+        Siete INVITATI a fare circolare questo dischetto liberamente.
+        Mi  scuso  per eventuali errori ortografici  presenti  ed   altri 
+        dovuti a disattenzione.
+        Per  eventuali  suggerimenti e correzioni  potete  rivolgervi  ai 
+        numeri  indicati  nella  prima  pagina o  potete  contattarmi  su 
+        qualsiasi nodo della rete Fido Net presente in Italia.
+
+
+                                               Flavio Bernardotti 
+
+
+                                        2
+
+
+
+
+
+
+
+
+
+
+
+                         Lo scopo di questa sfacchinata.
+
+
+        Come dicevo prima questo testo mi ha tenuto occupato per giorni e 
+        giorni.
+        Perche' tutto questo lavoro ?
+        L'  offerta  richiesta  pro Centro Tumori non e'  che  una  delle 
+        motivazioni. 
+        Circa  un anno fa' ho installato un BBS (Opus 33/3)  appartenente 
+        al  network  Fido  con l'idea che questo potesse servire  a   una 
+        divulgazione   delle   informazioni   riguardanti   il    settore 
+        informatico (BBS American Like).
+        Le mie incitazione a comunicare le proprie esperienze, purtroppo, 
+        sono  servite a ben poco in quanto quasi nulla e' stato  ottenuto 
+        in questo senso.
+        Parlando  con un utente,  dopo avergli posto la domanda del  come 
+        mai non uplodasse qualche programma fatto da lui,  mi ha risposto 
+        che  in  effetti  alcuni  programmi li aveva scritti  ma  che  si 
+        vergognava  a metterli in circolazione in quanto non  possedevano 
+        alcuna caratteristica professionale.
+        Ma  dico io !!!!  Avete mai visto alcuni programmi venduti dal PC 
+        SIG (r) americano ?
+        In gran parte si tratta di cose a dir poco vergognose.
+        Questo  testo  vuole  essere una dimostrazione  di  tentativo  di 
+        comunicare  le proprie esperienze da parte di un appassionato  di 
+        computer.
+        Premetto    di    non   essere   un   accademico    di    scienze 
+        dell'informazione e che tutto cio' che e' riportato qui e' frutto 
+        del  mio  interessamento  in questi anni  rivolto  a  quello  che 
+        riguarda  la programmazione in linguaggio C rivolto  all'ambiente 
+        MS DOS.
+        Spero  che questo possa essere di aiuto e che serva a incitare la 
+        circolazione  di  software  e di testi scritti  dagli  utenti  di 
+        computer.
+        I  programmi riportati come esempio rientrano sotto il  Copyright 
+        dello stesso testo ovvero "OPUS FREE SOFT".
+        Questo  vuole  essere  un marchio destinato a  tutti  coloro  che 
+        scrivendo programmi PUBLIC DOMAIN intendono distribuirli mediante 
+        il network Fido Net (Tm).
+        Unica  clausola  per  il  libero utilizzo del  testo  e'  la  NON 
+        RIMOZIONE E LA MODIFICA del copyright riportato.
+        Sinceramente  devo  ringraziare  un mio amico  di  Pavia,  Davide 
+        Yacacha,   che  pazientemente  ha  sopportato  le  centinaia   di 
+        telefonate  da me fatte allo scopo di chiarirmi i numerosi  dubbi 
+        sorti  durante  la trattazione di molti  argomenti  riportati  in 
+        questo testo.  
+
+
+
+
+
+
+
+
+                                        3
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+                                  INTRODUZIONE
+
+
+        Negli  ultimi  anni  abbiamo  potuto assistere  ad  una  notevole 
+        espansione,  anche  a livello non professionale,  dei sistemi  MS 
+        DOS.
+        Il  numero  di  utilizzatori  di  PC,   XT  e  AT,  grazie  anche 
+        all'invasione    di    compatibile    definiti    "cinesi", si e' 
+        incredibilmente ingigantito.
+        Il linguaggio C a causa della sua nascita e sviluppo in  ambiente 
+        Unix e' stato per molto tempo legato filosoficamente a questo.
+        Lo  sviluppo dei compilatori per il linguaggio C in ambiente DOS, 
+        quali  il  Microsoft  C  e il  Lattice,  ha  offerto  una  valida 
+        alternativa all'assembler,  per la scrittura di software a  basso 
+        livello.
+        Questo  volume  non vuole essere una guida particolareggiata  per 
+        l'insegnamento del linguaggio C benche'  venga trattato anche  da 
+        questo  punto  di  vista  ma  piuttosto  un  metodo  completo  di 
+        programmazione dedicato all'ambiente operativo MS DOS.
+        Piu'  che altro il testo vuole essere una guida di  consultazione 
+        per lo sfruttamento delle risorse a basso livello della macchina.
+        Benche' gli esempi riportati siano in linguaggio C e in assembler 
+        le  informazioni potranno essere utili anche per i  programmatori 
+        in altri linguaggi tipo il Turbo Pascal.
+        La  prima  parte  e' dedicata ai  concetti  della  programmazione 
+        strutturata e alla sintassi essenziale del linguaggio C.
+        Questa   potra'   essere   ignorata  da  coloro   che   ricercano 
+        esclusivamente le notizie riguardanti l'utilizzo degli interrupts 
+        del Dos.
+        Come  ho detto verranno inizialmente presi in considerazione  gli 
+        aspetti   fondamentali  della  programmazione   strutturata   per 
+        gradualmente   arrivare  alla  trattazione  della  sintassi   del 
+        linguaggio   e   per  poi  proseguire  con  la   gestione   delle 
+        interruzioni e delle porte di I/O riferite a sistemi 8088-86.
+        Tutti  gli  esempi sono riferiti ai compilatori 3.0 e  4.0  della 
+        Microsoft (tm).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        4
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+

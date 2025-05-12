@@ -1,0 +1,1844 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                           PROGRAMMAZIONE STRUTTURATA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        5
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                            PROGRAMMAZIONE STRUTTURATA
+
+
+        Questi accenni di analisi e programmazione strutturata utilizzano 
+        come   sintassi   descrittiva  quella  definita  come   notazione 
+        algebrica o notazione A.
+        La  notazione A non dispone di forme grammaticali rigide per  cui 
+        all'interno del testo verranno utilizzati vocaboli simili ma  non 
+        sempre  uguali  allo  scopo  di illustrare  i  vari  passi  degli 
+        algoritmi qui descritti.
+        In  altre  parole la notazione algebrica e' l'  analisi  eseguita 
+        mediante  il linguaggio naturale delle problematiche legate  agli 
+        aspetti della programmazione che dobbiamo compiere.
+        Una  traduzione  di  questi in un qualsiasi  linguaggio  di  tipo 
+        strutturato risultera' molto semplice.
+        Bisogna  tenere  a  mente che un programma non  viene  fatto  sul 
+        computer bensi' prima va studiato e analizzato sulla carta.
+        Non  accennare  alla notazione A o a qualsiasi metodo di  analisi 
+        potrebbe portare a pericolose interpretazioni delle strutture  di 
+        un algoritmo, poi difficilmente correggibili.
+        Una  chiarezza  nella  stesura  dell'algoritmo  in  notazione   A 
+        permettera' una facile codifica di questo in qualsiasi linguaggio 
+        sia questo C, Pascal o PL1.
+        La  trasformazione  dei concetti trattati da notazione  algebrica 
+        a linguaggio C,  in questo capitolo, ha il solo scopo di abituare 
+        alla vista di certe forme.
+        L'apprendimento  della  sintassi  vera e  propria  non  ha  molta 
+        importanza   in   questa  fase  in  quanto  verra'   ripetuta   e 
+        approfondita  nelle  sezioni riguardanti il linguaggio C  vero  e 
+        proprio.
+
+
+                          Metodo di analisi informatico
+
+
+        Dato  un sistema reale munito di una qualsiasi  struttura,  tutto 
+        cio' che permette di descriverlo e' consinderato un informazione.
+        Un'  informazione  puo'  essere di tipo quantitativo  o  di  tipo 
+        qualitativo.
+        Il metodo di analisi diretto consiste nell'elaborare direttamente 
+        l'insieme.
+        Ad  esempio volendo sapere il numero di persone con i baffi in un 
+        certo  gruppo dovremmo contare,  supponendo questi  immobili,  le 
+        persone che corrispondono a questo requisito.
+
+        Il metodo indiretto  si basa sull'analisi delle informazioni  che 
+        si possiedono su un determinato sistema.
+        Nel  caso  precedente  avremmo  dovuto attribuire  un  dato  alle 
+        persone   con  i  baffi  e  poi  contare  quante  volte   compare 
+        quest'informazione.
+        In campo informatico possiamo affermare che ad ogni  informazione 
+        del  sistema  reale  corrisponde un informazione  codificata  sul 
+        sistema di elaborazione.
+
+
+                                        6
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Lo  studio di un sistema reale su di un calcolatore  pretende  le 
+        seguenti azioni.
+
+              - preparazione   d'un   insieme   di   dati,   informazioni 
+                elementari, descriventi il sistema.
+
+              - esecuzione dell'elaborazione sul calcolatore
+
+              - interpretazione dei dati di risultato rispetto al sistema    
+                reale
+
+
+                               Tipologia dei dati
+
+
+        La  diversita' della natura dei dati elaborati dal computer rende 
+        necessaria  una  suddivisione di questi in insiemi sui  quali  e' 
+        possibile eseguire delle operazioni.
+        Parleremo  per  ora  solo  dei dati  semplici  e  non  di  quelli 
+        strutturati, scomponibili in piu' componenti.
+        Un  tipo  non e' altro che un insieme di valori e  di  operazioni 
+        definite su di questo.
+        Una costante e' un valore preso nell'insieme dei valori del tipo.
+        Una variabile e' costituita da un identificatore, da un tipo e da 
+        un valore.
+        L'identificatore  permette di designare la variabile  nell'ambito 
+        del  programma,  il tipo e' fisso e il valore puo' essere  mutato 
+        durante l'esecuzione. 
+        Quando l'insieme di tipo e' un insieme ordinato di valori si dice 
+        che si tratta di una variabile scalare.
+        E' valida la seguente notazione :
+
+                          Tipo T: (C1, C2, C3, .., Cn)
+
+        Dove T e' l'identificatore di tipo e C1, .., Cn sono costanti.
+        Un esempio:
+                    Tipo DAY: (Lunedi, Martedi, .., Domenica)
+
+        In  un algoritmo le variabili utilizzate sono di tipo diverso  ed 
+        e' necessario specificare il tipo di queste.
+
+        Si scrivera' :
+
+                          var VAR1, VAR2, ...., VARn :T
+
+        dove VAR1 ecc.  sono gli identificatori delle variabili e T e' il 
+        tipo che deve essere precedentemente dichiarato.
+
+        Molti  linguaggi  non  strutturati come il  Basic  permettono  la 
+        dichiarazione automatica al momento dell'assegnazione del  valore 
+        al  suo identificatore anche se l'abitudine a dichiarare il  tipo 
+        di  ogni variabile porta ad una migliore conoscenza sulla  natura 
+        dei dati trattati.
+
+
+                                        7
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Un  esempio   in  C  di  una dichiarazione  di  variabili  e'  la 
+        seguente:
+
+                         char a,b;      /* In C      */
+
+        Ai   fini   dell'analisi  strutturata  per  la   codifica   delle 
+        informazioni possedute utilizzeremo la notazione Algebrica di cui 
+        vedremo le caratteristiche.
+        Vediamo ora i tipi standard in notazione A.
+
+
+                                  Tipo BOOLEANO
+
+
+        Una  dichiarazione  di questo tipo designa  l'insieme dei  valori 
+        logici e cioe' vero e falso.
+        In  linguaggio  C,  al contrario del Pascal che possiede  i  tipi 
+        boolean specifici, viene considerata vera qualsiasi variabile che 
+        abbia valore diverso da 0.
+        Mediante la dichiarazione al preprocessore, di cui parleremo piu' 
+        avanti, possono, per comodita', essere create
+
+                                 #define TRUE  1
+                                 #define FALSE 0
+
+        e successivamente essere eseguite delle assegnazioni del tipo
+
+                                 int c;
+                                 c = FALSE;
+         
+        Gli operatori di questo tipo sono i seguenti :
+
+              Notazione A    Descrizione              Linguaggio C
+                           
+                   O         OR  logico inclusivo          ||
+                   E         AND logico                    &&
+                   NON       NOT negazione logica          !
+
+
+        Possono  essere applicati  gli operatori relazionali  per  creare 
+        valori di vero o di falso.  
+        Ad esempio :
+              
+                 int a, b, c;          /* dichiara a, b, c interi */
+                 a=5; b=6;             /* assegna i valori        */
+                 c = a > b;            /* c = FALSO               */
+
+
+
+                               Il tipo carattere.
+
+
+        In quasi tutti i linguaggi troviamo i 26 caratteri dell'alfabeto, 
+
+
+                                        8
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        i  10 numeri e altri simboli tra cui alcuni di controllo tipo  il 
+        CR, lo spazio ecc.
+        Il  tipo  standard char rappresenta appunto l'insieme  di  questi 
+        caratteri.
+        Un esempio di codifica in C e' :
+
+                                   char nome;
+
+        Bisogna  prestare attenzione al fatto che,  ad esempio,  il C non 
+        considera una variabile char come una stringa,  ma per farlo deve 
+        essere specificata come array di caratteri.
+
+           char stringa[35];    /* Stringa di 36 caratteri (0..35) */
+
+        Bisogna anche prestare attenzione che il tipo char in C non e' ad 
+        indicare  un carattere ma bensi' un tipo particolare  che  grazie 
+        alle  sue  dimensioni  di  occupazioni di  memoria  (1  byte)  e' 
+        indicato  a  rappresentare un carattere ASCII (da 0 a 128 per  il 
+        char e da 0 a 255 per l'unsigned char).
+        Vedremo, parlando del linguaggio, le modalita' per la creazione e 
+        la gestione di stringhe mediante indici e puntatori.
+
+
+                                 Il tipo intero.
+
+
+        Sono compresi tutti i numeri interi senza restrizioni.
+        Sono operatori del tipo INTERO :
+
+                             +    (somma)
+                             -    (sottrazione)
+                             *    (moltiplicazione)
+                            **    (potenza)
+                             /    (divisione intera)
+
+        Dicevo prima senza restrizioni.
+        Parlando  esclusivamente di codifica in notazione A  puo'  essere 
+        considerato vero.
+        In   pratica  nella  traduzione  in  linguaggio  dell'analisi  ci 
+        troviamo  di  fronte  alle limitazioni  di  memorizzazione  della 
+        macchina.
+        Sappiamo che generalmente una dichiarazione ad intero fa' si' che 
+        il sistema riservi 16 bit per la memorizzazione dell' int.
+        Uno  di questi bit e' riservato per il segno mentre gli altri  15 
+        per  il numero vero e proprio,  quindi un totale di 65000  valori 
+        compresi da -32768 a +32767.
+        Conviene al momento dello sviluppo dell'analisi tenerne conto.
+        Inoltre  il  tipo int puo' presentare diversita' a seconda  della 
+        macchina su cui viene compilato un programma.
+        Ad  esempio un int su sistema a 32 bit della serie Vax  occupa  4 
+        bytes mentre su un Pc IBM solo 2 Bytes.
+        Il tipo short,  simile all'int su PC, del linguaggio C garantisce 
+        16 bit su qualsiasi sistema venga implementato il programma.
+
+
+                                        9
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                             Il tipo reale (float).
+
+
+        Il tipo reale descrive un valore senza nessuna limitazione se non 
+        quella,  come  nel  caso precedente,  dettata dalla capacita'  di 
+        memorizzazione da parte del sistema.
+        Molti linguaggi permettono di assegnare alle variabili dei valori 
+        piu' o meno estesi.
+        Un esempio di dichiarazione :
+
+                                    float  a; 
+
+        I  calcoli  sui  numeri  reali possono dare luogo  a  perdite  di 
+        precisione chiamate errori di troncamento.
+        Difatti qualsiasi intervallo tra i numeri reali e' costituito  da 
+        un  numero infinito di valori impossibili da rappresentare su  un 
+        calcolatore.
+        All'interno  del  C,  a seconda delle dimensioni della  cifra  da 
+        memorizzare esistono altri tipi di definizioni.
+        Una di queste e' il double.
+        L'utilizzo  di  questi tipi pretende alcune attenzioni anche  per 
+        quanto riguarda le librerie da utilizzare.
+        Parleremo  di  questo  argomento  nei  capitoli  riguardanti   il 
+        linguaggio. 
+
+
+
+                                     Tabelle
+
+
+        Le  tabelle  permettono di rappresentare degli insiemi di  valori 
+        con  proprieta'comuni  rappresentando  il  concetto  di   matrice 
+        matematica.
+        Possiedono  anch'esse  un  identificatore a cui e'  associato  un 
+        insieme di valori.
+        Il valore di ciascun elemento e' raggiunto mediante l'uso di  uno 
+        o  piu' indici dichiarati sia come tipo che come limiti per  ogni 
+        singolo indice.
+        In notazione A :
+
+                              tab b(1 : 10):intero;
+        In linguaggio C :
+                                   int b[10];
+
+
+        Una tabella puo' essere multidimensionale e cioe' a piu' indici.
+        Ad esempio :
+
+                                 int b[10][10];
+
+        Possiamo,  allo scopo di semplificare il concetto,  paragonare il 
+        tutto  ad  una matrice in cui il primo indice si  riferisce  alla 
+        riga mentre il secondo al numero di colonna.  
+
+
+                                       10
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+                        Rappresentazione d'un algoritmo.
+
+
+        Un  algoritmo o programma e' un insieme di istruzioni strutturate 
+        in un certo ordine.
+        Possiamo  rappresentare  ogni azione all'interno di un  blocco  e 
+        indicare   il   tragitto  che  dovra'   seguire   il   programma, 
+        rappresentando in questo modo la struttura dello stesso.
+        Questo viene chiamato diagramma di flusso.
+        Supponiamo  di volere codificare un programma che legga un numero 
+        e che stabilisca se questo e' minore o maggiore di 100  avvisando 
+        sul risultato del confronto :
+
+                           var NUMIN: intero;
+                         leggi NUMIN                  
+                           se  NUMIN  < 100 allora scrivi "<" se  no 
+                                                   scrivi ">"
+
+        Utilizzando il diagramma di flusso avremmo :
+
+                             +-------------+
+                             | leggi NUMIN |
+                             +-------------+
+                                    |
+                                   /<\ no
+                                  /100\_______
+                                  \   /      |
+                                   \ /       |
+                                 si |        |
+                                 +------+ +------+
+                                 |scrivi| |scrivi|
+                                 |  <   | |   >  |
+                                 +------+ +------+   
+
+        In  un  diagramma  di  flusso  i  blocchi  che  rappresentano  le 
+        istruzioni sono collegati tra di loro.
+        In  notazione A e' sufficente inserire tra un' istruzione ed  un' 
+        altra un separatore ad esempio il ';'.
+        Il linguaggio C possiede un numero ristretto di vocaboli di  base 
+        ma  un'  elasticita' incredibile ad essere incrementato  mediante 
+        l'introduzione di nuove funzioni nelle librerie.
+        Infatti  comandi tra i piu' comuni come printf non sono originali 
+        di  C  ma  e'  possibile  ritrovarli  implementati  in  qualsiasi 
+        libreria di compilatore.
+        In  notazione A un discorso di funzioni,  intese come sequenza di 
+        istruzioni,  puo'  essere agevolato dall'utilizzo di parole  come 
+        inizio e fine che sostituiscono l'uso che fa' nel C la  parentesi 
+        graffa o  il begin e l'end del Pascal.
+
+
+
+
+
+
+
+                                       11
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Un  diagramma di flusso su di un numero N di istruzioni  potrebbe 
+        apparire :
+
+            +-----------+      in notazione A :
+            |istruzione1|                        istruzione1;
+            +-----------+ 
+                  |     
+            +-----------+
+            |istruzione2|                        istruzione2;istruzione3;
+            +-----------+  
+                  |
+            +-----------+    
+            |istruzioneN|                        istruzione N;
+            +-----------+
+
+        Sarebbe corretto :
+
+                        inizio
+                        istruzione1;
+                        inizio istruzione2;
+                               istruzione3;
+                        fine
+                        istruzione N;
+                        fine
+
+
+
+                                 L'assegnazione.
+
+
+
+        Consiste  nel dare ad una variabile il valore di un'  espressione 
+        dello stesso tipo.
+        In notazione A quest'azione viene espressa dalla freccia <- .
+        Ad esempio :
+
+                                     V <- E
+
+        dove V e' il nome della variabile ed E l'espressione dello stesso 
+        tipo associato.
+        Un esempio di notazione A tradotta in C:
+
+
+        inizio                       funz() {
+        var var1,var2,var3:interi;       int var1,var2,var3; var1=var2=5;
+        var1 <- 5;                       var3 = var1+var2;
+        var2 <- 3;
+             var3 <- var1+var2;          printf("%d",var3);
+        scrivi var3;                  }
+        fine   
+
+
+
+
+
+                                       12
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        L'assegnazione   viene  rappresentata  nei  diagrammi  a  blocchi 
+        mediante un rettangolo.
+
+        Sono validi costrutti del tipo :
+
+                               A <- B <- C <- 10;
+
+        Il  C esegue le assegnazioni da destra verso sinistra,  e  quindi 
+        una  sintassi  del  genere starebbe a significare  C  che  prende 
+        valore 10, B che prende valore C ed A che prende il valore di B.
+         
+
+
+                                   La scelta.
+
+
+        La  scelta  permette  di  valutare un' espressione  logica  e  di 
+        eseguire un' istruzione o un' altra in base al risultato ottenuto 
+        e quindi di rompere la sequenzialita' di un flusso.
+        Si  rappresenta  con  un rombo con un punto  di  ingresso  e  due 
+        d'uscita associati alle condizioni di vero o di falso.
+        In notazione A :
+
+            se condizione A allora istruzione1 altrimenti istruzione2
+
+        oppure
+
+                        se condizione A allora istruzione
+
+        Nella   costruzione   delle  espressioni  da   valutare   vengono 
+        utilizzati anche, oltre agli operatori relazionali, gli operatori 
+        di AND , OR e NOT logico intesi come congiunzione, disgiunzione e 
+        negazione.
+        In C si utilizzano '&&' per rappresentare AND e '||' per OR.
+        Attenzione  a non confonderli con '&' e '|' che hanno  sempre  il 
+        valore di AND e OR ma intesi come operazioni sui bit.
+        Per il NOT viene invece utilizzato il '!'.
+        Ad esempio in C '!=' ha significato di 'non uguale'.
+        Una condizione :
+
+                         se non espressione allora .....  
+
+        o anche :
+
+                          se !espressione allora .....
+
+        in C :
+
+                          if (!espressione)  { ..... }
+
+
+
+
+
+
+                                       13
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Un altro esempio :
+
+        se espressione1 || espressione2 allora .... /*se espr1 o espr2*/
+                                                    /*sono veri ......*/
+         
+        in C:
+
+                   if (espressione1 || espressione2) { ..... } 
+
+        Nella costruzione delle espressioni portate attenzione ai diversi 
+        significati degli operatori '=' e '=='.
+        Il  primo  rappresenta  un'  assegnazione mentre  il  secondo  un 
+        confronto.
+        Ad esempio :
+
+                   /* Errata in C */     if (a = b) { ..... }
+
+        tenderebbe ad assegnare b ad a.
+        Prestate  attenzione in quanto il compilatore non vi segnalerebbe 
+        nessun  errore  in quanto avverrebbe un assegnazione  ma  non  il 
+        controllo di a == b.
+        L'espressione corretta :
+
+                              if (a == b) { ..... }   
+
+        Esistono  scelte  a  piu' rami che non considerano  solo  i  casi 
+        associati allo stato di vero o di falso.
+        In notazione A questa condizione viene chiamata 'nel caso che'.
+        Un esempio :
+
+                   nel caso che:
+
+                                cond.1 : istruzione
+                                cond.2 : istruzione
+                                ...... . ..........
+
+                                cond.n : istruzione
+
+
+        Supponiamo di voler codificare un programma che dati degli  input 
+        valuti quante volte sono premuti i caratteri m,n e o :
+
+
+        inizio
+          var b :char;var m,n,o :interi;
+          n <- m <- o <- 0;
+          finche' b != EOF ripetere | leggi b;
+                                    | nel caso che :
+                                    |             caso b == 'n':n <- n+1; 
+                                    |             caso b == 'm':m <- m+1;
+                                    |             caso b == 'o':o <- o+1;
+                                    | scrivi n,m,o;
+        fine
+
+
+                                       14
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Il relativo diagramma di flusso sarebbe :
+
+
+
+
+                             +------------+
+                             |  leggi  b  |-------------------+
+                             +------------+                   |
+                                   |                          |
+                                 /   \                        |
+                              si/     \no                     |
+                      +--------- =EOF? ---------+             |
+                      |         \     /         |             |
+                 +---------+     \   /          |             |
+                 |  END    |          +-------------------+   |
+                 +---------+          |==n |==m |==o |def |   |
+                                      +-------------------+   |
+                                         |    |    |    |     |
+                    +-------------------+     |    |    |     |
+                 +------+     +---------------+    |    |     |
+                 |n=n+1 |  +------+     +----------+    |     |
+                 +------+  |m=m+1 |  +------+           |     |
+                    |      +------+  |o=o+1 |           |     |
+                    |         |      +------+           |     |
+                    |         |         |               |     |
+                    +---------+---------+---------------+     |
+                                        |                     |
+                                  +------------+              |
+                                  |scrivi n,m,o|--------------+
+                                  +------------+
+
+
+                                     (NOTA)
+        Sui diagrammi di flusso esistono varie correnti.
+        Alcuni  a livello didattico li consigliano mentre altri sono piu' 
+        propensi   allo   sviluppo  dell'analisi  mediante   uno   pseudo 
+        linguaggio tipo la notazione algebrica.
+        Sinceramente io sono piu' propenso al secondo caso.
+        A  livello  di nota si puo' anche dire che un analisi  di  questo 
+        tipo e' adatta a problematiche abbastanza semplici.
+        L'ingegneria  del  software  ha  sviluppato  negli  ultimi   anni 
+        metodologie   d'analisi   per   problemi  molto   complessi   che 
+        contemplano lo sviluppo mediante varie fasi.
+        In genere se il problema risulta essere particolarmente difficile 
+        da  rapportare  al sistema su cui dovra' girare  si  utilizza  un 
+        metodo  definito  a raffinazioni successive in cui le prime  fasi 
+        vengono proiettate su una "macchina virtuale" che possiede  poche 
+        delle caratteristiche della macchina reale.
+        Mediante  fasi successive si esegue il passaggio tra questa e  la 
+        macchina reale.
+        In ogni caso per coloro interessati al problema dell'  ingegneria 
+        del  software  consiglio  il  volume edito  dalla  Franco  Angeli 
+        intitolato "Ingegneria del software e metodologie d'analisi".
+
+
+                                       15
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Riprendendo  il  discorso  relativo  all'esempio  precedente   in 
+        linguaggio C risultera':
+
+          
+           #define EOF -1        /* Definisce EOF = -1    */
+           main()                /* Dichiarazione funzione*/
+           
+             {
+
+               int n,m,o;        /* Dichiara n,m,o interi */
+               char c;           /* Dichiara c carattere  */ 
+               o = n = m = 0;    /* Assegna 0 a o,n,m     */
+
+                   while ((c = getchar()) != EOF)   /* Ripeti c != -1 */   
+                   { 
+
+                   switch(c) {   /* Passa c ai case per il controllo  */       
+                             case 'm':m += 1;break; /* Se 'm' m = m+1 */
+                             case 'n':n += 1;break; /* Se 'n' n = n+1 */
+                             case 'o':o += 1;break; /* Se 'o' 0 = o+1 */
+                             default:break;         /* Se no esci     */
+                             }
+
+                   printf("%d m, %d n e %d o",m,n,o);
+                   }              
+
+               exit(0);           /* Se EOF esci           */
+             }                              
+
+
+
+        Alcune  note  che  compariranno nei seguenti  capitoli  non  sono 
+        solo  relative a sintassi particolari della notazione  algebrica, 
+        ma bensi derivanti da forme del C.
+        L'abitudine   all'uso   di   queste  facilitera'  non   solo   l' 
+        apprendimento  della sintassi C ma facilitera' la  stesura  degli 
+        algoritmi in notazione A.
+        Si sara' notato l'uso dell'espressione n += 1.
+        In  C,  ma  puo'  essere  utilizzato  vantaggiosamente  anche  in 
+        analisi, questa ha il significato di :
+
+                                    n = n + 1
+
+        La sintassi di questa e' :
+
+                              espres1 oper= espres2
+
+        che e' equivalente a :
+
+                       espres1 = (espres1) oper (espres2)
+
+
+
+
+                                       16
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        quindi 
+
+                                   x *= y + 1
+
+        sarebbe
+
+                                x = x * ( y + 1 )
+
+        L'espressione  n  = m = o = 0 esegue un assegnamento da destra  a 
+        sinistra, quindi sarebbe come scrivere n = ( m = ( o = 0 ) ).
+
+        ** Esempio
+
+        Allo  scopo  di  provare a mettere in pratica quello fino  a  qui 
+        detto,  codificheremo  in notazione A un programma che dati degli 
+        input conti quanti caratteri,  spazi, ritorni a capo e cifre sono 
+        stati  inseriti  visualizzando  i risultati  quando  questi  sono 
+        finiti. 
+        E' molto simile all' esempio precedente.
+
+        procedura CONTA
+
+        var car :char;                  
+        var ncar,nnum,ncr,nbia:intero;
+        nmum <- ncar <- ncr <- nbia <- 0;
+
+        inizio CONTA
+             inizio loop
+                        
+        ripeti fino a che car != EOF | leggi car
+                                     |       nel caso che:
+                                     |           caso '0':
+                                     |           caso '1':
+                                     |           caso '2':
+                                     |           caso '3':
+                                     |           caso '4':
+                                     |           caso '5':
+                                     |           caso '6':
+                                     |           caso '7':
+                                     |           caso '8':
+                                     |           caso '9':
+                                     |                    nnum += 1;
+                                     |           caso ' ':
+                                     |                    nbia += 1;
+                                     |           caso \n :
+                                     |                    ncr += 1;
+                                     |           caso default:
+                                     |                    ncar += 1;
+             fine loop
+
+        scrivi nnum,nbia,ncr,ncar;
+
+        fine CONTA
+
+
+                                       17
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        ** Esempio 
+
+        Codifichiamo ora in notazione A un programma che debba contare le 
+        linee, le parole e i caratteri in input.
+        Non  utilizzare  come nell'esempio precedente 'nel caso  che'  ma 
+        creare dei nodi decisionali mediante i soli 'if'.
+
+        var SI,NO :booleano;
+        SI <- 1;NO <- 0;
+
+            inizio CONTA2
+                  var  c,nlinee,nparole,ncaratteri,inparola:intero;
+                  inparola <- NO;
+                  nlinee <- nparole <- ncaratteri <- 0;
+                 
+                  ripeti fino a
+                  inizio loop;
+                  che  c != EOF | leggi c; ncaratteri += 1;
+                                |       se c == '\n' nlinee += 1;
+                                |       se c == ' ' || == '\n' || == 't'
+                                |          esegui inparola <- NO;
+                                |          se no 
+                                |              se inparola == NO
+                                |                 esegui
+                                |                 inizio
+                                |                     inparola <- SI;
+                                |                     nparole += 1;
+                                |                 fine
+                 fine loop
+
+        scrivi nlinee, ncaratteri, nparole;
+
+              fine CONTA
+
+
+                                 L'iterazione.
+
+
+        Spesso  esiste  la  necessita' di ripetere un'  istruzione  o  un 
+        gruppo  di istruzioni per un numero di volte non  necessariamente 
+        noto prima dell'esecuzione.
+        Questo e' il concetto di iterazione.
+        Esistono due forme di iterazione :
+
+                   finche' condizione C ripetere istruzione E
+        e
+                   ripetere istruzione E fino a condizione C
+
+        Nel  primo caso la condizione viene testata inizialmente prima di 
+        eseguire l'istruzione E .
+        Nel  secondo  caso  prima viene eseguita  l'istruzione  E  e  poi 
+        testata la condizione.
+
+
+
+                                       18
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        In C sarebbe :
+
+                          while (condizione) { ..... }
+        e
+                         do { ..... } while (condizione)
+
+        Un altro tipo di iterazione e' quella 'per' (for).
+        Si tratta di una ripetizione gestita da un contatore.
+
+        Ripetere  istruzioni per var_1 che varia da NUM1 a NUM2 con passo 
+        INCREMENTO o DECREMENTO.
+
+        La codifica in C sarebbe :
+
+                       int inc;
+                       for (inc = 1; inc != 30; inc += 1)
+
+        oppure 
+
+                       for (inc = 1;inc != 30;inc++)
+
+        Negli   esempi   precedenti  abbiamo  utilizzato  n  +=   1   per 
+        rappresentare l'espressione n = n + 1.
+        Questo  non era necessario in quanto il C permette l'utilizzo  di 
+        n++ per indicare la stessa espressione.
+        Allo stesso modo l'operatore di decremento e' '--'.
+        Bisogna prestare attenzione al posizionamento degli operatori per 
+        evitare casi come il seguente.
+
+        Intendendo eseguire
+
+                   var a,b :interi;                   int a,b;
+                       b <- 1;                        b = 1;
+                       a <- b ;b <- b+1;              a = b++;
+                   scrivi a;                          printf("%d",a);
+
+        il risultato sarebbe la stampa   del numero 1,  quello  assegnato 
+        inizialmente a b.
+        Se si fosse scritto invece :
+
+                    var a,b: interi;                  int a,b;
+                        b <- 1;                       b = 1;
+                        b <- b + 1;a <- b;            a = ++b;
+                    scrivi a;                         printf("%d",a);
+
+
+        si sarebbe ottenuto la visualizzazione del numero 2.
+        Questo  avviene  semplicemente  perche' la  variabile  b  subisce 
+        l'incremento prima dell'assegnazione ad a.
+        Mi  sono dimenticato di dire che la forma var += x e' valida  per 
+        qualsiasi operatore ammesso dal linguaggio C.
+        Ad esempio  var &= 3 sarebbe come dire  var = var & 3.           
+
+
+                                       19
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Sempre  allo  scopo di rapportare la sintassi C alla notazione  A 
+        accennero'  al  concetto di puntatori anche se verra' dato  ampio 
+        spazio  a  questi  nella  parte relativa  al  linguaggio  vero  e 
+        proprio.
+        Possiamo  dire  che un puntatore e' una  variabile  che  contiene 
+        l'indirizzo di un'altra.
+        L'operatore unario & restituisce l'indirizzo di un oggetto.
+
+                                  punt_x = &x;
+
+        assegnera' a punt_x l'indirizzo di x.
+        In questo caso potremo dire che punt_x punta al valore di x.
+
+                                  y = *punt_x;
+
+        sarebbe come scrivere
+
+                                     y = x;
+
+
+
+                        Analisi discendente e ascendente.
+
+
+        Tra il problema da risolvere e un programma il collegamento e' un 
+        algoritmo espresso ad esempio in notazione algebrica.
+        La fase piu' difficile  della programmazione non e' la traduzione 
+        di questo in un qualsiasi linguaggio ma la sua concezione.
+        Questa fase viene definita come analisi.
+        Molte  tecniche  analitiche  sono state  indirizzate  al  problem 
+        solving, ma essenzialmente possiamo parlare di analisi con metodo 
+        ascendente e analisi con metodo discendente.
+        Uno  parte dai livelli piu' bassi per arrivare a quelli piu' alti 
+        dei problemi da risolvere,  mentre l'altro parte dal livello piu' 
+        alto (problema da risolvere) per arrivare a quelli piu' bassi.
+        Il  primo  metodo  permette di scoprire  una  strategia  generale 
+        qualora questa non sia chiara dall'inizio.
+        Difatti la strategia bottom-up costruisce l'algoritmo  risolutivo 
+        individuando  inizialmente  un insieme di passi  o  funzionalita' 
+        elementari  e  successivamente componendo tali  funzionalita'  in 
+        frammenti   piu'  grossi  fino  all'  individuazione  dell'intero 
+        algoritmo.
+        Questa  tecnica  e'  tipicamente molto utile ogni  volta  che  in 
+        virtu'  della complessita' del problema,  si voglia cominciare  a 
+        fissare qualche aspetto dell'algoritmo .
+        Il secondo invece risulta piu' valido nel caso si abbia un'  idea 
+        chiara fin dall'inizio della strategia da seguire.
+        La  strategia  top-down propone di decomporre  iterativamente  il 
+        problema in sottoproblemi proseguendo nella decomposizione fino a 
+        quando  ogni  singolo sottoproblema e' cosi'  semplice  che  puo' 
+        essere   espresso  in  notazione  A  o  in  qualsiasi  linguaggio 
+        programmativo.
+
+
+                                       20
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Questa  tecnica  permette  di concentrarsi con  gli  aspetti  del 
+        progetto  che  sono  significativi in quel momento  rimandando  a 
+        passi successivi gli aspetti di maggior dettaglio.
+        Teoricamente  e' possibile fare queste due distinzioni  anche  se 
+        poi  praticamente  esistono  situazioni  in cui  le  tecniche  si 
+        mescolano.
+        Difatti  spesso e volentieri l'ottimale risulta essere un  ibrido 
+        delle due tecniche. 
+
+
+                              Modelli informatici.
+
+
+        Lo  scopo  di questo capitolo e' di introdurre  alcuni  algoritmi 
+        classici fondamentali.
+
+         
+                              Algoritmo di Euclide.
+
+
+        Consideriamo  quello che per molto tempo e' stato considerato  un 
+        prototipo  di tutti gli algoritmi e cioe' l'algoritmo di  Euclide 
+        che  serve  a  trovare il massimo comun divisore  di  due  numeri 
+        interi positivi.
+
+                          var r,m,n: interi;
+                          leggi m, n;
+                          inizio;
+                          fino a che r == 0 esegui;
+                               inizio;
+                               r <- m mod n;
+                               m <- n;n <- r;
+                               fine;
+                          scrivi m;
+                          fine;                               
+
+
+
+                              Algoritmo di fusione.
+
+
+        Dati due vettori a = {a(1),  a(2),  ... ,a(m)} e b = {b(1), b(2), 
+        trovare  un vettore v con n+m componenti in cui compaiano tutti i 
+        componenti di a e b ordinati secondo la stessa  relazione.
+        Un  algoritmo  che risolve questo problema puo' essere  costruito 
+        nel seguente modo.
+        Si  confrontano a(1) con b(1) e si inserisce in v(1) il  maggiore 
+        od uno a caso se questi sono uguali.
+        Supponendo  che sia a(1) l'elemento scelto si confronta a(2)  con 
+        b(1),  si  prende il piu' grande e si inserisce in v(2)  e  cosi' 
+        via.
+
+                           
+
+
+                                       21
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+                              INPUT:(a(x),b(x))
+                              inizio;
+                              var v, i, j, k : interi;
+                              i <- j <- k <- 1; 
+                                   
+                                   inizio;
+                                   ripeti fino a
+                                   i < m;j < n; | se a(i) < b(j)
+                                                | allora v(k) <- b(j);
+                                                | j++;k++;
+                                                | altrimenti
+                                                | v(k) <- a(i);            
+                                                | i++;k++;
+                                   fine;
+                              fine;
+
+        Il  numero di operazioni richieste dall'esecuzione dell'algoritmo 
+        e' proporzionale a n+m.
+
+
+        Un esempio di fusione :
+
+                       a = (8, 5, 5, 3, 1); b = (10, 6, 3, 3)
+
+                           v(1) = max {8,10} = 10
+                           v(2) = max {8,6}  =  8
+                           v(3) = max {5,6}  =  6
+                           v(4) = max {5,3}  =  5
+                           v(5) = max {5,3}  =  5
+                           v(6) = max {3,3}  =  3
+                           v(7) = max {1,3}  =  3
+                           v(8) = max {1,3}  =  3
+                           v(9) = max {1}   
+
+
+
+                            Algoritmi di ordinamento.
+
+
+
+        Tra gli algoritmi fondamentali troviamo quelli di ordinamento.
+        Dato un vettore a = { a(1),  a(2), .... , a(n) } ed una relazione 
+        di  ordine  tra  gli  elementi,  trovare  la  permutazione  degli 
+        elementi  di  a  che trasforma il vettore di a in un  vettore  'a 
+        ordinato rispetto alla relazione.
+        Esistono vari algoritmi di soluzione.
+        Ne vedremo qualcuno confrontando il risultato finale.
+        Il primo consiste nello scegliere negli elementi di a il maggiore 
+        e porlo ad esempio nel primo posto di 'a e cosi' via.
+
+
+
+
+                                       22
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+                              inizio;
+                              var a[n],i,b,k: interi;
+                              per i <- 1 a n |inizio;
+                                             |b <- 0;k <- 0;
+                                             |per j <- 1 a n 
+                                             |a passi i+1|inizio
+                                             |           |se a(j)>b
+                                             |           |b <-a(j);k <-j;
+                                             |           |fine;
+                                             |a(k) <- a(i);a(i) = b;
+                                             |fine;
+                              fine;
+
+
+
+        Questo algoritmo effettua un numero di confronti pari a n(n-1)/2.
+        L'aspetto  negativo  e'  che effettua lo stesso numero  di  conti 
+        indipendentemente dal vettore iniziale.
+        Anche  se  questo fosse gia' ordinato l'algoritmo eseguirebbe  lo 
+        stesso numero di cicli.
+        L'algoritmo che vedremo ora non possiede questo difetto.
+        Esso effettua il confronto del primo elemento di a con il secondo 
+        e se questo e' maggiore viene scambiato di posto.
+        Viene  poi  confrontato il secondo con il terzo e cosi  via  fino 
+        all'ultimo elemento.
+        A  questo  punto  ricomincia da capo fino che non  ci  sono  piu' 
+        scambi per un intero esame del vettore.
+
+
+             
+           inizio;
+                 var b,k,t,a[n]: interi;
+                 k <- t <- 1;
+                 ripeti fino 
+                 a quando k = 1 |inizio;
+                                |k <- 0;
+                                |  per i <- 1 
+                                |  a n - t   |inizio;
+                                |            |se a(i)>a(i+1)
+                                |            |allora
+                                |            |      inizio;
+                                |            |      b <- a(i);
+                                |            |      a(i) <- a(i+1);
+                                |            |      a(i+1) <- b;
+                                |            |      fine;
+                                |            |k <- 1;
+                                |            |fine;
+                                |t++;
+                                |fine;
+            fine;
+              
+
+
+
+                                       23
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        In  questo caso l'algoritmo esegue n(n-1)/2 confronti,  quanto il 
+        precedente,  ma se il vettore e' gia' ordinato effettua una  sola 
+        iterazione e quindi n-1 confronti.
+        Esistono  molti  altri  algoritmi di ordinamento ma per  la  loro 
+        complessita' non li tratteremo in questo scritto.
+
+
+
+                           Algoritmi di visita grafi.
+
+
+
+        Gli  algoritmi di visita di un grafo sono quelli che partendo  da 
+        un nodo assegnato del grafo e muovendosi solo attraverso nodi  ed 
+        archi adiacenti visitano tutti i nodi e gli archi di un grafo.
+        L'origine  degli algoritmi di visita a grafi e' del secolo scorso 
+        quando  vennero  studiati  come  metodi  sicuri  di  uscita   dai 
+        labirinti.
+        Tutti  questi  si  basano  sulla  possibilita'  di  lasciare  dei 
+        "marcatori" nei nodi per indicare nodi ed archi gia' visitati.
+        I segnali lasciati non vengono mai rimossi ne modificati.
+        Si  presuppone  che  il  grafo  sia  memorizzato  come  lista  di 
+        adiacenze.
+        Supponiamo  che sia G(N,A) il grafo da visitare e a(i) con i î  N 
+        la lista si adiacenze (a(i) indica l'insieme di nodi adiacenti al 
+        nodo i).
+        La struttura dell'algoritmo partendo da un nodo generico 1 e' :
+
+
+          inizio
+          T = {1}
+          ripeti fino a quando T != 0|inizio;
+                                     |scegli un elemento i di T;
+                                     |scegli un elemento j di a(i);
+                                     |se j non segnato |inizio;
+                                     |                 |segna j;
+                                     |                 |aggiungi j a T;
+                                     |                 |fine;
+                                     |se i nodi di a(i)
+                                     |sono tutti 
+                                     |segnati          |inizio;
+                                     |                 |togli i da T;
+                                     |                 |fine;
+                                     |fine;
+           fine;
+
+
+        L'algoritmo  appena  visto non e'  completamente  specificato  in 
+        quanto viene descritto ad azioni senza precisare ad esempio quale 
+        e' il metodo di selezione tra due nodi adiacenti.
+
+
+
+
+                                       24
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+                        Algoritmo di ricerca a ventaglio.
+
+
+        Un altro algoritmo di visita e' quello di ricerca a ventaglio.
+        Questo  ricerca  in ampiezza sciegliendo tra i nodi di  T  quello 
+        inserito per primo .
+        Una  volta  scelto  un nodo i in T,  sceglie tutti  i  suoi  nodi 
+        adiecenti prima di proseguire.
+        In questo modo l'albero di visita risulta di profondita' minima.
+         
+
+        inizio;
+        T = {1};
+        ripeti fino a quando T != 0|inizio;
+                                   |prendi primo nodo di T e toglilo da T
+                                   |per ogni j î a(i) |inizio;
+                                   |                  |se j non segnato
+                                   |                  |         segna j;
+                                   |                  |         mettilo
+                                   |                  |         fine T;
+                                   |                  |fine;
+                                   |fine;
+        fine;
+
+
+
+
+                       Algoritmo di ricerca a scandaglio.
+
+
+        Il  seguente algoritmo effettua una ricerca in profondita' ed  e' 
+        basato  sul  criterio di scelta ad ogni passo di un arco  (i,  j) 
+        tale che i sia l'ultimo nodo scoperto.
+        Si indica con p(i) il padre del nodo i,  e cioe il nodo dal quale 
+        i e' stato scoperto.
+        Dato che la scelta parte dal nodo 1 possiamo porre p(1) = 1.
+        V indica l'insieme dei nodi visitati.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       25
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        inizio;
+        T = {1}; V = {1}; i = 1;
+        se tutti gli archi adiacenti a i sono stati visitati
+                                                     inizio;
+                                                     se i == p(i) STOP
+                                                     altrimenti       
+                                                     i <- p(i);
+                                                     fine;
+        altrimenti ; inizio;
+                     prendi un arco non visitato adiacente a i;
+                     fine;
+        se j !î V 
+                     inizio;
+                     i <- j;
+                     fine;
+        fine;
+
+
+        Ai   fini   dei   modelli   strutturali   ha   molta   importanza 
+        l'ottimizzazione di questi.
+        Difatti i precedenti algoritmi vogliono esclusivamente dimostrare 
+        a grandi linee il funzionamento di questi.
+        Esistono molti altri algoritmi per la ricerca di cammini ottimali 
+        su  grafi  tra  cui l'algoritmo  di  Dijkstra,  quello  di  Floid 
+        Warshall  ecc.  ma  sempre per la loro complessita' verranno  qui 
+        omessi.
+        A  coloro  interessati all'argomento posso consigliare  il  terzo 
+        volume di Knuth della serie "The Art of Computer Programming".
+        La  trattazione  sviluppata  non e' di quelle  piu'  semplici  ma 
+        sicuramente risulta una tra le piu' complete esistenti.
+        E' complicato da trovare.
+        Nel  caso che foste interessati il riferimento internazionale  e' 
+        il  seguente :  ISBN:  0-201-03803-x della casa editrice  Addison 
+        Wesley.
+        Il suo costo e' di circa 86.000 L. per volume. 
+
+
+
+                       Aspetto modulare e sottoprogrammi.      
+
+
+
+        La  possibilita'  di  scomporre e  strutturare  un  programma  e' 
+        fondamentale.
+        La  scomposizione  perche'  sia significativa e'  necessario  che 
+        venga concepita a livello di analisi.
+        Per  avere un'idea molto semplice di sottoprogramma possiamo dire 
+        che se una certa funzione compare ripetutamente in piu' punti del 
+        programma le si assegna un nome e la si richiama per nome.
+        Un sottoprogramma si divide in due parti.
+        Una  e'  la parte dichiarativa dove figura il nome  della  stessa 
+        mentre l'altra parte e' il corpo della procedura.
+
+
+
+                                       26
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Ad esempio:
+
+                   scroll()                    /* Dichiarazione */
+
+                   {                           /*
+                        int righe,i = 1;        *
+                        righe=25;               * Corpo    
+                        while (i++ != righe)    * Procedura
+                        printf("\n");           *
+                   }                            */
+
+        Il  programma  che  usa una sottoprocedura  viene  definito  main 
+        program o programma principale.
+        In  genere  esiste  un  programma principale e  un  numero  n  di 
+        sottoprocedure : in ogni istante e' attiva una sola di queste.
+        La  struttura  delle  chiamate puo'  essere  molto  complessa  ed 
+        implicare numerosi livelli.
+        Ad es.:
+             
+
+                                     O Programma Principale
+                                    / \
+                                   /   \
+                                  /     \
+                                 o A     o B
+                                / \       \
+                               /   \       \
+                              o C   o D     o E
+                              |            / \
+                              |           /   \
+                              o B        o B   o C
+
+
+        Ogni  sottoprocedura possiede una serie di parametri che  possono 
+        essere suddivisi in parametri formali e reali.
+        Come abbiamo visto in esempi precedenti,  il programma principale 
+        puo' avere in piu' punti la stessa sequenza di istruzioni.
+
+
+        Ora, la sottoprocedura potrebbe essere completamente indipendente 
+        dal main program.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       27
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Un esempio allo scopo di chiarire il concetto :
+
+        procedura SALVE;
+        inizio;
+        var nota(1:12) :carattere;              
+        nota <- "Salve mondo!"  
+        richiama SCROLL;
+        scrivi nota;
+        fine;
+        subroutine SCROLL;
+        inizio;
+        var incremento: intero;
+        incremento <- 1;
+        fino a che incremento++ != 23|inizio;
+                                     |scrivi '\013';
+                                     |fine;
+        fine;
+        ritorna;
+
+        Difatti  come  si  puo'  vedere la  subroutine  scroll  non  deve 
+        ricevere  parametri  dal  main e quindi puo'  essere  considerata 
+        indipendente.
+        Nel caso che il sottoprogramma debba elaborare dei valori forniti 
+        al   momento  del  richiamo  della  subroutine  allora    potremo 
+        suddividere i parametri come prima specificato.
+
+        Per  parametri  reali si intendono quelli forniti  dal  programma 
+        chiamante al momento del richiamo della procedura.
+
+        Per  parametri  formali  si intendono  gli  identificatori  delle 
+        variabili utilizzate che al momento del richiamo della  procedura 
+        vengono sostituite dai valori reali passati.
+
+        Generalmente  i  valori  trasmessi a  una  sottoprocedura  devono 
+        essere specificati come dello stesso tipo.
+        Vedremo questo argomento con il C.
+
+
+
+                           Variabili locali e globali.
+
+
+        Le  variabili  locali vengono definite nella  parte  dichiarativa 
+        della procedura e hanno validita' solo all'interno di questa.
+        Parleremo  in modo piu' particolareggiato di questo argomento nei 
+        capitoli riguardanti il linguaggio C.
+        Le   variabili   globali  sono  invece  definite  nel   programma 
+        principale dove possono essere utilizzate.
+        Queste   possono  essere  utilizzate  anche   all'interno   delle 
+        sottoprocedure  in  qunto  vengono trasmesse  come  argomento  al 
+        momento della chiamata.
+
+
+
+
+                                       28
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+        Quando  una  variabile  e'  riferita ad una  sola  procedura  non 
+        esistono  inconvenienti ad utilizzarla all'interno del  programma 
+        chiamante.
+        Questo  significa  che se una variabile X viene  utilizzata  come 
+        variabile locale all'interno del main program,  ad esempio,  puo' 
+        essere   usato  lo  stesso  identificatore  all'interno  di   una 
+        sottoprocedura senza che la prima venga modificata da questa.
+
+
+
+                             Biblioteche o librerie.
+
+
+
+        Tralasceremo  la notazione algebrica per definire il concetto  di 
+        librerie.
+        All'interno  del  linguaggio  C  nemmeno la  funzione  printf  e' 
+        originaria   di   questo,   ma  e'   universalmente   disponibile 
+        all'interno di tutti i compilatori C.
+        Quando un sottoprogramma o una funzione puo' essere comune a piu' 
+        programmi allora e' possibile inserire questa all'interno di  una 
+        libreria e utilizzarla al momento del bisogno.
+        La   creazione   di   librerie  potrebbe  essere  un   mezzo   di 
+        comunicazione tra programmatori.
+        Perche'  riscrivere  piu'  volte  un  algoritmo,  ad  esempio  di 
+        ricerca,   e   non   invece  inserirlo  in  una   biblioteca   di 
+        sottoprogrammi ?
+        Per  potere  inserire un programma in una data  libreria  bisogna 
+        compilare il sorgente, in modo da ricavare un file .OBJ, e unirlo 
+        in questa forma alla lib scelta.
+
+
+
+                               Strutture di dati.
+
+
+
+        Vedremo ora cosa si intende per struttura di dati.
+        Ricordo  che  un  tipo e' costituito da  un insieme di  valori  e 
+        dalle operazioni possibili su detto insieme.  
+        Per struttura si intende un insieme di una o piu' variabili anche 
+        di  tipo diverso raggruppate sotto un unico nome per  consentirne 
+        un trattamento piu' comodo.
+        In  pascal  ad  esempio si intendono per struttura  i  records  e 
+        difatti  questa gode di un certo parallelismo con il concetto  di 
+        record comune in tutti i file.
+        Infatti  nel  concetto  di files il record altro non  e'  che  un 
+        insieme di dati che descrivono uno stesso oggetto.
+
+
+
+
+
+
+                                       29
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+
+        Si veda il seguente esempio:
+
+        /* Indirizzi */
+
+        var nome,cognome,via,citta':carattere;
+        var cap,telefono,numero_via: interi;
+
+        oppure
+
+        struttura records |inizio;
+                          |var nome,cognome,via,citta':carattere;
+                          |var cap,telefono,numero_via:interi;
+                          |fine;
+
+        Questo  modo  di  trattare raggruppando sotto un  solo  nome  una 
+        struttura  di  dati che puo' essere notevolmente complessa ha  lo 
+        scopo di permettere un trattamento piu' comodo.
+        Le  strutture  difatti aiutano ad organizzare dati  complessi  in 
+        quanto permettono di trattare un gruppo di variabili in relazione 
+        tra loro come un'unita' e non come entita' separate.
+
+        Ad esempio :
+
+             tipo GIORNI:(lunedi, martedi, mercoledi, giovedi .....)
+
+        potremo allora dichiarare
+
+                               var A1, A2:GIORNI;
+
+        e da questo
+
+                         A1 <- 'lunedi';A2 <- 'martedi'
+
+        Gli elementi o variabili nominati in una struttura sono  chiamati 
+        membri.
+
+        In  particolare nel linguaggio C ci sono un numero di restrizioni 
+        sulle strutture.
+        Le  regole  essenziali  sono che le  operazioni  che  si  possono 
+        eseguire  su  di una struttura sono prendere il suo indirizzo  ed 
+        accedere ad uno dei suoi membri.
+        Per questo alle strutture non si puo' assegnare o non si  possono 
+        copiare  come un tutt'uno e non si possono passare come valori ad 
+        altre funzioni.
+        Una    struttura   di   dati   puo'   essere   descritta    dalla 
+        rappresentazione fisica come l'indirizzo, la lunghezza ecc. oltre 
+        ai legami che tra queste informazioni.
+
+
+
+
+
+
+                                       30
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+        Un esempio in C :
+
+
+                         struct record {
+                                         char nome_cliente[30];
+                                         char nome_prodott[30];
+                                         int prezzo_prodot;
+                                         char data_vendita[20];
+                                         int numero_fatt;
+                                       };
+
+        Il  discorso  relativo  alle  strutture  diventa  particolarmente 
+        interessante  nel  momento  in  cui si  vuole  gestire  dei  file 
+        mediante indici o, sempre ad esempio, liste.
+        Un  metodo abbastanza utilizzato per la gestione di un indice  e' 
+        quello di posizionare le chiavi su alberi.
+        Partendo  da una radice si potrebbe posizionare  ogni  successivo 
+        elemento   inserito  sul  braccio  sinistro  oppure  sul   destro 
+        dell'albero  in base ad una comparazione con l'elemento occupante 
+        la posizione (nodo) precedente.
+        Supponendo che i maggiori occupino i bracci a sinistra e i minori 
+        a  destra  l'inserimento delle  stringhe   AA,  AC,  AN,  AB,  AD 
+        creerebbero
+
+                                       AA
+                                      /  \
+                                     AC
+                                    /  \
+                                   AN  AB
+                                  /  \
+                                     AD
+
+        In  questo  modo  sarebbe  possibili  facilitare  e  sveltire  le 
+        procedure di ricerca mediante una struttura del tipo
+
+                    struct _string {
+                              char *stringa;
+                              struct _string *sinistra;
+                              struct _string *destra;
+                    };
+
+        in  cui  *stringa  contiene la stringa assegnata  mentre  le  due 
+        dichiarazioni  ricorsive  di  strutture  sarebbero  puntatori  ai 
+        bracci sinistra e destra dell'albero.
+        E'  facile comprendere che in caso di ricerca di  un  determinato 
+        elemento  non sarebbe necessario lo scorrimento di tutto il  file 
+        ma il percorso potrebbe essere guidato.       
+        Per  ora  tralasciamo  il  modo per accedere  ai  membri  di  una 
+        struttura  in  quanto  lo vedremo  nei  capitoli  riguardanti  il 
+        linguaggio.
+
+
+
+
+
+                                       31
+
+
+
+
+
+        Linguaggio C per MS DOS - F. Bernardotti - 1987 Opus Free Soft
+
+
+
+
+
+                                  Ricorsivita'.
+
+
+        Lo studio dei fenomeni legati alla ricorsivita' puo' dare luogo a 
+        sviluppi complessi.
+        Parlando  di  modularita'  dei programmi abbiamo  visto  che  una 
+        sottoprocedura veniva richiamata dal programma principale.
+        Una  definizione  e' ricorsiva quando  si definisce  qualcosa  in 
+        termini di se stesso.
+        In  altre parole una funzione e' ricorsiva quando al suo  interno 
+        compare una chiamata alla procedura stessa.
+
+        Concludiamo  il discorso fatto fino ad ora per iniziare a  vedere 
+        effettivamente il linguaggio C.
+        Fino  a  questo  punto  abbiamo accennato ai vari  tipi  di  dati 
+        trattati  dal linguaggio ed ad alcune istruzioni per i  controlli 
+        di flusso.
+        Gli argomenti verranno ripetuti nei capitoli seguenti ma in  modo 
+        piu' approfondito.
+        In  altre parole questa e' stata solo una "sgrossata" destinata a 
+        coloro   che   non  hanno  mai  avuto  nozioni   riguardanti   la 
+        programmazione strutturata.
+        Un ultima nota prima di iniziare con quanto detto.
+        Nei  corsi  che  ho tenuto gli anni scorsi ho  notato  che  molti 
+        alunni provvenienti dalla programmazione in Basic o da  linguaggi 
+        ad   alto  livello  facevano  una  grossa  confusione  su  quanto 
+        riguardava i tipi numerici e alfanumerici.
+        L'impressione che danno questi linguaggi e' quella di aver a  che 
+        fare  con  entita' distinte.
+        In altri termini non e' possibile,  ad esempio in basic, fare una 
+        somma del tipo
+
+                                 A$ = "A":B = 5
+                                 C  =  A$ + B
+
+        L'idea  che  dovete tenere sui tipi di dati in linguaggio C  deve 
+        essere piu' affine a quella dell'assembler ove la definizione  di 
+        un  tipo  o  di un altro influisce solo per  quanto  riguarda  la 
+        lunghezza in bytes riservati al tipo stesso.
+        In  linguaggio  C una somma come quella presentata  nel  seguente 
+        esempio non sarebbe per nulla errata.
+
+        char a = 'A';
+
+        main()
+        {
+                int  c;
+                c = 5;
+                printf("%d", a+c);
+        }
+
+        Il risultato sarebbe 70 ('A'= ASCII 65 + C = 5).
+
+
+                                       32
+
+
